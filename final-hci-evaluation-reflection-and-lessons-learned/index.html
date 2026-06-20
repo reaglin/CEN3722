@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Final HCI Evaluation, Reflection, and Lessons Learned — CEN3722</title>
+  <style>
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2530;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Page wrapper ── */
+    .page-wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+    }
+
+    /* ── Course label ── */
+    .course-label {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #5a6a84;
+      background: #e2e8f0;
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.85rem;
+    }
+
+    /* ── Header ── */
+    .page-header {
+      border-bottom: 3px solid #2d6be4;
+      padding-bottom: 1.4rem;
+      margin-bottom: 2rem;
+    }
+
+    .page-header h1 {
+      font-size: clamp(1.45rem, 3vw, 2rem);
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-header p {
+      font-size: 0.975rem;
+      color: #4a5568;
+      max-width: 72ch;
+    }
+
+    /* ── Section heading ── */
+    .artifacts-heading {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #7a8ba6;
+      margin-bottom: 1rem;
+    }
+
+    /* ── Card grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Artifact card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde3ed;
+      border-radius: 10px;
+      padding: 1.35rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 18px rgba(45, 107, 228, 0.1);
+      border-color: #b3c4e8;
+    }
+
+    /* ── Card top row ── */
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #111827;
+      flex: 1 1 auto;
+    }
+
+    .card-name a {
+      color: #2d6be4;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      border-bottom-color: #2d6be4;
+      outline: none;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a6a84;
+      text-decoration: none;
+      background: #eef2fa;
+      border: 1px solid #cdd6ea;
+      border-radius: 4px;
+      padding: 0.22rem 0.55rem;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+      align-self: flex-start;
+      margin-top: 2px;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #dce6f7;
+      color: #1a4db5;
+      outline: none;
+    }
+
+    .source-link svg {
+      flex-shrink: 0;
+    }
+
+    /* ── Badges ── */
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.2rem 0.55rem;
+      border-radius: 20px;
+      text-transform: uppercase;
+    }
+
+    .badge-type {
+      background: #e8f0fe;
+      color: #2d5cbf;
+      border: 1px solid #c6d7fb;
+    }
+
+    .badge-filetype {
+      background: #f0fdf4;
+      color: #276749;
+      border: 1px solid #bbf0d3;
+      font-family: "Courier New", Courier, monospace;
+      text-transform: lowercase;
+      letter-spacing: 0;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.65;
+    }
+
+    /* ── Footer ── */
+    .page-footer {
+      margin-top: 3.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid #dde3ed;
+      font-size: 0.78rem;
+      color: #8a99b3;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrapper">
+
+    <!-- ── Header ── -->
+    <header class="page-header">
+      <span class="course-label">CEN3722 — Introduction to Human Computer Interfaces</span>
+      <h1>Final HCI Evaluation, Reflection, and Lessons Learned</h1>
+      <p>
+        This module brings together the full arc of the course by revisiting HCI theory in practice,
+        reviewing analysis and prototyping phases, applying formal evaluation methods, and synthesising
+        key lessons learned. Use the artifacts below to explore the module's content, reference
+        structured outlines, and prepare for summative assessment.
+      </p>
+    </header>
+
+    <!-- ── Artifact grid ── -->
+    <p class="artifacts-heading">Module Artifacts</p>
+
+    <div class="card-grid">
+
+      <!-- Card: Module Topics -->
+      <article class="card">
+        <div class="card-top">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">
+            <!-- small document icon -->
+            <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true"
+                 xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.5 1.5h5l2.5 2.5V11.5a.5.5 0 01-.5.5h-7a.5.5 0 01-.5-.5v-9.5a.5.5 0 01.5-.5z"
+                    stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+              <path d="M6.5 1.5V4H9" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"
+                    stroke-linejoin="round"/>
+              <line x1="2.75" y1="6.5" x2="8.25" y2="6.5" stroke="currentColor" stroke-width="1.1"
+                    stroke-linecap="round"/>
+              <line x1="2.75" y1="8.5" x2="8.25" y2="8.5" stroke="currentColor" stroke-width="1.1"
+                    stroke-linecap="round"/>
+            </svg>
+            source file
+          </a>
+        </div>
+
+        <div class="badges">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+
+        <p class="card-description">
+          A structured outline of the module's core topics covering HCI theory application,
+          review of analysis and prototyping phases, evaluation methods, and lessons learned,
+          used by instructors to organize content delivery and by learners to navigate what
+          will be covered.
+        </p>
+      </article>
+
+    </div><!-- /.card-grid -->
+
+    <!-- ── Footer ── -->
+    <footer class="page-footer">
+      CEN3722 — Introduction to Human Computer Interfaces &nbsp;|&nbsp;
+      Final HCI Evaluation, Reflection, and Lessons Learned
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+</html>

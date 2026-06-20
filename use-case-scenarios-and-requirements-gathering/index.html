@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Use Case Scenarios and Requirements Gathering – CEN3722</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #2c3340;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #24578a 100%);
+      color: #ffffff;
+      padding: 2.5rem 1.5rem 2rem;
+      border-bottom: 4px solid #f0a500;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #a8c8e8;
+      margin-bottom: 0.5rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.85rem;
+    }
+
+    header p {
+      font-size: 0.97rem;
+      color: #ccddf0;
+      max-width: 680px;
+      line-height: 1.65;
+    }
+
+    /* ── Main Container ── */
+    main {
+      max-width: 960px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .section-heading {
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5a6478;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #dde2ea;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde2ea;
+      border-radius: 8px;
+      padding: 1.35rem 1.4rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.055);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 5px 16px rgba(0,0,0,0.1);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.45rem;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .card-name a {
+      color: #1a3a5c;
+      text-decoration: none;
+      border-bottom: 2px solid #a8c8e8;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .card-name a:hover {
+      color: #f0a500;
+      border-color: #f0a500;
+    }
+
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.22rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #24578a;
+      text-decoration: none;
+      background: #e8f1fb;
+      border: 1px solid #b8d0eb;
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .source-link:hover {
+      background: #24578a;
+      color: #ffffff;
+      border-color: #24578a;
+    }
+
+    .source-link svg {
+      flex-shrink: 0;
+    }
+
+    /* ── Badges ── */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+    }
+
+    .badge-type {
+      background: #eef2f8;
+      color: #3d5275;
+      border: 1px solid #c8d4e8;
+    }
+
+    .badge-filetype {
+      background: #fdf3e0;
+      color: #7a5200;
+      border: 1px solid #f0d898;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8a94a6;
+      padding: 1.5rem 1rem;
+      border-top: 1px solid #dde2ea;
+      background: #f4f6f9;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 500px) {
+      .card-grid { grid-template-columns: 1fr; }
+      header h1 { font-size: 1.3rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <p class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
+      <h1>Use Case Scenarios and Requirements Gathering</h1>
+      <p>
+        This module explores the fundamentals of eliciting, documenting, and analyzing system requirements
+        through stakeholder identification, use case development, and task analysis. The artifacts below
+        provide assignments, structured outlines, and reference documents to support both individual study
+        and collaborative group work throughout this module.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-heading">Module Artifacts &mdash; 4 items</p>
+
+    <div class="card-grid">
+
+      <!-- Artifact 1: Module Topics -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json" title="View source file">
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M4.5 3a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zM2 6.5A.5.5 0 0 1 2.5 6h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 6.5zm0 3A.5.5 0 0 1 2.5 9h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 9.5zm0 3A.5.5 0 0 1 2.5 12h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 12.5z"/>
+            </svg>
+            source file
+          </a>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-description">
+          A structured outline of the module's topics covering use case scenarios, stakeholder identification,
+          requirements gathering techniques, and task analysis, used by instructors to plan lessons and by
+          learners to navigate the module's scope.
+        </p>
+      </div>
+
+      <!-- Artifact 2: HTML Document -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/A001_Case_Study_Analy_Use_Case_Scenarios_Requirement.html">HTML Document</a>
+          </span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          An HTML-formatted group assignment brief instructing student teams to produce a use case scenarios
+          and requirements specification document, including effort estimates, AI use policy, and submission
+          guidance, used by students to understand deliverables and by instructors to distribute the task.
+        </p>
+      </div>
+
+      <!-- Artifact 3: Use Case Scenarios & Requirements Specification -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/module_assignment_A001_Case_Study_Analy_Use_Case_Scenarios_Requirement.html">Use Case Scenarios &amp; Requirements Specification</a>
+          </span>
+          <a class="source-link" href="source/A001_Case_Study_Analy_Use_Case_Scenarios_Requirement.md" title="View source file">
+            <svg width="11" height="11" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+              <path d="M4.5 3a.5.5 0 0 0 0 1h7a.5.5 0 0 0 0-1h-7zM2 6.5A.5.5 0 0 1 2.5 6h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 6.5zm0 3A.5.5 0 0 1 2.5 9h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 9.5zm0 3A.5.5 0 0 1 2.5 12h11a.5.5 0 0 1 0 1h-11A.5.5 0 0 1 2 12.5z"/>
+            </svg>
+            source file
+          </a>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Assignment</span>
+          <span class="badge badge-filetype">.md</span>
+        </div>
+        <p class="card-description">
+          A Markdown-formatted version of the same group assignment asking student teams to develop use case
+          scenarios and a requirements specification, covering the same scope, policies, and expectations as
+          the HTML counterpart, used as a portable or LMS-importable alternative for the same task.
+        </p>
+      </div>
+
+      <!-- Artifact 4: Semester Group Project — Phase 2 -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="assignments/index.html">Semester Group Project &mdash; Phase 2</a>
+          </span>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Assignment</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          An HTML assignment sheet for Phase 2 of the semester group project directing student teams to conduct
+          stakeholder analysis, requirements gathering, and use case development as a continuation of Phase 1,
+          used by students to complete their next project milestone and by instructors to assess progress
+          toward the full system design.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp;
+    Use Case Scenarios and Requirements Gathering
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p><h2>Source Materials</h2><ul class="artifact-list">  <li class="artifact-item">
+    <div class="artifact-icon">⬇</div>
+    <div class="artifact-body">
+      <a class="artifact-link" href="source-materials/source-1.html" download>Topic Prompt</a>
+    </div>
+  </li>
+  <li class="artifact-item">
+    <div class="artifact-icon">⬇</div>
+    <div class="artifact-body">
+      <a class="artifact-link" href="source-materials/source-2.html" download>Topic Prompt</a>
+    </div>
+  </li></ul></section></body>
+</html>

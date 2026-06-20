@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heuristic_Evaluation_and</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+</head><body>
+  <header>
+    <h1>Heuristic_Evaluation_and</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Introduction to Heuristic Evaluation</h2>
+      <p>Heuristic Evaluation (HE) is a structured usability inspection method in which evaluators examine an interface against a set of recognized usability principles, acting as surrogates for end users rather than recruiting real participants. It is valued across the design industry for its speed, low cost, and ability to surface problems at any stage of the design process.</p>
+<ul>
+  <li><strong>Inspection, not testing:</strong> HE is conducted by evaluators — ideally usability specialists — who inspect the interface without involving real end users, making it faster and cheaper than lab-based testing.</li>
+  <li><strong>Flexible timing:</strong> HE can be applied to early sketches, mid-fidelity interactive prototypes, or live products — each stage surfaces a different class of problems.</li>
+  <li><strong>Empirical origins:</strong> Nielsen's ten heuristics were derived from analysis of real usability problems and refined in 1994 into ten intentionally high-level principles applicable across diverse interface types.</li>
+  <li><strong>Complementary method:</strong> HE complements user testing rather than replacing it — the two methods surface different categories of issues, and both are needed for thorough evaluation coverage.</li>
+  <li><strong>Multiple evaluators matter:</strong> A single evaluator finds only a fraction of total problems; using three to five evaluators significantly increases discovery rates, while evaluator expertise directly shapes the quality of findings.</li>
+  <li><strong>Key limitation:</strong> HE can miss problems that only emerge during authentic user tasks performed in realistic contexts — a gap that user testing is better positioned to fill.</li>
+</ul>
+      <div class="notes"><strong>Notes</strong>Heuristic Evaluation (HE) is a structured usability inspection method in which evaluators examine an interface against a set of recognized usability principles. This topic introduces the method&#39;s purpose, origins, and key advantages over other evaluation approaches.</div>
+    </div>
+    <div class="doc-section">
+      <h2><span class="slide-num">2</span> Nielsen&#39;s Ten Usability Heuristics</h2>
+      <p>Nielsen's ten heuristics are a set of high-level usability principles used to identify interface violations during a heuristic evaluation. Mastery of each heuristic — its meaning, rationale, and common violations — is the foundation for conducting a valid and defensible evaluation.</p>
+<ul>
+  <li><strong>Visibility of System Status:</strong> The system must always keep users informed about what is happening through timely, meaningful feedback located where the user's attention is focused. Delays beyond one second require a visible progress indicator.</li>
+  <li><strong>Match Between System and the Real World:</strong> The interface should use vocabulary, icons, and metaphors that reflect the target user's mental model — not internal developer terminology — and present information in a natural, logical order.</li>
+  <li><strong>User Control and Freedom:</strong> Users need clearly marked emergency exits, including undo and redo. Destructive actions should be reversible or require explicit confirmation, and any multi-step process must be cancellable at any point without side effects.</li>
+  <li><strong>Consistency and Standards:</strong> Identical actions must produce identical outcomes throughout the interface (internal consistency), and the interface should align with platform-wide or industry-wide conventions (external consistency). Inconsistent terminology forces unnecessary cognitive effort.</li>
+  <li><strong>Error Prevention:</strong> Constrain input to valid options wherever possible, warn users before irreversible actions, and design workflows that make errors difficult to commit rather than merely easy to recover from.</li>
+  <li><strong>Recognition Over Recall:</strong> Visible options reduce cognitive load by letting users recognize rather than recall choices. Instructions and relevant information should be visible or easily retrievable at the exact point of use.</li>
+  <li><strong>Flexibility and Efficiency of Use:</strong> The interface should serve both novice and expert users — keyboard shortcuts, hotkeys, and personalization features let experienced users bypass slower menu-driven navigation.</li>
+  <li><strong>Aesthetic and Minimalist Design:</strong> Every interface element should serve a clear purpose for the primary task. Extraneous content degrades the signal-to-noise ratio; visual hierarchy should direct attention toward the most critical information first.</li>
+  <li><strong>Help Users Recognize, Diagnose, and Recover from Errors:</strong> Error messages must use plain language, identify the specific problem rather than offering a generic failure notice, and always provide a constructive path forward or suggested remedy.</li>
+  <li><strong>Help and Documentation:</strong> Help content should be findable at the moment of need, organized around user tasks rather than system features, and presented as concise step-by-step guidance rather than lengthy conceptual descriptions.</li>
+</ul>
+      <div class="notes"><strong>Notes</strong>This topic covers each of Nielsen&#39;s ten heuristics in detail, explaining their meaning, rationale, and common interface violations. Mastery of these principles is the foundation for conducting a valid heuristic evaluation.</div>
+    </div>
+    <div class="doc-section">
+      <h2><span class="slide-num">3</span> The Heuristic Evaluation Process</h2>
+      <p>Conducting a valid heuristic evaluation requires more than familiarity with the heuristics — it demands a structured process that governs preparation, independent walkthrough, and systematic documentation of findings. Following this process ensures findings are reproducible, defensible, and actionable.</p>
+<ul>
+  <li><strong>Preparation:</strong> Before starting, evaluators should review available personas or user profiles, agree on the version of the prototype under review, define which interface sections or flows are in scope, and establish representative tasks or scenarios to guide the walkthrough.</li>
+  <li><strong>Independent evaluation:</strong> Each evaluator must work alone to prevent anchoring bias. A minimum of two walkthroughs is recommended — one holistic pass to understand the interface and one focused specifically on heuristic violations.</li>
+  <li><strong>Documenting findings:</strong> Every identified problem should reference the specific screen, component, or interaction step where it occurs, name the heuristic violated, describe what the violation is (not just that one exists), and ideally include a recommended fix to increase actionability.</li>
+  <li><strong>Number of evaluators:</strong> A single evaluator finds roughly one-third of all usability problems. Three to five evaluators is the recommended range for maximum cost-effectiveness; beyond five, returns on new problem discovery diminish rapidly.</li>
+</ul>
+      <div class="notes"><strong>Notes</strong>Conducting a valid heuristic evaluation requires following a structured process that goes beyond simply reading the heuristics. This topic outlines the key phases of an HE, from preparation through individual evaluation to finding consolidation.</div>
+    </div>
+    <div class="doc-section">
+      <h2><span class="slide-num">4</span> Severity Rating</h2>
+      <p>Severity ratings transform qualitative heuristic findings into a prioritized list that helps teams decide which problems to fix first and which to defer. Applying ratings consistently and justifying them with evidence gives the evaluation report credibility and practical utility for stakeholders.</p>
+<ul>
+  <li><strong>Purpose:</strong> Ratings provide a shared language for communicating problem urgency across design, development, and product teams, enabling informed trade-off decisions about fix sequencing under real-world resource constraints.</li>
+  <li><strong>Nielsen's 0–4 scale:</strong> <em>0</em> — not actually a problem; <em>1</em> — cosmetic issue, fix if time allows; <em>2</em> — minor problem, low priority; <em>3</em> — significant problem that meaningfully impairs task completion; <em>4</em> — showstopper that prevents users from completing a primary task.</li>
+  <li><strong>Three rating factors:</strong> <em>Frequency</em> — how often users encounter the problem; <em>Impact</em> — how severely it disrupts task completion; <em>Persistence</em> — whether it recurs or can be sidestepped after a first encounter. A violation that is both frequent and high-impact will almost always earn a high rating.</li>
+  <li><strong>Assignment discipline:</strong> Ratings must be assigned independently before evaluators share findings. Each rating should carry a brief justification. Disagreements between evaluators are opportunities to refine problem descriptions rather than obstacles to resolve by simple averaging.</li>
+</ul>
+      <div class="notes"><strong>Notes</strong>Severity ratings allow evaluators to prioritize usability problems by estimating the impact of each violation on the user experience. This topic explains the standard severity scale and how to apply it consistently.</div>
+    </div>
+    <div class="doc-section">
+      <h2><span class="slide-num">5</span> Aggregating Findings Across Evaluators</h2>
+      <p>Because individual evaluators each find only a subset of total usability problems, their findings must be systematically combined after independent work is complete. The aggregation process produces a single, deduplicated master list that becomes the primary deliverable informing design revisions.</p>
+<ul>
+  <li><strong>Why aggregate:</strong> Combining findings from multiple evaluators maximizes problem coverage. No single evaluator's list is comprehensive enough on its own to serve as the sole basis for design decisions.</li>
+  <li><strong>The aggregation meeting:</strong> Each evaluator presents their full findings list before group discussion begins. Duplicates are identified and merged; the output is a single master list with agreed descriptions and severity ratings.</li>
+  <li><strong>Deduplication rules:</strong> Merge problems only when they share the same root cause and the same recommended fix. Similar symptoms may reflect different underlying causes — keep related but distinct problems separate to preserve important nuance. Document which evaluators identified each problem.</li>
+  <li><strong>Negotiating severity:</strong> Evaluators should explain their reasoning before negotiating. Consensus must be grounded in observable evidence — frequency, impact, and persistence — not personal preference. Avoid simple mathematical averaging, which can produce ratings no evaluator actually endorsed. When consensus is impossible, document the range of ratings and each position's rationale.</li>
+</ul>
+      <div class="notes"><strong>Notes</strong>After individual evaluations are complete, findings must be systematically combined to create a single, deduplicated list of usability problems. This topic explains the aggregation process and how to resolve evaluator differences.</div>
+    </div>
+    <div class="doc-section">
+      <h2><span class="slide-num">6</span> Writing Formal Heuristic Evaluation Reports</h2>
+      <p>The formal HE report is the primary deliverable that communicates findings to design teams and stakeholders, and its quality directly determines whether the evaluation drives meaningful design improvement. Professional reports are structured, evidence-grounded, and written in neutral, actionable language.</p>
+<ul>
+  <li><strong>Report structure:</strong> A well-formed report includes an executive summary for stakeholders, a methodology section documenting who evaluated what and when, a findings table sorted by severity (including location, description, heuristic, severity rating, and recommended fix), and an optional recommendations section synthesizing broader design themes.</li>
+  <li><strong>Writing problem descriptions:</strong> Describe each problem objectively, specifying the exact screen, component, and interaction step. Link every description explicitly to the heuristic it violates. Keep problem description and recommendation separate — do not embed the solution in the problem statement.</li>
+  <li><strong>Formulating recommendations:</strong> Each recommendation should address the root cause directly, be proportionate to the problem's severity, reference established patterns or conventions where applicable, and be framed positively — what to do rather than just what to avoid.</li>
+  <li><strong>Visual evidence:</strong> Screenshots should be captured when the violation is most visible, with annotations clearly marking the affected element. Captions must connect the image explicitly to the problem description. For interaction-based violations, short screen recordings often communicate the issue more effectively than static images.</li>
+  <li><strong>Quality standards:</strong> Every finding must be anchored to a specific Nielsen heuristic rather than general design intuition. Severity ratings require a brief justification. Language must remain neutral and professional throughout, and all recommendations must be feasible within the project's realistic constraints.</li>
+</ul>
+      <div class="notes"><strong>Notes</strong>The formal HE report is the primary deliverable that communicates findings to design teams and stakeholders. This topic outlines the structure, content requirements, and quality standards for professional HE reports.</div>
+    </div>
+    <div class="doc-section">
+      <h2><span class="slide-num">7</span> Evaluating Peer Prototypes</h2>
+      <p>This module requires students to apply the full heuristic evaluation process independently to three peer prototypes, producing a separate formal report for each. The assignment develops both evaluative skill and professional judgment about how to communicate findings constructively and objectively.</p>
+<ul>
+  <li><strong>Assignment expectations:</strong> Each prototype must be evaluated independently, with all ten Nielsen heuristics systematically considered and severity ratings on the standard 0–4 scale applied to every documented finding. A separate formal report is required for each prototype.</li>
+  <li><strong>Evaluator independence:</strong> Do not share or discuss findings with classmates until all individual evaluations are fully documented. Record findings as you discover them — do not reconstruct observations from memory. Independence is what makes each report a valid expert assessment rather than a group consensus.</li>
+  <li><strong>Professional conduct:</strong> All findings must be framed objectively with reference to heuristics and observable evidence. Avoid personal commentary about the designer's skill, effort, or intent. Constructive recommendations respect the designer's creative direction while genuinely addressing violations — usability problems are a normal part of iterative design.</li>
+  <li><strong>Calibrating across prototypes:</strong> Apply the same systematic walkthrough process to each prototype regardless of perceived quality. Review all ten heuristics before beginning each new evaluation to reset your assessment frame. A consistent number of walkthroughs per prototype controls for variation in evaluation depth across the three reports.</li>
+</ul>
+      <div class="notes"><strong>Notes</strong>This module requires students to apply the full HE process independently to three peer prototypes. This topic outlines the expectations, workflow, and professional conduct standards for peer prototype evaluations.</div>
+    </div>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

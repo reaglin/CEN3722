@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>App Publication Strategies and Store Requirements – CEN3722</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --color-bg: #f4f6f9;
+      --color-surface: #ffffff;
+      --color-primary: #1a4f8a;
+      --color-primary-dark: #133a66;
+      --color-accent: #2e7d32;
+      --color-accent-hover: #1b5e20;
+      --color-secondary-link: #5a6a7e;
+      --color-secondary-link-hover: #1a4f8a;
+      --color-text: #1e2a38;
+      --color-muted: #5a6a7e;
+      --color-border: #d0d8e4;
+      --color-tag-bg: #e8f0fb;
+      --color-tag-text: #1a4f8a;
+      --color-filetype-bg: #eef6ef;
+      --color-filetype-text: #2e7d32;
+      --radius: 8px;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      --shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.13);
+      --font-sans: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 100%);
+      color: #ffffff;
+      padding: 2.5rem 1.5rem 2rem;
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background-color: rgba(255, 255, 255, 0.18);
+      color: #d6e6ff;
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.9rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.01em;
+    }
+
+    header p {
+      font-size: 0.97rem;
+      color: #c8daef;
+      max-width: 680px;
+      line-height: 1.7;
+    }
+
+    /* ── Main ── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .section-heading {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    /* ── Artifact Grid ── */
+    .artifact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 380px), 1fr));
+      gap: 1.25rem;
+      list-style: none;
+    }
+
+    /* ── Artifact Card ── */
+    .artifact-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.4rem 1.5rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .artifact-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    /* Card top row: badges */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .badge-type {
+      background-color: var(--color-tag-bg);
+      color: var(--color-tag-text);
+    }
+
+    .badge-filetype {
+      background-color: var(--color-filetype-bg);
+      color: var(--color-filetype-text);
+      font-family: 'Courier New', Courier, monospace;
+      text-transform: lowercase;
+    }
+
+    /* Card title row */
+    .card-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.6rem;
+    }
+
+    .artifact-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.3;
+    }
+
+    .artifact-name a {
+      color: var(--color-primary);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .artifact-name a:hover,
+    .artifact-name a:focus {
+      color: var(--color-primary-dark);
+      border-bottom-color: var(--color-primary);
+      outline: none;
+    }
+
+    .artifact-name a:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* Source file link */
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--color-secondary-link);
+      text-decoration: none;
+      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      white-space: nowrap;
+      transition: color 0.15s ease, border-color 0.15s ease, background-color 0.15s ease;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      color: var(--color-secondary-link-hover);
+      border-color: var(--color-secondary-link-hover);
+      background-color: var(--color-tag-bg);
+      outline: none;
+    }
+
+    .source-link:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+    }
+
+    /* Card description */
+    .artifact-description {
+      font-size: 0.88rem;
+      color: var(--color-muted);
+      line-height: 1.65;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.78rem;
+      color: var(--color-muted);
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      header {
+        padding: 2rem 1rem 1.5rem;
+      }
+
+      main {
+        padding: 1.75rem 1rem 3rem;
+      }
+
+      .artifact-card {
+        padding: 1.15rem 1.1rem 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
+      <h1>App Publication Strategies and Store Requirements</h1>
+      <p>
+        This module guides learners through the end-to-end process of publishing applications
+        across major platforms — including Google Play, the Apple App Store, and the Microsoft Store.
+        Topics span developer account setup, code signing, build preparation, and store listing
+        configuration, equipping you with the practical knowledge needed to bring an app to market.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="section-heading">Module Artifacts</h2>
+
+    <ul class="artifact-grid" role="list">
+
+        <li class="artifact-card">
+          <div class="card-meta">
+            <span class="badge badge-type">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+          <div class="card-title-row">
+            <span class="artifact-name">
+                <a href="content/module_topics.html">Module Topics</a>
+            </span>
+              <a
+                class="source-link"
+                href="source/hierarchy.json"
+                aria-label="Source file for Module Topics"
+              >source file</a>
+          </div>
+          <p class="artifact-description">
+            Outlines the module&#x27;s core topics covering app submission processes for Google Play, Apple App Store, and Microsoft Store, including developer account setup, code signing, build preparation, and store listing configuration, serving as a navigational overview for learners and instructors to understand the module&#x27;s scope.
+          </p>
+        </li>
+
+    </ul>
+  </main>
+
+  <footer>
+    CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; App Publication Strategies and Store Requirements
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+</html>

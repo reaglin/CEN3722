@@ -1,0 +1,309 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 4 – Task Analysis for Interface Design | CEN3722</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Banner ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
+      color: #ffffff;
+      padding: 2.5rem 1.5rem 2rem;
+      border-bottom: 4px solid #f0a500;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #aed4f7;
+      margin-bottom: 0.45rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.9rem;
+    }
+
+    header p {
+      font-size: 0.975rem;
+      color: #dceeff;
+      max-width: 680px;
+      line-height: 1.65;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 960px;
+      margin: 2.5rem auto 4rem;
+      padding: 0 1.25rem;
+    }
+
+    .section-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #5a7a96;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #dce4ed;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dce4ed;
+      border-radius: 8px;
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 5px 16px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a3a5c;
+    }
+
+    .card-name a {
+      color: #1a3a5c;
+      text-decoration: none;
+      border-bottom: 2px solid #2e6da4;
+      padding-bottom: 1px;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      color: #2e6da4;
+      border-color: #f0a500;
+      outline: none;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7a96;
+      text-decoration: none;
+      background: #eaf2fb;
+      border: 1px solid #b8d4ec;
+      border-radius: 3px;
+      padding: 0.15rem 0.45rem;
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #2e6da4;
+      color: #ffffff;
+      border-color: #2e6da4;
+      outline: none;
+    }
+
+    /* ── Card Meta Badges ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      padding: 0.18rem 0.5rem;
+      white-space: nowrap;
+    }
+
+    .badge-type {
+      background: #e8f0fe;
+      color: #2a5298;
+      border: 1px solid #c0d3f7;
+    }
+
+    .badge-filetype {
+      background: #fef8e7;
+      color: #7a5c00;
+      border: 1px solid #f0d98a;
+    }
+
+    /* ── Card Description ── */
+    .card-description {
+      font-size: 0.875rem;
+      color: #4a5e70;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      font-size: 0.78rem;
+      color: #8a9db0;
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid #dce4ed;
+    }
+
+    /* ── Accessibility: Focus ring for cards ── */
+    a:focus-visible {
+      outline: 2px solid #f0a500;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      header {
+        padding: 2rem 1.1rem 1.6rem;
+      }
+
+      .card {
+        padding: 1.2rem 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <p class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
+      <h1>Module 4: Task Analysis for Interface Design</h1>
+      <p>
+        This module introduces systematic task analysis methods used to understand how users accomplish
+        goals within an interface. Topics include task analysis fundamentals, Hierarchical Task Analysis
+        (HTA), Cognitive Task Analysis (CTA), and guidelines for selecting the appropriate method.
+        The artifacts below provide structured content, learning outcomes, and a hands-on group project
+        to support your progress through this module.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <p class="section-label">Module Artifacts &mdash; 3 items</p>
+
+    <div class="card-grid">
+
+      <!-- Artifact 1: Module Topics -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-description">
+          A structured outline of the module's subject matter, covering task analysis fundamentals,
+          Hierarchical Task Analysis (HTA), Cognitive Task Analysis (CTA), and method selection;
+          used as the authoritative content map for building other module materials.
+        </p>
+      </div>
+
+      <!-- Artifact 2: Module Outcomes -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/module_outcomes.html">Module Outcomes</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Module Outcomes</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A list of five measurable module outcomes spanning remembering HTA and CTA steps through
+          applying, analyzing, and evaluating task analysis in interface design contexts, mapped to
+          Bloom's levels and course objectives; used by instructors to align assessments and by
+          learners to understand expected competencies.
+        </p>
+      </div>
+
+      <!-- Artifact 3: HTML Document (Assignment 4) -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="content/Assignment_4.html">HTML Document</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A group project assignment (Phase 3 of a semester-long sequence) in which student teams
+          conduct a task analysis of an AI-assisted software design workflow, producing HTA diagrams
+          and CTA findings that build on prior use-case work; used by student teams as the primary
+          instructions for completing and submitting this phase.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp; Module 4
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p><h2>Source Materials</h2><ul class="artifact-list">  <li class="artifact-item">
+    <div class="artifact-icon">⬇</div>
+    <div class="artifact-body">
+      <a class="artifact-link" href="source-materials/source-1.html" download>Topic Prompt</a>
+    </div>
+  </li></ul></section></body>
+</html>

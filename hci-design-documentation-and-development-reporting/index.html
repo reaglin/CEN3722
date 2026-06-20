@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HCI Design Documentation and Development Reporting – CEN3722</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      color: #2c3e50;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
+      color: #ffffff;
+      padding: 3rem 2rem 2.5rem;
+      border-bottom: 4px solid #f0a500;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 1rem;
+      color: #d9eafc;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    header p {
+      font-size: 1rem;
+      max-width: 720px;
+      color: #cde4f7;
+      line-height: 1.8;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 960px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem;
+    }
+
+    .section-heading {
+      font-size: 1.1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #1a3a5c;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #d0dce8;
+    }
+
+    /* ── Artifact Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dce6ef;
+      border-radius: 8px;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Header Row ── */
+    .card-title-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .card-name a {
+      color: #1a6eb5;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      color: #0d4f8a;
+      border-bottom-color: #0d4f8a;
+      outline: none;
+    }
+
+    .source-link {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #2d7dd2;
+      background-color: #eaf3fd;
+      border: 1px solid #aacfee;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background-color: #2d7dd2;
+      color: #ffffff;
+      outline: none;
+    }
+
+    /* ── Badge Row ── */
+    .card-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+    }
+
+    .badge-type {
+      background-color: #e8f0fb;
+      color: #1a4a8a;
+      border: 1px solid #b5cef0;
+    }
+
+    .badge-filetype {
+      background-color: #eaf7ee;
+      color: #1a6634;
+      border: 1px solid #9ed4ae;
+    }
+
+    /* ── Description ── */
+    .card-description {
+      font-size: 0.9rem;
+      color: #4a5e72;
+      line-height: 1.7;
+      flex-grow: 1;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      font-size: 0.8rem;
+      color: #7a90a4;
+      border-top: 1px solid #dce6ef;
+      margin-top: 3rem;
+    }
+
+    footer span {
+      font-weight: 600;
+      color: #1a3a5c;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      header {
+        padding: 2rem 1.25rem 2rem;
+      }
+
+      .card {
+        padding: 1.25rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ HEADER ══ -->
+  <header>
+    <div class="header-inner">
+      <div class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</div>
+      <h1>HCI Design Documentation and Development Reporting</h1>
+      <p>
+        This module explores the principles and practices of documenting HCI design work across
+        the full development lifecycle. Learners will engage with requirements documentation,
+        design process documentation, and evaluation reporting — building the skills needed to
+        communicate design decisions clearly and professionally in real-world development contexts.
+      </p>
+    </div>
+  </header>
+
+  <!-- ══ MAIN ══ -->
+  <main>
+    <h2 class="section-heading">Module Artifacts</h2>
+
+    <div class="card-grid">
+
+      <!-- Artifact: Module Topics -->
+      <div class="card">
+        <div class="card-title-row">
+          <div class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </div>
+          <a
+            href="source/hierarchy.json"
+            class="source-link"
+            title="View raw source file"
+          >source file</a>
+        </div>
+
+        <div class="card-badges">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+
+        <p class="card-description">
+          Outlines the module's core topics — covering HCI development reporting, requirements
+          documentation, design process documentation, and evaluation documentation — giving
+          learners and instructors a structured overview of what will be taught and in what order.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer>
+    <p><span>CEN3722</span> &mdash; Introduction to Human Computer Interfaces &nbsp;|&nbsp; HCI Design Documentation and Development Reporting</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+</html>

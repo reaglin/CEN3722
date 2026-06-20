@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Task Analysis for AI-Assisted Software Design — Group Project (Phase 3)</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    background: #ffffff;
+  }
+  h1 {
+    font-size: 1.9rem;
+    border-bottom: 3px solid #2c5f8a;
+    padding-bottom: 0.5rem;
+    color: #1c3d5a;
+  }
+  h2 {
+    font-size: 1.35rem;
+    color: #1c3d5a;
+    margin-top: 2rem;
+    border-bottom: 1px solid #d0d7de;
+    padding-bottom: 0.25rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+    color: #2c5f8a;
+    margin-top: 1.5rem;
+  }
+  .meta {
+    background: #f1f5f9;
+    border-left: 4px solid #2c5f8a;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+  .meta dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; }
+  .meta dt { font-weight: 700; }
+  .meta dd { margin: 0; }
+  .submission-box {
+    background: #fff8e1;
+    border: 2px solid #e6a700;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .submission-box h2 { color: #8a6500; border: none; margin-top: 0.5rem; }
+  .deliverable {
+    background: #ffffff;
+    border: 1px solid #e6a700;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+  }
+  .deliverable strong { color: #8a6500; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid #c0c7ce;
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  thead th { background: #2c5f8a; color: #ffffff; }
+  tbody tr:nth-child(even) { background: #f5f8fb; }
+  .define { background: #eef6ee; border-left: 4px solid #4a8a4a; padding: 0.5rem 1rem; margin: 0.75rem 0; }
+  .ai-policy { background: #f0f0fa; border-left: 4px solid #6a5acd; padding: 0.75rem 1rem; }
+  code { background: #eef1f4; padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.9em; }
+</style>
+</head>
+<body>
+<h1>Task Analysis for AI-Assisted Software Design</h1>
+<p><em>Semester Group Project — Phase 3 of the Design &amp; Build Sequence</em></p>
+<div class="meta">
+  <dl>
+    <dt>Module</dt><dd>Task Analysis for Interface Design</dd>
+    <dt>Work Format</dt><dd>Group (continue with your established project team)</dd>
+    <dt>Estimated Effort</dt><dd>2–4 hours per team for this phase</dd>
+    <dt>Builds On</dt><dd>Phase 2: Use Case Analysis (with preliminary hierarchical task analysis)</dd>
+    <dt>Feeds Into</dt><dd>Phase 4: AI-generated prototype + Figma visual design</dd>
+  </dl>
+</div>
+<h2>1. Purpose (Why This Matters)</h2>
+<p>In the previous phase, your team identified <em>what</em> users want to accomplish through use cases. This phase answers <em>how</em> they accomplish it, in enough structured detail that the work becomes directly buildable. Task analysis is the bridge between understanding users and writing code: it converts fuzzy goals into an explicit, ordered, evidence-based description of user behavior and cognition.</p>
+<p>This phase has a concrete, real-world payoff. The documentation you produce is not an academic exercise that ends in a gradebook — it is the actual input you will hand to an <strong>AI coding agent</strong> to scaffold your software prototype, and the reference you will use to lay out screens and flows in <strong>Figma</strong>. AI agents produce far better code from precise, well-structured task descriptions than from vague prose; a clean task analysis is effectively a specification. Professionals in UX and product engineering rely on exactly this kind of artifact to align designers, developers, and stakeholders before a single line of code is committed.</p>
+<h2>2. Learning Outcomes</h2>
+<p>By completing this assignment, your team will be able to:</p>
+<ol>
+  <li><strong>Construct</strong> a complete hierarchical task analysis (HTA) that decomposes at least two primary user goals into a structured tree of tasks, subtasks, and plans.</li>
+  <li><strong>Apply</strong> cognitive task analysis (CTA) techniques to surface the decisions, knowledge, and mental steps that are not visible in observable behavior for at least one complex task.</li>
+  <li><strong>Evaluate</strong> the fit between HTA and CTA for your specific design problem and justify which method you relied on for each part of the analysis.</li>
+  <li><strong>Synthesize</strong> your analysis into a software flow and an AI-ready task analysis document suitable for prototype generation and Figma design.</li>
+</ol>
+<h2>3. The Task (Step-by-Step Instructions)</h2>
+<div class="define">
+  <strong>Key terms defined for this assignment:</strong>
+  <ul>
+    <li><strong>Decompose</strong> — break a high-level goal into progressively smaller, concrete steps until each leaf task is a single observable action.</li>
+    <li><strong>Plan (in HTA)</strong> — the explicit rule stating the order/conditions under which subtasks are carried out (e.g., "do 1 then 2; do 3 only if logged out").</li>
+    <li><strong>Analyze</strong> — separate something into its parts and explain how those parts relate; do not merely describe.</li>
+    <li><strong>Evaluate</strong> — judge against stated criteria and state the reasons for your judgment.</li>
+    <li><strong>Software flow</strong> — the ordered sequence of screens/states and user actions that move a user from goal-start to goal-completion.</li>
+  </ul>
+</div>
+<h3>Step 1 — Define scope (≈20 min)</h3>
+<p>Select <strong>two to three primary user goals</strong> from your Phase 2 use cases that your prototype must support. State, in one sentence each, the user and the goal. Carry forward (and correct, if needed) the preliminary HTA you started in Phase 2.</p>
+<h3>Step 2 — Collect or confirm your data (≈30 min)</h3>
+<p>Task analysis must be evidence-based, not invented. Gather raw input using at least <strong>two</strong> of: brief user interviews, direct or recalled observation, walkthrough of an existing comparable product, or documented domain references. Record where each part of your analysis came from. A short bulleted log of sources is sufficient.</p>
+<h3>Step 3 — Build the Hierarchical Task Analysis (≈45 min)</h3>
+<p>For each primary goal, <strong>decompose</strong> it into a task tree with numbered subtasks and explicit <strong>plans</strong>. Use consistent notation (numbered hierarchy such as <code>1, 1.1, 1.2…</code>). Stop decomposing when a leaf task is a single concrete action a user (or the software) performs.</p>
+<h3>Step 4 — Add Cognitive Task Analysis for the hard parts (≈30 min)</h3>
+<p>Identify at least one task where the difficulty is mental rather than physical — a decision point, a judgment, a moment requiring prior knowledge. <strong>Analyze</strong> it: what does the user need to know, decide, or remember? What cues do they rely on? What goes wrong when they get it wrong? This is what tells your AI agent and your Figma design where users need guidance, defaults, or guardrails.</p>
+<h3>Step 5 — Justify your method choices (≈15 min)</h3>
+<p><strong>Evaluate</strong> where HTA was sufficient and where CTA was necessary. Write a short rationale (a few sentences) explaining your choices against your design problem's needs.</p>
+<h3>Step 6 — Produce the software flow and the AI-ready document (≈40 min)</h3>
+<p>Translate the analysis into (a) a <strong>software flow</strong> showing the screens/states and transitions for each goal, and (b) a consolidated <strong>task analysis document</strong> written so that an AI coding agent could read it and scaffold a prototype. Write tasks as clear, imperative, unambiguous statements. This document is the artifact you will paste into your AI agent and reference while building screens in Figma.</p>
+<h2>4. Parameters &amp; Constraints</h2>
+<ul>
+  <li><strong>Scope:</strong> 2–3 primary goals fully analyzed. Depth over breadth — a complete, usable analysis of a few goals beats a shallow one of many.</li>
+  <li><strong>HTA:</strong> structured numbered hierarchy with explicit plans for every level that has more than one subtask.</li>
+  <li><strong>CTA:</strong> at least one cognitively complex task analyzed in narrative or structured form.</li>
+  <li><strong>Software flow:</strong> may be a diagram, flowchart, or clearly structured list of screens and transitions. A draft Figma frame layout is encouraged but not required this phase.</li>
+  <li><strong>Citations:</strong> if you reference external sources or domain documentation, cite them in any consistent style (APA recommended).</li>
+  <li><strong>Format:</strong> follow the file format your instructor or LMS specifies for submission.</li>
+</ul>
+<h2>5. Use of Generative AI</h2>
+<div class="ai-policy">
+  <p><strong>Generative AI is permitted and expected</strong> in this assignment. You will use AI agents downstream to generate prototype code, so it is appropriate to use AI here as well — for drafting task descriptions, checking the completeness of your decomposition, or refining wording for clarity.</p>
+  <p>Two requirements: (1) the <strong>analytical decisions must be your team's</strong> — AI may help you express the analysis, but the goals, decomposition logic, and method justifications must reflect your own reasoning about your project; (2) <strong>briefly note where and how you used AI</strong> (a sentence or two). Submitting AI output you have not reviewed and verified against your real user data defeats the purpose of the exercise.</p>
+</div>
+<h2>6. Accessibility</h2>
+<p>Write all task statements in plain, direct language; avoid jargon unless you define it. If you submit diagrams or Figma frames, include short text descriptions (alt text or a caption) of each so the content is accessible to readers using screen readers and to your AI agent. If any team member needs an accommodation for producing or submitting materials, contact the instructor early — accommodations are available and will not affect your grade.</p>
+<div class="submission-box">
+  <h2>📥 What to Submit</h2>
+  <p>Submit the following clearly labeled items as one team. Mark each item with its heading exactly as shown.</p>
+  <div class="deliverable">
+    <strong>Deliverable 1 — Scope &amp; Data Sources</strong>
+    <p>Your 2–3 selected user goals (one sentence each) and a bulleted log of the data sources used (Steps 1–2).</p>
+  </div>
+  <div class="deliverable">
+    <strong>Deliverable 2 — Hierarchical Task Analysis</strong>
+    <p>A numbered task tree with explicit plans for each goal (Step 3).</p>
+  </div>
+  <div class="deliverable">
+    <strong>Deliverable 3 — Cognitive Task Analysis</strong>
+    <p>Analysis of at least one cognitively complex task: knowledge, decisions, cues, and failure modes (Step 4).</p>
+  </div>
+  <div class="deliverable">
+    <strong>Deliverable 4 — Method Justification</strong>
+    <p>A short rationale evaluating where HTA vs. CTA was applied and why (Step 5).</p>
+  </div>
+  <div class="deliverable">
+    <strong>Deliverable 5 — Software Flow</strong>
+    <p>A diagram or structured list of screens/states and transitions for each goal (Step 6a).</p>
+  </div>
+  <div class="deliverable">
+    <strong>Deliverable 6 — AI-Ready Task Analysis Document</strong>
+    <p>The consolidated, clearly written document you will hand to an AI coding agent and use to begin your Figma design (Step 6b). <em>This is the primary product of this phase.</em></p>
+  </div>
+  <div class="deliverable">
+    <strong>Deliverable 7 — AI Use Note</strong>
+    <p>One to two sentences describing how your team used generative AI in this phase.</p>
+  </div>
+</div>
+<h2>7. Grading Criteria (Rubric)</h2>
+<p>This phase is graded out of <strong>100 points</strong>.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Criterion</th>
+      <th>Exemplary</th>
+      <th>Proficient</th>
+      <th>Developing</th>
+      <th>Pts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>HTA quality</strong></td>
+      <td>Complete, consistently notated tree with correct, explicit plans; decomposition reaches concrete leaf actions.</td>
+      <td>Mostly complete; minor gaps in plans or notation.</td>
+      <td>Incomplete or inconsistent; plans missing or decomposition too shallow.</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td><strong>CTA depth</strong></td>
+      <td>Surfaces real decisions, knowledge, cues, and failure modes for a genuinely complex task.</td>
+      <td>Identifies cognitive elements but with limited depth.</td>
+      <td>Describes behavior only; little cognitive insight.</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td><strong>Method justification</strong></td>
+      <td>Clear, well-reasoned evaluation of HTA vs. CTA fit for the project.</td>
+      <td>Reasonable justification with some gaps.</td>
+      <td>Vague or absent reasoning.</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><strong>Software flow</strong></td>
+      <td>Clear, complete flow that maps directly onto the analyzed tasks; ready for Figma.</td>
+      <td>Mostly clear; some transitions or states underspecified.</td>
+      <td>Confusing or disconnected from the analysis.</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><strong>AI-ready document</strong></td>
+      <td>Precise, unambiguous, well-structured; plausibly buildable by an AI agent without clarification.</td>
+      <td>Usable but would require some clarification.</td>
+      <td>Too vague or disorganized to drive code generation.</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><strong>Evidence, accessibility &amp; AI note</strong></td>
+      <td>Data sources logged, plain language, accessible diagrams, AI use disclosed.</td>
+      <td>Most elements present.</td>
+      <td>Several elements missing.</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>
