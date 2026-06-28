@@ -3,17 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Functional Prototype Development and Testing Preparation — CEN3722</title>
+  <title>Functional Prototype Development and Testing Preparation | CEN3722</title>
   <style>
     /* ── Reset & Base ── */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-    }
-
-    html {
-      font-size: 16px;
     }
 
     body {
@@ -29,6 +25,7 @@
       background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
       color: #ffffff;
       padding: 2.5rem 1.5rem 2rem;
+      border-bottom: 4px solid #f0a500;
     }
 
     .header-inner {
@@ -40,29 +37,29 @@
       display: inline-block;
       font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
-      background-color: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 4px;
-      padding: 0.2rem 0.65rem;
-      margin-bottom: 0.85rem;
-      color: #d6eaf8;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+      padding: 0.2rem 0.6rem;
+      margin-bottom: 0.75rem;
+      color: #d6eaff;
     }
 
     header h1 {
-      font-size: clamp(1.45rem, 3vw, 2rem);
+      font-size: clamp(1.4rem, 3vw, 2rem);
       font-weight: 700;
       line-height: 1.25;
-      margin-bottom: 0.9rem;
+      margin-bottom: 0.85rem;
       letter-spacing: -0.01em;
     }
 
     header p {
       font-size: 0.97rem;
-      color: #cce0f5;
-      max-width: 720px;
-      line-height: 1.65;
+      color: #cfe0f5;
+      max-width: 680px;
+      line-height: 1.7;
     }
 
     /* ── Main Content ── */
@@ -79,8 +76,8 @@
       text-transform: uppercase;
       color: #7f8c9a;
       margin-bottom: 1.1rem;
-      padding-bottom: 0.45rem;
-      border-bottom: 2px solid #dce3ea;
+      padding-bottom: 0.4rem;
+      border-bottom: 1px solid #dde3ea;
     }
 
     /* ── Artifact Grid ── */
@@ -93,159 +90,164 @@
     /* ── Artifact Card ── */
     .artifact-card {
       background: #ffffff;
-      border: 1px solid #dce3ea;
+      border: 1px solid #dde3ea;
       border-radius: 8px;
-      padding: 1.35rem 1.4rem 1.2rem;
+      padding: 1.4rem 1.5rem;
       display: flex;
       flex-direction: column;
       gap: 0.6rem;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
 
     .artifact-card:hover {
-      box-shadow: 0 4px 16px rgba(46, 109, 164, 0.12);
-      border-color: #aac4de;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.09);
+      transform: translateY(-2px);
     }
 
-    /* ── Card Top Row: badges ── */
-    .card-meta {
+    /* ── Card Header Row ── */
+    .card-header {
       display: flex;
-      align-items: center;
-      gap: 0.45rem;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
       flex-wrap: wrap;
     }
 
-    .badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-      line-height: 1.4;
-    }
-
-    .badge-type {
-      background-color: #e8f0fb;
-      color: #2e6da4;
-      border: 1px solid #b8d0ed;
-    }
-
-    .badge-filetype {
-      background-color: #eef6ee;
-      color: #2e7d32;
-      border: 1px solid #b2dfb2;
-      font-family: 'Courier New', Courier, monospace;
-    }
-
-    /* ── Card Name / Link Row ── */
-    .card-name-row {
+    .card-title-group {
       display: flex;
       align-items: baseline;
       flex-wrap: wrap;
       gap: 0.55rem;
     }
 
-    .card-name {
-      font-size: 1.02rem;
+    .artifact-name {
+      font-size: 1rem;
       font-weight: 700;
       color: #1a3a5c;
       line-height: 1.3;
     }
 
-    .card-name a {
-      color: #1a6fba;
+    .artifact-name a {
+      color: #1a3a5c;
       text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.15s ease, color 0.15s ease;
+      border-bottom: 2px solid #2e6da4;
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
     }
 
-    .card-name a:hover,
-    .card-name a:focus {
-      color: #114d85;
-      border-bottom-color: #1a6fba;
+    .artifact-name a:hover,
+    .artifact-name a:focus {
+      color: #2e6da4;
+      border-bottom-color: #f0a500;
       outline: none;
     }
 
     .source-link {
-      font-size: 0.76rem;
-      font-weight: 500;
-      color: #5d7fa3;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7fa8;
       text-decoration: none;
-      background-color: #f0f5fb;
-      border: 1px solid #c0d5ea;
-      border-radius: 4px;
-      padding: 0.15rem 0.5rem;
+      border: 1px solid #aac4df;
+      border-radius: 3px;
+      padding: 0.1rem 0.45rem;
       white-space: nowrap;
-      transition: background-color 0.15s ease, color 0.15s ease;
+      transition: background 0.15s, color 0.15s;
+      align-self: center;
     }
 
     .source-link:hover,
     .source-link:focus {
-      background-color: #dceaf7;
-      color: #1a3a5c;
+      background-color: #2e6da4;
+      color: #ffffff;
+      border-color: #2e6da4;
       outline: none;
     }
 
-    .source-link::before {
-      content: '⬇ ';
-      font-size: 0.7rem;
+    /* ── Badges ── */
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
     }
 
-    /* ── Card Description ── */
-    .card-description {
-      font-size: 0.88rem;
-      color: #4a5568;
-      line-height: 1.6;
+    .badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border-radius: 3px;
+      padding: 0.18rem 0.55rem;
+    }
+
+    .badge-type {
+      background-color: #eaf1fb;
+      color: #1f5799;
+      border: 1px solid #c3d8f0;
+    }
+
+    .badge-filetype {
+      background-color: #fdf3e3;
+      color: #8a5700;
+      border: 1px solid #f5d9a0;
+    }
+
+    /* ── Description ── */
+    .artifact-description {
+      font-size: 0.875rem;
+      color: #4a5a6b;
+      line-height: 1.65;
       flex-grow: 1;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
-      padding: 1.5rem 1rem 2rem;
+      padding: 1.4rem 1rem;
       font-size: 0.78rem;
-      color: #9aabb8;
-      border-top: 1px solid #dce3ea;
+      color: #9aaab8;
+      border-top: 1px solid #dde3ea;
       background-color: #f4f6f9;
     }
 
     /* ── Accessibility: focus-visible ── */
     a:focus-visible {
-      outline: 3px solid #2e6da4;
+      outline: 3px solid #f0a500;
       outline-offset: 2px;
-      border-radius: 3px;
+      border-radius: 2px;
     }
 
-    /* ── Responsive tweaks ── */
-    @media (max-width: 520px) {
+    /* ── Responsive adjustments ── */
+    @media (max-width: 480px) {
       header {
-        padding: 2rem 1rem 1.5rem;
+        padding: 2rem 1.2rem 1.6rem;
       }
 
       main {
-        margin-top: 1.75rem;
+        margin-top: 1.8rem;
+        padding: 0 1.1rem;
       }
 
-      .artifact-grid {
-        grid-template-columns: 1fr;
+      .artifact-card {
+        padding: 1.2rem 1.2rem;
       }
     }
   </style>
 </head>
 <body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
   <header>
     <div class="header-inner">
-      <span class="course-label">CEN3722 — Introduction to Human Computer Interfaces</span>
+      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
       <h1>Functional Prototype Development and Testing Preparation</h1>
       <p>
-        This module guides learners through the process of evolving design concepts into functional
-        prototypes ready for user testing. Topics span transitioning from mockups to working
-        implementations, managing design handoff, configuring development environments, and
-        establishing a structured testing preparation workflow. Use the artifacts below to explore
-        the module's resources and materials.
+        This module guides learners through the critical transition from low- and mid-fidelity
+        mockups to fully functional prototypes. Topics span design handoff practices, development
+        environment configuration, and the foundational steps required to prepare a prototype for
+        structured usability testing. Use the artifacts below to explore module content and
+        supporting resources.
       </p>
     </div>
   </header>
@@ -256,19 +258,25 @@
     <div class="artifact-grid">
 
         <div class="artifact-card">
-          <div class="card-meta">
+          <div class="card-header">
+            <div class="card-title-group">
+              <span class="artifact-name">
+                  <a href="content/module_topics.html">Module Topics</a>
+              </span>
+                <a
+                  class="source-link"
+                  href="source/hierarchy.json"
+                  aria-label="Source file for Module Topics"
+                >source file</a>
+            </div>
+          </div>
+
+          <div class="badge-row">
             <span class="badge badge-type">Module Topics</span>
             <span class="badge badge-filetype">.json</span>
           </div>
 
-          <div class="card-name-row">
-            <span class="card-name">
-                <a href="content/module_topics.html">Module Topics</a>
-            </span>
-              <a class="source-link" href="source/hierarchy.json">source file</a>
-          </div>
-
-          <p class="card-description">
+          <p class="artifact-description">
             Covers the key topics in the module — including transitioning from mockups to functional prototypes, design handoff, development environment setup, and testing preparation — serving as a topic outline to help learners and instructors navigate the scope and structure of the module.
           </p>
         </div>
@@ -277,10 +285,10 @@
   </main>
 
   <footer>
-    CEN3722 — Introduction to Human Computer Interfaces &nbsp;|&nbsp; Functional Prototype Development and Testing Preparation
+    CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Functional Prototype Development and Testing Preparation
   </footer>
 
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
 </html>

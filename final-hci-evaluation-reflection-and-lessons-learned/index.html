@@ -1,249 +1,269 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Final HCI Evaluation, Reflection, and Lessons Learned — CEN3722</title>
   <style>
-    /* ── Reset & base ── */
+    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: #f4f6f9;
       color: #1e2530;
-      min-height: 100vh;
       line-height: 1.6;
+      min-height: 100vh;
     }
 
-    /* ── Page wrapper ── */
-    .page-wrapper {
+    /* ── Header Banner ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #ffffff;
+      padding: 2.75rem 1.5rem 2.25rem;
+      border-bottom: 4px solid #f0a500;
+    }
+
+    .header-inner {
       max-width: 960px;
       margin: 0 auto;
-      padding: 2.5rem 1.25rem 4rem;
     }
 
-    /* ── Course label ── */
     .course-label {
       display: inline-block;
       font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #5a6a84;
-      background: #e2e8f0;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 4px;
-      padding: 0.25rem 0.65rem;
+      padding: 0.2rem 0.65rem;
       margin-bottom: 0.85rem;
     }
 
-    /* ── Header ── */
-    .page-header {
-      border-bottom: 3px solid #2d6be4;
-      padding-bottom: 1.4rem;
-      margin-bottom: 2rem;
-    }
-
-    .page-header h1 {
-      font-size: clamp(1.45rem, 3vw, 2rem);
+    header h1 {
+      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
       font-weight: 700;
-      color: #111827;
       line-height: 1.25;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.01em;
     }
 
-    .page-header p {
-      font-size: 0.975rem;
-      color: #4a5568;
-      max-width: 72ch;
+    header p {
+      font-size: 1rem;
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 680px;
+      line-height: 1.7;
     }
 
-    /* ── Section heading ── */
-    .artifacts-heading {
-      font-size: 0.7rem;
+    /* ── Main Content ── */
+    main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .section-heading {
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #7a8ba6;
-      margin-bottom: 1rem;
+      color: #5a6a7e;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #dce3ec;
     }
 
-    /* ── Card grid ── */
-    .card-grid {
+    /* ── Artifact Grid ── */
+    .artifact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.25rem;
     }
 
-    /* ── Artifact card ── */
+    /* ── Artifact Card ── */
     .card {
       background: #ffffff;
-      border: 1px solid #dde3ed;
-      border-radius: 10px;
-      padding: 1.35rem 1.5rem;
+      border: 1px solid #dce3ec;
+      border-radius: 8px;
+      padding: 1.4rem 1.5rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+      gap: 0.75rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
     }
 
     .card:hover {
-      box-shadow: 0 4px 18px rgba(45, 107, 228, 0.1);
-      border-color: #b3c4e8;
+      box-shadow: 0 6px 20px rgba(37, 99, 168, 0.1);
+      transform: translateY(-2px);
     }
 
-    /* ── Card top row ── */
-    .card-top {
+    /* Card top row: badges */
+    .card-meta {
       display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
-    .card-name {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #111827;
-      flex: 1 1 auto;
-    }
-
-    .card-name a {
-      color: #2d6be4;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s;
-    }
-
-    .card-name a:hover,
-    .card-name a:focus {
-      border-bottom-color: #2d6be4;
-      outline: none;
-    }
-
-    .source-link {
-      display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #5a6a84;
-      text-decoration: none;
-      background: #eef2fa;
-      border: 1px solid #cdd6ea;
-      border-radius: 4px;
-      padding: 0.22rem 0.55rem;
-      white-space: nowrap;
-      transition: background 0.15s, color 0.15s;
-      align-self: flex-start;
-      margin-top: 2px;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #dce6f7;
-      color: #1a4db5;
-      outline: none;
-    }
-
-    .source-link svg {
-      flex-shrink: 0;
-    }
-
-    /* ── Badges ── */
-    .badges {
-      display: flex;
       flex-wrap: wrap;
       gap: 0.45rem;
     }
 
     .badge {
       font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 0.2rem 0.55rem;
-      border-radius: 20px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.2rem 0.55rem;
+      line-height: 1.4;
     }
 
     .badge-type {
-      background: #e8f0fe;
-      color: #2d5cbf;
-      border: 1px solid #c6d7fb;
+      background: #e8f0fb;
+      color: #1a4f96;
+      border: 1px solid #c3d6f5;
     }
 
     .badge-filetype {
-      background: #f0fdf4;
-      color: #276749;
-      border: 1px solid #bbf0d3;
-      font-family: "Courier New", Courier, monospace;
-      text-transform: lowercase;
-      letter-spacing: 0;
+      background: #f0f4f8;
+      color: #4a5a70;
+      border: 1px solid #d0dae6;
+      font-family: 'Courier New', monospace;
     }
 
-    /* ── Description ── */
+    /* Card title row */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    .card-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1e2530;
+      line-height: 1.3;
+    }
+
+    .card-title a {
+      color: #1a4f96;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .card-title a:hover,
+    .card-title a:focus {
+      color: #0d3270;
+      border-bottom-color: #0d3270;
+      outline: none;
+    }
+
+    .card-title a:focus-visible {
+      outline: 2px solid #2563a8;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* Source file link */
+    .source-link {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #5a6a7e;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      border: 1px solid #c5d0de;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      background: #f7f9fc;
+      white-space: nowrap;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .source-link::before {
+      content: "⬇";
+      font-size: 0.65rem;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #e8f0fb;
+      color: #1a4f96;
+      border-color: #9ab8e6;
+      outline: none;
+    }
+
+    .source-link:focus-visible {
+      outline: 2px solid #2563a8;
+      outline-offset: 2px;
+    }
+
+    /* Card description */
     .card-description {
-      font-size: 0.875rem;
-      color: #4a5568;
+      font-size: 0.9rem;
+      color: #3e4f63;
       line-height: 1.65;
+      flex-grow: 1;
     }
 
     /* ── Footer ── */
-    .page-footer {
-      margin-top: 3.5rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid #dde3ed;
-      font-size: 0.78rem;
-      color: #8a99b3;
+    footer {
       text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.78rem;
+      color: #8a99ad;
+      border-top: 1px solid #dce3ec;
+      background: #f4f6f9;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      header { padding: 2rem 1.25rem 1.75rem; }
+      main { padding: 2rem 1.25rem 3rem; }
+      .card { padding: 1.2rem 1.25rem; }
     }
   </style>
 </head>
 <body>
-  <div class="page-wrapper">
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
-    <!-- ── Header ── -->
-    <header class="page-header">
-      <span class="course-label">CEN3722 — Introduction to Human Computer Interfaces</span>
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
       <h1>Final HCI Evaluation, Reflection, and Lessons Learned</h1>
       <p>
-        This module brings together the full arc of the course by revisiting HCI theory in practice,
-        reviewing analysis and prototyping phases, applying formal evaluation methods, and synthesising
-        key lessons learned. Use the artifacts below to explore the module's content, reference
-        structured outlines, and prepare for summative assessment.
+        This module brings the course together by revisiting core HCI theory, examining the full arc
+        of the analysis and prototyping phases, applying evaluation methods, and drawing meaningful
+        lessons learned. Use the resources below to navigate module content and deepen your
+        understanding of human-centered design practice.
       </p>
-    </header>
+    </div>
+  </header>
 
-    <!-- ── Artifact grid ── -->
-    <p class="artifacts-heading">Module Artifacts</p>
+  <main>
+    <h2 class="section-heading">Module Artifacts</h2>
 
-    <div class="card-grid">
+    <div class="artifact-grid">
 
-      <!-- Card: Module Topics -->
+      <!-- Artifact: Module Topics -->
       <article class="card">
-        <div class="card-top">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">
-            <!-- small document icon -->
-            <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path d="M1.5 1.5h5l2.5 2.5V11.5a.5.5 0 01-.5.5h-7a.5.5 0 01-.5-.5v-9.5a.5.5 0 01.5-.5z"
-                    stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
-              <path d="M6.5 1.5V4H9" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"
-                    stroke-linejoin="round"/>
-              <line x1="2.75" y1="6.5" x2="8.25" y2="6.5" stroke="currentColor" stroke-width="1.1"
-                    stroke-linecap="round"/>
-              <line x1="2.75" y1="8.5" x2="8.25" y2="8.5" stroke="currentColor" stroke-width="1.1"
-                    stroke-linecap="round"/>
-            </svg>
-            source file
-          </a>
-        </div>
-
-        <div class="badges">
+        <div class="card-meta">
           <span class="badge badge-type">Module Topics</span>
           <span class="badge badge-filetype">.json</span>
+        </div>
+
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a
+            class="source-link"
+            href="source/hierarchy.json"
+            title="Download or view the raw source file for Module Topics"
+          >source file</a>
         </div>
 
         <p class="card-description">
@@ -254,16 +274,15 @@
         </p>
       </article>
 
-    </div><!-- /.card-grid -->
+    </div>
+  </main>
 
-    <!-- ── Footer ── -->
-    <footer class="page-footer">
-      CEN3722 — Introduction to Human Computer Interfaces &nbsp;|&nbsp;
-      Final HCI Evaluation, Reflection, and Lessons Learned
-    </footer>
+  <footer>
+    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp;
+    Final HCI Evaluation, Reflection, and Lessons Learned
+  </footer>
 
-  </div><!-- /.page-wrapper -->
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
 </html>

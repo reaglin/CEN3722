@@ -5,335 +5,265 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HCI Foundations and Course Project Setup — CEN3722</title>
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --color-bg: #f4f6f9;
-      --color-surface: #ffffff;
-      --color-primary: #1a4f8a;
-      --color-primary-dark: #133d6e;
-      --color-accent: #2e7d32;
-      --color-accent-light: #e8f5e9;
-      --color-border: #d0d7e2;
-      --color-text: #1c2a3a;
-      --color-text-muted: #5a6a7e;
-      --color-tag-bg: #e8eef6;
-      --color-tag-text: #1a4f8a;
-      --color-filetype-bg: #f0f4fa;
-      --color-filetype-text: #3a5a8a;
-      --radius: 10px;
-      --shadow: 0 2px 8px rgba(26, 79, 138, 0.08);
-      --shadow-hover: 0 6px 20px rgba(26, 79, 138, 0.14);
-      --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
-    }
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: var(--font-main);
-      background-color: var(--color-bg);
-      color: var(--color-text);
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2533;
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-      color: #ffffff;
-      padding: 2.5rem 1.5rem 2rem;
-    }
-
-    .header-inner {
+    /* ── Page shell ── */
+    .page-wrapper {
       max-width: 960px;
       margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
     }
 
+    /* ── Course label ── */
     .course-label {
       display: inline-block;
-      font-size: 0.78rem;
+      font-size: 0.75rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      color: #d6e8ff;
+      color: #5a6a85;
+      background: #e4e9f2;
       border-radius: 4px;
       padding: 0.25rem 0.65rem;
-      margin-bottom: 0.85rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.5rem, 4vw, 2.1rem);
-      font-weight: 700;
-      line-height: 1.25;
       margin-bottom: 0.75rem;
-      letter-spacing: -0.01em;
     }
 
-    header p {
-      font-size: 1rem;
-      color: #c8dcf5;
-      max-width: 680px;
-      line-height: 1.65;
+    /* ── Header ── */
+    .module-header {
+      border-left: 5px solid #2f69d4;
+      padding-left: 1.25rem;
+      margin-bottom: 2rem;
     }
 
-    /* ── Main content ── */
-    main {
-      max-width: 960px;
-      margin: 2rem auto;
-      padding: 0 1.5rem 3rem;
-    }
-
-    .section-heading {
-      font-size: 0.72rem;
+    .module-header h1 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
       font-weight: 700;
-      text-transform: uppercase;
+      color: #0f1d35;
+      line-height: 1.25;
+      margin-bottom: 0.6rem;
+    }
+
+    .module-header p {
+      font-size: 0.975rem;
+      color: #3d4e68;
+      max-width: 70ch;
+    }
+
+    /* ── Section label ── */
+    .section-title {
+      font-size: 0.7rem;
+      font-weight: 700;
       letter-spacing: 0.1em;
-      color: var(--color-text-muted);
+      text-transform: uppercase;
+      color: #7a8aaa;
       margin-bottom: 1rem;
       padding-bottom: 0.4rem;
-      border-bottom: 1px solid var(--color-border);
+      border-bottom: 1px solid #dde3ef;
     }
 
     /* ── Card grid ── */
-    .card-grid {
+    .artifact-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
-      gap: 1.25rem;
+      gap: 1.1rem;
     }
 
-    .card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1.4rem 1.5rem;
+    /* ── Card ── */
+    .artifact-card {
+      background: #ffffff;
+      border: 1px solid #dde3ef;
+      border-radius: 10px;
+      padding: 1.25rem 1.4rem;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
-    .card:hover {
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
+    .artifact-card:hover {
+      box-shadow: 0 4px 18px rgba(47, 105, 212, 0.1);
+      border-color: #b3c4e8;
     }
 
-    /* ── Card header row ── */
-    .card-header {
+    /* ── Card top row: badges ── */
+    .card-meta {
       display: flex;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      gap: 0.5rem 0.75rem;
-    }
-
-    .card-badges {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
       align-items: center;
+      gap: 0.45rem;
+      flex-wrap: wrap;
     }
 
     .badge {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-      white-space: nowrap;
+      padding: 0.2rem 0.55rem;
     }
 
     .badge-type {
-      background: var(--color-tag-bg);
-      color: var(--color-tag-text);
-      border: 1px solid #c2d0e8;
+      background: #eef2fb;
+      color: #2f69d4;
     }
 
     .badge-filetype {
-      background: var(--color-filetype-bg);
-      color: var(--color-filetype-text);
-      border: 1px solid #c8d6ea;
-      font-family: 'Courier New', Courier, monospace;
+      background: #f0f4f0;
+      color: #3a6e3a;
     }
 
-    /* ── Card title ── */
-    .card-title {
-      font-size: 0.98rem;
+    /* ── Card name row ── */
+    .card-name-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.55rem;
+    }
+
+    .card-name {
+      font-size: 1rem;
       font-weight: 600;
-      color: var(--color-text);
-      line-height: 1.4;
+      color: #0f1d35;
+      line-height: 1.3;
     }
 
-    .card-title a {
-      color: var(--color-primary);
+    .card-name a {
+      color: #1a56c4;
       text-decoration: none;
-      border-bottom: 1.5px solid transparent;
-      transition: border-color 0.15s ease, color 0.15s ease;
     }
 
-    .card-title a:hover,
-    .card-title a:focus {
-      color: var(--color-primary-dark);
-      border-bottom-color: var(--color-primary-dark);
-      outline: none;
+    .card-name a:hover {
+      text-decoration: underline;
+      color: #0d3d99;
     }
 
-    .card-title a:focus-visible {
-      outline: 2px solid var(--color-primary);
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    /* ── Source link ── */
     .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.28rem;
-      font-size: 0.74rem;
-      font-weight: 500;
-      color: var(--color-accent);
-      background: var(--color-accent-light);
-      border: 1px solid #b8debb;
-      border-radius: 4px;
-      padding: 0.18rem 0.52rem;
-      text-decoration: none;
-      margin-left: 0.5rem;
       white-space: nowrap;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: #5a6a85;
+      background: #f0f3fa;
+      border: 1px solid #ccd5ea;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      text-decoration: none;
       transition: background 0.15s ease, color 0.15s ease;
-      vertical-align: middle;
     }
 
-    .source-link:hover,
-    .source-link:focus {
-      background: #c8e6c9;
-      color: #1b5e20;
-      outline: none;
-    }
-
-    .source-link:focus-visible {
-      outline: 2px solid var(--color-accent);
-      outline-offset: 2px;
-    }
-
-    .source-link svg {
-      flex-shrink: 0;
+    .source-link:hover {
+      background: #dde5f7;
+      color: #1a3a80;
     }
 
     /* ── Card description ── */
     .card-description {
       font-size: 0.875rem;
-      color: var(--color-text-muted);
-      line-height: 1.65;
-      flex: 1;
+      color: #4a5772;
+      line-height: 1.55;
     }
 
     /* ── Footer ── */
-    footer {
-      text-align: center;
+    .page-footer {
+      margin-top: 3.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid #dde3ef;
       font-size: 0.78rem;
-      color: var(--color-text-muted);
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid var(--color-border);
+      color: #8a97b0;
+      text-align: center;
     }
 
-    /* ── Responsive ── */
-    @media (max-width: 540px) {
-      header {
-        padding: 2rem 1rem 1.5rem;
+    /* ── Responsive tweaks ── */
+    @media (max-width: 520px) {
+      .module-header {
+        padding-left: 0.9rem;
       }
-
-      main {
-        padding: 0 1rem 2.5rem;
-        margin-top: 1.5rem;
-      }
-
-      .card {
-        padding: 1.1rem 1.15rem;
+      .artifact-card {
+        padding: 1rem 1.1rem;
       }
     }
   </style>
 </head>
 <body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+  <div class="page-wrapper">
 
-  <header>
-    <div class="header-inner">
-      <span class="course-label">CEN3722 — Introduction to Human Computer Interfaces</span>
+    <!-- Header -->
+    <span class="course-label">CEN3722 — Introduction to Human Computer Interfaces</span>
+    <header class="module-header">
       <h1>HCI Foundations and Course Project Setup</h1>
       <p>
-        This module introduces the foundational concepts of Human–Computer Interaction and prepares
-        students to work collaboratively using industry-standard tools including GitHub, Figma, and
-        AI-assisted workflows. Below you will find all artifacts associated with this module.
+        This module introduces the foundational concepts of Human–Computer Interaction and
+        walks students through configuring the collaborative tools they will use throughout
+        the course. Browse the artifacts below to access readings, assignments, and
+        supporting resources for this module.
       </p>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <p class="section-heading">Module Artifacts &mdash; 2 items</p>
-
-    <div class="card-grid">
+    <!-- Artifact grid -->
+    <p class="section-title">Module Artifacts</p>
+    <div class="artifact-grid">
 
       <!-- Artifact 1: Module Topics -->
-      <article class="card">
-        <div class="card-badges">
+      <div class="artifact-card">
+        <div class="card-meta">
           <span class="badge badge-type">Module Topics</span>
           <span class="badge badge-filetype">.json</span>
         </div>
-        <div class="card-title">
-          <a href="content/module_topics.html">Module Topics</a>
-          <a
-            href="source/hierarchy.json"
-            class="source-link"
-            aria-label="Source file for Module Topics"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" viewBox="0 0 24 24"
-                 fill="none" stroke="currentColor" stroke-width="2.2"
-                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-              <polyline points="14 2 14 8 20 8"/>
-            </svg>
-            source file
-          </a>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
         </div>
         <p class="card-description">
           A structured JSON outline listing the module's four main topic areas — HCI fundamentals,
-          GitHub version control, Figma collaboration, and AI tools — and their sub-topics, serving
-          as a machine-readable table of contents for the module.
+          GitHub version control, Figma collaboration, and AI tools — and their sub-topics,
+          serving as a machine-readable table of contents for the module.
         </p>
-      </article>
+      </div>
 
-      <!-- Artifact 2: Group Project Assignment -->
-      <article class="card">
-        <div class="card-badges">
+      <!-- Artifact 2: Group Project Kickoff -->
+      <div class="artifact-card">
+        <div class="card-meta">
           <span class="badge badge-type">Assignment</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title">
-          <a href="assignments/index.html">
-            HCI Foundations — Module 1 Group Project: Team Formation &amp; Project Kickoff
-          </a>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="assignments/index.html">
+              HCI Foundations — Module 1 Group Project: Team Formation &amp; Project Kickoff
+            </a>
+          </span>
         </div>
         <p class="card-description">
           A group project kickoff assignment where student teams form, set up their shared tools
           (GitHub repository, Figma workspace, and a collaborative document), and submit initial
           project planning materials to establish their working environment for the course project.
         </p>
-      </article>
+      </div>
 
-    </div>
-  </main>
+    </div><!-- /artifact-grid -->
 
-  <footer>
-    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp;
-    HCI Foundations and Course Project Setup
-  </footer>
+    <!-- Footer -->
+    <footer class="page-footer">
+      CEN3722 — Introduction to Human Computer Interfaces &nbsp;·&nbsp;
+      HCI Foundations and Course Project Setup
+    </footer>
 
+  </div><!-- /page-wrapper -->
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p><h2>Source Materials</h2><ul class="artifact-list">  <li class="artifact-item">
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p><h2>Source Materials</h2><ul class="artifact-list">  <li class="artifact-item">
     <div class="artifact-icon">⬇</div>
     <div class="artifact-body">
       <a class="artifact-link" href="source-materials/source-1.html" download>Topic Prompt</a>
@@ -356,5 +286,5 @@
     <div class="artifact-body">
       <a class="artifact-link" href="https://github.com/resources/articles/ai-in-software-development" target="_blank" rel="noopener">Web Page — https://github.com/resources/articles/ai-in-software-development  (external link)</a>
     </div>
-  </li></ul></section></body>
+  </li></ul></section><script src="embed-inject.js" defer></script></body>
 </html>

@@ -5,125 +5,159 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Module 5 – AI-Assisted Design and Development Workflows | CEN3722</title>
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --color-bg: #f4f6f9;
-      --color-surface: #ffffff;
-      --color-primary: #1a4f8a;
-      --color-primary-dark: #133a66;
-      --color-accent: #2e7d9f;
-      --color-accent-light: #e8f4f8;
-      --color-text: #1e2530;
-      --color-text-secondary: #4a5568;
-      --color-border: #dce3ed;
-      --color-badge-bg: #eef2f7;
-      --color-badge-text: #3a4a60;
-      --color-source-bg: #f0f7f0;
-      --color-source-text: #2d6a4f;
-      --color-source-border: #b7dac7;
-      --radius: 8px;
-      --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-      --shadow-hover: 0 6px 18px rgba(0, 0, 0, 0.13);
-      --font-sans: 'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
-    }
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: var(--font-sans);
-      background-color: var(--color-bg);
-      color: var(--color-text);
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      font-size: 16px;
       line-height: 1.6;
-      min-height: 100vh;
+      background: #f4f6f9;
+      color: #1e2430;
     }
 
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary) 60%, var(--color-accent) 100%);
-      color: #ffffff;
-      padding: 3rem 2rem 2.5rem;
-    }
-
-    .header-inner {
-      max-width: 960px;
+    /* ── Page shell ── */
+    .page-wrapper {
+      max-width: 1080px;
       margin: 0 auto;
+      padding: 2rem 1.25rem 4rem;
     }
 
-    .course-label {
-      display: inline-block;
+    /* ── Course breadcrumb ── */
+    .breadcrumb {
+      font-size: 0.8rem;
+      color: #6b7585;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── Module header ── */
+    .module-header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #265a8a 100%);
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 2.25rem 2rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 18px rgba(26,58,92,0.18);
+    }
+
+    .module-header .module-number {
       font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      background: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 1rem;
-      color: #d8eaf8;
+      opacity: 0.75;
+      margin-bottom: 0.4rem;
     }
 
-    header h1 {
-      font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+    .module-header h1 {
+      font-size: clamp(1.4rem, 3vw, 2rem);
       font-weight: 700;
       line-height: 1.25;
-      margin-bottom: 1rem;
-      letter-spacing: -0.01em;
+      margin-bottom: 0.9rem;
     }
 
-    header p {
+    .module-header p {
+      font-size: 0.97rem;
+      opacity: 0.88;
+      max-width: 72ch;
+    }
+
+    /* ── Section title ── */
+    .section-title {
       font-size: 1rem;
-      color: #cfe0f0;
-      max-width: 680px;
-      line-height: 1.7;
-    }
-
-    /* ── Main content ── */
-    main {
-      max-width: 960px;
-      margin: 2.5rem auto;
-      padding: 0 1.5rem 3rem;
-    }
-
-    .section-heading {
-      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--color-text-secondary);
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid var(--color-border);
+      letter-spacing: 0.08em;
+      color: #4a5568;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #dce3ed;
     }
 
     /* ── Card grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
       gap: 1.25rem;
     }
 
+    /* ── Artifact card ── */
     .card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1.4rem 1.5rem 1.3rem;
+      background: #ffffff;
+      border: 1px solid #dce3ed;
+      border-radius: 8px;
+      padding: 1.35rem 1.4rem 1.2rem;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
     }
 
     .card:hover {
-      box-shadow: var(--shadow-hover);
+      box-shadow: 0 6px 22px rgba(38,90,138,0.12);
       transform: translateY(-2px);
     }
 
-    /* Card top row: badges */
+    /* ── Card header row ── */
+    .card-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .card-name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .card-name a {
+      color: #1a6bbf;
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.15s;
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      border-bottom-color: #1a6bbf;
+      outline: none;
+    }
+
+    /* ── Source file link ── */
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7fa8;
+      text-decoration: none;
+      border: 1px solid #b0c8e0;
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+
+    .source-link::before {
+      content: "⬇";
+      font-size: 0.65rem;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #e8f1fa;
+      color: #1a3a5c;
+      outline: none;
+    }
+
+    /* ── Badges row ── */
     .card-meta {
       display: flex;
       flex-wrap: wrap;
@@ -132,251 +166,177 @@
     }
 
     .badge {
+      display: inline-block;
       font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.55rem;
-      border-radius: 3px;
-      background: var(--color-badge-bg);
-      color: var(--color-badge-text);
-      border: 1px solid var(--color-border);
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      line-height: 1.4;
+    }
+
+    .badge-type {
+      background: #e8f1fa;
+      color: #1a5a9a;
     }
 
     .badge-filetype {
-      background: var(--color-accent-light);
-      color: var(--color-accent);
-      border-color: #b8d9e8;
-      font-family: 'Courier New', monospace;
-      letter-spacing: 0.02em;
+      background: #eef6ee;
+      color: #2e7d32;
+      font-family: "Courier New", Courier, monospace;
     }
 
-    /* Card title row */
-    .card-title-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.6rem;
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--color-text);
-      line-height: 1.3;
-    }
-
-    .card-title a {
-      color: var(--color-primary);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s ease, color 0.15s ease;
-    }
-
-    .card-title a:hover,
-    .card-title a:focus {
-      color: var(--color-primary-dark);
-      border-bottom-color: var(--color-primary-dark);
-      outline: none;
-    }
-
-    .card-title a:focus-visible {
-      outline: 3px solid var(--color-accent);
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    /* Source link */
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--color-source-text);
-      background: var(--color-source-bg);
-      border: 1px solid var(--color-source-border);
-      border-radius: 3px;
-      padding: 0.18rem 0.5rem;
-      text-decoration: none;
-      transition: background 0.15s ease;
-      white-space: nowrap;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #d4edde;
-      outline: none;
-    }
-
-    .source-link:focus-visible {
-      outline: 3px solid var(--color-accent);
-      outline-offset: 2px;
-    }
-
-    .source-link svg {
-      flex-shrink: 0;
-    }
-
-    /* Card description */
+    /* ── Description ── */
     .card-description {
-      font-size: 0.875rem;
-      color: var(--color-text-secondary);
-      line-height: 1.65;
+      font-size: 0.88rem;
+      color: #3d4d5c;
+      line-height: 1.55;
       flex-grow: 1;
     }
 
     /* ── Footer ── */
-    footer {
+    .page-footer {
+      margin-top: 3rem;
       text-align: center;
-      padding: 1.5rem 1rem;
       font-size: 0.78rem;
-      color: var(--color-text-secondary);
-      border-top: 1px solid var(--color-border);
-      background: var(--color-surface);
+      color: #9aa5b4;
     }
 
-    /* ── Responsive ── */
-    @media (max-width: 520px) {
-      header {
-        padding: 2rem 1.25rem 2rem;
-      }
-
-      main {
-        padding: 0 1rem 2.5rem;
-        margin-top: 1.75rem;
-      }
-
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      .module-header { padding: 1.6rem 1.25rem; }
+      .card { padding: 1.1rem 1.1rem 1rem; }
     }
   </style>
 </head>
 <body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+  <div class="page-wrapper">
 
-  <header>
-    <div class="header-inner">
-      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
-      <h1>Module 5: AI-Assisted Design and Development Workflows</h1>
+    <!-- Breadcrumb -->
+    <p class="breadcrumb">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
+
+    <!-- Module header -->
+    <header class="module-header">
+      <p class="module-number">Module 5</p>
+      <h1>AI-Assisted Design and Development Workflows</h1>
       <p>
-        This module explores how AI-powered tools are reshaping the HCI design and development pipeline —
-        from using coding assistants and crafting effective prompts to accelerating prototyping workflows
-        and evaluating outputs with accessibility and ethics in mind.
+        This module explores how artificial intelligence tools are reshaping the HCI design and
+        development lifecycle. Topics span AI coding assistants, prompting strategies, rapid
+        prototyping with AI, evaluation methods, and the ethical considerations practitioners
+        must navigate when integrating these tools into professional workflows.
       </p>
-    </div>
-  </header>
+    </header>
 
-  <main>
-    <h2 class="section-heading">Module Artifacts</h2>
+    <!-- Artifacts section -->
+    <h2 class="section-title">Module Artifacts</h2>
 
     <div class="card-grid">
 
-      <!-- Artifact 1: Module Topics -->
+      <!-- Card 1: Module Topics -->
       <article class="card">
-        <div class="card-meta">
-          <span class="badge">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
+        <div class="card-header">
+          <span class="card-name">
             <a href="content/module_topics.html">Module Topics</a>
           </span>
-          <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">
-            <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
-              <path d="M2 2h6v2H4v8h8v-4h2v6H2V2z" fill="currentColor"/>
-              <path d="M10 2h4v4h-2V4.414L7.707 8.707 6.293 7.293 10.586 3H9V2z" fill="currentColor"/>
-            </svg>
-            source file
-          </a>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
         </div>
         <p class="card-description">
-          A structured outline of the module's five main topic areas — AI coding assistants, prompting strategies,
-          prototyping workflows, evaluation, and ethical considerations — with subtopics listed under each,
-          serving as a navigational blueprint for the module's content.
+          A structured outline of the module's five main topic areas — AI coding assistants,
+          prompting strategies, prototyping workflows, evaluation, and ethical considerations —
+          with subtopics listed under each, serving as a navigational blueprint for the module's
+          content.
         </p>
       </article>
 
-      <!-- Artifact 2: Printable HTML (prototyping workflows) -->
+      <!-- Card 2: AI_Assisted_Design (printable) -->
       <article class="card">
-        <div class="card-meta">
-          <span class="badge">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/_printable.html">Printable HTML</a>
+        <div class="card-header">
+          <span class="card-name">
+            <a href="content/_printable.html">AI_Assisted_Design</a>
           </span>
         </div>
-        <p class="card-description">
-          A printable HTML document covering AI-accelerated prototyping workflows, detailing key practices
-          for moving from wireframes to interactive prototypes using AI tools, intended for learners to read,
-          study, or print as a standalone reference on that topic.
-        </p>
-      </article>
-
-      <!-- Artifact 3: Printable HTML (T1 – AI Coding Assistants) -->
-      <article class="card">
         <div class="card-meta">
-          <span class="badge">Text Content</span>
+          <span class="badge badge-type">Text Content</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/AI_Assisted_Design_printable_topics_t1.html">Printable HTML</a>
-          </span>
-        </div>
         <p class="card-description">
-          A printable HTML document introducing AI coding assistants in HCI contexts — covering what they are,
-          key tools such as Claude Code and GitHub Copilot, and their role in the design pipeline — serving as
-          a self-contained reading on the foundational concepts of the module.
+          A printable HTML document covering AI-accelerated prototyping workflows, detailing key
+          practices for moving from wireframes to interactive prototypes using AI tools, intended
+          for learners to read, study, or print as a standalone reference on that topic.
         </p>
       </article>
 
-      <!-- Artifact 4: Printable HTML (T2 – Prompting Strategies) -->
+      <!-- Card 3: AI_Assisted_Design (t1) -->
       <article class="card">
+        <div class="card-header">
+          <span class="card-name">
+            <a href="content/AI_Assisted_Design_printable_topics_t1.html">AI_Assisted_Design</a>
+          </span>
+        </div>
         <div class="card-meta">
-          <span class="badge">Text Content</span>
+          <span class="badge badge-type">Text Content</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/AI_Assisted_Design_printable_topics_t2.html">Printable HTML</a>
-          </span>
-        </div>
         <p class="card-description">
-          A printable HTML document on effective prompting strategies for design tasks, explaining how to write
-          precise prompts, refine them iteratively, and target accessibility and usability goals, intended as a
-          study reference for learners developing their AI interaction skills.
+          A printable HTML document introducing AI coding assistants in HCI contexts — covering
+          what they are, key tools such as Claude Code and GitHub Copilot, and their role in the
+          design pipeline — serving as a self-contained reading on the foundational concepts of
+          the module.
         </p>
       </article>
 
-      <!-- Artifact 5: Printable HTML (T3-5 – Prototyping, alternate) -->
+      <!-- Card 4: AI_Assisted_Design (t2) -->
       <article class="card">
+        <div class="card-header">
+          <span class="card-name">
+            <a href="content/AI_Assisted_Design_printable_topics_t2.html">AI_Assisted_Design</a>
+          </span>
+        </div>
         <div class="card-meta">
-          <span class="badge">Text Content</span>
+          <span class="badge badge-type">Text Content</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/AI_Assisted_Design_printable_topics_t3-5.html">Printable HTML</a>
-          </span>
-        </div>
         <p class="card-description">
-          A duplicate or alternate version of the printable HTML document on AI-accelerated prototyping
-          workflows, covering the same key practices for scaffolding and generating interface components
-          with AI assistance, usable as a student reading or print handout.
+          A printable HTML document on effective prompting strategies for design tasks, explaining
+          how to write precise prompts, refine them iteratively, and target accessibility and
+          usability goals, intended as a study reference for learners developing their AI
+          interaction skills.
         </p>
       </article>
 
-    </div>
-  </main>
+      <!-- Card 5: AI_Assisted_Design (t3-5) -->
+      <article class="card">
+        <div class="card-header">
+          <span class="card-name">
+            <a href="content/AI_Assisted_Design_printable_topics_t3-5.html">AI_Assisted_Design</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A duplicate or alternate version of the printable HTML document on AI-accelerated
+          prototyping workflows, covering the same key practices for scaffolding and generating
+          interface components with AI assistance, usable as a student reading or print handout.
+        </p>
+      </article>
 
-  <footer>
-    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp; Module 5: AI-Assisted Design and Development Workflows
-  </footer>
+    </div><!-- /.card-grid -->
 
+    <!-- Footer -->
+    <footer class="page-footer">
+      <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp; Module 5</p>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interface Prototyping with Figma — CEN3722</title>
+  <title>Interface Prototyping with Figma – CEN3722</title>
   <style>
     /* ── Reset & Base ── */
     *, *::before, *::after {
@@ -12,57 +12,43 @@
       padding: 0;
     }
 
-    html {
-      font-size: 16px;
-    }
-
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       background-color: #f4f6f9;
-      color: #1e2530;
+      color: #2c3e50;
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header / Hero ── */
+    /* ── Header / Banner ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
       color: #ffffff;
-      padding: 3rem 2rem 2.5rem;
-      border-bottom: 4px solid #f0a500;
+      padding: 2.5rem 1.5rem 2rem;
+      text-align: center;
     }
 
-    .header-inner {
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      display: inline-block;
-      font-size: 0.8rem;
+    header .course-label {
+      font-size: 0.85rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      background-color: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
-      padding: 0.2rem 0.65rem;
-      margin-bottom: 0.85rem;
-      color: #d6e8ff;
+      opacity: 0.82;
+      margin-bottom: 0.5rem;
     }
 
     header h1 {
       font-size: clamp(1.6rem, 4vw, 2.4rem);
       font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 0.85rem;
       letter-spacing: -0.01em;
+      margin-bottom: 1rem;
     }
 
-    header p {
-      font-size: 1rem;
-      color: #cce0f5;
+    header p.intro {
       max-width: 680px;
+      margin: 0 auto;
+      font-size: 1rem;
+      opacity: 0.9;
       line-height: 1.7;
     }
 
@@ -70,93 +56,95 @@
     main {
       max-width: 960px;
       margin: 2.5rem auto;
-      padding: 0 1.5rem 3rem;
+      padding: 0 1.25rem 3rem;
     }
 
     .section-title {
-      font-size: 0.75rem;
+      font-size: 1.05rem;
       font-weight: 700;
-      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #6b7a8d;
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid #dde2ea;
+      letter-spacing: 0.08em;
+      color: #5a7a99;
+      margin-bottom: 1.25rem;
+      border-bottom: 2px solid #d6e4f0;
+      padding-bottom: 0.4rem;
     }
 
-    /* ── Artifact Card Grid ── */
-    .card-grid {
+    /* ── Artifact Grid ── */
+    .artifact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.25rem;
     }
 
+    /* ── Artifact Card ── */
     .card {
       background: #ffffff;
-      border: 1px solid #dde2ea;
-      border-radius: 10px;
-      padding: 1.4rem 1.5rem;
+      border: 1px solid #dce8f3;
+      border-radius: 8px;
+      padding: 1.35rem 1.4rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+      gap: 0.65rem;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
 
     .card:hover {
-      box-shadow: 0 4px 18px rgba(37, 99, 168, 0.1);
-      border-color: #b0c8e8;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.09);
+      transform: translateY(-2px);
     }
 
-    /* ── Card Header Row ── */
+    /* ── Card Header row ── */
     .card-header {
       display: flex;
-      align-items: baseline;
       flex-wrap: wrap;
+      align-items: baseline;
       gap: 0.5rem 0.75rem;
     }
 
     .artifact-name {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #1e2530;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      word-break: break-word;
     }
 
     .artifact-name a {
-      color: #1a5fad;
+      color: #1a6aad;
       text-decoration: none;
-      border-bottom: 2px solid transparent;
+      border-bottom: 1px solid transparent;
       transition: border-color 0.15s ease, color 0.15s ease;
     }
 
     .artifact-name a:hover,
     .artifact-name a:focus {
-      color: #0e3f7e;
-      border-bottom-color: #0e3f7e;
+      color: #0e4d82;
+      border-bottom-color: #0e4d82;
       outline: none;
     }
 
     .source-link {
-      font-size: 0.76rem;
-      font-weight: 500;
-      color: #2563a8;
-      background-color: #eff5ff;
-      border: 1px solid #c2d9f5;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #2d8a6e;
+      text-decoration: none;
+      background: #e8f7f2;
+      border: 1px solid #b3dfd1;
       border-radius: 4px;
       padding: 0.15rem 0.5rem;
-      text-decoration: none;
       white-space: nowrap;
-      transition: background-color 0.15s ease, color 0.15s ease;
-      flex-shrink: 0;
+      transition: background 0.15s ease, color 0.15s ease;
     }
 
     .source-link:hover,
     .source-link:focus {
-      background-color: #2563a8;
-      color: #ffffff;
+      background: #c4ece0;
+      color: #1a6651;
       outline: none;
     }
 
-    /* ── Metadata Badges ── */
+    /* ── Badges row ── */
     .card-meta {
       display: flex;
       flex-wrap: wrap;
@@ -167,103 +155,122 @@
       font-size: 0.72rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      text-transform: uppercase;
       border-radius: 4px;
       padding: 0.18rem 0.55rem;
+      text-transform: uppercase;
     }
 
     .badge-type {
-      background-color: #eef2f7;
-      color: #4a5568;
-      border: 1px solid #d5dce8;
+      background: #e8eef7;
+      color: #2d5986;
+      border: 1px solid #c5d5ea;
     }
 
     .badge-filetype {
-      background-color: #fff8ec;
-      color: #8a5a00;
-      border: 1px solid #f5dcaa;
-      font-family: 'Courier New', Courier, monospace;
-      text-transform: none;
-      letter-spacing: 0;
+      background: #f3eefa;
+      color: #5b3d8a;
+      border: 1px solid #d9c8f2;
     }
 
-    /* ── Card Description ── */
+    /* ── Description ── */
     .card-description {
       font-size: 0.9rem;
-      color: #4a5568;
+      color: #4a5f72;
       line-height: 1.65;
+      flex: 1;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
-      padding: 1.5rem 1rem;
       font-size: 0.8rem;
-      color: #8a94a2;
-      border-top: 1px solid #dde2ea;
-      background-color: #f4f6f9;
+      color: #8da5bc;
+      padding: 1.25rem 1rem 2rem;
     }
 
-    /* ── Responsive Tweaks ── */
-    @media (max-width: 500px) {
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
       header {
-        padding: 2rem 1.25rem 2rem;
+        padding: 2rem 1rem 1.75rem;
       }
 
-      .card {
-        padding: 1.1rem 1.15rem;
+      .artifact-grid {
+        grid-template-columns: 1fr;
       }
     }
   </style>
 </head>
 <body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
   <header>
-    <div class="header-inner">
-      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
-      <h1>Interface Prototyping with Figma</h1>
-      <p>
-        This module introduces students to interface prototyping using Figma, one of the industry's
-        leading collaborative design tools. Learners will explore core concepts including frames,
-        grids, component libraries, and auto-layout to create professional, user-centered interface
-        prototypes.
-      </p>
-    </div>
+    <p class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
+    <h1>Interface Prototyping with Figma</h1>
+    <p class="intro">
+      This module introduces learners to interface prototyping using Figma. Topics span
+      core Figma concepts — including frames, grids, component libraries, and auto-layout —
+      through to building interactive low- and high-fidelity prototypes. Use the artifacts
+      below to navigate lectures, references, and supporting materials.
+    </p>
   </header>
 
   <main>
     <h2 class="section-title">Module Artifacts</h2>
 
-    <div class="card-grid">
+    <div class="artifact-grid">
 
-        <div class="card">
-          <div class="card-header">
-            <span class="artifact-name">
-                <a href="content/module_topics.html">Module Topics</a>
-                  <a
-                    class="source-link"
-                    href="source/hierarchy.json"
-                    aria-label="Source file for Module Topics"
-                  >source file</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Module Topics</span>
-            <span class="badge badge-filetype">.json</span>
-          </div>
-          <p class="card-description">
-            This artifact outlines the module&#x27;s topic structure, covering Figma fundamentals such as the interface, frames, grids, component libraries, and auto-layout, serving as a syllabus-style roadmap for learners and instructors to navigate the module&#x27;s content sequence.
-          </p>
+      <!-- Artifact 1: Module Topics -->
+      <div class="card">
+        <div class="card-header">
+          <span class="artifact-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a
+            class="source-link"
+            href="source/hierarchy.json"
+            title="View source file"
+          >source file</a>
         </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <p class="card-description">
+          This artifact outlines the module's topic structure, covering Figma fundamentals
+          such as the interface, frames, grids, component libraries, and auto-layout, serving
+          as a syllabus-style roadmap for learners and instructors to navigate the module's
+          content sequence.
+        </p>
+      </div>
+
+      <!-- Artifact 2: Creating_a_Prototype.pptx -->
+      <div class="card">
+        <div class="card-header">
+          <span class="artifact-name">
+            <a href="presentation/Creating_a_Prototype.pptx">Creating_a_Prototype.pptx</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Presentation</span>
+          <span class="badge badge-filetype">.pptx</span>
+        </div>
+        <p class="card-description">
+          A slide deck walking learners step by step through building interactive prototypes
+          in Figma, from setting up a free account and understanding fidelity levels to
+          progressing from low- to high-fidelity designs, intended for use as a lecture
+          presentation or self-study reference.
+        </p>
+      </div>
 
     </div>
   </main>
 
   <footer>
-    CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Interface Prototyping with Figma
+    &copy; CEN3722 &mdash; Introduction to Human Computer Interfaces
   </footer>
 
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
 </html>

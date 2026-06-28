@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cognitive Walkthrough Evaluation Method — CEN3722</title>
+  <title>Cognitive Walkthrough Evaluation Method – CEN3722</title>
   <style>
     /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6f9;
-      color: #2c3340;
-      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f6f9;
+      color: #2c3e50;
       line-height: 1.6;
+      min-height: 100vh;
     }
 
-    /* ── Header / Hero ── */
+    /* ── Header / Banner ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
       color: #ffffff;
-      padding: 2.8rem 1.5rem 2.2rem;
-      text-align: center;
+      padding: 2.5rem 2rem 2rem;
+      border-bottom: 4px solid #f0a500;
     }
 
     header .course-label {
@@ -30,267 +30,328 @@
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 20px;
-      padding: 0.25rem 0.85rem;
-      margin-bottom: 1rem;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+      padding: 0.2rem 0.6rem;
+      margin-bottom: 0.75rem;
     }
 
     header h1 {
-      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-size: clamp(1.5rem, 3.5vw, 2.25rem);
       font-weight: 700;
       letter-spacing: -0.01em;
-      margin-bottom: 1rem;
-      line-height: 1.25;
+      margin-bottom: 0.75rem;
     }
 
-    header p {
+    header p.intro {
       font-size: 1rem;
-      max-width: 680px;
-      margin: 0 auto;
-      color: rgba(255,255,255,0.88);
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 780px;
+      line-height: 1.7;
     }
 
-    /* ── Main Container ── */
+    /* ── Main Content ── */
     main {
-      max-width: 960px;
-      margin: 2.5rem auto 3rem;
-      padding: 0 1.25rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
     }
 
-    /* ── Section Heading ── */
     .section-heading {
-      font-size: 0.72rem;
+      font-size: 1rem;
       font-weight: 700;
-      letter-spacing: 0.14em;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
-      color: #5a6478;
-      margin-bottom: 1.1rem;
-      padding-bottom: 0.45rem;
-      border-bottom: 2px solid #dde2eb;
+      color: #5a6a7e;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #dce3ea;
     }
 
     /* ── Card Grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.25rem;
     }
 
-    /* ── Artifact Card ── */
     .card {
       background: #ffffff;
-      border: 1px solid #dde2eb;
-      border-radius: 10px;
-      padding: 1.4rem 1.4rem 1.2rem;
+      border: 1px solid #dce3ea;
+      border-radius: 8px;
+      padding: 1.35rem 1.4rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      gap: 0.6rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      position: relative;
     }
 
     .card:hover {
-      box-shadow: 0 6px 22px rgba(37, 99, 168, 0.12);
+      box-shadow: 0 6px 20px rgba(44, 62, 80, 0.1);
       transform: translateY(-2px);
     }
 
-    /* ── Card Top Row: type badge + file type pill ── */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .badge-type {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      background: #e8f0fb;
-      color: #2563a8;
-      border-radius: 20px;
-      padding: 0.2rem 0.65rem;
-    }
-
-    .badge-filetype {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: #f0f2f6;
-      color: #5a6478;
-      border-radius: 20px;
-      padding: 0.2rem 0.6rem;
-      font-family: 'Courier New', monospace;
-    }
-
-    /* ── Card Name Row ── */
-    .card-name-row {
+    /* ── Card Top Row ── */
+    .card-title-row {
       display: flex;
       align-items: baseline;
-      gap: 0.6rem;
       flex-wrap: wrap;
+      gap: 0.55rem;
     }
 
     .card-name {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 700;
       color: #1a3a5c;
-      line-height: 1.3;
+      word-break: break-word;
     }
 
-    .card-name a.primary-link {
-      color: #2563a8;
-      text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.18s ease, color 0.18s ease;
-    }
-
-    .card-name a.primary-link:hover,
-    .card-name a.primary-link:focus {
+    .card-name a {
       color: #1a3a5c;
-      border-bottom-color: #2563a8;
-      outline: none;
+      text-decoration: none;
+      border-bottom: 2px solid #2e6da4;
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+
+    .card-name a:hover {
+      color: #2e6da4;
+      border-color: #f0a500;
     }
 
     .source-link {
       font-size: 0.72rem;
       font-weight: 600;
-      color: #5a6478;
+      letter-spacing: 0.04em;
+      color: #ffffff;
+      background-color: #5a6a7e;
+      border-radius: 3px;
+      padding: 0.15rem 0.45rem;
       text-decoration: none;
-      border: 1px solid #c8cfdb;
-      border-radius: 12px;
-      padding: 0.15rem 0.55rem;
       white-space: nowrap;
-      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+      transition: background-color 0.15s;
+      flex-shrink: 0;
     }
 
-    .source-link:hover,
-    .source-link:focus {
-      background: #e8f0fb;
-      color: #2563a8;
-      border-color: #2563a8;
-      outline: none;
+    .source-link:hover {
+      background-color: #f0a500;
+      color: #1a3a5c;
     }
 
-    /* ── Card Description ── */
+    /* ── Badges Row ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      align-items: center;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      border-radius: 3px;
+      padding: 0.18rem 0.55rem;
+      white-space: nowrap;
+    }
+
+    .badge-type {
+      background-color: #e8f0fb;
+      color: #1a5490;
+      border: 1px solid #c2d8f5;
+    }
+
+    .badge-filetype {
+      background-color: #eef7f0;
+      color: #1e6b35;
+      border: 1px solid #b8dfbf;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* ── Description ── */
     .card-description {
-      font-size: 0.88rem;
-      color: #4a5368;
-      line-height: 1.6;
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.65;
       flex-grow: 1;
     }
 
-    /* ── Divider ── */
-    .card-divider {
-      height: 1px;
-      background: #eef0f5;
-      border: none;
-      margin: 0.1rem 0 0;
+    /* ── No-link style ── */
+    .card-name span {
+      color: #2c3e50;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
-      padding: 1.5rem 1rem 2rem;
-      font-size: 0.78rem;
-      color: #8a93a6;
-      border-top: 1px solid #dde2eb;
-      background: #f4f6f9;
+      font-size: 0.8rem;
+      color: #8a99aa;
+      padding: 1.5rem 1rem;
+      border-top: 1px solid #dce3ea;
+      background-color: #f4f6f9;
     }
 
-    /* ── Focus Visible (accessibility) ── */
-    a:focus-visible {
-      outline: 2px solid #2563a8;
-      outline-offset: 2px;
-      border-radius: 3px;
-    }
-
-    /* ── Responsive tweaks ── */
+    /* ── Responsive ── */
     @media (max-width: 480px) {
-      header { padding: 2rem 1rem 1.6rem; }
-      .card { padding: 1.1rem; }
+      header { padding: 1.75rem 1rem 1.5rem; }
+      main { padding: 1.75rem 1rem 3rem; }
+      .card-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
   <header>
     <div class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</div>
     <h1>Cognitive Walkthrough Evaluation Method</h1>
-    <p>
-      Explore the artifacts for this module to learn about the cognitive walkthrough technique &mdash;
-      a structured usability evaluation method that assesses learnability by stepping through tasks
-      from the perspective of a new user.
+    <p class="intro">
+      This module explores the Cognitive Walkthrough, a structured usability inspection technique
+      in which evaluators systematically step through an interface's task sequences to identify
+      potential breakdowns in learnability. Topics include its theoretical foundations, preparation
+      requirements, four guiding evaluation questions, and its practical application in interface
+      design and assessment.
     </p>
   </header>
 
   <main>
-    <p class="section-heading">Module Artifacts &mdash; 3 items</p>
+    <h2 class="section-heading">Module Artifacts</h2>
 
     <div class="card-grid">
 
-      <!-- ── Card 1: Module Topics ── -->
-      <article class="card">
+      <!-- Artifact 1: Module Topics -->
+      <div class="card">
+        <div class="card-title-row">
+          <div class="card-name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </div>
+          <a class="source-link" href="source/hierarchy.json" title="View source file">source file</a>
+        </div>
         <div class="card-meta">
-          <span class="badge-type">Module Topics</span>
-          <span class="badge-filetype">.json</span>
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
         </div>
-        <div class="card-name-row">
-          <span class="card-name">
-            <a class="primary-link" href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <hr class="card-divider" />
         <p class="card-description">
           An outline of all topics and subtopics covered in this module, including the cognitive
-          walkthrough&rsquo;s theoretical foundations, preparation steps, four evaluative questions,
-          and related procedures, giving learners and instructors a structured overview of the
-          module&rsquo;s scope.
+          walkthrough's theoretical foundations, preparation steps, four evaluative questions, and
+          related procedures, giving learners and instructors a structured overview of the module's
+          scope.
         </p>
-      </article>
+      </div>
 
-      <!-- ── Card 2: Printable HTML ── -->
-      <article class="card">
+      <!-- Artifact 2: Interactive -->
+      <div class="card">
+        <div class="card-title-row">
+          <div class="card-name">
+            <a href="content/_interactive.html">Cognitive_Walkthrough_Evalua</a>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge-type">Text Content</span>
-          <span class="badge-filetype">.html</span>
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-name-row">
-          <span class="card-name">
-            <a class="primary-link" href="content/_printable.html">Printable HTML</a>
-          </span>
+        <p class="card-description">
+          Core instructional reading covering the origins, theoretical basis, and key characteristics
+          of the Cognitive Walkthrough method — including its development by Polson et al. and how
+          evaluators step through an interface without real users — for learners to study as primary
+          course content.
+        </p>
+      </div>
+
+      <!-- Artifact 3: Printable -->
+      <div class="card">
+        <div class="card-title-row">
+          <div class="card-name">
+            <a href="content/_printable.html">Cognitive_Walkthrough_Evalua</a>
+          </div>
         </div>
-        <hr class="card-divider" />
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
         <p class="card-description">
           A printable HTML document presenting the full module content on the cognitive walkthrough
-          method &mdash; its origins, theoretical basis, preparation requirements, and step-by-step
-          evaluation procedure &mdash; intended for learners to read, study, or print as a
-          self-contained reference.
+          method — its origins, theoretical basis, preparation requirements, and step-by-step
+          evaluation procedure — intended for learners to read, study, or print as a self-contained
+          reference.
         </p>
-      </article>
+      </div>
 
-      <!-- ── Card 3: Printable HTML — Topics ── -->
-      <article class="card">
+      <!-- Artifact 4: Interactive Topics T1 -->
+      <div class="card">
+        <div class="card-title-row">
+          <div class="card-name">
+            <a href="content/Cognitive_Walkthrough_Evalua_interactive_topics_t1.html">Cognitive_Walkthrough_Evalua</a>
+          </div>
+        </div>
         <div class="card-meta">
-          <span class="badge-type">Text Content</span>
-          <span class="badge-filetype">.html</span>
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-name-row">
-          <span class="card-name">
-            <a class="primary-link" href="content/Cognitive_Walkthrough_Evalua_printable_topics.html">Printable HTML &mdash; Topics</a>
-          </span>
-        </div>
-        <hr class="card-divider" />
         <p class="card-description">
-          A printable HTML topic-overview document that covers all module topics at a high level
-          with brief introductions and key points for each, intended as a concise summary learners
-          or instructors can use for quick review or course planning.
+          A duplicate or alternate version of the core instructional reading on the foundations of the
+          Cognitive Walkthrough method, covering the same origins and evaluator-based inspection
+          approach, which learners or instructors can reference alongside the primary text.
         </p>
-      </article>
+      </div>
+
+      <!-- Artifact 5: Interactive Topics -->
+      <div class="card">
+        <div class="card-title-row">
+          <div class="card-name">
+            <a href="content/Cognitive_Walkthrough_Evalua_interactive_topics.html">Cognitive_Walkthrough_Evalua</a>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A text content artifact for the Cognitive Walkthrough module that contains no retrievable
+          preview content, making its specific subject matter and intended instructional use
+          impossible to determine from the information provided.
+        </p>
+      </div>
+
+      <!-- Artifact 6: Recall Steps Guiding -->
+      <div class="card">
+        <div class="card-title-row">
+          <div class="card-name">
+            <a href="content/Cognitive_Walkthrough_Evalua_lesson-plan.html">Recall Steps Guiding</a>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A learning-objectives page focused on the remember/recall level, specifying that learners
+          should be able to list the sequential steps of the Cognitive Walkthrough method and identify
+          the guiding questions associated with each step, used by instructors to set expectations and
+          by learners to self-assess foundational knowledge.
+        </p>
+      </div>
+
+      <!-- Artifact 7: Printable Topics -->
+      <div class="card">
+        <div class="card-title-row">
+          <div class="card-name">
+            <a href="content/Cognitive_Walkthrough_Evalua_printable_topics.html">Cognitive_Walkthrough_Evalua</a>
+          </div>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          A printable HTML topic-overview document that covers all module topics at a high level with
+          brief introductions and key points for each, intended as a concise summary learners or
+          instructors can use for quick review or course planning.
+        </p>
+      </div>
 
     </div>
   </main>
@@ -302,10 +363,10 @@
 
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p><h2>Source Materials</h2><ul class="artifact-list">  <li class="artifact-item">
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p><h2>Source Materials</h2><ul class="artifact-list">  <li class="artifact-item">
     <div class="artifact-icon">⬇</div>
     <div class="artifact-body">
       <a class="artifact-link" href="source-materials/source-1.html" download>Topic Prompt</a>
     </div>
-  </li></ul></section></body>
+  </li></ul></section><script src="embed-inject.js" defer></script></body>
 </html>

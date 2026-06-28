@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Analyzing User Testing Results and Iterative Redesign — CEN3722</title>
   <style>
     /* ── Reset & Base ── */
@@ -18,109 +18,127 @@
     }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
       background-color: #f4f6f9;
-      color: #1e2a38;
+      color: #1e2430;
       line-height: 1.65;
       min-height: 100vh;
     }
 
-    /* ── Layout ── */
+    /* ── Page Shell ── */
     .page-wrapper {
       max-width: 960px;
       margin: 0 auto;
       padding: 2.5rem 1.5rem 4rem;
     }
 
-    /* ── Header / Banner ── */
-    .module-header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #25567e 60%, #2d7ab5 100%);
-      color: #ffffff;
-      border-radius: 10px;
-      padding: 2.5rem 2.25rem 2rem;
-      margin-bottom: 2.5rem;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+    /* ── Course Banner ── */
+    .course-banner {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
     }
 
-    .course-label {
+    .course-code {
       display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
+      background-color: #1a4f8a;
+      color: #ffffff;
+      font-size: 0.75rem;
+      font-weight: 700;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      background-color: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
       padding: 0.25rem 0.65rem;
-      margin-bottom: 1rem;
+      border-radius: 4px;
+    }
+
+    .course-name {
+      font-size: 0.85rem;
+      color: #556070;
+      font-weight: 500;
+    }
+
+    /* ── Module Header ── */
+    .module-header {
+      border-left: 5px solid #1a4f8a;
+      padding-left: 1.1rem;
+      margin-bottom: 1.5rem;
     }
 
     .module-header h1 {
-      font-size: clamp(1.5rem, 4vw, 2.1rem);
+      font-size: clamp(1.4rem, 3vw, 2rem);
       font-weight: 700;
+      color: #0f1d33;
       line-height: 1.25;
-      margin-bottom: 1rem;
+      margin-bottom: 0.6rem;
     }
 
-    .module-header p {
+    .module-intro {
       font-size: 0.97rem;
-      color: rgba(255, 255, 255, 0.88);
+      color: #3d4a5c;
       max-width: 72ch;
     }
 
-    /* ── Section Label ── */
+    /* ── Divider ── */
+    .section-divider {
+      border: none;
+      border-top: 1px solid #d6dce6;
+      margin: 2rem 0;
+    }
+
+    /* ── Section Heading ── */
     .section-label {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #5a7290;
-      margin-bottom: 1rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 2px solid #dde4ed;
+      color: #7a8799;
+      margin-bottom: 1.1rem;
     }
 
-    /* ── Artifact Card Grid ── */
+    /* ── Artifact Grid ── */
     .artifact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.25rem;
     }
 
+    /* ── Artifact Card ── */
     .artifact-card {
       background: #ffffff;
-      border: 1px solid #d8e1ec;
+      border: 1px solid #dde3ec;
       border-radius: 8px;
-      padding: 1.5rem 1.6rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.055);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      padding: 1.25rem 1.3rem 1.15rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
     }
 
     .artifact-card:hover {
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 18px rgba(26, 79, 138, 0.11);
       transform: translateY(-2px);
     }
 
-    /* ── Card: top row ── */
+    /* ── Card Top Row ── */
     .card-top {
       display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.75rem;
       flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.55rem;
     }
 
+    /* ── Artifact Name / Link ── */
     .artifact-name {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #1a3a5c;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #0f1d33;
       line-height: 1.3;
     }
 
     .artifact-name a {
-      color: #1a5fa8;
+      color: #1a4f8a;
       text-decoration: none;
       border-bottom: 2px solid transparent;
       transition: border-color 0.15s ease, color 0.15s ease;
@@ -128,131 +146,151 @@
 
     .artifact-name a:hover,
     .artifact-name a:focus {
-      color: #0f3e74;
-      border-bottom-color: #1a5fa8;
+      color: #0d3668;
+      border-bottom-color: #1a4f8a;
       outline: none;
     }
 
     .artifact-name a:focus-visible {
-      outline: 3px solid #4a9de0;
+      outline: 3px solid #4a90d9;
       outline-offset: 2px;
       border-radius: 2px;
     }
 
+    /* ── Source File Link ── */
     .source-link {
-      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.28rem;
+      font-size: 0.73rem;
       font-weight: 600;
-      color: #ffffff;
-      background-color: #5a7fa8;
+      color: #556a85;
+      text-decoration: none;
+      background: #eef2f8;
+      border: 1px solid #c8d3e3;
       border-radius: 4px;
       padding: 0.18rem 0.55rem;
-      text-decoration: none;
       white-space: nowrap;
-      transition: background-color 0.15s ease;
       flex-shrink: 0;
-      align-self: center;
+      transition: background 0.15s ease, color 0.15s ease;
     }
 
     .source-link:hover,
     .source-link:focus {
-      background-color: #3d6080;
+      background: #d9e4f2;
+      color: #1a4f8a;
       outline: none;
     }
 
     .source-link:focus-visible {
-      outline: 3px solid #4a9de0;
+      outline: 3px solid #4a90d9;
       outline-offset: 2px;
     }
 
-    /* ── Card: badges ── */
+    .source-link::before {
+      content: "⬇";
+      font-size: 0.68rem;
+    }
+
+    /* ── Badges Row ── */
     .card-badges {
       display: flex;
+      align-items: center;
       flex-wrap: wrap;
       gap: 0.45rem;
-      align-items: center;
     }
 
     .badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
-      border-radius: 4px;
       padding: 0.18rem 0.55rem;
+      border-radius: 4px;
     }
 
     .badge-type {
-      background-color: #e8f0fa;
-      color: #1a4d8a;
-      border: 1px solid #c3d5ee;
+      background-color: #e8f0fb;
+      color: #1a4f8a;
+      border: 1px solid #bdd0ed;
     }
 
     .badge-filetype {
-      background-color: #edf7f0;
-      color: #1a6638;
-      border: 1px solid #b5dfc2;
-      font-family: 'Courier New', monospace;
+      background-color: #f0f4f0;
+      color: #2e6e3e;
+      border: 1px solid #b3d4bc;
+      font-family: "Courier New", Courier, monospace;
     }
 
-    /* ── Card: description ── */
+    /* ── Description ── */
     .artifact-description {
-      font-size: 0.9rem;
-      color: #3d4f62;
+      font-size: 0.875rem;
+      color: #4a5568;
       line-height: 1.6;
+      flex-grow: 1;
     }
 
     /* ── Footer ── */
     .page-footer {
-      margin-top: 3rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid #d8e1ec;
+      margin-top: 3.5rem;
       text-align: center;
-      font-size: 0.8rem;
-      color: #7a93ad;
+      font-size: 0.78rem;
+      color: #9aa4b2;
+      border-top: 1px solid #d6dce6;
+      padding-top: 1.25rem;
     }
 
-    /* ── Responsive tweaks ── */
-    @media (max-width: 540px) {
-      .module-header {
-        padding: 2rem 1.4rem 1.75rem;
+    /* ── Responsive Tweaks ── */
+    @media (max-width: 480px) {
+      .artifact-grid {
+        grid-template-columns: 1fr;
       }
 
-      .artifact-card {
-        padding: 1.25rem 1.2rem;
+      .module-header h1 {
+        font-size: 1.3rem;
       }
     }
   </style>
 </head>
 <body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
   <div class="page-wrapper">
 
-    <!-- ── Module Header ── -->
-    <header class="module-header" role="banner">
-      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
+    <!-- Course Identity -->
+    <div class="course-banner">
+      <span class="course-code">CEN3722</span>
+      <span class="course-name">Introduction to Human Computer Interfaces</span>
+    </div>
+
+    <!-- Module Header -->
+    <header class="module-header">
       <h1>Analyzing User Testing Results and Iterative Redesign</h1>
-      <p>
-        This module guides you through the complete post-testing workflow: collecting and organizing
-        usability findings, classifying and diagnosing errors, and applying evidence-based
-        prioritization frameworks to drive iterative redesign decisions. Work through the artifacts
-        below to build both conceptual understanding and practical skills.
+      <p class="module-intro">
+        This module guides learners through the end-to-end process of making sense of usability test
+        data — moving from raw observations to actionable redesign decisions. Topics span quantitative
+        and qualitative analysis techniques, systematic organization of findings, error classification,
+        and evidence-based prioritization of interface improvements.
       </p>
     </header>
 
-    <!-- ── Artifacts Section ── -->
-    <main>
-      <p class="section-label">Module Artifacts</p>
+    <hr class="section-divider">
 
-      <div class="artifact-grid" role="list">
+    <!-- Artifacts Section -->
+    <section aria-labelledby="artifacts-heading">
+      <p class="section-label" id="artifacts-heading">Module Artifacts</p>
 
-        <!-- ── Artifact: Module Topics ── -->
-        <article class="artifact-card" role="listitem">
+      <div class="artifact-grid">
+
+        <!-- Artifact: Module Topics -->
+        <article class="artifact-card" aria-label="Module Topics">
           <div class="card-top">
             <span class="artifact-name">
-              <!-- viewHref is non-empty → link -->
               <a href="content/module_topics.html">Module Topics</a>
             </span>
-            <!-- sourceHref is non-empty → secondary link -->
-            <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">source file</a>
+            <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">
+              source file
+            </a>
           </div>
 
           <div class="card-badges">
@@ -261,24 +299,24 @@
           </div>
 
           <p class="artifact-description">
-            A structured topic outline covering the full workflow of usability testing analysis&mdash;from
+            A structured topic outline covering the full workflow of usability testing analysis — from
             distinguishing quantitative and qualitative data, collecting and organizing findings via
-            affinity diagrams and issue logs, classifying and root-causing errors, and prioritizing fixes
-            using severity and impact frameworks&mdash;which instructors use to sequence lessons and
-            learners use to navigate the module&rsquo;s core concepts.
+            affinity diagrams and issue logs, classifying and root-causing errors, and prioritizing
+            fixes using severity and impact frameworks — which instructors use to sequence lessons and
+            learners use to navigate the module's core concepts.
           </p>
         </article>
 
       </div>
-    </main>
+    </section>
 
-    <!-- ── Footer ── -->
-    <footer class="page-footer" role="contentinfo">
+    <!-- Footer -->
+    <footer class="page-footer">
       <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp; Module: Analyzing User Testing Results and Iterative Redesign</p>
     </footer>
 
   </div>
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
 </html>

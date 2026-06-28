@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Scoping and App Platform Selection – CEN3722</title>
+  <title>Project Scoping and App Platform Selection — CEN3722</title>
   <style>
     *, *::before, *::after {
       box-sizing: border-box;
@@ -11,19 +11,41 @@
       padding: 0;
     }
 
+    :root {
+      --color-bg: #f4f6f9;
+      --color-surface: #ffffff;
+      --color-border: #dde2ea;
+      --color-primary: #1a4f8a;
+      --color-primary-hover: #153e6e;
+      --color-secondary: #4a7ab5;
+      --color-accent: #e8eff8;
+      --color-text: #1e2330;
+      --color-text-muted: #5a6375;
+      --color-badge-bg: #eef2f8;
+      --color-badge-text: #2d4f7a;
+      --color-tag-assignment: #fff4e5;
+      --color-tag-assignment-text: #7a4500;
+      --color-tag-topics: #e8f5e9;
+      --color-tag-topics-text: #1b5e20;
+      --radius: 8px;
+      --shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+      --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.12);
+      --font-main: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    }
+
     body {
-      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
-      background-color: #f4f6f9;
-      color: #2c3e50;
+      font-family: var(--font-main);
+      background-color: var(--color-bg);
+      color: var(--color-text);
       line-height: 1.6;
-      min-height: 100vh;
+      padding: 0 0 60px;
     }
 
     /* ── Header ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      background: linear-gradient(135deg, #1a4f8a 0%, #2563ae 100%);
       color: #ffffff;
-      padding: 2.5rem 1.5rem 2rem;
+      padding: 48px 24px 40px;
     }
 
     .header-inner {
@@ -32,178 +54,248 @@
     }
 
     .course-label {
-      font-size: 0.8rem;
+      display: inline-block;
+      font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      opacity: 0.78;
-      margin-bottom: 0.45rem;
+      background: rgba(255, 255, 255, 0.18);
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 4px;
+      padding: 3px 10px;
+      margin-bottom: 16px;
+      color: #dce9f8;
     }
 
     header h1 {
-      font-size: clamp(1.45rem, 3vw, 2rem);
+      font-size: clamp(1.5rem, 4vw, 2.1rem);
       font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 14px;
       letter-spacing: -0.01em;
-      margin-bottom: 0.85rem;
     }
 
     header p {
-      font-size: 0.97rem;
+      font-size: 1rem;
       max-width: 680px;
-      opacity: 0.9;
-      line-height: 1.65;
+      color: #c8daf2;
+      line-height: 1.7;
     }
 
     /* ── Main content ── */
     main {
       max-width: 960px;
-      margin: 2.5rem auto;
-      padding: 0 1.25rem 3rem;
+      margin: 40px auto 0;
+      padding: 0 24px;
     }
 
     .section-heading {
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #5a6a7e;
-      margin-bottom: 1.1rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 2px solid #dce3ec;
+      color: var(--color-text-muted);
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--color-border);
     }
 
     /* ── Card grid ── */
     .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
+      gap: 20px;
     }
 
     .card {
-      background: #ffffff;
-      border: 1px solid #dce3ec;
-      border-radius: 8px;
-      padding: 1.35rem 1.4rem 1.25rem;
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      gap: 12px;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
 
     .card:hover {
-      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
+      box-shadow: var(--shadow-hover);
       transform: translateY(-2px);
     }
 
     /* ── Card header row ── */
     .card-header {
       display: flex;
+      align-items: flex-start;
+      gap: 10px;
       flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.55rem 0.75rem;
     }
 
+    .type-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 3px 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .type-badge.assignment {
+      background: var(--color-tag-assignment);
+      color: var(--color-tag-assignment-text);
+    }
+
+    .type-badge.module-topics {
+      background: var(--color-tag-topics);
+      color: var(--color-tag-topics-text);
+    }
+
+    .filetype-tag {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      background: var(--color-badge-bg);
+      color: var(--color-badge-text);
+      border-radius: 4px;
+      padding: 3px 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      font-family: 'Courier New', Courier, monospace;
+    }
+
+    /* ── Artifact name ── */
     .card-name {
       font-size: 0.97rem;
-      font-weight: 650;
-      color: #1a3a5c;
-      flex: 1 1 auto;
-      min-width: 0;
+      font-weight: 600;
+      line-height: 1.4;
+      color: var(--color-text);
     }
 
     .card-name a {
-      color: #1a3a5c;
-      text-decoration: underline;
-      text-decoration-color: rgba(26,58,92,0.35);
-      text-underline-offset: 3px;
-      word-break: break-word;
-    }
-
-    .card-name a:hover {
-      color: #2563a8;
-      text-decoration-color: #2563a8;
-    }
-
-    .source-link {
-      font-size: 0.73rem;
-      font-weight: 600;
-      color: #2563a8;
+      color: var(--color-primary);
       text-decoration: none;
-      white-space: nowrap;
-      border: 1px solid #9dbde8;
-      border-radius: 4px;
-      padding: 0.15em 0.5em;
-      background: #eef4fc;
-      flex-shrink: 0;
-      transition: background 0.15s, border-color 0.15s;
+      border-bottom: 2px solid transparent;
+      transition: color 0.15s, border-color 0.15s;
     }
 
-    .source-link:hover {
-      background: #d4e6f8;
-      border-color: #2563a8;
+    .card-name a:hover,
+    .card-name a:focus {
+      color: var(--color-primary-hover);
+      border-bottom-color: var(--color-primary-hover);
+      outline: none;
     }
 
-    /* ── Badges row ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
+    .card-name a:focus-visible {
+      outline: 3px solid #4a9eff;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* ── Source link ── */
+    .source-link {
+      display: inline-flex;
       align-items: center;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
+      gap: 4px;
+      font-size: 0.74rem;
+      font-weight: 500;
+      color: var(--color-secondary);
+      text-decoration: none;
+      background: var(--color-accent);
+      border: 1px solid #c5d8f0;
       border-radius: 4px;
-      padding: 0.18em 0.55em;
+      padding: 2px 8px;
+      margin-left: 8px;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
     }
 
-    .badge-type {
-      background: #e8f0fe;
-      color: #1a3a7c;
+    .source-link::before {
+      content: "↓";
+      font-size: 0.75rem;
     }
 
-    .badge-filetype {
-      background: #f0f4f8;
-      color: #4a5568;
-      font-family: 'Courier New', Courier, monospace;
-      font-weight: 600;
-      letter-spacing: 0.02em;
+    .source-link:hover,
+    .source-link:focus {
+      background: #d6e7f7;
+      color: var(--color-primary);
+      outline: none;
+    }
+
+    .source-link:focus-visible {
+      outline: 3px solid #4a9eff;
+      outline-offset: 2px;
+    }
+
+    /* ── Name + source wrapper ── */
+    .name-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 6px;
     }
 
     /* ── Description ── */
     .card-description {
       font-size: 0.875rem;
-      color: #4a5568;
-      line-height: 1.6;
+      color: var(--color-text-muted);
+      line-height: 1.65;
       flex: 1;
+    }
+
+    /* ── Divider ── */
+    .card-divider {
+      height: 1px;
+      background: var(--color-border);
+      margin: 0;
     }
 
     /* ── Footer ── */
     footer {
+      max-width: 960px;
+      margin: 48px auto 0;
+      padding: 0 24px;
+      font-size: 0.8rem;
+      color: var(--color-text-muted);
       text-align: center;
-      padding: 1.25rem 1rem;
-      font-size: 0.78rem;
-      color: #8899aa;
-      border-top: 1px solid #dce3ec;
+    }
+
+    footer span {
+      display: inline-block;
+      padding-top: 16px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 540px) {
+      header {
+        padding: 36px 18px 32px;
+      }
+
+      main {
+        padding: 0 16px;
+      }
+
+      .card {
+        padding: 18px;
+      }
     }
   </style>
 </head>
 <body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
   <header>
     <div class="header-inner">
-      <p class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
+      <div class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</div>
       <h1>Project Scoping and App Platform Selection</h1>
       <p>
-        This module introduces the foundational steps of defining a software project's scope
-        and selecting an appropriate target platform. Students will explore platform categories,
-        platform-specific design considerations for Android, iOS, and others, and will begin
-        collaborative group work to produce a formal project scope document.
+        This module introduces the foundational process of defining a software project's scope and selecting
+        an appropriate target platform. Students will examine platform categories and their design implications —
+        including Android, iOS, and beyond — and apply these concepts through structured group project assignments.
       </p>
     </div>
   </header>
@@ -214,73 +306,74 @@
     <div class="card-grid">
 
       <!-- Artifact 1: Module Topics -->
-      <div class="card">
+      <article class="card">
         <div class="card-header">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
+          <span class="type-badge module-topics">Module Topics</span>
+          <span class="filetype-tag">.json</span>
         </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
+        <div class="card-divider"></div>
+        <div class="card-name">
+          <div class="name-row">
+            <a href="content/module_topics.html">Module Topics</a>
+            <a class="source-link" href="source/hierarchy.json">source file</a>
+          </div>
         </div>
         <p class="card-description">
-          A structured outline of the module's topics and subtopics, covering project scoping,
-          target platform categories, and platform-specific characteristics for Android, iOS,
-          and others, used as a navigational reference for the module's content.
+          A structured outline of the module's topics and subtopics, covering project scoping, target platform
+          categories, and platform-specific characteristics for Android, iOS, and others, used as a navigational
+          reference for the module's content.
         </p>
-      </div>
+      </article>
 
       <!-- Artifact 2: Assignment 1.1 -->
-      <div class="card">
+      <article class="card">
         <div class="card-header">
-          <span class="card-name">
+          <span class="type-badge assignment">Assignment</span>
+          <span class="filetype-tag">.md</span>
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-name">
+          <div class="name-row">
             <a href="content/module_assignment_A001_Group_Project_Assignment_1_1_Project.html">Assignment 1.1: Project Scope Definition and Formal Project Description</a>
-          </span>
-          <a class="source-link" href="source/A001_Group_Project_Assignment_1_1_Project.md">source file</a>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Assignment</span>
-          <span class="badge badge-filetype">.md</span>
+            <a class="source-link" href="source/A001_Group_Project_Assignment_1_1_Project.md">source file</a>
+          </div>
         </div>
         <p class="card-description">
-          A detailed markdown assignment sheet guiding student groups through creating a formal
-          project scope document that defines measurable goals, target users, platform justification,
-          and design constraints, serving as the first installment of a semester-long group
-          project series.
+          A detailed markdown assignment sheet guiding student groups through creating a formal project scope
+          document that defines measurable goals, target users, platform justification, and design constraints,
+          serving as the first installment of a semester-long group project series.
         </p>
-      </div>
+      </article>
 
-      <!-- Artifact 3: Group Project Assignment 1 (no viewHref link, no sourceHref) -->
-      <div class="card">
+      <!-- Artifact 3: Group Project Assignment 1 -->
+      <article class="card">
         <div class="card-header">
-          <span class="card-name">
-            <a href="assignments/index.html">Group Project Assignment 1: Project Scoping and Platform Selection</a>
-          </span>
+          <span class="type-badge assignment">Assignment</span>
+          <span class="filetype-tag">.html</span>
         </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Assignment</span>
-          <span class="badge badge-filetype">.html</span>
+        <div class="card-divider"></div>
+        <div class="card-name">
+          <div class="name-row">
+            <a href="assignments/index.html">Group Project Assignment 1: Project Scoping and Platform Selection</a>
+          </div>
         </div>
         <p class="card-description">
-          An HTML assignment brief directing student teams to collaboratively define their app
-          project scope and select a target platform, outlining submission requirements, estimated
-          effort, and group coordination expectations as the first entry in the ongoing group
-          project series.
+          An HTML assignment brief directing student teams to collaboratively define their app project scope and
+          select a target platform, outlining submission requirements, estimated effort, and group coordination
+          expectations as the first entry in the ongoing group project series.
         </p>
-      </div>
+      </article>
 
     </div>
   </main>
 
   <footer>
-    CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Project Scoping and App Platform Selection
+    <span>CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp; Module: Project Scoping and App Platform Selection</span>
   </footer>
 
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p><h2>Source Materials</h2><ul class="artifact-list">  <li class="artifact-item">
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p><h2>Source Materials</h2><ul class="artifact-list">  <li class="artifact-item">
     <div class="artifact-icon">⬇</div>
     <div class="artifact-body">
       <a class="artifact-link" href="source-materials/source-1.html" download>Topic Prompt</a>
@@ -291,5 +384,5 @@
     <div class="artifact-body">
       <a class="artifact-link" href="source-materials/source-2.html" download>Topic Prompt</a>
     </div>
-  </li></ul></section></body>
+  </li></ul></section><script src="embed-inject.js" defer></script></body>
 </html>

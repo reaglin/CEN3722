@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Controlled User Testing and Data Collection – CEN3722</title>
   <style>
     /* ── Reset & Base ── */
@@ -18,24 +18,28 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
       background-color: #f4f6f9;
-      color: #2c3e50;
-      line-height: 1.7;
+      color: #2c3340;
+      line-height: 1.65;
       min-height: 100vh;
     }
 
-    /* ── Page Header ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
-      color: #ffffff;
-      padding: 3rem 2rem 2.5rem;
-      border-bottom: 4px solid #1a5f8a;
+    /* ── Page Shell ── */
+    .page-wrapper {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
     }
 
-    .header-inner {
-      max-width: 960px;
-      margin: 0 auto;
+    /* ── Header Banner ── */
+    .page-header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #ffffff;
+      border-radius: 10px;
+      padding: 2.5rem 2.5rem 2.25rem;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 4px 18px rgba(26, 58, 92, 0.22);
     }
 
     .course-label {
@@ -45,271 +49,233 @@
       letter-spacing: 0.1em;
       text-transform: uppercase;
       background-color: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.28);
       border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 1rem;
-      color: #d6eaf8;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.9rem;
+      color: #d6e8ff;
     }
 
-    header h1 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
+    .page-header h1 {
+      font-size: clamp(1.55rem, 3.5vw, 2.25rem);
       font-weight: 700;
       line-height: 1.25;
       margin-bottom: 1rem;
-      letter-spacing: -0.02em;
+      color: #ffffff;
     }
 
-    header p {
+    .page-header p {
       font-size: 1rem;
-      color: #cfe2f3;
-      max-width: 700px;
-      line-height: 1.75;
+      color: #cfe1f5;
+      max-width: 72ch;
+      line-height: 1.7;
     }
 
-    /* ── Main Content ── */
-    main {
-      max-width: 960px;
-      margin: 2.5rem auto;
-      padding: 0 1.5rem 3rem;
-    }
-
+    /* ── Section Heading ── */
     .section-heading {
-      font-size: 0.75rem;
+      font-size: 0.8rem;
       font-weight: 700;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
-      color: #6b7c93;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #dce3ec;
+      color: #5a6a82;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #dde3ed;
     }
 
-    /* ── Artifact Card Grid ── */
-    .card-grid {
+    /* ── Card Grid ── */
+    .artifact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
     }
 
-    .card {
+    /* ── Artifact Card ── */
+    .artifact-card {
       background: #ffffff;
-      border: 1px solid #dce3ec;
-      border-radius: 10px;
-      padding: 1.5rem 1.5rem 1.25rem;
+      border: 1px solid #dde3ed;
+      border-radius: 9px;
+      padding: 1.5rem 1.6rem 1.4rem;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      box-shadow: 0 2px 8px rgba(30, 60, 100, 0.06);
+      gap: 0.6rem;
+      box-shadow: 0 2px 8px rgba(44, 51, 64, 0.07);
       transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
 
-    .card:hover {
-      box-shadow: 0 6px 20px rgba(30, 60, 100, 0.12);
+    .artifact-card:hover {
+      box-shadow: 0 6px 20px rgba(37, 99, 168, 0.14);
       transform: translateY(-2px);
     }
 
-    /* ── Card Header Row ── */
-    .card-name-row {
+    /* ── Card Top Row ── */
+    .card-title-row {
       display: flex;
       align-items: baseline;
       flex-wrap: wrap;
       gap: 0.5rem;
     }
 
-    .card-name {
+    .artifact-name {
       font-size: 1.05rem;
       font-weight: 700;
       color: #1a3a5c;
       line-height: 1.3;
     }
 
-    .card-name a {
-      color: #1a5f8a;
+    .artifact-name a {
+      color: #1a55a0;
       text-decoration: none;
       border-bottom: 2px solid transparent;
       transition: border-color 0.15s ease, color 0.15s ease;
     }
 
-    .card-name a:hover,
-    .card-name a:focus {
-      color: #0e3f63;
-      border-bottom-color: #2e6da4;
+    .artifact-name a:hover,
+    .artifact-name a:focus {
+      color: #0e3672;
+      border-bottom-color: #0e3672;
       outline: none;
     }
 
-    .card-name a:focus-visible {
-      outline: 2px solid #2e6da4;
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    /* ── Source File Link ── */
     .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.72rem;
+      font-size: 0.73rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      color: #5a7a9a;
-      text-decoration: none;
-      background-color: #eaf2fb;
-      border: 1px solid #b8d4ec;
+      color: #ffffff;
+      background-color: #4a7ab5;
       border-radius: 4px;
-      padding: 0.18rem 0.5rem;
+      padding: 0.18rem 0.55rem;
+      text-decoration: none;
       white-space: nowrap;
-      transition: background-color 0.15s ease, color 0.15s ease;
+      transition: background-color 0.15s ease;
+      flex-shrink: 0;
+      align-self: center;
     }
 
     .source-link:hover,
     .source-link:focus {
-      background-color: #d0e8f8;
-      color: #1a3a5c;
+      background-color: #2c5a93;
       outline: none;
     }
 
-    .source-link:focus-visible {
-      outline: 2px solid #2e6da4;
-      outline-offset: 2px;
-    }
-
-    .source-link::before {
-      content: '⬇';
-      font-size: 0.65rem;
-    }
-
-    /* ── Card Meta Badges ── */
+    /* ── Meta Badges ── */
     .card-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.4rem;
+      gap: 0.45rem;
       align-items: center;
     }
 
     .badge {
-      display: inline-block;
       font-size: 0.7rem;
       font-weight: 600;
-      letter-spacing: 0.05em;
-      padding: 0.2rem 0.55rem;
-      border-radius: 20px;
-      line-height: 1.4;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
     }
 
     .badge-type {
-      background-color: #e8edf5;
-      color: #3a5272;
-      border: 1px solid #c8d6e8;
+      background-color: #e8f0fc;
+      color: #1a55a0;
+      border: 1px solid #c2d4f0;
     }
 
     .badge-filetype {
-      background-color: #fef9ec;
-      color: #7a5a10;
-      border: 1px solid #f0d98a;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.68rem;
+      background-color: #eef7f0;
+      color: #1d6b38;
+      border: 1px solid #b8dfc4;
+      font-family: "Courier New", Courier, monospace;
     }
 
-    /* ── Card Description ── */
+    /* ── Description ── */
     .card-description {
       font-size: 0.9rem;
       color: #4a5568;
-      line-height: 1.7;
-      flex: 1;
+      line-height: 1.65;
+      flex-grow: 1;
     }
 
     /* ── Footer ── */
-    footer {
+    .page-footer {
+      margin-top: 3.5rem;
       text-align: center;
-      padding: 1.5rem 1rem;
       font-size: 0.8rem;
-      color: #8a9ab0;
-      border-top: 1px solid #dce3ec;
-      background-color: #f0f3f7;
+      color: #8a96a8;
+      border-top: 1px solid #dde3ed;
+      padding-top: 1.5rem;
     }
 
     /* ── Responsive Tweaks ── */
-    @media (max-width: 600px) {
-      header {
-        padding: 2rem 1.25rem 2rem;
+    @media (max-width: 520px) {
+      .page-header {
+        padding: 1.75rem 1.4rem 1.6rem;
       }
 
-      main {
-        margin: 1.5rem auto;
-        padding: 0 1rem 2.5rem;
-      }
-
-      .card {
-        padding: 1.25rem 1.25rem 1rem;
+      .artifact-card {
+        padding: 1.25rem 1.2rem 1.15rem;
       }
     }
   </style>
 </head>
 <body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+  <div class="page-wrapper">
 
-  <!-- ══════════════════════════════════════════
-       PAGE HEADER
-  ══════════════════════════════════════════ -->
-  <header>
-    <div class="header-inner">
+    <!-- ── Header ── -->
+    <header class="page-header">
       <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
       <h1>Controlled User Testing and Data Collection</h1>
       <p>
-        This module explores the theory and practice of conducting controlled usability studies.
-        You will learn how to design rigorous test protocols, recruit and brief participants,
-        craft representative task scenarios, and apply appropriate data collection techniques to
-        gather meaningful usability metrics — skills essential to evidence-based interface design.
+        This module examines the principles and practices of conducting rigorous, controlled usability studies.
+        Topics span experimental design, participant recruitment, task scenario authoring, structured data
+        collection techniques, and the interpretation of usability metrics — equipping you with the skills
+        to plan, run, and analyse user tests with confidence.
       </p>
-    </div>
-  </header>
+    </header>
 
-  <!-- ══════════════════════════════════════════
-       MAIN CONTENT
-  ══════════════════════════════════════════ -->
-  <main>
-    <p class="section-heading">Module Artifacts</p>
+    <!-- ── Artifacts ── -->
+    <section aria-label="Module Artifacts">
+      <p class="section-heading">Module Artifacts</p>
 
-    <div class="card-grid" role="list">
+      <div class="artifact-grid">
 
-      <!-- ── Artifact: Module Topics ── -->
-      <article class="card" role="listitem">
-        <div class="card-name-row">
-          <span class="card-name">
-            <!-- viewHref is non-empty → render as link -->
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <!-- sourceHref is non-empty → render secondary source link -->
-          <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">
-            source file
-          </a>
-        </div>
+        <!-- Card: Module Topics -->
+        <article class="artifact-card">
+          <div class="card-title-row">
+            <span class="artifact-name">
+              <a href="content/module_topics.html">Module Topics</a>
+            </span>
+            <a
+              class="source-link"
+              href="source/hierarchy.json"
+              aria-label="Module Topics source file"
+            >source file</a>
+          </div>
 
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
+          <div class="card-meta">
+            <span class="badge badge-type">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
 
-        <p class="card-description">
-          A structured outline of the module's core topics — covering experimental design
-          fundamentals, participant recruitment, task scenario writing, data collection methods,
-          and usability metrics — that guides both instructors in planning lessons and learners
-          in understanding what concepts and skills the module will address.
-        </p>
-      </article>
+          <p class="card-description">
+            A structured outline of the module's core topics — covering experimental design fundamentals,
+            participant recruitment, task scenario writing, data collection methods, and usability metrics —
+            that guides both instructors in planning lessons and learners in understanding what concepts and
+            skills the module will address.
+          </p>
+        </article>
 
-    </div><!-- /.card-grid -->
-  </main>
+      </div>
+    </section>
 
-  <!-- ══════════════════════════════════════════
-       FOOTER
-  ══════════════════════════════════════════ -->
-  <footer>
-    <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Controlled User Testing and Data Collection</p>
-  </footer>
+    <!-- ── Footer ── -->
+    <footer class="page-footer">
+      <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Controlled User Testing and Data Collection</p>
+    </footer>
 
+  </div>
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics</h2><p><a href="topics.html">View Topics</a></p></section></body>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
 </html>
