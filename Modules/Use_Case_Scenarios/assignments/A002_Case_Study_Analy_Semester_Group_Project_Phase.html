@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Semester Group Project – Phase 2: Requirements Gathering, Stakeholder Analysis, and Use Case Development</title>
+  <style>
+    body {
+      font-family: Georgia, 'Times New Roman', serif;
+      line-height: 1.7;
+      color: #1a1a1a;
+      background-color: #ffffff;
+      margin: 0;
+      padding: 0;
+    }
+    .page-wrapper {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 2rem 2.5rem 4rem 2.5rem;
+    }
+    header {
+      border-bottom: 4px solid #003366;
+      padding-bottom: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    h1 {
+      font-size: 1.75rem;
+      color: #003366;
+      margin-bottom: 0.25rem;
+    }
+    .subtitle {
+      font-size: 1.05rem;
+      color: #555;
+      margin-top: 0;
+    }
+    .meta-block {
+      background-color: #f0f4f8;
+      border-left: 5px solid #003366;
+      padding: 0.9rem 1.2rem;
+      margin: 1.5rem 0;
+      font-size: 0.97rem;
+    }
+    .meta-block p {
+      margin: 0.25rem 0;
+    }
+    h2 {
+      font-size: 1.3rem;
+      color: #003366;
+      border-bottom: 2px solid #ccd9e8;
+      padding-bottom: 0.3rem;
+      margin-top: 2.5rem;
+    }
+    h3 {
+      font-size: 1.1rem;
+      color: #004080;
+      margin-top: 1.8rem;
+    }
+    h4 {
+      font-size: 1rem;
+      color: #003366;
+      margin-top: 1.2rem;
+      margin-bottom: 0.4rem;
+    }
+    ul, ol {
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    li {
+      margin-bottom: 0.4rem;
+    }
+    .tilt-box {
+      background-color: #eaf2ff;
+      border: 1px solid #99bbdd;
+      border-radius: 6px;
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .tilt-box h3 {
+      margin-top: 0;
+      color: #003366;
+    }
+    .outcomes-box {
+      background-color: #f4fbf4;
+      border: 1px solid #88bb88;
+      border-radius: 6px;
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .outcomes-box h2 {
+      margin-top: 0;
+      border-bottom: 2px solid #88bb88;
+      color: #1a4d1a;
+    }
+    .ai-box {
+      background-color: #fff8e6;
+      border: 1px solid #e0b840;
+      border-radius: 6px;
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .ai-box h2 {
+      margin-top: 0;
+      border-bottom: 2px solid #e0b840;
+      color: #5a3e00;
+    }
+    .accessibility-box {
+      background-color: #f9f4ff;
+      border: 1px solid #aa88dd;
+      border-radius: 6px;
+      padding: 1.2rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .accessibility-box h2 {
+      margin-top: 0;
+      border-bottom: 2px solid #aa88dd;
+      color: #3a0066;
+    }
+
+    /* ── SUBMISSION SECTION ── */
+    .submission-section {
+      background-color: #1a1a2e;
+      color: #f0f0f0;
+      border-radius: 8px;
+      padding: 2rem 2rem 1.5rem 2rem;
+      margin: 3rem 0 2rem 0;
+    }
+    .submission-section h2 {
+      color: #ffd700;
+      border-bottom: 2px solid #ffd700;
+      font-size: 1.4rem;
+      margin-top: 0;
+    }
+    .submission-section h3 {
+      color: #a8d8ff;
+      margin-top: 1.6rem;
+    }
+    .submission-section p,
+    .submission-section li {
+      color: #e8e8e8;
+    }
+    .submission-item {
+      background-color: #2d2d4a;
+      border-left: 5px solid #ffd700;
+      border-radius: 4px;
+      padding: 1rem 1.2rem;
+      margin: 1rem 0;
+    }
+    .submission-item strong {
+      color: #ffd700;
+      font-size: 1.05rem;
+    }
+    .submission-item p {
+      margin: 0.3rem 0 0 0;
+      color: #d8d8d8;
+    }
+    .required-badge {
+      display: inline-block;
+      background-color: #cc3300;
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: bold;
+      padding: 0.15rem 0.5rem;
+      border-radius: 3px;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      letter-spacing: 0.04em;
+    }
+    /* ── RUBRIC TABLE ── */
+    .rubric-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.93rem;
+    }
+    thead {
+      background-color: #003366;
+      color: #ffffff;
+    }
+    thead th {
+      padding: 0.7rem 0.9rem;
+      text-align: left;
+      font-weight: bold;
+    }
+    tbody tr:nth-child(even) {
+      background-color: #f2f6fc;
+    }
+    tbody tr:nth-child(odd) {
+      background-color: #ffffff;
+    }
+    tbody td {
+      padding: 0.65rem 0.9rem;
+      border: 1px solid #c8d8e8;
+      vertical-align: top;
+    }
+    .points-cell {
+      text-align: center;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+    .total-row {
+      background-color: #003366 !important;
+      color: #ffffff;
+      font-weight: bold;
+    }
+    .total-row td {
+      border-color: #003366;
+    }
+    .step-number {
+      display: inline-block;
+      background-color: #003366;
+      color: #ffffff;
+      border-radius: 50%;
+      width: 1.6rem;
+      height: 1.6rem;
+      text-align: center;
+      line-height: 1.6rem;
+      font-size: 0.88rem;
+      font-weight: bold;
+      margin-right: 0.5rem;
+      flex-shrink: 0;
+    }
+    .step-row {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 0.85rem;
+    }
+    .step-content {
+      flex: 1;
+    }
+    .callout {
+      background-color: #fff3cd;
+      border-left: 4px solid #e6a800;
+      padding: 0.7rem 1rem;
+      margin: 0.8rem 0;
+      border-radius: 3px;
+      font-size: 0.95rem;
+    }
+    .template-block {
+      background-color: #f7f7f7;
+      border: 1px dashed #888;
+      border-radius: 5px;
+      padding: 1rem 1.3rem;
+      margin: 1rem 0;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.9rem;
+      line-height: 1.8;
+    }
+    .definition {
+      border-left: 3px solid #003366;
+      padding: 0.4rem 1rem;
+      margin: 0.5rem 0;
+      background-color: #f5f8fc;
+      font-style: italic;
+    }
+    footer {
+      margin-top: 3rem;
+      border-top: 2px solid #ccd9e8;
+      padding-top: 1rem;
+      font-size: 0.88rem;
+      color: #666;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<div class="page-wrapper">
+
+  <header>
+    <h1>Semester Group Project &mdash; Phase 2</h1>
+    <p class="subtitle">Requirements Gathering, Stakeholder Analysis, and Use Case Development</p>
+  </header>
+
+  <div class="meta-block">
+    <p><strong>Module:</strong> Use Case Scenarios</p>
+    <p><strong>Assignment Type:</strong> Semester Group Project &mdash; Phase 2 of an ongoing series</p>
+    <p><strong>Estimated Student Effort:</strong> 2&ndash;4 hours (group effort; divide and coordinate tasks among members)</p>
+    <p><strong>Builds On:</strong> Phase 1 &mdash; Project Proposal and System Vision Document</p>
+    <p><strong>Feeds Into:</strong> Phase 3 &mdash; System Design and Prototyping</p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       TILT FRAMEWORK
+  ════════════════════════════════════════════ -->
+  <div class="tilt-box">
+    <h3>Transparency in Learning and Teaching (TILT)</h3>
+
+    <h4>Purpose &mdash; Why This Assignment Matters</h4>
+    <p>
+      In real software development projects, the single most expensive class of mistake is a misunderstood or missing requirement discovered late in development. This assignment gives your team the structured practice of doing requirements engineering the right way: identifying every person or group affected by your software, systematically cataloguing every action the software must support, and describing those actions in enough detail that a developer, a tester, and a non-technical stakeholder can all read the same document and arrive at the same understanding.
+    </p>
+    <p>
+      The deliverables you produce here &mdash; your stakeholder register, your complete action inventory, your use case scenarios, and your task analyses &mdash; become the authoritative specification for your project. Every design decision, every feature, and every test case in later phases will trace back to what you write here. Doing this work carefully now saves significant rework later and directly mirrors professional practice in software engineering, business analysis, and UX design.
+    </p>
+
+    <h4>Task &mdash; What You Will Do</h4>
+    <p>
+      Your team will systematically identify all stakeholders and user roles for your project application, enumerate every action that can be performed within the software, and produce a complete Use Case Scenario and Task Analysis for each action. Detailed instructions are provided in the <strong>Task Description</strong> section below.
+    </p>
+
+    <h4>Criteria &mdash; How You Will Be Graded</h4>
+    <p>
+      Your submission is evaluated on the completeness of your stakeholder analysis, the coverage and accuracy of your action inventory, the structural correctness and clarity of each use case scenario, the quality of each task analysis, and the overall professional presentation of the document. A detailed rubric is provided at the end of this assignment.
+    </p>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       LEARNING OUTCOMES
+  ════════════════════════════════════════════ -->
+  <div class="outcomes-box">
+    <h2>Learning Outcomes</h2>
+    <p>Upon successful completion of this assignment, you will be able to:</p>
+    <ol>
+      <li>
+        <strong>Identify and classify</strong> all stakeholders and user roles for a software system using structured stakeholder analysis techniques, distinguishing between users and non-user stakeholders and mapping roles to system permissions.
+      </li>
+      <li>
+        <strong>Enumerate</strong> the complete set of actions a software application must support, including common cross-application functions, core application-specific functions, and edge-case interactions, using systematic coverage techniques.
+      </li>
+      <li>
+        <strong>Construct</strong> well-formed Use Case Scenarios for each identified action using a consistent template that includes actor, preconditions, main success scenario, alternative flows, exception flows, and postconditions.
+      </li>
+      <li>
+        <strong>Produce</strong> a Hierarchical Task Analysis (HTA) for each action that decomposes user goals into observable sub-tasks and decision points, and map those sub-tasks to the corresponding use case flows.
+      </li>
+    </ol>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       BACKGROUND AND CONTEXT
+  ════════════════════════════════════════════ -->
+  <h2>Background and Context</h2>
+  <p>
+    This is <strong>Phase 2</strong> of your semester-long group project. In Phase 1, your team defined a project concept, identified the problem your software addresses, and articulated a high-level system vision. You should refer to your Phase 1 deliverable throughout this assignment; your stakeholder analysis and action inventory must be consistent with the system vision you already established.
+  </p>
+  <p>
+    This phase is the most detail-intensive requirements engineering effort in the project. The work you produce here is not a throwaway exercise &mdash; it becomes the living specification document your team updates and references through all remaining phases.
+  </p>
+
+  <!-- ═══════════════════════════════════════════
+       KEY TERMS
+  ════════════════════════════════════════════ -->
+  <h2>Key Terms and Definitions</h2>
+  <p>The following terms are used throughout this assignment. Make sure every team member is familiar with them before beginning work.</p>
+
+  <p><strong>Stakeholder</strong></p>
+  <div class="definition">Any individual, group, or organization that has an interest in or is affected by the software system, whether or not they directly interact with it.</div>
+
+  <p><strong>Actor</strong></p>
+  <div class="definition">A role that interacts directly with the system. In use case notation, actors represent roles rather than specific individuals. One person may play multiple actor roles.</div>
+
+  <p><strong>Use Case Scenario</strong></p>
+  <div class="definition">A narrative description of how an actor interacts with a system to achieve a specific goal. It captures the sequence of steps, decisions, and outcomes involved in a single interaction path.</div>
+
+  <p><strong>Main Success Scenario</strong></p>
+  <div class="definition">The ideal interaction path where everything proceeds as expected and the user achieves their goal without errors or exceptions. Written as a numbered sequence of actor and system actions

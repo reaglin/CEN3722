@@ -1,0 +1,203 @@
+﻿=== SYSTEM PROMPT ===
+You are an expert instructional designer creating a complete, professionally-written assignment for an online or blended higher-education course module.
+
+ASSIGNMENT SPECIFICATION:
+  Type:              Case Study Analysis
+
+INSTRUCTIONAL DESIGN REQUIREMENTS:
+Your assignment must incorporate all of the following best-practice elements:
+
+1. TILT FRAMEWORK (Transparency in Learning and Teaching)
+   Explicitly state the PURPOSE (why the assignment matters and how it connects to
+   course goals and real-world application), the TASK (step-by-step instructions
+   with key terms defined), and the CRITERIA (how it will be graded).
+
+2. CLEAR LEARNING OUTCOMES
+   Begin with 2–4 specific, measurable outcomes using Bloom's Taxonomy verbs
+   (e.g., analyze, evaluate, synthesize, construct — not "understand" or "learn").
+
+3. DETAILED TASK DESCRIPTION
+   Provide clear, step-by-step instructions. Define any ambiguous verbs like
+   "analyze," "critique," or "compare." Leave no room for misinterpretation.
+
+4. PARAMETERS & CONSTRAINTS
+   Specify required length/scope, formatting standards, and citation style
+   if applicable.
+
+5. EVALUATION RUBRIC
+   Include a rubric or detailed grading criteria table with at least 3–4 criteria,
+   point values, and descriptions of Exemplary / Proficient / Developing / Beginning
+   performance levels.
+
+6. SCAFFOLDING (for longer assignments)
+   Break the assignment into phases or milestones with suggested checkpoints,
+   especially for Extended Project and Long assignments.
+
+7. REFLECTION COMPONENT
+   Include a brief metacognitive reflection prompt asking students to describe their
+   process, what they learned, and where they encountered challenges.
+
+8. AI USE POLICY
+   Include a clear statement about whether and how generative AI tools may be used.
+
+9. ACCESSIBILITY
+   Write instructions in plain, accessible language. Note any required accessibility
+   accommodations for submission materials.
+
+10. RESOURCES
+    Suggest where students can find help (library databases, writing center, specific
+    readings from the module content).
+
+STUDENT EFFORT:
+  The assignment should represent approximately 2–4 hours.
+
+OUTPUT FORMAT:
+Return a COMPLETE, self-contained HTML5 document. Begin with <!DOCTYPE html> and include
+<html>, <head> (with a <title>) and <body>. Use semantic markup: <h1> for the assignment
+title, <h2>/<h3> for sections, <ul>/<ol> for lists, <strong>/<em> for emphasis, and a real
+<table> with <thead>/<tbody> for the grading rubric. Do NOT use any Markdown syntax (no #,
+no | pipe tables, no ** for bold). Output ONLY the HTML document — no preamble, no code
+fences, no commentary.
+
+=== USER PROMPT ===
+MODULE: Heuristic_Evaluation_and
+
+CONTENT TO BASE THE ASSIGNMENT ON:
+TOPIC: Introduction to Heuristic Evaluation
+Summary: Heuristic Evaluation (HE) is a structured usability inspection method in which evaluators examine an interface against a set of recognized usability principles. This topic introduces the method's purpose, origins, and key advantages over other evaluation approaches.
+  - What Is Heuristic Evaluation?
+    Heuristic Evaluation is a discount usability engineering method that allows experts to identify usability problems in a user interface design without the need for live user testing.
+    Notes: Jakob Nielsen and Rolf Molich introduced HE in the early 1990s as a cost-effective alternative to full user studies. It is considered a 'discount' method because it requires fewer resources while still uncovering a significant proportion of usability issues.
+  - Origins and Context
+    Nielsen and Molich developed the heuristic evaluation method in 1990, later refining the set of heuristics to the ten canonical principles that are widely used today.
+    Notes: The original set of heuristics was derived from factor analysis of 249 usability problems. The refined list of ten heuristics published by Nielsen in 1994 remains the industry standard.
+  - When to Use Heuristic Evaluation
+    HE is appropriate at multiple points in the design lifecycle, from sketches and wireframes through high-fidelity prototypes and live products.
+    Notes: Evaluating early-stage prototypes helps teams catch fundamental structural issues before costly development. Evaluating a live product can benchmark quality and prioritize redesign efforts.
+  - Advantages and Limitations
+    HE offers speed, low cost, and the ability to evaluate interfaces without recruiting participants, but it also carries inherent limitations related to evaluator expertise and coverage.
+    Notes: Studies show that a single evaluator finds only about 35% of usability problems; five evaluators together typically find around 75%. This motivates the multi-evaluator approach required in this module.
+
+TOPIC: Nielsen's Ten Usability Heuristics
+Summary: This topic covers each of Nielsen's ten heuristics in detail, explaining their meaning, rationale, and common interface violations. Mastery of these principles is the foundation for conducting a valid heuristic evaluation.
+  - Heuristic 1 — Visibility of System Status
+    The system should always keep users informed about what is going on through appropriate feedback within reasonable time.
+    Notes: Examples include progress bars during file uploads, loading spinners, highlighted active menu items, and confirmation messages after form submission. Violations include pages that appear frozen after a user action with no indication of processing.
+  - Heuristic 2 — Match Between System and the Real World
+    The system should speak the users' language, using words, phrases, and concepts familiar to the user rather than system-oriented terminology.
+    Notes: The 'desktop metaphor' in operating systems is a classic example of matching the real world — files, folders, trash. Violations include using database field names as form labels or displaying error codes instead of plain-language messages.
+  - Heuristic 3 — User Control and Freedom
+    Users often choose system functions by mistake and need a clearly marked 'emergency exit' to leave the unwanted state without having to go through an extended dialogue.
+    Notes: Undo and redo are the canonical examples. Violations include multi-step processes with no way to go back, or dialogs that have no cancel button. Supporting freedom reduces fear of exploration.
+  - Heuristic 4 — Consistency and Standards
+    Users should not have to wonder whether different words, situations, or actions mean the same thing. Follow platform and industry conventions consistently.
+    Notes: Internal consistency means the same action always produces the same result within an application. External consistency means following established platform conventions (e.g., blue underlined text for links). Violations include using 'Submit,' 'Send,' and 'Go' interchangeably for the same action type.
+  - Heuristic 5 — Error Prevention
+    Even better than good error messages is a careful design that prevents problems from occurring in the first place.
+    Notes: Examples include disabling buttons that are not currently applicable, using date pickers instead of free-text date fields, and providing inline format hints before submission. This heuristic is considered more valuable than error recovery because it eliminates the problem entirely.
+  - Heuristic 6 — Recognition Over Recall
+    Minimize the user's memory load by making objects, actions, and options visible; the user should not have to remember information from one part of the dialogue to another.
+    Notes: Menus, toolbars, and autocomplete are all recognition-based mechanisms. Command-line interfaces are recall-based and place a higher cognitive burden on users. Breadcrumbs help users recognize where they are without having to recall their navigation path.
+  - Heuristic 7 — Flexibility and Efficiency of Use
+    Accelerators — unseen by novice users — may often speed up interaction for expert users so that the system can cater to both inexperienced and experienced users.
+    Notes: Keyboard shortcuts, macros, customizable toolbars, and type-ahead search are common examples. Violations include interfaces that force all users through the same lengthy workflow regardless of experience level.
+  - Heuristic 8 — Aesthetic and Minimalist Design
+    Dialogues should not contain irrelevant or rarely needed information, as every extra unit of information competes with and diminishes the relative visibility of relevant information.
+    Notes: This heuristic does not mean interfaces must be visually plain — it means every element should earn its place. Violations include dashboard pages cluttered with metrics the primary user never needs, or help text that appears for options the user did not select.
+  - Heuristic 9 — Help Users Recognize, Diagnose, and Recover from Errors
+    Error messages should be expressed in plain language, precisely indicate the problem, and constructively suggest a solution.
+    Notes: A violation is displaying only an HTTP status code (e.g., '404') with no explanation or guidance. A good error message tells the user what happened, why, and what they can do next. Avoid blaming the user in error message language.
+  - Heuristic 10 — Help and Documentation
+    Even though it is better if the system can be used without documentation, it may be necessary to provide help; such information should be easy to search and focused on the user's task.
+    Notes: Good help systems are searchable, task-oriented, and concise. Violations include documentation that is only accessible from the home page, or help content written in technical jargon. Context-sensitive help that appears relevant to the user's current task is the gold standard.
+
+TOPIC: The Heuristic Evaluation Process
+Summary: Conducting a valid heuristic evaluation requires following a structured process that goes beyond simply reading the heuristics. This topic outlines the key phases of an HE, from preparation through individual evaluation to finding consolidation.
+  - Preparing for the Evaluation
+    Before beginning an evaluation, evaluators must understand the system's intended users, primary use cases, and scope of the interface to be reviewed.
+    Notes: Without context about target users and tasks, evaluators cannot accurately judge whether a violation is minor or critical. A one-page briefing document or scenario description is typically sufficient preparation.
+  - Conducting the Individual Evaluation
+    Each evaluator independently inspects the interface, walking through it multiple times and noting any elements that violate one or more of the ten heuristics.
+    Notes: Independence is critical — evaluators must not collaborate or share findings during this phase. Typically, evaluators traverse the interface at least twice: once to get a feel for the overall interaction flow, and once to focus on specific elements against each heuristic.
+  - Documenting Usability Problems
+    Each usability problem must be recorded with enough detail that someone unfamiliar with the evaluation can locate and understand the issue.
+    Notes: A well-formed problem report includes: the location in the interface, a description of the violation, the heuristic(s) violated, and a suggested fix. Screenshots or annotated images significantly improve the clarity of reports.
+  - Number of Evaluators
+    Research shows that the optimal number of evaluators for HE is between three and five, as this range captures the best return on investment for problem discovery.
+    Notes: Nielsen's studies indicate that a single evaluator finds approximately 35% of problems, three evaluators find around 60%, and five evaluators find around 75%. Beyond five, each additional evaluator yields diminishing returns relative to cost.
+
+TOPIC: Severity Rating
+Summary: Severity ratings allow evaluators to prioritize usability problems by estimating the impact of each violation on the user experience. This topic explains the standard severity scale and how to apply it consistently.
+  - Purpose of Severity Ratings
+    Severity ratings help design and development teams prioritize which usability problems to fix first given limited time and resources.
+    Notes: Not all usability violations are equally harmful. A cosmetic inconsistency in button labeling warrants far less attention than a workflow that prevents task completion. Severity ratings make this prioritization explicit and defensible.
+  - Nielsen's Severity Rating Scale
+    Nielsen's standard severity scale runs from 0 to 4, with 0 indicating no usability problem and 4 indicating a usability catastrophe that must be fixed before launch.
+    Notes: 0 = Not a usability problem. 1 = Cosmetic problem only — fix if time permits. 2 = Minor usability problem — low priority fix. 3 = Major usability problem — important to fix, high priority. 4 = Usability catastrophe — imperative to fix before product can be released.
+  - Factors Influencing Severity
+    Severity is determined by three key factors: the frequency with which the problem occurs, the impact it has on users, and the persistence of the problem across the interface.
+    Notes: A problem that appears on every page and completely blocks task completion is clearly severity 4. A problem that appears once in a rarely used section and causes only minor confusion is likely severity 1 or 2. Evaluators should consider all three factors before assigning a rating.
+  - Assigning and Recording Ratings
+    Each evaluator assigns severity ratings independently before any aggregation discussion to prevent anchoring and groupthink from distorting individual assessments.
+    Notes: When evaluators later compare ratings for the same problem, disagreements should prompt discussion rather than automatic averaging. Sometimes a disagreement reveals that two evaluators interpreted a problem differently, which itself is useful information.
+
+TOPIC: Aggregating Findings Across Evaluators
+Summary: After individual evaluations are complete, findings must be systematically combined to create a single, deduplicated list of usability problems. This topic explains the aggregation process and how to resolve evaluator differences.
+  - Why Aggregation Is Necessary
+    Because different evaluators identify different subsets of problems, combining findings from multiple evaluators produces a more complete and reliable picture of the interface's usability issues.
+    Notes: Aggregation is not simply merging lists — it requires careful deduplication and synthesis. Two evaluators may have found the same underlying problem but described it differently or attributed it to different heuristics.
+  - The Aggregation Meeting
+    Evaluators come together in a structured meeting to present their findings, deduplicate overlapping issues, and negotiate final severity ratings for each problem.
+    Notes: A neutral facilitator should manage the aggregation meeting to ensure all evaluators contribute equally and that quieter evaluators' findings are not dismissed. The meeting should be time-boxed to maintain focus.
+  - Deduplication and Problem Merging
+    Deduplication involves identifying problems that multiple evaluators reported and deciding whether they represent the same underlying issue or distinct but related problems.
+    Notes: A useful rule of thumb: if the same root cause and the same fix would resolve two reported issues, they should be merged. If they have different root causes or require different fixes, they should remain separate even if they appear superficially similar.
+  - Negotiating Severity Across Evaluators
+    When evaluators assign different severity ratings to the same problem, the group must reach a consensus rating through evidence-based discussion.
+    Notes: Simply averaging ratings is not recommended because it can mask meaningful disagreements. If consensus cannot be reached, both the range and the reasoning should be documented. The highest defensible rating is often the safer choice to avoid understating risk.
+
+TOPIC: Writing Formal Heuristic Evaluation Reports
+Summary: The formal HE report is the primary deliverable that communicates findings to design teams and stakeholders. This topic outlines the structure, content requirements, and quality standards for professional HE reports.
+  - Report Structure and Components
+    A well-structured HE report typically includes an executive summary, evaluation context, methodology description, consolidated findings table, and recommendations section.
+    Notes: The findings table is the centerpiece of the report. It should list each problem with its location, description, heuristic(s) violated, severity rating, and recommended fix. Organizing problems by severity (high to low) makes the report immediately actionable.
+  - Writing Effective Problem Descriptions
+    Problem descriptions must be precise, neutral, and specific enough that a designer can locate and understand the violation without having been part of the evaluation.
+    Notes: Avoid vague language such as 'the navigation is confusing.' Instead, specify: 'The secondary navigation menu disappears when a user scrolls past the hero image, providing no persistent access to sub-category pages (Heuristic 6: Recognition Over Recall).' Specificity is what makes a report actionable.
+  - Formulating Recommendations
+    Recommendations translate each identified problem into actionable design guidance that the team can implement in the next iteration.
+    Notes: Recommendations should be practical and proportionate to the severity of the problem. A severity 4 problem warrants a detailed, prioritized recommendation. A severity 1 cosmetic issue may only need a brief suggestion. Avoid recommending wholesale redesigns for minor violations.
+  - Using Visual Evidence
+    Annotated screenshots and screen recordings significantly increase the clarity and credibility of HE reports by providing direct visual evidence of each violation.
+    Notes: For each severity 3 or 4 finding, a supporting screenshot with annotation arrows or callouts is strongly recommended. Visual evidence reduces ambiguity about where the problem occurs and speeds up designer comprehension.
+  - Report Quality Standards
+    Professional HE reports must be clear, consistent, and credible — free of vague language, unsupported claims, and internal contradictions.
+    Notes: Before submitting a report, evaluators should review it against a quality checklist: Are all findings supported by a specific heuristic? Are severity ratings justified? Is language neutral and professional? Are recommendations actionable? Peer review of reports before submission improves quality significantly.
+
+TOPIC: Evaluating Peer Prototypes
+Summary: This module requires students to apply the full HE process independently to three peer prototypes. This topic outlines the expectations, workflow, and professional conduct standards for peer prototype evaluations.
+  - Module Assignment Overview
+    Each student independently evaluates three peer prototypes using Nielsen's ten heuristics, assigns severity ratings, and produces a formal HE report for each prototype evaluated.
+    Notes: The three-prototype requirement reflects the real-world practice of evaluating multiple design alternatives or iterative versions of a product. It also gives students practice calibrating their evaluation approach across different interface contexts.
+  - Maintaining Evaluator Independence
+    The independence requirement means students must complete their individual evaluations and draft reports before viewing or discussing findings with any other evaluator of the same prototype.
+    Notes: Independence prevents anchoring — the tendency to adjust one's own assessments to match those of a more vocal or credible peer. In professional practice, independence is what gives aggregated findings their validity.
+  - Professional Conduct in Peer Evaluation
+    Evaluating a peer's prototype requires maintaining a professional, constructive tone that focuses on interface design decisions rather than on the designer's choices or abilities.
+    Notes: Students may feel uncomfortable identifying problems in a classmate's work. Frame this as standard professional practice — all designs have usability issues, and identifying them is how design improves. Critique the interface, not the designer.
+  - Calibrating Evaluations Across Prototypes
+    Applying a consistent standard across three different prototypes requires active calibration — evaluators must ensure they are not applying stricter or looser criteria as they progress through evaluations.
+    Notes: A common pitfall is that evaluators become fatigued by the third prototype and log fewer findings. Another pitfall is that evaluators unconsciously raise their bar after seeing a high-quality prototype. Returning to the heuristics as a checklist before each evaluation helps maintain consistency.
+
+TASK:
+Generate a complete Case Study Analysis assignment based on the module content above.
+The assignment should require approximately approximately 2–4 hours to complete.
+
+SUBMISSION FORMAT:
+Do not prescribe a specific file format for student submission — the instructor or the learning management system will specify it.
+
+ADDITIONAL INSTRUCTOR INSTRUCTIONS:
+This is an indivdual project. You will obtain the Prototype Design and Link from the Discussion Board accompanying Assignment 5 (Prototype Submission) for a single group. You will perform aheursitic evaluation of the complete design including all screens. You will produce a report of your concolusions including fulll screen captures. You will submit the report in pdf or docx format and upload the report to the Assignment 7 Discussion board supplied. Your discussion title should include the group number and the project title as the subject of the discussion and upload.
+
+Return only the HTML assignment document. No preamble. No commentary. No code fences.
+

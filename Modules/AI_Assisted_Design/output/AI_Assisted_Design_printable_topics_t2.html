@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI_Assisted_Design</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+</head><body>
+  <header>
+    <h1>AI_Assisted_Design</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> Effective Prompting Strategies for Design Tasks</h2>
+      <p>Working effectively with AI assistants in a design and development context is not simply a matter of typing a question and accepting whatever comes back. The quality, relevance, and usability of AI-generated output is almost entirely determined by the quality of the input you provide — the prompt. Understanding how to construct prompts that are precise, context-rich, and purposefully structured is one of the most transferable skills a designer or developer can develop right now. This topic covers the principles and practical techniques that turn vague AI interactions into reliable, repeatable parts of a professional workflow.</p>
+
+<p><strong>Principles of Effective Prompting</strong></p>
+
+<p>The single most important principle of prompting for design tasks is specificity. An AI language model has no implicit knowledge of your project, your team's conventions, or your users. Every relevant detail you omit is a detail the model will invent for itself, often in a generic or mismatched way. Specificity means naming the technology stack, the component type you need, and any constraints imposed by a design system from the very start of the prompt.</p>
+
+<p>Compare these two prompts:</p>
+
+<pre><code>Write a button component.</code></pre>
+
+<pre><code>Write a React functional component for a primary action button using TypeScript.
+The component should accept a label string, an onClick handler, and a disabled boolean prop.
+It must use class names from our Tailwind-based design system: bg-brand-600, text-white,
+rounded-md, px-4, py-2. The disabled state should apply opacity-50 and cursor-not-allowed.</code></pre>
+
+<p>The second prompt will produce something you can paste into your codebase with minimal adjustment. The first will produce something plausible but almost certainly wrong in its details. When you specify the technology stack — React, Vue, plain HTML/CSS, Angular — you tell the model which syntax, import conventions, and idioms to use. When you name the component type — a modal dialog, a data table, a notification banner — you anchor the output to a recognizable UI pattern. When you mention design system constraints — that your spacing uses an 8px grid, that your colors come from CSS custom properties, that your typography is governed by a type scale — you give the model the guardrails it needs to produce output that fits rather than clashes.</p>
+
+<p>Including user context dramatically improves the appropriateness of generated interface code. A form component for a first-time user onboarding flow has different requirements than a form for a power user in a dashboard. The first benefits from progressive disclosure, visible helper text, and forgiving validation timing. The second might prioritize keyboard shortcuts and compact layout. If you describe this context in your prompt, the AI can make better decisions about things like label placement, error messaging tone, and interactive affordances.</p>
+
+<p>Requesting a specific output format removes another major source of ambiguity. Tell the AI exactly what you want back:</p>
+
+<ul>
+  <li><em>Return only a single React functional component, no explanatory text.</em></li>
+  <li><em>Provide an HTML snippet with accompanying CSS in a separate code block.</em></li>
+  <li><em>Return a JSON object representing design tokens, not code.</em></li>
+</ul>
+
+<p>Without this instruction, the AI may return a mix of explanation, pseudocode, and fragments that you have to manually assemble. Specifying the format makes the output immediately usable and easier to review.</p>
+
+<p>Finally, complex design tasks benefit enormously from being broken into smaller, sequential prompts. If you need an entire multi-step form with validation, conditional fields, error states, and accessibility support, asking for all of it at once tends to produce a bloated, inconsistent result. Instead, start with the basic field structure, confirm it is correct, then add validation logic, then add conditional visibility, then add ARIA attributes. Each step is reviewable before you build on it, and if one step goes wrong you know exactly where the problem was introduced.</p>
+
+<p><strong>Iterative Prompt Refinement</strong></p>
+
+<p>Treating the first AI response as a draft rather than a final answer is the mindset shift that separates productive AI-assisted workflows from frustrating ones. The first response establishes a baseline. Your job is to read it critically and identify precisely what is wrong or missing, then write a follow-up prompt that addresses those specific issues.</p>
+
+<p>Critical review means asking concrete questions about the output:</p>
+
+<ul>
+  <li>Does the layout match the intended design? Are the spacing values and alignment correct?</li>
+  <li>Does the color usage meet contrast requirements?</li>
+  <li>Is the HTML semantically appropriate — are headings used for headings, buttons for actions, lists for lists?</li>
+  <li>Does the component adapt correctly at narrow viewport widths?</li>
+  <li>Are all interactive states — hover, focus, active, disabled — handled?</li>
+</ul>
+
+<p>Once you have identified a gap, write a follow-up prompt that names it precisely. Vague follow-ups like <em>"make it better"</em> produce vague improvements. Precise follow-ups like <em>"The focus ring is missing from the dropdown trigger. Add a visible focus outline using a 2px solid ring in the brand-600 color with a 2px offset"</em> produce targeted, usable changes.</p>
+
+<p>A powerful technique for improving alignment between your expectations and the AI's output is <strong>few-shot prompting</strong> — providing one or more examples of the output you want directly inside the prompt. If your project has an existing well-formed component, paste it into the prompt and say: <em>"Write a new Notification Banner component following the same structure, naming conventions, and prop patterns as this example."</em> The AI will treat your example as a template, which is far more reliable than trying to describe the style in words alone.</p>
+
+<p>Documenting your prompting sequence is a professional practice that most teams overlook. When a prompt produces a particularly good result, save it — with its context, its follow-ups, and the final accepted output. This documentation serves two purposes: it makes your own work reproducible when you need a similar component later, and it gives your team a library of proven prompting patterns so that everyone is not starting from scratch. A shared prompting library is a legitimate project asset.</p>
+
+<p><strong>Prompting for Accessibility and Usability</strong></p>
+
+<p>Accessibility does not emerge automatically from AI-generated code. Unless you explicitly ask for it, the AI will often produce code that looks correct visually but fails automated accessibility checks and is unusable with assistive technology. This is not a flaw specific to any single tool — it reflects the fact that accessibility requirements are nuanced, context-dependent, and frequently undertreated in the training data these models learn from. The responsibility to specify accessibility requirements belongs to you.</p>
+
+<p>Start by stating the WCAG conformance level your project targets — typically WCAG 2.1 Level AA for most professional work — and name the specific interaction patterns involved. For example:</p>
+
+<pre><code>Generate a modal dialog component in React that meets WCAG 2.1 Level AA.
+The dialog must:
+- Trap focus within the dialog when open
+- Return focus to the trigger element when closed
+- Be announced to screen readers as a dialog with an accessible name from the dialog title
+- Include a close button with an aria-label of "Close dialog"
+- Allow dismissal with the Escape key</code></pre>
+
+<p>This kind of prompt enumerates the accessibility requirements as a checklist. The AI must satisfy each item rather than making its own judgments about what is sufficient.</p>
+
+<p>For interactive components, request ARIA attributes explicitly. The AI should not be left to decide whether a custom dropdown needs <code>role="combobox"</code> or <code>role="listbox"</code>, or whether a notification needs <code>aria-live="polite"</code> or <code>aria-live="assertive"</code>. These decisions have real consequences for screen reader users, and getting them wrong is worse than omitting them because incorrect ARIA creates false expectations. Name the attributes you need:</p>
+
+<pre><code>Add aria-live="polite" to the status message container so that screen readers
+announce form submission success without interrupting the user's current activity.</code></pre>
+
+<p>A highly effective technique is to ask the AI to explain its accessibility choices as part of the response. This serves as a quality check: if the AI cannot articulate why it chose a particular role or attribute, or if its explanation reveals a misunderstanding, you catch the error before it reaches your prototype. Prompt like this: <em>"After generating the component, provide a brief explanation of each accessibility decision you made and why."</em></p>
+
+<p>Even with careful prompting, AI-generated accessible code must be validated before it is integrated. Automated tools like axe-core, Lighthouse, or WAVE will catch a large percentage of detectable issues. Manual keyboard navigation testing and screen reader testing with NVDA, JAWS, or VoiceOver will catch the rest. Treat AI-generated accessible code as a well-intentioned first draft, not a certified implementation.</p>
+
+<p><strong>Design System Integration Through Prompting</strong></p>
+
+<p>One of the most valuable things you can do with AI-assisted design work is use it to generate components that are consistent with an established design system. Doing this well requires that you actively teach the AI about your design system within the prompt — it has no automatic awareness of your tokens, component library, or naming conventions.</p>
+
+<p>Include your design tokens directly in the prompt when they are relevant. If your system uses CSS custom properties, paste the relevant variables:</p>
+
+<pre><code>Use the following CSS custom properties from our design system:
+--color-primary: #2563EB;
+--color-primary-hover: #1D4ED8;
+--color-surface: #FFFFFF;
+--color-text-primary: #111827;
+--space-2: 0.5rem;
+--space-4: 1rem;
+--radius-md: 0.375rem;
+--font-size-sm: 0.875rem;
+Do not use any hard-coded color or spacing values.</code></pre>
+
+<p>This instruction does two things: it gives the AI the correct values to use, and it prohibits the most common design system violation, which is substituting arbitrary inline values when the correct token is not immediately obvious.</p>
+
+<p>If you have an existing well-formed component in your codebase, paste it into the prompt as a reference. This approach, sometimes called a one-shot or few-shot example, trains the AI on your code style — your import conventions, your prop naming patterns, your use of compound components or render props, your approach to conditional class application. The AI will mirror these patterns in its output far more reliably than if you tried to describe them in prose.</p>
+
+<p>Explicitly instruct the AI to use only named components from your design system library rather than constructing things from scratch. For instance: <em>"Use the Button, TextInput, and FormField components from our shared component library. Do not create new styled elements for these UI patterns."</em> This prevents the AI from reinventing wheels and ensures that its output is compatible with your design system's visual language and behavioral contracts.</p>
+
+<p>After receiving output, compare it against your design system documentation before integrating it. Check that token usage is correct, that component APIs are used as documented, and that any custom code introduced by the AI is intentional and justified. Inconsistencies that seem minor at the component level compound into serious design drift when multiplied across a large application.</p>
+
+<p><strong>Avoiding Common Prompting Pitfalls</strong></p>
+
+<p>Understanding what goes wrong in AI-assisted workflows is as important as understanding what goes right. The most pervasive failure mode is the underspecified prompt. When a prompt lacks context — no stack, no component type, no design constraints, no user context — the AI produces generic output that is technically functional but practically useless for your specific project. The rework required to adapt a generic result to your context often exceeds the time it would have taken to write the code from scratch. The solution is front-loading your prompts with context, not writing shorter prompts and hoping for the best.</p>
+
+<p>A more dangerous pitfall is accepting AI output without code review. AI models can and do produce code with security vulnerabilities — improperly escaped user inputs, incorrect use of <code>dangerouslySetInnerHTML</code>, missing CSRF protections, insecure direct object references. They also produce subtle accessibility failures that pass a quick visual check but break under assistive technology. Treating AI output as production-ready without review is a professional risk. Every AI-generated snippet should go through the same code review process as human-written code: static analysis, accessibility audit, and human review.</p>
+
+<p>Another common mistake is asking the AI to fix a problem without describing the intended correct outcome. For example: <em>"The layout is broken, fix it."</em> This kind of prompt leaves the AI guessing about what "broken" means and what "fixed" should look like. The AI will make a change — perhaps one that resolves the symptom while introducing a new problem, or one that changes the layout in a way you did not want. Better: <em>"The sidebar is overlapping the main content area on viewports narrower than 768px. The intended behavior is for the sidebar to stack above the main content on mobile using a flex-column layout."</em> Now the AI knows both what is wrong and what success looks like.</p>
+
+<p>Finally, prompts should be logged and versioned. This is a practice many developers resist because it feels like overhead, but it pays off quickly. When you discover a prompting pattern that reliably produces high-quality output for a particular type of component — say, a data table with sortable columns, or a form with inline validation — saving that prompt means you can reproduce the result, share it with teammates, and build on it rather than reconstructing it from memory. A simple shared document or repository of prompts organized by component type and task is enough to give a team a meaningful productivity advantage over time.</p>
+      <div class="notes"><strong>Notes</strong>Encourage students to build a personal prompt library as a practical exercise throughout the module. Pairing each prompting technique with a live demonstration using an actual AI tool (such as GitHub Copilot, Claude, or ChatGPT) significantly reinforces the abstract principles. Emphasize that prompting skill is iterative and improves with deliberate practice and reflection on what worked and why.</div>
+    </div>
+  </main>
+</body></html>

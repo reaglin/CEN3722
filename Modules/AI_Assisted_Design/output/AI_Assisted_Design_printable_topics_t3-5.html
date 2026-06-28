@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI_Assisted_Design</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+</head><body>
+  <header>
+    <h1>AI_Assisted_Design</h1>
+  </header><main>
+    <div class="doc-section">
+      <h2><span class="slide-num">1</span> AI-Accelerated Prototyping Workflows</h2>
+      <p>AI coding assistants can dramatically compress the time between a wireframe sketch and a testable interactive prototype, but realizing that speed advantage requires deliberate workflow design. The following key practices span the full prototyping arc — from first scaffold to team-wide adoption.</p>
+<ul>
+  <li><strong>Describe wireframes precisely.</strong> Frame prompts around component hierarchy, spatial relationships, and interactive behaviors so the AI has enough context to generate a useful structural scaffold rather than a generic layout.</li>
+  <li><strong>Refine, don't rebuild.</strong> Treat AI-generated scaffolds as a starting structure to iterate on; separate layout generation prompts from styling prompts to keep output clean and maintainable.</li>
+  <li><strong>Validate early.</strong> Check the generated prototype against the original wireframe before investing further effort — catching structural drift at this stage is far cheaper than correcting it later.</li>
+  <li><strong>Generate framework-specific components on demand.</strong> AI can produce React, Vue, Svelte, or Web Components quickly; always review prop structure, event handling, and state management before accepting the output.</li>
+  <li><strong>Bundle test stubs with components.</strong> Requesting unit test scaffolds alongside component generation embeds quality assurance into the workflow from the start.</li>
+  <li><strong>Build a prompt library.</strong> Save and annotate effective prompts for components and interactions; a shared library lets the whole team benefit from collectively refined prompting strategies.</li>
+  <li><strong>Frame iteration around usability evidence.</strong> Ground revision prompts in observed usability issues and desired interaction outcomes rather than vague stylistic preferences; AI can generate multiple variations to support design comparison or A/B testing.</li>
+  <li><strong>Use AI for targeted accessibility improvements.</strong> Quickly implement accessibility fixes identified during evaluations and track prompt-driven changes in version control to maintain a clear record of design evolution.</li>
+  <li><strong>Apply milestone-based quality reviews.</strong> Use a checklist covering accessibility, design system alignment, and code clarity at prototype milestones rather than reviewing every incremental AI change; refactor periodically to remove redundancies.</li>
+  <li><strong>Set stakeholder expectations.</strong> Communicate clearly that AI-generated prototypes are exploratory artifacts, not production-ready deliverables, and assign human reviewers before any AI output is merged into shared branches.</li>
+  <li><strong>Distribute AI-assisted tasks.</strong> Rotating who works with AI tools ensures all team members build proficiency and no single person becomes the sole interpreter of AI output quality.</li>
+</ul>
+      <div class="notes"><strong>Notes</strong>Covers practical workflows for integrating AI coding assistants into the prototyping phase of HCI projects, from low-fidelity scaffold generation to interactive prototype iteration. Emphasizes speed and quality trade-offs.</div>
+    </div>
+    <div class="doc-section">
+      <h2><span class="slide-num">2</span> Maintaining Design Quality in AI-Assisted Projects</h2>
+      <p>AI tools optimize for pattern-matching to training data, not for user experience — so sustaining design quality in AI-assisted projects requires deliberate human oversight at every stage. The practices below keep generated outputs anchored to real quality standards.</p>
+<ul>
+  <li><strong>Document quality criteria before generation begins.</strong> Define usability, accessibility, visual consistency, performance, and user-need alignment standards in a project design brief; revisit them regularly to prevent gradual drift from original design intent.</li>
+  <li><strong>Apply heuristic evaluation at each major checkpoint.</strong> Pay particular attention to error handling, feedback mechanisms, and consistency heuristics — areas AI-generated interfaces frequently underserve. Document violations as specific, actionable revision prompts.</li>
+  <li><strong>Involve multiple evaluators.</strong> Individual reviewers carry blind spots; rotating evaluators when assessing AI-generated interfaces surfaces issues that a single reviewer might normalize.</li>
+  <li><strong>Treat accessibility as a quality gate, not a polish step.</strong> Run automated checkers such as <em>axe</em> or <em>Lighthouse</em> on every prototype, then manually test keyboard navigation, focus management, and screen reader announcements. Reference specific WCAG success criteria when documenting issues to guide targeted revision prompts.</li>
+  <li><strong>Review AI-generated code thoroughly.</strong> Check for security vulnerabilities such as unsanitized inputs, verify semantic HTML correctness, and evaluate performance implications including unnecessary re-renders or large bundle contributions.</li>
+  <li><strong>Require prompt traceability.</strong> AI-generated contributions should be traceable to a documented prompt for accountability and reproducibility, making it possible to reproduce or explain any generated output.</li>
+  <li><strong>Maintain a living design rationale document.</strong> Record the reasoning behind key design decisions so that AI suggestions can be compared against documented intent rather than evaluated in a vacuum.</li>
+  <li><strong>Test AI suggestions against user research.</strong> Actively compare generated outputs with user research insights; reject or revise conventional AI solutions when the research calls for a differentiated approach.</li>
+  <li><strong>Return to personas and scenarios regularly.</strong> Revisiting original user personas and scenarios keeps AI-assisted development grounded in actual user needs rather than in what the AI finds statistically plausible.</li>
+</ul>
+      <div class="notes"><strong>Notes</strong>Addresses strategies and evaluation practices that ensure AI-generated outputs meet human-centered design standards. Covers review processes, quality criteria, and the designer&#39;s role in critically evaluating AI contributions.</div>
+    </div>
+    <div class="doc-section">
+      <h2><span class="slide-num">3</span> Ethical Considerations and Professional Responsibility</h2>
+      <p>Using AI tools in HCI work introduces ethical responsibilities that extend beyond code quality — encompassing transparency, equity, legal compliance, and the long-term health of professional competence. The points below outline the key obligations designers carry when working with AI assistants.</p>
+<ul>
+  <li><strong>Disclose AI use clearly and consistently.</strong> Attribute AI-assisted contributions in version control commit messages, design handoffs, and academic submissions as appropriate; transparency supports team trust and enables accurate assessment of individual contributions.</li>
+  <li><strong>Develop personal disclosure norms.</strong> Align your own standards for AI attribution with both institutional policies and broader professional ethics, rather than defaulting to whatever is minimally required.</li>
+  <li><strong>Audit generated outputs for bias.</strong> Critically evaluate AI-generated interface content and imagery for unintended cultural or demographic bias; use inclusive design checklists alongside generated outputs and test with diverse user groups to surface issues the design team may not perceive.</li>
+  <li><strong>Recognize that AI reflects training data biases.</strong> AI tools do not self-correct for representation gaps — active human review is required at every stage where content or imagery is generated.</li>
+  <li><strong>Understand the IP and licensing landscape.</strong> Review each AI tool's terms of service to understand ownership implications; exercise caution before incorporating AI-generated code into commercial or client work without appropriate legal review, and establish team policies for acceptable use across different project types.</li>
+  <li><strong>Note provenance signals where available.</strong> Some tools indicate when suggestions are closely derived from specific training sources; treat those signals as prompts for additional scrutiny.</li>
+  <li><strong>Maintain foundational skills independently.</strong> Use AI to extend and accelerate competence, not to substitute for developing it; regularly practice tasks without AI assistance to preserve your ability to evaluate AI outputs critically.</li>
+  <li><strong>Seek external feedback on AI-assisted work.</strong> Experienced practitioners can identify skill gaps that AI assistance may be masking — gaps that only become apparent when the tool is unavailable.</li>
+  <li><strong>Apply the same ethical scrutiny to AI-generated copy and patterns as to human-authored work.</strong> Avoid using AI to scale production of dark patterns, manipulative interactions, or deceptive interfaces; ensure AI-generated data collection flows accurately represent what is collected and how it is used.</li>
+  <li><strong>Center user wellbeing and autonomy.</strong> When evaluating AI-generated outputs, the primary criterion is whether they serve users' genuine interests — not whether they are technically plausible or visually polished.</li>
+</ul>
+      <div class="notes"><strong>Notes</strong>Examines the ethical dimensions of using AI coding assistants in HCI work, including attribution, bias, intellectual property, and the professional responsibilities of designers who use AI tools. Encourages critical and reflective practice.</div>
+    </div>
+  </main>
+</body></html>

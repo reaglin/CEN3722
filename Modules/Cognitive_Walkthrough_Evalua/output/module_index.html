@@ -1,0 +1,306 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cognitive Walkthrough Evaluation Method — CEN3722</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4f6f9;
+      color: #2c3340;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #ffffff;
+      padding: 2.8rem 1.5rem 2.2rem;
+      text-align: center;
+    }
+
+    header .course-label {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 0.25rem 0.85rem;
+      margin-bottom: 1rem;
+    }
+
+    header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
+      line-height: 1.25;
+    }
+
+    header p {
+      font-size: 1rem;
+      max-width: 680px;
+      margin: 0 auto;
+      color: rgba(255,255,255,0.88);
+    }
+
+    /* ── Main Container ── */
+    main {
+      max-width: 960px;
+      margin: 2.5rem auto 3rem;
+      padding: 0 1.25rem;
+    }
+
+    /* ── Section Heading ── */
+    .section-heading {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #5a6478;
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #dde2eb;
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+
+    /* ── Artifact Card ── */
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde2eb;
+      border-radius: 10px;
+      padding: 1.4rem 1.4rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 6px 22px rgba(37, 99, 168, 0.12);
+      transform: translateY(-2px);
+    }
+
+    /* ── Card Top Row: type badge + file type pill ── */
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .badge-type {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      background: #e8f0fb;
+      color: #2563a8;
+      border-radius: 20px;
+      padding: 0.2rem 0.65rem;
+    }
+
+    .badge-filetype {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      background: #f0f2f6;
+      color: #5a6478;
+      border-radius: 20px;
+      padding: 0.2rem 0.6rem;
+      font-family: 'Courier New', monospace;
+    }
+
+    /* ── Card Name Row ── */
+    .card-name-row {
+      display: flex;
+      align-items: baseline;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .card-name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.3;
+    }
+
+    .card-name a.primary-link {
+      color: #2563a8;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.18s ease, color 0.18s ease;
+    }
+
+    .card-name a.primary-link:hover,
+    .card-name a.primary-link:focus {
+      color: #1a3a5c;
+      border-bottom-color: #2563a8;
+      outline: none;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a6478;
+      text-decoration: none;
+      border: 1px solid #c8cfdb;
+      border-radius: 12px;
+      padding: 0.15rem 0.55rem;
+      white-space: nowrap;
+      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #e8f0fb;
+      color: #2563a8;
+      border-color: #2563a8;
+      outline: none;
+    }
+
+    /* ── Card Description ── */
+    .card-description {
+      font-size: 0.88rem;
+      color: #4a5368;
+      line-height: 1.6;
+      flex-grow: 1;
+    }
+
+    /* ── Divider ── */
+    .card-divider {
+      height: 1px;
+      background: #eef0f5;
+      border: none;
+      margin: 0.1rem 0 0;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem 2rem;
+      font-size: 0.78rem;
+      color: #8a93a6;
+      border-top: 1px solid #dde2eb;
+      background: #f4f6f9;
+    }
+
+    /* ── Focus Visible (accessibility) ── */
+    a:focus-visible {
+      outline: 2px solid #2563a8;
+      outline-offset: 2px;
+      border-radius: 3px;
+    }
+
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      header { padding: 2rem 1rem 1.6rem; }
+      .card { padding: 1.1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</div>
+    <h1>Cognitive Walkthrough Evaluation Method</h1>
+    <p>
+      Explore the artifacts for this module to learn about the cognitive walkthrough technique &mdash;
+      a structured usability evaluation method that assesses learnability by stepping through tasks
+      from the perspective of a new user.
+    </p>
+  </header>
+
+  <main>
+    <p class="section-heading">Module Artifacts &mdash; 3 items</p>
+
+    <div class="card-grid">
+
+      <!-- ── Card 1: Module Topics ── -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge-type">Module Topics</span>
+          <span class="badge-filetype">.json</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a class="primary-link" href="module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="../hierarchy.json">source file</a>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          An outline of all topics and subtopics covered in this module, including the cognitive
+          walkthrough&rsquo;s theoretical foundations, preparation steps, four evaluative questions,
+          and related procedures, giving learners and instructors a structured overview of the
+          module&rsquo;s scope.
+        </p>
+      </article>
+
+      <!-- ── Card 2: Printable HTML ── -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge-type">Text Content</span>
+          <span class="badge-filetype">.html</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a class="primary-link" href="_printable.html">Printable HTML</a>
+          </span>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          A printable HTML document presenting the full module content on the cognitive walkthrough
+          method &mdash; its origins, theoretical basis, preparation requirements, and step-by-step
+          evaluation procedure &mdash; intended for learners to read, study, or print as a
+          self-contained reference.
+        </p>
+      </article>
+
+      <!-- ── Card 3: Printable HTML — Topics ── -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge-type">Text Content</span>
+          <span class="badge-filetype">.html</span>
+        </div>
+        <div class="card-name-row">
+          <span class="card-name">
+            <a class="primary-link" href="Cognitive_Walkthrough_Evalua_printable_topics.html">Printable HTML &mdash; Topics</a>
+          </span>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          A printable HTML topic-overview document that covers all module topics at a high level
+          with brief introductions and key points for each, intended as a concise summary learners
+          or instructors can use for quick review or course planning.
+        </p>
+      </article>
+
+    </div>
+  </main>
+
+  <footer>
+    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp;
+    Cognitive Walkthrough Evaluation Method
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

@@ -1,0 +1,479 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Use Case Scenarios &amp; Requirements Specification</title>
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 860px; margin: 40px auto; padding: 0 24px; color: #1a1a1a; line-height: 1.6; }h1 { font-size: 1.8em; border-bottom: 2px solid #0054a6; padding-bottom: 8px; }h2 { font-size: 1.3em; color: #0054a6; margin-top: 28px; }h3 { font-size: 1.1em; }ul, ol { padding-left: 1.6em; }blockquote { border-left: 4px solid #0054a6; margin: 0; padding-left: 16px; color: #444; background: #f0f6ff; }code { background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-size: .9em; }pre { background: #f4f4f4; padding: 12px; border-radius: 4px; overflow-x: auto; }pre code { background: none; padding: 0; }strong { color: #111; }table { border-collapse: collapse; margin: 16px 0; width: 100%; }th, td { border: 1px solid #cfcfcf; padding: 6px 10px; text-align: left; vertical-align: top; }thead th { background: #f0f6ff; }hr { border: none; border-top: 1px solid #ddd; margin: 24px 0; }.meta { color: #666; font-style: italic; font-size: .9em; margin-bottom: 24px; }
+  </style>
+</head>
+<body>
+<h1>Use Case Scenarios & Requirements Specification</h1>
+<h2>Semester Group Project — Assignment 2 of the Series</h2>
+
+<hr>
+
+<blockquote><strong>Module:</strong> Use Case Scenarios</blockquote>
+<blockquote><strong>Assignment Type:</strong> Semester Group Project (Series Assignment)</blockquote>
+<blockquote><strong>Estimated Student Effort:</strong> 2–4 hours of coordinated group work</blockquote>
+<blockquote><strong>AI Use Policy:</strong> Generative AI tools are permitted on this assignment. If you use AI assistance, document how it was used in your submission (e.g., "We used AI to draft initial step sequences, which we then reviewed and revised against our stakeholder notes"). AI-generated content must be reviewed, verified, and owned by your team.</blockquote>
+
+<hr>
+
+<h2>Learning Outcomes</h2>
+
+<p>By the end of this assignment, you will be able to:</p>
+
+<ol>
+<li><strong>Identify</strong> all relevant stakeholders and user roles for your software project, distinguishing between direct users and broader stakeholders.</li>
+<li><strong>Construct</strong> complete, well-structured Use Case Scenarios for every action your software supports, including main success scenarios, alternative flows, exception flows, preconditions, and postconditions.</li>
+<li><strong>Produce</strong> a Hierarchical Task Analysis (HTA) for each core and unique action in your software, mapping user tasks to the steps documented in your use cases.</li>
+<li><strong>Evaluate</strong> your use case set for completeness by verifying that every identified actor and stakeholder goal is traceable to at least one documented scenario.</li>
+</ol>
+
+<hr>
+
+<h2>TILT Framework</h2>
+
+<h3>Purpose — Why This Assignment Matters</h3>
+
+<p>In real software development, teams that skip structured requirements gathering build systems that miss what users actually need. This assignment puts you in the role of a requirements analyst responsible for capturing <em>exactly</em> what your software must do — from every relevant user's perspective — before any design or coding begins.</p>
+
+<p>The documents you create here will be the authoritative reference for your team for the rest of the semester. Every interface design decision, every feature built, and every test written will trace back to the use cases and task analyses you produce now. Getting this right saves your team significant rework later and reflects genuine industry practice in software engineering.</p>
+
+<p>This assignment directly builds on the project context, stakeholder identification, and initial problem framing established in your previous assignment.</p>
+
+<h3>Task — What You Are Doing</h3>
+
+<p>You are producing a <strong>Requirements Specification Package</strong> for your semester software project. This package contains:</p>
+
+<ul>
+<li>A complete <strong>Stakeholder & Actor Registry</strong></li>
+<li>A complete set of <strong>Use Case Scenarios</strong> covering every action your software supports</li>
+<li>A <strong>Hierarchical Task Analysis (HTA)</strong> for each core and unique action</li>
+<li>A <strong>Coverage Matrix</strong> confirming completeness</li>
+</ul>
+
+<p>Full step-by-step instructions are provided in the <a href="#task-description">Task Description</a> section below.</p>
+
+<h3>Criteria — How You Will Be Graded</h3>
+
+<p>See the <a href="#grading-rubric">Grading Rubric</a> section at the end of this document.</p>
+
+<hr>
+
+<h2>Background & Context</h2>
+
+<p>This assignment is <strong>Part 2</strong> of your semester-long group project series. In your previous assignment, you defined your software project concept and identified the problem your system will solve. You should have that work available as a reference.</p>
+
+<p>In this assignment, you are moving from <em>what problem we are solving</em> to <em>how every type of user will interact with the system</em>. You will document every action the software supports — not just the interesting or unique ones — and you will do so using the structured Use Case Scenario format and Task Analysis methods covered in this module.</p>
+
+<p><strong>Key terms used throughout this assignment:</strong></p>
+
+<table>
+<thead><tr>
+<th>Term</th>
+<th>Definition</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Stakeholder</strong></td>
+<td>Any individual, group, or organization with an interest in or affected by the software system — not limited to direct users</td>
+</tr>
+<tr>
+<td><strong>Actor</strong></td>
+<td>A role that interacts directly with the system interface; represented in use cases as a named role, not a specific person</td>
+</tr>
+<tr>
+<td><strong>Use Case Scenario</strong></td>
+<td>A narrative description of how an actor interacts with the system to achieve a specific goal, including all possible paths</td>
+</tr>
+<tr>
+<td><strong>Main Success Scenario</strong></td>
+<td>The ideal interaction path where everything goes as expected and the actor achieves their goal</td>
+</tr>
+<tr>
+<td><strong>Alternative Flow</strong></td>
+<td>A valid variation from the main path that still results in a defined outcome</td>
+</tr>
+<tr>
+<td><strong>Exception Flow</strong></td>
+<td>What happens when an error, invalid input, or system failure interrupts the interaction</td>
+</tr>
+<tr>
+<td><strong>Precondition</strong></td>
+<td>The state the system and actor must be in <em>before</em> the use case begins</td>
+</tr>
+<tr>
+<td><strong>Postcondition</strong></td>
+<td>The guaranteed state of the system <em>after</em> the scenario completes</td>
+</tr>
+<tr>
+<td><strong>HTA (Hierarchical Task Analysis)</strong></td>
+<td>A structured breakdown of a user goal into sub-tasks and individual actions, arranged as a hierarchy</td>
+</tr>
+<tr>
+<td><strong>Edge Case</strong></td>
+<td>A valid but infrequent scenario occurring at the boundary of normal operating conditions</td>
+</tr>
+<tr>
+<td><strong>Coverage Matrix</strong></td>
+<td>A table mapping actors to use cases to verify that no actor or goal is left without a scenario</td>
+</tr>
+</tbody>
+</table>
+
+<hr>
+
+<h2>Task Description</h2>
+
+<p>Work through the following steps in order. Each step builds on the previous one.</p>
+
+<hr>
+
+<h3>Step 1 — Audit and Finalize Your Action Inventory</h3>
+
+<p>Before writing use cases, you need a complete list of every action a user can perform in your system.</p>
+
+<p><strong>What to do:</strong></p>
+
+<ol>
+<li>As a group, brainstorm every action your software will support. Think about every screen, every button, every workflow.</li>
+<li>Organize actions into two categories:</li>
+</ol>
+<ul>
+<li><strong>Standard/Common Actions:</strong> Actions that virtually every application includes (e.g., log in, log out, register an account, reset a password, update profile). These behaviors are widely understood.</li>
+<li><strong>Core/Unique Actions:</strong> Actions that are specific to your application's purpose — the things that make your software distinct.</li>
+</ul>
+<ol>
+<li>Write a numbered master list of all actions separated into these two categories. This list will drive everything else in this assignment.</li>
+</ol>
+
+<blockquote><strong>Tip:</strong> Think about your software from multiple users' perspectives. An action available to an administrator is still an action that needs to be documented, even if a regular user never sees it.</blockquote>
+
+<hr>
+
+<h3>Step 2 — Build Your Stakeholder & Actor Registry</h3>
+
+<p><strong>What to do:</strong></p>
+
+<ol>
+<li>List every <strong>stakeholder</strong> — everyone who has an interest in your software, including those who will never touch the interface (e.g., a business owner, a compliance officer, a third-party integration partner).</li>
+<li>For each stakeholder, write one or two sentences describing their <strong>primary interest or concern</strong> regarding the system.</li>
+<li>From your stakeholder list, identify every <strong>actor</strong> — the roles that will directly interact with the system interface.</li>
+<li>For each actor, document:</li>
+</ol>
+<ul>
+<li><strong>Role name</strong> (e.g., "Registered User," "Administrator," "Guest")</li>
+<li><strong>Brief description</strong> of who fills this role</li>
+<li><strong>Permissions/capabilities</strong> — a short summary of what this role can and cannot do</li>
+<li><strong>Which actions from your Step 1 inventory this actor can perform</strong></li>
+</ul>
+
+<p>Format this as a registry (a structured list or table).</p>
+
+<hr>
+
+<h3>Step 3 — Write Use Case Scenarios for Standard/Common Actions</h3>
+
+<p>For <strong>standard/common actions</strong> (e.g., login, logout, registration, password reset), your team does <strong>not</strong> need to write out the full standard interaction in detail. Instead, for each standard action:</p>
+
+<p><strong>What to do:</strong></p>
+
+<ol>
+<li>Write the <strong>title</strong> and identify the <strong>actor(s)</strong>.</li>
+<li>Document only what is <strong>distinct or different</strong> about how this action works in your specific application compared to a typical application. Focus on:</li>
+</ol>
+<ul>
+<li>Any <strong>unique preconditions</strong> specific to your system</li>
+<li>Any <strong>non-standard steps</strong> or requirements in your version of this flow</li>
+<li>Any <strong>constraints or rules</strong> particular to your system (e.g., password complexity rules unique to your context, multi-factor authentication requirements, account approval workflows)</li>
+<li>Any <strong>edge cases or exceptions</strong> specific to your application</li>
+</ul>
+<ol>
+<li>If a standard action is completely typical with no distinctions, you may note it as "Standard implementation — no unique requirements" and move on.</li>
+</ol>
+
+<blockquote><strong>Example:</strong> If your application requires admin approval before a new account is activated, that approval step is a distinct requirement and must be documented.</blockquote>
+
+<hr>
+
+<h3>Step 4 — Write Full Use Case Scenarios for Core/Unique Actions</h3>
+
+<p>For every <strong>core or unique action</strong> in your inventory, write a complete Use Case Scenario using the template below. Every field is required.</p>
+
+<p><strong>Use the following template for each use case:</strong></p>
+
+<hr>
+
+<p><strong>USE CASE: [UC-###]</strong></p>
+
+<table>
+<thead><tr>
+<th>Field</th>
+<th>Content</th>
+</tr></thead>
+<tbody>
+<tr>
+<td><strong>Title</strong></td>
+<td>A short, active-verb phrase describing the goal (e.g., "Submit Project Proposal")</td>
+</tr>
+<tr>
+<td><strong>Actor(s)</strong></td>
+<td>List all roles involved</td>
+</tr>
+<tr>
+<td><strong>Priority</strong></td>
+<td>High / Medium / Low</td>
+</tr>
+<tr>
+<td><strong>Frequency</strong></td>
+<td>Estimated how often this occurs (e.g., daily, occasionally, rarely)</td>
+</tr>
+<tr>
+<td><strong>Preconditions</strong></td>
+<td>What must be true before this use case begins</td>
+</tr>
+<tr>
+<td><strong>Trigger</strong></td>
+<td>What event or action initiates this use case</td>
+</tr>
+</tbody>
+</table>
+
+<p><strong>Main Success Scenario:</strong></p>
+<p>Write a numbered sequence of steps. Each step is either an <em>actor action</em> or a <em>system response</em>. Steps should alternate. Do not describe technical implementation — describe <em>what</em> happens, not <em>how</em> the system achieves it internally.</p>
+
+<pre><code>
+1. Actor does X.
+2. System responds with Y.
+3. Actor does Z.
+4. System confirms W.
+...
+</code></pre>
+
+<p><strong>Alternative Flows:</strong></p>
+<p>For each valid variation from the main path, document:</p>
+<ul>
+<li><em>At step [#]:</em> Description of the variation and what happens instead.</li>
+</ul>
+
+<p><strong>Exception Flows:</strong></p>
+<p>For each error, invalid input, or failure condition, document:</p>
+<ul>
+<li><em>Trigger:</em> What causes this exception.</li>
+<li><em>System Response:</em> What the system does.</li>
+<li><em>Recovery:</em> How the user can continue (if applicable).</li>
+</ul>
+
+<p><strong>Postconditions:</strong></p>
+<ul>
+<li><em>Main flow:</em> State of the system after successful completion.</li>
+<li><em>Alternative flows:</em> Any differing end states for alternatives.</li>
+</ul>
+
+<p><strong>Edge Cases to Consider:</strong></p>
+<p>List any boundary or infrequent but valid scenarios the team identified for this use case.</p>
+
+<hr>
+
+<p><strong>Writing quality expectations for use case steps:</strong></p>
+<ul>
+<li>Use specific, concrete verbs — not vague words like "handles," "processes," or "manages."</li>
+<li>Name the actor explicitly in each step (e.g., "The Registered User selects…" not "The user does…").</li>
+<li>Each step should describe one action or one system response — do not combine multiple actions into one step.</li>
+<li>Steps must be understandable to both a developer and a non-technical stakeholder.</li>
+</ul>
+
+<hr>
+
+<h3>Step 5 — Perform Hierarchical Task Analysis (HTA) for Core/Unique Actions</h3>
+
+<p>For each <strong>core or unique action</strong>, produce a Hierarchical Task Analysis alongside its use case. Standard/common actions do not require an HTA unless your team identified something non-standard about them.</p>
+
+<p><strong>What to do:</strong></p>
+
+<ol>
+<li>State the <strong>top-level goal</strong> of the task (this should match the use case title).</li>
+<li>Break that goal into <strong>sub-tasks</strong> — the major phases of the task.</li>
+<li>Break each sub-task into <strong>individual actions</strong> — the specific steps the user takes.</li>
+<li>For each sub-task level, write a <strong>plan</strong> — a note describing the order and any conditions under which sub-tasks are performed (e.g., "Do 1, then 2. If error occurs, do 3 before continuing.").</li>
+<li>Note any <strong>decision points</strong> where the user must choose between paths.</li>
+</ol>
+
+<p><strong>HTA can be represented as an indented outline or a table — your choice:</strong></p>
+
+<p><em>Indented outline format example:</em></p>
+<pre><code>
+0. Goal: [Top-Level Goal Name]
+   Plan 0: Do 1, then 2, then 3.
+   1. Sub-task 1
+      Plan 1: Do 1.1 then 1.2.
+      1.1 Individual action
+      1.2 Individual action
+   2. Sub-task 2
+      Plan 2: Do 2.1. If condition, do 2.2.
+      2.1 Individual action
+      2.2 Individual action (conditional)
+   3. Sub-task 3
+      ...
+</code></pre>
+
+<p><strong>After each HTA</strong>, write 2–3 sentences explaining how the HTA output informed your use case — specifically how the sub-task steps map to steps in the main success scenario and where decision points became alternative or exception flows.</p>
+
+<hr>
+
+<h3>Step 6 — Build the Coverage Matrix</h3>
+
+<p>Create a table that maps every actor to every use case to confirm that:</p>
+<ul>
+<li>Every actor appears in at least one use case.</li>
+<li>Every use case has at least one actor assigned.</li>
+<li>Every stakeholder goal identified in your Stakeholder & Actor Registry is traceable to at least one use case.</li>
+</ul>
+
+<p><strong>Format:</strong></p>
+
+<table>
+<thead><tr>
+<th>Use Case</th>
+<th>Actor 1</th>
+<th>Actor 2</th>
+<th>Actor 3</th>
+<th>Actor N</th>
+</tr></thead>
+<tbody>
+<tr>
+<td>UC-001: [Title]</td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+<td></td>
+</tr>
+<tr>
+<td>UC-002: [Title]</td>
+<td></td>
+<td>✓</td>
+<td></td>
+<td>✓</td>
+</tr>
+<tr>
+<td>...</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+<p>Below the matrix, add a short <strong>Coverage Confirmation</strong> paragraph (3–5 sentences) stating:</p>
+<ul>
+<li>Whether all actors are covered</li>
+<li>Whether any stakeholder goals remain without a use case (and if so, explain why)</li>
+<li>Any gaps your team identified and how you resolved them</li>
+</ul>
+
+<hr>
+
+<h3>Step 7 — Group Reflection</h3>
+
+<p>As a group, write a short reflection (approximately one paragraph per question, 3–5 sentences each) responding to the following:</p>
+
+<ol>
+<li>Which requirements elicitation technique(s) did your team use to identify user actions and stakeholder needs for this assignment (e.g., group discussion, document review, interviewing potential users, etc.)? How effective were they?</li>
+<li>Describe one edge case or exception flow your team almost missed. How did you discover it, and why does it matter?</li>
+<li>How did performing task analysis change or improve the use cases you wrote? Give a specific example.</li>
+</ol>
+
+<hr>
+
+<h2>Parameters & Constraints</h2>
+
+<ul>
+<li><strong>Scope:</strong> All actions your software supports must be accounted for — no action should be undocumented.</li>
+<li><strong>Use Case Numbering:</strong> Number use cases sequentially using the format UC-001, UC-002, etc.</li>
+<li><strong>Writing Style:</strong> Plain language. Write for an audience that includes both technical developers and non-technical stakeholders.</li>
+<li><strong>Step Granularity:</strong> Each numbered step in a use case should represent one action or one system response — no compound steps.</li>
+<li><strong>HTA Depth:</strong> HTA outlines must have at least two levels of decomposition (sub-task → individual action) for each core use case.</li>
+<li><strong>Coverage Matrix:</strong> Must include every actor and every use case — no omissions.</li>
+<li><strong>Reflection:</strong> Responses must be specific to your project — generic or hypothetical answers will not receive credit.</li>
+<li><strong>Citations:</strong> No formal citation style is required for this assignment. If you reference external sources or frameworks, note them informally.</li>
+<li><strong>File Format:</strong> Submit in the format specified by your instructor or your learning management system.</li>
+</ul>
+
+<hr>
+
+<h2>Accessibility Notes</h2>
+
+<ul>
+<li>If your team uses tables in your submission, ensure they are formatted so that each column has a clear header row.</li>
+<li>If you use diagrams for your HTA, provide a text-based outline equivalent in the same document.</li>
+<li>All abbreviations should be spelled out on first use (e.g., Hierarchical Task Analysis (HTA)).</li>
+<li>Write use case steps as complete sentences — avoid shorthand or notation-only formats that may be unclear to all readers.</li>
+</ul>
+
+<hr>
+
+<hr>
+
+<h1>✅ SUBMISSION CHECKLIST & REQUIRED DELIVERABLES</h1>
+
+<p><em>The items below are what your team must submit. Review this checklist before submitting.</em></p>
+
+<hr>
+
+<blockquote>### 📋 Required Submission Item 1: Action Inventory</blockquote>
+<blockquote>A complete numbered list of all actions your software supports, organized into:</blockquote>
+<blockquote>- Standard/Common Actions</blockquote>
+<blockquote>- Core/Unique Actions</blockquote>
+
+<hr>
+
+<blockquote>### 📋 Required Submission Item 2: Stakeholder & Actor Registry</blockquote>
+<blockquote>A structured registry including:</blockquote>
+<blockquote>- All stakeholders with their interest/concern described</blockquote>
+<blockquote>- All actors with role name, description, permissions summary, and list of actions they can perform</blockquote>
+
+<hr>
+
+<blockquote>### 📋 Required Submission Item 3: Use Case Scenarios — Standard/Common Actions</blockquote>
+<blockquote>For each standard/common action:</blockquote>
+<blockquote>- Title and actor(s)</blockquote>
+<blockquote>- Documentation of any distinctions, unique requirements, or constraints specific to your application</blockquote>
+<blockquote>- "Standard implementation — no unique requirements" notation where applicable</blockquote>
+
+<hr>
+
+<blockquote>### 📋 Required Submission Item 4: Use Case Scenarios — Core/Unique Actions</blockquote>
+<blockquote>For each core/unique action, a <strong>complete Use Case Scenario</strong> including:</blockquote>
+<blockquote>- UC number, title, actor(s), priority, frequency</blockquote>
+<blockquote>- Preconditions and trigger</blockquote>
+<blockquote>- Numbered main success scenario</blockquote>
+<blockquote>- Alternative flows</blockquote>
+<blockquote>- Exception flows</blockquote>
+<blockquote>- Postconditions</blockquote>
+<blockquote>- Edge cases</blockquote>
+
+<hr>
+
+<blockquote>### 📋 Required Submission Item 5: Hierarchical Task Analysis (HTA)</blockquote>
+<blockquote>For each core/unique action:</blockquote>
+<blockquote>- Full HTA in outline or table format (minimum two levels of decomposition)</blockquote>
+<blockquote>- Plan statements at each sub-task level</blockquote>
+<blockquote>- A 2–3 sentence explanation of how the HTA informed the use case</blockquote>
+
+<hr>
+
+<blockquote>### 📋 Required Submission Item 6: Coverage Matrix</blockquote>
+<blockquote>- Table mapping all actors to all use cases</blockquote>
+<blockquote>- Coverage Confirmation paragraph (3–5 sentences)</blockquote>
+
+<hr>
+
+<blockquote>### 📋 Required Submission Item 7: Group Reflection</blockquote>
+<blockquote>Three reflection responses, one paragraph each (3–5 sentences per question), addressing</blockquote>
+
+</body>
+</html>

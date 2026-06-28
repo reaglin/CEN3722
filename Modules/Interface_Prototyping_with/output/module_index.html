@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interface Prototyping with Figma — CEN3722</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background-color: #f4f6f9;
+      color: #1e2530;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #ffffff;
+      padding: 3rem 2rem 2.5rem;
+      border-bottom: 4px solid #f0a500;
+    }
+
+    .header-inner {
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .course-label {
+      display: inline-block;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background-color: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 4px;
+      padding: 0.2rem 0.65rem;
+      margin-bottom: 0.85rem;
+      color: #d6e8ff;
+    }
+
+    header h1 {
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.85rem;
+      letter-spacing: -0.01em;
+    }
+
+    header p {
+      font-size: 1rem;
+      color: #cce0f5;
+      max-width: 680px;
+      line-height: 1.7;
+    }
+
+    /* ── Main Content ── */
+    main {
+      max-width: 960px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #6b7a8d;
+      margin-bottom: 1.2rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid #dde2ea;
+    }
+
+    /* ── Artifact Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      gap: 1.25rem;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid #dde2ea;
+      border-radius: 10px;
+      padding: 1.4rem 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 18px rgba(37, 99, 168, 0.1);
+      border-color: #b0c8e8;
+    }
+
+    /* ── Card Header Row ── */
+    .card-header {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem 0.75rem;
+    }
+
+    .artifact-name {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1e2530;
+    }
+
+    .artifact-name a {
+      color: #1a5fad;
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+
+    .artifact-name a:hover,
+    .artifact-name a:focus {
+      color: #0e3f7e;
+      border-bottom-color: #0e3f7e;
+      outline: none;
+    }
+
+    .source-link {
+      font-size: 0.76rem;
+      font-weight: 500;
+      color: #2563a8;
+      background-color: #eff5ff;
+      border: 1px solid #c2d9f5;
+      border-radius: 4px;
+      padding: 0.15rem 0.5rem;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.15s ease, color 0.15s ease;
+      flex-shrink: 0;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background-color: #2563a8;
+      color: #ffffff;
+      outline: none;
+    }
+
+    /* ── Metadata Badges ── */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+    }
+
+    .badge {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+    }
+
+    .badge-type {
+      background-color: #eef2f7;
+      color: #4a5568;
+      border: 1px solid #d5dce8;
+    }
+
+    .badge-filetype {
+      background-color: #fff8ec;
+      color: #8a5a00;
+      border: 1px solid #f5dcaa;
+      font-family: 'Courier New', Courier, monospace;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    /* ── Card Description ── */
+    .card-description {
+      font-size: 0.9rem;
+      color: #4a5568;
+      line-height: 1.65;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.8rem;
+      color: #8a94a2;
+      border-top: 1px solid #dde2ea;
+      background-color: #f4f6f9;
+    }
+
+    /* ── Responsive Tweaks ── */
+    @media (max-width: 500px) {
+      header {
+        padding: 2rem 1.25rem 2rem;
+      }
+
+      .card {
+        padding: 1.1rem 1.15rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-inner">
+      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
+      <h1>Interface Prototyping with Figma</h1>
+      <p>
+        This module introduces students to interface prototyping using Figma, one of the industry's
+        leading collaborative design tools. Learners will explore core concepts including frames,
+        grids, component libraries, and auto-layout to create professional, user-centered interface
+        prototypes.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <h2 class="section-title">Module Artifacts</h2>
+
+    <div class="card-grid">
+
+        <div class="card">
+          <div class="card-header">
+            <span class="artifact-name">
+                <a href="module_topics.html">Module Topics</a>
+                  <a
+                    class="source-link"
+                    href="../hierarchy.json"
+                    aria-label="Source file for Module Topics"
+                  >source file</a>
+            </span>
+          </div>
+          <div class="card-meta">
+            <span class="badge badge-type">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+          <p class="card-description">
+            This artifact outlines the module&#x27;s topic structure, covering Figma fundamentals such as the interface, frames, grids, component libraries, and auto-layout, serving as a syllabus-style roadmap for learners and instructors to navigate the module&#x27;s content sequence.
+          </p>
+        </div>
+
+    </div>
+  </main>
+
+  <footer>
+    CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Interface Prototyping with Figma
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cognitive Walkthrough Evaluation — Individual Assignment (Phase 6)</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    background: #ffffff;
+  }
+  h1 {
+    font-size: 1.9rem;
+    border-bottom: 3px solid #2c5f8a;
+    padding-bottom: 0.5rem;
+    color: #1c3d5a;
+  }
+  h2 {
+    font-size: 1.35rem;
+    color: #1c3d5a;
+    margin-top: 2rem;
+    border-bottom: 1px solid #d0d7de;
+    padding-bottom: 0.25rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+    color: #2c5f8a;
+    margin-top: 1.5rem;
+  }
+  .meta {
+    background: #f1f5f9;
+    border-left: 4px solid #2c5f8a;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+  .meta dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; }
+  .meta dt { font-weight: 700; }
+  .meta dd { margin: 0; }
+  .submission-box {
+    background: #fff8e1;
+    border: 2px solid #e6a700;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .submission-box h2 { color: #8a6500; border: none; margin-top: 0.5rem; }
+  .deliverable {
+    background: #ffffff;
+    border: 1px solid #e6a700;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+  }
+  .deliverable strong { color: #8a6500; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid #c0c7ce;
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  thead th { background: #2c5f8a; color: #ffffff; }
+  tbody tr:nth-child(even) { background: #f5f8fb; }
+  .define { background: #eef6ee; border-left: 4px solid #4a8a4a; padding: 0.5rem 1rem; margin: 0.75rem 0; }
+  .ai-policy { background: #f0f0fa; border-left: 4px solid #6a5acd; padding: 0.75rem 1rem; }
+  .callout { background: #fdeeee; border-left: 4px solid #c0504d; padding: 0.5rem 1rem; margin: 0.75rem 0; }
+  .questions { background: #eef4fb; border-left: 4px solid #2c5f8a; padding: 0.5rem 1rem 0.5rem 1.5rem; margin: 0.75rem 0; }
+  code { background: #eef1f4; padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.9em; }
+</style>
+</head>
+<body>
+
+<h1>Cognitive Walkthrough Evaluation</h1>
+<p><em>Semester Group Project — Phase 6 of the Design &amp; Build Sequence (Individual Assignment)</em></p>
+
+<div class="meta">
+  <dl>
+    <dt>Module</dt><dd>Cognitive Walkthrough Evaluation</dd>
+    <dt>Work Format</dt><dd><strong>Individual</strong> — you evaluate another team's prototype, not your own group's work</dd>
+    <dt>Estimated Effort</dt><dd>2–4 hours</dd>
+    <dt>Builds On</dt><dd>Phase 5: Prototype Submission (another group's submitted Figma prototype)</dd>
+    <dt>Feeds Into</dt><dd>Later phases: design revision based on evaluation findings</dd>
+  </dl>
+</div>
+
+<h2>1. Purpose (Why This Matters)</h2>
+<p>So far this semester you have worked as a team to analyze users, document tasks, and build a prototype. In this phase you switch roles: you become an evaluator. You will perform a <strong>cognitive walkthrough</strong> of <em>another group's</em> prototype to find where new users would struggle to complete tasks.</p>
+<p>The cognitive walkthrough is a structured, expert-based usability inspection method. Unlike testing with live users, it lets a single evaluator predict usability problems by stepping through each action a user would take and asking a fixed set of questions at every step. It is widely used in industry precisely because it is fast, requires no recruited participants, and catches problems early — especially for first-time or infrequent users who must learn an interface as they go.</p>
+<p>Evaluating someone else's design also sharpens your own. Looking at an unfamiliar prototype with fresh eyes, and being held to a disciplined procedure, builds judgment you carry back into your own group's work. The findings you produce here give the other team concrete, actionable feedback they can use to improve their design.</p>
+
+<h2>2. Learning Outcomes</h2>
+<p>By completing this assignment, you will be able to:</p>
+<ol>
+  <li><strong>Apply</strong> the four-question cognitive walkthrough framework to every action step across all screens of a prototype.</li>
+  <li><strong>Analyze</strong> a prototype to identify, categorize, and document usability failure points with supporting evidence.</li>
+  <li><strong>Evaluate</strong> the severity of each failure and recommend a specific design improvement.</li>
+</ol>
+
+<h2>3. The Task (Step-by-Step Instructions)</h2>
+
+<div class="define">
+  <strong>Key terms defined for this assignment:</strong>
+  <ul>
+    <li><strong>Cognitive walkthrough</strong> — a usability inspection method in which an evaluator steps through the actions required to complete a task and, at each step, asks whether a typical user would know what to do and recognize that they did the right thing.</li>
+    <li><strong>Action step</strong> — a single discrete thing a user must do to advance a task (e.g., tap a button, select an option, enter a value).</li>
+    <li><strong>Failure point</strong> — a step where the evaluation indicates a typical user would likely fail to proceed, hesitate, choose wrong, or not realize they succeeded.</li>
+    <li><strong>Analyze</strong> — separate the interaction into its action steps and explain how each part would or would not support the user; do not merely describe the screens.</li>
+    <li><strong>Evaluate</strong> — judge each failure against severity and explain your reasoning.</li>
+    <li><strong>Severity</strong> — how badly a failure affects the user, rated on a simple scale (for example: 1 = minor/cosmetic, 2 = moderate, 3 = serious/blocks task completion).</li>
+  </ul>
+</div>
+
+<h3>Step 1 — Obtain the prototype you will evaluate (≈15 min)</h3>
+<p>Go to the Discussion Board for <strong>Assignment 5 (Prototype Submission)</strong> and select <strong>one group</strong> whose prototype you will evaluate. Record the group number and project title — you will need both for your submission. Open the public Figma link and confirm you can view the full prototype.</p>
+
+<div class="callout">
+  <strong>Note:</strong> You evaluate a group <em>other than your own</em>. If your instructor assigns you a specific group, use that assignment instead of choosing.
+</div>
+
+<h3>Step 2 — Prepare for the walkthrough (≈30 min)</h3>
+<p>Before evaluating, define the inputs the method requires:</p>
+<ul>
+  <li><strong>User profile:</strong> describe the typical user the design targets (drawing on the project's stated audience).</li>
+  <li><strong>Tasks:</strong> list the key tasks the prototype is meant to support. Your walkthrough must cover <em>all screens</em> in the design, so choose tasks that collectively exercise every screen.</li>
+  <li><strong>Materials:</strong> have the Figma prototype open and a way to capture screens.</li>
+</ul>
+
+<h3>Step 3 — Walk through each action step (≈75 min)</h3>
+<p>For every action step in every task, across all screens, ask the four cognitive walkthrough questions and record your answer to each:</p>
+<div class="questions">
+  <ol>
+    <li>Will the user try to achieve the right effect at this step?</li>
+    <li>Will the user notice that the correct action is available?</li>
+    <li>Will the user recognize that the available action is the right one to reach their goal?</li>
+    <li>After acting, will the user see that progress is being made toward the goal?</li>
+  </ol>
+</div>
+<p>A "no" (or a doubtful answer) to any question signals a <strong>failure point</strong>. Capture a screenshot of the screen where it occurs.</p>
+
+<h3>Step 4 — Document and categorize failure points (≈30 min)</h3>
+<p>For each failure point, record: the task and step, which of the four questions failed, what would go wrong for the user, a severity rating, and a specific recommended fix. Pair each with its screen capture.</p>
+
+<h3>Step 5 — Write conclusions and assemble the report (≈30 min)</h3>
+<p>Summarize your overall findings: how many failures, where they cluster, the most serious issues, and your top recommendations. Assemble everything — user profile, task list, the step-by-step walkthrough, documented failure points, severity ratings, recommendations, full screen captures, and conclusions — into one report.</p>
+
+<h2>4. Parameters &amp; Constraints</h2>
+<ul>
+  <li><strong>Coverage:</strong> the walkthrough must include <em>all screens</em> in the selected prototype.</li>
+  <li><strong>Method:</strong> apply all four walkthrough questions at each action step; do not skip steps.</li>
+  <li><strong>Evidence:</strong> include full screen captures for the prototype and for each documented failure point.</li>
+  <li><strong>Length:</strong> as long as needed to cover all screens and findings clearly; a focused, well-organized report is expected rather than a fixed page count.</li>
+  <li><strong>Citations:</strong> if you reference the cognitive walkthrough method or other sources, cite them in any consistent style (APA recommended).</li>
+  <li><strong>Submission format:</strong> submit your report as a <strong>PDF</strong> (DOCX is also accepted if your instructor permits it; PDF is preferred).</li>
+</ul>
+
+<h2>5. Use of Generative AI</h2>
+<div class="ai-policy">
+  <p><strong>Generative AI is permitted</strong> in this assignment — for example, to help organize your report, refine wording, or check that your walkthrough is complete.</p>
+  <p>Two requirements: (1) the <strong>evaluation judgments must be your own</strong> — the walkthrough answers, identified failure points, severity ratings, and recommendations must reflect your own analysis of the prototype; (2) <strong>briefly note where and how you used AI</strong> (a sentence or two). AI cannot substitute for actually walking through the design yourself.</p>
+</div>
+
+<h2>6. Accessibility</h2>
+<p>Write your report in plain, direct language and define any technical terms you use. Give every screen capture a short text caption describing the screen and the failure it illustrates, so the report is usable by readers using screen readers. If you need an accommodation for producing or submitting materials, contact the instructor early — accommodations are available and will not affect your grade.</p>
+
+<div class="submission-box">
+  <h2>📥 What to Submit</h2>
+  <p>Submit your report as a <strong>PDF</strong> (DOCX accepted if permitted). Upload it to the <strong>Assignment 6 Discussion Board</strong>. Your discussion title must be the <strong>group number and project title</strong> of the prototype you evaluated.</p>
+
+  <div class="deliverable">
+    <strong>Deliverable 1 — Walkthrough Setup</strong>
+    <p>The group number and project title evaluated, the target user profile, and the list of tasks covered (Steps 1–2).</p>
+  </div>
+
+  <div class="deliverable">
+    <strong>Deliverable 2 — Step-by-Step Walkthrough</strong>
+    <p>The four-question analysis applied at each action step across all screens (Step 3).</p>
+  </div>
+
+  <div class="deliverable">
+    <strong>Deliverable 3 — Documented Failure Points</strong>
+    <p>Each failure point with its task/step, the failed question(s), severity rating, recommended fix, and a screen capture (Step 4).</p>
+  </div>
+
+  <div class="deliverable">
+    <strong>Deliverable 4 — Full Screen Captures</strong>
+    <p>Captures of all screens in the evaluated prototype, each with a caption (Steps 3–5).</p>
+  </div>
+
+  <div class="deliverable">
+    <strong>Deliverable 5 — Conclusions</strong>
+    <p>A summary of findings and your top recommendations (Step 5).</p>
+  </div>
+
+  <div class="deliverable">
+    <strong>Deliverable 6 — AI Use Note</strong>
+    <p>One to two sentences describing how you used generative AI in this assignment.</p>
+  </div>
+</div>
+
+<h2>7. Grading Criteria (Rubric)</h2>
+<p>This assignment is graded out of <strong>100 points</strong>.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Criterion</th>
+      <th>Exemplary</th>
+      <th>Proficient</th>
+      <th>Developing</th>
+      <th>Pts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Method application</strong></td>
+      <td>All four questions applied correctly at every action step across all screens.</td>
+      <td>Questions applied with minor gaps or a few skipped steps.</td>
+      <td>Questions applied inconsistently or many steps/screens omitted.</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td><strong>Failure identification &amp; categorization</strong></td>
+      <td>Failures clearly identified, tied to the failed question, and well categorized.</td>
+      <td>Most failures identified; some categorization unclear.</td>
+      <td>Few failures found or poorly documented.</td>
+      <td>25</td>
+    </tr>
+    <tr>
+      <td><strong>Severity &amp; recommendations</strong></td>
+      <td>Severity reasoned clearly; each fix is specific and actionable.</td>
+      <td>Severity and fixes present but uneven.</td>
+      <td>Severity arbitrary or recommendations vague/absent.</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td><strong>Screen captures &amp; evidence</strong></td>
+      <td>All screens captured with captions; failures visually supported.</td>
+      <td>Most screens captured; some captions missing.</td>
+      <td>Captures incomplete or absent.</td>
+      <td>15</td>
+    </tr>
+    <tr>
+      <td><strong>Conclusions, accessibility &amp; submission</strong></td>
+      <td>Clear conclusions; plain language; correct PDF, title, and discussion upload.</td>
+      <td>Most elements present.</td>
+      <td>Several elements missing or submission requirements not met.</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

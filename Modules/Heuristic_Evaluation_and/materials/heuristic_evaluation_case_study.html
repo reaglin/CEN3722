@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heuristic Evaluation Case Study — Individual Assignment (Phase 7)</title>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem;
+    background: #ffffff;
+  }
+  h1 {
+    font-size: 1.9rem;
+    border-bottom: 3px solid #2c5f8a;
+    padding-bottom: 0.5rem;
+    color: #1c3d5a;
+  }
+  h2 {
+    font-size: 1.35rem;
+    color: #1c3d5a;
+    margin-top: 2rem;
+    border-bottom: 1px solid #d0d7de;
+    padding-bottom: 0.25rem;
+  }
+  h3 {
+    font-size: 1.1rem;
+    color: #2c5f8a;
+    margin-top: 1.5rem;
+  }
+  .meta {
+    background: #f1f5f9;
+    border-left: 4px solid #2c5f8a;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    font-size: 0.95rem;
+  }
+  .meta dl { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 0.25rem 1rem; }
+  .meta dt { font-weight: 700; }
+  .meta dd { margin: 0; }
+  .submission-box {
+    background: #fff8e1;
+    border: 2px solid #e6a700;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+  }
+  .submission-box h2 { color: #8a6500; border: none; margin-top: 0.5rem; }
+  .deliverable {
+    background: #ffffff;
+    border: 1px solid #e6a700;
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    margin: 0.75rem 0;
+  }
+  .deliverable strong { color: #8a6500; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+    font-size: 0.92rem;
+  }
+  th, td {
+    border: 1px solid #c0c7ce;
+    padding: 0.6rem 0.75rem;
+    text-align: left;
+    vertical-align: top;
+  }
+  thead th { background: #2c5f8a; color: #ffffff; }
+  tbody tr:nth-child(even) { background: #f5f8fb; }
+  .define { background: #eef6ee; border-left: 4px solid #4a8a4a; padding: 0.5rem 1rem; margin: 0.75rem 0; }
+  .ai-policy { background: #f0f0fa; border-left: 4px solid #6a5acd; padding: 0.75rem 1rem; }
+  .callout { background: #fdeeee; border-left: 4px solid #c0504d; padding: 0.5rem 1rem; margin: 0.75rem 0; }
+  .reflect { background: #eef4fb; border-left: 4px solid #2c5f8a; padding: 0.5rem 1rem; margin: 0.75rem 0; }
+  .resources { background: #f4f1ea; border-left: 4px solid #8a7a4a; padding: 0.5rem 1rem; margin: 0.75rem 0; }
+  .phase-checkpoint { font-style: italic; color: #555; margin: 0.25rem 0 0.75rem; }
+  code { background: #eef1f4; padding: 0.1rem 0.35rem; border-radius: 3px; font-size: 0.9em; }
+</style>
+</head>
+<body>
+
+<h1>Heuristic Evaluation Case Study</h1>
+<p><em>Semester Group Project — Phase 7 of the Design &amp; Build Sequence (Individual Case Study Analysis)</em></p>
+
+<div class="meta">
+  <dl>
+    <dt>Module</dt><dd>Heuristic Evaluation and Severity Rating</dd>
+    <dt>Work Format</dt><dd><strong>Individual</strong> — you evaluate another group's prototype, working independently</dd>
+    <dt>Estimated Effort</dt><dd>2–4 hours</dd>
+    <dt>Builds On</dt><dd>Phase 5: Prototype Submission (another group's Figma prototype); complements Phase 6: Cognitive Walkthrough</dd>
+    <dt>Feeds Into</dt><dd>Later phases: design revision driven by evaluation findings</dd>
+  </dl>
+</div>
+
+<h2>1. Purpose (Why This Matters)</h2>
+<p>You have already evaluated a peer prototype using the cognitive walkthrough, which traces a single user's path through specific tasks. In this case study you apply a complementary method: <strong>heuristic evaluation (HE)</strong>, in which you inspect an entire interface against a set of recognized usability principles. Where the walkthrough follows tasks, HE sweeps the whole design for violations of established standards.</p>
+<p>Heuristic evaluation was introduced by Jakob Nielsen and Rolf Molich in the early 1990s as a "discount" usability method — it uncovers a large share of usability problems without recruiting test users, which is why it is one of the most widely used inspection techniques in industry. A single evaluator typically finds only about a third of an interface's usability problems, so professional practice relies on several independent evaluators whose findings are later combined. In this assignment you serve as one such independent evaluator and produce a formal, professional HE report — the same deliverable a UX consultant would hand to a client team.</p>
+<p>Treat this as a case study: a real prototype, evaluated under a real method, producing a report that another team could act on. The skill transfers directly to professional UX work and also sharpens the critical eye you bring back to your own group's design.</p>
+
+<h2>2. Learning Outcomes</h2>
+<p>By completing this assignment, you will be able to:</p>
+<ol>
+  <li><strong>Apply</strong> Nielsen's ten usability heuristics systematically across all screens of a peer prototype.</li>
+  <li><strong>Evaluate</strong> each identified usability problem by assigning and justifying a severity rating on Nielsen's 0–4 scale.</li>
+  <li><strong>Construct</strong> a professional heuristic evaluation report with a consolidated findings table, visual evidence, and actionable recommendations.</li>
+  <li><strong>Critique</strong> an interface in precise, neutral, professional language that targets design decisions rather than the designer.</li>
+</ol>
+
+<h2>3. The Task (Step-by-Step Instructions)</h2>
+
+<div class="define">
+  <strong>Key terms defined for this assignment:</strong>
+  <ul>
+    <li><strong>Heuristic evaluation (HE)</strong> — a usability inspection method in which an evaluator examines an interface against a set of recognized usability principles (here, Nielsen's ten heuristics) and records each violation.</li>
+    <li><strong>Heuristic</strong> — one of the ten established usability principles (e.g., "Visibility of system status," "Error prevention").</li>
+    <li><strong>Usability problem</strong> — a specific element or behavior of the interface that violates one or more heuristics.</li>
+    <li><strong>Severity rating</strong> — Nielsen's 0–4 estimate of a problem's impact (0 = not a problem, 1 = cosmetic, 2 = minor, 3 = major, 4 = catastrophe), based on frequency, impact, and persistence.</li>
+    <li><strong>Analyze</strong> — inspect each screen against each heuristic and explain how specific elements support or violate the principle; do not merely describe the screens.</li>
+    <li><strong>Evaluate</strong> — judge each problem's severity against the scale and justify the rating with reasoning.</li>
+    <li><strong>Critique</strong> — give a reasoned, evidence-based assessment of the interface that is specific and constructive, not a personal opinion of the designer.</li>
+  </ul>
+</div>
+
+<h3>Step 1 — Obtain the prototype you will evaluate (≈15 min)</h3>
+<p>Go to the Discussion Board for <strong>Assignment 5 (Prototype Submission)</strong> and select <strong>one group</strong> whose prototype you will evaluate. Record the group number and project title — you will need both for your submission. Open the public Figma link and confirm you can view the full prototype, including every screen.</p>
+
+<div class="callout">
+  <strong>Note:</strong> Evaluate a group <em>other than your own</em>, and work <strong>independently</strong> — do not discuss findings with anyone else evaluating the same prototype before you submit. If your instructor assigns you a specific group, use that assignment.
+</div>
+
+<h3>Step 2 — Prepare for the evaluation (≈20 min)</h3>
+<p>Before inspecting, write a short briefing for yourself: who the prototype's intended users are, its primary use cases, and the scope of screens to review. This context is what lets you judge whether a violation is minor or critical. Keep Nielsen's ten heuristics open as a checklist so you apply the same standard to every screen.</p>
+
+<h3>Step 3 — Conduct the individual evaluation (≈70 min)</h3>
+<p>Traverse the prototype <strong>at least twice</strong>: once to get a feel for the overall flow, and once to inspect specific elements against each of the ten heuristics, screen by screen. Note every element that violates one or more heuristics. For each problem, record its location, a precise description of the violation, the heuristic(s) it violates, and capture a screenshot.</p>
+
+<h3>Step 4 — Assign and justify severity ratings (≈25 min)</h3>
+<p>For each problem, assign a severity rating from 0 to 4 and briefly justify it using the three severity factors: how often the problem occurs (frequency), how much it affects users (impact), and whether it persists across the interface (persistence).</p>
+
+<h3>Step 5 — Build the consolidated findings table (≈20 min)</h3>
+<p>Combine your problems into a single findings table ordered from highest to lowest severity. Each row should contain: location, description, heuristic(s) violated, severity rating, and a recommended fix. Annotate screenshots for every severity 3 and 4 finding.</p>
+
+<h3>Step 6 — Write the formal report (≈30 min)</h3>
+<p>Assemble a professional HE report containing: an executive summary, the evaluation context (users, scope, method), the consolidated findings table, annotated visual evidence, and a recommendations section. Make problem descriptions specific enough that someone who was not part of the evaluation could locate and understand each issue.</p>
+
+<h3>Suggested Scaffolding &amp; Checkpoints</h3>
+<p>Use these milestones to pace the work across one or two sittings:</p>
+<ul>
+  <li><strong>Checkpoint A (after Step 2):</strong> prototype selected, link confirmed viewable, briefing written.</li>
+  <li><strong>Checkpoint B (after Step 3):</strong> all screens inspected twice; raw problem list with screenshots complete.</li>
+  <li><strong>Checkpoint C (after Step 5):</strong> severity ratings assigned and findings table drafted and ordered.</li>
+  <li><strong>Checkpoint D (after Step 6):</strong> report assembled, proofread against the quality checklist, and reflection written.</li>
+</ul>
+
+<h2>4. Parameters &amp; Constraints</h2>
+<ul>
+  <li><strong>Coverage:</strong> evaluate <em>all screens</em> in the selected prototype against <em>all ten</em> heuristics.</li>
+  <li><strong>Severity:</strong> every problem must carry a justified 0–4 rating; findings ordered high-to-low severity.</li>
+  <li><strong>Evidence:</strong> include full screen captures of the prototype, with annotated screenshots for all severity 3 and 4 findings.</li>
+  <li><strong>Tone:</strong> precise, neutral, professional — critique the interface, not the designer.</li>
+  <li><strong>Length:</strong> as long as needed to cover all screens and findings clearly; a focused, well-organized report is expected rather than a fixed page count.</li>
+  <li><strong>Citations:</strong> if you reference Nielsen's heuristics or other sources, cite them in a consistent style (APA recommended).</li>
+  <li><strong>Format:</strong> submit your report as a <strong>PDF</strong> (DOCX also accepted; PDF preferred).</li>
+</ul>
+
+<h2>5. Reflection Component</h2>
+<div class="reflect">
+  <p>At the end of your report, include a short reflection (roughly 150–250 words) addressing:</p>
+  <ul>
+    <li>How you approached the evaluation and kept your standard consistent across every screen.</li>
+    <li>What you learned about the interface — and about heuristic evaluation as a method.</li>
+    <li>Where you found it hard to decide which heuristic was violated or what severity to assign, and how you resolved it.</li>
+  </ul>
+</div>
+
+<h2>6. Use of Generative AI</h2>
+<div class="ai-policy">
+  <p><strong>Generative AI is permitted</strong> in this assignment — for example, to help structure your report, refine wording, or check that your problem descriptions are specific and your language is neutral.</p>
+  <p>Two requirements: (1) the <strong>evaluation judgments must be your own</strong> — the identified problems, the heuristics you map them to, the severity ratings, and the recommendations must reflect your own independent inspection of the prototype; (2) <strong>briefly note where and how you used AI</strong> (a sentence or two). AI cannot substitute for actually inspecting the design yourself, and using it to generate findings you did not verify defeats the purpose.</p>
+</div>
+
+<h2>7. Accessibility</h2>
+<p>Write your report in plain, direct language and define technical terms on first use. Give every screen capture a short text caption describing the screen and the violation it illustrates, so the report is usable by readers using screen readers. If you need an accommodation for producing or submitting materials, contact the instructor early — accommodations are available and will not affect your grade.</p>
+
+<h2>8. Resources</h2>
+<div class="resources">
+  <ul>
+    <li><strong>Module readings:</strong> "Nielsen's Ten Usability Heuristics," "The Heuristic Evaluation Process," "Severity Rating," and "Writing Formal Heuristic Evaluation Reports" in this module.</li>
+    <li><strong>Reference:</strong> Nielsen's ten heuristics (1994) and the 0–4 severity scale — keep both open as checklists while you work.</li>
+    <li><strong>Library databases:</strong> the ACM Digital Library and the library's HCI/usability databases for background on heuristic evaluation.</li>
+    <li><strong>Writing support:</strong> the campus Writing Center for help with clear, neutral, professional report language.</li>
+    <li><strong>Course support:</strong> post questions in the course Q&amp;A forum or attend office hours before the deadline.</li>
+  </ul>
+</div>
+
+<div class="submission-box">
+  <h2>📥 What to Submit</h2>
+  <p>Submit your report as a <strong>PDF</strong> (DOCX accepted). Upload it to the <strong>Assignment 7 Discussion Board</strong>. Your discussion title must be the <strong>group number and project title</strong> of the prototype you evaluated.</p>
+
+  <div class="deliverable">
+    <strong>Deliverable 1 — Executive Summary &amp; Evaluation Context</strong>
+    <p>A brief summary of overall findings, plus the group number and project title evaluated, the intended users, scope of screens, and method (Steps 1–2, 6).</p>
+  </div>
+
+  <div class="deliverable">
+    <strong>Deliverable 2 — Consolidated Findings Table</strong>
+    <p>All usability problems ordered high-to-low severity, each with location, description, heuristic(s) violated, severity rating, and recommended fix (Steps 3–5).</p>
+  </div>
+
+  <div class="deliverable">
+    <strong>Deliverable 3 — Visual Evidence</strong>
+    <p>Full screen captures of the prototype, with annotated screenshots for every severity 3 and 4 finding, each captioned (Steps 3, 5).</p>
+  </div>
+
+  <div class="deliverable">
+    <strong>Deliverable 4 — Recommendations</strong>
+    <p>Actionable design guidance proportionate to each problem's severity (Step 6).</p>
+  </div>
+
+  <div class="deliverable">
+    <strong>Deliverable 5 — Reflection</strong>
+    <p>Your 150–250 word metacognitive reflection on process, learning, and challenges (Section 5).</p>
+  </div>
+
+  <div class="deliverable">
+    <strong>Deliverable 6 — AI Use Note</strong>
+    <p>One to two sentences describing how you used generative AI in this assignment.</p>
+  </div>
+</div>
+
+<h2>9. Grading Criteria (Rubric)</h2>
+<p>This assignment is graded out of <strong>100 points</strong>.</p>
+<table>
+  <thead>
+    <tr>
+      <th>Criterion</th>
+      <th>Exemplary</th>
+      <th>Proficient</th>
+      <th>Developing</th>
+      <th>Beginning</th>
+      <th>Pts</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Heuristic application &amp; coverage</strong></td>
+      <td>All ten heuristics applied across all screens; problems correctly mapped to heuristics.</td>
+      <td>Nearly full coverage; most mappings correct.</td>
+      <td>Partial coverage; several screens or heuristics missed or mismapped.</td>
+      <td>Minimal coverage; heuristics applied incorrectly or rarely.</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td><strong>Severity ratings</strong></td>
+      <td>Every problem rated 0–4 with clear justification using frequency, impact, and persistence.</td>
+      <td>Most problems rated and justified.</td>
+      <td>Ratings present but weakly or inconsistently justified.</td>
+      <td>Ratings missing or arbitrary.</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td><strong>Report quality &amp; problem descriptions</strong></td>
+      <td>Professional structure; descriptions precise, neutral, and locatable by an outsider.</td>
+      <td>Clear and mostly professional; minor vagueness.</td>
+      <td>Some vague or unsupported descriptions; uneven structure.</td>
+      <td>Disorganized or vague throughout.</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td><strong>Visual evidence &amp; recommendations</strong></td>
+      <td>All screens captured; severity 3–4 findings annotated; fixes specific and proportionate.</td>
+      <td>Most evidence present; recommendations mostly actionable.</td>
+      <td>Incomplete captures or generic recommendations.</td>
+      <td>Evidence or recommendations largely absent.</td>
+      <td>20</td>
+    </tr>
+    <tr>
+      <td><strong>Reflection, accessibility &amp; submission</strong></td>
+      <td>Thoughtful reflection; plain language and captions; correct PDF, title, and discussion upload.</td>
+      <td>Most elements present.</td>
+      <td>Reflection thin or some submission requirements unmet.</td>
+      <td>Reflection missing or submission requirements not met.</td>
+      <td>10</td>
+    </tr>
+  </tbody>
+</table>
+
+</body>
+</html>
