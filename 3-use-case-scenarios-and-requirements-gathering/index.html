@@ -1,0 +1,508 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Module 3 – Use Case Scenarios and Requirements Gathering | CEN3722</title>
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-bg:           #f4f6f9;
+      --color-surface:      #ffffff;
+      --color-border:       #dde2ea;
+      --color-primary:      #1a4f8a;
+      --color-primary-dark: #133d6d;
+      --color-accent:       #2e7d32;
+      --color-accent-light: #e8f5e9;
+      --color-text:         #1c2331;
+      --color-muted:        #5a6476;
+      --color-tag-bg:       #e8edf5;
+      --color-tag-text:     #1a4f8a;
+      --radius:             8px;
+      --shadow:             0 1px 4px rgba(0,0,0,.08), 0 2px 12px rgba(0,0,0,.06);
+      --font-sans:          'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Page Header ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--color-primary) 0%, #1e3a5f 100%);
+      color: #ffffff;
+      padding: 2.5rem 1.5rem 2rem;
+    }
+
+    .page-header__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .page-header__course {
+      font-size: .8rem;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      opacity: .78;
+      margin-bottom: .45rem;
+    }
+
+    .page-header__title {
+      font-size: clamp(1.4rem, 4vw, 2rem);
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: .9rem;
+    }
+
+    .page-header__intro {
+      font-size: .975rem;
+      opacity: .88;
+      max-width: 680px;
+      line-height: 1.65;
+    }
+
+    /* ── Main Layout ── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem 3.5rem;
+    }
+
+    /* ── Section Headers ── */
+    .section-label {
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: .75rem;
+      margin-top: 2rem;
+      padding-bottom: .35rem;
+      border-bottom: 2px solid var(--color-border);
+    }
+
+    /* ── Card Grid ── */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.1rem;
+      margin-bottom: .5rem;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      padding: 1.2rem 1.25rem 1.1rem;
+      transition: box-shadow .18s ease, transform .18s ease;
+    }
+
+    .card:hover {
+      box-shadow: 0 4px 18px rgba(0,0,0,.12);
+      transform: translateY(-2px);
+    }
+
+    /* type badge row */
+    .card__meta {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      margin-bottom: .65rem;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: .68rem;
+      font-weight: 600;
+      letter-spacing: .04em;
+      padding: .18em .55em;
+      border-radius: 4px;
+      background: var(--color-tag-bg);
+      color: var(--color-tag-text);
+      white-space: nowrap;
+    }
+
+    .badge--filetype {
+      background: #f0f0f0;
+      color: var(--color-muted);
+      font-family: 'Courier New', monospace;
+      font-size: .66rem;
+    }
+
+    /* card title row */
+    .card__title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: .5rem;
+      margin-bottom: .55rem;
+    }
+
+    .card__name {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--color-text);
+      line-height: 1.3;
+    }
+
+    .card__name a {
+      color: var(--color-primary);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color .15s;
+    }
+
+    .card__name a:hover,
+    .card__name a:focus {
+      border-bottom-color: var(--color-primary);
+      outline: none;
+    }
+
+    .card__name a:focus-visible {
+      outline: 2px solid var(--color-primary);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* source link */
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .25rem;
+      font-size: .7rem;
+      font-weight: 600;
+      color: var(--color-accent);
+      text-decoration: none;
+      background: var(--color-accent-light);
+      border: 1px solid #c8e6c9;
+      border-radius: 4px;
+      padding: .18em .5em;
+      white-space: nowrap;
+      transition: background .15s;
+      flex-shrink: 0;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #d0edcc;
+      outline: none;
+    }
+
+    .source-link:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+
+    .source-link__icon {
+      font-size: .75rem;
+      line-height: 1;
+    }
+
+    /* description */
+    .card__desc {
+      font-size: .875rem;
+      color: var(--color-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    /* ── Type-specific accent stripe ── */
+    .card--module-topics  { border-top: 3px solid #1a4f8a; }
+    .card--text-content   { border-top: 3px solid #6a5acd; }
+    .card--topic-detail   { border-top: 3px solid #0097a7; }
+    .card--quiz           { border-top: 3px solid #f57c00; }
+    .card--assignment     { border-top: 3px solid #c62828; }
+
+    .badge--module-topics  { background: #dde8f8; color: #1a4f8a; }
+    .badge--text-content   { background: #ede7ff; color: #4527a0; }
+    .badge--topic-detail   { background: #e0f7fa; color: #006064; }
+    .badge--quiz           { background: #fff3e0; color: #e65100; }
+    .badge--assignment     { background: #ffebee; color: #b71c1c; }
+
+    /* ── Footer ── */
+    .page-footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: .78rem;
+      color: var(--color-muted);
+      border-top: 1px solid var(--color-border);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .page-header { padding: 1.75rem 1rem 1.5rem; }
+      .main { padding: 1.25rem .9rem 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
+<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
+
+  <!-- ════════════════════ PAGE HEADER ════════════════════ -->
+  <header class="page-header" role="banner">
+    <div class="page-header__inner">
+      <p class="page-header__course">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
+      <h1 class="page-header__title">Module 3 &mdash; Use Case Scenarios and Requirements Gathering</h1>
+      <p class="page-header__intro">
+        This module explores the theory and practice of capturing user needs through use case scenarios
+        and systematic requirements gathering. Learners will study stakeholder identification, elicitation
+        techniques, task analysis, and the craft of writing clear, complete documentation that connects
+        stakeholder intent to what development teams actually build.
+      </p>
+    </div>
+  </header>
+
+  <!-- ════════════════════ MAIN CONTENT ════════════════════ -->
+  <main class="main" id="main-content">
+
+    <!-- ── Module Overview ── -->
+    <h2 class="section-label">Module Overview</h2>
+    <div class="card-grid">
+
+      <!-- Module Topics -->
+      <article class="card card--module-topics">
+        <div class="card__meta">
+          <span class="badge badge--module-topics">Module Topics</span>
+          <span class="badge badge--filetype">.json</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="content/module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">
+            <span class="source-link__icon" aria-hidden="true">&#128196;</span>source file
+          </a>
+        </div>
+        <p class="card__desc">A structured outline of the module's topics covering use case scenarios, stakeholder identification, requirements gathering techniques, and task analysis, used by instructors to plan lessons and by learners to navigate the module's scope.</p>
+      </article>
+
+    </div><!-- /.card-grid -->
+
+    <!-- ── Readings & Topic Detail ── -->
+    <h2 class="section-label">Readings &amp; Topic Detail</h2>
+    <div class="card-grid">
+
+      <!-- Introduction to Use Case Scenarios -->
+      <article class="card card--topic-detail">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="badge badge--filetype">.html</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="content/Use_Case_Scenarios_interactive_topics_t1.html">Introduction to Use Case Scenarios</a>
+          </span>
+        </div>
+        <p class="card__desc">This reading introduces use case scenarios as a structured narrative technique for capturing user-system interactions, explaining why they exist, what they contain, and how development teams use them to bridge the gap between stakeholder intent and what is actually built.</p>
+      </article>
+
+      <!-- Identifying Stakeholders and Users -->
+      <article class="card card--topic-detail">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="badge badge--filetype">.html</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="content/Use_Case_Scenarios_interactive_topics_t2.html">Identifying Stakeholders and Users</a>
+          </span>
+        </div>
+        <p class="card__desc">This reading explains how to identify the full range of stakeholders and users connected to a system — including internal roles, external partners, and regulators — and guides learners through the process of mapping who cares about a system before any requirements or use cases are written.</p>
+      </article>
+
+      <!-- Requirements Gathering Techniques -->
+      <article class="card card--topic-detail">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="badge badge--filetype">.html</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="content/Use_Case_Scenarios_interactive_topics_t3.html">Requirements Gathering Techniques</a>
+          </span>
+        </div>
+        <p class="card__desc">This reading surveys the major requirements elicitation methods — such as interviews, workshops, observation, and surveys — describing how each technique works, when to apply it, and how analysts use them together to discover and articulate what a system must do and the qualities it must possess.</p>
+      </article>
+
+      <!-- Task Analysis -->
+      <article class="card card--topic-detail">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="badge badge--filetype">.html</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="content/Use_Case_Scenarios_interactive_topics_t4.html">Task Analysis</a>
+          </span>
+        </div>
+        <p class="card__desc">This reading covers task analysis as a systematic method for studying how users actually perform their work, including the sequence of steps, decisions, and goals involved, and explains how analysts use this understanding as a foundation for writing accurate use cases and interface designs.</p>
+      </article>
+
+      <!-- Writing Use Case Scenarios -->
+      <article class="card card--topic-detail">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="badge badge--filetype">.html</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="content/Use_Case_Scenarios_interactive_topics_t5.html">Writing Use Case Scenarios</a>
+          </span>
+        </div>
+        <p class="card__desc">This reading provides step-by-step guidance on composing well-formed use case scenarios, covering the roles of actors, the structure of main and alternative flows, preconditions and postconditions, and the craft and discipline required to produce clear, complete scenario documentation.</p>
+      </article>
+
+      <!-- Enumerating Usage Paths and Edge Cases -->
+      <article class="card card--topic-detail">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="badge badge--filetype">.html</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="content/Use_Case_Scenarios_interactive_topics_t6.html">Enumerating Usage Paths and Edge Cases</a>
+          </span>
+        </div>
+        <p class="card__desc">This reading addresses how to move beyond the 'happy path' by systematically identifying alternative usage paths, edge cases, and boundary conditions, and explains techniques designers and analysts use to enumerate and account for unexpected user behavior and real-world variability.</p>
+      </article>
+
+      <!-- Documenting and Communicating Requirements (Topic Detail) -->
+      <article class="card card--topic-detail">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="badge badge--filetype">.html</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="content/Use_Case_Scenarios_interactive_topics_t7.html">Documenting and Communicating Requirements</a>
+          </span>
+        </div>
+        <p class="card__desc">This reading explains how to organize, present, and maintain requirements and use case documents for different audiences — including developers, stakeholders, and testers — covering document structure, version control, communication strategies, and keeping documentation accurate as projects evolve.</p>
+      </article>
+
+      <!-- Documenting and Communicating Requirements (Text Content) -->
+      <article class="card card--text-content">
+        <div class="card__meta">
+          <span class="badge badge--text-content">Text Content</span>
+          <span class="badge badge--filetype">.html</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="content/Use_Case_Scenarios_interactive.html">Documenting and Communicating Requirements</a>
+          </span>
+        </div>
+        <p class="card__desc">This reading explains how to organize, present, and maintain requirements and use case documents for different audiences — including developers, stakeholders, and testers — covering document structure, version control, communication strategies, and keeping documentation accurate as projects evolve.</p>
+      </article>
+
+    </div><!-- /.card-grid -->
+
+    <!-- ── Assessment ── -->
+    <h2 class="section-label">Assessment</h2>
+    <div class="card-grid">
+
+      <!-- Quiz -->
+      <article class="card card--quiz">
+        <div class="card__meta">
+          <span class="badge badge--quiz">Quiz</span>
+          <span class="badge badge--filetype">.json</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="quiz/index.html">Quiz Question Bank (5 questions)</a>
+          </span>
+          <a class="source-link" href="source/quiz_questions.json" aria-label="Source file for Quiz Question Bank">
+            <span class="source-link__icon" aria-hidden="true">&#128196;</span>source file
+          </a>
+        </div>
+        <p class="card__desc">A five-question matching quiz bank covering use case components and their definitions, flow types, sources of ambiguity in use case steps, use case templates and their origins, and writing guidelines for specific use case sections, used to assess learners' understanding of use case terminology and structure.</p>
+      </article>
+
+    </div><!-- /.card-grid -->
+
+    <!-- ── Assignments ── -->
+    <h2 class="section-label">Assignments</h2>
+    <div class="card-grid">
+
+      <!-- Assignment 3 -->
+      <article class="card card--text-content">
+        <div class="card__meta">
+          <span class="badge badge--text-content">Text Content</span>
+          <span class="badge badge--filetype">.html</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="content/A001_Case_Study_Analy_Use_Case_Scenarios_Requirement.html">Assignment 3</a>
+          </span>
+        </div>
+        <p class="card__desc">An HTML-formatted group assignment brief instructing student teams to produce a use case scenarios and requirements specification document, including effort estimates, AI use policy, and submission guidance, used by students to understand deliverables and by instructors to distribute the task.</p>
+      </article>
+
+      <!-- Use Case Scenarios & Requirements Specification -->
+      <article class="card card--assignment">
+        <div class="card__meta">
+          <span class="badge badge--assignment">Assignment</span>
+          <span class="badge badge--filetype">.md</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="content/module_assignment_A001_Case_Study_Analy_Use_Case_Scenarios_Requirement.html">Use Case Scenarios &amp; Requirements Specification</a>
+          </span>
+          <a class="source-link" href="source/A001_Case_Study_Analy_Use_Case_Scenarios_Requirement.md" aria-label="Source file for Use Case Scenarios &amp; Requirements Specification">
+            <span class="source-link__icon" aria-hidden="true">&#128196;</span>source file
+          </a>
+        </div>
+        <p class="card__desc">A Markdown-formatted version of the same group assignment asking student teams to develop use case scenarios and a requirements specification, covering the same scope, policies, and expectations as the HTML counterpart, used as a portable or LMS-importable alternative for the same task.</p>
+      </article>
+
+      <!-- Semester Group Project — Phase 2 -->
+      <article class="card card--assignment">
+        <div class="card__meta">
+          <span class="badge badge--assignment">Assignment</span>
+          <span class="badge badge--filetype">.html</span>
+        </div>
+        <div class="card__title-row">
+          <span class="card__name">
+            <a href="assignments/index.html">Semester Group Project &mdash; Phase 2</a>
+          </span>
+        </div>
+        <p class="card__desc">An HTML assignment sheet for Phase 2 of the semester group project directing student teams to conduct stakeholder analysis, requirements gathering, and use case development as a continuation of Phase 1, used by students to complete their next project milestone and by instructors to assess progress toward the full system design.</p>
+      </article>
+
+    </div><!-- /.card-grid -->
+
+  </main>
+
+  <!-- ════════════════════ FOOTER ════════════════════ -->
+  <footer class="page-footer" role="contentinfo">
+    <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp; Module 3: Use Case Scenarios and Requirements Gathering</p>
+  </footer>
+
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p><h2>Source Materials</h2><ul class="artifact-list">  <li class="artifact-item">
+    <div class="artifact-icon">⬇</div>
+    <div class="artifact-body">
+      <a class="artifact-link" href="source-materials/source-1.html" download>Topic Prompt</a>
+    </div>
+  </li>
+  <li class="artifact-item">
+    <div class="artifact-icon">⬇</div>
+    <div class="artifact-body">
+      <a class="artifact-link" href="source-materials/source-2.html" download>Topic Prompt</a>
+    </div>
+  </li></ul></section><script src="embed-inject.js" defer></script></body>
+</html>

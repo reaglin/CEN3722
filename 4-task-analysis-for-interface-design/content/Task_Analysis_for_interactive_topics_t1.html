@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations of Task Analysis</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 4 - Task Analysis for Interface Design</a></div>
+  <header>
+    <h1>Foundations of Task Analysis</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Foundations of Task Analysis</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Task analysis is one of the most foundational practices in user experience and interface design. At its core, it is a disciplined method for understanding <em>what people actually do</em> when they try to accomplish something — breaking down human activity into its constituent parts so that designers can build systems that support, rather than obstruct, real-world behavior. Before a single screen is sketched or a navigation structure is proposed, task analysis asks a deceptively simple question: what does the user need to do, and in what order? The answers to that question shape almost every meaningful design decision that follows.</p>
+
+<p>Because task analysis grounds design in observed and documented human behavior, it acts as a corrective against one of the most persistent dangers in interface design: the assumption that users think about a problem the same way the design team does. Designers, developers, and product managers all carry mental models shaped by deep familiarity with the system they are building. Task analysis forces a shift in perspective — away from the system's internal logic and toward the user's lived experience of trying to get something done.</p>
+
+<p><strong>What Task Analysis Is</strong></p>
+
+<p>Task analysis focuses on the observable actions users take to achieve a defined goal. Rather than asking "what features should this interface have?" it asks "what does a user actually do, step by step, to reach a desired outcome?" This behavioral orientation is what distinguishes task analysis from other early-stage design activities like stakeholder interviews or market research. Those activities tell you what people want; task analysis tells you how they go about getting it.</p>
+
+<p>The process is structured and systematic. A designer or researcher identifies a meaningful goal — say, booking a flight, filing an expense report, or editing a photograph — and then maps out every action a user must perform to complete that goal. These actions are organized into sequences, hierarchies, or flows depending on the method used. The resulting documentation is not a design artifact in itself; rather, it is a <em>pre-design</em> artifact: a factual record of user behavior that design decisions should be traceable back to.</p>
+
+<p>One of the most important functions of task analysis is that it produces shared reference documents that cross-functional teams can all work from. A UX designer, a front-end developer, a content strategist, and a product owner may all interpret a design brief differently. But a well-constructed task analysis gives everyone on the team a common, neutral description of user behavior that is not yet colored by any particular design solution. This makes it an especially powerful communication tool in multidisciplinary environments where misalignment between disciplines can be costly.</p>
+
+<p>Because task analysis is grounded in observable behavior, it also helps teams avoid building interfaces around assumptions. For example, a team building a document management system might assume that users always know which folder they want to save a file into before they save it. A task analysis might reveal that users frequently search for the right folder <em>after</em> opening the save dialog — a discovery that would significantly affect how the interface should be structured. Without task analysis, that assumption might go unchallenged until usability testing or, worse, after launch.</p>
+
+<p><strong>The Role of User Goals</strong></p>
+
+<p>Central to any task analysis is a clear understanding of user goals. A user goal describes a desired outcome — a state of the world the user wants to bring about. Critically, a goal is <em>not</em> an action or an interface element. "Click the Submit button" is an action. "The form is submitted" is a system event. "My expense report has been approved so I can be reimbursed" is a user goal. The distinction matters enormously, because designing for goals rather than actions keeps the interface oriented toward what actually creates value for the user.</p>
+
+<p>Goals must always be expressed from the user's perspective, not the system's. A system might have an internal goal of "write a validated record to the database." The corresponding user goal might be "save my work so I don't lose it." These two framings can lead to very different design decisions. The system-centric framing might result in a rigid save workflow with strict validation before any record is committed. The user-centric framing would more likely lead to auto-save features, draft states, and gentle rather than blocking validation — because the user's underlying concern is continuity and safety of their work, not database integrity.</p>
+
+<p>Identifying user goals early in the design process prevents one of the most common and expensive forms of misalignment in product development: building an interface that is internally consistent and technically sound but that does not match what users are actually trying to accomplish. When the interface structure reflects the system's architecture rather than the user's goal structure, users find themselves forced to learn the system's logic just to accomplish something simple.</p>
+
+<p>An important nuance is that multiple user types may share a goal but follow very different paths to achieve it. Consider the goal "find out the status of my order." A technically confident user might navigate directly to an account dashboard and scan a data table. A less experienced user might use a search bar and type in their order number. A user who received an email confirmation might click a tracking link directly. A task analysis that only accounts for one of these paths will produce an interface that serves only a subset of the actual user population. Documenting goal-sharing across different user types is therefore an essential part of building an inclusive interface.</p>
+
+<p><strong>Why Task Analysis Informs Interface Structure</strong></p>
+
+<p>The connection between task analysis and interface structure is direct and practical. When a task is broken down into its sequential steps, that sequence suggests a natural order in which interface elements should be presented to the user. If step three of a task requires information that was entered in step two, the interface should not bury step two in a different section or require the user to navigate away and return. The task sequence is, in effect, a prototype of the information architecture.</p>
+
+<p>Task analysis also surfaces <em>decision points</em> — moments in a task where the user must choose between two or more different paths depending on their situation or intent. A decision point is a signal to the designer that the interface must provide clear branching options, explicit labels, and often feedback to help the user understand which branch is appropriate for them. For example, in a tax preparation workflow, a user might reach a decision point where they must indicate whether they are filing as an individual or a business. That single decision point might lead to entirely different sets of subsequent screens. Identifying it early through task analysis means the designer can plan for that branching deliberately rather than discovering it mid-prototype.</p>
+
+<p>When a task is broken into subtasks, those subtasks often suggest natural candidates for screens, panels, workflow stages, or grouped form sections. A task like "set up a new employee account" might decompose into subtasks such as entering personal information, assigning a role and permissions, setting up login credentials, and sending an invitation. Each of these is cohesive enough to represent a distinct step in a multi-step form or wizard, and grouping them this way in the interface reflects the natural structure of the task rather than an arbitrary organizational decision.</p>
+
+<p>Perhaps most valuably, task analysis identifies the steps that are most likely to produce errors. When a step requires the user to recall specific information from memory, combine information from multiple sources, perform a calculation, or make a judgment call under uncertainty, that step is a candidate for additional interface support: inline help text, validation, smart defaults, autofill, or confirmation dialogs. Without task analysis, these high-risk steps might look identical to low-risk steps in a wireframe, and the need for additional support might not become apparent until testing.</p>
+
+<p><strong>Observable vs. Cognitive Steps</strong></p>
+
+<p>One of the most important conceptual distinctions in task analysis is between observable steps and cognitive steps. Understanding both — and capturing both in an analysis — is what separates a superficial account of a task from a genuinely useful one.</p>
+
+<p>Observable steps are actions that can be seen, heard, or otherwise directly measured. Clicking a button, entering text into a field, selecting an item from a dropdown, scanning a barcode, pressing a key — all of these are observable. They can be timed, counted, and compared. An interface can be directly evaluated on how well it supports these actions: is the button large enough to click accurately? Is the field labeled clearly enough to know what to type?</p>
+
+<p>Cognitive steps, by contrast, involve mental processes that are not directly visible. Judging whether a result set matches what was intended, recalling an account number from memory, deciding which of three similar options best fits the current situation, interpreting an error message, understanding what a technical term means — these are all cognitive steps. They are embedded in the task just as surely as any observable action, but they leave no visible trace in interaction logs.</p>
+
+<p>The danger of ignoring cognitive steps is that it produces interfaces that are <em>technically functional but cognitively demanding</em>. An interface in which every button works perfectly and every form submits without errors can still be exhausting and error-prone to use if it forces users to hold too much information in working memory, make too many ambiguous judgments, or recall information they have no way of knowing in advance. Classic examples include interfaces that require users to remember and re-enter information they provided on a previous screen, or systems that present status codes without translating them into plain-language meanings.</p>
+
+<p>Different task analysis methods emphasize these two dimensions to different degrees. Methods derived from industrial engineering, such as Hierarchical Task Analysis, tend to focus heavily on observable actions and are well suited to tasks with clear, repeatable physical steps. Methods rooted in cognitive science, such as Cognitive Task Analysis or GOMS (Goals, Operators, Methods, and Selection rules), explicitly model the mental operations a user must perform and are better suited for tasks with significant judgment, problem-solving, or memory demands. Choosing the right method — or combining methods — requires understanding what kind of task you are analyzing and which dimension is most likely to drive design decisions.</p>
+
+<p>To illustrate the difference concretely, consider a user who needs to transfer money between two bank accounts using a mobile app. The observable steps might include: open the app, navigate to the transfers section, select the source account, select the destination account, enter the amount, review the summary screen, and confirm the transfer. A purely observable analysis might stop there. But the cognitive steps running alongside those observable actions are equally important: recognizing which account is which when both are labeled with partial account numbers, deciding whether the available balance shown is sufficient for the transfer, judging whether the transfer will arrive in time given an unfamiliar processing time estimate, and verifying that the summary screen reflects the intended transaction before confirming. Each of these cognitive steps is a design opportunity — for clearer account labeling, for balance visibility, for plain-language processing time explanations, and for a confirmation screen that makes the critical details easy to verify at a glance.</p>
+
+<p>The following table summarizes the key differences between observable and cognitive steps, and their implications for interface design:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Observable Steps</th>
+      <th>Cognitive Steps</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Definition</strong></td>
+      <td>Visible, measurable physical actions</td>
+      <td>Internal mental processes not directly visible</td>
+    </tr>
+    <tr>
+      <td><strong>Examples</strong></td>
+      <td>Clicking, typing, selecting, scrolling</td>
+      <td>Recalling, judging, interpreting, deciding</td>
+    </tr>
+    <tr>
+      <td><strong>How captured</strong></td>
+      <td>Direct observation, interaction logging</td>
+      <td>Think-aloud protocols, interviews, cognitive walkthroughs</td>
+    </tr>
+    <tr>
+      <td><strong>Risk if ignored</strong></td>
+      <td>Interface may require unnecessary physical effort</td>
+      <td>Interface may be cognitively overwhelming despite being mechanically usable</td>
+    </tr>
+    <tr>
+      <td><strong>Design response</strong></td>
+      <td>Reduce clicks, improve affordances, streamline navigation</td>
+      <td>Provide reminders, defaults, plain language, progressive disclosure</td>
+    </tr>
+    <tr>
+      <td><strong>Dominant analysis methods</strong></td>
+      <td>Hierarchical Task Analysis, workflow diagrams</td>
+      <td>Cognitive Task Analysis, GOMS, think-aloud studies</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Together, these four foundational ideas — what task analysis is, how user goals anchor it, why it shapes interface structure, and how it must account for both observable and cognitive steps — form the conceptual bedrock on which all specific task analysis methods are built. A designer who internalizes these principles is equipped not just to apply a particular technique, but to adapt their approach to the demands of any design problem they encounter.</p>
+        <div class="notes"><strong>Notes</strong>Covers all four subtopic clusters in depth with practical examples throughout. The money transfer example near the end concretely illustrates the observable/cognitive distinction. The summary table provides a quick comparative reference. Tone is instructional and explanatory throughout, appropriate for a foundational module.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

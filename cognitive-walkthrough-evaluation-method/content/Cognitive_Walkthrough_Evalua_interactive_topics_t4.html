@@ -1,0 +1,244 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identifying and Documenting Failure Points</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Cognitive Walkthrough Evaluation Method</a></div>
+  <header>
+    <h1>Identifying and Documenting Failure Points</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Identifying and Documenting Failure Points</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Cognitive walkthrough evaluation reaches its full value only when the problems it uncovers are captured with enough precision and structure to drive real design change. Identifying failure points is not simply a matter of noting that "something felt wrong" — it requires a disciplined process of recognizing when and why a design stops supporting the user's mental process, classifying those breakdowns by type and severity, and recording them in a form that other team members can act on. This module covers every dimension of that process: what constitutes a failure, how to categorize and rate failures, how to write descriptions that are genuinely useful, how to use documentation templates efficiently, and how to distinguish severity levels in a way that reflects the experience of the target user rather than the evaluator's own expertise.</p>
+
+<p><strong>What Constitutes a Failure Point?</strong></p>
+
+<p>At its core, a cognitive walkthrough tests whether a design adequately supports the user's cognitive process at each step of a task. An evaluator works through each step by asking a structured set of questions — typically probing whether the user would know what to do next, whether they would notice the correct action, whether they would understand the feedback they receive, and so on. A <em>failure point</em> is any step at which the honest answer to one of those questions is "no" or even "probably not." The design has failed to provide what a typical novice user's mind needs at that moment.</p>
+
+<p>This definition is deliberately broad because failures exist on a wide spectrum of severity. At one end, a failure might be a label that is slightly ambiguous — the user pauses, reads it twice, and proceeds correctly. That is still a failure, because the design required extra cognitive work it should not have demanded. At the other end, a failure might be a missing affordance so severe that the user has no reasonable path forward and abandons the task entirely. Both are failures; they simply sit at different points on the severity scale. The evaluator's obligation is to record both.</p>
+
+<p>A subtlety worth internalizing is that a single interface element can simultaneously produce failures against <em>multiple</em> evaluative questions. Consider a button labeled "Process" placed in a toolbar alongside similar-looking controls. It might fail the question "Will the user notice this action is available?" because it is visually indistinct. It might also fail the question "Will the user know this action leads to their goal?" because the label is opaque. And it might fail the question "Will the user correctly interpret the system's response after clicking?" because the feedback is a status bar update far from where their attention is focused. All three failures stem from one element, but they must be recorded separately because they point toward different design remedies.</p>
+
+<p>Evaluators sometimes hesitate to record failures that seem trivial. This is a mistake. Minor failures compound. A user who experiences a small moment of confusion at step 2, a slightly misleading label at step 4, and an ambiguous confirmation dialog at step 6 may abandon the task at step 7 — not because any single failure was catastrophic, but because the accumulated cognitive friction eroded their confidence and patience. Documenting minor failures preserves the ability to see those cumulative patterns during analysis.</p>
+
+<p><strong>Categorizing Failures by Type</strong></p>
+
+<p>Once a failure is identified, the next step is to classify it. The most productive classification scheme ties each failure to the specific evaluative question it violates. The standard cognitive walkthrough questions address roughly four cognitive stages: goal formation (does the user know what they are trying to accomplish?), action selection (does the user know which action to take?), action execution (can the user perform the action?), and feedback interpretation (does the user understand what happened?). Mapping every failure to one of these categories immediately reveals the character of the design's problems.</p>
+
+<p>If a large proportion of failures cluster in the action-selection category, the interface is likely suffering from a structural labeling or information architecture problem — users understand the goal and can physically perform actions, but they cannot tell which action is the right one. If failures cluster in feedback interpretation, the problem is probably in the system's response layer: confirmations, error messages, and status updates are not communicating adequately. These structural patterns would be invisible if failures were simply listed in chronological order without categorization.</p>
+
+<p>Beyond the evaluative-question dimension, failures can also be categorized by severity. A common three-tier scheme uses <em>low</em>, <em>medium</em>, and <em>high</em> ratings. High-severity failures prevent task completion or cause the user to take an action that is harmful or irreversible. Medium-severity failures allow task completion but introduce significant frustration, wasted time, or a meaningful reduction in user confidence. Low-severity failures are noticeable but cause only minor friction that most users will work through without lasting consequence. The table below illustrates how these categories interact with failure types in practice.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Severity Level</th>
+      <th>Effect on Task</th>
+      <th>Effect on User Confidence</th>
+      <th>Typical Priority</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>High (Critical)</td>
+      <td>Prevents completion or causes harmful error</td>
+      <td>Severe — user likely abandons or makes irreversible mistake</td>
+      <td>Must fix before release</td>
+      <td>No visible way to proceed from a required data-entry screen; submit button absent until a non-obvious prerequisite is met</td>
+    </tr>
+    <tr>
+      <td>Medium (Moderate)</td>
+      <td>Task completed after extra effort or recovery</td>
+      <td>Noticeably reduced; user doubts the system or themselves</td>
+      <td>Address in current design cycle</td>
+      <td>Ambiguous error message that forces the user to try multiple corrections before finding the right one</td>
+    </tr>
+    <tr>
+      <td>Low (Minor)</td>
+      <td>Task completed with minimal friction</td>
+      <td>Slight hesitation; user recovers quickly</td>
+      <td>Queue for a later iteration</td>
+      <td>A tooltip that appears half a second too slowly, causing the user to hover longer than necessary</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Categorization makes findings actionable in a second important way: it allows the design team to distinguish between isolated errors and systemic problems. A single medium-severity failure in step 3 of one task may be a localized issue with a specific widget. Five medium-severity failures all classified as "action selection — unclear label" across three different tasks signal a systemic problem with the interface's labeling conventions — a problem that a terminology audit or a consistent labeling pattern could resolve across the entire product at once.</p>
+
+<p><strong>Writing Effective Failure Descriptions</strong></p>
+
+<p>The quality of a failure description determines whether a design team can act on a finding or must go back to the evaluator for clarification. Vague descriptions like "the button is confusing" or "the feedback is inadequate" delay fixes because they leave the designer guessing about exactly what aspect of the element failed and why. Effective descriptions follow a predictable structure that answers four questions immediately: <em>Where did the failure occur? What would the user think or do incorrectly? What evaluative question does this violate? What might fix it?</em></p>
+
+<p>The location reference should be explicit: task number, step number, and the specific interface element. "Task 2, Step 4, the 'Finalize' dropdown menu" gives a designer an exact coordinate in the interface. The behavioral description should be written from the user's perspective, not the interface's — not "the dropdown does not clearly indicate its function" but "the user, seeking to confirm their order, would overlook the 'Finalize' dropdown entirely because its visual weight is identical to the 'Sort by' and 'Filter' dropdowns nearby; they are likely to scroll down looking for a prominent confirmation button instead." This user-perspective framing keeps the evaluation grounded in human cognition rather than drifting into a technical critique of the interface's implementation.</p>
+
+<p>Linking the failure to a specific evaluative question creates traceability — the ability to follow a finding from the raw evaluation record back through the analysis to any design recommendation that emerges from it. This matters when a design team needs to justify a change to stakeholders, or when a later evaluation needs to verify that a previously identified failure has been resolved.</p>
+
+<p>The optional redesign suggestion is worth including whenever one comes naturally to the evaluator, because it shortens the design team's path to a solution. It should be framed as a direction rather than a prescription: "Consider giving the 'Finalize' action a visually distinct treatment — a filled button in a contrasting color, positioned below the item list rather than in the toolbar, to signal that it is a terminal action rather than a sorting control." This frames the suggestion as a hypothesis for the design team to evaluate, not a mandate that bypasses their expertise.</p>
+
+<p>The following example shows the difference between an inadequate and an effective failure description for the same problem.</p>
+
+<pre><code>INADEQUATE:
+Task 2, Step 4 — The confirm button is not obvious enough.
+
+EFFECTIVE:
+Task 2, Step 4 — Interface element: "Finalize" dropdown in the toolbar.
+Evaluative question violated: Q2 — Will the user know that this action leads to their goal?
+Severity: High
+User behavior predicted: The user's goal at this step is to confirm and submit their order.
+They are scanning the screen for a clear confirmation affordance (e.g., a prominent "Confirm"
+or "Submit" button). The "Finalize" label is unfamiliar terminology for this context and the
+dropdown format suggests a configuration control rather than a terminal action. The user is
+likely to scroll past the toolbar entirely, searching below the order summary for a more
+conventional button. They may attempt to use the browser's back navigation in frustration.
+Redesign direction: Replace the dropdown with a clearly labeled primary-action button
+("Submit Order") placed directly below the order summary, using a filled style that
+distinguishes it from secondary controls.</code></pre>
+
+<p><strong>Using a Documentation Template</strong></p>
+
+<p>Cognitive walkthroughs generate a high volume of fine-grained observations in a relatively short time. Without a pre-defined structure to capture those observations, evaluators face a real risk of losing details in the moment — particularly when a single step surfaces multiple simultaneous failure points. A documentation template solves this problem by providing a fixed set of fields that the evaluator fills in rather than constructs from scratch, reducing the cognitive overhead of documentation and allowing full attention to remain on the evaluation itself.</p>
+
+<p>An effective template includes fields for every piece of information that will be needed during analysis and reporting: task identifier, step number, the action being evaluated, the interface element involved, each evaluative question with a pass/fail indicator, the failure description (when applicable), severity rating, and an optional redesign note. Crucially, the template should have a row or entry for every step evaluated — <em>not</em> just steps where failures occur. Recording successful steps is important for several reasons. It confirms that the evaluator examined those steps, provides context for understanding which parts of the flow work well, and prevents the completed evaluation from appearing to document only problems, which can distort stakeholders' perception of the overall design quality.</p>
+
+<p>When multiple evaluators conduct a walkthrough independently — a best practice for increasing the reliability of findings — standardized templates make it straightforward to merge their results. Because every evaluator uses the same fields in the same structure, a lead analyst can systematically compare entries for the same step across evaluators, identify where findings agree (increasing confidence in those failures) and where they diverge (warranting discussion about the discrepancy), and produce a consolidated finding set without having to reconcile incompatible formats.</p>
+
+<p>The completed set of templates is itself a formal deliverable. It serves as an audit trail of the evaluation process — evidence of what was examined, when, and by whom. This matters in professional contexts where design decisions are scrutinized, in regulated industries where usability testing may be part of a compliance record, and in any situation where a future team needs to understand the basis for a design revision. A thorough template record makes the evaluation reproducible and its findings defensible.</p>
+
+<p>A representative template structure for a single step might look like the following.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Content</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Task ID</td>
+      <td>Task 2 — Place an order for a new item</td>
+    </tr>
+    <tr>
+      <td>Step Number</td>
+      <td>Step 4 of 7</td>
+    </tr>
+    <tr>
+      <td>Action Being Evaluated</td>
+      <td>User confirms and submits the order</td>
+    </tr>
+    <tr>
+      <td>Interface Element</td>
+      <td>"Finalize" dropdown in the top toolbar</td>
+    </tr>
+    <tr>
+      <td>Q1: Will user know goal is achievable here?</td>
+      <td>FAIL</td>
+    </tr>
+    <tr>
+      <td>Q2: Will user know this action leads to the goal?</td>
+      <td>FAIL</td>
+    </tr>
+    <tr>
+      <td>Q3: Will user notice the correct action?</td>
+      <td>FAIL</td>
+    </tr>
+    <tr>
+      <td>Q4: Will user correctly interpret feedback?</td>
+      <td>Not reached — prior questions prevent action</td>
+    </tr>
+    <tr>
+      <td>Failure Description</td>
+      <td>See narrative entry above</td>
+    </tr>
+    <tr>
+      <td>Severity</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Redesign Direction</td>
+      <td>Replace dropdown with labeled primary-action button below order summary</td>
+    </tr>
+    <tr>
+      <td>Evaluator</td>
+      <td>J. Reyes — 14 March</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Distinguishing Severity Levels</strong></p>
+
+<p>Severity rating is one of the most consequential judgments an evaluator makes, because it directly determines the priority order in which the design team addresses failures. Rating severity too high across the board produces a finding set in which everything is marked urgent, making it impossible to triage effectively. Rating severity too low causes genuinely critical problems to be treated as polish items and shipped to users without correction. Getting it right requires a principled approach and a specific frame of reference.</p>
+
+<p>The defining characteristic of a <em>critical</em> failure is that it prevents the target user from completing the task, or leads them to take an action that is harmful, irreversible, or deeply counterproductive. Examples include a required field that offers no visible input affordance, a workflow that deadlocks with no escape route, or a confirmation dialog whose language so closely resembles a cancellation confirmation that users routinely trigger the wrong outcome. These failures must be resolved before the interface is released, because shipping them means a definable proportion of users will be unable to accomplish core tasks or will make significant errors.</p>
+
+<p>A <em>moderate</em> failure allows task completion but at a real cost. The user finds a path forward, but they do so after wasted effort, visible frustration, or a period of genuine uncertainty about whether they are on the right path. This erosion of confidence matters because it affects more than the immediate task — users who feel uncertain about an interface become reluctant to attempt more advanced features, more likely to contact support, and more likely to form a negative overall impression of the product. Moderate failures should be addressed in the current design cycle, not deferred.</p>
+
+<p>A <em>minor</em> failure produces a momentary hesitation or a small increase in cognitive load that the user overcomes quickly and without lasting consequence. A slightly ambiguous icon that becomes clear when a tooltip appears, a progress indicator that takes a fraction of a second longer to appear than ideal, a secondary label that could be worded more precisely — these are genuine failures worth recording, but they are candidates for a later iteration rather than an immediate fix, particularly when development resources are constrained.</p>
+
+<p>The most important calibration principle is that severity must be assessed from the perspective of the <em>defined novice user</em>, not the evaluator. Evaluators are, by definition, domain experts compared to the target user population. An evaluator might find a non-obvious feature annoying but manageable — they know enough about similar interfaces to infer what the interface intends. A novice user encountering the same feature may have no such inferential resources and may be completely blocked. Allowing the evaluator's own experience to anchor the severity rating systematically undercounts the severity of problems that affect novice users disproportionately. The corrective is to continually ask: "Given what a first-time user of this type of software knows and does not know, how would this failure affect them?" — and to let that answer, not the evaluator's personal experience, determine the rating.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic clusters for Topic 1: definition and nature of failure points, categorization by type and severity, writing effective descriptions, template use, and severity-level distinctions. Two HTML tables included for tabular data (severity levels; template example). Code block illustrates contrasting failure description quality. Calibration of severity to the novice user perspective is emphasized throughout the severity section.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

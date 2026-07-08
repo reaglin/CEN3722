@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applying the Method to Peer Prototypes</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Cognitive Walkthrough Evaluation Method</a></div>
+  <header>
+    <h1>Applying the Method to Peer Prototypes</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Applying the Method to Peer Prototypes</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The Cognitive Walkthrough is one of the most powerful inspection-based usability evaluation methods available to UX practitioners, and applying it to real peer-created prototypes marks a significant transition from classroom exercise to authentic professional practice. In this context, you are no longer working with hypothetical interfaces or instructor-constructed examples — you are engaging with designs that a fellow student has invested genuine effort, creativity, and problem-solving into. This reality shapes everything about how the method should be approached: with rigor, fairness, and a clear-eyed commitment to the process rather than to personal impression. The module ahead guides you through every phase of that application, from understanding the evaluative context and selecting appropriate tasks, to conducting the walkthrough itself, comparing findings across multiple prototypes, and assembling a professional evaluation report.</p>
+
+<p><strong>Understanding the Peer Prototype Evaluation Context</strong></p>
+
+<p>Before a single step of the walkthrough is conducted, it is essential to understand what kind of activity this is and what it is not. A peer prototype evaluation using the Cognitive Walkthrough is a <em>usability inspection</em>, not a design critique, a grade, or a judgment of the designer's skill or effort. This distinction is not merely semantic — it has direct consequences for how you frame every finding you record.</p>
+
+<p>When evaluators conflate the interface with the person who made it, findings tend to become vague, softened, or distorted. A comment like "the designer didn't think about novice users" attributes intent and competence to a person, which is both unprovable and unhelpful. The same observation reframed as "at step three, a novice user is unlikely to know that clicking the icon triggers a save action because there is no visible label or confirmatory feedback" is grounded in the interface, traceable to a specific step, and genuinely useful for improvement. Every finding you write should pass this test: does it describe something observable in the interface, or does it describe something about the designer?</p>
+
+<p>Objectivity in peer evaluation does not come from trying to be neutral in some vague emotional sense. It comes from procedural discipline — specifically, from consistently applying the defined user profile and the four evaluative questions to every step, without substituting your own knowledge, habits, or preferences for those of the target user. If you are an experienced smartphone user evaluating a prototype built for elderly first-time tablet users, your intuitions about what is "obvious" are precisely the wrong lens to use. The user profile anchors your evaluation to a consistent, externally defined standard, which is what keeps the method objective.</p>
+
+<p>A critical procedural requirement in peer evaluation contexts is that the walkthrough must be completed <em>independently</em> before any discussion with the prototype's creator takes place. When evaluators speak with designers before completing their analysis, several well-documented biases are introduced: evaluators may unconsciously defer to the designer's explanation of intended behavior, they may feel social pressure to soften findings, or they may fill in gaps in the interface with information the designer provided verbally — information that no real user would ever have. Completing the walkthrough first, and documenting findings in writing before any conversation occurs, protects the integrity of the evaluation.</p>
+
+<p>It is also worth appreciating the broader value of this activity. Professional UX roles routinely involve evaluating work produced by colleagues, clients, or external vendors. The ability to deliver rigorous, evidence-based, respectfully framed findings is a core career skill. Peer prototype evaluations give you low-stakes practice in exactly that skill. The "stakes" are low in the sense that no product will ship or fail based on your report, but the practice is high-fidelity because the prototypes are real, the process is real, and the professional norms you are developing are the same ones that govern actual UX practice.</p>
+
+<p><strong>Selecting Tasks for Each Prototype</strong></p>
+
+<p>The Cognitive Walkthrough is a task-driven method. It does not evaluate an interface in the abstract — it traces a specific user attempting to accomplish a specific goal through a specific sequence of actions. This means that task selection is not a minor administrative detail; it is a foundational decision that shapes everything the evaluation can and cannot discover.</p>
+
+<p>A well-chosen task reflects a goal that a real user of that prototype would actually have. To identify such tasks, begin by examining what the prototype is designed to do. If the prototype is a mobile application for tracking medication schedules, a realistic task might be "add a new medication with a twice-daily dosing schedule." That task is realistic because it is something users of such an application genuinely need to accomplish. By contrast, "explore the settings menu" is not a realistic task because it does not correspond to a goal users arrive with — it corresponds to aimless browsing, which is a different and less analytically useful behavior pattern.</p>
+
+<p>Once a task is identified, it must be decomposed into the smallest observable actions before the walkthrough begins. This decomposition is not optional — it is the mechanism through which the method achieves its analytical precision. Consider the medication example. A high-level description like "add a medication" conceals all of the individual micro-decisions a user must make: locating the interface element that initiates the add process, determining how to specify the medication name, navigating to the dosage field, interpreting the available input options, understanding how to set a schedule, and finally completing and confirming the entry. Each of these is a distinct step that deserves its own application of the four evaluative questions. Skipping the decomposition phase means those micro-decisions are never examined, and failures at that granular level — which are often where the most serious usability problems live — go undetected.</p>
+
+<p>When a prototype supports multiple tasks, you must make choices about which to evaluate. Not all tasks are equally important, and evaluation time is finite. Two criteria should guide your prioritization. First, consider <em>frequency</em>: tasks that users will perform repeatedly deserve more evaluative attention than tasks performed rarely, because usability failures in high-frequency tasks compound across every use session. Second, consider <em>consequence of failure</em>: some tasks, if completed incorrectly, have serious downstream effects — submitting incorrect information, losing data, or triggering irreversible actions. These high-consequence tasks should be prioritized even if they occur infrequently, because the cost of a single failure can be substantial.</p>
+
+<p>Your task definition — including the goal statement, the user's starting state, and the full decomposed action sequence — should be documented in writing before the walkthrough begins and included in your submitted evaluation report. This documentation serves two purposes: it makes your evaluation reproducible (another evaluator with the same task definition should be able to trace the same steps), and it provides transparency about the scope of your evaluation so that readers understand what was and was not examined.</p>
+
+<p><strong>Conducting the Walkthrough on Each Prototype</strong></p>
+
+<p>With a defined user profile, a selected task, and a decomposed action sequence in hand, you are ready to conduct the walkthrough. The process is systematic: you move through the action sequence one step at a time, and at each step you apply all four of the standard Cognitive Walkthrough questions. Those questions, applied consistently, are what transform the walkthrough from an informal review into a structured analytical method.</p>
+
+<p>The four questions are:</p>
+<ul>
+  <li><strong>Will the user try to achieve the right effect at this step?</strong> In other words, is the user's goal at this moment aligned with the action the system expects them to take?</li>
+  <li><strong>Will the user notice that the correct action is available?</strong> Is the relevant control, link, button, or input visible and perceivable to the user at this point in the task?</li>
+  <li><strong>Will the user associate the correct action with the effect they are trying to achieve?</strong> Even if the user sees the control, will they understand that using it is the right thing to do at this moment?</li>
+  <li><strong>Will the user know that progress is being made toward their goal?</strong> Does the system provide feedback that the action was received and that the task is advancing as intended?</li>
+</ul>
+
+<p>A critical and frequently overlooked procedural point is the <em>starting state</em>. Each walkthrough should begin from the defined starting state of the task, which is the state the interface is in when a user arrives ready to begin that task. This starting state may or may not be the prototype's home or landing screen. If the task is "edit a previously saved entry," the starting state might be a dashboard showing a list of saved items — the user is already logged in and already has data in the system. Beginning from the home screen would introduce artificial steps that precede the actual task and would distort your evaluation. The starting state should be specified in your task definition documentation.</p>
+
+<p>Apply all four questions to every step, including steps where no failure appears to be present. This completeness requirement may feel inefficient — why document a step that works fine? — but it serves two important functions. First, it ensures that you have genuinely examined every step rather than skimming through sequences that felt intuitive to you. Your intuition may not match the novice user's experience. Second, it produces a complete picture of the interface that includes both its strengths and its weaknesses, which is far more useful than a list of failures in isolation.</p>
+
+<p>As you conduct the walkthrough, you will inevitably make assumptions about what a novice user would think or know at various points. These assumptions should be noted explicitly. For example: "I am assuming that a novice user in this target population would not be familiar with the hamburger menu icon as a navigation trigger." Making these assumptions explicit is not a sign of weakness in your analysis — it is a sign of rigor. It flags the places where your evaluation depends on a judgment call about user knowledge, so that readers can evaluate whether they agree with that judgment. It also makes your evaluation more honest about the boundaries of what you can claim with certainty.</p>
+
+<p>As you move through each step, record your findings in a structured format. A useful format for each step includes: the step number, a description of the expected action, your answer to each of the four questions (with a brief rationale), and a classification of any failure found. Common failure types to recognize include:</p>
+
+<ul>
+  <li><strong>Goal formation failures:</strong> The user does not form the correct subgoal at this step — often because the overall task structure is not communicated clearly by the interface.</li>
+  <li><strong>Visibility failures:</strong> The correct action is available but not perceivable — perhaps because the control is hidden, too small, or outside the expected visual area.</li>
+  <li><strong>Association failures:</strong> The user can see the control but does not connect it to the intended action — often caused by ambiguous labels, unconventional icons, or misleading affordances.</li>
+  <li><strong>Feedback failures:</strong> The action is taken correctly, but the system does not confirm success or indicate progress, leaving the user uncertain whether to proceed or try again.</li>
+</ul>
+
+<p>An illustrative example clarifies how these failure types appear in practice. Suppose you are evaluating a prototype for a library book reservation system, and the task is "reserve a copy of a specific book." At the step where the user is expected to click a button labeled "Hold" to initiate the reservation, your walkthrough might reveal the following:</p>
+
+<ul>
+  <li><em>Will the user try to achieve the right effect?</em> Yes — the user understands they want to reserve the book, which aligns with the concept of placing a hold.</li>
+  <li><em>Will the user notice the correct action is available?</em> Uncertain — the "Hold" button is positioned below a fold line and may not be visible without scrolling on smaller screens. <strong>Potential visibility failure.</strong></li>
+  <li><em>Will the user associate the action with the effect?</em> Partially — users familiar with library terminology will connect "Hold" with reservation, but users without that background may interpret "Hold" ambiguously. <strong>Potential association failure for some user segments.</strong></li>
+  <li><em>Will the user know progress is being made?</em> No — after clicking "Hold," the page does not visibly change, and no confirmation message appears. The user has no way to know whether the reservation was placed. <strong>Clear feedback failure.</strong></li>
+</ul>
+
+<p>This level of granularity is what makes the Cognitive Walkthrough analytically powerful and what distinguishes it from a general impression review.</p>
+
+<p><strong>Comparing Findings Across Three Prototypes</strong></p>
+
+<p>Evaluating three peer prototypes rather than one is not simply three times the work — it is a qualitatively different analytical opportunity. When findings are compared across multiple interfaces that were designed independently by different designers for potentially different purposes, patterns that would be invisible in a single evaluation become apparent.</p>
+
+<p>The most important cross-prototype analytical question is: do any failure categories appear consistently across multiple interfaces? If feedback failures appear in all three prototypes, that is not a coincidence specific to any individual designer's choices — it suggests a systemic gap, possibly in the shared design knowledge of the group, possibly in the conventions of the design tools being used, or possibly in a broader pattern of how novice designers tend to underestimate the importance of system feedback. Identifying this kind of pattern is more valuable than cataloging the same failure type three separate times without recognizing the connection.</p>
+
+<p>Cross-prototype comparison also reveals positive patterns. When you note design decisions that successfully supported user cognition — clear labels, well-placed affordances, informative feedback messages, logical task flows — and those decisions appear across multiple prototypes, they become candidates for generalizable good practice. Including these positive examples in your analysis is not about being polite to designers; it is about building your own inventory of effective design strategies. The goal of UX evaluation is to improve design, and improvement means knowing both what to avoid and what to replicate.</p>
+
+<p>When documenting cross-prototype observations, organize your comparisons around failure categories and success patterns rather than simply listing prototype A, then B, then C. A comparative table can be an effective way to present this information clearly:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Failure Category</th>
+      <th>Prototype A</th>
+      <th>Prototype B</th>
+      <th>Prototype C</th>
+      <th>Pattern Assessment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Feedback Failures</td>
+      <td>3 instances</td>
+      <td>2 instances</td>
+      <td>4 instances</td>
+      <td>Consistent across all three — systemic concern</td>
+    </tr>
+    <tr>
+      <td>Visibility Failures</td>
+      <td>1 instance</td>
+      <td>0 instances</td>
+      <td>2 instances</td>
+      <td>Moderate, not systemic</td>
+    </tr>
+    <tr>
+      <td>Association Failures</td>
+      <td>2 instances</td>
+      <td>4 instances</td>
+      <td>1 instance</td>
+      <td>Variable — may reflect different icon/label conventions used</td>
+    </tr>
+    <tr>
+      <td>Goal Formation Failures</td>
+      <td>0 instances</td>
+      <td>1 instance</td>
+      <td>0 instances</td>
+      <td>Isolated — specific to Prototype B's task structure</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Your cross-prototype reflections should be incorporated into the final evaluation summary section of your report. This section is where you synthesize what you learned across the full evaluation, not just what you found in each individual prototype. It is the section that demonstrates your ability to think analytically across cases — a skill that is directly transferable to professional contexts where evaluators assess multiple design options, iterations, or competitor products.</p>
+
+<p><strong>Preparing and Submitting the Evaluation Report</strong></p>
+
+<p>The written evaluation report is the primary deliverable of this module, and its quality depends not only on the rigor of the walkthrough you conducted but on how clearly and professionally your findings are communicated. A report that contains valuable insights buried in disorganized prose, or that presents conclusions without traceable evidence, will not be useful to designers or to the professional audience that UX reports are always ultimately written for.</p>
+
+<p>The report should be organized so that each prototype has its own clearly labeled section. Within each prototype section, the reader should be able to find: the task definition (including the user profile, goal statement, starting state, and decomposed action sequence), a step-by-step walkthrough log documenting findings at each step, a summary of failures identified with their classifications, and a brief assessment of the interface's usability strengths. Separating prototypes clearly prevents findings from bleeding across sections and ensures that designers receiving feedback on their specific prototype can locate and understand the relevant findings without having to parse a combined document.</p>
+
+<p>Each prototype section should open with an executive summary — a brief paragraph, typically three to five sentences, that identifies the most critical failures discovered and characterizes their potential impact on users. An executive summary is not a recapitulation of everything that follows; it is a prioritized highlight for readers who need to understand the most important findings quickly. In professional contexts, stakeholders often read only the executive summary before deciding whether to read further, so this section carries significant weight. A strong executive summary sounds like this:</p>
+
+<p><em>"The walkthrough of Prototype B identified a persistent feedback failure pattern across four of the seven evaluated steps, meaning that users have no reliable signal that their actions have been received by the system. This pattern is most consequential at the form submission step, where a user who receives no confirmation may resubmit data multiple times, potentially creating duplicate records. A secondary association failure at step three — where the icon for 'save draft' is conventionally associated with file downloads in most operating systems — is likely to cause users to avoid the control entirely, risking data loss."</em></p>
+
+<p>Notice that this executive summary is specific, grounded in the findings, and framed around user impact rather than designer error. Every claim references something observable and actionable.</p>
+
+<p>The evidentiary standard for the full report is that all claims about failures must be traceable to specific steps and specific evaluative questions. A statement like "the interface is confusing" is not an acceptable finding because it cannot be traced to a step or a question. The equivalent acceptable finding is: "At step four, when the user is expected to select a date from the calendar widget, the response to Question 2 (will the user notice the correct action is available?) is negative, because the widget is rendered in a gray color indistinguishable from the disabled state of other controls on the page, making it appear non-interactive." This level of specificity is what allows findings to be acted upon — a designer who receives the second version of that finding knows exactly what to look at and what to consider changing.</p>
+
+<p>Documentation templates completed during the walkthrough process — step-by-step logs, question response records, and task definition sheets — should be submitted as appendices to the report. These appendices serve as the evidentiary foundation for the claims made in the report body. They also demonstrate that the evaluation was conducted systematically, not reconstructed from memory after the fact. Reviewers, instructors, and in professional contexts, clients, may examine appendices to verify that the evaluation process was followed correctly.</p>
+
+<p>A brief note on professional tone throughout the report: findings should be written in language that is precise, neutral, and constructive. Avoid language that characterizes the designer's intentions, abilities, or effort. Avoid vague qualitative assessments like "poor" or "bad" that carry evaluative weight without analytical content. Prefer descriptive, action-oriented language: "the label does not distinguish between saving a draft and publishing," "the confirmation dialog appears only on desktop and is absent in the mobile view," "the progress indicator is not updated until the final step, leaving users without feedback during a multi-step process." This register of language — descriptive, specific, and focused on the interface — is the professional register of UX evaluation, and practicing it throughout your report is itself a meaningful learning outcome of this module.</p>
+        <div class="notes"><strong>Notes</strong>Guides students through the independent application of the Cognitive Walkthrough to three real peer-created prototypes, including practical considerations and ethical conduct.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

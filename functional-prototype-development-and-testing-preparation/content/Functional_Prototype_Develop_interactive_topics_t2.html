@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transition Strategies from Design to Code</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Functional Prototype Development and Testing Preparation</a></div>
+  <header>
+    <h1>Transition Strategies from Design to Code</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Transition Strategies from Design to Code</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Moving from a polished design mockup to a working coded prototype is one of the most consequential transitions in the product development process. It is the moment when static visual intentions must be translated into dynamic, functional behavior — and without deliberate strategy, that translation can introduce inconsistencies, miscommunication, and rework that cost time and erode the quality of the final product. Transition strategies from design to code are the set of practices, conventions, and workflows that teams use to make this handoff smooth, faithful to the original design intent, and efficient enough to support rapid iteration. These strategies touch every stage of the build process: how assets are prepared before a single line of code is written, how UI components are identified and constructed, how development proceeds incrementally with continuous review, and how teams prevent the slow visual decay known as design drift.</p>
+
+<p><strong>Design Handoff and Asset Preparation</strong></p>
+
+<p>The single most common source of friction between design and development is incomplete or ambiguous handoff materials. When developers must guess at spacing values, track down the right icon file, or infer how a button should behave when hovered, they introduce inconsistencies that accumulate into a prototype that only loosely resembles the intended design. Thorough asset preparation before coding begins eliminates most of these ambiguities at the source.</p>
+
+<p>The first step is exporting all visual assets — icons, illustrations, photographs, and decorative graphics — in the correct formats and at the appropriate resolutions for the target medium. For web and high-resolution screen prototypes, SVG is generally preferred for icons and simple illustrations because it scales without quality loss and has a small file size. Raster images (such as product photos or background textures) should be exported at 1x and 2x resolutions to support standard and high-density displays. Naming conventions matter here: an icon exported as <code>icon-arrow-right.svg</code> is far easier to locate and reference in code than one named <code>Asset 47@2x.png</code>. Many design tools — Figma, Sketch, Adobe XD — allow you to configure export settings per asset and batch-export everything at once, so establishing these settings early saves repetitive effort later.</p>
+
+<p>Beyond image assets, the design system's abstract values must be translated into concrete, reusable definitions that developers can reference without opening the design file. This means documenting <strong>design tokens</strong> — named variables that represent color values, typographic scales, and spacing increments. A well-documented token set might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Token Name</th>
+      <th>Value</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>color-primary-500</code></td>
+      <td><code>#2563EB</code></td>
+      <td>Primary action buttons, links</td>
+    </tr>
+    <tr>
+      <td><code>color-neutral-100</code></td>
+      <td><code>#F3F4F6</code></td>
+      <td>Page backgrounds, card fills</td>
+    </tr>
+    <tr>
+      <td><code>font-size-base</code></td>
+      <td><code>16px</code></td>
+      <td>Body text</td>
+    </tr>
+    <tr>
+      <td><code>font-size-lg</code></td>
+      <td><code>20px</code></td>
+      <td>Section subheadings</td>
+    </tr>
+    <tr>
+      <td><code>spacing-4</code></td>
+      <td><code>16px</code></td>
+      <td>Standard component padding</td>
+    </tr>
+    <tr>
+      <td><code>spacing-8</code></td>
+      <td><code>32px</code></td>
+      <td>Section vertical margins</td>
+    </tr>
+    <tr>
+      <td><code>border-radius-md</code></td>
+      <td><code>6px</code></td>
+      <td>Cards, input fields, modals</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These tokens can be implemented directly as CSS custom properties, Sass variables, or theme objects in a JavaScript framework — meaning the handoff document and the codebase speak the same language from day one. When a designer later revises the primary brand color, changing a single token propagates that update everywhere it is used.</p>
+
+<p>Static mockup screens, no matter how detailed, cannot fully communicate interactive behavior. Hover states, focus rings, transitions, loading animations, and conditional visibility rules live in the gap between a screenshot and a real interface. It is essential to <strong>annotate interaction behaviors</strong> explicitly — either directly in the design file using annotation layers or in a separate specification document. Annotations should describe: what triggers a state change (mouse hover, keyboard focus, a form validation event), what the changed state looks like (color shift, underline, drop shadow), and how long any transition takes and what easing curve it uses. For example: <em>"On hover, the card's box-shadow transitions from none to 0 8px 16px rgba(0,0,0,0.12) over 200ms with ease-out easing."</em> Without this level of specificity, every developer makes a slightly different judgment call, and the prototype feels inconsistent.</p>
+
+<p>Finally, the component library in the design tool should be architected to mirror the component structure that will exist in code. If the design file has a <code>Button / Primary / Large</code> component with variants for default, hover, and disabled states, the codebase should have a corresponding <code>Button</code> component that accepts a <code>variant</code> prop and a <code>size</code> prop. This structural alignment means that when a developer looks at a mockup screen and sees a component, they can immediately identify which code component to use rather than rebuilding it from scratch.</p>
+
+<p><strong>Component-First Development Approach</strong></p>
+
+<p>Modern interfaces are not monolithic pages — they are compositions of discrete, reusable pieces. The component-first development approach formalizes this reality by requiring that developers identify and build the fundamental building blocks of the interface before assembling them into complete pages. This approach dramatically reduces total development effort, improves consistency, and creates a shared vocabulary between design and code.</p>
+
+<p>The starting point is a deliberate audit of the mockup. Before writing any code, the developer (ideally alongside the designer) walks through every screen and identifies recurring patterns: buttons, form inputs, navigation bars, cards, modals, tooltips, data tables, status badges. Each of these is a candidate for a reusable component. Patterns that appear even twice warrant componentization; those that appear across many screens are the highest priority. This audit produces a component inventory — a list of all components to be built, ranked by prevalence and dependency (foundational components like buttons and inputs must be built before composite components like forms that use them).</p>
+
+<p>Each component is then built and tested in isolation before being used in any page layout. Tools like Storybook provide a dedicated environment for this: each component is rendered in its own sandbox where all its variants and states can be verified against the design specification without the noise of surrounding page content. This isolation makes it easy to confirm that a <code>TextInput</code> component correctly renders its default, focused, filled, error, and disabled states before it is embedded in a login form. Catching visual or behavioral discrepancies at the component level is far cheaper than finding them after the component has been used in a dozen different contexts.</p>
+
+<p><strong>Consistent naming between design files and code</strong> is a deceptively powerful practice. When a designer refers to a <code>CardTile</code> and the developer has named the corresponding component <code>ProductCard</code>, every conversation requires a translation step. Over weeks of development, these small translation costs compound into significant confusion, and there is a real risk that the developer builds two slightly different components where one would have served. Agreeing on names before development begins — and documenting that agreement in a shared glossary — keeps everyone oriented to the same map.</p>
+
+<p>The payoff of a well-built component library becomes most visible during usability testing. When test participants reveal that a card layout is confusing, or that a button label is unclear, the design change flows into a single component definition and propagates automatically to every screen where that component appears. Without componentization, the same change requires hunting down every instance manually — a process that is slow, error-prone, and demoralizing.</p>
+
+<p><strong>Iterative Build and Continuous Review</strong></p>
+
+<p>Large software projects that attempt to build everything before reviewing anything tend to accumulate hidden problems until a late integration phase when the cost of fixing them is highest. An iterative build approach applies a simple discipline: complete one meaningful unit of work — typically a full user flow — and subject it to thorough review before moving on to the next unit.</p>
+
+<p>A <strong>user flow</strong> in this context means a coherent sequence of screens through which a user accomplishes a specific goal: creating an account, completing a purchase, configuring a preference. Building flow by flow rather than screen by screen ensures that transitions between screens work correctly, that state is passed properly, and that the end-to-end experience is coherent — not just that individual screens look correct in isolation. After building the account creation flow, for example, the team reviews the entire flow from landing on the registration page to seeing the confirmation screen, testing every edge case (invalid email, mismatched passwords, server error) before moving to the next flow.</p>
+
+<p><strong>Version control</strong> is the technical backbone of iterative development. By committing a clean, working checkpoint after each flow is reviewed and approved, the team creates a reliable rollback point. If development of the next flow introduces a regression — a change that accidentally breaks something that was previously working — the team can identify exactly where the regression was introduced by comparing the current state to the last checkpoint. A meaningful commit message, such as <em>"feat: complete account creation flow — registration, email verification, and confirmation screen"</em>, makes the history legible to the whole team.</p>
+
+<p>Review quality improves substantially when the reviewer was not the builder. A developer who built a flow is naturally blind to its deviations from the mockup — they see what they intended to build, not what is actually on screen. <strong>Fresh-eyes review</strong>, in which a team member who had no involvement in building a given flow compares it directly against the design mockup, catches the discrepancies that the original builder would miss: a slightly wrong font weight, a missing hover animation, a margin that is 8px instead of 12px. Formalizing this as a step in the workflow — not an optional extra — ensures that the prototype remains faithful to the design intent throughout development.</p>
+
+<p><strong>Managing Design Drift During Development</strong></p>
+
+<p>Design drift is the gradual, often unnoticed divergence of the coded prototype from the agreed design. It happens through small, seemingly reasonable decisions: a developer substitutes a slightly different shade of gray because the specified color "looks off" on their monitor; a spacing value is rounded to the nearest even number for convenience; a loading state is skipped because implementing it seems complicated. Individually, each deviation appears minor. Collectively, they transform a carefully considered design into something that nobody explicitly chose.</p>
+
+<p>The primary defense against design drift is a <strong>formal change process</strong>. Any deviation from the mockup — whether it originates from a technical constraint, a discovered usability problem, or a developer's aesthetic preference — must be flagged explicitly rather than silently implemented. The minimum viable version of this process is a shared issue tracker or communication channel where the developer describes the proposed deviation and its reason, and the design lead either approves it, proposes an alternative, or confirms the original specification. This process does not need to be bureaucratic; a quick message in a team chat thread with a clear decision recorded is sufficient. What matters is that no one is making unilateral visual design decisions in code.</p>
+
+<p>All approved deviations should be entered into a <strong>change log</strong> — a simple running document that records what was changed, why, who approved it, and when. This log serves several purposes. It allows the design file to be updated to reflect the final implemented state, preventing the design file from becoming outdated. It provides context for future developers who encounter an implementation that does not match the original mockup and would otherwise spend time investigating whether it is a bug or an intentional decision. And it creates accountability that discourages casual drift — knowing that a deviation will be logged and reviewed encourages developers to raise genuine concerns rather than quietly substituting their own judgment.</p>
+
+<p>One of the most consistent sources of design drift is building and reviewing the prototype exclusively on the developer's own machine at their own screen resolution. A layout that looks perfect on a 27-inch desktop monitor at 100% zoom may collapse, overflow, or lose its intended proportions on the target device — a mobile phone, a tablet, or a specific browser at a constrained window size. <strong>Regular testing on the target device type and screen size</strong>, beginning from the very first component and continuing throughout development, catches these layout issues when they are cheap to fix rather than after they have been baked into dozens of screens. If the prototype is intended for mobile, every review session should include a real device or an accurate device emulator. If it targets a specific viewport width, that width should be the default review context — not a convenient fullscreen desktop window.</p>
+
+<p>Together, these four strategy areas — thorough handoff preparation, component-first construction, iterative review cycles, and disciplined drift management — form a coherent approach to the design-to-code transition that respects the effort invested in the design phase, supports the realities of collaborative development, and produces a prototype that stakeholders and users experience as a genuine, accurate realization of the intended design.</p>
+        <div class="notes"><strong>Notes</strong>Covers all four subtopic areas in depth: asset handoff and design tokens, component-first development, iterative build with version control and fresh-eyes review, and design drift management. Includes a design token reference table rendered as a proper HTML table. Examples are practical and concrete throughout.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

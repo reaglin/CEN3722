@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI-Accelerated Prototyping Workflows</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 5 - AI-Assisted Design and Development Workflows</a></div>
+  <header>
+    <h1>AI-Accelerated Prototyping Workflows</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>AI-Accelerated Prototyping Workflows</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>AI-accelerated prototyping represents a fundamental shift in how designers and developers move from early-stage concepts to interactive, testable artifacts. Traditionally, the journey from a rough wireframe sketch to a working prototype demanded hours of manual coding, repeated context-switching between design tools and development environments, and significant cognitive overhead spent on boilerplate. AI coding assistants compress that timeline dramatically — not by replacing the designer's judgment, but by absorbing the mechanical work of scaffolding, generating component code, and applying iterative changes rapidly. Understanding how to direct these tools purposefully, and where to maintain rigorous human oversight, is the defining skill of modern HCI prototyping practice.</p>
+
+<p>The sections that follow move through the full arc of an AI-assisted prototyping workflow: translating wireframes into working code, generating reusable components, iterating with AI toward better usability, managing the inherent tension between speed and quality, and embedding these practices sustainably inside team processes.</p>
+
+<p><strong>From Wireframe to Code with AI</strong></p>
+
+<p>A wireframe is a spatial and behavioral specification — it communicates which elements exist on a screen, how they relate to one another structurally, and what interactions users can perform. The gap between that specification and runnable code has historically been bridged entirely by a developer's manual effort. AI coding assistants can now close much of that gap, but only when the designer provides prompts that are precise enough to encode the wireframe's intent faithfully.</p>
+
+<p>The first discipline to develop is <strong>describing wireframe layouts in terms of component hierarchy, spatial relationships, and interactive behaviors</strong>. Vague prompts like "generate a dashboard page" produce generic outputs that bear little resemblance to the actual wireframe. Precise prompts describe the tree of components, how they are arranged relative to one another, and what happens when a user acts on them. Consider the difference between these two prompts:</p>
+
+<pre><code>// Vague prompt
+"Create a dashboard page with a sidebar and some cards."
+
+// Precise prompt
+"Create a React component for a dashboard layout with the following structure:
+- A fixed left sidebar (width: 240px) containing a vertical navigation list with five items:
+  Overview, Analytics, Users, Settings, and Help. The active item should be highlighted.
+- A main content area to the right of the sidebar that fills remaining viewport width.
+- Inside the main area, a top header bar with a page title (h1) on the left and a
+  user avatar button on the right.
+- Below the header, a responsive grid of metric cards (minimum 3 columns on desktop,
+  1 column on mobile). Each card displays a label, a numeric value, and a trend indicator
+  (up or down arrow with percentage). Cards are clickable and emit an onCardClick event
+  with the card's id."
+</code></pre>
+
+<p>This level of detail gives the AI the component hierarchy (sidebar, main area, header, card grid), spatial relationships (fixed left, fills remaining width, responsive columns), and interactive behaviors (active state highlighting, clickable cards with events). The resulting scaffold is far closer to the wireframe and requires substantially less manual correction.</p>
+
+<p><strong>AI-generated scaffolds provide a starting structure that designers refine rather than building from scratch.</strong> This is a conceptually important reframe. The goal is not to prompt the AI once and accept its output as final. The scaffold is raw material — it establishes the structure, file organization, and basic logic, freeing the designer to focus cognitive effort on the aspects that genuinely require human judgment: visual polish, interaction nuance, and alignment with the broader design system. Treating AI output as a first draft rather than a finished product sets realistic expectations and leads to better outcomes.</p>
+
+<p>A productive structural pattern is <strong>separating layout generation from styling prompts</strong>. When a single prompt asks for both the component structure and its visual appearance simultaneously, the AI tends to embed styles as inline values or ad-hoc class names that are difficult to maintain. Instead, generate the layout in one pass — establishing the HTML/JSX structure, accessibility roles, and event wiring — and then in a subsequent prompt ask the AI to apply styles using the project's design system tokens, a CSS module approach, or a utility class library like Tailwind. This two-phase approach produces output that is architecturally cleaner and easier to update independently. For example:</p>
+
+<pre><code>// Phase 1 prompt: structure only
+"Generate the JSX structure for a MetricCard component. It should accept props:
+label (string), value (number), trend ('up' | 'down'), percentage (number),
+and onClick (function). Include appropriate ARIA roles and a button element
+for keyboard accessibility. Do not add any styles yet."
+
+// Phase 2 prompt: styling
+"Now add Tailwind CSS utility classes to the MetricCard component we just created.
+Use the following design system conventions:
+- Card container: white background, rounded-lg, shadow-md, padding p-6
+- Label: text-sm, text-gray-500, font-medium
+- Value: text-3xl, font-bold, text-gray-900
+- Trend up: text-green-600 with an upward arrow icon
+- Trend down: text-red-600 with a downward arrow icon"
+</code></pre>
+
+<p>Finally, before investing further iteration effort in the generated prototype, <strong>validate the output against the original wireframe</strong>. This validation step is cheap and prevents compounding errors. Place the wireframe and the rendered prototype side by side and systematically check: Is every element present? Are spatial relationships correct? Do interactive behaviors fire as specified? Are there elements in the generated code that have no counterpart in the wireframe, suggesting the AI invented structure? Catching mismatches early, while the prompt context is fresh and the code is minimal, saves significant rework downstream.</p>
+
+<p><strong>Rapid Component Generation</strong></p>
+
+<p>One of the highest-leverage applications of AI in prototyping is on-demand generation of framework-specific UI components. A designer working in a React codebase can request a complete, functional component — props interface, state logic, event handling, and JSX — in the time it would previously take to locate and read relevant documentation. The same capability applies equally to Vue single-file components, Svelte components, or native Web Components.</p>
+
+<p><strong>AI can generate framework-specific components on demand</strong>, but the quality of that generation depends heavily on the specificity of the framework context provided. Always state the framework, the version if relevant, and any architectural conventions the project follows. Compare:</p>
+
+<pre><code>// Underspecified
+"Make a dropdown component."
+
+// Well-specified
+"Generate a Vue 3 Composition API single-file component for an accessible dropdown
+menu. Requirements:
+- Uses script setup syntax
+- Accepts a 'options' prop (array of { id: string, label: string })
+- Accepts a 'modelValue' prop and emits 'update:modelValue' for v-model support
+- Opens/closes on button click and closes on outside click (use onClickOutside from
+  @vueuse/core)
+- Keyboard navigable: arrow keys move focus between options, Enter selects, Escape closes
+- Uses a <ul role='listbox'> with <li role='option'> elements
+- Applies aria-expanded and aria-activedescendant correctly"
+</code></pre>
+
+<p>After receiving a generated component, always <strong>review it for prop structure, event handling, and state management correctness</strong> before using it. Common failure modes in AI-generated components include: props declared but never consumed, event emitters that use incorrect event name conventions for the framework, local state that duplicates what should be derived from props (breaking the single source of truth principle), and missing cleanup in lifecycle hooks (such as forgetting to remove event listeners added in onMounted). A structured review checklist applied to every generated component catches these issues systematically rather than discovering them as bugs during integration.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Review Dimension</th>
+      <th>What to Check</th>
+      <th>Common AI Failure Mode</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Prop structure</td>
+      <td>All declared props are consumed; types are correct; required vs. optional is appropriate</td>
+      <td>Declares props that are never referenced in the template or logic</td>
+    </tr>
+    <tr>
+      <td>Event handling</td>
+      <td>Events follow framework conventions (emit vs. callback prop); event payloads are typed</td>
+      <td>Mixes React callback prop pattern into a Vue component</td>
+    </tr>
+    <tr>
+      <td>State management</td>
+      <td>Local state is minimal; derived values use computed/memos; no prop mutation</td>
+      <td>Copies props into local state unnecessarily, creating sync bugs</td>
+    </tr>
+    <tr>
+      <td>Lifecycle correctness</td>
+      <td>Side effects are cleaned up; subscriptions are unsubscribed</td>
+      <td>Adds document event listeners without corresponding removal</td>
+    </tr>
+    <tr>
+      <td>Accessibility</td>
+      <td>ARIA roles, labels, and keyboard interactions are present and correct</td>
+      <td>Adds role="button" to a div but omits tabIndex and keyboard handlers</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Requesting unit test stubs alongside component generation</strong> is a practice that pays dividends far beyond the immediate prototyping phase. When you ask the AI to generate a component, append a second instruction asking for a corresponding test file with stubs for the key behaviors. Even if those tests are skeletal — asserting that the component renders without errors, that a click fires the expected event, that keyboard navigation moves focus correctly — they establish a testing scaffold that makes quality assurance tractable from the beginning rather than an afterthought. For example:</p>
+
+<pre><code>// Add to any component generation prompt:
+"Also generate a Jest + React Testing Library test file for this component with test
+stubs for:
+1. Renders without crashing with required props
+2. Displays the correct label and value from props
+3. Calls onClick with the correct id when the card is clicked
+4. Keyboard: pressing Enter when the card is focused triggers onClick
+5. Snapshot test for visual regression baseline"
+</code></pre>
+
+<p>Over the course of a project, effective prompts accumulate into a valuable asset. <strong>Saving and annotating effective component prompts creates a reusable prompt library</strong>. A prompt library is not simply a collection of raw prompt text — it is annotated with the context in which the prompt worked well, the framework and version it targets, any post-generation edits that were consistently necessary, and the resulting component's role in the design system. This library becomes a team resource that reduces redundant prompt-engineering effort and improves the consistency of AI-generated outputs across a project.</p>
+
+<p><strong>Iterating on Prototypes with AI Assistance</strong></p>
+
+<p>Prototyping is inherently iterative. Usability evaluations, stakeholder reviews, and design critiques generate observations that must be translated into concrete changes. AI tools are exceptionally well-suited to this translation work — provided that the feedback is framed in a way the AI can act on precisely.</p>
+
+<p>The key discipline is to <strong>frame iteration prompts around observed usability issues and desired interaction outcomes</strong> rather than around abstract design preferences. "Make the form better" is not actionable. "During usability testing, three participants failed to notice the form submission error message because it appeared below the fold. Revise the form component so that on validation failure, the page scrolls to the first error, the error message appears inline directly below the offending field, and the field border changes to red with an aria-invalid attribute set to true" is immediately actionable. The more precisely the usability observation is translated into a behavioral specification, the more useful the AI's response will be.</p>
+
+<p><strong>AI can generate multiple design variations for the same component</strong>, which is a powerful capability for supporting design comparison and A/B testing decisions. Rather than the designer manually coding three or four layout alternatives for a navigation pattern, they can prompt the AI to produce those variations explicitly, then present them to stakeholders or test participants to gather comparative feedback. This shifts the designer's role from hand-coding alternatives to curating and evaluating them — a much higher-leverage use of their expertise. A prompt for variation generation might look like:</p>
+
+<pre><code>"Generate three distinct variations of the checkout progress indicator component:
+
+Variation A: A horizontal stepper with numbered circles connected by lines.
+Active step has a filled circle; completed steps show a checkmark; future steps
+are gray outlines.
+
+Variation B: A compact breadcrumb-style indicator showing only the current step
+label and 'Step X of Y' text. Previous steps are linked for navigation.
+
+Variation C: A vertical sidebar progress list visible only on desktop (hidden on
+mobile). Each step shows its label and a brief description. The active step is
+highlighted with a left border accent.
+
+All three should accept the same props: steps (array of {id, label, description}),
+currentStep (number), and onStepClick (function)."
+</code></pre>
+
+<p>Accessibility improvements identified during usability evaluations represent another area where AI iteration is highly productive. <strong>Using AI to quickly implement accessibility improvements</strong> — adding missing ARIA attributes, correcting focus management, improving color contrast by replacing hard-coded values with accessible alternatives, or adding skip-navigation links — compresses what would otherwise be a time-consuming manual remediation process. The key is to be specific: cite the WCAG success criterion being addressed, describe the current behavior, and specify the required behavior.</p>
+
+<p><strong>Tracking prompt-driven changes in version control</strong> is an underappreciated practice that pays significant dividends. When a prototype evolves through a sequence of AI-assisted changes, it can become difficult to reconstruct why a particular design decision was made, especially if team members rotate or if the project returns to an earlier direction. Establishing a convention of including the driving prompt (or a concise summary of it) in the commit message, alongside the standard description of what changed, creates a navigable record of design evolution. A commit message might read: "Refactor MetricCard to use trend percentage text instead of icon — prompted by usability test finding that icon meaning was ambiguous to 4/6 participants."</p>
+
+<p><strong>Balancing Speed and Design Quality</strong></p>
+
+<p>The efficiency gains from AI-assisted prototyping create a characteristic risk: the temptation to treat generation speed as a proxy for output quality. Because AI can produce a plausible-looking component in seconds, it is easy to move forward with outputs that have subtle structural, accessibility, or design system alignment problems that compound over time. Establishing deliberate quality practices counteracts this tendency without sacrificing the speed advantage.</p>
+
+<p><strong>Establishing a review checklist for AI-generated prototype components</strong> provides a consistent, low-friction quality gate. The checklist does not need to be exhaustive — it should target the failure modes that AI generation most reliably introduces. A well-designed checklist covers at minimum: accessibility (ARIA roles, keyboard navigability, color contrast), design system alignment (correct tokens, typography scale, spacing units), code clarity (no unexplained magic values, consistent naming conventions), and structural correctness (no prop mutations, appropriate component boundaries). The checklist is applied by a human reviewer, not left to the AI to self-assess.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Checklist Category</th>
+      <th>Key Questions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Accessibility</td>
+      <td>Are interactive elements keyboard reachable? Are ARIA labels present and meaningful? Is color contrast sufficient? Are form fields associated with labels?</td>
+    </tr>
+    <tr>
+      <td>Design System Alignment</td>
+      <td>Are spacing, typography, and color values drawn from system tokens? Do component names and variants match the design system vocabulary?</td>
+    </tr>
+    <tr>
+      <td>Code Clarity</td>
+      <td>Are prop and variable names descriptive? Are there unexplained hard-coded values? Is logic organized predictably?</td>
+    </tr>
+    <tr>
+      <td>Structural Correctness</td>
+      <td>Are component responsibilities appropriately bounded? Is state colocated correctly? Are there no prop mutation anti-patterns?</td>
+    </tr>
+    <tr>
+      <td>Test Coverage</td>
+      <td>Are test stubs present for key behaviors? Do tests exercise realistic user interactions?</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Prioritizing quality reviews at prototype milestones rather than reviewing every incremental AI-generated change</strong> is a practical acknowledgment that continuous review of every small iteration would eliminate the speed benefit. A workable model is to designate milestone checkpoints — for example, after completing the first working version of a major flow, after incorporating a round of usability feedback, and before any stakeholder presentation — as mandatory full-checklist review moments. Incremental changes between milestones are reviewed more lightly, with the expectation that issues will be caught at the next milestone gate.</p>
+
+<p>AI-generated code also tends to accumulate redundancies over iterative sessions. Each prompt adds to what was previously generated without necessarily cleaning up what is no longer needed. <strong>Refactoring AI-generated code periodically</strong> — removing duplicate logic, consolidating styles, renaming components and props to align with evolved design system vocabulary, and eliminating dead code — keeps the prototype maintainable. A monthly or per-milestone refactor pass, guided by a developer with design system expertise, is a reasonable cadence for most projects.</p>
+
+<p>Perhaps the most important stakeholder communication responsibility in AI-assisted prototyping is <strong>clearly framing prototypes as exploratory artifacts, not production-ready deliverables</strong>. AI-generated prototypes can look remarkably polished on the surface, which creates a systematic risk that stakeholders mistake them for production code and begin making commitments based on assumptions about their completeness, performance, or security. Establishing this expectation explicitly — in kickoff meetings, in the prototypes themselves (for example, with a visible "Prototype — Not for Production" banner), and in handoff documentation — prevents costly misunderstandings.</p>
+
+<p><strong>Integrating AI Tools into Team Workflows</strong></p>
+
+<p>The benefits of AI-assisted prototyping are most fully realized when the tools are integrated into team processes thoughtfully, rather than adopted ad hoc by individual contributors in isolation. This requires deliberate decisions about conventions, knowledge sharing, governance, and skill development.</p>
+
+<p><strong>Defining team conventions for documenting AI-assisted contributions</strong> in commit messages and design notes establishes transparency and accountability. When AI generates a component, that fact should be recorded — not because AI-generated code is inherently suspect, but because it provides context for future maintainers about the origin of design decisions and the level of manual review the code received. A simple convention might be a commit tag like <code>[ai-assisted]</code> with a brief note describing the prompt intent and what post-generation review was performed.</p>
+
+<p><strong>Maintaining a shared prompt library</strong> is one of the highest-return investments a team can make in AI tooling. Individual contributors naturally develop effective prompts through trial and error, but without a mechanism to share those learnings, each team member re-derives them independently. A shared library — stored in the project repository or a team wiki, organized by component type and framework — means that a prompt that took one designer an hour to refine into reliable output is immediately available to every team member. The library should be treated as a living document: prompts should be updated when they are found to produce poor results and annotated when a particular post-generation edit is consistently required.</p>
+
+<p><strong>Assigning human reviewers for all AI-generated outputs before they are merged into shared project branches</strong> is a non-negotiable governance practice. This is not a bureaucratic formality — it is the primary mechanism by which the team maintains collective ownership over the codebase and catches the quality issues that AI generation reliably introduces. The review process for AI-generated code should follow the same pull-request workflow used for hand-written code, with the reviewer applying the component checklist and verifying that the output meets the team's standards. The speed advantage of AI generation is not negated by code review; it is preserved, because the reviewer is evaluating existing code rather than writing it.</p>
+
+<p>Finally, <strong>rotating AI-assisted tasks across team members</strong> ensures that the entire team develops proficiency with the tools rather than concentrating that expertise in one or two individuals. When AI tool knowledge is siloed, the team becomes dependent on those individuals and loses the compounding benefit of diverse perspectives on prompt strategies. Rotating tasks also builds a more resilient team that can maintain AI-assisted workflows through personnel changes, and it surfaces diverse use cases that improve the shared prompt library over time.</p>
+
+<p>Taken together, these practices — precise wireframe-to-prompt translation, disciplined component generation and review, usability-driven iteration, quality milestone gates, and team-level conventions — constitute a mature AI-accelerated prototyping workflow. The workflow does not automate design judgment; it amplifies it, freeing designers and developers to focus their expertise on the decisions that genuinely require human understanding of users, contexts, and consequences.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full arc of AI-assisted prototyping from wireframe translation through team-level workflow integration. Prompt examples are illustrative and framework-agnostic enough to be adapted to any project context. The review checklists and tables can be extracted and used as standalone team reference documents.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

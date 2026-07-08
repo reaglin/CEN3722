@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessible Color and Visual Design</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Accessibility Standards and Inclusive Interface Design</a></div>
+  <header>
+    <h1>Accessible Color and Visual Design</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Accessible Color and Visual Design</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Visual design is one of the most powerful communication tools available on the web, but it can also become one of the most significant barriers to access when implemented without consideration for users with visual impairments, color blindness, low vision, or cognitive differences. Accessible color and visual design is the discipline of making deliberate, informed choices about contrast, color usage, typography, and interactive states so that every user — regardless of how they perceive the screen — can understand and act on the information being presented. Accessibility in visual design is not a cosmetic afterthought; it is a foundational quality of well-crafted interfaces, and it is codified in the Web Content Accessibility Guidelines (WCAG), which provide measurable, testable criteria for visual accessibility.</p>
+
+<p>Understanding these principles requires moving beyond subjective aesthetic judgment and toward a measurable, systematic approach. The following sections explore the four core pillars of accessible visual design: color contrast ratios, avoiding color as the sole indicator, typography and readability, and focus indicators and visual state.</p>
+
+<p><strong>Color Contrast Ratios</strong></p>
+
+<p>Color contrast refers to the difference in luminance — that is, perceived brightness — between a foreground element and its background. Human vision relies on this difference to distinguish text, icons, and UI components from their surroundings. When contrast is insufficient, text becomes difficult or impossible to read for users with low vision, cataracts, or contrast sensitivity impairments, and even typical sighted users in challenging viewing conditions such as bright sunlight or low-quality screens will struggle.</p>
+
+<p>WCAG defines contrast ratios on a scale from 1:1 (no contrast — identical colors) to 21:1 (maximum contrast — pure black on pure white). The ratio is calculated using the relative luminance of the two colors according to the following general principle: the lighter color's luminance is divided by the darker color's luminance after both are expressed on a standardized scale. You do not need to calculate this by hand — tools such as the WebAIM Contrast Checker, Figma plugins, and browser developer tools can compute it instantly.</p>
+
+<p>WCAG defines two conformance levels relevant to most projects:</p>
+
+<ul>
+  <li><strong>WCAG AA (minimum):</strong> Normal body text must achieve a contrast ratio of at least <strong>4.5:1</strong> against its background. This is the baseline requirement for most public-facing websites and applications.</li>
+  <li><strong>WCAG AAA (enhanced):</strong> Normal text should achieve at least <strong>7:1</strong> for the highest level of accessibility, which is recommended for content targeting users with significant visual impairments.</li>
+</ul>
+
+<p>The contrast requirement is relaxed for <strong>large text</strong>, because larger letterforms are inherently easier to distinguish even at lower contrast. WCAG defines large text as text that is at least <strong>18pt (approximately 24px) in regular weight</strong>, or at least <strong>14pt (approximately 18.67px) in bold weight</strong>. Large text requires a minimum contrast ratio of <strong>3:1</strong> at AA level.</p>
+
+<p>It is important to understand that these requirements apply not just to body copy, but to any text that carries meaning — including placeholder text in form fields, captions, labels, and text embedded in images. Decorative text that conveys no information is exempt, but this exemption should not be used as a loophole to avoid accessible practices.</p>
+
+<p>Contrast requirements also extend beyond text to <strong>non-text UI components</strong>. Under WCAG 1.4.11 (Non-text Contrast, AA), the visual boundaries and active states of user interface components — such as the border of a text input field, the track and thumb of a range slider, the outline of a checkbox — must achieve at least a <strong>3:1 contrast ratio</strong> against adjacent colors. This ensures that users with low vision can locate and identify interactive controls even before they interact with them.</p>
+
+<p>Consider this contrast comparison at a practical level:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Foreground Color</th>
+      <th>Background Color</th>
+      <th>Contrast Ratio</th>
+      <th>WCAG AA Pass (Normal Text)</th>
+      <th>WCAG AA Pass (Large Text)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>#767676 (mid gray)</td>
+      <td>#FFFFFF (white)</td>
+      <td>4.54:1</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>#949494 (light gray)</td>
+      <td>#FFFFFF (white)</td>
+      <td>3.03:1</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>#767676 (mid gray)</td>
+      <td>#E8E8E8 (near white)</td>
+      <td>3.12:1</td>
+      <td>No</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>#000000 (black)</td>
+      <td>#FFFFFF (white)</td>
+      <td>21:1</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+    <tr>
+      <td>#1A73E8 (blue)</td>
+      <td>#FFFFFF (white)</td>
+      <td>4.55:1</td>
+      <td>Yes</td>
+      <td>Yes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A common design mistake is using light gray text on white backgrounds for secondary information or placeholder text under the assumption that visual hierarchy justifies lower contrast. This logic is flawed because visual hierarchy should be achieved through size, weight, and spacing — not by making text harder to read for some users. A better approach is to use full-contrast text with reduced font size or weight to indicate secondary importance.</p>
+
+<p><strong>Avoiding Color as the Sole Indicator</strong></p>
+
+<p>Approximately 8% of men and 0.5% of women have some form of color vision deficiency (commonly called color blindness). The most common forms are red-green deficiencies: deuteranopia and protanopia, which affect the ability to distinguish between red and green hues. Tritanopia, affecting blue-yellow discrimination, is rarer. Beyond color blindness, users who are fully blind and using screen readers receive no color information at all. This means that any design that uses color as the <em>only</em> way to convey meaning will fail a significant portion of users.</p>
+
+<p>WCAG Success Criterion 1.4.1 (Use of Color) states explicitly that color must not be the only visual means of conveying information, indicating an action, prompting a response, or distinguishing a visual element. This principle, called <strong>redundant encoding</strong>, requires that color-based distinctions be accompanied by at least one additional non-color visual cue.</p>
+
+<p>The following are the most common scenarios where color-only design fails and how to address each:</p>
+
+<ul>
+  <li><strong>Error states in forms:</strong> Highlighting an invalid input field with a red border alone is insufficient. The red border must be supplemented by an error icon (a distinct shape), an error message in text, or both. A user with deuteranopia may not distinguish the red from other colors at all.</li>
+  <li><strong>Status indicators:</strong> A dashboard that uses green, yellow, and red dots to indicate system status (operational, degraded, down) must also include text labels or distinct icons for each state. Relying solely on traffic-light colors excludes users who cannot differentiate those hues.</li>
+  <li><strong>Data charts and graphs:</strong> Pie charts and line graphs that distinguish categories only by color are inaccessible to colorblind users. Solutions include using distinct patterns or textures within segments, adding direct data labels, using symbols on data points (circles, squares, triangles), and ensuring sufficient contrast between adjacent colors even when viewed through a color blindness simulation filter.</li>
+  <li><strong>Links within body text:</strong> If hyperlinks are distinguished from surrounding text only by color (e.g., blue text with no underline), users with color vision deficiency may not identify them as links. WCAG requires that links within blocks of text either have a non-color differentiator such as an underline, or that the link color itself achieves a 3:1 contrast ratio against the surrounding text color (not just the background).</li>
+</ul>
+
+<p>A useful design practice is to run your designs through a color blindness simulator. Tools such as Stark (a Figma/Sketch plugin), Coblis, and the built-in accessibility features in macOS and Windows can render your interface as it would appear to users with various types of color vision deficiency. If any information becomes ambiguous or lost when viewed through the simulation, the design needs a redundant cue.</p>
+
+<p>Redundant encoding does not mean your design needs to be visually cluttered. A well-designed error state, for instance, can combine a red border with a small error icon — that icon is subtle, purposeful, and adds an accessible cue without disrupting the visual aesthetic. The key is that the information survives even if the color information is stripped away entirely.</p>
+
+<p><strong>Typography and Readability</strong></p>
+
+<p>Typography choices have a profound impact on readability, particularly for users with low vision, dyslexia, cognitive impairments, or aging-related changes in vision. Accessible typography is not about choosing "accessible fonts" in some absolute sense — most standard, well-designed fonts are readable when implemented correctly. Rather, it is about making deliberate decisions about size, spacing, alignment, and line length.</p>
+
+<p><strong>Font size</strong> is the most fundamental variable. Industry best practice, supported by both WCAG guidance and readability research, recommends setting body text at a minimum of <strong>16px</strong>. This size is generally sufficient for users with mild visual impairments. For users who need larger text, it is equally important that the page layout supports browser-level and OS-level text resizing without breaking the layout. WCAG 1.4.4 (Resize Text) requires that text can be resized up to 200% without loss of content or functionality. This means avoiding the use of fixed-height containers that clip text, and using relative units such as <code>em</code> or <code>rem</code> for font sizes rather than absolute pixel values where possible.</p>
+
+<p><strong>Line height</strong> (also called leading) is the vertical distance between lines of text. Insufficient line height makes lines of text appear visually crowded, which increases the difficulty of tracking from the end of one line to the beginning of the next — a particular challenge for users with dyslexia and low vision. WCAG 1.4.12 (Text Spacing) specifies that content must remain readable when line height is set to at least <strong>1.5 times the font size</strong>. A practical recommendation for body text is a line height of 1.5 to 1.7. Similarly, the spacing between paragraphs should be at least 2 times the font size to clearly separate blocks of content.</p>
+
+<p><strong>Line length</strong> (the number of characters per line) also affects readability. Lines that are too long cause fatigue and make it difficult to find the start of the next line. Lines that are too short disrupt reading rhythm. A widely accepted guideline is to aim for <strong>45 to 75 characters per line</strong> for comfortable reading, with 66 characters often cited as ideal. This is typically achieved through container max-widths rather than direct font controls.</p>
+
+<p><strong>Text alignment</strong> is a commonly overlooked accessibility consideration. <strong>Justified text</strong> — where both the left and right edges of a text block are aligned to create a rectangular shape — should be avoided for body copy. Justified alignment causes uneven word spacing, sometimes creating large visible gaps called "rivers" of white space that flow through the text. These rivers are distracting for typical readers and significantly impede reading for users with dyslexia, who rely on consistent letter and word spacing to decode text. Left-aligned text (ragged right) provides consistent word spacing and is strongly preferred for body content. Right-aligned text is appropriate for specific design contexts such as labels next to right-aligned form fields, but should not be used for multi-line body text.</p>
+
+<p>Font choice should favor legibility. Highly decorative fonts, thin hairline-weight fonts, and fonts with ambiguous letterforms (for example, fonts where a capital I, a lowercase l, and the number 1 are indistinguishable) reduce readability for all users and create significant barriers for users with dyslexia or low vision. Sans-serif fonts such as Inter, Roboto, and system UI fonts tend to perform well for body text. Serif fonts such as Georgia are also acceptable at appropriate sizes. The most important factors are sufficient x-height (the height of lowercase letters relative to capitals), clear distinction between similar letterforms, and adequate character spacing.</p>
+
+<p><strong>Focus Indicators and Visual State</strong></p>
+
+<p>Keyboard navigation is the primary mode of interaction for many users — including people who cannot use a mouse due to motor impairments, power users who prefer the keyboard for efficiency, and assistive technology users whose tools drive keyboard events. When a keyboard user tabs through a page, the element that will respond to their next action — a link, button, input field, or custom control — must be visually distinguishable from the elements around it. This visual signal is called the <strong>focus indicator</strong>.</p>
+
+<p>WCAG 2.1 Success Criterion 2.4.7 (Focus Visible, AA) requires that any keyboard-operable user interface has a mode of operation where the keyboard focus indicator is visible. WCAG 2.2 strengthened this with Success Criterion 2.4.11 (Focus Appearance, AA), which adds specific dimensional and contrast requirements: the focus indicator must have a perimeter area of at least the component's perimeter, must be at least 2 CSS pixels in thickness, and the focused state must achieve at least a 3:1 contrast ratio change compared to the unfocused state — all relative to adjacent colors.</p>
+
+<p>Many designers and developers rely on the browser's default focus outline — typically a thin blue or dotted outline that varies by browser and operating system — and either leave it as-is or, worse, remove it entirely with <code>outline: none</code> in CSS. Removing the default focus outline without providing a replacement is one of the most harmful accessibility decisions a developer can make, as it renders keyboard navigation effectively invisible for users who depend on it.</p>
+
+<p>Instead, designers should define explicit, intentional focus styles that:</p>
+
+<ul>
+  <li>Are <strong>clearly visible</strong> — use a combination of outline thickness, offset, and color that makes the focused element unmistakably distinct from its surroundings.</li>
+  <li>Meet <strong>contrast requirements</strong> — the focus indicator color must achieve at least 3:1 contrast against the background color directly adjacent to the indicator. If the focus ring appears on both light and dark backgrounds (for example, an element that spans a hero image), ensure the ring is visible in all contexts. A common technique is to use a double ring — a dark inner ring and a light outer ring — which ensures visibility against both light and dark backgrounds simultaneously.</li>
+  <li>Do not rely on color alone — the focus state should involve a visible shape change (the appearance of an outline or box shadow) rather than just a color shift in the element itself.</li>
+  <li>Are consistent — the focus style should follow a design system standard applied uniformly across all interactive elements, so keyboard users build a reliable mental model of how navigation works on the site.</li>
+</ul>
+
+<p>A practical CSS pattern for a robust, high-visibility focus indicator looks like the following:</p>
+
+<pre><code>/* Applied globally to all interactive elements */
+:focus-visible {
+  outline: 3px solid #005FCC;
+  outline-offset: 3px;
+  box-shadow: 0 0 0 6px rgba(0, 95, 204, 0.25);
+}
+</code></pre>
+
+<p>The use of <code>:focus-visible</code> rather than <code>:focus</code> is important: <code>:focus-visible</code> applies the visible focus style only when the browser determines that focus should be shown — typically for keyboard and assistive technology navigation — while suppressing the visible ring for mouse clicks, which most sighted mouse users find visually distracting. This allows designers to provide an excellent keyboard navigation experience without affecting the visual cleanliness of mouse-driven interaction.</p>
+
+<p>Beyond the static focus indicator, all interactive elements exist in multiple visual states, and each state must be perceptible. The full set of interactive states for a button, for example, includes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>State</th>
+      <th>Description</th>
+      <th>Common Visual Treatment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Default</td>
+      <td>The element at rest, not interacted with</td>
+      <td>Baseline color, border, and label</td>
+    </tr>
+    <tr>
+      <td>Hover</td>
+      <td>The pointer is over the element</td>
+      <td>Slight background darkening or lightening; cursor change</td>
+    </tr>
+    <tr>
+      <td>Focus</td>
+      <td>The element has keyboard focus</td>
+      <td>Visible outline or ring meeting contrast requirements</td>
+    </tr>
+    <tr>
+      <td>Active / Pressed</td>
+      <td>The element is being activated (mouse down / Enter key)</td>
+      <td>Depressed appearance; inverted or deeper colors</td>
+    </tr>
+    <tr>
+      <td>Disabled</td>
+      <td>The element is not currently operable</td>
+      <td>Reduced opacity or muted color; cursor: not-allowed</td>
+    </tr>
+    <tr>
+      <td>Error</td>
+      <td>Input has an invalid value</td>
+      <td>Red border plus error icon plus error message text</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Each state should be visually distinct from the others. A focus state that looks identical to the hover state, for example, creates confusion for keyboard users who cannot tell whether an element is focused or simply being pointed at. A disabled state must look noticeably different from the default state, but note that disabled elements are exempt from contrast requirements under WCAG — though making disabled states too invisible can confuse users about why an action is unavailable. Many designers choose to provide a tooltip or instructional text explaining why a control is disabled rather than simply rendering it invisible.</p>
+
+<p>Investing in rigorous, systematic focus and state design is one of the highest-impact accessibility improvements a design team can make. It directly enables a large and often invisible population of keyboard and assistive technology users to navigate and operate an interface with confidence and independence.</p>
+        <div class="notes"><strong>Notes</strong>Covers WCAG 1.4.1, 1.4.3, 1.4.4, 1.4.11, 1.4.12, 2.4.7, and 2.4.11. Practical code examples use :focus-visible for modern browser compatibility. Tables illustrate contrast ratios and interactive states for clarity. Emphasis placed on redundant encoding as a principle rather than a checklist item.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

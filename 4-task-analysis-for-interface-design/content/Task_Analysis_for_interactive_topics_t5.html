@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Collection for Task Analysis</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 4 - Task Analysis for Interface Design</a></div>
+  <header>
+    <h1>Data Collection for Task Analysis</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Data Collection for Task Analysis</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Task analysis is only as accurate and useful as the data that feeds it. Before a designer or analyst can break down a task into its component steps, identify cognitive demands, or spot points of friction in a workflow, they need a solid foundation of empirical evidence about how real users actually perform those tasks. That evidence comes from a deliberate, structured process of data collection — one that combines direct observation, verbal protocols, existing documentation, and careful participant selection. Each method captures a different dimension of user behavior, and together they build a picture that is far richer and more reliable than any single source could provide on its own.</p>
+
+<p>Understanding why multiple collection methods are necessary requires appreciating a fundamental gap in human self-knowledge: people are remarkably poor at accurately describing their own behavior. Users frequently report doing things in a logical, orderly sequence, when observation reveals that their actual process is iterative, fragmented by interruptions, and full of workarounds they have long since stopped noticing. The purpose of data collection for task analysis is therefore not simply to record what users <em>say</em> they do, but to triangulate across sources until a truthful, nuanced account of task performance emerges.</p>
+
+<p><strong>Observation Methods</strong></p>
+
+<p>Observation is the most direct route to understanding real-world task performance because it captures behavior as it actually unfolds, rather than as it is remembered or idealized after the fact. When a participant explains a task in an interview, they are constructing a narrative — one that is shaped by what they believe the interviewer wants to hear, what they think is relevant, and the natural tendency of memory to smooth over complexity and error. Observation bypasses these distortions by placing the analyst in the same space and time as the task itself.</p>
+
+<p>The most valuable form of observation for task analysis is <em>contextual observation</em>, sometimes called contextual inquiry when combined with interviewing. Rather than asking users to perform tasks in a controlled lab, the analyst observes them in their actual working environment — at their workstation, in the warehouse, on the shop floor, or wherever the task genuinely occurs. This context matters enormously. A data-entry clerk who works in an open-plan office contends with verbal interruptions every few minutes; a nurse updating patient records must constantly switch attention between a screen and a patient; a warehouse picker references a handheld scanner while managing a physical cart and navigating narrow aisles. None of these environmental factors will appear in a laboratory observation, yet all of them shape the task's cognitive and procedural demands. Contextual observation surfaces these factors organically because the analyst is present when they happen.</p>
+
+<p>Field notes are the primary record of an observation session. Effective field notes go beyond a simple log of actions; they capture the sequence of steps, the duration of pauses, moments of hesitation or backtracking, tools and artifacts the user references, and any verbal utterances or expressions of frustration. Crucially, good field notes distinguish between direct observation — what was literally seen or heard — and inference or interpretation, which should be flagged clearly and revisited later. An analyst who writes "User seemed confused by the error message" is already interpreting; a more rigorous note would record the exact error message that appeared, the user's verbatim reaction, and the subsequent actions taken, leaving interpretation for the analysis phase.</p>
+
+<p>Screen recordings are an invaluable complement to field notes for any task that involves a digital interface. They provide a frame-by-frame record that no human observer can match: every click, scroll, typed character, and navigation path is captured for later review. When combined with audio — either from a microphone or a think-aloud protocol — screen recordings allow analysts to replay specific moments, measure precise durations, and notice micro-behaviors (such as a user hovering over a button before clicking elsewhere) that are easy to miss in real time. Modern screen-capture tools can also record mouse paths and dwell times, adding another layer of behavioral data.</p>
+
+<p>The observer's role during a session requires careful calibration. The goal is to be a <em>fly on the wall</em> — present enough to capture rich data, but unobtrusive enough that the user's behavior remains natural. This is more difficult than it sounds. The mere presence of an observer changes behavior (a phenomenon known as the Hawthorne effect), and any action the observer takes — leaning in, asking a question, reacting visibly — can interrupt the user's task flow or signal that a particular behavior was noteworthy, prompting the user to alter subsequent actions. Good observers develop a practiced neutrality: they make brief, non-evaluative acknowledgments ("mm-hmm," "okay") that keep the session going without influencing it. They resist the urge to help when the user struggles, because struggle is often the most analytically valuable moment in the entire session — it reveals where the design fails to support the mental model users bring to the task.</p>
+
+<p>Observers must also remain alert to unexpected behaviors: things users do that were not anticipated by the analysis plan. A user who opens a second browser tab mid-task to cross-reference a previous order, or who writes a step down on paper before executing it in the software, is revealing something important about the task's cognitive demands and the gaps in the tool's support for them. These unplanned moments often yield the most actionable insights.</p>
+
+<p><strong>Interview and Protocol Methods</strong></p>
+
+<p>While observation reveals <em>what</em> users do, it does not always explain <em>why</em> they do it. The reasoning behind a choice — why a user navigated to a particular screen before completing a form, why they preferred one confirmation path over another, why they paused before submitting — is largely invisible to an observer. Interview and verbal protocol methods are designed to make that reasoning explicit.</p>
+
+<p>The <em>think-aloud protocol</em> is one of the most widely used techniques in usability and task analysis research. Participants are asked to verbalize their thoughts continuously as they perform a task: what they are looking at, what they are trying to do, what they expect to happen, and what they make of what they see. This running commentary, when recorded and transcribed, provides a real-time window into the user's cognitive process — their mental model of the system, the cues they use to orient themselves, the points at which their expectations are violated, and the strategies they adopt when things go wrong.</p>
+
+<p>Think-aloud data is particularly valuable for identifying <em>invisible steps</em> in a task: cognitive operations such as deciding, comparing, recalling, or checking that leave no visible trace in the interaction log. A user who silently scans a table of results before clicking is performing a significant cognitive task — evaluating options against criteria, filtering by some internal heuristic — that would be invisible to observation alone but surfaces clearly in a think-aloud protocol as "Okay, I'm looking for the most recent one... this one says June, this one says July... I'll use the July record."</p>
+
+<p>Think-aloud protocols do, however, have limitations. Verbalizing thoughts is cognitively demanding, and for tasks that are themselves cognitively demanding, the added load of narration can alter performance — slowing the user down, prompting more deliberate and less automatic behavior, or occasionally causing them to abandon a natural strategy in favor of one that is easier to articulate. Participants also vary in their willingness and ability to verbalize fluently. Some require regular prompting ("keep talking, tell me what you're thinking"), while others produce a rich, unprompted narration. These variations need to be accounted for during analysis.</p>
+
+<p><em>Retrospective interviews</em> address the think-aloud limitation by separating the task performance from the verbal account of it. The user first completes the task — without any narration requirement — and then, immediately afterward, is asked to walk through what they did and why. Retrospective interviews can be conducted with or without a replay of the session recording; replaying the recording (sometimes called stimulated recall) is particularly effective because it allows the user to comment on specific moments in their actual session rather than reconstructing the task from memory alone.</p>
+
+<p>The quality of interview data depends heavily on question design. A well-constructed interview guide uses a progression that moves from broad, open-ended prompts toward more specific probes, following the participant's own account rather than imposing a predetermined structure. The most productive interview questions for task analysis focus on four dimensions: what the user <em>noticed</em> (perceptual cues), what they <em>considered</em> (the options or factors they weighed), what they <em>decided</em> (the choice made and why), and what they <em>expected</em> to happen as a result. Questions that focus only on actions — "And then what did you do?" — reproduce the sequence of steps but miss the cognitive architecture beneath them.</p>
+
+<p>Probing questions are particularly important when a user's account is vague or incomplete. If a participant says "I just knew to go there," a skilled interviewer probes: "What made you go there rather than somewhere else?" or "What were you looking for when you arrived at that screen?" These probes should feel genuinely curious rather than challenging; the goal is to help the participant articulate tacit knowledge that they have automated through experience and no longer consciously notice.</p>
+
+<p>Structured interview guides — a consistent set of core questions administered to all participants — serve a dual function. They ensure that the same analytical territory is covered across multiple sessions, making it possible to compare responses and identify patterns. They also provide a quality control mechanism: a well-designed guide prevents the interviewer from inadvertently spending more time on some topics with some participants than with others, introducing a systematic bias into the dataset. The guide should be treated as a scaffold, not a script — interviewers must remain flexible enough to pursue unexpected threads — but the core questions should be asked of every participant in a comparable form.</p>
+
+<p><strong>Using Existing Documentation</strong></p>
+
+<p>Before conducting a single observation or interview, analysts can accelerate the task analysis process by mining existing organizational documentation. This includes standard operating procedures, training manuals, job aids, workflow diagrams, process maps, system specifications, and any other materials that describe how tasks are supposed to be performed. This documentation does not capture how tasks <em>are</em> performed — that distinction is critical — but it provides a structured starting point: a first draft of the task model that can then be tested and refined through empirical methods.</p>
+
+<p>One of the most revealing categories of existing documentation is support and help desk records. Support logs, trouble tickets, and frequently asked questions represent a distilled record of where users struggle: the steps they get stuck on, the error messages they cannot interpret, the functions they cannot find, and the outcomes they cannot achieve. Unlike designed documentation (which describes the intended workflow), support records describe the actual breakdown points — the places where the gap between intended design and real-world use is wide enough that users seek outside help. Patterns in support logs can efficiently direct an analyst's attention to the most problematic parts of a task before any observation session is conducted.</p>
+
+<p>Workflow diagrams produced by subject matter experts (SMEs) — people with deep domain knowledge, such as experienced employees, trainers, or process engineers — offer another valuable perspective. SMEs have typically developed a sophisticated, internalized model of how a task works, and their diagrams capture procedural logic, decision points, conditional branches, and domain-specific terminology that general documentation may omit. A process diagram drawn by an experienced accounts-payable clerk will include contextual rules ("if the invoice is over $10,000, it requires a second approval") and exception handling ("if the vendor code doesn't appear in the system, check the legacy database") that reflect actual practice far more accurately than a generic procedure manual.</p>
+
+<p>However, documentation-derived task models carry a significant risk: they reflect the perspective of whoever produced them, which may be a designer, a manager, a trainer, or a policy writer — not necessarily the end user. Standard operating procedures describe the intended process; they do not account for the informal workarounds, adaptive strategies, and situational judgments that characterize real task performance. Every step or decision point derived from existing documentation must therefore be explicitly validated through direct observation or user interviews before it is incorporated into the final task analysis. Treating documentation as ground truth, rather than as a hypothesis to be tested, is one of the most common and consequential errors in task analysis practice.</p>
+
+<p><strong>Participant Selection</strong></p>
+
+<p>The validity of any task analysis depends not only on the methods used to collect data but on the participants from whom that data is collected. Selecting the wrong participants — users who are not representative of the intended user population, or who perform the task under conditions that differ from real-world use — can produce a task model that is technically rigorous but practically misleading.</p>
+
+<p>The foundational principle of participant selection is alignment with the target user group defined in the analysis scope. If the analysis concerns a warehouse management system used by receiving clerks with no formal IT training, the participants must be receiving clerks with no formal IT training — not warehouse managers, not IT administrators, and not analysts who happen to be familiar with the system. Each of these other groups brings a different knowledge base, a different set of expectations, and a different set of task demands that will produce a systematically different picture of the task.</p>
+
+<p>Expertise level is a particularly important dimension of participant selection when the interface must serve a range of users. Novice users and experienced users perform the same task differently in ways that are analytically significant. Novices rely more heavily on surface cues (labels, icons, and visual affordances) and are more vulnerable to interface ambiguity; experienced users have developed internalized shortcuts and may barely notice the interface at all, navigating by habit. If a system must serve both groups, collecting data from only one group will produce a task model that is systematically incomplete. Including participants from both ends of the expertise spectrum — and potentially intermediate users as well — ensures that the analysis captures the full range of task strategies and support needs that the design must accommodate.</p>
+
+<p>A common misconception is that larger participant samples always produce better data. In qualitative task analysis, the reverse is often true: a small number of carefully selected, representative participants yields more actionable and analytically coherent data than a large sample drawn without regard for representativeness. Research in usability testing has repeatedly demonstrated that a handful of well-chosen participants will surface the majority of significant usability issues; adding more participants from the same population produces rapidly diminishing returns. The priority should be on quality of selection — genuine representativeness — rather than on quantity.</p>
+
+<p>Documenting participant characteristics is not merely a methodological formality; it is an analytical resource that supports every subsequent phase of the design process. A participant log that records relevant attributes — role, tenure, frequency of task performance, level of formal training, primary technology used, and any other characteristics relevant to the task — allows analysts to identify whether patterns in the data are associated with specific participant profiles. It also enables later project reviewers and stakeholders to evaluate the credibility of the analysis: findings that are well grounded in a clearly described, representative participant group carry more evidential weight than findings from an undocumented or convenience sample.</p>
+
+<p>The following table summarizes the four major data collection methods for task analysis, including their primary strengths, limitations, and the types of data each method is best positioned to capture:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Primary Strengths</th>
+      <th>Key Limitations</th>
+      <th>Best For Capturing</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Contextual Observation</td>
+      <td>Reveals actual behavior; captures environmental factors and interruptions; uncovers workarounds</td>
+      <td>Observer effect may alter behavior; reasoning behind actions remains invisible</td>
+      <td>Action sequences, environmental influences, unplanned behaviors, tool use</td>
+    </tr>
+    <tr>
+      <td>Think-Aloud Protocol</td>
+      <td>Exposes real-time reasoning and mental models; identifies cognitive steps invisible to observation</td>
+      <td>Verbalization adds cognitive load; may alter natural task performance; varies by participant</td>
+      <td>Decision logic, expectation violations, evaluation criteria, error recovery strategies</td>
+    </tr>
+    <tr>
+      <td>Retrospective Interview</td>
+      <td>Does not interfere with task performance; stimulated recall using recordings improves accuracy</td>
+      <td>Memory decay; participants reconstruct rather than recall; may rationalize post-hoc</td>
+      <td>Reasoning about specific decisions, user goals, satisfaction or frustration with outcomes</td>
+    </tr>
+    <tr>
+      <td>Existing Documentation</td>
+      <td>Rapid first draft of task structure; surfaces common failure points via support logs; captures domain knowledge from SMEs</td>
+      <td>Describes intended, not actual, process; may reflect designer or manager perspective rather than user experience</td>
+      <td>Procedural scaffolding, conditional logic, exception handling, organizational policy</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In practice, robust task analysis draws on all of these methods in a deliberate sequence: existing documentation is reviewed first to build a preliminary task model and focus observation efforts; contextual observations are conducted to capture actual behavior in the real environment; think-aloud or retrospective protocols are used to surface the reasoning behind observed actions; and participant selection is managed throughout to ensure that the resulting task model reflects the full range of the target user population. Each method compensates for the blind spots of the others, and the convergence of evidence across methods is what gives the final task analysis its credibility and practical value.</p>
+        <div class="notes"><strong>Notes</strong>Covers all four subtopic clusters (Observation Methods, Interview and Protocol Methods, Using Existing Documentation, Participant Selection) in depth with explanations, examples, and a summary comparison table. No headings used per formatting rules — topic transitions are handled via bold lead-in sentences.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

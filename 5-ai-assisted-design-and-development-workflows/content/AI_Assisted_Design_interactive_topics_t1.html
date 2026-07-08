@@ -1,0 +1,185 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to AI Coding Assistants in HCI</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 5 - AI-Assisted Design and Development Workflows</a></div>
+  <header>
+    <h1>Introduction to AI Coding Assistants in HCI</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to AI Coding Assistants in HCI</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The emergence of AI coding assistants has fundamentally reshaped how designers and developers approach the construction of interactive systems. In the context of Human-Computer Interaction (HCI), where the gap between a conceptual design and a working prototype has historically required significant engineering effort, these tools introduce the possibility of compressing that gap dramatically. Understanding what these assistants are, how they work, and where they fit within the HCI pipeline is the essential foundation for using them thoughtfully and effectively.</p>
+
+<p><strong>What Are AI Coding Assistants?</strong></p>
+
+<p>AI coding assistants are software tools that use <strong>large language models (LLMs)</strong> — deep neural networks trained on enormous corpora of text, code, documentation, and online discussions — to understand and generate programming code. Unlike traditional autocomplete tools, which rely on pattern matching within a fixed syntax dictionary, LLM-based assistants can reason about intent, infer context from surrounding code, and produce semantically coherent outputs that span multiple lines or even entire files.</p>
+
+<p>These models are trained on billions of lines of source code drawn from public repositories (such as GitHub), technical documentation, Stack Overflow threads, API references, and programming tutorials. This breadth of training data allows them to generalize across many programming languages, frameworks, and problem domains. When you ask a coding assistant to "create a responsive navigation bar with keyboard accessibility," it draws on patterns it has encountered across thousands of similar implementations.</p>
+
+<p>AI coding assistants accept a variety of input forms:</p>
+<ul>
+  <li><strong>Natural language descriptions:</strong> A plain-English prompt like "write a function that filters a list of users by their subscription status" is sufficient to generate working code.</li>
+  <li><strong>Existing code as context:</strong> The assistant reads the surrounding file or project and tailors its output to match the conventions, variable names, and architectural patterns already in use.</li>
+  <li><strong>Combined input:</strong> A partial function signature, an inline comment describing intent, or a block of pseudocode can all serve as prompts that guide generation.</li>
+</ul>
+
+<p>The outputs these tools produce are equally varied. They can generate:</p>
+<ul>
+  <li><strong>Full functions or methods</strong> based on a described behavior</li>
+  <li><strong>Boilerplate UI components</strong> such as modals, form fields, cards, or navigation elements</li>
+  <li><strong>Test cases</strong> that verify the behavior of existing functions</li>
+  <li><strong>Explanatory comments and documentation</strong> that annotate code for future readers</li>
+  <li><strong>Refactored versions</strong> of existing code with improved readability or performance</li>
+</ul>
+
+<p>These tools are not confined to a single environment. They are integrated across a wide range of development surfaces:</p>
+<ul>
+  <li><strong>IDEs (Integrated Development Environments)</strong> such as VS Code, JetBrains IntelliJ, and Neovim, where suggestions appear inline as the developer types</li>
+  <li><strong>Terminal environments</strong> where a developer can describe a shell task in natural language and receive a corresponding command</li>
+  <li><strong>Browser-based coding environments</strong> such as CodeSandbox, Replit, or Vercel's v0, which allow prototyping without a local development setup</li>
+  <li><strong>API access</strong>, allowing developers to build their own custom tooling on top of the underlying model</li>
+</ul>
+
+<p><strong>Key Tools: Claude Code, GitHub Copilot, and Codex</strong></p>
+
+<p>While many AI coding assistants exist, three tools have been especially influential and represent meaningfully different approaches to AI-assisted development. Understanding their distinctions helps practitioners choose the right tool for different stages of an HCI project.</p>
+
+<p><strong>GitHub Copilot</strong> is perhaps the most widely adopted AI coding assistant in professional development environments. Built on OpenAI's Codex model (and more recently updated with newer GPT-based models), Copilot integrates directly into popular IDEs — most notably VS Code — as an extension. Its primary interaction mode is <em>inline suggestion</em>: as a developer writes code, Copilot continuously predicts what the next line, block, or function should be and displays it as a ghost-text suggestion that can be accepted with a single keystroke. This low-friction integration means that Copilot feels less like a separate tool and more like an extension of the editor itself. For HCI work, Copilot excels at quickly scaffolding repetitive UI patterns: form layouts, event handler stubs, conditional rendering logic, and similar structures that appear constantly across interface codebases.</p>
+
+<p><strong>OpenAI Codex</strong> is the underlying model that originally powered Copilot, but it is also accessible independently via API, which makes it especially valuable for building <em>custom developer tooling</em>. A team might use the Codex API to build an internal design-system generator that takes a component description and outputs code pre-configured to their organization's specific CSS tokens and component library. Codex's API accessibility means it can be embedded in design tools, content management systems, or internal dashboards — anywhere that a natural-language-to-code capability would reduce manual effort.</p>
+
+<p><strong>Claude Code</strong> (developed by Anthropic) occupies a distinctly different position. Rather than focusing primarily on inline single-line suggestions, Claude Code is designed for <em>agentic, multi-step tasks</em> — meaning it can sustain coherent reasoning across long, complex interactions with an entire codebase. It can read multiple files, understand how they relate to one another, execute commands, and iteratively refine its outputs based on feedback. For HCI practitioners working on large projects — such as a design system with dozens of interconnected components, or an accessibility audit that requires touching hundreds of files — Claude Code's ability to maintain context and pursue multi-step goals makes it particularly powerful. Its comparatively large context window allows it to hold more of a project's codebase in "working memory" at once, reducing the need to re-explain structure and conventions at each step.</p>
+
+<p>The following table summarizes key differences across these three tools:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Primary Integration</th>
+      <th>Interaction Style</th>
+      <th>Context Window</th>
+      <th>Best For in HCI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GitHub Copilot</td>
+      <td>IDE extension (VS Code, JetBrains)</td>
+      <td>Inline real-time suggestions</td>
+      <td>Moderate (file/function level)</td>
+      <td>Rapid scaffolding of UI components and patterns</td>
+    </tr>
+    <tr>
+      <td>OpenAI Codex</td>
+      <td>API access; powers custom tooling</td>
+      <td>Prompt-based generation</td>
+      <td>Moderate</td>
+      <td>Custom design-system generators and embedded tools</td>
+    </tr>
+    <tr>
+      <td>Claude Code</td>
+      <td>Terminal / agentic environment</td>
+      <td>Multi-step reasoning and task execution</td>
+      <td>Large (multi-file / codebase level)</td>
+      <td>Complex refactoring, accessibility audits, large-scale design system work</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>The Role of AI in the HCI Pipeline</strong></p>
+
+<p>The HCI design and development pipeline typically moves through several phases: research, ideation, wireframing, prototyping, user testing, and iterative refinement. AI coding assistants are not uniformly useful across all of these stages — their impact is most pronounced at specific points where the translation from concept to working code is the primary bottleneck.</p>
+
+<p><strong>Prototyping</strong> is the stage where AI assistants provide the most immediate value. Traditionally, moving from a static wireframe to an interactive prototype required a developer to manually build component scaffolding, wire up state management, and write event handlers — work that might take hours or days. An AI assistant can generate the structural skeleton of a prototype from a brief description, allowing a designer to interact with a working version far earlier in the process. For example, a designer might describe: <em>"Create a multi-step form with three panels — personal info, preferences, and confirmation — with validation and a progress indicator."</em> The assistant can produce a functional React component that a designer can immediately deploy to a testing environment and share with users.</p>
+
+<p>During <strong>iterative refinement</strong>, AI assistants support the rapid cycle of change-and-test that HCI work demands. When user testing reveals that a navigation pattern is confusing, or that a modal's focus management traps keyboard users, the designer can describe the needed adjustment in natural language and receive revised code immediately — rather than waiting for engineering bandwidth or manually hunting through the DOM.</p>
+
+<p>AI tools also contribute meaningfully to <strong>accessibility markup</strong>. Generating semantically correct HTML with proper ARIA roles, labels, and live regions is detail-oriented work that is easy to omit under time pressure. An AI assistant, prompted explicitly to include accessibility considerations, will often produce output that includes <code>aria-label</code>, <code>aria-describedby</code>, <code>role</code> attributes, and focus management logic. For example, asking Copilot or Claude to "generate a dialog component that traps focus and announces its presence to screen readers" typically produces code that respects ARIA authoring practice guidelines, which would otherwise require a developer to consult the W3C documentation and implement manually.</p>
+
+<p>It is critical to note, however, that AI tools are not a substitute for genuine user research or design judgment. They do not conduct usability studies, synthesize qualitative feedback, or make value-laden decisions about whose needs a design should prioritize. <strong>Human judgment remains irreplaceable</strong> for interpreting what research participants are communicating, deciding which trade-offs are acceptable, and ensuring that design decisions reflect the values and constraints of the specific community being served.</p>
+
+<p><strong>Opportunities and Limitations of AI-Assisted Design</strong></p>
+
+<p>The opportunities introduced by AI coding assistants are substantial, but so are the risks if these tools are used uncritically.</p>
+
+<p>On the opportunity side, the most significant benefit is the <strong>reduction of repetitive, low-level coding tasks</strong>. Experienced HCI practitioners know that a large fraction of interface development involves writing structurally similar code over and over: setting up event listeners, writing CRUD operations for form data, structuring responsive grid layouts, or generating test cases for interaction states. When AI handles these tasks, designers and developers can redirect their cognitive energy toward the decisions that actually require human expertise — the nuanced trade-offs in information architecture, the ethical dimensions of a notification system, or the subtleties of how a microinteraction communicates system status.</p>
+
+<p>AI assistants also function as effective <strong>on-demand tutors and documentation lookup tools</strong>. A designer learning React who cannot remember the syntax for <code>useEffect</code> cleanup functions, or a developer unfamiliar with the WCAG criterion for color contrast, can ask the assistant and receive an immediate, contextualized answer. This lowers the barrier to entry for HCI practitioners who may have strong design skills but less formal programming training.</p>
+
+<p>Despite these advantages, several limitations demand careful attention:</p>
+
+<ul>
+  <li><strong>Misalignment with project-specific systems:</strong> AI assistants are trained on general code patterns from across the internet. They do not know your organization's design system, your brand's color tokens, your component naming conventions, or your team's accessibility standards. A generated button component may be structurally correct but use the wrong class names, hard-coded color values, or a different prop API than your design system specifies. Every piece of generated code must be reviewed for alignment with project-specific requirements.</li>
+  <li><strong>Training data biases favoring dominant design patterns:</strong> Because AI models are trained predominantly on code written by and for the dominant mainstream of web development, they tend to reproduce the design patterns that appear most frequently in that corpus. This can mean that less common but entirely valid UI patterns — or patterns designed with non-mainstream users, languages, or interaction modalities in mind — are underrepresented or absent from generated outputs. An AI asked to generate a date picker will almost certainly produce a calendar-grid widget — the dominant Western convention — rather than exploring alternative interaction models that might serve different users better.</li>
+  <li><strong>Subtle errors in accessibility and semantics:</strong> While AI tools can generate accessibility markup, they can also generate it incorrectly. An <code>aria-live</code> region set to the wrong politeness value, a <code>role="dialog"</code> without a corresponding <code>aria-labelledby</code>, or focus management that works in Chrome but fails in Safari with VoiceOver — these kinds of subtle errors appear in AI-generated code and can cause real harm to users who depend on assistive technology. Generated accessibility code always requires expert review.</li>
+  <li><strong>Risk to foundational skill development:</strong> For students and early-career practitioners, over-reliance on AI suggestions can short-circuit the learning process. Understanding <em>why</em> a piece of code works — understanding the DOM model, the event loop, the CSS cascade, or the principles of semantic HTML — requires engaging with those concepts directly. If an AI generates all the code without the learner working to understand it, the practitioner may develop a fragile dependency: able to use AI-generated code in familiar contexts but unable to debug, adapt, or reason about it when the assistant's output is wrong or incomplete.</li>
+</ul>
+
+<p>A productive mental model is to treat AI coding assistants as a <strong>highly capable but imperfect collaborator</strong> — one with broad knowledge, impressive speed, and no sense of your specific project's values, constraints, or users. The HCI practitioner's role is not to simply accept what the assistant produces, but to direct, evaluate, and refine its outputs with the same critical lens applied to any other design artifact.</p>
+        <div class="notes"><strong>Notes</strong>This topic establishes foundational vocabulary and framing for the entire module. Emphasize to learners that the tool comparison table is a starting point — capabilities evolve rapidly and should be verified against current documentation. The accessibility limitations section is especially important to stress: generated ARIA markup should always be tested with actual screen readers, not assumed to be correct because an AI produced it.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform Selection: Criteria and Decision-Making</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Project Scoping and App Platform Selection</a></div>
+  <header>
+    <h1>Platform Selection: Criteria and Decision-Making</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Platform Selection: Criteria and Decision-Making</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every HCI project begins with a deceptively simple question: <em>where will this application live?</em> The answer — choosing a platform — is one of the most consequential early decisions a design team can make. It shapes what features are technically possible, who can realistically use the product, how the development team will spend its time, and how the finished product will ultimately be judged. A platform choice made carelessly, or made by default simply because a team is most comfortable with a particular technology, can undermine even the most thoughtful interaction design. Understanding how to evaluate platforms systematically, against concrete criteria tied to real project goals, is therefore a foundational HCI skill.</p>
+
+<p>Platform selection is not a purely technical decision. It sits at the intersection of user research, technical feasibility, business constraints, and team capability. The most defensible platform choices are those that can be explained in terms of <em>who</em> the application is for, <em>what</em> it needs to do, <em>how</em> the team can deliver it, and <em>why</em> the trade-offs accepted are reasonable. This topic provides a structured framework for working through each of those dimensions.</p>
+
+<p><strong>User Audience as a Primary Driver</strong></p>
+
+<p>The single most important input to a platform decision is a clear understanding of the intended users. Platforms exist to serve people, and the people who will use an application have characteristics — device ownership patterns, usage contexts, technical habits, and accessibility needs — that make some platforms far more appropriate than others. Starting with the user audience grounds the platform decision in design purpose rather than engineering convenience.</p>
+
+<p>The first step is to identify what devices the target users actually own and use in their daily lives. This sounds obvious, but it is frequently skipped or assumed rather than investigated. A mobile-first assumption is reasonable for many consumer applications but can be completely wrong for specific populations. Consider a project designing a data dashboard for hospital administrators. Those users almost certainly spend most of their working day at a desktop workstation, interacting with large monitors and a keyboard and mouse. Building that application as a mobile app first — or exclusively — would be a poor fit, regardless of how technically capable the team is at mobile development. Conversely, an application designed to help delivery drivers log parcels in real time needs to work on a handheld device, probably one-handed, in variable lighting conditions outdoors. A desktop web application would fail those users at the point of use.</p>
+
+<p>User research methods such as surveys, interviews, and contextual inquiry can surface device ownership data directly. Secondary research — industry reports, app store analytics, published demographic studies — can supplement primary data, especially early in a project when user access is limited. The key is to base device assumptions on evidence rather than intuition.</p>
+
+<p>The <em>context of use</em> is equally important. Even when users own multiple devices, they use them differently depending on where they are and what else they are doing. Mobile devices are used on the go, often in short bursts, frequently while attention is divided. Desktop and laptop computers are used in more sustained, focused sessions, typically with access to a larger screen, a physical keyboard, and a stable network connection. Tablets occupy a middle ground. An application designed to support a quick, task-focused interaction — checking a bus time, scanning a QR code, logging a mood — suits mobile use patterns well. An application requiring extended data entry, comparison of multiple information sources, or manipulation of complex documents suits a desktop or laptop context. Some applications genuinely need to work across both contexts, which is a valid design requirement but one that increases complexity and should be acknowledged explicitly rather than assumed to be costless.</p>
+
+<p>User technical proficiency shapes which platforms feel natural and which create friction. Older adult populations may be more comfortable with interfaces that follow the conventions of desktop operating systems they have used for decades. Younger users raised on smartphones may find touchscreen conventions entirely intuitive but may be less comfortable with complex keyboard-driven interfaces. If a target population predominantly uses iOS devices, they have learned interaction patterns — swipe gestures, the back-navigation conventions, the visual language of iOS apps — that a well-designed iOS application can leverage. Placing those same users in an Android environment, or a web application that follows neither native platform's conventions, introduces a learning burden that the design must work to overcome. Matching the platform to the users' existing mental models reduces that burden and makes the application more immediately usable.</p>
+
+<p>Accessibility needs deserve particular attention in platform selection. Platform ecosystems differ meaningfully in the quality and maturity of their built-in accessibility infrastructure. iOS and Android both provide robust screen reader support (VoiceOver and TalkBack respectively), but their implementations differ, and third-party applications must be designed specifically to work well with them. Web applications, when built to WCAG standards using semantic HTML, can be highly accessible across a wide range of assistive technologies. Native desktop platforms on both Windows and macOS have mature accessibility APIs that well-designed applications can leverage. If the target audience includes users with visual impairments, motor impairments, cognitive differences, or other accessibility needs, the platform's accessibility ecosystem becomes a significant selection criterion. Choosing a platform with weaker accessibility support, or one where the team lacks the knowledge to implement accessibility features correctly, risks excluding users who may have the greatest need for the application.</p>
+
+<p><strong>Platform Capability Alignment</strong></p>
+
+<p>Beyond who will use the application, a platform must be able to do what the application requires. Not all platforms provide equal access to hardware features, and not all development approaches provide equal access to platform capabilities. Mapping the application's functional requirements to platform capabilities is therefore a critical step in the selection process.</p>
+
+<p>Begin by identifying the hardware features the application depends on. A fitness tracking application that monitors movement needs access to accelerometer and gyroscope data. A plant identification application needs camera access with sufficient API control to capture and process images. A navigation aid needs GPS. A contactless payment feature needs NFC hardware and the associated secure element APIs. An augmented reality overlay needs the camera, motion sensors, and sufficient processing power for real-time computation. Listing these dependencies explicitly, before choosing a platform, ensures that the selection is made with full awareness of what the application actually needs.</p>
+
+<p>Hardware availability is not binary. A feature may be present on a platform in principle but accessed in ways that vary significantly between development approaches. Consider camera access: a native iOS application written in Swift can use the full AVFoundation framework, providing fine-grained control over exposure, focus, frame rate, and image processing pipelines. A web application running in a mobile browser can access the camera through the <code>getUserMedia</code> API, but with far less control and no access to computational photography features. A cross-platform framework application may have intermediate capability depending on which native modules it exposes. If the application requires only basic photo capture, the web API may be entirely sufficient. If it requires precise sensor control or real-time video processing, native development is likely necessary. The team must assess not just whether a platform <em>has</em> a feature but whether it exposes that feature in a way that meets the application's requirements.</p>
+
+<p>Performance is another dimension of capability alignment. Computationally intensive tasks — machine learning inference, real-time audio processing, 3D rendering, large-scale data visualization — may perform well in native environments that can access hardware acceleration directly but poorly in web or interpreted environments with additional abstraction layers. A musical instrument application that requires sub-10-millisecond audio latency cannot be reliably built as a web application today, because browser audio APIs introduce latency that is unacceptable for real-time musical performance. A data visualization tool displaying hundreds of thousands of data points may render smoothly in a native application using GPU-accelerated graphics but struggle in a web canvas implementation on lower-end hardware. Performance requirements should be evaluated against realistic devices owned by the target audience, not against high-end developer hardware.</p>
+
+<p>Offline functionality is a frequently underestimated platform capability dimension. Many applications are designed assuming constant network connectivity, but real users experience intermittent connectivity constantly — on the subway, in rural areas, in buildings with poor signal, in low-data situations where they have exhausted a mobile data allowance. How well a platform supports offline operation varies considerably. Native mobile applications can cache data, queue operations for later synchronization, and function fully offline using local storage, all in ways that are well-integrated with the platform's lifecycle model. Web applications have improved significantly in offline support through Progressive Web App technologies including service workers and the Cache API, but implementation complexity is higher and browser support is less uniform. The criticality of offline support to the application's core functionality should influence how this capability is weighted in the platform decision.</p>
+
+<p><strong>Team Skills and Tool Availability</strong></p>
+
+<p>Even a platform that perfectly matches the user audience and application requirements is a poor choice if the development team cannot realistically build on it within the project's constraints. Team capability is not a secondary or embarrassing criterion — it is a legitimate and important factor that experienced project planners take seriously.</p>
+
+<p>Assess the team's existing programming and design skills with honesty and specificity. A team with strong JavaScript and React experience can likely build a high-quality Progressive Web App or React Native application more quickly and more reliably than they could build a native Swift application, even if the native application would technically offer superior performance. A team with prior Swift and UIKit experience can build a polished iOS application but may struggle with the subtleties of Android's design language and Material Design conventions. Design skills matter too: a team familiar with Figma prototyping for mobile interfaces may need to rethink their process significantly for a voice interface or a desktop application with complex menu hierarchies. Honest skills assessment prevents overcommitment and helps identify where the team needs support, training, or realistic scope reduction.</p>
+
+<p>The learning curve associated with a new platform or framework is real and must be factored into time estimates. A team moving from web development to native iOS development is not merely learning a new programming language — they are learning a new IDE, a new build system, a new set of UI frameworks, a new mental model for application lifecycle and memory management, and a new set of platform design conventions. This takes time, and time spent learning is time not spent building. In a constrained project — a semester-long course project, for example, or a startup with a fixed runway — overestimating the team's ability to pick up a new platform quickly is a common and costly mistake. If the platform choice requires significant new learning, that should be reflected explicitly in the project plan and risk register.</p>
+
+<p>Tool availability is a practical constraint that is sometimes overlooked in platform discussions. Native iOS and macOS development requires Xcode, which runs only on macOS. A team without access to Apple hardware cannot build, test, or submit native Apple platform applications. Android development is more flexible — Android Studio runs on Windows, macOS, and Linux — but testing on a physical Android device remains important for hardware-dependent features, and team members may not own suitable devices. Some development environments require paid licenses. Game engines, certain cross-platform frameworks, and enterprise development tools may have costs that are prohibitive for student or small-team projects. Physical hardware requirements matter too: building machine learning models for on-device inference may require a machine with significant RAM and GPU capability that not all team members have access to. A platform choice that works for one team member's setup but not for others creates collaboration bottlenecks that slow the entire project.</p>
+
+<p>Recognizing that a team's capabilities and resources constrain platform choice is not a failure of ambition — it is good engineering judgment. Choosing a platform the team can realistically deliver on, and delivering something polished and functional on that platform, is vastly preferable to choosing an aspirational platform and delivering something incomplete or broken. The goal of the project is to produce a working, well-designed application, not to demonstrate familiarity with a particular technology stack. Stakeholders and evaluators generally respond better to a thoughtfully constrained but well-executed project than to an ambitious but unfinished one.</p>
+
+<p><strong>Documenting and Justifying the Platform Choice</strong></p>
+
+<p>Once a platform has been selected, the choice must be documented clearly and justified persuasively. This documentation serves multiple purposes: it communicates the decision to stakeholders, creates a record that can be referenced if the choice is later questioned, forces the team to articulate their reasoning explicitly (which often reveals gaps in that reasoning), and demonstrates that the decision was made thoughtfully rather than arbitrarily.</p>
+
+<p>Start by stating the chosen platform clearly and without ambiguity. Vague statements like "we will build a mobile app" are insufficient. Specify the platform (iOS, Android, web, Windows desktop, etc.), the target version range (e.g., iOS 16 and later, Android API level 31 and above), and the primary development approach (native Swift/UIKit, native Kotlin/Jetpack Compose, React Native, Flutter, Progressive Web App, etc.). This specificity matters because it determines which APIs are available, which design guidelines apply, and which testing approaches are appropriate. A reader of the project documentation should be able to understand exactly what is being built without needing to ask clarifying questions.</p>
+
+<p>The rationale should address each of the major selection criteria in turn. A well-structured justification covers the user audience analysis that supports the choice, the feature requirements that the platform can meet, and the team constraints that made this platform the most realistic option. Each of these should be stated with reference to specific evidence or reasoning, not as assertions. For example, rather than writing "we chose iOS because our users use iPhones," a well-justified rationale might say: "Our user survey of 45 participants found that 38 (84%) use an iPhone as their primary smartphone, and all 45 indicated they would primarily use this application while commuting. This pattern of mobile, on-the-go use, combined with the iOS majority in our target audience, makes a native iOS application the most appropriate platform choice." The difference between those two statements is the difference between an assertion and an argument.</p>
+
+<p>A strong rationale also acknowledges trade-offs honestly. Almost every platform choice involves accepting some limitations. Choosing native iOS development means the application will not be accessible to Android users. Choosing a web application means accepting constraints on hardware access and potentially weaker offline support. Choosing a cross-platform framework means potentially accepting some performance trade-offs or inconsistencies in platform-specific behavior. Acknowledging these limitations explicitly demonstrates that the team has thought carefully about the decision rather than ignoring inconvenient facts. It also allows stakeholders to understand what is and is not in scope, which prevents misaligned expectations later in the project.</p>
+
+<p>The audience for the documented rationale matters. Project documentation will often be read by stakeholders — clients, instructors, investors, senior colleagues — who may not be familiar with the technical details of platform development. The justification should therefore be written in language that a technically literate but non-specialist reader can follow. Avoid assuming that the reader knows why a particular framework is advantageous or why a hardware limitation matters. Explain the implications, not just the facts. The goal is for the reader to finish the rationale section and think: "Yes, I understand why this team made this choice, and the reasoning is sound." That response is only possible if the rationale is self-contained and makes its logic explicit.</p>
+
+<p>The following table illustrates how the four major criteria dimensions can be applied comparatively when evaluating multiple platforms for a hypothetical project — a field data collection application for environmental science researchers working in remote areas:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Criterion</th>
+      <th>Native Android</th>
+      <th>Native iOS</th>
+      <th>Progressive Web App</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>User Audience Fit</strong></td>
+      <td>Researchers report mixed Android/iOS ownership; Android slightly more common in field teams</td>
+      <td>Significant portion of users on iOS; excludes Android users entirely</td>
+      <td>Device-agnostic; accessible to all users regardless of OS</td>
+    </tr>
+    <tr>
+      <td><strong>Platform Capability</strong></td>
+      <td>Full GPS, camera, and offline storage access via native APIs</td>
+      <td>Full GPS, camera, and offline storage access via native APIs</td>
+      <td>GPS and camera available via web APIs; offline support via service workers but more complex to implement reliably</td>
+    </tr>
+    <tr>
+      <td><strong>Team Skills</strong></td>
+      <td>One team member has Android/Kotlin experience; others need to learn</td>
+      <td>No team members have Swift or iOS experience; significant learning curve</td>
+      <td>All team members have JavaScript and React experience; familiar toolchain</td>
+    </tr>
+    <tr>
+      <td><strong>Tool Availability</strong></td>
+      <td>Android Studio available on all team members' laptops; physical Android device available for testing</td>
+      <td>Requires macOS and Xcode; only one team member has a Mac</td>
+      <td>No special tooling required beyond existing web development environment</td>
+    </tr>
+    <tr>
+      <td><strong>Key Trade-off</strong></td>
+      <td>Excludes iOS users; requires most team members to learn Kotlin and Android development</td>
+      <td>Excludes Android users; team has no relevant experience; tool access is severely limited</td>
+      <td>Slightly less capable offline and hardware API access; may require polyfills or fallbacks for some features</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this example, the Progressive Web App emerges as a strong candidate despite not offering the deepest hardware integration, because it serves the full user audience, meets the core functional requirements adequately, aligns with the team's existing skills, and does not impose tool access barriers. A documented rationale drawing on this analysis would be far more persuasive to a stakeholder than a rationale that simply stated "we chose a web app because we know web development."</p>
+
+<p>Platform selection, done well, is a design activity as much as a technical one. It requires the same evidence-based, user-centered reasoning that characterizes good HCI practice throughout a project. The decisions made at this stage ripple through everything that follows — the interaction design patterns available to the team, the testing strategy, the accessibility approach, the deployment process, and ultimately the experience of the people who use the finished product. Taking platform selection seriously, and documenting that seriousness clearly, is the foundation on which the rest of a well-designed project is built.</p>
+        <div class="notes"><strong>Notes</strong>The comparative table uses a hypothetical environmental science field application to make the multi-criteria evaluation concrete and easy to follow. Instructors may wish to have students create a similar table for their own projects as a structured platform selection exercise before writing their formal rationale.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

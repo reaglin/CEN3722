@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Producing Task Analysis Documentation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 4 - Task Analysis for Interface Design</a></div>
+  <header>
+    <h1>Producing Task Analysis Documentation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Producing Task Analysis Documentation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Producing a task analysis document is more than simply writing down a list of steps a user performs. It is the act of translating raw observational and interview data into a structured, verifiable, and design-ready artefact that a whole project team can read, critique, and act upon. A well-produced task analysis document serves as the authoritative record of what users actually do, why they do it, and what cognitive demands those actions place on them. When this document is thorough, it becomes the single source of truth that connects user research to every subsequent design decision. When it is vague or incomplete, it leaves designers guessing, leading to interfaces that solve the wrong problems or miss critical user needs entirely.</p>
+
+<p>Understanding how to produce this document means understanding both its structural components and the quality standards that make each component genuinely useful. The sections below work through the major elements of a complete task analysis document, the craft of writing clear task descriptions, methods for validating the document's accuracy, strategies for linking the analysis to concrete design artefacts, and the specific requirements that apply to group project submissions.</p>
+
+<p><strong>Components of a Task Analysis Document</strong></p>
+
+<p>A complete task analysis document is made up of four interdependent components. Each plays a distinct role, and each depends on the others to carry its full meaning. Treating any one component as optional produces a document that is harder to validate, harder to act upon, and harder to justify to stakeholders.</p>
+
+<p>The first and foundational component is the <strong>scope statement</strong>. Before a single task step is written down, the document must define who is being studied, what they are trying to achieve, and what is and is not covered by the analysis. A scope statement typically answers three questions explicitly: Who is the user group? What are their primary goals in the context being studied? And what are the boundaries of the analysis — that is, where does the task begin and where does it end?</p>
+
+<p>For example, a scope statement for an analysis of an online pharmacy system might read: <em>"This analysis covers registered adult patients aged 18 and over who use the pharmacy's web portal to request repeat prescriptions. The analysis begins when the user logs into the portal and ends when the system confirms the prescription request has been submitted. Ordering new (non-repeat) medications and managing account billing details are outside the scope of this analysis."</em> This level of precision prevents scope creep during the analysis itself, keeps peer reviewers focused on the right tasks, and ensures that design recommendations do not stray into areas the research did not cover.</p>
+
+<p>The second component is the <strong>task diagram</strong>. A Hierarchical Task Analysis (HTA) produces a hierarchical decomposition of goals into sub-goals and operations. Representing that decomposition visually — as a tree or indented outline with numbered nodes — makes the structure navigable in a way that a plain list of steps cannot. A reader scanning a task diagram can immediately see the overall shape of the task, which sub-goals belong together, and how deep the decomposition goes. Diagrams also make it obvious when one branch of the hierarchy is much more elaborately decomposed than another, which may indicate either genuine complexity in that area or an inconsistency in how thoroughly the analysis was conducted.</p>
+
+<p>A typical HTA diagram uses a numbering convention such as the one shown below, where the goal is numbered 0 and each level of decomposition adds a digit:</p>
+
+<pre><code>0. Request a repeat prescription
+   1. Log in to the portal
+      1.1 Enter username
+      1.2 Enter password
+      1.3 Select 'Sign In'
+   2. Locate the repeat prescription section
+      2.1 Navigate to 'My Medications'
+      2.2 Select 'Request Repeat'
+   3. Select medications to reorder
+      3.1 Review the list of eligible medications
+      3.2 Check the box next to each required medication
+   4. Confirm and submit the request
+      4.1 Review the selected items
+      4.2 Select 'Submit Request'
+      4.3 Note the confirmation reference number
+</code></pre>
+
+<p>This structure, rendered graphically as a tree in the full document, allows any reader to navigate from the top-level goal down to individual atomic operations. It also provides the anchor points to which plans and annotations are attached.</p>
+
+<p>The third component is <strong>plans and cognitive annotations</strong>. Plans in HTA describe the conditions under which sub-tasks are performed and in what order. They answer questions like: Are these steps always done in sequence? Are some steps only performed under certain conditions? Can any steps be skipped? A plan for node 3 in the example above might state: <em>"Plan 3: If there is only one medication to reorder, perform 3.1 and 3.2 once. If multiple medications are required, perform 3.1, then repeat 3.2 for each medication before proceeding."</em> Plans make the logic of task execution explicit and allow designers to anticipate branching scenarios.</p>
+
+<p>Cognitive annotations go further by documenting the mental demands placed on the user at specific steps. Drawing on Cognitive Task Analysis (CTA) techniques, annotations might note that a step requires the user to hold information in working memory, make a decision under uncertainty, or apply a rule they may have learned only recently. For example, the annotation on step 4.1 might read: <em>"Users must compare the selected list against their current medication regime from memory. If the list is long, this creates a significant working memory load and increases the likelihood of omission errors."</em> This kind of annotation is what separates a superficial list of steps from a document that genuinely informs interface design.</p>
+
+<p>The fourth component is the <strong>design implications section</strong>. This section is the bridge between analysis and action. It takes the findings from the task diagram, plans, and cognitive annotations and translates them into specific, actionable recommendations for the interface. A design implication is not a vague suggestion like "make it easier." It is a traceable recommendation tied to a specific task analysis finding. For example: <em>"Step 4.1 places high working memory demand on users who have multiple medications. Design implication: Display a persistent summary panel listing all currently selected medications alongside the confirmation screen, so users can verify their selection without relying on recall."</em> This specificity allows the design team to prioritise features, justify decisions to stakeholders, and revisit recommendations if requirements change.</p>
+
+<p><strong>Writing Clear Task Descriptions</strong></p>
+
+<p>The quality of a task analysis document depends heavily on the quality of the individual task descriptions that make up each node of the hierarchy. Poorly written descriptions introduce ambiguity, make validation difficult, and cause inconsistency when different team members write different sections. Four principles govern the writing of clear task descriptions.</p>
+
+<p>First, every task description should <strong>begin with an observable action verb</strong>. Verbs like <em>select</em>, <em>enter</em>, <em>confirm</em>, <em>review</em>, <em>navigate</em>, <em>check</em>, <em>scroll</em>, and <em>submit</em> describe behaviours that can be directly observed or inferred from user actions. They are testable: a validator watching a user perform the task can tick off whether the action occurred. Contrast these with vague verbs like <em>manage</em>, <em>handle</em>, or <em>deal with</em>, which describe outcomes or responsibilities rather than specific actions. The step "manage the medication list" cannot be validated because it does not specify what the user actually does. The step "check the box next to each required medication" is specific and observable.</p>
+
+<p>Second, descriptions must <strong>specify what the user acts upon</strong>, not just what they do in the abstract. Knowing that a user "enters information" is not sufficient. The description should state what information, into what field, and from what source if relevant. "Enter the six-digit one-time password received by SMS into the verification field" is a complete description. "Enter the code" is not. The object of the action — the interface element, the data item, the decision — must be named explicitly. This specificity also makes it possible to map task descriptions directly to interface elements during the design phase.</p>
+
+<p>Third, task descriptions should <strong>avoid technical jargon</strong> that the user may not recognise. This is particularly important when the task domain involves specialised terminology. If the user group is general members of the public rather than trained professionals, descriptions should use the language those users would naturally use. Writing "the user authenticates via the OAuth2 token exchange" is appropriate for a technical specification but not for a task analysis that represents user experience. The equivalent user-facing description might be "the user signs in using their email address and the password they created when registering." Using user language also helps during validation: when you walk a real user through the documented steps, the language will match how they think about the task.</p>
+
+<p>Fourth, <strong>consistent grammatical structure</strong> across all task descriptions makes the document easier to read, easier to compare across steps, and easier to review for completeness. If one step begins with a past-tense verb, another with an infinitive, and another with a noun phrase, the reader's eye must re-parse every step rather than reading smoothly. A recommended convention is to write all steps in the simple present tense with the subject implied: "Enter username," "Select 'Sign In'," "Review the list of eligible medications." Applying this convention uniformly across all sections — even when different team members have written different parts — is one of the key tasks of document editing before submission.</p>
+
+<p>The table below illustrates the difference between weak and strong task descriptions across several common examples:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Weak Description</th>
+      <th>Problem</th>
+      <th>Improved Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Manage the medications</td>
+      <td>Vague verb; no specific action or object</td>
+      <td>Check the box next to each medication required for reorder</td>
+    </tr>
+    <tr>
+      <td>Do the login</td>
+      <td>No action verb; object not specified</td>
+      <td>Enter username and password, then select 'Sign In'</td>
+    </tr>
+    <tr>
+      <td>Handle the authentication token</td>
+      <td>Technical jargon; not user-facing language</td>
+      <td>Enter the six-digit code sent to the registered mobile number</td>
+    </tr>
+    <tr>
+      <td>The user has submitted the form</td>
+      <td>Past tense; inconsistent with other steps</td>
+      <td>Select 'Submit Request' to send the prescription request</td>
+    </tr>
+    <tr>
+      <td>Look at the confirmation</td>
+      <td>Imprecise verb; object vague</td>
+      <td>Note the confirmation reference number displayed on screen</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Validating the Task Analysis</strong></p>
+
+<p>A task analysis document is a model of user behaviour. Like any model, it is an approximation that must be tested against reality before it can be trusted to drive design decisions. Validation is the process of checking whether that model accurately and completely represents what users actually do. There are four complementary validation approaches, and a thorough document will have passed through all of them.</p>
+
+<p>The first approach is <strong>cross-referencing documented steps against collected data</strong>. Every step in the task diagram should be traceable to at least one piece of source evidence — an observation note, an interview transcript, a screen recording, or a process document provided by the client. If a step cannot be traced to a source, it may have been inferred by the analyst rather than observed in practice. This does not necessarily mean the step is wrong, but it does mean it needs to be flagged and verified. Practically, this is often done by annotating the task diagram with source references, for example noting "(Observation session 2, participant 3)" next to a step that was directly observed. Any step without such a reference becomes a candidate for further investigation.</p>
+
+<p>The second approach is a <strong>structured peer review</strong>. This involves having team members or colleagues who were not the primary authors of a given section review the document systematically. Peer reviewers look for steps that are ambiguous (could be interpreted in more than one way), steps that appear to be missing (a logical gap between one step and the next), and steps that appear to be incorrectly sequenced (placed before a step that must logically precede them). A structured peer review uses a checklist or review template rather than relying on informal reading, because informal reading tends to miss exactly the kinds of errors that are most dangerous — the ones that seem reasonable at first glance. After the review, findings are collated and the authors revise the document to address each issue.</p>
+
+<p>The third and most direct approach is a <strong>walkthrough validation with a real user</strong>. In this method, a member of the actual user group is asked to work through the task while the analyst follows along with the documented steps. The analyst narrates the steps from the document and asks the user to confirm whether that is indeed what they do, or whether they do something different. Discrepancies between the document and the user's actual behaviour reveal errors in the analysis. This might include steps the analyst documented but the user skips, steps the user performs that are missing from the document, or steps whose sequence the user naturally reverses. Walkthrough validation is particularly valuable for catching errors that both data collection and peer review missed, because it tests the document against live behaviour rather than against memory or inference.</p>
+
+<p>The fourth step is <strong>revising the document based on validation findings</strong> before using it to drive design. It may be tempting to treat validation as a box-ticking exercise and proceed with design anyway. This is a significant risk. Design decisions built on an inaccurate task analysis produce interfaces that do not match how users actually work, which creates usability problems that are expensive to fix after development has begun. The discipline of completing the full validation-and-revision cycle before moving to design is what distinguishes a professionally produced task analysis from a rough first draft.</p>
+
+<p><strong>Linking Task Analysis to Design Artefacts</strong></p>
+
+<p>A task analysis document that sits in isolation — not connected to any downstream design work — has failed in its primary purpose. The value of the analysis is realised only when it actively shapes the artefacts that the development team will build from. Establishing explicit, documented links between analysis findings and design decisions creates a traceable chain of reasoning that benefits the entire project lifecycle.</p>
+
+<p>The most direct link is between <strong>top-level tasks and primary navigation structures</strong>. The highest-level goals in a task hierarchy — the things users most fundamentally need to do — should correspond to the primary sections, menu items, or entry points of the application. If the top-level HTA for a pharmacy portal identifies three primary user goals (requesting repeat prescriptions, tracking order status, and managing account details), then the application's primary navigation should provide direct, prominent access to those three areas. Any navigation structure that buries a top-level user goal behind multiple sub-menus is misaligned with the task analysis and that misalignment should be explicitly flagged and justified if retained.</p>
+
+<p>The second type of link connects <strong>cognitive demand annotations to specific interface support features</strong>. When the cognitive analysis identifies that a step places high memory load on the user, the design response should be a feature that reduces that load — for example a persistent summary, a pre-populated field, a tooltip that provides contextual information, or a system default that handles the decision for the user in common cases. When the analysis identifies that a step involves a decision the user may find ambiguous, the design response might be inline help text or a confirmation dialog that explains the consequences of each choice. Documenting these connections explicitly — "Cognitive annotation on step 4.1 motivated the addition of the persistent medication summary panel" — ensures that support features are not removed during development without understanding what user need they address.</p>
+
+<p>The third link involves <strong>documenting the rationale for each design decision</strong> by referencing the specific task analysis step that motivated it. This is most naturally done in a decision log or in annotations within wireframes and prototypes. When a designer adds a feature, they record which task analysis finding justified it. When a feature is removed or changed, the team can check whether the task analysis finding it addressed has been addressed in another way, or whether the user need is now going unmet. This practice of rationale documentation is standard in mature design processes and is what allows design decisions to survive team changes, client feedback cycles, and evolving requirements without losing their justification.</p>
+
+<p>The fourth principle is <strong>maintained traceability</strong>. Traceability means that at any point in the project, anyone can follow the chain: from a specific interface element, back to the design decision that introduced it, back to the task analysis finding that motivated that decision, back to the source data that produced that finding. This chain does not need to be maintained in a complex tool — a well-structured document with consistent numbering and cross-references is sufficient. But it must be maintained consistently. When requirements change — as they always do — traceability allows the team to ask "which design decisions were based on the requirement that has now changed?" and to update those decisions in an informed, systematic way rather than through guesswork.</p>
+
+<p><strong>Group Project Documentation Requirements</strong></p>
+
+<p>When a task analysis document is produced as part of a group project for assessment, it must meet a set of explicit structural and content requirements. These requirements exist both to ensure the document is professionally complete and to make it possible to assess individual contributions fairly. Each requirement is described below.</p>
+
+<p>The document must include <strong>a defined scope statement, an HTA diagram with plans, and CTA annotations</strong>. These are not optional sections that can be omitted if time is short. The scope statement establishes the basis for everything else. The HTA diagram with plans is the core structural output of the analysis. The CTA annotations are what elevate the document from a procedural list to a cognitively informed account of user experience. A submission missing any of these three components is structurally incomplete regardless of the quality of its other sections.</p>
+
+<p>All <strong>data sources used to inform the analysis must be cited</strong> within the documentation. This means identifying the observations, interviews, contextual enquiry sessions, or secondary sources from which each part of the analysis was drawn. Citations may be embedded as inline references within the task diagram (for example, by labelling each node with the source that supports it) or collected in a separate data sources appendix. The purpose of this requirement is twofold: it allows reviewers to verify that the analysis is grounded in actual research rather than assumption, and it models the professional practice of traceable, evidence-based design work. A document that presents an analysis without citing its sources provides no basis for trust in its conclusions.</p>
+
+<p>The <strong>design implications section must connect at least three task analysis findings to specific interface decisions</strong>. This minimum threshold exists to ensure that the bridge between analysis and design is genuinely built, not merely gestured at. Each connection should clearly identify the task analysis finding (referencing the specific step or annotation number), describe the design implication that finding produces, and specify the interface feature or decision that addresses it. Three connections is the floor, not the ceiling — a thorough document will typically connect many more findings to design decisions. However, the three that are included must be genuinely specific and traceable, not vague generalisations.</p>
+
+<p>Finally, <strong>each team member's contribution to the document must be clearly identified</strong>. This is both a project management requirement and an assessment requirement. In practice, it means that the document includes either a contribution statement (a section listing who wrote which parts), annotations on individual sections identifying their authors, or a team log documenting who produced what and when. This requirement also has a secondary benefit: it creates accountability within the team during the production process, because each member knows their section will be individually attributed. The contribution statement should be honest — claiming credit for work a colleague produced, or failing to credit a colleague for their contribution, is an integrity issue as well as an accuracy problem.</p>
+
+<p>The following table summarises the key requirements for a group project task analysis document submission:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Requirement</th>
+      <th>What Must Be Included</th>
+      <th>Common Failure Mode</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Scope statement</td>
+      <td>User group, primary goals, explicit boundaries of the analysis</td>
+      <td>Scope statement is too vague to constrain the analysis or is omitted entirely</td>
+    </tr>
+    <tr>
+      <td>HTA diagram with plans</td>
+      <td>Numbered hierarchical decomposition, visual or structured format, plan statements for each node with sub-tasks</td>
+      <td>Plans are missing; decomposition stops too high and does not reach atomic operations</td>
+    </tr>
+    <tr>
+      <td>CTA annotations</td>
+      <td>Cognitive demand notes linked to specific steps, identifying memory load, decision points, or skill requirements</td>
+      <td>Annotations are generic rather than step-specific; no connection to observable cognitive demands</td>
+    </tr>
+    <tr>
+      <td>Data source citations</td>
+      <td>References to observations, interviews, or secondary sources for each part of the analysis</td>
+      <td>No sources cited; analysis appears to be based on assumption rather than data</td>
+    </tr>
+    <tr>
+      <td>Design implications</td>
+      <td>At least three specific, traceable connections from task analysis findings to interface decisions</td>
+      <td>Implications are vague generalisations not tied to specific steps or findings</td>
+    </tr>
+    <tr>
+      <td>Contribution statement</td>
+      <td>Clear identification of each team member's role and specific contributions</td>
+      <td>Contribution statement is absent or lists only names without specifying what each person produced</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Taken together, these requirements define a document that is not just complete but defensible — one that a reader can scrutinise, a validator can test, and a design team can act upon with confidence. Producing such a document is a significant undertaking, but it is precisely this rigour that makes task analysis a foundational method in user-centred design rather than a preliminary sketch that gets set aside once design begins.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic clusters in depth: document components (scope, diagrams, plans/annotations, design implications), writing quality standards, validation methods, traceability to design artefacts, and group project requirements. Tables used for task description quality comparison and submission requirements checklist. Code block used to illustrate HTA numbering convention.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

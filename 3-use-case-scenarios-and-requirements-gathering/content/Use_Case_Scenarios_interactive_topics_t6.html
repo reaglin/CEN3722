@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Enumerating Usage Paths and Edge Cases</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 3 - Use Case Scenarios and Requirements Gathering</a></div>
+  <header>
+    <h1>Enumerating Usage Paths and Edge Cases</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Enumerating Usage Paths and Edge Cases</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When designing systems, applications, or services, it is tempting to focus exclusively on the smooth, idealized path a user takes to accomplish a goal — often called the "happy path." However, real-world usage is rarely so tidy. Users make unexpected choices, enter unexpected data, operate under unexpected conditions, and arrive at the system with varying levels of experience, ability, and context. A comprehensive use case set must account for this full spectrum of usage, from the most routine workflow to the rarest boundary condition. This is the discipline of <strong>enumerating usage paths and edge cases</strong>: systematically identifying, documenting, and prioritizing every meaningful scenario the system must handle, not just the ones that feel comfortable or obvious.</p>
+
+<p>Thorough enumeration serves multiple stakeholder groups simultaneously. Designers use it to ensure no user is left without a viable path. Developers use it to write code that handles all permitted inputs and states without crashing or producing incorrect results. Testers use it to construct test cases that exercise the system's boundaries. Product owners use it to make informed prioritization decisions. When edge cases are discovered late — during testing, in production, or after a user complaint — the cost of remediation rises dramatically. The goal of this discipline is to surface those scenarios early, when they are cheapest to address.</p>
+
+<p><strong>What Are Edge Cases?</strong></p>
+
+<p>An edge case is a scenario that occurs at the extreme end of a parameter's range, at the boundary between two system states, or at the intersection of two or more unusual but valid conditions. The term "edge" is borrowed from mathematics, where the edge of a domain is the region near its boundary. In system design, edge cases are not necessarily rare in the sense of being theoretically unlikely — some occur frequently in practice — but they are distinct from the central, well-understood scenarios that drive the initial design.</p>
+
+<p>One of the most common categories of edge case involves <strong>boundary conditions</strong>. Every system parameter that accepts a numeric, textual, or temporal value has an implicit or explicit range. A username field might accept between 3 and 64 characters. A financial transaction amount might have a minimum of $0.01 and a maximum determined by account balance or regulatory limit. An age field might require a value of 0 or greater and 150 or less. The boundary values themselves — the minimum, the maximum, and values immediately above and below those limits — are precisely where software defects most frequently appear. A system that correctly handles 63-character usernames may fail on a 64-character one because a developer inadvertently used a strictly-less-than comparison instead of less-than-or-equal. Designing and testing at these boundaries, rather than only in the comfortable middle of the range, catches these defects early.</p>
+
+<p>A second category involves <strong>unusual but permitted combinations</strong> of user choices or system states. Consider an e-commerce checkout flow. Most users add items, enter a shipping address, enter payment information, and confirm. But what happens when a user applies a discount code that reduces the total to exactly zero? What happens when a user's session expires midway through checkout? What if a user has two browser tabs open simultaneously, adds different items in each, and submits both? Each of these is an edge case: unusual, but not impossible, and potentially not prohibited by business rules. Systems that are not designed to handle these combinations either crash, produce incorrect results, or leave the user stranded without a recovery path. These outcomes damage trust and, in the case of financial or safety-critical systems, can cause real harm.</p>
+
+<p>A third important characteristic of edge cases is that <strong>unintentionally unaddressed edge cases are handled inconsistently</strong>. When a development team has not explicitly discussed what should happen when a user submits an empty required field with only whitespace characters, different developers on different screens will make different decisions. One might trim and reject; another might pass the whitespace to the database; a third might raise an unhandled exception. This inconsistency is not just an aesthetic problem — it is a functional and security problem. Attackers specifically probe for the edge cases that developers forgot to handle, because those are the places where unexpected behavior can be exploited.</p>
+
+<p>The most reliable sources for identifying real-world edge cases are <strong>user research and task analysis</strong>. Observational research — watching real users attempt real tasks — consistently surfaces behaviors that analysts did not anticipate. Users paste content from other applications, causing encoding edge cases. They use the Tab key instead of clicking, revealing focus-order defects. They leave forms open for hours before submitting, triggering session timeout edge cases. Task analysis, which decomposes a goal into its constituent steps and decision points, provides a structured way to ask at every branch: "What if the user does not have the information required here? What if the data entered is valid but unusual? What if the system is in an unexpected state at this point?" These questions, applied systematically, generate a rich catalog of edge cases before a single line of code is written.</p>
+
+<p><strong>Techniques for Enumerating Usage Paths</strong></p>
+
+<p>Identifying edge cases informally — by brainstorming or relying on the imagination of a single analyst — produces incomplete results. Structured techniques provide a repeatable, comprehensive approach to enumerating the full set of usage paths a system must support.</p>
+
+<p><strong>Flow analysis</strong> begins with a task model or activity diagram that maps every step a user takes to accomplish a goal, including every decision point and every branch. The analyst traces each branch systematically, asking whether it has been captured as a use case. In a simple login flow, the main path is: enter credentials, submit, authenticate successfully, land on home screen. But flow analysis surfaces additional paths: what if authentication fails once? What if it fails three times and the account is locked? What if the user clicks "forgot password" instead? What if the user's account is inactive? What if the system's authentication service is unavailable? Each branch represents a distinct usage path that requires a design decision and, ultimately, an implementation. Flow analysis ensures that no branch is left unmapped.</p>
+
+<p><strong>Boundary value analysis</strong> is a formal technique derived from software testing practice and applied here at the requirements stage. For every input parameter, the analyst identifies the minimum acceptable value, the maximum acceptable value, and the values immediately outside those limits. These five points — minimum, minimum plus one, a nominal middle value, maximum minus one, and maximum — are the most informative test points and, by extension, the most important design points. If a text field accepts up to 255 characters, the system must be designed to handle exactly 255 characters correctly, to reject 256 characters with a clear error message, and to handle the empty string appropriately. Applying boundary value analysis to every parameter in a system generates a comprehensive list of boundary edge cases that can be directly mapped to use cases and test cases.</p>
+
+<p><strong>Negative testing</strong> considers what users might attempt that the system should reject or handle gracefully. This is distinct from boundary value analysis because it addresses not just out-of-range numeric values but also qualitatively wrong inputs: a letter where a number is expected, a date that does not exist on the calendar (such as February 30), a file of the wrong type uploaded to a form that expects images, an SQL injection attempt in a name field, an extremely long string intended to overflow a buffer. Negative testing also covers behavioral negatives: what if a user navigates backward through a multi-step form after completing payment? What if a user bookmarks a page that requires a logged-in session and returns to it days later? What if a user submits a form twice in rapid succession by double-clicking the submit button? Each of these is a usage path the system must handle, even though it represents a deviation from intended behavior.</p>
+
+<p><strong>Scenario-based reviews with diverse stakeholders</strong> complement analytical techniques by introducing perspectives that analysts may lack. A customer service representative who handles escalations daily knows which edge cases cause the most user confusion. A compliance officer knows which regulatory scenarios must be handled correctly even if they are rare. A database administrator knows which data states are technically possible even if the application tries to prevent them. An accessibility specialist knows which interaction patterns break down for users of assistive technology. Structured workshops in which stakeholders are asked to walk through the system's task models and challenge assumptions about what users will do, what data will be entered, and what system states will occur, consistently produce edge cases that no individual analyst would have identified alone.</p>
+
+<p><strong>User Diversity and Context Variation</strong></p>
+
+<p>A single system is used by a population of users who differ from each other in ways that create distinct usage paths. Treating the user as a homogeneous actor is one of the most common sources of incomplete use case sets.</p>
+
+<p><strong>New and experienced users</strong> often follow fundamentally different paths to accomplish the same goal. An experienced user of a content management system may navigate directly to a specific configuration panel using a keyboard shortcut they memorized. A new user may search for the same function using a help feature, attempt to find it through the navigation menu, and ultimately reach it via a different route. Both are valid paths. The system must support both, and the design of each path must be appropriate for the likely user at that point. Onboarding flows, contextual help, and progressive disclosure are design patterns that serve new users; power-user shortcuts and batch operations serve experienced users. Use cases must explicitly represent these divergent paths rather than assuming a single user model.</p>
+
+<p><strong>Accessibility requirements</strong> create additional distinct flows that must be enumerated explicitly. A user who navigates entirely by keyboard follows a different sequence of interactions than a mouse user: they Tab through controls in a defined order, use Enter or Space to activate buttons, and use arrow keys to select from menus. A user of a screen reader interacts with the system's accessibility tree, which may present information in a different order than the visual layout. A user with a motor impairment may use a switch control that activates elements sequentially. Each of these interaction modalities creates a distinct usage path through every task in the system. If these paths are not explicitly documented as use cases and reviewed for correctness, they will be overlooked during design and testing, and the resulting system will be inaccessible to users who depend on those modalities.</p>
+
+<p><strong>Device and connectivity constraints</strong> create conditional flows that must be designed for explicitly. A user completing a multi-step insurance claim on a mobile device with an intermittent cellular connection may lose connectivity midway through. The system must have a defined path for this scenario: does it save progress automatically? Does it present a clear error message with a retry option? Does it prevent the user from submitting duplicate data when connectivity is restored? A user on a low-powered device may experience timeouts or rendering failures that a high-powered desktop user would never encounter. These are not hypothetical: mobile users frequently experience interrupted connectivity, and designing for this context is not optional if the system is intended to serve mobile users.</p>
+
+<p><strong>Cultural and localization differences</strong> affect usage paths in ways that are easy to overlook if the design team operates from a single cultural context. Date formats vary: in the United States, 04/05/2024 means April 5, while in the United Kingdom it means May 4. Numeric formats vary: in Germany, 1.000,00 represents one thousand, while in the United States the same value is written 1,000.00. Names vary: some cultures use a single name, some use names with special characters, some use names that are very long by Western standards. Address formats vary: not all countries have states, postal codes, or the same concept of a street address. Error messages and instructions written in idiomatic English may be confusing or offensive when translated literally. Each of these variations creates usage paths that must be tested and validated, and the failure to account for them produces systems that work correctly only for users from the same cultural context as the design team.</p>
+
+<p><strong>Documenting Frequency and Priority</strong></p>
+
+<p>Once a comprehensive set of usage paths has been enumerated, the team must make decisions about which paths to invest in most heavily. Not all use cases deserve equal design and testing effort. A structured approach to documenting frequency and priority ensures that effort is allocated rationally rather than arbitrarily.</p>
+
+<p><strong>High-frequency use cases</strong> — those that the majority of users will encounter on most sessions — warrant the most design iteration, the most usability testing, and the most performance optimization. The login flow, the primary search function, the main content creation or data entry screen: these paths are traversed millions of times in the lifetime of a deployed system. Even a small usability friction in a high-frequency path compounds into an enormous cumulative cost in user effort and abandonment. Design teams should spend more time on these paths, test them with larger and more diverse user samples, and revisit them more frequently as the system evolves.</p>
+
+<p><strong>Low-frequency but high-consequence use cases</strong> require equal rigor for entirely different reasons. An emergency shutdown procedure for an industrial control system may be executed once a year, but when it is executed, it must work correctly the first time under conditions of stress and urgency. A data export function used only for regulatory audits may be needed once per quarter, but an error in that export could result in a compliance violation. A password reset flow may be needed by only a small fraction of users on any given day, but for the user who cannot access their account, it is the only thing that matters. These paths must be designed carefully, tested thoroughly, and documented clearly even if they will not receive the most user testing sessions or design iterations in absolute terms.</p>
+
+<p><strong>Priority ratings must be agreed upon by stakeholders</strong>, not assigned unilaterally by analysts. An analyst may assess a use case as low priority based on estimated frequency, while a compliance officer knows it is critical for regulatory reasons, a customer service manager knows it generates the most support calls, and a security engineer knows it is a common attack vector. Priority is an inherently multidimensional judgment that requires input from people with different perspectives and accountabilities. A structured prioritization workshop — using a technique such as a weighted scoring matrix or a MoSCoW classification — produces priority ratings that reflect the organization's actual values and constraints rather than a single individual's assumptions.</p>
+
+<p>The following table illustrates how frequency and consequence combine to influence priority classification for a set of example use cases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Use Case</th>
+      <th>Frequency</th>
+      <th>Consequence of Failure</th>
+      <th>Recommended Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>User login</td>
+      <td>Very high — every session</td>
+      <td>High — blocks all access</td>
+      <td>Critical</td>
+    </tr>
+    <tr>
+      <td>Password reset</td>
+      <td>Low — only when locked out</td>
+      <td>High — user cannot proceed</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Profile photo upload</td>
+      <td>Low — once per user</td>
+      <td>Low — cosmetic only</td>
+      <td>Medium</td>
+    </tr>
+    <tr>
+      <td>Emergency data export</td>
+      <td>Very low — quarterly or less</td>
+      <td>Very high — regulatory violation</td>
+      <td>Critical</td>
+    </tr>
+    <tr>
+      <td>Bulk record import</td>
+      <td>Medium — periodic by admins</td>
+      <td>High — data integrity risk</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Theme color preference</td>
+      <td>Very low — once per user</td>
+      <td>Very low — aesthetic only</td>
+      <td>Low</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Frequency and priority metadata</strong> recorded alongside each use case become invaluable when scope must be constrained. In every real project, requirements eventually exceed available time and resources. When that happens, the team must make cuts. Having explicit, stakeholder-agreed priority ratings and frequency estimates means those decisions can be made on the basis of evidence rather than the loudest voice in the room or the personal preferences of whoever controls the backlog. A low-frequency, low-consequence use case can be deferred to a later release with confidence; a low-frequency, high-consequence use case cannot.</p>
+
+<p><strong>Reviewing for Completeness</strong></p>
+
+<p>Enumerating usage paths is not a one-time activity completed at the beginning of a project. Requirements change, new actors are identified, integrations introduce new states, and user research surfaces unexpected behaviors. A systematic approach to reviewing the use case set for completeness must be built into the project's ongoing processes.</p>
+
+<p><strong>Actor-to-use-case matrices</strong> are among the most effective tools for visualizing coverage. An actor is any entity — human user, external system, automated process — that interacts with the system. A matrix lists all actors along one axis and all use cases along the other, with a mark at each intersection where an actor participates in a use case. This visualization immediately reveals actors that participate in only one or two use cases, which may indicate that important scenarios for those actors have not been identified. It also reveals use cases with no actor, which indicates an orphaned requirement. Constructing and reviewing this matrix at regular intervals keeps coverage visible to the whole team.</p>
+
+<p>The following is an example of a simplified actor-to-use-case coverage matrix:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Use Case</th>
+      <th>Registered User</th>
+      <th>Guest User</th>
+      <th>Administrator</th>
+      <th>External Payment System</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Browse product catalog</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Add item to cart</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Complete checkout</td>
+      <td>✓</td>
+      <td></td>
+      <td></td>
+      <td>✓</td>
+    </tr>
+    <tr>
+      <td>Manage user accounts</td>
+      <td></td>
+      <td></td>
+      <td>✓</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>View order history</td>
+      <td>✓</td>
+      <td></td>
+      <td>✓</td>
+      <td></td>
+    </tr>
+    <tr>
+      <td>Process refund</td>
+      <td></td>
+      <td></td>
+      <td>✓</td>
+      <td>✓</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In this matrix, the Guest User column contains only two marks. A reviewer should ask: can guest users view their order history after creating an account? Can they retrieve a cart they started as a guest? Are there error scenarios specific to guest users that have not been documented? The matrix prompts these questions in a way that an unstructured review might not.</p>
+
+<p><strong>Goal-to-use-case traceability</strong> ensures that every stakeholder need — every business goal, user goal, or system quality requirement — is addressed by at least one use case. Traceability is typically maintained in a requirements traceability matrix that links each high-level goal to the use cases that address it, and each use case to the test cases that verify it. A goal with no corresponding use case is a gap in the design. A use case with no corresponding goal is potentially scope creep — work being done that does not serve an identified need. Regular review of the traceability matrix catches both types of misalignment.</p>
+
+<p><strong>Peer reviews by developers and testers</strong> bring technical perspectives that business analysts and designers may lack. A developer who has implemented similar functionality before will recognize technical edge cases — race conditions, transaction rollback scenarios, cache invalidation states — that do not appear in business-focused analysis. A tester who has written test cases for similar systems will ask about equivalence classes and boundary conditions that the use case documentation has not addressed. Formally scheduling peer reviews of use case documentation — not just reviews of code or test plans — integrates these perspectives at the point where they can most efficiently influence the design.</p>
+
+<p><strong>Iterative reviews must be scheduled</strong> as a standing activity, not a one-time gate. When a new requirement is added, the analyst should ask: does this requirement create new actors, new paths, new boundary conditions, or new combinations of state that are not covered by existing use cases? When an existing requirement changes, the analyst should ask: does this change invalidate any existing use case, create a new edge case at the boundary between the old and new behavior, or affect any other use case through shared state or shared components? A project that reviews its use case set only at the beginning of analysis will find, at the end of implementation, that the set is riddled with gaps created by the changes that occurred in between. Building review into the rhythm of the project — at the end of each sprint, at each major requirement change, at each new round of user research — keeps the use case set accurate and complete throughout the project's life.</p>
+
+<p>The discipline of enumerating usage paths and edge cases is ultimately an act of intellectual humility: an acknowledgment that no individual analyst, designer, or developer can anticipate everything that real users will do in real contexts. By applying structured techniques, incorporating diverse perspectives, documenting frequency and consequence, and reviewing iteratively, teams build use case sets that are comprehensive enough to guide the design and implementation of systems that work correctly not just for the idealized user on the happy path, but for every user the system is meant to serve.</p>
+        <div class="notes"><strong>Notes</strong>Instructors may wish to supplement this topic with a hands-on workshop exercise in which students take a provided task model for a simple system (e.g., a library book reservation application) and apply each enumeration technique in sequence, comparing the edge cases surfaced by each method. The actor-to-use-case matrix and goal-to-use-case traceability sections pair well with structured lab activities using a shared spreadsheet or requirements management tool. Emphasize that completeness is a process discipline, not a one-time deliverable.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

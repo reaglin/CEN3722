@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Integrating Prototype and Testing Preparation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Functional Prototype Development and Testing Preparation</a></div>
+  <header>
+    <h1>Integrating Prototype and Testing Preparation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Integrating Prototype and Testing Preparation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When a team has invested significant effort in building a prototype and designing a usability test protocol, it is easy to assume that the two simply slot together naturally at the moment testing begins. In practice, however, prototype development and test protocol design are parallel workstreams that can easily drift apart. A prototype might be built to showcase features rather than to support specific user tasks. A test protocol might specify task scenarios that depend on flows the prototype never fully implemented. The result is a testing session that breaks down mid-task, confuses participants, and produces data of questionable validity. Integrating prototype development with testing preparation means actively coordinating these two workstreams so that, when the first participant sits down, the prototype is precisely ready to support every task the protocol demands — nothing more, nothing less.</p>
+
+<p>This integration requires deliberate planning across three interconnected concerns: ensuring the prototype scope matches the test tasks, preparing the prototype's data and state so each session starts consistently, and assigning team roles so that development expertise and facilitation expertise serve each other rather than operating in silos.</p>
+
+<p><strong>Aligning Prototype Scope with Test Tasks</strong></p>
+
+<p>The most fundamental integration step is verifying that every task scenario in the test protocol has a corresponding, functional flow in the prototype. A task scenario describes what a participant will be asked to do — for example, "You have just received a new invoice from a vendor. Please find and pay that invoice using this application." That scenario implicitly requires a working notification or inbox flow, a functional invoice detail view, a payment confirmation step, and some form of success or error feedback. If any of those flows is missing or broken, the task cannot be completed, and the usability data collected will reflect prototype failure rather than genuine user behavior.</p>
+
+<p>The practical method for ensuring alignment is to create an explicit mapping between each task scenario and the prototype flows it requires. This mapping should be built collaboratively between the person who wrote the protocol and the person who built the prototype, and it should exist as a living document — not an assumption held informally in someone's head. A simple mapping table serves this purpose well:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task Scenario</th>
+      <th>Required Prototype Flows</th>
+      <th>Status</th>
+      <th>Action if Incomplete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Find and pay a vendor invoice</td>
+      <td>Inbox notification → Invoice detail view → Payment form → Confirmation screen</td>
+      <td>Payment form incomplete</td>
+      <td>Complete payment form before pilot, or remove task from protocol</td>
+    </tr>
+    <tr>
+      <td>Update account email address</td>
+      <td>Settings → Profile → Edit email → Save confirmation</td>
+      <td>Complete</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Generate a monthly expense report</td>
+      <td>Reports section → Date range filter → Report type selector → Export</td>
+      <td>Export function missing</td>
+      <td>Remove task from protocol or replace with "preview" task that does not require export</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This kind of mapping makes the decision explicit: either the team completes the missing flow before testing begins, or the corresponding task is removed from the protocol. There is no middle ground. Leaving a broken flow in the prototype while keeping the task in the protocol is a false economy — it wastes participant time, generates misleading data, and erodes trust in the research process.</p>
+
+<p>Once the mapping is complete and any gaps are resolved, the team should conduct an internal walkthrough of every task in the prototype before scheduling participant sessions. This means someone other than the prototype builder attempts each task from start to finish, following only the information a real participant would have. This walkthrough reveals issues that the builder, who is too familiar with the prototype, would never notice: ambiguous labels, missing back navigation, clicks that lead to dead ends, or screens that only appear to work because the builder knows which hotspot to click. A walkthrough by a colleague — or ideally someone from outside the team — functions as a low-fidelity pilot and surfaces problems while there is still time to fix them.</p>
+
+<p>As part of the walkthrough, the team should document the <em>expected completion path</em> for each task. This is the sequence of screens and interactions a participant should follow to complete the task successfully. Documenting the expected path serves two purposes. First, it gives facilitators a reference during sessions — when a participant navigates somewhere unexpected, the facilitator can judge whether this represents genuine confusion or a creative but valid alternative path. Second, it provides a baseline against which to measure completion during analysis. Without a documented expected path, different observers may disagree about whether a task was completed correctly, making post-session analysis inconsistent.</p>
+
+<p><strong>Preparing Test Data and Prototype State</strong></p>
+
+<p>Even a fully functional prototype can undermine a testing session if it is not in the right state at the start. Consider a scenario where a participant is asked to find an overdue invoice. If no overdue invoice exists in the prototype's pre-loaded data, the participant will search endlessly and fail — not because the interface is confusing, but because the task is impossible given the current state. Preparing test data and prototype state is therefore as important as building the prototype flows themselves.</p>
+
+<p>The first step is to define precisely what the prototype's initial state should be at the beginning of every session. This means specifying not just what data exists in the system, but its exact character: names, amounts, dates, statuses, and relationships between data objects. If the prototype includes a pre-loaded account, the team should decide whether that account belongs to a persona ("Sarah Chen, freelance consultant, three pending invoices totaling $4,200") or is kept neutral. Using a realistic persona's data makes tasks feel more natural and concrete. Participants engage more authentically when the content they are working with is specific and plausible rather than obviously placeholder.</p>
+
+<p>Consider the difference between these two versions of pre-loaded invoice data:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Invoice Data</th>
+      <th>Effect on Participant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Placeholder data</td>
+      <td>Invoice #001, Amount: $0.00, Vendor: Test Vendor, Date: 01/01/2000</td>
+      <td>Participant immediately recognizes artificial context; may disengage or treat the task as hypothetical</td>
+    </tr>
+    <tr>
+      <td>Realistic data</td>
+      <td>Invoice #INV-2024-0047, Amount: $1,350.00, Vendor: Meridian Office Supplies, Due: 14 days ago</td>
+      <td>Participant engages with the task as though it were real work; behavior is more representative</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Realistic data does not need to be real data — fabricated but plausible content achieves the same effect without privacy or legal risk. The guiding principle is that participants should never be pulled out of the task by data that is obviously artificial.</p>
+
+<p>Equally important is the <em>reset procedure</em>: the process by which the prototype is returned to its defined initial state between participant sessions. This matters because participants interact with the prototype in ways that change its state. A participant who completes the invoice payment task will leave the prototype with that invoice marked as paid. The next participant must start with an unpaid invoice. Without a reliable reset, the second participant's experience will differ from the first's — and any comparison of their behavior becomes meaningless.</p>
+
+<p>The reset checklist should be written out in full, step by step, and should include every action required to restore the prototype: clearing form entries, resetting navigation state, restoring any data that participants may have modified, and confirming that all flows start from their correct entry points. For high-fidelity prototypes built in tools like Figma, resetting may simply mean closing and reopening the prototype file. For code-based prototypes or those using a backend database, the reset process may involve running a database restore script or deploying a fresh instance. In either case, the procedure must be tested before the pilot session to confirm that it can be completed within the inter-session buffer time — the gap scheduled between one participant leaving and the next arriving. If the reset takes longer than that buffer allows, the team must either extend the buffer, simplify the reset process, or redesign the prototype so that its state is less susceptible to participant modification.</p>
+
+<p>The pilot session itself serves as the definitive test of both the prototype and the reset procedure under realistic conditions. During the pilot, a team member or trusted colleague acts as a stand-in participant, moving through all tasks at a realistic pace. The team times the reset procedure immediately after the pilot concludes. Any issues — a step that was forgotten, a script that errored, a screen that did not restore correctly — can be corrected before real participants arrive.</p>
+
+<p><strong>Coordinating Team Roles Across Development and Testing</strong></p>
+
+<p>Usability testing is a team activity, and the quality of a session depends heavily on having the right people in the right roles, each with a clear understanding of their responsibilities. Three roles are essential: the <em>facilitator</em>, who guides the participant through the session and administers tasks; the <em>note-taker</em>, who captures observations in real time so the facilitator can remain fully present; and the <em>technical support person</em>, who monitors the prototype and intervenes if it fails.</p>
+
+<p>These roles should be assigned before the first session — not improvised on the day of testing. Improvised role assignment leads to confusion about who should speak when a participant asks a question, who should intervene when the prototype crashes, and whose job it is to reset the prototype between sessions. The result is sessions that feel disorganized to participants and produce fragmented observations for the team.</p>
+
+<p>The technical support role deserves particular attention because prototype failures during sessions are more common than teams anticipate. A click triggers an unexpected flow. The browser crashes. A linked prototype loses its connection to an external data source. The technical support person must know, in advance, exactly what to do in each of these scenarios — whether that means quickly resetting the prototype to an earlier state, reopening a specific file, running a restore command, or switching to a backup prototype build. If that knowledge lives only in the prototype builder's head, and the prototype builder is also serving as facilitator, the team will face an impossible choice when something goes wrong: interrupt the session to fix the prototype, or continue with a broken tool. Neither option is good. Separating technical support from facilitation preserves the session's integrity.</p>
+
+<p>The separation of roles also addresses a subtler but important issue: the influence of prototype builders on facilitation. Researchers and designers who have built a prototype are deeply invested in it. When a participant struggles with something the builder is proud of, there is a natural — and usually unconscious — impulse to help, explain, or defend. This impulse directly contaminates usability data, because any assistance given to a participant masks genuine usability problems. A facilitator who did not build the prototype has no personal stake in any particular flow and is better positioned to observe struggle neutrally without intervening. Making this separation an explicit policy — not merely a suggestion — removes the temptation and the ambiguity.</p>
+
+<p>Finally, the team should build in a structured debrief after each session. This need not be lengthy; a 10-to-15-minute conversation in which the facilitator, note-taker, and technical support person share their most significant observations is sufficient. The debrief serves two functions. It captures fresh impressions before they fade and before observations from different sessions blur together in memory. It also provides a decision point: if a consistent problem is emerging — a task that no participant can complete, a prototype flow that repeatedly fails — the team can decide whether to adjust the protocol, repair the prototype, or both before the next session. This iterative correction is only possible if the team debriefs regularly rather than waiting until all sessions are complete. By the time a team reviews notes from eight sessions at once, early patterns are difficult to isolate and any opportunity for mid-study adjustment has passed.</p>
+
+<p>The overall logic of this integration work is simple even if the execution requires care: a usability study is only as good as the alignment between what the protocol asks participants to do and what the prototype is actually capable of supporting. Achieving that alignment is not automatic. It requires explicit mapping, realistic data, reliable reset procedures, practiced role assignments, and structured communication across the team. When these elements are in place before testing begins, the sessions themselves can focus entirely on what matters most — observing how real people interact with the design.</p>
+        <div class="notes"><strong>Notes</strong>Emphasizes the practical coordination layer between prototype development and test facilitation — not just theory but actionable checklists and decision logic. Tables used to illustrate task-to-flow mapping and data realism comparison.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

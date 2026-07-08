@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Microsoft Store Submission Process</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ App Publication Strategies and Store Requirements</a></div>
+  <header>
+    <h1>Microsoft Store Submission Process</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Microsoft Store Submission Process</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Publishing a Windows application to the Microsoft Store is a structured process that requires developers to work through several interconnected stages: creating and verifying a Publisher account in Partner Center, packaging the application using the MSIX format, assembling the required store listing assets and metadata, and finally passing Microsoft's certification review. Each stage has specific requirements that must be satisfied before an app can appear publicly in the Store. Understanding the full pipeline in detail — from first account registration through to a live listing — helps developers avoid common pitfalls, reduces certification failures, and leads to a polished, discoverable store presence.</p>
+
+<p><strong>Microsoft Partner Center Account Setup</strong></p>
+
+<p>The Microsoft Partner Center (<em>partner.microsoft.com</em>) is the unified portal through which developers register as publishers, submit app packages, monitor sales and install analytics, and configure payout information. Before any application can be submitted to the Microsoft Store, a Publisher account must be created and approved in Partner Center. There are two account types available, and the choice between them affects both cost and the verification steps required.</p>
+
+<p>An <strong>Individual developer account</strong> is intended for solo developers or hobbyists who are not representing a legal business entity. Registration requires a one-time fee of <strong>$19 USD</strong>. After payment, Microsoft verifies the identity of the individual through the payment method and associated Microsoft account, and the account is typically activated quickly. Individual accounts display the developer's chosen display name on Store listings rather than a company brand.</p>
+
+<p>A <strong>Company account</strong> carries a one-time fee of <strong>$99 USD</strong> and is designed for organisations, studios, and businesses that want to publish apps under a company identity. Because the account will represent a legal entity, Microsoft requires <strong>business identity verification</strong>. This verification is performed by a third-party verification provider (historically Dun &amp; Bradstreet) and involves confirming that the company name, address, and contact details match official business records. The process can take several business days, and Microsoft may request supporting documentation. Once approved, the company's legal or trading name appears as the publisher identity on all Store listings.</p>
+
+<p>A <strong>Microsoft account</strong> (an @outlook.com, @hotmail.com, or any email linked to the Microsoft identity system) is mandatory to begin registration. This account becomes the primary owner of the Partner Center publisher profile. Additional users — such as teammates or finance staff — can later be invited to the account with role-based permissions ranging from full manager access to read-only analytics or payout-only roles.</p>
+
+<p>Once the account is active, the <strong>Partner Center dashboard</strong> becomes the central hub for all publishing operations. From the dashboard a developer can:</p>
+<ul>
+  <li>Create new app submissions and reserve an app name in the Store (name reservation is free and holds the name even before a package is ready).</li>
+  <li>Upload MSIX packages and manage release branches or flight rings for phased rollouts.</li>
+  <li>Author or update store listings in multiple languages.</li>
+  <li>View acquisition, usage, and health analytics broken down by region, OS version, and device type.</li>
+  <li>Configure pricing, markets, and availability schedules.</li>
+  <li>Set up bank accounts and tax profiles to receive revenue from paid apps or in-app purchases.</li>
+</ul>
+
+<p>It is good practice to reserve an app name in Partner Center as early as possible during development. The reserved name must match the <em>Name</em> declared in the MSIX package manifest, so reserving it early lets you embed the correct identity in the package without changes later.</p>
+
+<p><strong>Windows App Packaging with MSIX</strong></p>
+
+<p>MSIX is the modern Windows application packaging format and is the <strong>required format</strong> for all submissions to the Microsoft Store. It supersedes older formats such as AppX (which it extends), MSI, and ClickOnce for Store distribution. MSIX packages are digitally signed container files (with the <em>.msix</em> or <em>.msixbundle</em> extension) that encapsulate an application's binaries, assets, and a declarative XML manifest. Because MSIX uses containerised installation, applications are installed cleanly without registry sprawl, uninstall completely without leaving residue, and support features such as automatic updates and differential package downloads.</p>
+
+<p><strong>Building MSIX packages in Visual Studio</strong> is the most common path for developers writing new applications targeting Windows. Visual Studio 2019 and later include a dedicated <em>Windows Application Packaging Project</em> template. Adding this project type to a solution and setting it as the startup project causes Visual Studio to produce a signed MSIX package when building in Release configuration. The packaging project references the main application project, and its <em>Package.appxmanifest</em> file is edited through a visual designer inside the IDE. When submitting to the Store, developers typically select <em>Create App Packages</em> from the project context menu, which invokes a wizard that guides through architecture selection (x86, x64, arm64), version numbering, and whether to produce a bundle. A bundle (<em>.msixbundle</em>) contains packages for multiple architectures in a single file, and the Store delivers only the architecture-appropriate slice to each user's device.</p>
+
+<p>For software that already exists as a traditional <strong>Win32 installer</strong> (MSI, EXE setup, etc.), Microsoft provides the <strong>MSIX Packaging Tool</strong>, available free from the Microsoft Store itself. The tool works by monitoring an installation on a clean reference machine — either a physical machine or a Hyper-V virtual machine — and captures all file system and registry changes made by the installer. It then packages those artefacts into an MSIX structure. This conversion pathway lets legacy applications gain the benefits of MSIX deployment (clean uninstall, Store distribution, automatic updates) without requiring a rewrite. After conversion, developers typically review and trim the captured content to remove unnecessary registry keys or files before submission.</p>
+
+<p>At the heart of every MSIX package is the <strong>manifest file</strong>, <em>AppxManifest.xml</em>. This XML document is the authoritative declaration of the application's identity and behaviour on the Windows platform. Key sections include:</p>
+<ul>
+  <li><strong>Identity element:</strong> Specifies the <em>Name</em> (which must match the name reserved in Partner Center), <em>Publisher</em> (the publisher distinguished name from your Store certificate), <em>Version</em> (a four-part version number such as <em>1.0.0.0</em>), and <em>ProcessorArchitecture</em>.</li>
+  <li><strong>Properties:</strong> Contains the human-readable <em>DisplayName</em>, <em>PublisherDisplayName</em>, and the path to the app's logo image used on the Start menu tile.</li>
+  <li><strong>Capabilities:</strong> Declares the system resources and sensitive APIs the application needs access to, such as <em>internetClient</em>, <em>microphone</em>, <em>webcam</em>, or <em>location</em>. Windows enforces these declarations — an app that attempts to use a capability not listed in the manifest will be denied access at runtime. Reviewers during certification also verify that declared capabilities match the app's actual behaviour.</li>
+  <li><strong>Applications element:</strong> Defines the entry points of the package — the executable(s) that appear on the Start menu, their display names, descriptions, and visual assets. A single MSIX package can contain multiple application entry points.</li>
+  <li><strong>Extensions:</strong> Optional declarations for OS integration features such as file type associations, URI scheme handlers, background tasks, share targets, and toast notification activation.</li>
+</ul>
+
+<p>A minimal manifest snippet for a WinUI 3 application looks like the following:</p>
+<pre><code>&lt;Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"&gt;
+  &lt;Identity
+    Name="ContosoWeather"
+    Publisher="CN=Contoso, O=Contoso Ltd, C=US"
+    Version="2.1.0.0"
+    ProcessorArchitecture="x64" /&gt;
+  &lt;Properties&gt;
+    &lt;DisplayName&gt;Contoso Weather&lt;/DisplayName&gt;
+    &lt;PublisherDisplayName&gt;Contoso Ltd&lt;/PublisherDisplayName&gt;
+    &lt;Logo&gt;Assets\StoreLogo.png&lt;/Logo&gt;
+  &lt;/Properties&gt;
+  &lt;Capabilities&gt;
+    &lt;Capability Name="internetClient" /&gt;
+    &lt;uap:Capability Name="location" /&gt;
+  &lt;/Capabilities&gt;
+  &lt;Applications&gt;
+    &lt;Application Id="App" Executable="ContosoWeather.exe"
+                 EntryPoint="Windows.FullTrustApplication"&gt;
+      &lt;uap:VisualElements DisplayName="Contoso Weather"
+        Description="Live weather forecasts."
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        BackgroundColor="transparent" /&gt;
+    &lt;/Application&gt;
+  &lt;/Applications&gt;
+&lt;/Package&gt;</code></pre>
+
+<p>Before uploading to Partner Center, the package must be <strong>digitally signed</strong>. During development and sideload testing, developers sign with a self-signed certificate. For Store submissions, however, the package is typically uploaded <em>unsigned</em> — or signed with a developer certificate — because Microsoft re-signs the package with their own certificate infrastructure during the ingestion process, which is what users ultimately receive. Partner Center validates that the package identity metadata matches the reserved app name and publisher identity associated with the account.</p>
+
+<p><strong>Store Listing and Asset Requirements for Microsoft Store</strong></p>
+
+<p>A store listing is everything a potential user sees on the app's Store page: visuals, descriptions, ratings, and metadata. Crafting a complete and accurate listing is not only a certification requirement but also a significant factor in discoverability and conversion — how many people who view the page actually click Install. Partner Center allows listings to be localised into dozens of languages, each with its own set of assets and copy.</p>
+
+<p>The visual asset requirements for a desktop app listing are precise. The <strong>store logo</strong> must be provided at a minimum size of <strong>300×300 pixels</strong>. This image appears in search results, the app's Store page header, and various editorial placements across the Store. It should be a clean, high-contrast image that is legible at small sizes. PNG format with a transparent background is recommended so the Store can render it correctly on both light and dark UI themes.</p>
+
+<p><strong>Screenshots</strong> must be at least <strong>1366×768 pixels</strong> for desktop app listings. Screenshots are among the highest-impact elements of a store listing; users scan them to quickly judge what the app looks like and does. Best practice is to provide at least three to four screenshots showing the app's primary features. Partner Center accepts up to ten screenshots per listing language. Captions can be added beneath each screenshot to call out specific functionality. While the minimum dimension is 1366×768, providing screenshots at higher resolutions (such as 1920×1080 or even 2560×1440) produces crisper visuals on high-DPI displays.</p>
+
+<p>Every listing requires two written descriptions:</p>
+<ul>
+  <li>A <strong>short description</strong> (up to 270 characters) that appears in search result cards and in some Store surface areas where space is limited. It should summarise the app's core value proposition succinctly.</li>
+  <li>A <strong>full description</strong> (up to 10,000 characters) that appears on the app's dedicated Store page. This is the place to explain features in depth, list supported hardware or OS requirements, describe subscription tiers, and include keywords that improve organic search ranking within the Store. Plain text with line breaks is supported; basic formatting conventions like capitalisation and short bullet-style paragraphs improve readability.</li>
+</ul>
+
+<p>Additional optional but recommended listing fields include a <em>What's new in this version</em> section (up to 1,500 characters), which is shown to existing users considering an update; search terms (up to seven terms, each up to 30 characters) that supplement the organic indexing of the description; and a support URL and privacy policy URL.</p>
+
+<p><strong>Age ratings</strong> are not assigned manually by the developer. Instead, Partner Center presents a <strong>questionnaire</strong> covering the nature of content in the app — including questions about violence, sexual content, drug references, user-generated content, social interaction features, and gambling mechanics. Based on the answers, Partner Center calculates ratings from recognised classification bodies such as ESRB, PEGI, USK, and others simultaneously. The developer is responsible for answering accurately; misrepresenting content in the questionnaire is a policy violation. Apps whose content changes significantly in an update (for example, adding in-app chat) must re-evaluate their rating questionnaire responses.</p>
+
+<p>The table below summarises the key asset and metadata requirements for a typical desktop app listing:</p>
+<table>
+  <thead>
+    <tr>
+      <th>Asset / Field</th>
+      <th>Requirement</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Store Logo</td>
+      <td>300×300 px minimum</td>
+      <td>PNG with transparency preferred; used in search results and Store page header</td>
+    </tr>
+    <tr>
+      <td>Screenshots</td>
+      <td>1366×768 px minimum (desktop)</td>
+      <td>Up to 10 per language; higher resolution recommended for clarity</td>
+    </tr>
+    <tr>
+      <td>Short Description</td>
+      <td>Up to 270 characters</td>
+      <td>Appears in Store search cards and limited-space surfaces</td>
+    </tr>
+    <tr>
+      <td>Full Description</td>
+      <td>Up to 10,000 characters</td>
+      <td>Main Store page body; include keywords naturally for discoverability</td>
+    </tr>
+    <tr>
+      <td>Age Rating Questionnaire</td>
+      <td>Must be completed</td>
+      <td>Generates ESRB, PEGI, and other regional ratings automatically</td>
+    </tr>
+    <tr>
+      <td>Privacy Policy URL</td>
+      <td>Required if personal data is collected</td>
+      <td>Must be a live, accessible URL at time of submission</td>
+    </tr>
+    <tr>
+      <td>Search Terms</td>
+      <td>Up to 7 terms, 30 characters each</td>
+      <td>Optional but strongly recommended for discoverability</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Microsoft Store Certification and Policies</strong></p>
+
+<p>Before a submitted app becomes publicly visible in the Store, it must pass Microsoft's certification process. Certification enforces the <strong>Microsoft Store Policies</strong> — a publicly available document (part of the App Developer Agreement) that defines what apps are permitted to do, how they must behave, and what content they may contain. The policies span several major areas including content standards (no illegal content, no content that exploits minors, restricted adult content only in appropriate age-gated markets), privacy and data handling requirements, security requirements (no malware or deceptive behaviour), functionality standards (the app must work as described), and monetisation rules (in-app purchases of digital goods must use the Store's commerce system or a permitted alternative).</p>
+
+<p>The certification pipeline has two complementary components that run in parallel or in sequence:</p>
+<ul>
+  <li><strong>Automated testing:</strong> The Windows App Certification Kit (WACK) and additional automated tools analyse the package for common technical violations — things like missing manifest declarations, use of deprecated APIs, packages that crash on launch, incorrect file structures, or binaries that contain known malware signatures. Automated tests are fast and catch a large proportion of technical issues before any human reviewer is involved. Developers can and should run WACK locally against their MSIX package before submission to catch these problems early.</li>
+  <li><strong>Manual review by Microsoft staff:</strong> Human reviewers install and interact with the application to verify that it behaves as the store listing describes, that it does not engage in deceptive or harmful behaviour, that declared capabilities match actual usage, and that the content complies with policies. Certain categories of apps — particularly those involving financial services, health data, apps for children, or user-generated content — receive more rigorous manual scrutiny.</li>
+</ul>
+
+<p>One of the most consistently enforced requirements relates to <strong>privacy</strong>. If an application collects, stores, or transmits any personally identifiable information — including but not limited to names, email addresses, location data, usage telemetry, or device identifiers — it <strong>must</strong> provide a <strong>privacy policy URL</strong> as part of the store listing. The URL must point to a live, human-readable document (not a placeholder or coming-soon page) that accurately describes what data is collected, why it is collected, how it is stored and protected, and how users can request deletion or access to their data. Failure to provide a valid privacy policy URL when one is required is one of the most common reasons for certification failure.</p>
+
+<p>When a submission <strong>fails certification</strong>, Microsoft does not simply reject it silently. Developers receive a <strong>detailed certification failure report</strong> through Partner Center and by email. The report identifies each specific policy violation or technical failure, cites the relevant policy section number, describes the steps the reviewer took to reproduce the issue, and in most cases provides guidance on how to resolve it. This structured feedback allows developers to address all identified issues and resubmit efficiently. It is important to read the full report carefully — sometimes a single user-facing issue (such as a crash on a specific screen) is listed alongside a policy citation that explains the standard it violated, and both pieces of information are needed to understand and fix the root cause.</p>
+
+<p>Typical causes of certification failure, and the strategies for avoiding them, include:</p>
+<ul>
+  <li><strong>App crashes or fails to launch:</strong> Run the app on a clean machine against the minimum supported OS version declared in the manifest before submission. Ensure all runtime dependencies (such as the Visual C++ Redistributable or .NET Desktop Runtime) are either bundled in the MSIX or declared as framework package dependencies.</li>
+  <li><strong>Functionality not matching the description:</strong> Every feature described in the store listing must be present and working. Listing features that are "coming soon" or that require external account credentials not explained in the listing will cause a review failure.</li>
+  <li><strong>Missing or inaccurate privacy policy:</strong> Audit the application's network activity and data storage carefully. If any personal or device data leaves the user's machine — including through third-party analytics SDKs embedded in the app — a privacy policy is required.</li>
+  <li><strong>Undeclared capabilities:</strong> If the app accesses location, the microphone, the camera, or contacts without declaring the corresponding capability in the manifest, Windows will block the access and the reviewer will observe broken functionality.</li>
+  <li><strong>Misleading metadata:</strong> Using competitor brand names as search terms, or including unrelated keywords in the description to game search ranking, violates Store policies on metadata honesty.</li>
+</ul>
+
+<p>Once all issues are resolved and a resubmission passes certification, the app transitions to the <em>In the Store</em> status and becomes available to users in the markets and on the release schedule the developer configured. Microsoft typically targets a certification turnaround of one to three business days for standard submissions, though complex manual reviews or policy edge cases can extend this timeline. Developers can monitor the real-time status of every submission — from <em>Package acceptance</em> through <em>Pre-processing</em>, <em>Certification</em>, and finally <em>Publishing</em> — directly within the Partner Center dashboard.</p>
+        <div class="notes"><strong>Notes</strong>Covers all four subtopic clusters in depth: Partner Center account setup (individual vs. company fees, verification, dashboard capabilities), MSIX packaging (Visual Studio tooling, MSIX Packaging Tool for legacy apps, manifest structure with code example), store listing assets and metadata (logo/screenshot pixel requirements, description fields, age rating questionnaire, summarised in a table), and certification pipeline (policies, automated + manual review, privacy policy requirement, failure report guidance, and common failure causes with mitigation advice).</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

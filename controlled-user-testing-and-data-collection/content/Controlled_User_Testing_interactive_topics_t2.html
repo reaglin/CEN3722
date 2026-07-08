@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Participant Selection and Recruitment</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Controlled User Testing and Data Collection</a></div>
+  <header>
+    <h1>Participant Selection and Recruitment</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Participant Selection and Recruitment</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Recruiting the right participants is arguably the single most consequential decision in a usability study. No matter how carefully a test protocol is designed, or how skilled the facilitator is, the data collected will only be as meaningful as the people who generate it. If the participants do not represent the actual users of the product, every observation, every task-completion rate, and every satisfaction rating becomes suspect. Participant selection and recruitment is therefore not an administrative afterthought — it is a core methodological activity that deserves the same rigor applied to any other part of the research design. This topic covers the full arc of that activity: from the conceptual work of defining who your users are, through the practical mechanics of writing screeners and choosing recruitment channels, to the logistical details that keep sessions running smoothly on the day they are scheduled.</p>
+
+<p><strong>Defining the Target User Population</strong></p>
+
+<p>Before a single recruitment message is drafted, the research team must reach explicit agreement on who the product is for. The <em>target user population</em> is the set of people whose experience with the product is the subject of inquiry. Defining this population is not merely a matter of listing a job title or an age range; it requires thinking carefully about the combination of demographic, behavioral, and experiential attributes that distinguish real users from the general public.</p>
+
+<p><strong>Demographic attributes</strong> are the most familiar dimension — age, educational background, occupational role, geographic location, primary language, and similar characteristics. These matter when the product's interface, content, or task demands are sensitive to such factors. A financial planning tool aimed at retirees imposes different cognitive and experiential demands than the same tool aimed at recent graduates, even if the underlying software is identical.</p>
+
+<p><strong>Behavioral attributes</strong> describe what people actually do in relation to the product's domain. How frequently does a person engage in the relevant task? On what devices? In what physical or organizational context? A nurse who documents patient care in a busy emergency department has a very different behavioral profile from an administrative coordinator who uses the same electronic health record system at a desk in a quiet back office. Both may be "users" in a broad sense, yet testing only one group would leave major usability issues undetected for the other.</p>
+
+<p><strong>Experiential attributes</strong> capture prior knowledge and skill level. These include domain expertise (does the person understand medical terminology, financial regulations, or software development practices?), technology proficiency (are they comfortable with touchscreens, keyboard shortcuts, or voice interfaces?), and specific product familiarity (are they new users, or have they been using the product for years?). A study of a redesigned onboarding flow demands participants who are genuinely new to the product; recruiting experienced users would invalidate the entire exercise.</p>
+
+<p>A useful practical technique is to write a short <em>population description statement</em> — a paragraph that someone outside the team could read and immediately understand who is being studied. For example: <em>"The target population consists of independent practice physicians in the United States who currently use electronic health record software at least three days per week and who have direct responsibility for placing medication orders."</em> That single statement rules out hospital-employed physicians with different workflows, nurses who review but do not place orders, and physicians who primarily work on paper. The act of writing it forces precision and surfaces assumptions that team members may have held silently and inconsistently.</p>
+
+<p>Population definition should be finalized and documented in the study plan before recruitment begins. Changing the definition mid-recruitment — for example, deciding after the fact to also include nurse practitioners — introduces inconsistency that undermines the integrity of the dataset and makes it impossible to know whether observed patterns are real or artifacts of a mixed sample.</p>
+
+<p><strong>Inclusion and Exclusion Criteria</strong></p>
+
+<p>Once the target population is defined, the team must translate that definition into concrete, operationalizable <em>criteria</em> — specific conditions that a candidate either meets or does not meet. Criteria fall into two categories that work in tandem.</p>
+
+<p><em>Inclusion criteria</em> are the conditions a candidate must satisfy in order to qualify for the study. They are derived directly from the population definition. If the population is independent practice physicians who place medication orders at least three days per week, then inclusion criteria would specify: (1) currently licensed as a physician (MD or DO), (2) employed at a practice with fewer than a defined number of physicians, (3) personally responsible for placing medication orders, and (4) doing so on at least three days in a typical work week. Every criterion should be testable — that is, there should be a clear way to determine whether a given candidate meets it.</p>
+
+<p><em>Exclusion criteria</em> identify conditions that disqualify a candidate even if they otherwise appear to fit the population profile. Common reasons for exclusion include:</p>
+
+<ul>
+  <li><strong>Atypical prior knowledge:</strong> Someone who works at the software company that makes the product, or who has participated in previous studies of the same product, brings knowledge that typical users do not have. Their performance and feedback will not generalize.</li>
+  <li><strong>Professional bias:</strong> UX designers, usability researchers, and software engineers tend to evaluate interfaces analytically rather than experientially. Their participation can skew qualitative feedback toward technical critique rather than genuine usability difficulty.</li>
+  <li><strong>Competing product familiarity:</strong> Depending on the study's goals, someone with deep expertise in a direct competitor's product may approach the interface with expectations and habits that differ from those of a true first-time user.</li>
+  <li><strong>Conflict of interest:</strong> In some regulated industries, participants with a financial relationship to the sponsoring organization must be excluded to satisfy ethical or regulatory requirements.</li>
+</ul>
+
+<p>Both inclusion and exclusion criteria must be applied <em>consistently</em> across every candidate. If a team member makes an exception for a well-connected candidate who almost meets the criteria, the resulting data point cannot be compared reliably with others. Consistency is not merely about fairness; it is about methodological integrity.</p>
+
+<p>There is a genuine tension to manage here: overly restrictive criteria make recruitment extremely difficult and can reduce the diversity of the sample in ways that introduce their own biases. If the inclusion criteria are so narrow that only a tiny population qualifies, the team may end up with a convenience sample of whoever was willing to participate, which is often less representative than a broader criterion would have produced. A useful discipline is to revisit each criterion and ask: <em>"Does this criterion genuinely protect the validity of the study, or is it a reflexive preference?"</em> Criteria that survive that question belong in the screener; those that do not should be reconsidered.</p>
+
+<p><strong>Screening and Recruitment Methods</strong></p>
+
+<p>With criteria established, the team needs a mechanism for verifying that candidates meet them before being invited to participate. The standard instrument is a <em>screener survey</em> — a short questionnaire administered to prospective participants before the session is scheduled.</p>
+
+<p>A well-designed screener accomplishes three things. First, it gathers the information needed to apply inclusion and exclusion criteria. Second, it does so without telegraphing the "right" answers, which would allow motivated candidates to misrepresent themselves. Third, it is brief enough that candidates will actually complete it. A screener that takes more than five or six minutes risks high drop-off rates.</p>
+
+<p>One technique for avoiding leading questions is to embed the qualifying response within a list of plausible alternatives. Instead of asking "Do you place medication orders at least three days per week? (Yes/No)," a better formulation is:</p>
+
+<ul>
+  <li>I do not place medication orders as part of my role.</li>
+  <li>I place medication orders occasionally, but fewer than once per week on average.</li>
+  <li>I place medication orders one or two days per week.</li>
+  <li>I place medication orders three or more days per week.</li>
+</ul>
+
+<p>Only the last response qualifies, but the candidate cannot tell that from the question alone. This design reduces the risk of demand characteristics — the tendency of participants to give answers they believe the researcher wants.</p>
+
+<p>Screener results must be documented. Each candidate's responses should be retained so that there is a clear audit trail showing why specific individuals were selected or disqualified. This protects the team if the study's methodology is ever questioned and makes it possible to revisit recruitment decisions later if the study design changes.</p>
+
+<p><em>Recruitment channels</em> vary considerably in reach, cost, and the type of population they access:</p>
+
+<ul>
+  <li><strong>Social media and online communities:</strong> Platforms like LinkedIn, Reddit, Facebook Groups, and professional Slack communities can reach specific professional populations quickly and at low cost. The trade-off is that respondents are self-selected and may skew toward more digitally active individuals.</li>
+  <li><strong>Campus networks:</strong> Universities often have participant pools maintained by psychology or information science departments. These are convenient for studies with student or general-consumer populations but are rarely appropriate for specialized professional user groups.</li>
+  <li><strong>Professional associations:</strong> Medical associations, legal societies, engineering organizations, and similar bodies can grant access to precisely defined professional populations. Recruitment through these channels tends to be slower and may require organizational approval, but the quality of the candidate pool is typically higher.</li>
+  <li><strong>Participant panels and research recruitment services:</strong> Commercial panels (such as User Interviews, Respondent.io, or Nielsen's panels) maintain large databases of pre-screened individuals who have opted in to research participation. These services accelerate recruitment significantly but add cost per participant.</li>
+  <li><strong>Organizational networks and customer lists:</strong> For enterprise products, recruiting through the client's own customer base or employee directory can be highly effective, provided that appropriate consent and data privacy protocols are followed.</li>
+</ul>
+
+<p><em>Incentives</em> play an important practical role in recruitment. Participants are being asked to spend their time — often an hour or more — engaging with tasks that benefit the research team. Compensation signals that their time is valued and meaningfully reduces no-show rates and attrition mid-study. Common incentive forms include gift cards, cash equivalents via digital payment platforms, course credit (for academic settings), and entry into a prize draw. The appropriate incentive amount varies by the professional level of the participant and the time demanded. Recruiting a surgeon for a 90-minute study warrants a higher incentive than recruiting a general consumer for a 30-minute session. Setting the incentive too low signals undervaluation; setting it implausibly high can attract participants who are primarily motivated by the reward rather than genuine fit with the target population.</p>
+
+<p><strong>Sample Size Considerations</strong></p>
+
+<p>One of the most common questions in usability research — and one of the most frequently misunderstood — is how many participants are needed. The answer depends heavily on the purpose of the study.</p>
+
+<p><em>Formative usability studies</em>, which are conducted during design and development to identify problems and inform iteration, typically work well with small samples. The widely cited heuristic, rooted in Nielsen and Landauer's probability modeling, suggests that five participants per distinct user group will surface the majority of the most critical usability problems. The logic is that usability problems with high prevalence — those that most users will encounter — appear quickly across participants, while problems that require large samples to detect are often lower in severity and less actionable in an early design iteration cycle. This does not mean that five participants is always sufficient; it means that the marginal value of each additional participant diminishes after the most common problems have been observed multiple times.</p>
+
+<p><em>Summative usability studies</em> and <em>quantitative benchmarking studies</em> operate under entirely different constraints. When the goal is to produce statistically defensible conclusions — for example, demonstrating that task-completion rates meet a defined threshold, or that the new design significantly outperforms the old one — sample sizes in the range of 20 to 40 or more participants per group may be necessary, depending on the expected effect size, the desired statistical power, and the acceptable margin of error. These studies are governed by the same power-analysis principles that apply to any quantitative research.</p>
+
+<p>The following table summarizes general sample size guidance by study type:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Study Type</th>
+      <th>Primary Goal</th>
+      <th>Typical Sample Size</th>
+      <th>Key Consideration</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Formative / Exploratory</td>
+      <td>Identify usability problems to fix</td>
+      <td>5–8 per user group</td>
+      <td>Multiple distinct user groups each need their own participants</td>
+    </tr>
+    <tr>
+      <td>Summative / Benchmarking</td>
+      <td>Measure performance against criteria</td>
+      <td>20–40+ per condition</td>
+      <td>Power analysis should guide the specific number</td>
+    </tr>
+    <tr>
+      <td>Comparative A/B</td>
+      <td>Determine which design performs better</td>
+      <td>25–50+ per group</td>
+      <td>Between-subjects designs need larger samples than within-subjects</td>
+    </tr>
+    <tr>
+      <td>Qualitative / Interview</td>
+      <td>Understand attitudes, mental models, needs</td>
+      <td>8–15 total</td>
+      <td>Recruit until thematic saturation is reached</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Two additional practical factors shape sample size decisions. First, when the target population is <em>homogeneous</em> — that is, when participants share very similar backgrounds, tasks, and mental models — fewer participants are needed to reach saturation, because each new participant adds little new information. A highly <em>diverse</em> population (for example, a product used by both novice consumers and expert professionals across multiple industries) requires more participants to adequately represent the full range of experiences.</p>
+
+<p>Second, teams should always recruit a buffer of additional candidates beyond the minimum needed — typically 20 to 25 percent more than the target number. This buffer offsets inevitable attrition: participants who do not show up, who are disqualified on the day of the session when additional screening reveals they do not actually meet criteria, or who must be removed from analysis due to technical failures or protocol violations. Discovering on the morning of a study that two of six scheduled participants have cancelled, without backup candidates ready, can critically undermine a project timeline.</p>
+
+<p><strong>Scheduling and Logistics</strong></p>
+
+<p>The operational side of participant recruitment is often underestimated, yet it directly determines whether the carefully selected sample actually shows up and produces usable data. Good logistics begin at the moment a participant confirms their slot.</p>
+
+<p>A <em>confirmation email</em> should be sent immediately upon scheduling. This email should include the session date, time, time zone (especially critical for remote sessions spanning multiple geographic regions), format (in-person or remote, with location or meeting link), expected duration, and contact information for the research team. A second reminder should be sent approximately 24 hours before the session. The purpose of the reminder is not merely to jog memory — it also gives participants a natural opportunity to cancel in advance if something has come up, allowing the team to fill the slot with a backup rather than experiencing a day-of no-show.</p>
+
+<p><em>Session length estimates</em> must be realistic. Facilitators consistently underestimate how long tasks take when real participants — rather than experienced team members — attempt them. A task that takes an experienced user three minutes may take a first-time user twelve. Padding the scheduled session length by 20 to 30 percent relative to the task duration estimate is standard practice. Participants should be told the realistic upper bound for session length when they are recruited, not a shortened estimate. Discovering mid-session that the study will run 45 minutes longer than expected is a significant imposition that damages participant trust and can result in rushed final tasks or early departure.</p>
+
+<p>For <em>remote sessions</em>, technology verification is not optional. Every participant should complete a brief technology check before the session day — ideally a day or two in advance. This check should confirm that the participant's device meets the minimum requirements, that the video conferencing software is installed and functional, that their microphone and camera work, and that screen sharing or any specialized prototype software operates correctly in their environment. Issues discovered during this pre-check can be resolved with time to spare; the same issues discovered at the start of a scheduled session consume the session time itself and may make the session impossible to run. A dedicated point-of-contact — typically a team member who is not the facilitator — should be identified and their contact information shared with every participant. When a participant cannot find the meeting link, cannot get their audio to work, or is running ten minutes late and unsure whether to continue, they need someone to call. Without a clear contact, participants often simply give up.</p>
+
+<p>For <em>in-person sessions</em>, logistics include ensuring the physical space is prepared (correct number of chairs, working equipment, appropriate lighting and temperature), that consent forms and any physical materials are printed and ready, and that directions to the facility are clear and unambiguous. A participant who spends 20 minutes lost in a parking structure arrives stressed and cognitively preoccupied — conditions that compromise the validity of their session data even before the first task begins.</p>
+
+<p>Taken together, the full process of participant selection and recruitment — from population definition through day-of logistics — constitutes a chain in which every link matters. A rigorous screener cannot compensate for a vague population definition. A perfectly defined population cannot compensate for careless scheduling that produces a 40 percent no-show rate. Excellence in usability research depends on treating recruitment as the systematic, disciplined activity it is, not as a routine administrative task to be delegated without oversight.</p>
+        <div class="notes"><strong>Notes</strong>The table on sample size uses four common study types to illustrate how goals drive numbers. Instructors may want to supplement with a worked example of a power calculation for summative studies if the course covers inferential statistics. The point about buffer recruiting (20–25%) is empirically well-supported in practice and worth emphasizing, as students frequently skip this step.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

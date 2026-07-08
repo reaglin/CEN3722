@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Principles of Iterative Redesign</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Analyzing User Testing Results and Iterative Redesign</a></div>
+  <header>
+    <h1>Principles of Iterative Redesign</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Principles of Iterative Redesign</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Iterative redesign is the disciplined practice of improving a product through repeated cycles of hypothesis, change, testing, and evaluation — rather than attempting to perfect a design in a single pass. The core premise is humbling but empirically well-supported: designers, no matter how skilled or experienced, cannot fully predict how real users will interact with an interface. Every assumption embedded in a design is a hypothesis waiting to be tested. Iterative redesign provides the structured mechanism through which those hypotheses are challenged, refined, and ultimately validated against observable user behavior. It treats design not as an act of creative inspiration completed at a fixed moment, but as an ongoing process of learning — one in which each round of evidence narrows the gap between what designers intended and what users actually experience.</p>
+
+<p>Understanding iterative redesign requires grasping four interlocking principles: how the iterative cycle itself is structured, when to make targeted versus wholesale changes, how to preserve a record of design reasoning, and how to define in advance what success looks like for any given round of changes. Each principle reinforces the others, and neglecting any one of them undermines the reliability of the entire process.</p>
+
+<p><strong>The Iterative Design Cycle</strong></p>
+
+<p>The iterative design cycle is best understood as a loop rather than a line. A linear design process moves from research to design to testing to launch and stops. An iterative cycle moves from testing back into design, and then back into testing again, repeating as many times as necessary until the product meets its usability goals. Each pass through the loop is called an iteration, and each iteration has a distinct internal structure.</p>
+
+<p>Every iteration should begin with a clear set of hypotheses — explicit, falsifiable statements about what changes will address the usability problems identified in the previous round of testing. A hypothesis is not a wish or a preference; it is a prediction grounded in evidence. For example, if testing revealed that users consistently failed to locate the checkout button because it blended visually into the surrounding content, the hypothesis might be: <em>"Increasing the contrast ratio of the checkout button and enlarging it by 20% will reduce the rate at which users abandon the cart at the payment step."</em> That statement identifies the problem, specifies the intervention, and implies a measurable outcome. Starting each iteration with hypotheses of this kind creates accountability — the team knows exactly what it is trying to achieve and can evaluate whether it succeeded.</p>
+
+<p>As iterations progress, the scope of changes naturally narrows. Early iterations tend to surface large, structural usability problems: confusing navigation hierarchies, unclear labeling, broken mental models. These issues require substantial changes that may affect many parts of the interface simultaneously. Once those foundational problems are resolved, subsequent iterations deal with progressively smaller issues — the wording of a single button label, the timing of a tooltip, the spacing between form fields. This convergence is not a sign that the team is running out of ideas; it is a sign that the design is maturing. When each new round of testing reveals only minor, localized issues, the design has moved from unstable to refined, and the iterations are doing exactly what they should.</p>
+
+<p>Testing after each iteration is non-negotiable. It is the mechanism by which the team learns whether its hypotheses were correct. Without testing, the team is simply redesigning — making changes based on intuition and opinion, with no way to distinguish improvements from regressions. Testing closes the feedback loop. It confirms which changes had the intended effect, identifies whether any changes inadvertently created new problems, and generates the evidence that drives the next round of hypotheses. Testing at the end of each iteration also prevents accumulated debt: catching a problem introduced in iteration three is far cheaper than discovering it in iteration seven, after several subsequent rounds of changes have been built on top of it.</p>
+
+<p>The iterative cycle continues until one of two conditions is met: either the design satisfies the predefined usability success criteria, or the team exhausts the resources — time, budget, personnel — allocated to the redesign effort. The first outcome is the goal; the second is a practical reality that teams must plan for honestly. In either case, the iterative process produces a design that is measurably better than what preceded it, even if it is not yet perfect. A design that has passed through five well-executed iterations is almost always superior to one that was released after a single, unvalidated design phase, regardless of how talented the designers involved were.</p>
+
+<p><strong>Targeted vs. Wholesale Redesign</strong></p>
+
+<p>One of the most consequential decisions in any redesign effort is choosing how much of the design to change at once. The default impulse — particularly when user feedback is harsh or when stakeholders are frustrated — is often to overhaul everything simultaneously. This impulse is understandable but dangerous, and understanding why requires thinking carefully about causality.</p>
+
+<p>When teams make many changes simultaneously, they lose the ability to attribute outcomes to specific decisions. Suppose a team redesigns the navigation, rewrites all microcopy, changes the color scheme, and reorganizes the page layout all in the same iteration, and the subsequent test shows a 15% improvement in task completion rates. What caused the improvement? Was it the navigation restructuring? The clearer labels? The new color hierarchy? The layout change? Without the ability to isolate variables, the team cannot know — which means it cannot learn. It cannot confidently repeat the successful decisions in future work, and it cannot avoid repeating unsuccessful ones that may have been masked by improvements elsewhere. Targeted changes, by contrast, allow the team to build genuine causal knowledge. When a specific, well-defined change produces a specific, measurable improvement, the team has learned something durable about how users interact with this interface.</p>
+
+<p>The principle of targeted redesign also conserves resources. Every change carries risk — not just the risk of not working, but the risk of introducing new problems. A change to one element of an interface can have ripple effects on adjacent elements in ways that are difficult to anticipate. The more elements changed simultaneously, the greater the surface area for unintended consequences. By redesigning only what the evidence demands — changing exactly those elements implicated in documented usability problems, and leaving the rest untouched — teams minimize the probability of creating new issues while addressing old ones.</p>
+
+<p>This does not mean wholesale redesign is never appropriate. There are genuine cases in which targeted fixes are insufficient — when the underlying information architecture is fundamentally flawed, when the interaction paradigm is wrong for the task domain, or when the design system has accumulated so much inconsistency that incremental correction would take longer than starting fresh. In these situations, a more comprehensive redesign may be justified. But this justification should be driven by evidence, not by aesthetic dissatisfaction or stakeholder preference. The evidence threshold for wholesale redesign should be high, precisely because the risks are high.</p>
+
+<p>The practical discipline that enforces targeted redesign is traceability. Every change made in an iteration should be traceable to a specific usability finding documented in the issue log. If a team cannot point to the finding that motivated a change, that is a signal that the change may be driven by opinion rather than evidence — and it should be scrutinized accordingly. A simple traceability matrix can make this relationship explicit:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Change Made</th>
+      <th>Element Affected</th>
+      <th>Source Finding (Issue Log ID)</th>
+      <th>Hypothesis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Increased button contrast ratio to 4.5:1</td>
+      <td>Checkout button</td>
+      <td>Issue #14 — Button overlooked by 7 of 8 participants</td>
+      <td>Higher contrast will reduce abandonment at payment step</td>
+    </tr>
+    <tr>
+      <td>Relabeled "Proceed" to "Review Your Order"</td>
+      <td>Cart confirmation CTA</td>
+      <td>Issue #17 — Users uncertain what "Proceed" meant</td>
+      <td>Descriptive label will reduce hesitation before clicking</td>
+    </tr>
+    <tr>
+      <td>Moved error messages above form fields</td>
+      <td>Address entry form</td>
+      <td>Issue #22 — Users missed inline error messages below fields</td>
+      <td>Repositioning errors will reduce re-submission rate</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This kind of traceability transforms a list of design changes into an evidence-based argument, and it creates the foundation for the design rationale documentation discussed next.</p>
+
+<p><strong>Maintaining Design Rationale</strong></p>
+
+<p>Design decisions have a troubling tendency to be forgotten. A team debates a navigation structure for two days, runs a study that clearly resolves the question, implements the evidence-based solution — and then, six months later, a new stakeholder joins the project and reopens the same debate from scratch. Without documentation, the team must either relitigate a settled question or defer to the loudest voice in the room. Neither outcome is acceptable. Design rationale documentation prevents this by creating a persistent record of what was decided, and — crucially — why it was decided.</p>
+
+<p>Each design change should be documented with the usability evidence that motivated it. This documentation need not be elaborate. At minimum, it should capture: the problem observed in testing, the change made in response, the hypothesis underlying that change, and the outcome observed in subsequent testing. Over time, this creates a living record of the design's evolution — a narrative of learning that shows not just what the current design looks like, but how it came to look that way.</p>
+
+<p>The value of this record extends well beyond preventing repeated debates, though that alone would justify the effort. Design rationale documentation also supports onboarding. When a new designer or developer joins a project, they inherit not just a set of design files but a body of decisions, many of which may seem arbitrary or counterintuitive without context. A decision log explains why the navigation uses a hub-and-spoke structure rather than a tab bar, why the font size on mobile is 18px rather than 16px, why the confirmation dialog uses two steps rather than one. These explanations transform the design from a black box into a transparent system of reasoned choices, and they dramatically reduce the time a new team member needs to become a productive contributor.</p>
+
+<p>Stakeholder communication is another significant beneficiary. When executives or clients ask why a design looks the way it does — or push for changes based on personal preference — a documented rationale gives the design team a principled, evidence-based response. It shifts the conversation from "we think this works" to "we tested this, and here is what we found." That shift is enormously valuable for maintaining the integrity of the design process under organizational pressure.</p>
+
+<p>The most robust implementation of design rationale combines two complementary tools: version-controlled design files and a decision log. Version-controlled design files — managed through tools like Abstract, Figma's version history, or a Git-based workflow — preserve every state of the design over time, making it possible to inspect exactly what the interface looked like after each iteration. The decision log provides the narrative layer: it explains what changed between versions, what evidence motivated the change, and what the change was intended to achieve. Together, they create a complete audit trail. A team can reconstruct not just what decisions were made, but the full chain of reasoning and evidence that produced each one.</p>
+
+<p><strong>Setting Success Criteria for Each Iteration</strong></p>
+
+<p>Perhaps the most overlooked discipline in iterative redesign is the explicit, advance definition of success. It is tempting to begin testing and then evaluate the results when they arrive — to look at the data and decide, in the moment, whether the iteration worked. This approach seems flexible and pragmatic, but it is actually a significant methodological weakness. When success is defined after the fact, it is almost always defined in a way that makes the current results look acceptable. This is not dishonesty; it is a well-documented cognitive bias known as post-hoc rationalization, and it corrupts the iterative process by allowing substandard designs to advance to development before they are ready.</p>
+
+<p>The solution is to define success criteria before testing begins. These criteria should be specific, measurable, and directly tied to the usability issues the iteration was designed to address. Vague criteria — "users should find checkout easier" — cannot be reliably evaluated and cannot prevent rationalization. Specific criteria can. Examples of well-formed success criteria include:</p>
+
+<ul>
+  <li><strong>Task completion rate:</strong> At least 85% of participants complete the checkout process without assistance, up from 62% in the previous iteration.</li>
+  <li><strong>Error rate:</strong> No more than one error per participant on average during address entry, down from 3.2 in the previous iteration.</li>
+  <li><strong>Time on task:</strong> Median time to complete account creation falls below 90 seconds, compared to 147 seconds observed previously.</li>
+  <li><strong>Satisfaction rating:</strong> Post-task satisfaction scores for the search function average 4.0 or higher on a 5-point scale, up from 2.8.</li>
+</ul>
+
+<p>Notice that each criterion specifies a direction of change, a numeric target, and a baseline for comparison. This precision is not bureaucratic pedantry — it is what makes the criteria usable as decision tools. When testing concludes, the team does not need to debate whether the results are good enough; the criteria answer that question objectively.</p>
+
+<p>Pre-defined criteria also protect the team from external pressure. When a stakeholder argues that a design is "good enough" based on subjective impression, the team can point to the criteria and the data together. If the data meets the criteria, the stakeholder's enthusiasm is validated by evidence. If the data does not meet the criteria, the team has a principled basis for continuing to iterate rather than rushing to release an underperforming design.</p>
+
+<p>When success criteria are not met, the appropriate response is clear: further iteration is required. Unmet criteria are not failures in a pejorative sense — they are informative outcomes. They confirm that the hypotheses underlying the current iteration were either wrong or insufficient, and they generate the questions that drive the next round of redesign. A team that consistently defines criteria in advance, tests against them honestly, and iterates until they are met is a team that reliably produces usable, validated designs. The discipline is simple in principle; the challenge is maintaining it under the time and resource pressures that characterize real projects. That challenge is precisely why establishing these practices as non-negotiable norms — not optional enhancements — is so important.</p>
+        <div class="notes"><strong>Notes</strong>Establishes the conceptual foundation for iterative design as a cyclical process of testing, learning, and improving. Distinguishes iterative refinement from wholesale redesign. The traceability matrix table provides a concrete tool teams can adapt directly. Emphasis on pre-defined success criteria addresses a common failure mode in practice.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

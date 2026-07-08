@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inclusive Design Principles Beyond WCAG</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Accessibility Standards and Inclusive Interface Design</a></div>
+  <header>
+    <h1>Inclusive Design Principles Beyond WCAG</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Inclusive Design Principles Beyond WCAG</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Accessibility in digital product development has historically been framed as a legal or compliance obligation — a checklist to satisfy before launch. But this framing fundamentally misunderstands what accessibility is for and who it serves. <strong>Inclusive design</strong> is a broader philosophy that asks designers and engineers to consider the full spectrum of human diversity from the very beginning of the design process, treating the needs of people with disabilities not as edge cases to accommodate at the end, but as central inputs that shape better products for everyone. Understanding the principles of inclusive design — and how they extend well beyond what WCAG (Web Content Accessibility Guidelines) requires — is essential for building digital experiences that are genuinely usable, not merely technically compliant.</p>
+
+<p>WCAG provides an invaluable technical baseline. It defines measurable success criteria for things like color contrast ratios, keyboard operability, and alternative text for images. But WCAG is deliberately technology-focused and criteria-bound. It does not, and cannot, fully address the richness of human cognitive variation, the social context of disability, or the nuanced ways that design decisions include or exclude people in practice. Inclusive design fills that gap by combining ethical intent with design methodology.</p>
+
+<p><strong>The Social Model and Inclusive Design Mindset</strong></p>
+
+<p>To understand inclusive design, it helps to understand the distinction between two models of disability. The <em>medical model</em> locates disability within the individual — a person has a condition that limits their functioning, and the solution is to treat or fix that condition. The <em>social model</em>, by contrast, locates disability in the interaction between a person and their environment. A wheelchair user is not disabled by their mobility difference; they are disabled by a building that has stairs but no ramp. A person with low vision is not disabled by their eyes; they are disabled by an interface that uses 9px light-gray text on a white background.</p>
+
+<p>This distinction matters enormously for design. If you accept the social model, then every inaccessible interface is a design failure, not a user failure. The designer made choices — about font size, contrast, interaction model, timing — and those choices created barriers. Inclusive design applies the social model as a guiding mindset: the question is never "how do we accommodate this person's limitation?" but rather "how do we remove the barriers our design has introduced?"</p>
+
+<p>One of the most powerful concepts in inclusive design is the <strong>persona spectrum</strong>, developed by Microsoft's Inclusive Design team. It recognizes that limitations exist on a spectrum of permanence:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Limitation Type</th>
+      <th>Permanent</th>
+      <th>Temporary</th>
+      <th>Situational</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Motor</td>
+      <td>One arm</td>
+      <td>Arm in a cast</td>
+      <td>Holding a baby</td>
+    </tr>
+    <tr>
+      <td>Visual</td>
+      <td>Blind</td>
+      <td>Cataract surgery recovery</td>
+      <td>Bright sunlight on a screen</td>
+    </tr>
+    <tr>
+      <td>Hearing</td>
+      <td>Deaf</td>
+      <td>Ear infection</td>
+      <td>Loud environment</td>
+    </tr>
+    <tr>
+      <td>Cognitive</td>
+      <td>Intellectual disability</td>
+      <td>Concussion</td>
+      <td>Distracted, multitasking</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This framework reveals why designing for edge cases improves the experience for the majority of users. Captions added for a Deaf user benefit anyone watching a video in a noisy café. Large touch targets designed for a user with a motor impairment are easier for anyone using gloves or a cracked screen. Plain language written for a user with a cognitive disability is clearer for a non-native speaker, a tired professional, or someone reading on a small screen in a hurry. When you solve for the most constrained user, you often produce a design that is simply better — cleaner, faster, less error-prone — for everyone.</p>
+
+<p>This insight is sometimes called the <em>curb-cut effect</em>, named after the dropped curb cuts at sidewalk intersections that were originally mandated for wheelchair users. Once installed, those curb cuts turned out to benefit cyclists, delivery workers with hand trucks, parents with strollers, and elderly people with canes. The accommodation designed for one group became a universal improvement.</p>
+
+<p>The inclusive design mindset therefore insists that <strong>accessibility is a design quality dimension</strong>, not a compliance afterthought. Just as performance, security, and visual polish are understood to be ongoing design concerns that touch every decision, accessibility must be woven into every phase: research, ideation, prototyping, development, and testing. When accessibility is left until QA or a pre-launch audit, it typically requires expensive rework, generates technical debt, and often results in bolt-on solutions (like overlays) that are less effective than designs that were inclusive from the start.</p>
+
+<p><strong>Cognitive Accessibility</strong></p>
+
+<p>Cognitive accessibility is perhaps the area where standard WCAG criteria fall most short. WCAG Success Criteria address cognitive accessibility in some ways — such as requiring page titles, labels, and error identification — but they do not comprehensively cover the wide range of cognitive differences that affect how people interact with digital products. These differences include dyslexia, ADHD, autism spectrum conditions, traumatic brain injury, dementia, learning disabilities, and the everyday cognitive limitations that affect all users under stress or distraction.</p>
+
+<p>The foundational principle of cognitive accessibility is <strong>reducing cognitive load</strong> — the total amount of mental effort a user must expend to understand and operate an interface. There are three types of cognitive load to consider:</p>
+
+<ul>
+  <li><strong>Intrinsic load</strong>: The inherent complexity of the task itself (e.g., filing a tax return is genuinely complex).</li>
+  <li><strong>Extraneous load</strong>: Load imposed by poor design — confusing navigation, unclear labels, inconsistent patterns, visual clutter.</li>
+  <li><strong>Germane load</strong>: Cognitive effort that contributes to learning and understanding (generally beneficial).</li>
+</ul>
+
+<p>Inclusive design cannot eliminate intrinsic load, but it absolutely must minimize extraneous load. The most effective tools for doing so include:</p>
+
+<p><em>Plain language</em> means writing at a reading level appropriate for your audience — and usually that means writing more simply than you think necessary. Plain language guidelines recommend using common words over technical jargon, keeping sentences short and active, using headings and bullet points to break up text, and placing the most important information first. For example, instead of "To effectuate the termination of your subscription, navigate to the account management portal and select the appropriate deactivation option," write "To cancel your subscription, go to Account Settings and click Cancel."</p>
+
+<p><em>Consistent navigation</em> means that navigation elements appear in the same location across pages, use the same labels, and behave in the same way. When navigation changes unexpectedly — when a menu item disappears, a button label changes, or a sidebar appears only on some pages — users with cognitive or memory impairments may become disoriented or lose confidence in the interface. Consistency allows users to build a reliable mental model of the system, reducing the effort required for each interaction.</p>
+
+<p><em>Clear labeling</em> extends beyond navigation to every interactive element. Form fields should have persistent visible labels (not just placeholder text that disappears when the user starts typing). Buttons should describe their action in plain terms. Icons should be accompanied by text labels because icons alone are often ambiguous. A floppy disk icon may be universally understood as "Save" by older users but meaningless to younger ones; a magnifying glass might mean "Search" or "Zoom" depending on context.</p>
+
+<p>Time limits are a significant cognitive accessibility barrier. Many users — including those with ADHD, motor impairments, or anxiety — need more time to read, process, and respond than the average user. WCAG 2.2 Success Criterion 2.2.1 requires that users be able to turn off, adjust, or extend time limits with at least 20 seconds of warning. But inclusive design goes further: it asks whether a time limit is truly necessary at all. Session timeouts for security reasons may be justified, but arbitrary timers on quizzes, checkout processes, or form submissions often are not. If removing the time limit doesn't compromise the core functionality or security of the feature, it should be removed.</p>
+
+<p><em>Error prevention</em> is another critical dimension of cognitive accessibility. When users make errors — submitting a form incorrectly, deleting an item, making a purchase — the cognitive and emotional cost can be significant, particularly for users with anxiety, cognitive impairments, or low digital literacy. Inclusive design employs several mechanisms to prevent errors before they occur:</p>
+
+<ul>
+  <li><strong>Input formatting hints</strong>: Show users the expected format before they type. For a date field, show "MM/DD/YYYY" as helper text. For a phone number, show "(555) 555-5555". This is far more effective than surfacing an error message after submission.</li>
+  <li><strong>Inline validation</strong>: Provide real-time feedback as users fill in fields, confirming correct input or flagging errors immediately rather than presenting a list of errors after the form is submitted.</li>
+  <li><strong>Confirmation steps before irreversible actions</strong>: Before a user deletes an account, cancels an order, or sends a message to a large group, present a confirmation dialog that clearly explains what will happen and requires an explicit additional action to proceed. The dialog should state the consequence plainly: "Deleting your account is permanent. All your data will be removed and cannot be recovered." Avoid making the destructive action the default or most prominent button.</li>
+  <li><strong>Undo functionality</strong>: Where possible, make actions reversible. A "Move to Trash" pattern is more forgiving than "Delete Permanently." An "Undo Send" feature in email clients has become so valued that it is now a standard expectation.</li>
+</ul>
+
+<p><strong>Responsive and Adaptive Design for Accessibility</strong></p>
+
+<p>Responsive design — the practice of building interfaces that adapt to different screen sizes — is often understood primarily as a concern for mobile vs. desktop. But from an accessibility perspective, responsive and adaptive design has implications far beyond breakpoints. It is fundamentally about ensuring that users can access content in whatever way works best for their physical context, device, and personal settings.</p>
+
+<p><em>Text resizing</em> is a core requirement. Users with low vision commonly rely on browser or operating system text size settings, sometimes increasing the default font size by 150–200%. WCAG 1.4.4 requires that text can be resized up to 200% without loss of content or functionality. In practice, this means avoiding fixed-height containers that clip text when it grows, avoiding the use of <code>px</code> units for font sizes in ways that prevent browser-level scaling (though modern browsers override this less often), and thoroughly testing your layouts at large text sizes. A layout that looks perfect at 16px may completely break at 32px, with buttons overflowing their containers, navigation items colliding, or form labels overlapping their fields.</p>
+
+<p>To support text resizing well, prefer relative units for font sizes and spacing. Using <code>rem</code> units ties font size to the user's root font preference:</p>
+
+<pre><code>/* Prefer: scales with user's browser font size preference */
+body {
+  font-size: 1rem; /* 16px if browser default is 16px */
+}
+
+h1 {
+  font-size: 2rem; /* 32px at default, 40px if user sets browser to 20px */
+}
+
+/* Avoid: fixed pixel sizes ignore user preferences in some contexts */
+body {
+  font-size: 14px;
+}
+</code></pre>
+
+<p><em>Orientation support</em> is another frequently overlooked accessibility requirement. WCAG 1.3.4 (added in WCAG 2.1) requires that content does not restrict its view and operation to a single display orientation (portrait or landscape) unless a specific orientation is essential for the content. Some users — particularly those who mount their devices on wheelchairs or use assistive technology holders — cannot easily rotate their devices. Locking an interface to portrait or landscape mode excludes these users entirely. Testing in both orientations is therefore not just a UX polish step; it is an accessibility requirement.</p>
+
+<p><em>Touch target sizing</em> is critical for users with motor impairments, tremors, or limited fine motor control. Small touch targets are difficult or impossible to activate reliably. WCAG 2.5.5 (Level AAA) recommends a minimum touch target size of 44×44 CSS pixels. WCAG 2.5.8 (added in WCAG 2.2, Level AA) sets a minimum of 24×24 CSS pixels with spacing requirements. But the 44×44 pixel standard — also recommended by Apple's Human Interface Guidelines and Google's Material Design — is the more broadly adopted target for genuinely inclusive design.</p>
+
+<p>Touch target sizing applies not just to buttons but to all interactive elements: links, checkboxes, radio buttons, dropdown menus, and custom interactive components. A common mistake is making the visible element small while failing to extend the interactive hit area. This can be addressed with padding:</p>
+
+<pre><code>/* Visually small icon button, but touch target is 44x44 */
+.icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  padding: 10px; /* Extends hit area to 44x44 */
+  box-sizing: content-box;
+}
+</code></pre>
+
+<p>Additionally, touch targets should have adequate spacing between them. When interactive elements are placed too close together, even a user with a reasonably steady hand may accidentally activate the wrong element. A minimum spacing of 8px between adjacent touch targets is a common guideline, though more space is always better.</p>
+
+<p><strong>Animation and Motion Sensitivity</strong></p>
+
+<p>Animation and motion are powerful design tools. They can direct attention, communicate state changes, create a sense of delight, and make interfaces feel responsive and alive. But for a significant subset of users, animation is not just annoying — it can be physically debilitating or dangerous.</p>
+
+<p><em>Vestibular disorders</em> affect the inner ear's ability to sense motion and balance. For people with conditions like Ménière's disease, labyrinthitis, or vestibular migraines, on-screen motion — including parallax scrolling effects, zooming transitions, spinning loaders, or sliding panels — can trigger symptoms including vertigo, nausea, and headaches. These symptoms can be severe enough to prevent use of a device entirely for hours afterward. This is not a preference or an aesthetic concern; it is a real physical harm that designers have the power to prevent.</p>
+
+<p>The <strong>CSS <code>prefers-reduced-motion</code> media query</strong> is the primary tool for addressing motion sensitivity. It detects whether the user has enabled a "Reduce Motion" setting in their operating system (available on macOS, iOS, Android, and Windows) and allows CSS and JavaScript to respond accordingly. The correct approach is to treat the default state as animated and reduce motion when the preference is detected:</p>
+
+<pre><code>/* Default: animation enabled */
+.card {
+  transition: transform 0.4s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .card {
+    transition: none;
+  }
+
+  .card:hover {
+    transform: none;
+  }
+}
+</code></pre>
+
+<p>Alternatively, you can invert the approach and only apply animations when the user has not expressed a preference for reduced motion:</p>
+
+<pre><code>/* Only apply animation when user hasn't requested reduction */
+@media (prefers-reduced-motion: no-preference) {
+  .card {
+    transition: transform 0.4s ease;
+  }
+
+  .card:hover {
+    transform: scale(1.05);
+  }
+}
+</code></pre>
+
+<p>The <code>prefers-reduced-motion</code> query can also be used in JavaScript to conditionally enable or disable animation libraries:</p>
+
+<pre><code>const prefersReducedMotion = window.matchMedia(
+  '(prefers-reduced-motion: reduce)'
+).matches;
+
+if (!prefersReducedMotion) {
+  // Initialize animation library or start animations
+  initAnimations();
+}
+</code></pre>
+
+<p>Beyond system-level preferences, WCAG 2.2.2 requires that any moving, blinking, or scrolling content that lasts more than five seconds and is not the only content on the page must have a mechanism to pause, stop, or hide it. This applies to carousels, animated banners, auto-playing video, scrolling tickers, and background animations. The control mechanism must be accessible — reachable by keyboard and operable without requiring precise pointer interaction.</p>
+
+<p>Best practices for implementing pause controls include:</p>
+
+<ul>
+  <li>Placing the pause/stop control immediately before or adjacent to the animated content in the DOM order.</li>
+  <li>Ensuring the control is keyboard focusable and has a visible focus indicator.</li>
+  <li>Using clear labeling: "Pause carousel" or "Stop background animation" rather than an unlabeled icon.</li>
+  <li>Remembering the user's preference within the session so they do not have to pause the same animation repeatedly.</li>
+</ul>
+
+<p><em>Flashing content</em> is the most severe animation hazard. Content that flashes more than three times per second can trigger photosensitive seizures in users with photosensitive epilepsy or other photosensitive conditions. WCAG 2.3.1 (Level A) prohibits content that flashes more than three times per second unless the flash is below the general flash threshold and the red flash threshold defined in the guidelines. In practice, this means any rapidly cycling animation, video, or strobing effect must be carefully evaluated. Tools like the Photosensitive Epilepsy Analysis Tool (PEAT) can analyze video content for hazardous flash rates. The safest approach is simply to avoid creating rapidly strobing effects at all. If a visual effect requires rapid cycling to achieve its aesthetic purpose, that purpose needs to be reconsidered.</p>
+
+<p>Bringing these principles together, the most important shift in perspective that inclusive design asks of practitioners is this: stop asking "does this meet the standard?" and start asking "who does this leave out, and why?" WCAG compliance is a floor, not a ceiling. It establishes the minimum conditions under which a product can claim to be accessible. Inclusive design asks for something more ambitious: products that are genuinely welcoming, that assume diversity as the norm rather than the exception, and that treat the effort of removing barriers as an expression of respect for the full range of people who might use them.</p>
+        <div class="notes"><strong>Notes</strong>The topic covers four major areas: the social model and inclusive design mindset, cognitive accessibility, responsive/adaptive design, and animation/motion sensitivity. Code examples are provided for CSS text sizing, touch targets, and prefers-reduced-motion. The persona spectrum table illustrates permanent/temporary/situational limitations across motor, visual, hearing, and cognitive dimensions. Instructors may wish to supplement with hands-on activities such as enabling Reduce Motion on a device and testing a production site, or auditing a real form for cognitive accessibility barriers.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

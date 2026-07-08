@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>From Mockup to Functional Prototype</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Functional Prototype Development and Testing Preparation</a></div>
+  <header>
+    <h1>From Mockup to Functional Prototype</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>From Mockup to Functional Prototype</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>At some point in every serious design process, static screens stop being enough. A designer can craft pixel-perfect mockups, annotate every interaction, and walk stakeholders through a click-through prototype — and still face a fundamental gap: none of it behaves. It does not respond to unexpected input, it does not show what happens after a network timeout, and it does not let a test participant think freely and follow their own instincts. The transition from a high-fidelity mockup to a functional prototype is the moment a design stops being a representation of a system and starts becoming one. Understanding when and how to make that transition — and what it truly means for usability testing — is one of the most consequential skills in applied UX work.</p>
+
+<p>A <strong>functional prototype</strong> is a partially or fully working implementation of a product that executes real or simulated application logic rather than simply displaying a sequence of static screens. The distinction sounds technical, but its implications run deep into how users behave during testing, what data you can collect, and what kinds of design problems you can actually discover. When a participant uses a functional prototype, they are not navigating a curated path that a facilitator controls from behind the scenes — they are interacting with a system that responds to their actual input, in real time, according to logic that was deliberately built.</p>
+
+<p>This does not mean a functional prototype must be a finished product. The defining characteristic is that it <em>executes logic</em> — even if much of that logic is simulated, stubbed out, or constrained to a narrow set of flows. A prototype might use hardcoded data instead of a live database. It might have a real authentication form that accepts only a single test credential. It might calculate a total correctly on one specific product combination but redirect gracefully to a placeholder page for everything else. What matters is that the participant's actions drive the system's responses, not a human operator advancing slides.</p>
+
+<p>Functional prototypes can also be <strong>deployed in a controlled environment</strong>, meaning participants can access them on actual devices — a phone, a tablet, a desktop browser — under realistic conditions. This is a significant upgrade from screen-sharing a mockup tool. A participant sitting with their own phone, navigating a web app at their own pace, without a facilitator hovering over a hotspot map, produces qualitatively different behavioral data. You observe hesitation, backtracking, error recovery, and confusion in a way that simply does not surface when someone is essentially being guided through a slideshow.</p>
+
+<p>An important discipline in building functional prototypes is <strong>scoping the level of functionality to the specific usability questions being investigated</strong>. Teams sometimes make the mistake of treating "functional prototype" as synonymous with "early product build" and try to implement everything. This is expensive, slow, and counterproductive. A better approach asks: <em>what design questions are we actually trying to answer in this round of testing?</em> If the question is whether users can complete an onboarding flow without assistance, then the prototype needs a working onboarding flow — and not necessarily anything else. If the question is whether a new checkout process reduces drop-off at the payment step, the prototype needs a realistic payment interaction, but the product catalog behind it can be entirely fake.</p>
+
+<p>One of the most important capabilities that functional prototypes unlock is the exposure of <strong>timing, responsiveness, and error states</strong>. These are categories of user experience that static mockups simply cannot model. Consider loading states: a mockup typically shows either the empty state or the loaded state, but never the transition between them. In a real interface, a spinner that takes 4 seconds to resolve is experienced very differently from one that takes 400 milliseconds — and users make trust and competence judgments about the product based on those differences. A functional prototype with even a simulated delay reveals whether the loading indicator is well-placed, whether users understand what is happening, and whether they abandon the flow out of uncertainty.</p>
+
+<p>Error states are equally critical. When a user types an invalid email address into a registration form in a mockup, nothing happens — or the facilitator awkwardly explains "imagine it shows an error." In a functional prototype, the validation fires, the error message appears exactly where it was designed to appear, and the participant reacts to it honestly. This is where you discover that your error message copy is confusing, that the field highlight color is too subtle to notice, or that users are making a particular type of input mistake you had not anticipated at all.</p>
+
+<p>These insights explain why <strong>high-fidelity mockups have real and important limitations as testing instruments</strong>, despite being an essential part of the design process. The most fundamental limitation is that mockups require a facilitator — or an embedded hotspot logic — to advance screens in response to user actions. When a facilitator is manually controlling what appears next, they inevitably introduce bias. They may advance the screen a half-second too early, before the user has fully processed the current state. They may skip a transition because the participant did not click the exact designated hotspot. They may unconsciously telegraph the "correct" path through microexpressions or the timing of their responses. Even with the most disciplined facilitation, this human-in-the-loop mechanism makes participant behavior less authentic.</p>
+
+<p>Beyond facilitation bias, mockups <strong>cannot surface edge-case behaviors</strong>. What happens when a user types a password that is too short? What does the interface show if they skip a required field and try to proceed? What if they navigate back and forward unexpectedly? These paths are rarely modeled in mockup tools because there are too many combinations to draw, and they are typically not the "happy path" the designer wanted to showcase. But edge cases and error conditions are precisely where usability breaks down for real users in real situations. A functional prototype handles these branches — even if the handling is as simple as a generic error page or a graceful redirect — because the logic responds to what the user actually did.</p>
+
+<p>The data quality problem extends to <strong>timing and cognitive load measurements</strong>. If you want to know how long it takes users to complete a task, a mockup-based session gives you a number that is contaminated by facilitation delays, hotspot hunting, and the participant's awareness that they are navigating a static artifact rather than a live product. Task completion times from mockup sessions are generally unreliable as input to design decisions that depend on understanding real-world performance. A functional prototype, accessed on an actual device, gives you timing data that is far closer to what you would observe in production use.</p>
+
+<p>Given all this, the question becomes: <em>when is the right moment to make the transition?</em> Moving to code too early means building on an unstable design foundation, which creates costly rework. Moving too late means staying in mockup-land past the point where mockups can answer your remaining questions. There are several practical <strong>criteria for transition readiness</strong> that teams can use to make this judgment deliberately rather than arbitrarily.</p>
+
+<p>The most important criterion is that <strong>core navigation flows and primary task paths should be finalized</strong> before development begins. This does not mean every edge case is designed — it means the sequence of screens and interactions for the main things users will do has been agreed upon and is stable. If the team is still debating whether the settings page should be accessible from the header or a sidebar, that decision needs to be made before building either option in code. Structural uncertainty translates directly into development waste.</p>
+
+<p><strong>Visual design components that will be reused across screens</strong> should be identified and documented before the prototype build begins. In practice, this means defining the design system or component library that development will use — buttons, form inputs, cards, modals, navigation patterns, typography scales, and color tokens. When developers know what the repeatable building blocks are, they can build a component once and reuse it, rather than re-implementing the same button style in five slightly different ways across five different screens. This component inventory also makes it easier to maintain visual consistency across a narrow-scope prototype, which in turn makes the prototype feel more realistic to test participants.</p>
+
+<p>Before the prototype build starts, <strong>outstanding design decisions should be logged</strong> — and each one should be either resolved or deliberately deferred. "Deliberately deferred" is an important concept here. Some decisions genuinely cannot be made yet because they depend on user research that the prototype build is intended to generate. It is perfectly legitimate to say "we will decide how the empty state looks after we see whether users ever encounter it during testing." What is not legitimate is leaving a decision ambiguous and hoping it resolves itself during development. The log makes the team's current state of knowledge explicit and prevents debates during the build from consuming time that should be going toward development.</p>
+
+<p>Finally, the <strong>team should agree on a feature scope that is achievable within the available development timeline</strong>. This sounds obvious but is routinely violated. Stakeholders often hear "functional prototype" and assume it means "everything the mockup showed, but working." The design team needs to actively set expectations: this prototype covers these three user flows, uses this hardcoded dataset, and does not include account management, notifications, or anything outside those flows. That scope agreement should be documented and shared with everyone who will be observing or evaluating the test sessions, so that feedback is calibrated correctly.</p>
+
+<p>The practical work of <strong>scoping the prototype for usability testing</strong> begins by mapping the specific tasks participants will be asked to perform during the test. For each task, you trace the screens and interactions required to complete it. The prototype build covers exactly those screens and interactions — and nothing more unless the cost is negligible. Every other part of the product can be represented by <strong>placeholder screens or graceful dead-ends</strong>: a screen that says "this feature is coming soon," a redirect to the home screen, or simply the absence of a navigation option. These stand-ins are not failures; they are intentional boundaries that keep the prototype focused and maintainable.</p>
+
+<p>The value of a <strong>narrowly scoped prototype</strong> compounds across the full testing cycle. It is faster to build, which means it is ready sooner. It has fewer moving parts, which means it is less likely to break during a test session. When a participant discovers a usability problem and you want to tweak the design before the next session, a focused prototype is much easier to update than a sprawling one. And because fewer assumptions have been built into code, there is less psychological attachment to the implementation — the team is less likely to resist changing something just because it took effort to build.</p>
+
+<p>Scope decisions carry one more important obligation: they should be <strong>documented and communicated to stakeholders</strong>. A stakeholder watching a test session who expects to see a working search feature — and instead sees a "this feature is not yet available" placeholder — will form incorrect impressions about both the product and the testing process unless they have been briefed in advance. Documentation of prototype scope sets accurate expectations, prevents stakeholder confusion from being misattributed to design problems, and creates a record that future team members can use to understand what was and was not validated in this testing round.</p>
+
+<p>The transition from mockup to functional prototype is, at its core, a shift in the kind of knowledge you are trying to generate. Mockups are excellent tools for exploring and communicating visual and structural design decisions. Functional prototypes are tools for testing behavioral hypotheses under conditions that approximate real use. Understanding the distinct strengths and limitations of each — and developing clear criteria for when to move from one to the other — is what separates teams that iterate efficiently toward strong designs from teams that either build too much too early or stay too long in the comfort of static screens.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>High-Fidelity Mockup</th>
+      <th>Functional Prototype</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Interaction model</td>
+      <td>Facilitator or hotspot advances screens</td>
+      <td>System responds to actual user input</td>
+    </tr>
+    <tr>
+      <td>Error and edge cases</td>
+      <td>Rarely modeled; facilitator explains</td>
+      <td>Logic fires; participant reacts honestly</td>
+    </tr>
+    <tr>
+      <td>Timing and latency</td>
+      <td>Not present; transitions are instantaneous</td>
+      <td>Realistic or simulated delays are possible</td>
+    </tr>
+    <tr>
+      <td>Deployment</td>
+      <td>Shared as file or link to prototype tool</td>
+      <td>Deployed on a device or server; accessible independently</td>
+    </tr>
+    <tr>
+      <td>Facilitation bias</td>
+      <td>High — human controls screen flow</td>
+      <td>Low — participant drives their own session</td>
+    </tr>
+    <tr>
+      <td>Build cost</td>
+      <td>Low to medium</td>
+      <td>Medium to high, depending on scope</td>
+    </tr>
+    <tr>
+      <td>Maintainability</td>
+      <td>Easy to update individual screens</td>
+      <td>Easier when scope is tightly controlled</td>
+    </tr>
+    <tr>
+      <td>Best suited for</td>
+      <td>Visual and structural design exploration</td>
+      <td>Behavioral and task-flow usability testing</td>
+    </tr>
+  </tbody>
+</table>
+        <div class="notes"><strong>Notes</strong>The table at the end provides a comparative reference that consolidates the conceptual distinctions made throughout the body — useful for quick review and reinforcing the core argument that each artifact type serves different purposes at different stages of the design process.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

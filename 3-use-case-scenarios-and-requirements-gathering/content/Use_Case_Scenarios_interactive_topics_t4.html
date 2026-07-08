@@ -1,0 +1,221 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Analysis</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 3 - Use Case Scenarios and Requirements Gathering</a></div>
+  <header>
+    <h1>Task Analysis</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Task Analysis</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Task analysis is the systematic study of how users actually perform their work — not how designers imagine they do, and not how a procedure manual says they should. Before a single use case can be written with confidence, analysts must develop a clear, accurate picture of the tasks users perform, the order in which they perform them, the decisions they make along the way, and the reasons behind those decisions. Without this foundation, use cases risk reflecting the assumptions of the development team rather than the reality of the people who will use the system. Task analysis bridges that gap, transforming observed or elicited user behavior into structured knowledge that directly shapes system requirements.</p>
+
+<p>Task analysis is not a single technique but a family of complementary methods, each suited to different questions and contexts. At its core, every form of task analysis asks two intertwined questions: <strong>what do users do</strong>, and <strong>why do they do it</strong>? The "what" describes observable behavior — the clicks, keystrokes, form entries, phone calls, and physical actions that constitute a workflow. The "why" describes purpose, intent, and judgment — the goals users are trying to achieve, the constraints they are working within, and the knowledge they are drawing on. Answering both questions produces a richer, more reliable model than either alone.</p>
+
+<p>One of the most practically important insights that task analysis surfaces is the <strong>mental model</strong> users bring to a system. A mental model is a user's internal representation of how a system works — often incomplete, sometimes incorrect, but always influential. When a user expects that clicking "Save" also submits a form, or that deleting a record also archives it for later retrieval, those expectations are mental model artifacts. Task analysis uncovers these models through observation, interviews, and think-aloud protocols, allowing designers and analysts to either align the system with users' existing mental models or to identify where training and interface design must bridge the gap. Ignoring mental models leads to systems that confuse and frustrate users even when they are technically correct.</p>
+
+<p>Task analysis also functions as a <strong>diagnostic tool for existing workflows</strong>. When analysts observe users performing tasks in their current environment — whether paper-based, supported by a legacy system, or a patchwork of spreadsheets and email — they frequently discover inefficiencies: redundant data entry, unnecessary approval bottlenecks, steps that exist only because of limitations in old technology, or workarounds that users have invented to compensate for system deficiencies. These findings are valuable in two ways. First, they identify opportunities for the new system to add genuine value by eliminating unnecessary work. Second, they prevent the new system from simply automating a broken process — a common and costly failure mode in software projects.</p>
+
+<p>The connection between task analysis and use case development is direct and structural. A use case describes an interaction between an actor and a system to achieve a goal. Task analysis identifies exactly those goals, the sequences of steps that lead to them, and the conditions that cause those sequences to vary. In practical terms, <strong>task analysis findings directly inform the step sequences in use case main flows</strong>. Each verified step in a task model becomes a candidate step in a use case. Decision points in the task become branching conditions that generate alternative flows. Error states and failure modes become exception flows. Task analysis, in short, supplies the raw material from which use cases are constructed — and it ensures that material is grounded in user reality rather than developer assumption.</p>
+
+<p><strong>Hierarchical Task Analysis (HTA)</strong> is the most widely used structured method for decomposing user tasks, and it is the natural starting point for analysts moving from task observation to use case writing. HTA begins with a single, high-level goal — for example, "Process a customer insurance claim" — and recursively decomposes it into sub-goals and eventually into discrete, observable actions. This decomposition continues until each leaf node represents a step that is atomic enough to be directly described in a use case or evaluated for interface design.</p>
+
+<p>The defining structural element that separates HTA from a simple task list is the <strong>plan</strong>. Every node in an HTA that has children is accompanied by a plan that specifies the sequencing rules governing those children. Plans can express a variety of relationships:</p>
+
+<ul>
+  <li><strong>Do in order (fixed sequence):</strong> Sub-tasks must be performed in a specific, unchanging order. For example, a user must authenticate before they can query a database.</li>
+  <li><strong>Do in any order:</strong> Sub-tasks can be performed in whatever sequence the user prefers without affecting the outcome. For example, a user completing a profile form may fill in address fields in any order.</li>
+  <li><strong>Do if condition (conditional execution):</strong> A sub-task is only performed if a specified condition is true. For example, "If the claim amount exceeds $10,000, obtain supervisor approval."</li>
+  <li><strong>Do until condition:</strong> A sub-task is repeated until a condition is satisfied. For example, "Re-enter payment details until the transaction succeeds or three attempts are exhausted."</li>
+  <li><strong>Do one of (selection):</strong> Exactly one sub-task from a set is performed depending on context. For example, a user either pays by credit card, bank transfer, or voucher.</li>
+</ul>
+
+<p>These plans are not cosmetic annotations — they are the mechanism by which HTA captures the logic of a workflow, not just its components. When an analyst transfers HTA findings into use cases, the plans translate into the sequencing and branching structure of the use case flows. A fixed-sequence plan becomes a numbered list of main flow steps. A conditional plan becomes an alternative flow triggered by a stated condition. A selection plan becomes a branching point where the use case offers multiple paths.</p>
+
+<p>Consider a partial HTA for the goal "Submit an online job application." The top-level goal decomposes as follows:</p>
+
+<ul>
+  <li><strong>Goal 0: Submit an online job application</strong> — Plan: do 1, then 2, then 3, then 4 in order.
+    <ul>
+      <li><strong>Sub-goal 1: Create or log into an account</strong> — Plan: do 1.1 if new user, else do 1.2.
+        <ul>
+          <li>Action 1.1: Complete registration form and verify email.</li>
+          <li>Action 1.2: Enter credentials and authenticate.</li>
+        </ul>
+      </li>
+      <li><strong>Sub-goal 2: Complete application form</strong> — Plan: do 2.1, 2.2, 2.3 in any order.
+        <ul>
+          <li>Action 2.1: Enter personal and contact information.</li>
+          <li>Action 2.2: Upload resume and supporting documents.</li>
+          <li>Action 2.3: Answer screening questions.</li>
+        </ul>
+      </li>
+      <li><strong>Sub-goal 3: Review application</strong> — Plan: do 3.1; if errors found, do 3.2 and return to sub-goal 2.
+        <ul>
+          <li>Action 3.1: Review all entered information for completeness and accuracy.</li>
+          <li>Action 3.2: Note fields requiring correction.</li>
+        </ul>
+      </li>
+      <li><strong>Action 4: Submit application and receive confirmation.</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<p>In this example, each leaf action (1.1, 1.2, 2.1, 2.2, 2.3, 3.1, 3.2, 4) represents a potential step in a use case scenario. Sub-goal 1's conditional plan directly maps to a branching condition in the use case's main or alternative flow. Sub-goal 3's error-handling plan maps to an exception or alternative flow. The HTA has done the analytical work; the use case writer's job is to translate it into the appropriate notation.</p>
+
+<p>HTA diagrams — typically rendered as tree structures with plans annotated at each node — make complex workflows <strong>visible and communicable</strong>. This is not a trivial benefit. Stakeholders who would never read a dense textual task description can follow an HTA diagram in a review session, spot missing steps, correct misunderstandings, and validate the model against their own experience. HTA functions as a shared language between users, analysts, and developers, reducing the ambiguity that is the primary source of requirements defects.</p>
+
+<p><strong>Cognitive Task Analysis (CTA)</strong> addresses a fundamental limitation of behavioral methods like HTA: observable actions are only the surface of what users do. Behind every action lies a layer of perception, judgment, decision-making, and expertise that behavioral observation alone cannot reveal. CTA makes that invisible cognitive layer visible, and in doing so it captures the aspects of expert performance that are most likely to be omitted from requirements if not explicitly sought.</p>
+
+<p>CTA is particularly indispensable in <strong>expert-intensive domains</strong> — fields where practitioners develop complex, situation-dependent judgment over years of experience. Physicians deciding whether a patient's symptoms warrant immediate intervention, air traffic controllers managing conflicts between flight paths, financial analysts assessing portfolio risk — all of these involve cognitive work that looks deceptively simple from the outside but is in fact the product of deep pattern recognition, probabilistic reasoning, and dynamic prioritization. A behavioral task analysis of a physician ordering a medication might capture the clicks involved; CTA would also capture the diagnostic reasoning that determined which medication to order, the contraindications checked, and the fallback decision made when the first-choice drug was unavailable.</p>
+
+<p>CTA is conducted through several specialized techniques:</p>
+
+<ul>
+  <li><strong>Critical Decision Method (CDM):</strong> Analysts work with experts to identify a challenging, non-routine incident from their experience, then probe it through structured interviews to surface the cues noticed, the options considered, the decisions made, and the outcomes assessed. Each decision point is a candidate for an alternative or exception flow in a use case.</li>
+  <li><strong>Think-Aloud Protocol:</strong> Users verbalize their thoughts while performing a task. Analysts record not just what the user does but what they notice, what they are uncertain about, and what they are trying to avoid. This is particularly effective for revealing the conditions under which users deviate from the expected procedure.</li>
+  <li><strong>Concept Mapping:</strong> Users draw or describe the relationships between key concepts in their domain. This surfaces the knowledge structures underlying their decisions and helps analysts understand why certain interface elements or data presentations will be meaningful (or confusing) to users.</li>
+</ul>
+
+<p>The outputs of CTA feed directly into use case documentation in specific and valuable ways. The <strong>decision points</strong> uncovered by CTA — moments where the expert assesses a situation and chooses one of several possible actions — become the branching conditions that generate alternative flows. The <strong>failure recognition cues</strong> — the signals that tell an expert something has gone wrong — become the triggers for exception flows. For example, a CTA of a hospital pharmacist processing a prescription might reveal that the pharmacist checks for drug interactions with the patient's existing medications before dispensing. This cognitive step, invisible in a purely behavioral observation, would need to be represented in the use case: perhaps as a system-initiated check (an actor-system interaction step) or as a decision point that can trigger an exception flow when a dangerous interaction is detected.</p>
+
+<p>The trade-off is real: <strong>CTA requires significantly more time and expertise to conduct than behavioral methods</strong>. Recruiting appropriate experts, conducting multiple CDM or think-aloud sessions, and analyzing the resulting qualitative data is resource-intensive. For routine, low-stakes tasks in non-expert domains, the investment may not be warranted. For safety-critical systems, systems supporting expert practitioners, or systems where errors have serious consequences, CTA is not optional — it is how analysts discover the requirements that would otherwise only be discovered in production, at great cost.</p>
+
+<p><strong>Mapping task analysis findings to use cases</strong> is the translation step that converts task models into requirements artifacts. The mapping is not mechanical — it requires judgment — but the structural correspondences are clear enough that analysts can follow a consistent approach. The following table summarizes the primary mappings:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task Analysis Element</th>
+      <th>Maps To in Use Cases</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Major top-level task or sub-goal</td>
+      <td>Distinct use case</td>
+      <td>"Process insurance claim" becomes the use case <em>Process Claim</em></td>
+    </tr>
+    <tr>
+      <td>Leaf action in a fixed sequence</td>
+      <td>Numbered step in the main flow</td>
+      <td>"User enters claim amount" becomes step 4 of the main flow</td>
+    </tr>
+    <tr>
+      <td>Conditional plan (do if condition)</td>
+      <td>Branching condition introducing an alternative flow</td>
+      <td>"If claim exceeds $10,000" triggers alternative flow A1: Supervisor Approval</td>
+    </tr>
+    <tr>
+      <td>Decision point from CTA</td>
+      <td>Branching condition or system validation step</td>
+      <td>Pharmacist's drug interaction check becomes a system-initiated validation at step 5</td>
+    </tr>
+    <tr>
+      <td>Error state or failure mode</td>
+      <td>Exception flow</td>
+      <td>"Document upload fails" becomes exception flow E2: Upload Failure</td>
+    </tr>
+    <tr>
+      <td>Repeated sub-task (do-until plan)</td>
+      <td>Loop within a flow or separate use case with iteration noted</td>
+      <td>"Re-enter payment until success" represented as a retry loop in the main flow</td>
+    </tr>
+    <tr>
+      <td>Selection among alternatives (do one of)</td>
+      <td>Multiple alternative flows branching from a single step</td>
+      <td>"Pay by card, transfer, or voucher" yields alternative flows A2, A3, A4</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>An important discipline in this mapping process is <strong>granularity management</strong>. HTA leaf nodes can sometimes be more fine-grained than is useful in a use case (for instance, "move mouse to Submit button" is a valid leaf node in an HTA but would never appear as a step in a use case). Analysts must apply judgment to select the appropriate level of abstraction — typically, steps that are meaningful from the actor's perspective and that represent a distinct interaction with the system. A useful heuristic is to ask: "Would omitting this step cause the system or the actor to misunderstand the interaction?" If yes, include it. If no, it may be safely collapsed.</p>
+
+<p>Another key discipline is ensuring that <strong>task analysis findings are reviewed and validated with real users before use cases are written</strong>. Task models built entirely from analyst observation or stakeholder interviews without user feedback are systematically biased toward what is visible and what stakeholders believe happens, rather than what users actually do. Experienced users often perform tasks differently from novices; weekend usage patterns differ from weekday patterns; tasks performed under time pressure differ from tasks performed at leisure. All of these variations need to be captured in the task model to ensure that use cases reflect the full envelope of real-world behavior.</p>
+
+<p><strong>Validating task models with users</strong> is the final — and frequently underemphasized — step in task analysis. Validation is not a formality; it is the step that distinguishes a task model that is accurate from one that merely feels accurate. The core principle of user validation is to create conditions where discrepancies between the model and actual user behavior become visible and correctable before they propagate into requirements documents.</p>
+
+<p>Effective validation sessions should include <strong>representatives of all major actor roles</strong>. If a system will be used by customers, customer service representatives, supervisors, and administrators, validation sessions should include participants from each group — not just the most accessible or most vocal stakeholders. Different actor roles often perform the same task in subtly different ways, or perform different sub-tasks entirely, and a task model that has been validated only with one actor type will contain blind spots for others.</p>
+
+<p>The most effective validation technique is to ask users to <strong>perform or describe the task while the analyst tracks against the model</strong>. In a walkthrough session, the analyst presents the HTA or task flow (in whatever format is accessible to the user — often a simplified diagram or a plain-language numbered list rather than formal notation) and asks the user to follow along, flagging any step that does not match their experience. In a performance session, the user actually performs the task in their real environment while the analyst observes, comparing actual behavior to the model in real time. Discrepancies surface in several characteristic ways:</p>
+
+<ul>
+  <li><strong>Missing steps:</strong> The user performs actions not represented in the model, often "invisible" steps that feel so automatic they were never mentioned in interviews.</li>
+  <li><strong>Wrong sequence:</strong> The user performs steps in a different order than the model specifies, revealing that the plan annotations need correction.</li>
+  <li><strong>Wrong conditions:</strong> The user applies a conditional plan under different circumstances than the model specifies, revealing that trigger conditions need refinement.</li>
+  <li><strong>Absent variants:</strong> The user describes a scenario the model does not account for — a special case, an exception, or a role-specific variation that was never elicited.</li>
+  <li><strong>Wrong granularity:</strong> The user experiences a "step" in the model as multiple distinct activities, or experiences multiple "steps" as a single, unified action, suggesting the decomposition level needs adjustment.</li>
+</ul>
+
+<p>Every discrepancy discovered in a validation session must be resolved — not noted for later, not treated as an edge case to handle in implementation, but resolved by correcting the task model — before use cases are written. The cost of resolving a discrepancy in a task model is negligible. The cost of discovering the same discrepancy in a use case review is moderate. The cost of discovering it in testing or production is substantial. Validation sessions are the cheapest possible opportunity to catch errors in the analytical foundation of the requirements.</p>
+
+<p>A validated task model is not merely a stepping stone to use cases — it is a <strong>durable artifact</strong> in its own right. When, months or years after initial development, a system needs to be updated, extended, or redesigned, the validated task model provides context that no use case document alone can supply. It explains why the system was designed the way it was, what user needs it was designed to address, and what the real-world workflow looks like. Teams that maintain task models alongside their use cases can make better-informed change decisions, avoid accidentally breaking workflows that depended on currently implemented behavior, and onboard new analysts far more efficiently than teams that have only use cases to work from.</p>
+
+<p>In summary, task analysis — encompassing hierarchical decomposition through HTA, cognitive depth through CTA, systematic mapping to use case structures, and rigorous validation with real users — is the analytical foundation on which sound use case documentation is built. It replaces assumption with evidence, replaces developer-centric thinking with user-centric thinking, and replaces incomplete requirements with requirements that reflect the full complexity of the work the system must support.</p>
+        <div class="notes"><strong>Notes</strong>The table mapping task analysis elements to use case constructs is a high-value study and reference aid — instructors may want to use it as a worksheet exercise where students map a sample HTA to use case flows. The job application HTA example can be replaced with a domain more relevant to the course (e.g., processing a bank loan, submitting an IT helpdesk ticket) without changing the structural lesson. The section on CTA is intentionally scoped to practical application in requirements work rather than the full academic literature on naturalistic decision-making, which would be excessive at this level.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

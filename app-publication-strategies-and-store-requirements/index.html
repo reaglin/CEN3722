@@ -5,240 +5,201 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>App Publication Strategies and Store Requirements – CEN3722</title>
   <style>
-    /* ── Reset & Base ── */
     *, *::before, *::after {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
     }
 
-    html {
-      font-size: 16px;
-      scroll-behavior: smooth;
-    }
-
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Segoe UI', Arial, sans-serif;
       background-color: #f4f6f9;
       color: #2c3e50;
       line-height: 1.65;
       min-height: 100vh;
     }
 
-    /* ── Header / Hero ── */
+    /* ── Header ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
-      color: #ffffff;
-      padding: 3rem 2rem 2.5rem;
-      border-bottom: 4px solid #f0a500;
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #fff;
+      padding: 2.5rem 1.5rem 2rem;
     }
 
-    header .header-inner {
-      max-width: 960px;
+    .header-inner {
+      max-width: 1100px;
       margin: 0 auto;
     }
 
-    header .course-label {
-      display: inline-block;
+    .course-label {
       font-size: 0.8rem;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      background-color: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 1rem;
-      color: #d6eaf8;
+      color: #a8c8f0;
+      margin-bottom: 0.5rem;
     }
 
     header h1 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-size: clamp(1.5rem, 3vw, 2.25rem);
       font-weight: 700;
-      line-height: 1.25;
       margin-bottom: 1rem;
-      letter-spacing: -0.01em;
+      line-height: 1.25;
     }
 
-    header p.intro {
+    header p {
       font-size: 1rem;
-      color: #d6eaf8;
+      color: #d0e4f7;
       max-width: 720px;
       line-height: 1.7;
     }
 
-    /* ── Main Content ── */
+    /* ── Main ── */
     main {
-      max-width: 960px;
+      max-width: 1100px;
       margin: 2.5rem auto;
-      padding: 0 1.5rem 3rem;
+      padding: 0 1.25rem 3rem;
     }
 
-    .section-title {
-      font-size: 1.1rem;
+    .section-heading {
+      font-size: 0.75rem;
       font-weight: 700;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #1a3a5c;
+      color: #6b7a8d;
       margin-bottom: 1.25rem;
       padding-bottom: 0.5rem;
-      border-bottom: 2px solid #d6eaf8;
+      border-bottom: 2px solid #dce3ed;
     }
 
-    /* ── Artifact Grid ── */
-    .artifact-grid {
+    /* ── Card Grid ── */
+    .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.25rem;
     }
 
-    /* ── Artifact Card ── */
-    .artifact-card {
+    .card {
       background: #ffffff;
-      border: 1px solid #dce6f0;
+      border: 1px solid #dce3ed;
       border-radius: 8px;
-      padding: 1.4rem 1.5rem;
+      padding: 1.4rem 1.5rem 1.35rem;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
+      gap: 0.6rem;
       transition: box-shadow 0.2s ease, transform 0.2s ease;
-      position: relative;
     }
 
-    .artifact-card:hover {
-      box-shadow: 0 6px 20px rgba(45, 106, 159, 0.15);
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(37, 99, 168, 0.12);
       transform: translateY(-2px);
     }
 
-    /* ── Card Top Row ── */
-    .card-top {
+    /* ── Card top row: badges ── */
+    .card-meta {
       display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .artifact-name {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      line-height: 1.3;
-    }
-
-    .artifact-name a {
-      color: #1a6db5;
-      text-decoration: none;
-    }
-
-    .artifact-name a:hover,
-    .artifact-name a:focus {
-      text-decoration: underline;
-      color: #0f4e85;
-      outline: none;
-    }
-
-    .artifact-name a:focus-visible {
-      outline: 2px solid #f0a500;
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    .source-link {
-      display: inline-flex;
       align-items: center;
-      gap: 0.3rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #5d7fa3;
-      text-decoration: none;
-      border: 1px solid #b0c8df;
-      border-radius: 3px;
-      padding: 0.15rem 0.45rem;
-      margin-top: 0.25rem;
-      width: fit-content;
-      transition: background-color 0.15s ease, color 0.15s ease;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background-color: #eaf2fb;
-      color: #1a3a5c;
-      text-decoration: none;
-      outline: none;
-    }
-
-    .source-link:focus-visible {
-      outline: 2px solid #f0a500;
-      outline-offset: 2px;
-    }
-
-    .source-link::before {
-      content: "⬇";
-      font-size: 0.7rem;
-    }
-
-    /* ── Badges ── */
-    .badge-row {
-      display: flex;
+      gap: 0.45rem;
       flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
     }
 
     .badge {
       display: inline-block;
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      padding: 0.2rem 0.55rem;
-      border-radius: 20px;
-      line-height: 1.4;
+      border-radius: 4px;
+      padding: 0.18em 0.6em;
     }
 
     .badge-type {
-      background-color: #eaf2fb;
-      color: #1a6db5;
-      border: 1px solid #b8d4ee;
+      background-color: #e8f0fb;
+      color: #2563a8;
     }
 
     .badge-filetype {
-      background-color: #fef9ec;
-      color: #8a6000;
-      border: 1px solid #f0d880;
-      font-family: 'Courier New', Courier, monospace;
-      font-size: 0.7rem;
+      background-color: #eef2f7;
+      color: #4a5568;
+      font-family: 'Courier New', monospace;
     }
 
-    /* ── Description ── */
-    .artifact-description {
-      font-size: 0.9rem;
-      color: #4a5f72;
-      line-height: 1.6;
+    /* ── Card title row ── */
+    .card-title-row {
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1a3a5c;
+      line-height: 1.35;
+    }
+
+    .card-title a {
+      color: #1a3a5c;
+      text-decoration: none;
+      border-bottom: 2px solid #2563a8;
+      padding-bottom: 1px;
+      transition: color 0.15s ease, border-color 0.15s ease;
+    }
+
+    .card-title a:hover,
+    .card-title a:focus {
+      color: #2563a8;
+      border-color: #a8c8f0;
+      outline: none;
+    }
+
+    .source-link {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7fa6;
+      text-decoration: none;
+      white-space: nowrap;
+      border: 1px solid #b8d0e8;
+      border-radius: 4px;
+      padding: 0.15em 0.55em;
+      transition: background-color 0.15s ease, color 0.15s ease;
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background-color: #2563a8;
+      color: #fff;
+      border-color: #2563a8;
+      outline: none;
+    }
+
+    /* ── Card description ── */
+    .card-description {
+      font-size: 0.875rem;
+      color: #4a5568;
+      line-height: 1.65;
       flex-grow: 1;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
-      font-size: 0.8rem;
-      color: #8da0b5;
+      font-size: 0.78rem;
+      color: #8a97a8;
       padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dce6f0;
-      background: #f4f6f9;
+      border-top: 1px solid #dce3ed;
     }
 
     /* ── Responsive ── */
-    @media (max-width: 480px) {
-      header {
-        padding: 2rem 1.25rem 2rem;
-      }
-
-      main {
-        margin-top: 1.75rem;
-        padding: 0 1rem 2.5rem;
-      }
-
-      .artifact-grid {
+    @media (max-width: 500px) {
+      .card-grid {
         grid-template-columns: 1fr;
+      }
+
+      header {
+        padding: 2rem 1.25rem 1.75rem;
       }
     }
   </style>
@@ -247,46 +208,38 @@
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
 <div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
-  <!-- ══ Header ══ -->
   <header>
     <div class="header-inner">
-      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
+      <p class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
       <h1>App Publication Strategies and Store Requirements</h1>
-      <p class="intro">
-        This module guides learners through the end-to-end process of publishing applications
-        to major distribution platforms — including Google Play, the Apple App Store, and the
-        Microsoft Store. Topics span developer account configuration, code signing, build
-        preparation, and crafting effective store listings, equipping students with the
-        practical knowledge needed to successfully release software products to end users.
+      <p>
+        This module guides learners through the end-to-end process of preparing and publishing
+        applications across major platforms — Google Play, the Apple App Store, and the Microsoft
+        Store — as well as web deployment. Topics cover developer account setup, build preparation,
+        code signing, asset requirements, store listing optimisation, and policy compliance,
+        providing a comprehensive foundation for real-world app release workflows.
       </p>
     </div>
   </header>
 
-  <!-- ══ Main ══ -->
   <main>
-    <h2 class="section-title">Module Artifacts</h2>
+    <p class="section-heading">Module Artifacts &mdash; 7 items</p>
 
-    <div class="artifact-grid" role="list">
+    <div class="card-grid">
 
-      <!-- ── Artifact: Module Topics ── -->
-      <article class="artifact-card" role="listitem" aria-label="Artifact: Module Topics">
-        <div class="card-top">
-          <div class="artifact-name">
-            <!-- viewHref is non-empty → link -->
-            <a href="content/module_topics.html">Module Topics</a>
-          </div>
-          <!-- sourceHref is non-empty → secondary link -->
-          <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">
-            source file
-          </a>
-        </div>
-
-        <div class="badge-row">
+      <!-- Card 1: Module Topics -->
+      <article class="card">
+        <div class="card-meta">
           <span class="badge badge-type">Module Topics</span>
           <span class="badge badge-filetype">.json</span>
         </div>
-
-        <p class="artifact-description">
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <a href="content/module_topics.html">Module Topics</a>
+          </h2>
+          <a class="source-link" href="source/hierarchy.json">source file</a>
+        </div>
+        <p class="card-description">
           Outlines the module's core topics covering app submission processes for Google Play,
           Apple App Store, and Microsoft Store, including developer account setup, code signing,
           build preparation, and store listing configuration, serving as a navigational overview
@@ -294,12 +247,139 @@
         </p>
       </article>
 
-    </div><!-- /.artifact-grid -->
+      <!-- Card 2: Google Play Store Submission Process -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <a href="content/App_Publication_Strategies_interactive_topics_t1.html">Google Play Store Submission Process</a>
+          </h2>
+        </div>
+        <p class="card-description">
+          Covers the end-to-end process of publishing an Android app on Google Play, including
+          account registration, build preparation, metadata creation, staged testing, and policy
+          compliance, serving as a reference guide for learners walking through each required stage.
+        </p>
+      </article>
+
+      <!-- Card 3: Apple App Store Submission Process -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <a href="content/App_Publication_Strategies_interactive_topics_t2.html">Apple App Store Submission Process</a>
+          </h2>
+        </div>
+        <p class="card-description">
+          Explains Apple's multi-layered App Store submission workflow, including developer account
+          enrollment, code signing, metadata and visual asset preparation, and the human review
+          process, giving learners a step-by-step reference for releasing iOS applications.
+        </p>
+      </article>
+
+      <!-- Card 4: Microsoft Store Submission Process -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <a href="content/App_Publication_Strategies_interactive_topics_t3.html">Microsoft Store Submission Process</a>
+          </h2>
+        </div>
+        <p class="card-description">
+          Describes how to publish a Windows application to the Microsoft Store, walking learners
+          through Partner Center account setup, MSIX packaging, store listing asset assembly, and
+          Microsoft's certification requirements.
+        </p>
+      </article>
+
+      <!-- Card 5: Web Deployment Strategies -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <a href="content/App_Publication_Strategies_interactive_topics_t4.html">Web Deployment Strategies</a>
+          </h2>
+        </div>
+        <p class="card-description">
+          Covers production web deployment strategies including selecting hosting infrastructure,
+          automating build and release pipelines, configuring SSL certificates, implementing
+          Progressive Web App features, and performance optimisation, serving as a practical guide
+          for learners deploying web applications.
+        </p>
+      </article>
+
+      <!-- Card 6: Asset Requirements and Store Listing Optimization -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <a href="content/App_Publication_Strategies_interactive_topics_t5.html">Asset Requirements and Store Listing Optimization</a>
+          </h2>
+        </div>
+        <p class="card-description">
+          Explains the graphical asset specifications and store listing copywriting requirements
+          across Google Play, the Apple App Store, and the Microsoft Store, helping learners
+          optimise screenshots, icons, descriptions, and metadata to maximise discoverability
+          and conversion.
+        </p>
+      </article>
+
+      <!-- Card 7: Build Finalization – Topic Detail -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <a href="content/App_Publication_Strategies_interactive_topics_t6.html">Build Finalization and Submission Readiness</a>
+          </h2>
+        </div>
+        <p class="card-description">
+          Details the pre-submission engineering and product management steps required to finalise
+          an app build for public store release, covering quality checks, versioning, signing, and
+          readiness criteria that learners must complete before submitting to any major platform.
+        </p>
+      </article>
+
+      <!-- Card 8: Build Finalization – Text Content -->
+      <article class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <h2 class="card-title">
+            <a href="content/App_Publication_Strategies_interactive.html">Build Finalization and Submission Readiness</a>
+          </h2>
+        </div>
+        <p class="card-description">
+          Details the pre-submission engineering and product management steps required to finalise
+          an app build for public store release, covering quality checks, versioning, signing, and
+          readiness criteria that learners must complete before submitting to any major platform.
+        </p>
+      </article>
+
+    </div>
   </main>
 
-  <!-- ══ Footer ══ -->
   <footer>
-    <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; App Publication Strategies and Store Requirements</p>
+    <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;|&nbsp; App Publication Strategies and Store Requirements</p>
   </footer>
 
 

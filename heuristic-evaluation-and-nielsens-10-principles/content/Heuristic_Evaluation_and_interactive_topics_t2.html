@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nielsen&#39;s Ten Usability Heuristics</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Heuristic Evaluation and Nielsen&#39;s 10 Principles</a></div>
+  <header>
+    <h1>Nielsen&#39;s Ten Usability Heuristics</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Nielsen&#39;s Ten Usability Heuristics</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Jakob Nielsen's Ten Usability Heuristics are a set of general principles for interaction design, first articulated by Nielsen and Rolf Molich in 1990 and refined by Nielsen in 1994. They remain the most widely used framework for evaluating the usability of user interfaces. Unlike formal usability testing with real participants, heuristic evaluation is an expert inspection method: a trained evaluator examines an interface and judges each design decision against these ten principles, identifying potential usability problems before — or after — a product ships. The heuristics are deliberately broad and principle-based rather than prescriptive rules, which means they apply across platforms, screen sizes, and application domains. Mastering them requires not just memorizing their names but deeply understanding the human cognitive and behavioral reasoning behind each one.</p>
+
+<p><strong>Heuristic 1 — Visibility of System Status</strong></p>
+
+<p>At its core, this heuristic is about eliminating uncertainty. When a user takes an action — clicking a button, uploading a file, submitting a form, navigating to a new page — the system must communicate what is happening in a timely, meaningful, and well-placed way. Without this feedback, users are left to guess whether their action was registered, whether something went wrong, or whether they should try again. That uncertainty erodes trust and frequently leads to repeated actions, errors, or outright abandonment.</p>
+
+<p>The timing requirement is specific and grounded in research on human attention. Nielsen's own guidelines draw on classic human-computer interaction research: a response within about <strong>0.1 seconds</strong> feels instantaneous; responses up to <strong>1 second</strong> keep the user's flow of thought intact, though a small delay is noticeable; responses beyond <strong>1 second</strong> require a visible indicator (a progress bar, spinner, or status message) because the user's attention will otherwise wander or they will assume something has gone wrong. Responses exceeding <strong>10 seconds</strong> require percentage-complete indicators and, ideally, a way to continue other tasks while waiting.</p>
+
+<p>Visibility of status extends well beyond loading indicators. Consider a multi-step checkout flow where the user is on step three of five — a clearly labeled progress indicator ("Step 3 of 5: Payment Details") fulfills this heuristic. A battery icon on a mobile device, a "Saving…" notification in a document editor, an "Unread messages: 3" badge, a highlighted active navigation link — all of these are implementations of visibility of system status. The feedback must appear <em>where the user's attention is focused</em>: a status message displayed in a corner of the screen while the user is concentrating on a modal dialog is effectively invisible.</p>
+
+<p>Common violations include buttons that show no visual change when clicked (leaving users unsure whether the click registered), file uploads with no progress indicator, form submissions that silently fail, and background sync processes that complete without notification. A strong violation is a "Submit" button that simply grays out after a click with no message — the user does not know whether the form is processing, whether it failed, or whether they should wait.</p>
+
+<p><strong>Heuristic 2 — Match Between System and the Real World</strong></p>
+
+<p>Interfaces do not exist in isolation — users bring existing mental models, vocabularies, and conceptual frameworks from the real world into every interaction. This heuristic demands that the interface meet users on their own cognitive territory rather than forcing them to learn internal system terminology or developer-centric abstractions.</p>
+
+<p>The vocabulary dimension is the most immediately obvious. A medical records application designed for nurses should use clinical terminology — "PRN," "NPO," "SOAP notes" — rather than database field names or engineering jargon like "Record ID" or "Entity type." Conversely, a consumer-facing cooking application should never expose terms like "payload," "cache," or "null value." The target user group's natural language defines the correct vocabulary; the design process must begin with understanding that language.</p>
+
+<p>Icons and metaphors carry this principle into the visual domain. The enduring power of the folder metaphor in file systems, the envelope for email, the magnifying glass for search, and the trash can for deletion all stem from their strong mapping to real-world counterparts. When metaphors break down — as happens when an icon is culturally specific or visually ambiguous — users must resort to trial and error. The floppy disk icon for "Save" is a well-known case where the metaphor has outlasted its real-world referent; younger users who have never used a floppy disk may find it meaningless, though it has become a learned convention through repetition.</p>
+
+<p>The logical ordering of information is equally important. A form asking for a delivery address should present fields in the order a person would naturally write an address — street number and name, apartment or suite, city, state, postal code — not in the order those fields happen to be stored in the database. Date pickers should display calendar grids that match physical calendars. Checkout flows should mirror the conceptual sequence of a real purchase: choose items, provide delivery details, provide payment, review, confirm. When the system's sequence conflicts with users' natural mental model, they must continuously translate between the two, increasing cognitive load and error rates.</p>
+
+<p><strong>Heuristic 3 — User Control and Freedom</strong></p>
+
+<p>Users do not interact with interfaces in perfect, linear, deliberate sequences. They explore, experiment, misclick, change their minds, and make mistakes. This heuristic recognizes that reality and demands that interfaces provide clearly marked "emergency exits" that allow users to leave unwanted states quickly and without penalty.</p>
+
+<p>The canonical implementations of this heuristic are <strong>Undo</strong> and <strong>Redo</strong>. These functions allow users to experiment without fear, knowing that any action can be reversed. The psychological effect of a robust undo system is profound — it encourages exploration, reduces anxiety, and paradoxically leads to more efficient use because users are less hesitant to try new things. Applications that lack undo for consequential actions — such as deleting a record, reordering items, or applying formatting — impose a cognitive burden on every action because each decision must be carefully considered before execution.</p>
+
+<p>For actions that cannot be trivially undone — permanent deletion, sending an email, publishing content — the principle requires either a confirmation dialog before the action executes, or a brief window in which the action can be cancelled after execution. Gmail's "Undo Send" feature is an elegant example of the latter: it delays the actual send for a configurable number of seconds while displaying a dismissible notification, giving users a safety net without adding friction to the primary action. The confirmation dialog approach must be used judiciously: overusing confirmation dialogs for routine, easily reversible actions trains users to click through them reflexively, defeating their purpose.</p>
+
+<p>In multi-step processes — wizards, configuration flows, onboarding sequences — users must be able to step backward to earlier stages without losing work already entered, and they must be able to cancel the entire process and return to their previous state without side effects. A common violation is a registration flow that, upon cancellation halfway through, has already created a partial account record or sent a confirmation email, leaving the system and the user's expectations in an inconsistent state.</p>
+
+<p><strong>Heuristic 4 — Consistency and Standards</strong></p>
+
+<p>Consistency is fundamentally about leveraging learned behavior. When interactions, terms, and visual patterns are consistent, a user who learns one part of the system can transfer that knowledge everywhere else. Inconsistency forces the user to treat each encounter as a new learning problem, wasting cognitive resources and creating opportunities for error and confusion.</p>
+
+<p>There are two distinct dimensions. <strong>Internal consistency</strong> means that within a single product, identical actions always produce identical outcomes, the same term always refers to the same concept, and similar interface elements always behave the same way. If clicking a card navigates to a detail view in one section of an application but opens an expansion panel in another, users cannot form a reliable mental model. If the same concept is called "Project" in one screen and "Workspace" in another, users must constantly stop to determine whether these are the same thing. Internal consistency is entirely within the design team's control and has no excuse for being violated.</p>
+
+<p><strong>External consistency</strong> means aligning with the conventions of the platform, the operating system, and the broader industry. On iOS, a navigation bar at the top of the screen with a back-chevron on the left is so deeply established that violating it — placing the back button on the right, or using a different visual treatment — creates immediate disorientation. On the web, underlined blue text is a universal signal for a hyperlink; rendering links in non-standard ways (no underline, non-blue color) increases the likelihood that users will not recognize them as interactive. The principle "don't make users wonder whether different words, situations, or actions mean the same thing" (sometimes called Jakob's Law, though it predates that framing) captures the external dimension: users spend the majority of their time in other applications, and they bring expectations formed there.</p>
+
+<p>Inconsistent <em>terminology</em> deserves special attention because it is cognitively expensive in a specific way. When users encounter a term they have not seen before, they must pause and decide: is this new term a synonym for something familiar, or does it denote something genuinely different? That disambiguation consumes working memory and slows task completion. Maintaining a controlled vocabulary — a defined glossary of UI terms used consistently throughout a product — is a concrete design and content strategy practice that directly implements this heuristic.</p>
+
+<p><strong>Heuristic 5 — Error Prevention</strong></p>
+
+<p>A carefully designed interface makes errors hard to commit in the first place. This is superior to even the best error recovery experience, because prevention eliminates the frustration, wasted effort, and potential damage that accompany errors entirely. Error prevention is the proactive counterpart to Heuristic 9 (error recovery), and the two should be understood together.</p>
+
+<p>The most powerful technique for error prevention is <strong>constraining user input to valid options</strong>. A date picker widget prevents the user from entering "February 30th" because only valid calendar dates are selectable. A dropdown menu presenting the three valid shipping regions prevents the user from typing an unrecognized value. A number input field with a defined minimum and maximum prevents out-of-range entries. Every time a free-text input is replaced with a constrained control (dropdown, radio button, checkbox, slider, date picker, autocomplete), an entire class of input errors is eliminated.</p>
+
+<p>When constraints are not possible — for example, free-text search fields or password creation — inline validation and real-time feedback can prevent errors before they are submitted. Showing password strength in real time, flagging email addresses that lack an "@" character as the user types, and confirming that a username is available before form submission all shift error detection to the earliest possible moment when correction is cheapest.</p>
+
+<p>For irreversible or high-consequence actions, this heuristic requires a warning or confirmation mechanism before the action executes. The warning must be specific enough to be meaningful: "Are you sure?" provides no information about what is about to happen. "Delete this project? This will permanently remove all 47 tasks and cannot be undone." provides the information the user needs to make an informed decision. Well-designed confirmation dialogs also make the destructive option visually distinct (often through color and placement) and require a deliberate choice, reducing the chance of accidental confirmation.</p>
+
+<p>Designing workflows that make errors structurally difficult — by sequencing steps in a logical order, by disabling controls that are not yet applicable, by grouping related options together — is a higher-order application of this heuristic. Rather than waiting for the user to make a mistake and then reacting, the interface architecture itself steers users toward correct interactions.</p>
+
+<p><strong>Heuristic 6 — Recognition Over Recall</strong></p>
+
+<p>Human memory has two fundamentally different modes of retrieval: recognition and recall. <strong>Recognition</strong> is triggered by a cue — you see an option and understand it. <strong>Recall</strong> requires retrieving information from memory with no external cue — you must generate the answer yourself. Recognition is dramatically faster and less error-prone. Interfaces that require recall impose an avoidable cognitive burden on users; interfaces that support recognition by making options and information visible or easily accessible reduce that burden and make tasks faster and more accurate.</p>
+
+<p>The most direct application is menu and navigation design. A visible menu bar showing all available commands allows the user to recognize the command they need. A command-line interface, by contrast, requires the user to recall the exact syntax of every command from memory — powerful for experts but deeply hostile to novices. Graphical interfaces became dominant precisely because they shifted the interaction paradigm from recall to recognition. This is why tooltips, which display the name and function of an icon when the user hovers over it, are so important: they turn ambiguous icons into recognizable, labeled controls.</p>
+
+<p>Instructions and help content must be <em>visible at the point of use</em>, not buried in a separate help section that the user must navigate to and then return from. Inline placeholder text in form fields, contextual help icons that expand relevant guidance, and descriptive label text next to complex controls all implement recognition over recall at the micro-interaction level. A form that simply presents blank fields with no indication of expected format forces recall ("Was it MM/DD/YYYY or DD/MM/YYYY?"); a form with formatted placeholder text or example values guides recognition.</p>
+
+<p>Minimizing the need to transfer information mentally between parts of the interface is a related concern. When a user must remember a value from screen A to enter it correctly on screen B, they are being asked to recall rather than recognize. Design solutions include carrying forward relevant context automatically, displaying summary information on the current screen, and keeping related tasks visible on the same screen rather than splitting them across navigation.</p>
+
+<p><strong>Heuristic 7 — Flexibility and Efficiency of Use</strong></p>
+
+<p>A single interface serves users with wildly varying levels of experience, from first-time novices to power users who perform the same tasks dozens of times per day. Novices need guidance, clear labeling, and forgiving interaction models. Experts need speed, efficiency, and the ability to bypass steps they no longer need. An interface optimized solely for novices frustrates experts with its slowness; an interface optimized solely for experts is impenetrable to new users. This heuristic demands that the interface accommodate both groups.</p>
+
+<p>The classic implementation mechanism is the <strong>keyboard shortcut</strong>. Menu items in desktop applications nearly always expose their keyboard equivalent (Ctrl+S for Save, Ctrl+Z for Undo, Ctrl+C for Copy). A novice discovers the function through the menu; an expert bypasses the menu entirely using the shortcut. The same action is available through both channels, and neither group is penalized. Web applications have increasingly adopted keyboard shortcuts for power users — Gmail, for instance, has an extensive keyboard shortcut system that allows expert users to navigate, compose, and manage email at a speed impossible with the mouse alone.</p>
+
+<p><strong>Accelerators</strong> in the broader sense include any mechanism that shortens the path to a frequently used function for an experienced user: command palettes (the "Cmd+K" or "Ctrl+K" search-and-execute dialog popularized by tools like Slack, Figma, and VS Code), quick-reply or quick-action affordances, recently used items lists, and saved filters or preset configurations. These features are invisible to — or easily ignored by — novice users, while providing significant efficiency gains for experts.</p>
+
+<p><strong>Personalization and customization</strong> extend this principle further by allowing users to actively shape the interface to their own work patterns. Customizable toolbars, configurable dashboards, saved search filters, user-defined keyboard shortcuts, and pinned frequently-accessed items all give users agency over their own efficiency. The design challenge is to offer these capabilities in a way that is discoverable by users who want them and invisible to users who do not.</p>
+
+<p><strong>Heuristic 8 — Aesthetic and Minimalist Design</strong></p>
+
+<p>Every piece of information that appears in an interface competes for the user's limited attention. Information that is irrelevant to the current task does not merely fail to help — it actively hinders, because it draws cognitive resources away from the primary task. This heuristic does not argue for sparse or visually plain design for its own sake; it argues for <em>purposeful</em> design where every element earns its place by serving the primary user task.</p>
+
+<p>The signal-to-noise ratio is a useful analogy. In communication engineering, "signal" is the meaningful information and "noise" is everything else. A high signal-to-noise ratio means the meaningful information is easy to extract. An interface with excessive visual decoration, redundant labels, marketing copy, rarely-used features displayed prominently alongside primary functions, and multiple competing calls to action has a low signal-to-noise ratio — the user must do the extra work of filtering irrelevant elements to find what they need. Over time, users habituate to this noise and begin ignoring entire regions of the interface (a phenomenon called "banner blindness"), which can cause them to miss genuinely important elements in those regions.</p>
+
+<p><strong>Visual hierarchy</strong> is the design tool that implements this heuristic positively. By using size, weight, color, contrast, spacing, and position, designers direct the user's eye to the most important element first, then secondary elements, then supporting details. The F-pattern and Z-pattern of visual scanning documented in eye-tracking research inform layout decisions. A well-constructed visual hierarchy means that a user scanning a screen for a fraction of a second identifies the primary action correctly; a poorly constructed hierarchy requires them to read and evaluate every element before locating what they need.</p>
+
+<p>This heuristic has implications for feature inclusion decisions as well as visual design. Rarely-used features displayed permanently in the primary interface increase visual noise for the vast majority of users who will never use them. Progressive disclosure — hiding advanced or infrequent options behind an expandable section, an "Advanced settings" link, or a secondary menu level — allows the primary interface to remain minimal while still making full functionality available to users who need it.</p>
+
+<p><strong>Heuristic 9 — Help Users Recognize, Diagnose, and Recover from Errors</strong></p>
+
+<p>Despite best efforts at error prevention (Heuristic 5), errors will occur. When they do, the interface has a responsibility to help the user understand what went wrong and how to fix it. The worst possible error state is one where the user knows something went wrong but cannot determine what, why, or what to do next.</p>
+
+<p>The three components of this heuristic are reflected in its name: <strong>recognize</strong> (the user must know that an error has occurred), <strong>diagnose</strong> (the user must understand what the specific problem is), and <strong>recover</strong> (the user must be given a clear path to resolution).</p>
+
+<p><strong>Plain language</strong> is the first requirement. Error messages written for developers or system administrators — codes, stack traces, technical descriptions of what failed internally — are meaningless to end users. "Error 403: Forbidden" tells a typical user nothing actionable. "You don't have permission to view this page. Contact your administrator if you think this is a mistake." tells the user what happened in their terms and what they can do. The target user group defines what "plain language" means: a developer-facing API tool can legitimately use more technical error language than a consumer banking application.</p>
+
+<p><strong>Specificity</strong> is the second requirement. Generic error messages — "Something went wrong," "An error occurred," "Please try again" — fail the diagnose component entirely. The user knows there was a problem but cannot identify its nature. Specific messages name the exact problem: "Your password must be at least 8 characters and include at least one number," "The email address you entered is already associated with an account," "Your session expired — please log in again to continue." Specificity requires that the system have the information needed to generate specific messages, which has implications for back-end error handling as well as front-end design.</p>
+
+<p><strong>Constructive guidance</strong> is the third requirement. Every error message should answer the implicit question "What should I do now?" The answer might be as simple as "correct the highlighted fields and resubmit" or as complex as "your file exceeds the 25 MB limit — compress it or use our large file upload link." Providing a direct action link within the error message — "Log in again," "Go back to the homepage," "Contact support" — reduces the work required of the user to recover and demonstrates that the system is a cooperative partner rather than an obstacle.</p>
+
+<p>Error messages should also be visually distinct (typically through color, iconography, and placement), should appear in a location proximate to the element that caused the error, and should persist until the underlying issue is resolved rather than disappearing on a timer.</p>
+
+<p><strong>Heuristic 10 — Help and Documentation</strong></p>
+
+<p>The ideal interaction design would be so intuitive that no help documentation was ever needed. In practice, this ideal is never fully achievable, particularly for complex applications. This heuristic acknowledges that reality and establishes principles for effective help and documentation when it is necessary. The framing is significant: Nielsen's formulation begins with the observation that it is "better if the system can be used without documentation," signaling that help content is a design fallback, not a substitute for good design.</p>
+
+<p>The most critical principle for help and documentation is <strong>findability at the moment of need</strong>. A user who is confused or stuck while performing a task is in a state of cognitive load and goal-directed frustration. They need help immediately, in context, with minimal navigation overhead. Help documentation buried under a "Help" menu → "Documentation" → "User Guides" → "Chapter 4" chain forces the user to abandon their current context, navigate a separate information architecture, find the relevant content, absorb it, return to the original task, and reconstruct their previous state. Each of those steps introduces failure points and cognitive cost. Contextual help — inline tooltips, "?" icons adjacent to complex fields, side-panel help drawers, onboarding checklists — delivers relevant guidance without forcing the user to leave their task context.</p>
+
+<p><strong>Task-oriented organization</strong> distinguishes effective help content from ineffective reference documentation. System-oriented documentation organizes content around features and components: "The Dashboard," "The Settings Panel," "The Import Function." Task-oriented documentation organizes content around what users are trying to accomplish: "How to import data from a spreadsheet," "How to add a new team member," "How to set up automated notifications." Users seeking help have a goal; they search for help in terms of their goal, not in terms of which system component is responsible for fulfilling it. Search queries in help centers overwhelmingly reflect task orientation ("how do I change my password") rather than feature orientation ("user account settings").</p>
+
+<p><strong>Concise, step-by-step guidance</strong> is more effective than lengthy conceptual or background information for users who are stuck on a specific task. When a user needs to know how to export a report, they do not need a three-paragraph explanation of the reporting module's architecture — they need a numbered list of specific actions: click this, select that, confirm here. Conceptual background is valuable for users who are learning deeply, but it should be secondary to procedural guidance in help content aimed at task recovery. Progressive disclosure applies to documentation as well: lead with the steps, and offer "Learn more about…" links for users who want conceptual depth.</p>
+
+<p>The following table summarizes all ten heuristics, their core principle, and a characteristic violation example to aid retention and practical application:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Heuristic</th>
+      <th>Core Principle</th>
+      <th>Characteristic Violation Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>1. Visibility of System Status</strong></td>
+      <td>Keep users informed about what is happening with timely, relevant feedback.</td>
+      <td>A form submit button that grays out after clicking with no loading indicator or confirmation message.</td>
+    </tr>
+    <tr>
+      <td><strong>2. Match Between System and Real World</strong></td>
+      <td>Use language and concepts familiar to the user, not the system.</td>
+      <td>An accounting app labeling a field "debit_ledger_entity_id" instead of "Vendor Name."</td>
+    </tr>
+    <tr>
+      <td><strong>3. User Control and Freedom</strong></td>
+      <td>Provide clearly marked exits and undo/redo for unwanted states.</td>
+      <td>A file manager with no undo for delete operations; files are immediately and permanently gone.</td>
+    </tr>
+    <tr>
+      <td><strong>4. Consistency and Standards</strong></td>
+      <td>Follow platform conventions and maintain internal uniformity.</td>
+      <td>Calling the same concept "Project" on one screen and "Workspace" on another.</td>
+    </tr>
+    <tr>
+      <td><strong>5. Error Prevention</strong></td>
+      <td>Design to prevent problems from occurring before they happen.</td>
+      <td>A free-text date field with no format guidance, producing widespread date parsing errors.</td>
+    </tr>
+    <tr>
+      <td><strong>6. Recognition Over Recall</strong></td>
+      <td>Make options visible; minimize reliance on user memory.</td>
+      <td>Unlabeled icon buttons with no tooltips, requiring users to memorize each icon's function.</td>
+    </tr>
+    <tr>
+      <td><strong>7. Flexibility and Efficiency of Use</strong></td>
+      <td>Provide accelerators for expert users without removing novice-friendly pathways.</td>
+      <td>No keyboard shortcuts available; every action requires mouse navigation through multiple menus.</td>
+    </tr>
+    <tr>
+      <td><strong>8. Aesthetic and Minimalist Design</strong></td>
+      <td>Avoid irrelevant content that dilutes and competes with primary information.</td>
+      <td>A checkout page with promotional banners, newsletter sign-up prompts, and social media feeds alongside the payment form.</td>
+    </tr>
+    <tr>
+      <td><strong>9. Help Users Recognize, Diagnose, and Recover from Errors</strong></td>
+      <td>Express errors in plain language with specific problem identification and a remedy.</td>
+      <td>A login failure returning only "Error 401" with no explanation or guidance.</td>
+    </tr>
+    <tr>
+      <td><strong>10. Help and Documentation</strong></td>
+      <td>Provide searchable, task-oriented help that is accessible in context.</td>
+      <td>Help content organized around feature names rather than user tasks, requiring users to know which feature performs their desired function before they can find guidance.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Understanding these ten heuristics at the level of principle — not just definition — is what allows an evaluator to move beyond a checklist and exercise genuine design judgment. Each heuristic reflects a deep truth about human cognition, memory, attention, and behavior under uncertainty. Visibility of system status addresses the anxiety of ambiguity. Match with the real world exploits existing mental models to eliminate learning overhead. User control and freedom acknowledges human fallibility and the need for experimentation. Consistency and standards leverage prior learning and reduce cognitive load. Error prevention prioritizes architectural robustness over reactive repair. Recognition over recall aligns interface demands with the strengths of human memory. Flexibility and efficiency of use respects the diversity of users and the evolution of expertise. Aesthetic and minimalist design protects attention as the scarce resource it is. Help with error recognition and recovery treats users as partners when things go wrong. And help and documentation acknowledges the limits of intuitive design while insisting that supplementary guidance be as well-designed as the interface itself.</p>
+        <div class="notes"><strong>Notes</strong>All ten heuristics are covered in detail within a single topic body as specified. The summary table at the end provides a concise comparative reference for all ten heuristics, which supports both initial learning and review. The notes field for this topic in the source material indicates that mastery of these principles is the foundation for conducting a valid heuristic evaluation — the content is written to support that level of understanding.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

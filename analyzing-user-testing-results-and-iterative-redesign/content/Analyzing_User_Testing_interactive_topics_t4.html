@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prioritizing Usability Improvements</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Analyzing User Testing Results and Iterative Redesign</a></div>
+  <header>
+    <h1>Prioritizing Usability Improvements</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Prioritizing Usability Improvements</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Once usability testing surfaces a list of problems, the real challenge begins: deciding what to fix first. In any realistic project, time, budget, and engineering capacity are finite. Not every issue can be resolved before the next release, and not every issue deserves the same level of urgency. Prioritizing usability improvements is the disciplined practice of ranking identified problems so that teams invest their limited resources where they will produce the greatest benefit for users and the business. Without a principled approach, teams risk spending weeks on cosmetic edge cases while a critical navigation flaw quietly drives users away. This topic introduces the key frameworks and communication strategies that allow design teams to make transparent, defensible trade-off decisions.</p>
+
+<p><strong>Severity Rating Frameworks</strong></p>
+
+<p>A severity rating is a structured score assigned to each usability issue that signals how urgently it needs to be resolved. The underlying logic is straightforward: not all problems hurt users equally, and a shared numerical scale forces a team to be explicit about why one issue outranks another. Without a framework, prioritization becomes a political negotiation rather than a principled decision.</p>
+
+<p>Severity scores typically combine two independent dimensions: <strong>frequency</strong> and <strong>impact</strong>. Frequency asks how often the issue will be encountered — does it affect every user on the most common path, or only a small subset of users exploring an obscure feature? Impact asks how badly the issue harms the user when it does occur — does it cause a momentary confusion that resolves in two seconds, or does it completely block task completion and force the user to abandon the session? Multiplying or additively combining these two dimensions produces a composite score that captures both how widespread and how damaging a problem is.</p>
+
+<p>A commonly used five-point scale, adapted from Jakob Nielsen's severity ratings, works as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rating</th>
+      <th>Label</th>
+      <th>Description</th>
+      <th>Required Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Not a usability problem</td>
+      <td>Evaluators disagree; the issue does not impede users in any observable way.</td>
+      <td>No action required.</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Cosmetic problem</td>
+      <td>Minor annoyance with no measurable effect on task success or satisfaction.</td>
+      <td>Fix only if time allows.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Minor usability problem</td>
+      <td>Users experience friction or a small delay but recover without assistance.</td>
+      <td>Low priority; schedule for a future iteration.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Major usability problem</td>
+      <td>Users struggle significantly; some fail the task or require help.</td>
+      <td>High priority; fix before release if possible.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Usability catastrophe</td>
+      <td>Users cannot complete the task; the issue renders a feature unusable.</td>
+      <td>Must be fixed immediately; blocks release.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Applying a standard scale consistently is crucial. If each team member invents their own interpretation of "major," the resulting list is meaningless because the numbers are no longer comparable. Before a team begins rating, they should agree on the criteria and ideally calibrate by rating two or three sample issues together, discussing discrepancies until a shared understanding is established. This calibration session is particularly important in cross-functional teams where engineers, product managers, and designers may have very different intuitions about what constitutes a serious problem.</p>
+
+<p>A practical example: suppose usability testing of an e-commerce checkout reveals two issues. The first is that the "Place Order" button is grey and looks disabled even when the form is valid, causing most users to pause, second-guess themselves, and some to abandon the checkout entirely. The second is that the postal code field label says "Zip Code" rather than "Postal Code," causing mild confusion for a small number of international users who still complete the task. The first issue combines high frequency (most users on the most critical path) with high impact (abandonment), earning a severity rating of 4. The second combines low frequency with low impact, earning a 1 or 2. A shared framework makes this ranking transparent and removes guesswork.</p>
+
+<p>Critically, severity ratings are not static. After each redesign iteration, the team should revisit the original ratings to confirm whether an intervention was effective. A fix that was intended to reduce a severity-4 issue to a severity-1 issue should be verified through follow-up testing. If testing shows users still struggle, the issue retains its high rating and the team must try a different solution. Treating severity assessment as an ongoing loop rather than a one-time activity keeps the team honest and prevents false confidence that a problem has been resolved.</p>
+
+<p><strong>Impact vs. Effort Mapping</strong></p>
+
+<p>Severity ratings tell you <em>how bad</em> a problem is for users, but they say nothing about <em>how hard</em> it will be to fix. A catastrophic usability failure might require a complete architectural overhaul that will take months, while a moderately annoying issue might be resolved in an afternoon by changing two lines of CSS. Impact versus effort mapping — often visualized as a two-by-two matrix — integrates both dimensions to guide sequencing decisions.</p>
+
+<p>The two axes of the matrix are:</p>
+<ul>
+  <li><strong>Impact</strong> (vertical axis): How much benefit will resolving this issue deliver to users and the business? This draws directly on severity ratings, but can also incorporate business metrics such as estimated improvement to conversion rate, reduction in support ticket volume, or gains in satisfaction scores.</li>
+  <li><strong>Effort</strong> (horizontal axis): How much time, skill, and resource will the fix require? Effort estimates should be provided by the engineers and designers who will do the work, not assumed by researchers. A fix that looks simple from a design perspective may involve significant backend changes.</li>
+</ul>
+
+<p>Plotting each identified issue on this matrix produces four quadrants, each with a clear strategic implication:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quadrant</th>
+      <th>Impact</th>
+      <th>Effort</th>
+      <th>Strategic Action</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Quick Wins</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>Address immediately; these deliver the greatest return per unit of effort.</td>
+      <td>Changing a button's colour from grey to blue to signal it is active — one line of CSS, significant reduction in abandonment.</td>
+    </tr>
+    <tr>
+      <td>Major Projects</td>
+      <td>High</td>
+      <td>High</td>
+      <td>Plan carefully and schedule for a future iteration; do not ignore them.</td>
+      <td>Redesigning the entire navigation architecture to improve information findability.</td>
+    </tr>
+    <tr>
+      <td>Fill-Ins</td>
+      <td>Low</td>
+      <td>Low</td>
+      <td>Address opportunistically when capacity allows; do not let them block higher-priority work.</td>
+      <td>Correcting a label typo or adjusting minor spacing inconsistencies.</td>
+    </tr>
+    <tr>
+      <td>Thankless Tasks</td>
+      <td>Low</td>
+      <td>High</td>
+      <td>Deprioritize or remove from scope entirely; the cost exceeds the benefit.</td>
+      <td>Rebuilding a legacy data export tool used by fewer than 1% of users.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The most actionable quadrant is the upper-left: high-impact, low-effort quick wins. These issues should be resolved in the immediate development cycle without debate, because they offer the highest return on investment. Teams sometimes overlook quick wins because they seem too simple to be worth discussing — resist this instinct. A two-minute fix that prevents 30% of users from abandoning a task is one of the most valuable things a team can do.</p>
+
+<p>High-impact, high-effort issues — major projects — require genuine planning. They should not be dismissed simply because they are hard. If testing reveals that users fundamentally cannot understand the product's information architecture, that is a severity-4 problem regardless of the engineering cost. These issues belong on the product roadmap with defined timelines, resources, and success criteria. Breaking a major project into smaller, independently deliverable pieces is a common technique for making progress without waiting for a full solution.</p>
+
+<p>Low-impact, high-effort issues are the most dangerous category, not because they are harmful in themselves, but because they can quietly consume resources that should go elsewhere. A team that spends two sprints perfecting an animation on a rarely-used settings screen while a critical onboarding flow remains broken has made a serious prioritization error. Explicitly labeling these issues as deprioritized — and documenting that decision — protects the team from scope creep and misallocated effort.</p>
+
+<p><strong>Aligning Priorities with Design Goals</strong></p>
+
+<p>Severity ratings and impact-effort mapping are powerful tools, but they operate in a vacuum if they are not anchored to the product's defined usability goals and user requirements. Prioritization decisions must be evaluated against what the product is actually trying to achieve and for whom.</p>
+
+<p>Every product should have a set of explicit usability goals derived from user research: goals such as enabling new users to complete their first purchase in under five minutes, or ensuring that power users can access advanced filtering without navigating away from their current context. When a usability issue is identified, the first question should be: does this issue interfere with a primary user task or a secondary one? Issues that block or degrade the experience on the most frequent and most important user tasks must take precedence over those affecting peripheral features, even if the peripheral issue scores slightly higher on a raw severity rating.</p>
+
+<p>Consider a project management application whose primary user task is creating and assigning tasks. If testing reveals both a confusing date-picker in the task creation form (primary task) and a cluttered layout in the rarely-used administrative billing section (secondary feature), the date-picker issue takes clear precedence. The billing layout may have a higher aesthetic severity, but it affects a workflow that most users encounter infrequently and that is not central to the product's core value proposition.</p>
+
+<p>One of the most delicate challenges in prioritization is reconciling stakeholder priorities with user priorities. These can diverge substantially. A business stakeholder may urgently want to redesign the promotional banner on the homepage because a marketing campaign is launching next week, while user testing clearly shows that the account registration flow is so confusing that new users are failing to activate their accounts at all. The registration problem is far more damaging to users and, in the long run, to the business — but it lacks the visibility and urgency that a marketing deadline creates.</p>
+
+<p>Reconciling these tensions requires transparency rather than unilateral decisions. The design team's role is to present the evidence clearly and help stakeholders understand the downstream consequences of deprioritizing high-severity user issues. In some cases, business constraints are real and legitimate — a legal compliance deadline may genuinely outrank a usability improvement. The key is that these trade-offs are made explicitly and documented, not allowed to happen by default.</p>
+
+<p>Documenting the rationale for every prioritization decision is not bureaucratic overhead — it is essential professional practice. A written record of why issue A was ranked above issue B, what evidence supported that decision, and who was involved creates accountability, supports future retrospectives, and allows new team members to understand the reasoning behind past choices. Without documentation, the same arguments are relitigated in every planning meeting, and institutional knowledge about what was tried and why it was deprioritized is lost when team members move on.</p>
+
+<p><strong>Communicating Priorities to Stakeholders</strong></p>
+
+<p>The most rigorous prioritization framework produces no value if its outputs cannot be communicated effectively to the people who control resources and make decisions. Stakeholders — product managers, executives, marketing leads, engineers — often have limited time and varying levels of familiarity with usability concepts. Communicating priorities well is as important as developing them correctly.</p>
+
+<p>The first principle is to present findings visually and concisely. A ranked list with severity scores and brief descriptions is far more accessible than a lengthy written report. Visual formats such as the impact-effort matrix, colour-coded severity tables, or simple dashboards allow stakeholders to grasp the landscape of issues at a glance. Avoid jargon: terms like "cognitive load," "affordance," or "heuristic violation" may be meaningful to designers but alienate business stakeholders who have not been trained in UX. Translate findings into language that describes the user experience in plain terms: "users cannot find the checkout button" is clearer and more alarming than "the primary call-to-action suffers from low discoverability."</p>
+
+<p>The second principle is to connect usability issues to business outcomes. Stakeholders respond to metrics that affect their own goals. A finding that "users struggle to complete the checkout flow" becomes significantly more compelling when it is reframed as "our testing suggests this issue contributes to a checkout abandonment rate that, if reduced by 20%, could increase monthly revenue by approximately $X." Not every issue can be quantified this precisely, but where data exists — from analytics, conversion tracking, or prior A/B tests — it should be brought into the prioritization conversation. Linking usability to conversion rates, customer satisfaction scores (such as Net Promoter Score or CSAT), support ticket volume, or churn rates gives non-design stakeholders concrete reasons to invest in fixes.</p>
+
+<p>A <strong>prioritized issue list</strong> with severity ratings serves as a shared reference document for cross-team planning. Rather than each team member carrying a different mental model of what the most pressing problems are, the list creates a single source of truth that can be referenced in sprint planning, design reviews, and executive updates. This list should be a living document: updated after each testing cycle, with resolved issues marked and new issues added as they are discovered.</p>
+
+<p>Perhaps the most persuasive tool for non-technical audiences is <strong>short video clips of real users struggling</strong>. A thirty-second clip of a user sighing, clicking the wrong button three times, and ultimately saying "I give up, I can't figure out how to pay" communicates something that no severity score or bar chart can replicate. It creates empathy and urgency in a way that abstract data cannot. Most usability testing tools support session recording, and even informal screen-recorded sessions can produce compelling clips. When presenting to stakeholders who are skeptical about the importance of a usability issue, show them a user experiencing it in real time. The reaction is almost universally one of genuine concern and motivation to act.</p>
+
+<p>Effective communication also means being honest about uncertainty and trade-offs. If a high-severity issue is being deprioritized in the current cycle because of resource constraints, say so explicitly and explain when it will be addressed. If the team is uncertain whether a proposed fix will fully resolve an issue — which is common — commit to testing the fix in the next iteration and revisiting the severity rating. This kind of transparency builds trust with stakeholders and positions the design team as credible, principled advisors rather than advocates for an endless list of changes.</p>
+        <div class="notes"><strong>Notes</strong>Introduces frameworks for ranking identified usability issues so that the most impactful problems are addressed first. Helps students make principled trade-offs when resources and time are limited.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

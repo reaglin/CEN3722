@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maintaining Design Quality in AI-Assisted Projects</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 5 - AI-Assisted Design and Development Workflows</a></div>
+  <header>
+    <h1>Maintaining Design Quality in AI-Assisted Projects</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Maintaining Design Quality in AI-Assisted Projects</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>As AI-assisted design and development workflows become standard practice, one of the most pressing professional challenges is ensuring that what AI tools produce actually meets the quality bar that users, stakeholders, and ethical obligations demand. AI tools are powerful accelerators, but acceleration without direction produces mediocre or harmful outputs at scale. Maintaining design quality in AI-assisted projects is therefore not a passive activity — it requires deliberate, structured effort at every stage of the project lifecycle, from the initial brief through to deployment and iteration.</p>
+
+<p>This topic examines the full landscape of quality maintenance in AI-assisted projects: what design quality means in this context, how to evaluate AI-generated interfaces against established heuristics, how to audit generated code for accessibility, how to review code for correctness and security, and how to ensure that the designer's original intent and user research findings are not gradually eroded by AI-generated suggestions that optimize for averages rather than for the specific needs of real users.</p>
+
+<p><strong>Defining Design Quality in the AI Context</strong></p>
+
+<p>Design quality is not a single measurable property — it is a composite of several distinct but interrelated criteria. Before any AI-assisted generation begins, the team needs a shared, documented understanding of what quality means for the specific project. Without this foundation, evaluation becomes subjective and inconsistent, making it impossible to give the AI meaningful corrective direction.</p>
+
+<p>The five core criteria that define design quality in most human-centered projects are:</p>
+
+<ul>
+  <li><strong>Usability:</strong> Can users accomplish their goals efficiently, effectively, and with satisfaction? Usability encompasses learnability, efficiency, memorability, error tolerance, and subjective satisfaction — the classic dimensions articulated by Jakob Nielsen and expanded by subsequent HCI research.</li>
+  <li><strong>Accessibility:</strong> Can users with disabilities perceive, understand, navigate, and interact with the interface? Accessibility is not a feature; it is a baseline requirement that affects a substantial portion of every user population and is often mandated by law.</li>
+  <li><strong>Visual consistency:</strong> Do all components, typography, color usage, spacing, and interaction patterns align with the design system and communicate a coherent brand experience? Inconsistency erodes trust and increases cognitive load.</li>
+  <li><strong>Performance:</strong> Does the interface load quickly, respond immediately to input, and remain stable under realistic conditions? Performance is a design quality dimension because slow or unstable interfaces directly damage usability and user trust.</li>
+  <li><strong>User need alignment:</strong> Does the design solve the problems that user research identified, for the people the research described? An interface can be usable, accessible, consistent, and fast but still fail because it solves the wrong problem.</li>
+</ul>
+
+<p>The critical insight about AI tools is that they do not inherently optimize for any of these criteria. A large language model or generative design tool optimizes for <em>pattern-matching to training data</em>. It produces outputs that statistically resemble successful examples in its training set. This means AI will reliably produce outputs that look plausible — they will have familiar layouts, conventional interaction patterns, and syntactically correct code — without any guarantee that those outputs are usable for a specific audience, accessible to people with disabilities, consistent with a particular design system, performant in a specific technical environment, or aligned with the insights from a specific round of user research.</p>
+
+<p>This distinction is not a criticism of AI tools; it is a structural fact about how they work. The practical consequence is that quality criteria must be externalized and documented <em>before</em> AI generation begins, so that human evaluators have explicit standards against which to measure AI output. A project design brief should capture these criteria concretely: usability goals tied to specific user tasks and success metrics, accessibility conformance targets (typically WCAG 2.1 Level AA at minimum), the active design system tokens and component library, performance budgets for key metrics such as Largest Contentful Paint and Time to Interactive, and a summary of user research findings that constrain the solution space.</p>
+
+<p>Beyond the initial documentation, quality criteria must be revisited regularly throughout the project. AI-assisted iteration is fast, which means design drift — the gradual departure from original intent — can accumulate quickly. A component revised through five rapid AI-assisted iterations may end up visually and functionally quite different from the original brief without any single revision looking like a dramatic departure. Scheduling explicit quality checkpoints at each major milestone, where the current state of the design is compared against the documented brief, counteracts this drift.</p>
+
+<p><strong>Heuristic Evaluation of AI-Generated Interfaces</strong></p>
+
+<p>Heuristic evaluation is a usability inspection method in which evaluators examine an interface against a set of established usability principles (heuristics) and identify violations. It was formalized by Jakob Nielsen and Rolf Molich in the early 1990s, and Nielsen's ten heuristics remain the most widely applied framework. In the context of AI-assisted design, heuristic evaluation serves a specific and important function: it provides a structured, repeatable method for identifying exactly where AI-generated prototypes fall short, and it produces findings that can be directly translated into corrective prompts for the next AI-assisted revision cycle.</p>
+
+<p>Heuristic evaluation should be applied systematically at each major iteration checkpoint — not only at the end of the project, and not only informally. Every time the AI generates a substantially revised prototype, evaluators should walk through the interface with the heuristics as an explicit checklist.</p>
+
+<p>Nielsen's ten heuristics provide the standard framework, but three categories of heuristics deserve particular attention in AI-generated interfaces because they are areas where AI tools consistently underperform:</p>
+
+<ul>
+  <li><strong>Error handling (Heuristic 5: Help users recognize, diagnose, and recover from errors; Heuristic 9: Help and documentation):</strong> AI-generated interfaces frequently produce error messages that are technically correct but unhelpfully generic ("An error occurred. Please try again.") or that use internal system language rather than plain user-oriented language. AI trained on large codebases has seen many such messages and reproduces them. Evaluators should specifically probe every error state in the prototype and assess whether the message explains what went wrong in plain language, suggests a concrete recovery action, and preserves user-entered data where possible.</li>
+  <li><strong>Feedback mechanisms (Heuristic 1: Visibility of system status):</strong> AI-generated interfaces often omit or underspecify loading states, progress indicators, confirmation messages, and transition animations. These feedback mechanisms are often implemented as brief conditional snippets that AI either leaves as placeholders or generates too minimally. Evaluators should test every action that takes non-trivial time and every action whose completion is not visually self-evident.</li>
+  <li><strong>Consistency (Heuristic 4: Consistency and standards; Heuristic 8: Aesthetic and minimalist design):</strong> Because AI generates component code and content somewhat independently, it frequently produces subtle inconsistencies: a button labeled "Submit" in one context and "Save" in another for the same action, slightly different spacing in similar components, or icons that do not align with the established design system. Evaluators should cross-reference the generated interface against the design system documentation and apply consistency checks across all instances of repeating elements.</li>
+</ul>
+
+<p>When heuristic violations are found, the evaluation output should not be a vague note like "error messages need improvement." Instead, document each violation with enough specificity to drive a targeted AI revision prompt. A well-documented heuristic violation includes: the specific location in the interface, the specific heuristic being violated, a description of the observed problem, and a proposed direction for correction. For example:</p>
+
+<pre><code>Location: Checkout flow, Step 3 — Payment form
+Heuristic: H5 – Error recognition and recovery
+Observed problem: When the credit card number field receives an invalid input,
+the error message reads "Invalid input." The message does not specify what
+is invalid, does not indicate the expected format, and clears the field
+contents on blur, requiring re-entry.
+Proposed direction: Display an inline message specifying the issue
+("Card number must be 16 digits, no spaces") and retain field content
+on error so the user can correct rather than re-enter.</code></pre>
+
+<p>This specificity serves two purposes. First, it gives a human developer or designer precise guidance. Second, and equally important, it gives the AI a well-constrained revision prompt that is much more likely to produce a useful correction than a vague instruction.</p>
+
+<p>Multiple evaluators should be involved in heuristic evaluation of AI-generated interfaces. Individual evaluators, on average, find only about 35% of usability problems in an interface; a group of three to five evaluators typically identifies 75% or more. This finding, established in Nielsen's original research, applies with equal force to AI-generated interfaces. Furthermore, designers and developers who have been closely involved in the AI-assisted generation process may develop a form of familiarity bias — they know how the interface is <em>supposed</em> to work and may mentally compensate for gaps without noticing them. Independent evaluators who approach the prototype fresh are more likely to surface genuine usability failures.</p>
+
+<p><strong>Accessibility Auditing of AI-Generated Code</strong></p>
+
+<p>Accessibility is one of the most reliably underserved quality dimensions in AI-generated code. The reason is structural: much of the code in AI training sets was written before modern accessibility standards were widely adopted, and even recently written code frequently contains accessibility errors. AI models that learn from this data reproduce these patterns. Studies of AI coding assistants have found that a substantial proportion of generated UI code contains detectable WCAG violations, particularly in areas like keyboard navigation, focus management, color contrast, and ARIA attribute usage.</p>
+
+<p>A rigorous accessibility audit of AI-generated code has two complementary components: automated checking and manual testing. Neither alone is sufficient.</p>
+
+<p><strong>Automated accessibility checking</strong> with tools like axe (available as a browser extension, a CLI tool, and a JavaScript library for integration into CI/CD pipelines) or Google Lighthouse can catch a specific class of accessibility violations: those that are deterministically detectable from the DOM structure and applied styles. These include missing alternative text on images, form fields without associated labels, insufficient color contrast ratios, missing document language declarations, and certain ARIA misuses. Automated tools should be run on every AI-generated prototype before it proceeds to user testing. Running the check earlier — during code generation — is even better; the axe-core library can be integrated into component test suites so that accessibility violations surface in the same workflow as functional bugs.</p>
+
+<p>However, automated tools detect only about 30–40% of real-world WCAG failures. The remaining violations require <strong>manual testing</strong>, which should focus on three areas that AI-generated code consistently handles poorly:</p>
+
+<ul>
+  <li><strong>Keyboard navigation:</strong> Every interactive element in the interface must be reachable and operable using only the keyboard. Tab through the entire interface and verify that all buttons, links, form controls, and custom interactive components receive focus, that the focus order follows a logical reading sequence, and that no keyboard traps exist (situations where a user can tab into a component but cannot tab out). AI-generated custom components — dropdowns, modal dialogs, date pickers, carousels — frequently omit correct keyboard interaction patterns. For example, a custom dropdown that opens on click but does not respond to Enter/Space to activate, arrow keys to navigate options, or Escape to close is a keyboard accessibility failure even if it works perfectly with a mouse.</li>
+  <li><strong>Focus management:</strong> When dynamic content changes — a modal opens, an error message appears, a page section is replaced — focus must be programmatically managed so that keyboard and screen reader users are directed to the newly relevant content. AI-generated code for dynamic interfaces frequently neglects this, leaving focus stranded in a now-irrelevant location after a state change. Manual testing requires triggering every dynamic state change and verifying that focus moves to a logical location and that the user's position in the interface makes sense in the new state.</li>
+  <li><strong>Screen reader announcements:</strong> Use a screen reader (NVDA or JAWS on Windows, VoiceOver on macOS and iOS, TalkBack on Android) to verify that interactive components are correctly announced with their role, name, and state, and that status messages and dynamic content updates are announced via live regions. AI-generated ARIA is frequently either missing (components with no semantic role), incorrect (ARIA attributes applied to elements that do not support them), or excessive (redundant ARIA that double-announces content).</li>
+</ul>
+
+<p>When accessibility issues are found, they should be documented with reference to specific WCAG 2.1 success criteria. This serves both the human quality record and the AI revision prompt. A vague note like "fix accessibility" gives an AI tool nothing actionable. A specific note like "This custom select component fails WCAG 2.1 SC 4.1.2 (Name, Role, Value) because it uses a <code>&lt;div&gt;</code> element without a role attribute, and fails SC 2.1.1 (Keyboard) because it cannot be operated with arrow keys. Revise to use the ARIA Listbox pattern per the ARIA Authoring Practices Guide" gives the AI a well-scoped, testable target.</p>
+
+<p>Accessibility remediation must be treated as a non-negotiable quality gate. It is tempting to defer accessibility fixes to a final polish phase, particularly when the pace of AI-assisted iteration is high. This is a mistake for several reasons. First, retrofitting accessibility into a complex interface is significantly more expensive than building it in correctly from the start — an AI-generated component with broken keyboard semantics may need to be substantially restructured, not just annotated. Second, accessibility failures expose the organization to legal liability in many jurisdictions. Third, and most fundamentally, treating accessibility as optional communicates to the team that some users' needs are considered less important, which contradicts the basic commitment of human-centered design.</p>
+
+<p><strong>Code Review Practices for AI-Generated Output</strong></p>
+
+<p>AI-generated code requires code review, just as human-written code does — arguably more so, because AI-generated code can appear superficially correct while containing subtle errors that a human reviewer would not make in the same way. AI tools have no understanding of the security context of the application, no awareness of the project's existing dependencies and their known vulnerabilities, and no ability to reason about performance at the system level. Code review fills these gaps.</p>
+
+<p>A thorough code review of AI-generated output addresses four distinct dimensions:</p>
+
+<ul>
+  <li><strong>Security vulnerabilities:</strong> AI-generated code is particularly prone to a class of security errors related to trust boundaries. The most common are: failing to sanitize user-supplied input before using it in DOM manipulation (creating XSS vulnerabilities), constructing database queries or API calls by string concatenation rather than parameterization (creating injection vulnerabilities), importing third-party dependencies without version pinning or security audit, and generating authentication or session management logic that follows outdated patterns. Reviewers should specifically look for any location where external input (from users, from APIs, from URL parameters) flows into the DOM, into a query, or into a privileged operation, and verify that appropriate sanitization, parameterization, or validation is applied. Tools like ESLint with security plugins, Snyk, or Semgrep can automate some of this detection, but they do not replace human judgment about trust boundaries in the specific application context.</li>
+  <li><strong>Semantic HTML correctness:</strong> HTML elements carry inherent semantic meaning that serves both accessibility and SEO. AI-generated HTML frequently violates semantic conventions in subtle ways: using <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> for everything because they are the most common elements in training data, placing block-level elements inside inline elements, nesting interactive elements inside other interactive elements (a button inside a link, for example), using heading levels out of sequence, or using <code>&lt;table&gt;</code> elements for non-tabular layout. Reviewers should assess whether each element in AI-generated HTML is the semantically correct element for its content and role, not just whether it renders correctly in the browser. Rendering correctly and being semantically correct are not the same thing, and the difference matters enormously for screen readers, search engines, and the long-term maintainability of the codebase.</li>
+  <li><strong>Performance implications:</strong> AI-generated code in component-based frameworks often introduces performance problems that are individually minor but collectively significant. Common patterns include: generating components that trigger full re-renders on every state change rather than using memoization or granular state updates, importing large libraries for single utility functions that could be implemented with a few lines of native code, generating large inline style objects that defeat CSS class caching, and producing deeply nested component trees that increase reconciliation cost. Reviewers should evaluate the performance implications of AI-generated code at the component level (does this component re-render more than necessary?) and at the bundle level (does this import contribute disproportionate weight to the bundle?). Performance profiling tools in browser DevTools and bundle analysis tools like webpack-bundle-analyzer make these patterns visible.</li>
+  <li><strong>Prompt traceability:</strong> A practice that is not standard in human-authored codebases but becomes important in AI-assisted ones is requiring that each AI-generated contribution be traceable to a documented prompt. This serves accountability (who asked for this and why?), reproducibility (can this output be regenerated or revised from a known starting point?), and quality auditing (was this generated in response to a well-scoped, quality-conscious prompt, or an imprecise one?). One practical implementation is to maintain a prompt log in the project repository — a file or linked document that records each major AI-generation step with the prompt used and the commit or version of the output it produced. This does not need to be exhaustive for every minor autocompletion, but it should cover every AI-generated component or significant code block that becomes part of the production codebase.</li>
+</ul>
+
+<p>The following table summarizes common AI-generated code quality failures by category, with indicative examples and review checks:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Common AI-Generated Failure Pattern</th>
+      <th>Review Check</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Security</td>
+      <td>Inserting user input into innerHTML without sanitization</td>
+      <td>Trace all paths from external input to DOM; verify sanitization library is applied</td>
+    </tr>
+    <tr>
+      <td>Security</td>
+      <td>Unpinned or unaudited third-party dependency imports</td>
+      <td>Run dependency audit (npm audit / Snyk); verify version pinning in package.json</td>
+    </tr>
+    <tr>
+      <td>Semantic HTML</td>
+      <td>Using &lt;div onClick&gt; instead of &lt;button&gt; for interactive controls</td>
+      <td>Verify every interactive element uses a natively interactive element or has correct ARIA role + keyboard handler</td>
+    </tr>
+    <tr>
+      <td>Semantic HTML</td>
+      <td>Heading levels skipped or used for styling rather than structure</td>
+      <td>Check heading hierarchy reflects document outline, not visual design preferences</td>
+    </tr>
+    <tr>
+      <td>Performance</td>
+      <td>Entire parent component re-renders on child state changes</td>
+      <td>Profile with React DevTools / equivalent; apply memoization where component renders are expensive</td>
+    </tr>
+    <tr>
+      <td>Performance</td>
+      <td>Full library imported for a single utility function</td>
+      <td>Check bundle impact with bundle analyzer; replace with native implementation or targeted import</td>
+    </tr>
+    <tr>
+      <td>Traceability</td>
+      <td>Undocumented AI-generated code block with no associated prompt</td>
+      <td>Require prompt log entry for all significant AI-generated contributions before merge</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Preserving the Designer's Voice and Intent</strong></p>
+
+<p>Perhaps the most philosophically important quality challenge in AI-assisted design is maintaining the designer's voice — the set of deliberate, user-research-grounded choices that differentiate a design from a generic, pattern-matched solution. AI tools are, by their nature, convergent: they produce outputs that resemble the most common successful examples in their training data. In many situations this is useful; common patterns are common because they work. But differentiated design — design that is specifically calibrated to the needs, mental models, and contexts of a particular user group — often requires departing from common patterns, and AI will not make that departure unless explicitly directed to do so.</p>
+
+<p>Four practices preserve design intent throughout an AI-assisted project:</p>
+
+<ul>
+  <li><strong>Maintain a living design rationale document:</strong> A design rationale document records not just what decisions were made, but <em>why</em> they were made. For each major design decision — the information architecture, the primary navigation model, the onboarding flow, the error recovery approach — the document should record the user research finding or design principle that motivated the choice, the alternatives that were considered and rejected, and the criteria that will signal if the decision needs to be revisited. This document serves as a check against AI-generated suggestions: if an AI-generated revision changes a navigation pattern, the designer can consult the rationale to determine whether the change is an improvement or a regression toward a generic solution that the original research argued against.</li>
+  <li><strong>Actively compare AI suggestions against user research:</strong> AI-generated interfaces should be evaluated not only against abstract usability heuristics but against the specific insights, behaviors, preferences, and pain points documented in the project's user research. If the user research found that the target audience has low digital literacy and relies heavily on contextual help, an AI-generated interface that eliminates in-context guidance in favor of a clean, minimal aesthetic is a quality failure even if it scores well on visual consistency and heuristic evaluation. The user research is the primary quality criterion; heuristics are useful but secondary.</li>
+  <li><strong>Reject or revise AI outputs that produce conventional solutions where differentiation is required:</strong> This requires the designer to make an active judgment call. When an AI-generated solution is technically acceptable but produces a generic outcome in an area where the user research calls for something distinctive, the appropriate response is not to accept the output because it is "good enough." The designer should reject the output and produce a more constrained prompt, a reference design, or a manual revision that brings the output into alignment with the research-grounded design intent. This is the core professional skill of AI-assisted design: not prompt writing per se, but the evaluative judgment to know when an AI output meets the actual quality standard and when it merely meets a superficial standard of plausibility.</li>
+  <li><strong>Regularly revisit original user personas and scenarios:</strong> User personas and usage scenarios are the most concrete representations of user needs in most design projects. As AI-assisted iteration accelerates, it is easy for these artifacts to recede from active use and become reference documents that nobody consults. Scheduling regular design reviews where the current prototype is walked through against each persona's primary scenarios — asking "Can this persona accomplish this scenario efficiently with this interface, given their described context, goals, and constraints?" — keeps the design anchored to the human reality it is meant to serve, rather than drifting toward whatever the AI finds most familiar.</li>
+</ul>
+
+<p>Taken together, these practices constitute an active quality stewardship role for the designer in AI-assisted projects. The designer is not merely a prompt engineer or a reviewer of AI output — the designer is the holder of the project's understanding of its users, and that understanding must continuously inform, constrain, and when necessary override the AI's pattern-matched suggestions. AI tools accelerate production; the designer's critical judgment is what ensures that what is produced actually serves the people it was made for.</p>
+        <div class="notes"><strong>Notes</strong>This topic covers the full quality maintenance lifecycle for AI-assisted design projects. The accessibility section references WCAG 2.1 AA as the standard minimum conformance target. The heuristic evaluation section references Nielsen&#39;s ten heuristics. The code review section includes a summary table rendered as a proper HTML table. All subtopics from the brief are covered with in-depth explanation and concrete examples including illustrative code blocks for documentation patterns.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

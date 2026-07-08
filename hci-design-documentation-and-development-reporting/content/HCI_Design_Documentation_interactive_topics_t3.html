@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Process Documentation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ HCI Design Documentation and Development Reporting</a></div>
+  <header>
+    <h1>Design Process Documentation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Design Process Documentation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Design process documentation is the practice of creating a comprehensive, evidence-based record of every meaningful decision, experiment, and iteration that shaped a product's development. Far from being a bureaucratic formality, good documentation serves multiple vital purposes: it makes your reasoning transparent to stakeholders and evaluators, it creates an institutional memory that helps teams avoid repeating mistakes, and it demonstrates the rigour of a human-centred design approach. A polished final interface tells you <em>what</em> was built; thorough process documentation tells you <em>why</em> it was built that way, and what was learned along the journey. The sections below address each major documentation responsibility in depth, from the earliest sparks of ideation through to the fully-realised high-fidelity prototype and the narrative thread that ties all iterations together.</p>
+
+<p><strong>Documenting Concept Generation</strong></p>
+
+<p>Concept generation is the creative engine of the design process, and documenting it well means capturing not just the outputs — the sketches, diagrams, or written descriptions of ideas — but also the <em>process</em> by which those ideas were produced and evaluated. Readers of your documentation should be able to understand exactly how your team moved from a problem statement to a shortlist of candidate designs.</p>
+
+<p>Begin by naming and describing the ideation method your team used. Common methods include:</p>
+
+<ul>
+  <li><strong>Brainstorming:</strong> A time-boxed session in which participants generate as many ideas as possible without immediate criticism, deferring judgement until a separate evaluation phase.</li>
+  <li><strong>Crazy Eights:</strong> Each team member rapidly sketches eight distinct interface concepts in eight minutes, forcing divergent thinking by limiting reflection time.</li>
+  <li><strong>How Might We (HMW) prompts:</strong> Problem statements are reframed as open questions (e.g., "How might we help a new user discover core features without a tutorial?") to stimulate solution-oriented thinking.</li>
+  <li><strong>SCAMPER:</strong> A structured checklist (Substitute, Combine, Adapt, Modify, Put to other uses, Eliminate, Reverse) applied to existing designs to generate variants.</li>
+  <li><strong>Analogical design:</strong> Drawing inspiration from solutions in unrelated domains (e.g., borrowing a "progressive disclosure" pattern from complex medical forms to simplify an onboarding wizard).</li>
+</ul>
+
+<p>Naming the method alone is not sufficient. Explain why that method was appropriate for your project's stage, team size, and problem type. For example, Crazy Eights suits early divergent exploration within a team of two to six people, whereas a structured design studio with HMW prompts may be better suited to cross-functional groups that need to build shared understanding before sketching.</p>
+
+<p>Next, describe the <strong>criteria used to assess initial concepts</strong>. Evaluation criteria should be defined before assessment begins so that selection is principled rather than swayed by whoever argued most persuasively in the room. Typical criteria include:</p>
+
+<ul>
+  <li><strong>Feasibility:</strong> Can the concept be implemented with the available technology, time, and budget?</li>
+  <li><strong>Desirability:</strong> Does the concept address real user needs identified in research (e.g., interviews, surveys, contextual inquiry)?</li>
+  <li><strong>Usability:</strong> Does the concept align with established HCI principles such as learnability, efficiency, or error prevention?</li>
+  <li><strong>Novelty or differentiation:</strong> Does it offer something meaningfully better than existing solutions?</li>
+  <li><strong>Scope alignment:</strong> Does it fit within the defined project boundaries?</li>
+</ul>
+
+<p>A useful documentation technique is a <strong>concept evaluation matrix</strong>, which makes the scoring of each concept against each criterion visible and auditable:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Concept</th>
+      <th>Feasibility (1–5)</th>
+      <th>Desirability (1–5)</th>
+      <th>Usability (1–5)</th>
+      <th>Scope Fit (1–5)</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Dashboard with global search</td>
+      <td>4</td>
+      <td>5</td>
+      <td>4</td>
+      <td>5</td>
+      <td>18</td>
+    </tr>
+    <tr>
+      <td>Card-based activity feed</td>
+      <td>5</td>
+      <td>3</td>
+      <td>4</td>
+      <td>4</td>
+      <td>16</td>
+    </tr>
+    <tr>
+      <td>Wizard-style onboarding flow</td>
+      <td>3</td>
+      <td>4</td>
+      <td>3</td>
+      <td>2</td>
+      <td>12</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Including a table like this in your report, alongside a brief narrative interpreting the scores, demonstrates that concept selection was a deliberate, criteria-driven process rather than a matter of preference or convenience.</p>
+
+<p>Documentation of concept generation must also account for the <strong>human dynamics</strong> of the process. Describe how team members contributed: who sketched, who facilitated, who critiqued. In diverse teams, individuals often bring different domain knowledge, lived experience, or technical perspectives, and those differences frequently produce more innovative concepts than homogeneous groups. Explain how divergent ideas — concepts that pulled the design in different directions — were reconciled. Common reconciliation strategies include:</p>
+
+<ul>
+  <li><strong>Dot voting:</strong> Each team member places a fixed number of sticky dots or votes on their preferred concepts, producing a rapid democratic ranking.</li>
+  <li><strong>Affinity mapping:</strong> Individual ideas are grouped by theme so that clusters of related concepts can be considered together rather than as isolated proposals.</li>
+  <li><strong>Weighted decision matrix:</strong> Criteria are assigned importance weights, and each concept is scored against each criterion; the weighted totals determine priority.</li>
+  <li><strong>Synthesis:</strong> Elements from two or more competing concepts are merged into a hybrid that captures the strengths of each.</li>
+</ul>
+
+<p>Finally, document <strong>which concepts were selected for further development and why others were discarded</strong>. The concepts that did not advance deserve as much explanation as those that did. A concept discarded because it was technically infeasible, too similar to a competitor's product, or incongruent with user research findings tells a clear story about the team's priorities and constraints. Avoid the temptation to document only winning ideas; the rejected concepts demonstrate critical thinking and honest evaluation.</p>
+
+<p><strong>Describing Low-Fidelity Prototypes</strong></p>
+
+<p>Low-fidelity (lo-fi) prototypes are deliberately rough, inexpensive representations of a design — typically paper sketches, wireframes, or cardboard mock-ups — created to test ideas quickly before significant resources are committed. Because they are cheap and fast to produce, lo-fi prototypes encourage experimentation: it is psychologically easier to discard a pencil sketch than a polished digital interface, and this freedom is genuinely productive.</p>
+
+<p>The most important rule for documenting lo-fi prototypes is: <strong>include the artefacts themselves</strong>. A written description of a hand-drawn wireframe cannot substitute for an actual photograph or scan of that wireframe. Every lo-fi prototype should be represented visually in your report — either embedded in the main body if they are central to a narrative, or collected in an appendix if the volume would interrupt the flow of reading. The relationship between artefact and text should be bidirectional: the image should be numbered and captioned, and the surrounding text should explicitly reference that number (e.g., "Figure 3 shows the initial navigation sketch discussed in this section").</p>
+
+<p>Annotations are what transform raw images into documentation. An annotated lo-fi prototype might call out:</p>
+
+<ul>
+  <li>The purpose of each region of the layout (e.g., "This left-hand panel was intended to persist across all views as a global navigation aid")</li>
+  <li>Design choices that were deliberately left vague at this stage (e.g., "The content of these cards was not specified; the sketch was testing layout density, not content strategy")</li>
+  <li>Elements that were known placeholders (e.g., "This box represents a search bar whose exact interaction model had not yet been decided")</li>
+  <li>Connections between screens, indicating how a user would navigate from one state to another</li>
+</ul>
+
+<p>Beyond the artefact itself, documentation must explain <strong>the specific design question or hypothesis each prototype was created to explore</strong>. Lo-fi prototypes are most valuable when they are targeted — each one probing a specific uncertainty rather than attempting to represent the whole design. For example:</p>
+
+<ul>
+  <li><em>Prototype A</em> explored whether a bottom navigation bar or a side drawer would feel more natural to users completing multi-step tasks on a mobile device.</li>
+  <li><em>Prototype B</em> tested whether displaying item counts on navigation tabs helped or confused users when tasks were time-sensitive.</li>
+  <li><em>Prototype C</em> examined whether a wizard-style sequential form was preferable to a single long scrolling form for users completing a complex registration process.</li>
+</ul>
+
+<p>Framing each prototype as an answer to a design question — essentially a hypothesis test — shows that your prototyping was purposeful and intellectually disciplined, not simply "making something to look at."</p>
+
+<p>Also document any <strong>informal feedback gathered during the lo-fi phase</strong>. This feedback might come from a quick hallway test, a five-minute desk critique with a colleague outside the project, or a brief walkthrough with one or two representative users. Even if no formal usability study was conducted at this stage, informal responses are data. Record:</p>
+
+<ul>
+  <li>Who provided the feedback (a team member, a potential user, a subject-matter expert) and in what context</li>
+  <li>What the feedback was — specific observations, confusions, or positive reactions — not just a general impression</li>
+  <li>How the feedback influenced subsequent design decisions</li>
+</ul>
+
+<p>For instance: <em>"When shown Prototype B, two colleagues who fit the primary user persona both attempted to click the tab count badges, expecting them to filter results. This unintended affordance prompted us to either make the badges interactive or remove them entirely, which we addressed in the next iteration."</em> That kind of specific, actionable documentation demonstrates genuine responsiveness to evidence.</p>
+
+<p><strong>Documenting Design Rationale</strong></p>
+
+<p>Design rationale is the explicit explanation of <em>why</em> a design decision was made — the reasoning that connects a design choice to the values, evidence, or principles that justified it. It is arguably the most intellectually demanding aspect of process documentation, because it requires designers to step back from what they built and articulate the logic that drove each significant choice.</p>
+
+<p>A foundational rule is: <strong>every significant design decision should be accompanied by a stated rationale</strong>. "Significant" does not mean every pixel; it means any decision that meaningfully affected the user's experience, the system's architecture, or the project's scope. Decisions about navigation structure, information hierarchy, input mechanisms, feedback modalities, error handling approaches, colour and typography systems, and interaction patterns all warrant rationale. Decisions about exact padding values or specific icon choices generally do not — unless they were the subject of deliberate experimentation or user feedback.</p>
+
+<p>Rationale should be grounded in one or more of the following sources of authority:</p>
+
+<ul>
+  <li><strong>User research findings:</strong> Decisions justified by what was learned about users in interviews, observations, surveys, or usability tests carry the strongest empirical weight. For example: "We placed the 'Save' action in the top-right corner of the form because three of five interview participants looked there instinctively when asked where they expected to save their work."</li>
+  <li><strong>HCI principles and guidelines:</strong> Well-established frameworks — Nielsen's ten usability heuristics, Fitts's Law, the Gestalt principles of visual grouping, WCAG accessibility guidelines, or platform-specific design systems — provide principled, peer-reviewed justifications for many common decisions. For example: "Consistent with Nielsen's heuristic of visibility of system status, we added a progress indicator to the file upload component so users always know whether their upload is pending, in progress, or complete."</li>
+  <li><strong>Both in combination:</strong> The strongest rationale often combines empirical and principled justifications. For example: "Consistent with the principle of recognition over recall (Molich &amp; Nielsen, 1990), and supported by our observation that users in contextual inquiry rarely used keyboard shortcuts, we prioritised visible action buttons over a command-line interaction model."</li>
+</ul>
+
+<p>A common failure in design documentation is describing <em>what</em> was designed without explaining <em>why</em>. Compare these two approaches:</p>
+
+<ul>
+  <li><strong>Insufficient:</strong> "The navigation bar is pinned to the bottom of the screen on mobile."</li>
+  <li><strong>Sufficient:</strong> "The navigation bar is pinned to the bottom of the screen on mobile because research by Hoober (2013) found that 49% of users hold their phone one-handed and operate it primarily with their thumb, making bottom-anchored controls significantly more reachable than top-anchored alternatives. This finding was reinforced during our lo-fi feedback session, where two participants instinctively swiped upward from the bottom of the screen when asked to navigate between sections."</li>
+</ul>
+
+<p>The second version gives an evaluator or stakeholder everything they need to understand, and if necessary challenge, the decision. That intellectual accountability is exactly what design rationale documentation is meant to provide.</p>
+
+<p><strong>Describing High-Fidelity Prototypes</strong></p>
+
+<p>High-fidelity (hi-fi) prototypes are detailed, interactive, or near-production-quality representations of the design — typically built using tools such as Figma, Adobe XD, Axure, InVision, or even coded front-end implementations in HTML/CSS/JavaScript. They are visually polished, use real or realistic content, and simulate core interactions closely enough that users can engage with them much as they would with a finished product.</p>
+
+<p>Documenting a hi-fi prototype begins with <strong>visual representation</strong>. Every key interface screen should be shown as an annotated screenshot. "Key" screens are those that represent distinct states of the interface: the landing or home view, the primary task flow, any modal dialogs or overlay panels, error states, empty states, and any screen that was the subject of a significant design decision or usability finding. Screenshots should be high resolution, cropped to remove distracting browser chrome unless that context is relevant, and presented at a size large enough to read labels and controls.</p>
+
+<p>Annotations on hi-fi screenshots serve a different purpose than those on lo-fi sketches. Where lo-fi annotations explain intent and uncertainty, hi-fi annotations explain <em>specific choices</em>: why a particular visual hierarchy was established, why a specific component (e.g., a toggle rather than a checkbox) was used for a given interaction, why content was arranged in the order it was, or how the design handles edge cases. Annotations should be numbered and cross-referenced in the report body so that a reader can move fluidly between the screenshot and its written explanation.</p>
+
+<p>One of the most analytically valuable sections of hi-fi documentation is a clear account of <strong>what changed between the lo-fi and hi-fi versions, and why</strong>. This comparison makes the design process legible. Changes might be structural (an entirely different navigation pattern), visual (a shift from a dark theme to a light one based on accessibility feedback), content-related (replacement of placeholder text with real microcopy informed by user testing), or interaction-related (changing a hover-triggered tooltip to a persistent inline label after testing showed hover was unreliable on touch devices). Each change should be linked explicitly to the evidence or reasoning that motivated it — a usability test finding, a heuristic evaluation, stakeholder feedback, or a technical constraint discovered during development.</p>
+
+<p>Documentation should also describe the <strong>tools and technologies used to create the hi-fi prototype</strong>, including:</p>
+
+<ul>
+  <li>The primary design and prototyping tool (e.g., Figma for visual design and clickable prototyping)</li>
+  <li>Any component libraries or design systems used or referenced (e.g., Google Material Design, Apple Human Interface Guidelines, a custom design system)</li>
+  <li>Any plugins or extensions that extended the tool's capabilities (e.g., a Figma plugin for generating realistic data)</li>
+  <li>If the prototype was coded rather than click-through: the languages and frameworks used (e.g., HTML5, CSS with a framework such as Bootstrap or Tailwind, JavaScript with React), the development environment, and any backend or API integrations that were simulated or partially implemented</li>
+  <li>The fidelity level of the prototype — whether it was a static click-through, a partially interactive prototype with some live components, or a fully functional front-end connected to real data</li>
+</ul>
+
+<p>Explaining the toolchain situates the prototype in a technical and methodological context, and helps readers understand what kinds of user testing the prototype was and was not capable of supporting.</p>
+
+<p><strong>Capturing Design Evolution</strong></p>
+
+<p>Design evolution documentation is the connective tissue of the entire process report: it shows how the design changed across iterations and, critically, <em>why</em> it changed. Without this narrative, a reader might encounter a polished hi-fi prototype and assume it emerged from a single inspired session — which would misrepresent both the design process and the value of the team's iterative work.</p>
+
+<p>The most effective way to communicate evolution is through a <strong>structured narrative or visual timeline</strong> that traces the design's progression. A timeline can be presented as a written chronology ("In the first iteration, we explored... In the second iteration, informed by feedback from... we changed..."), as a visual artefact (a horizontal or vertical timeline with thumbnail images of the design at each stage and brief annotations), or as a comparative table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Iteration</th>
+      <th>Key Design Features</th>
+      <th>Evidence / Feedback Received</th>
+      <th>Changes Made</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Lo-Fi v1</td>
+      <td>Top navigation bar; card grid layout; search in header</td>
+      <td>Hallway test: users missed the search bar; cards felt too dense on mobile</td>
+      <td>Moved search to a prominent floating action button; reduced cards per row on small screens</td>
+    </tr>
+    <tr>
+      <td>Lo-Fi v2</td>
+      <td>Floating search button; reduced card grid; larger tap targets</td>
+      <td>Informal feedback: floating button obscured content when scrolling</td>
+      <td>Replaced floating button with a persistent search bar at top; increased contrast on navigation</td>
+    </tr>
+    <tr>
+      <td>Hi-Fi v1</td>
+      <td>Persistent top search bar; two-column card grid; bottom tab navigation</td>
+      <td>Formative usability test: three of five users failed to find the filter function; colour contrast failed WCAG AA</td>
+      <td>Made filter controls visible in the search bar; revised colour palette to meet accessibility standards</td>
+    </tr>
+    <tr>
+      <td>Hi-Fi v2 (Final)</td>
+      <td>Search bar with integrated filter chips; accessible colour palette; refined typography scale</td>
+      <td>Final usability test: all five users completed primary tasks; no critical errors observed</td>
+      <td>Minor microcopy adjustments; added empty-state illustration for no-results scenario</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A table like this makes the relationship between evidence and action explicit and scannable. Readers can trace any specific design feature back through its history of change.</p>
+
+<p>The essential discipline in capturing design evolution is to <strong>explicitly link each design change to the evidence or feedback that motivated it</strong>. This linkage is what transforms a list of changes into a demonstration of rigorous, evidence-driven practice. The connection between cause (feedback, testing finding, heuristic violation) and effect (design change) should be stated directly, not left for the reader to infer. Phrases such as "in response to," "because our usability test revealed," "following the observation that," and "to address the heuristic violation identified by" are all useful signals that you are making this causal relationship explicit.</p>
+
+<p>Finally — and this is both a documentation principle and a reflection of genuine intellectual honesty — <strong>avoid presenting the design as if it emerged fully formed</strong>. A common temptation, especially when preparing a polished final report, is to narrate the process as a clean, linear journey from brief to solution. Real design work is messier: ideas are pursued and abandoned, assumptions are overturned by testing, technical constraints force rethinks, and team disagreements are resolved through compromise. Documenting this messiness — judiciously, with reflection rather than apology — is not a weakness. It is evidence that the team engaged seriously with the problem, took user feedback seriously, and treated the design as a hypothesis to be tested rather than a vision to be defended. Iteration is not a sign of failure; it is the mechanism by which design quality is achieved.</p>
+        <div class="notes"><strong>Notes</strong>The concept evaluation matrix and design evolution table are provided as illustrative examples — teams should adapt column headers and criteria to suit their specific project context. Encourage students to gather and retain artefacts (photographs of sketches, exported wireframes, version-controlled Figma files) throughout the project, since retrospective documentation from memory is significantly weaker than documentation compiled contemporaneously.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

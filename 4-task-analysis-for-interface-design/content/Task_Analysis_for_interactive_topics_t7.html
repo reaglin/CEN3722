@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applying Task Analysis to the Group Project</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 4 - Task Analysis for Interface Design</a></div>
+  <header>
+    <h1>Applying Task Analysis to the Group Project</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Applying Task Analysis to the Group Project</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Task analysis is not merely an academic exercise — it is a disciplined, collaborative process that transforms vague design intentions into structured, evidence-based understanding of what users actually do, think, and need. When a team undertakes task analysis together, the challenges multiply: different members observe different things, interpret data differently, and hold different mental models of the system being studied. A successful group project requires not only mastery of task analysis techniques but also explicit coordination strategies that keep the team's work coherent, consistent, and grounded in real user data. The sections below walk through each phase of the group task analysis process in depth, from agreeing on a primary user goal all the way through finalizing a polished, internally consistent document.</p>
+
+<p><strong>Identifying Your Project's Primary User Goal</strong></p>
+
+<p>The primary user goal is the foundation of the entire task analysis. Everything else — the hierarchical decomposition, the cognitive annotations, the design implications — flows from this single starting point. Getting it right is therefore not a formality but a genuine intellectual task that deserves careful team discussion before any data collection begins.</p>
+
+<p>The most important discipline here is expressing the goal <em>from the user's perspective as a desired outcome</em>, not from the designer's perspective as a system feature. Consider the difference between these two framings:</p>
+
+<ul>
+  <li><strong>System-centric (avoid):</strong> "Use the medication management module to log a new prescription."</li>
+  <li><strong>User-centric (preferred):</strong> "Ensure my current prescriptions are accurately recorded so I never miss a dose or take the wrong medication."</li>
+</ul>
+
+<p>The user-centric framing keeps the analysis honest. It reminds the team that intermediate steps — navigating menus, entering data fields, confirming entries — are instrumental, not intrinsically meaningful. Users do not care about clicking a button; they care about the outcome that button click produces. When the primary goal is expressed as an outcome the user genuinely wants, it becomes much easier later to evaluate whether a proposed design actually serves that goal.</p>
+
+<p>The goal also needs to be <em>complex enough to yield at least three levels of hierarchical decomposition</em>. A goal like "read a notification" is too shallow — it decomposes in one or two steps and stops. A goal like "plan and complete an international business trip within a corporate travel management system" has natural depth: planning involves booking flights, reserving hotels, and arranging ground transport; each of those involves searching, comparing, selecting, and confirming; confirming involves entering payment, agreeing to policy, and receiving confirmation. Three or more levels emerge naturally. If your team's proposed goal collapses into a flat list of four or five steps with no further decomposition, it is probably too narrow and should be broadened or reframed.</p>
+
+<p><em>Team agreement on the primary goal must happen early.</em> A common and costly mistake is for each team member to silently hold a slightly different understanding of what the project is about. One member may think the goal is about the booking process, another about expense reporting afterward. When these divergent assumptions surface during analysis — or worse, during document review — significant rework is required. A brief but formal goal-setting session, with explicit verbal agreement and a written record, prevents this. Use a simple agreement protocol: state the proposed goal, invite objections or alternative framings, discuss, and call for explicit consensus before moving on.</p>
+
+<p>Finally, <strong>document the rationale for the chosen goal</strong> as part of your scope statement. The rationale explains <em>why</em> this goal was selected over alternatives. For example: "We chose 'ensure prescriptions are accurately recorded' rather than 'log a new prescription' because our preliminary interviews revealed that users are motivated by medication safety outcomes, and the narrower framing would have excluded critical review and correction behaviors we observed." This rationale serves multiple purposes — it justifies the scope to any reader of the document, it guards against scope creep mid-project, and it provides a benchmark against which the final HTA can be evaluated.</p>
+
+<p><strong>Dividing Data Collection Responsibilities</strong></p>
+
+<p>Once the primary goal is agreed upon, the team must gather empirical data about how real users pursue that goal. This almost always involves some combination of observation sessions, think-aloud protocols, interviews, and contextual inquiry. With a team of several people, there is an opportunity to collect richer data than any individual could — but only if the division of labor is explicit and systematic.</p>
+
+<p><em>Assign specific participants or data sources to each team member before collection begins.</em> Do not leave this to chance or to whoever happens to be available. A clear assignment matrix eliminates duplication of effort and ensures coverage. For example:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Team Member</th>
+      <th>Assigned Participant(s)</th>
+      <th>Method</th>
+      <th>Scheduled Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Alex</td>
+      <td>Participant 1 (novice user, age 62)</td>
+      <td>Think-aloud observation</td>
+      <td>March 4</td>
+    </tr>
+    <tr>
+      <td>Jordan</td>
+      <td>Participant 2 (experienced user, pharmacy tech)</td>
+      <td>Semi-structured interview</td>
+      <td>March 5</td>
+    </tr>
+    <tr>
+      <td>Sam</td>
+      <td>Existing usability study reports (3 documents)</td>
+      <td>Document analysis</td>
+      <td>March 4–6</td>
+    </tr>
+    <tr>
+      <td>Riley</td>
+      <td>Participant 3 (caregiver managing family member's medications)</td>
+      <td>Contextual inquiry</td>
+      <td>March 6</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This kind of matrix makes responsibilities unambiguous and allows the team to track progress. It also helps ensure that the team is sampling across relevant user types — novice versus experienced, primary user versus proxy user — which will become important when distinguishing cognitive demands at different expertise levels during CTA integration.</p>
+
+<p>Consistency across data collection sessions is critical, and it is achieved through a <strong>shared observation guide or interview script</strong>. When each team member uses the same core set of questions and observation prompts, the resulting data is genuinely comparable. Without a shared guide, one member might probe deeply into error-recovery behaviors while another focuses entirely on the happy path; the resulting dataset has gaps that are hard to diagnose after the fact. A good shared guide includes: a warm-up introduction script, a set of core tasks for the participant to attempt, a list of follow-up probes (e.g., "Can you tell me what you were thinking when you paused there?"), and a structured note-taking template that prompts observers to record both actions and verbalizations.</p>
+
+<p>After initial data collection, the team should hold a structured <em>debrief session</em> before any individual analysis begins. Each member presents their key observations, surprises, and apparent gaps. This session serves several functions: it surfaces inconsistencies or contradictions across data sources early, it allows the team to identify whether any critical subtasks were not observed or asked about, and it builds shared understanding so that individual analysis in later phases is informed by the full dataset rather than just one member's slice. Common gaps to watch for include: what happens when something goes wrong, what users do to prepare before starting the main task, and what users do to verify that the task was completed correctly.</p>
+
+<p>All raw data — observation notes, interview transcripts, audio recordings, sketches, screenshots — must be stored in a <strong>shared location accessible to the full team</strong> from the moment it is collected. This is not just a logistical convenience; it is a scientific integrity requirement. Task analysis claims should be traceable to specific data points. If a team member leaves the project, or if the team needs to revisit a decision weeks later, the data must be available to everyone. Use a shared folder (cloud-based storage works well) with a clear, agreed-upon naming convention. Avoid keeping any data only on one person's local machine.</p>
+
+<p><strong>Building the HTA as a Team</strong></p>
+
+<p>Hierarchical Task Analysis (HTA) structures a complex goal into a hierarchy of tasks and subtasks, each decomposed until reaching a level of granularity appropriate for design analysis. Building this hierarchy collaboratively introduces both advantages — multiple perspectives, distributed cognitive load, richer coverage — and risks, particularly inconsistent decomposition depth, conflicting interpretations of task boundaries, and notational drift across sections authored by different people.</p>
+
+<p>The recommended approach is to <em>draft an initial task hierarchy individually before converging as a team</em>. Each team member independently produces their own draft HTA based on the collected data. This step might feel redundant, but it is essential: it forces every team member to engage seriously with the full task structure rather than passively accepting what emerges from group discussion. When the team then convenes to compare drafts, genuine differences in decomposition reveal real analytical questions — not just oversights — and the discussion is richer and more productive.</p>
+
+<p>During convergence, the team will encounter disagreements about task order or decomposition level. For example, one member might decompose "confirm prescription details" into three subtasks while another treats it as a single atomic step. <em>Resolve these disagreements by referencing collected user data, not personal intuition or convenience.</em> The correct question is always: "What did users actually do here?" If the observation data shows that users consistently pause, scan, and then actively correct entries at this step, it warrants decomposition. If users treat it as a single fluid action with no distinguishable sub-steps, it may be appropriately left as atomic. Data is the arbiter of disagreements, not seniority, not who speaks most confidently, and not the path of least resistance.</p>
+
+<p>Assign one team member as the <strong>document owner</strong> responsible for maintaining consistent notation throughout the HTA. HTA notation includes conventions such as numbering schemes (1, 1.1, 1.1.1), plan descriptions (specifying the order or conditions under which subtasks are performed), and the level at which decomposition stops. If different team members use different numbering schemes, describe plans in different formats, or decompose to wildly different levels of granularity in their sections, the resulting document is incoherent. The document owner does not need to author all sections, but they must review every section for notational consistency and have authority to request revisions.</p>
+
+<p>A well-formed HTA plan statement is worth illustrating. Consider a partial HTA for the goal "Ensure current prescriptions are accurately recorded":</p>
+
+<pre><code>0. Ensure current prescriptions are accurately recorded
+   Plan 0: Do 1, then 2, then 3. If error found at any point, do 4 before proceeding.
+   1. Gather prescription information
+      Plan 1: Do 1.1 and 1.2 in any order before doing 1.3.
+      1.1 Locate physical prescription or pharmacy record
+      1.2 Note dosage, frequency, and prescriber details
+      1.3 Confirm information with prescriber or pharmacist if unclear
+   2. Enter prescription into the system
+      Plan 2: Do 2.1, 2.2, 2.3, 2.4 in sequence.
+      2.1 Navigate to the medication entry screen
+      2.2 Search for the medication by name
+      2.3 Select correct medication and dosage form
+      2.4 Enter dosage schedule and start date
+   3. Verify the recorded entry
+      Plan 3: Do 3.1, then 3.2. If discrepancy found, do 4.
+      3.1 Review the saved entry on screen
+      3.2 Cross-check against the physical prescription
+   4. Correct an erroneous entry
+      Plan 4: Do 4.1, then 4.2, then return to step 3.
+      4.1 Locate and open the incorrect entry
+      4.2 Edit the erroneous field(s) and save
+</code></pre>
+
+<p>Note how plan statements specify sequencing, conditionality, and looping. This is what distinguishes HTA from a simple bulleted list — the plans carry the procedural logic of the task.</p>
+
+<p>Once the HTA is drafted and internally consistent, the team must <em>review the completed hierarchy against the original user goal</em> to confirm nothing critical is missing. Walk through the HTA as if you were a user and ask: "If someone followed every step described here, would they actually achieve the goal as we defined it?" Check specifically for missing error-handling paths, missing preparatory steps, and missing verification steps — these are the most commonly omitted elements in first-draft HTAs.</p>
+
+<p><strong>Integrating CTA Findings into the Document</strong></p>
+
+<p>Cognitive Task Analysis (CTA) goes beyond the observable sequence of actions to examine the mental processes underlying them: what knowledge users must draw on, what decisions they make, where uncertainty arises, and what expertise distinguishes novice from expert performance. Integrating CTA findings into the HTA document transforms a behavioral map into a cognitively rich analysis that directly informs interface design.</p>
+
+<p>The primary data sources for CTA in a group project are typically think-aloud transcripts and interview records. Begin by having every team member <em>review all transcripts</em> — not just their own — and mark any passage where a participant expresses uncertainty, describes a decision, reveals background knowledge they are applying, asks a question, makes an error and recovers, or describes a situation where they were unsure what to do next. Common linguistic signals include phrases like:</p>
+
+<ul>
+  <li>"I'm not sure if I should…"</li>
+  <li>"I usually do it this way, but I don't know if that's right…"</li>
+  <li>"I have to remember to…"</li>
+  <li>"Wait, I need to check…"</li>
+  <li>"I learned this the hard way…"</li>
+  <li>"Hmm, I'd have to look that up…"</li>
+</ul>
+
+<p>Each marked passage corresponds to a specific step in the HTA. The next step is to <em>annotate each relevant HTA step with the corresponding cognitive demand</em> identified in the data. These annotations should be concise but specific. A vague annotation like "users find this confusing" is not useful. A useful annotation looks like this:</p>
+
+<ul>
+  <li><strong>Step 2.3 – Select correct medication and dosage form:</strong> Novice users expressed uncertainty about the difference between brand-name and generic medication entries (3 of 4 novice participants verbalized confusion or selected the wrong entry on first attempt). Expert users (pharmacy technician) reported using a mental rule: "always search by generic name first." This knowledge gap is not supported by any on-screen cue.</li>
+</ul>
+
+<p>This annotation is grounded in data (specific participant counts, verbatim behavior description), identifies the nature of the cognitive demand (knowledge gap regarding classification), distinguishes expertise levels, and closes with an implicit design implication (the absence of an on-screen cue). That structure — <em>what was observed, in whom, what it reveals about cognition, and what is currently absent</em> — is the template for a strong CTA annotation.</p>
+
+<p>The distinction between <em>cognitive demands for novices versus experienced users</em> deserves particular attention. Many interface design failures stem from designing for the experienced user's mental model while ignoring the novice's. CTA annotations should explicitly tag each finding as primarily affecting novices, primarily affecting experts, or affecting both but for different reasons. For instance:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>HTA Step</th>
+      <th>Cognitive Demand</th>
+      <th>Primarily Affects</th>
+      <th>Evidence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1.3 – Confirm with prescriber if unclear</td>
+      <td>Decision: when is information "unclear enough" to warrant calling the prescriber?</td>
+      <td>Novices</td>
+      <td>P1, P3 did not know when to escalate; P2 (expert) had internalized clinical thresholds</td>
+    </tr>
+    <tr>
+      <td>2.2 – Search for medication by name</td>
+      <td>Recall: generic vs. brand name; spelling variation</td>
+      <td>Both (different reasons)</td>
+      <td>Novices struggled with generic names; experts struggled with spelling of uncommon drugs</td>
+    </tr>
+    <tr>
+      <td>3.1 – Review saved entry on screen</td>
+      <td>Attention management: knowing which fields are critical to verify</td>
+      <td>Novices</td>
+      <td>P1, P3 scanned all fields equally; P2 went directly to dosage and frequency fields</td>
+    </tr>
+    <tr>
+      <td>4.1 – Locate and open incorrect entry</td>
+      <td>Memory: recalling which entry was recently added to locate it for editing</td>
+      <td>All users</td>
+      <td>All participants had difficulty locating the entry they had just added after navigating away</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A crucial discipline: <em>CTA annotations must be grounded in collected data, not team assumptions about user cognition.</em> It is tempting, especially when data is sparse, to fill in gaps with the team's own intuitions — "users probably find the date format confusing" or "users likely don't know the difference between these two options." These assumptions may be correct, but they do not belong in the CTA section of an empirical task analysis document. If you lack data for a particular step, note the gap explicitly: "No think-aloud data was collected for this step; future user research should investigate whether users understand the distinction between X and Y." This honesty is more valuable — and more credible — than invented confidence.</p>
+
+<p><strong>Reviewing and Finalizing the Project Document</strong></p>
+
+<p>The final review phase is where a collection of individually competent sections becomes a coherent, professional document. Because different team members authored different sections, the review must be systematic and must check for both completeness and consistency.</p>
+
+<p>Begin with a <em>completeness check</em>. Verify that all required components are present. A complete task analysis project document typically contains:</p>
+
+<ul>
+  <li><strong>Scope statement:</strong> defines the primary user goal, the user population studied, the rationale for the chosen goal, and the boundaries of the analysis (what is and is not included)</li>
+  <li><strong>HTA diagram or structured outline:</strong> the full hierarchical decomposition with plan statements at each level</li>
+  <li><strong>CTA annotations:</strong> cognitive demand notes attached to relevant HTA steps, grounded in data, with expertise-level distinctions</li>
+  <li><strong>Design implications section:</strong> a set of specific, actionable recommendations derived from the task analysis findings</li>
+</ul>
+
+<p>If any of these components is missing or present only in skeletal form, the document is incomplete regardless of how well the present sections are written.</p>
+
+<p>Next, conduct a <em>consistency review</em>. Terminology and notation must be uniform across all sections regardless of who authored them. Common inconsistencies to check for:</p>
+
+<ul>
+  <li>The same task step referred to by different names in different sections (e.g., "confirm entry" in the HTA but "verify prescription" in the CTA annotations)</li>
+  <li>Numbering schemes that do not match between the HTA outline and references to steps in the CTA or design implications sections</li>
+  <li>Inconsistent use of technical terms (e.g., "task" versus "subtask" versus "step" used interchangeably without definition)</li>
+  <li>Different verb tenses or grammatical persons used to describe tasks in different sections</li>
+</ul>
+
+<p>A practical method: the document owner should do a single read-through specifically looking for terminology, and create a brief glossary or style note at the start of the document if needed.</p>
+
+<p>The design implications section requires its own focused review. <em>Every design implication must cite a specific task analysis finding as its source.</em> This is the link between analysis and design — the reason task analysis is worth doing. A design implication that cannot be traced to a specific finding is an opinion, not an evidence-based recommendation. Compare these two versions:</p>
+
+<ul>
+  <li><strong>Unsupported (avoid):</strong> "The interface should display the generic drug name prominently."</li>
+  <li><strong>Supported (preferred):</strong> "The interface should display the generic drug name prominently alongside the brand name during medication search (Step 2.2), because 3 of 4 novice participants either searched by brand name alone and failed to find the medication, or selected an incorrect entry due to brand/generic confusion (CTA annotation, Step 2.2)."</li>
+</ul>
+
+<p>The supported version gives a design reviewer everything they need: what to do, where it applies, why, and what the evidence basis is. It is also substantially more persuasive to stakeholders who might otherwise dismiss the recommendation as stylistic preference.</p>
+
+<p>Finally, proofread all task descriptions to ensure they are <em>written from the user's perspective using action verbs</em>. Task descriptions should describe what a user does, not what the system does, not what the designer intends, and not abstract states. Each task description should begin with a strong, specific action verb: <em>navigate, select, enter, review, confirm, locate, compare, decide</em>. Avoid passive constructions ("the form is completed"), vague nouns ("medication management"), and system-centric framings ("the system displays"). A quick pass through every task description — searching for any that do not begin with an action verb performed by the user — catches most of these problems efficiently.</p>
+
+<p>By the end of this review process, the team should have a document that any reader — including those unfamiliar with the project — could use to understand what users do, what mental demands those actions place on them, and what specific design changes would reduce friction, support novice users, and leverage the existing strengths of expert users. That is the goal of the entire exercise: not a document that demonstrates effort, but a document that generates genuine design insight from real evidence about real users.</p>
+        <div class="notes"><strong>Notes</strong>This topic covers the full applied workflow for a group task analysis project: goal-setting, data collection coordination, HTA construction, CTA integration, and final document review. Instructors may want to pair this with a rubric that maps directly to the five phase headings so students can self-assess before submission. The HTA code block example and the annotated tables are suitable for use as classroom templates.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

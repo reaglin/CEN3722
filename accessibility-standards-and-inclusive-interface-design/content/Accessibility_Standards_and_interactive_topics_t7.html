@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Applying Corrective Design Patterns</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Accessibility Standards and Inclusive Interface Design</a></div>
+  <header>
+    <h1>Applying Corrective Design Patterns</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Applying Corrective Design Patterns</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Corrective design patterns emerge from the recognition that accessibility cannot be retrofitted as an afterthought — it must be embedded in the structural and behavioral decisions made during component design. When an audit reveals barriers, the response is not simply to add an <code>aria-label</code> here or a color contrast fix there; it is to rethink the component from first principles, applying well-established patterns that address the needs of all users simultaneously. This topic examines the most critical corrective patterns across forms, navigation, modals, data visualization, and design workflows, explaining not just what to do but why each decision matters and how it works in practice.</p>
+
+<p><strong>Designing Accessible Form Components</strong></p>
+
+<p>Forms are among the most interaction-dense parts of any interface, and they are also among the most frequently inaccessible. The three most common failure categories — missing or improperly associated labels, unclear error handling, and ungrouped related controls — each have precise, well-tested solutions.</p>
+
+<p><strong>Persistently visible, programmatically associated labels</strong> are the foundation of any accessible form. A label that disappears (such as a placeholder used as the only label) leaves users with cognitive disabilities, memory challenges, or anyone who has begun filling in a form unable to recall what a field is for. The correct pattern uses a <code>&lt;label&gt;</code> element whose <code>for</code> attribute matches the <code>id</code> of its input. This creates both a visible text cue and a programmatic association that screen readers announce when the field receives focus.</p>
+
+<pre><code>&lt;!-- Correct: persistent label associated via for/id --&gt;
+&lt;label for="user-email"&gt;Email address&lt;/label&gt;
+&lt;input type="email" id="user-email" name="email" autocomplete="email"&gt;
+
+&lt;!-- Incorrect: placeholder as sole label --&gt;
+&lt;input type="email" placeholder="Email address"&gt;</code></pre>
+
+<p>Placeholders are permitted as supplementary hints — for example, showing an expected format like <em>name@example.com</em> — but they must never serve as the sole label. Their low contrast (browsers typically render them at around 40% opacity) and their disappearance on input both create barriers. An alternative for space-constrained designs is the floating label pattern, provided the label remains fully visible at all times and contrast requirements are met in both its resting and raised states.</p>
+
+<p><strong>Inline error messages</strong> must satisfy three criteria simultaneously: they must be specific, they must be spatially adjacent to the field in error, and they must be announced to users of assistive technology without requiring a page reload. Vague messages like "Invalid input" force users to guess what went wrong. Specific messages like "Password must be at least 8 characters and include one number" give users actionable information.</p>
+
+<p>Programmatic announcement is achieved by associating the error message with the field using <code>aria-describedby</code>, and by ensuring the error container has <code>role="alert"</code> or <code>aria-live="assertive"</code> so that when it is dynamically injected into the DOM, screen readers announce it immediately. The field itself should also receive <code>aria-invalid="true"</code> when it contains an error, signaling its state explicitly.</p>
+
+<pre><code>&lt;label for="username"&gt;Username&lt;/label&gt;
+&lt;input
+  type="text"
+  id="username"
+  name="username"
+  aria-describedby="username-error"
+  aria-invalid="true"
+&gt;
+&lt;span id="username-error" role="alert"&gt;
+  Username must be between 3 and 20 characters.
+&lt;/span&gt;</code></pre>
+
+<p>Placing the error visually below the field (rather than in a summary at the top of the form alone) ensures sighted users scanning down a form encounter the message precisely where it is relevant. A top-of-form summary can complement this pattern but should not replace it.</p>
+
+<p><strong>Grouping related inputs</strong> with <code>&lt;fieldset&gt;</code> and <code>&lt;legend&gt;</code> is essential for radio button sets, checkbox groups, and any cluster of inputs that share a common question or context. Without this grouping, a screen reader user who tabs to a radio button labeled "Yes" has no idea what question "Yes" answers. The <code>&lt;legend&gt;</code> element provides that context, and assistive technologies announce it together with the individual option label — for example, "Do you have a valid passport? Yes, radio button, 1 of 2."</p>
+
+<pre><code>&lt;fieldset&gt;
+  &lt;legend&gt;Preferred contact method&lt;/legend&gt;
+  &lt;label&gt;
+    &lt;input type="radio" name="contact" value="email"&gt; Email
+  &lt;/label&gt;
+  &lt;label&gt;
+    &lt;input type="radio" name="contact" value="phone"&gt; Phone
+  &lt;/label&gt;
+  &lt;label&gt;
+    &lt;input type="radio" name="contact" value="post"&gt; Post
+  &lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+
+<p>The fieldset/legend pattern is also appropriate for multi-part date fields, billing and shipping address sections, and any set of checkboxes representing options within a single category.</p>
+
+<p><strong>Accessible Navigation Patterns</strong></p>
+
+<p>Navigation is the skeleton of a website's information architecture, and its accessibility determines whether users can orient themselves and move freely through content. Three corrective patterns address the most common navigation failures.</p>
+
+<p><strong>The <code>&lt;nav&gt;</code> landmark</strong> is a semantic HTML5 element that identifies a region of the page as a navigation block. Screen reader users can jump directly to landmark regions using their assistive technology's shortcut keys, making landmarks a primary wayfinding tool. When a page contains more than one <code>&lt;nav&gt;</code> element — for example, a primary site navigation and a secondary breadcrumb trail — each must be distinguished with a descriptive <code>aria-label</code> attribute so that users can tell them apart in the landmarks list.</p>
+
+<pre><code>&lt;nav aria-label="Primary site navigation"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href="/home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/about"&gt;About&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/services"&gt;Services&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/contact"&gt;Contact&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;nav aria-label="Breadcrumb"&gt;
+  &lt;ol&gt;
+    &lt;li&gt;&lt;a href="/home"&gt;Home&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/services"&gt;Services&lt;/a&gt;&lt;/li&gt;
+    &lt;li aria-current="page"&gt;Web Design&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/nav&gt;</code></pre>
+
+<p><strong>Indicating the current page</strong> with <code>aria-current="page"</code> solves a problem that purely visual treatments — bold text, underlines, a different background color — cannot: they communicate location to sighted users but convey nothing to screen reader users. Adding <code>aria-current="page"</code> to the active link causes the assistive technology to announce it as the current page, giving non-visual users the same orientation information their sighted counterparts receive. Note that <code>aria-current</code> is not limited to navigation; it can take values like <code>step</code>, <code>date</code>, <code>time</code>, and <code>location</code> for other contextual uses.</p>
+
+<p><strong>Dropdown menus</strong> present significant keyboard accessibility challenges because their default HTML behavior — a list of links hidden behind a trigger — does not match the complex interaction models users expect. Two well-established ARIA patterns address this. The <em>disclosure pattern</em> is the simpler and more broadly appropriate choice for site navigation: a button element toggles the visibility of a nested list, and <code>aria-expanded</code> communicates the open or closed state. Arrow keys are not required; Tab and Shift+Tab navigate through items naturally. The <em>menu/menuitem</em> ARIA pattern — using <code>role="menu"</code> and <code>role="menuitem"</code> — is appropriate for application-style menus (such as a text editor's File menu) where arrow-key navigation is the expected convention. Applying the menu pattern to standard site navigation creates confusion because users familiar with website conventions expect Tab-based navigation, not arrow-key navigation.</p>
+
+<pre><code>&lt;!-- Disclosure pattern for site navigation dropdown --&gt;
+&lt;li&gt;
+  &lt;button aria-expanded="false" aria-controls="services-submenu"&gt;
+    Services
+  &lt;/button&gt;
+  &lt;ul id="services-submenu" hidden&gt;
+    &lt;li&gt;&lt;a href="/web-design"&gt;Web Design&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/development"&gt;Development&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="/seo"&gt;SEO&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/li&gt;</code></pre>
+
+<p>When the button is activated, JavaScript sets <code>aria-expanded="true"</code> and removes the <code>hidden</code> attribute. Pressing Escape should close the submenu and return focus to the trigger button.</p>
+
+<p><strong>Accessible Modals and Overlays</strong></p>
+
+<p>Modal dialogs are among the most technically demanding accessible components. When implemented incorrectly, they create focus traps in the wrong sense — keyboard users may be unable to reach the modal at all, or worse, may be trapped in background content while the modal is visually overlaid on top of it. The corrective pattern involves three precise focus management behaviors.</p>
+
+<p><strong>Moving focus into the modal on open</strong> ensures that keyboard users do not have to navigate backward through background content to reach the dialog. When a modal opens, focus should move immediately to the dialog container (using JavaScript's <code>focus()</code> method) or to the first interactive element within it, such as a close button or the first form field. The dialog container itself should carry <code>role="dialog"</code> and <code>aria-modal="true"</code>, and it should have an accessible name provided either by <code>aria-labelledby</code> pointing to the dialog's visible heading, or by <code>aria-label</code> if no visible heading exists.</p>
+
+<pre><code>&lt;div
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modal-title"
+  tabindex="-1"
+  id="confirm-dialog"
+&gt;
+  &lt;h2 id="modal-title"&gt;Confirm deletion&lt;/h2&gt;
+  &lt;p&gt;This action cannot be undone. Are you sure?&lt;/p&gt;
+  &lt;button id="modal-cancel"&gt;Cancel&lt;/button&gt;
+  &lt;button id="modal-confirm"&gt;Delete&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+
+<p><strong>Trapping focus within the modal</strong> prevents keyboard users from tabbing into the background content that is visually obscured. This is implemented in JavaScript by intercepting Tab and Shift+Tab key events, identifying all focusable elements within the dialog, and cycling focus back to the first element when Tab is pressed on the last, and to the last element when Shift+Tab is pressed on the first. The <code>aria-modal="true"</code> attribute additionally signals to some screen readers that content outside the dialog should be ignored, though this behavior is not universally implemented across all assistive technologies, making JavaScript-based focus trapping the more reliable primary mechanism.</p>
+
+<p><strong>Dismissing the modal with Escape and returning focus</strong> satisfies both keyboard user expectations (Escape is the universal convention for closing an overlay) and focus continuity. When a modal closes for any reason — via the Escape key, a Cancel button, or a successful form submission — focus must return to the element that triggered the modal's opening. If focus is instead dropped to the top of the page or to an arbitrary location, keyboard users lose their place in the page and must re-navigate to continue their task. The triggering element's reference should be stored before the modal opens so it can be targeted on close.</p>
+
+<pre><code>// Store the trigger before opening
+let triggerElement = null;
+
+function openModal(triggerBtn) {
+  triggerElement = triggerBtn;
+  const modal = document.getElementById('confirm-dialog');
+  modal.removeAttribute('hidden');
+  modal.focus();
+}
+
+function closeModal() {
+  const modal = document.getElementById('confirm-dialog');
+  modal.setAttribute('hidden', '');
+  if (triggerElement) {
+    triggerElement.focus();
+    triggerElement = null;
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeModal();
+});</code></pre>
+
+<p><strong>Accessible Data Visualization</strong></p>
+
+<p>Charts and graphs are powerful communication tools, but they are inherently visual artifacts. A bar chart rendered as an SVG or canvas element is, by default, invisible to screen readers and impenetrable to keyboard users. Corrective design patterns for data visualization do not require eliminating visual charts — they require ensuring that the information the chart conveys is also available through non-visual and non-color-dependent means.</p>
+
+<p><strong>Text summaries and accessible data tables</strong> are the most robust alternative representations. A text summary describes the key insight the chart is meant to communicate — for example, "Sales in Q3 exceeded Q2 by 22%, the largest quarter-over-quarter increase of the year." This is more useful than a mechanical description of every data point. An accessible data table provides the complete underlying dataset in a format that screen readers can navigate cell by cell. These alternatives can be provided visually alongside the chart, hidden visually but available to screen readers using a visually-hidden CSS class, or surfaced through a progressive disclosure mechanism such as a "View data table" toggle.</p>
+
+<pre><code>&lt;figure&gt;
+  &lt;!-- The chart itself --&gt;
+  &lt;img
+    src="quarterly-sales-chart.svg"
+    alt="Bar chart showing quarterly sales for 2024"
+    aria-describedby="sales-summary"
+  &gt;
+  &lt;figcaption id="sales-summary"&gt;
+    Q3 2024 sales reached $4.2M, a 22% increase over Q2. Q1 was the
+    lowest-performing quarter at $2.8M.
+  &lt;/figcaption&gt;
+
+  &lt;!-- Accessible data table --&gt;
+  &lt;table&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th scope="col"&gt;Quarter&lt;/th&gt;
+        &lt;th scope="col"&gt;Sales (USD)&lt;/th&gt;
+        &lt;th scope="col"&gt;Change from previous quarter&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;td&gt;Q1 2024&lt;/td&gt;&lt;td&gt;$2,800,000&lt;/td&gt;&lt;td&gt;—&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;Q2 2024&lt;/td&gt;&lt;td&gt;$3,440,000&lt;/td&gt;&lt;td&gt;+22.9%&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;Q3 2024&lt;/td&gt;&lt;td&gt;$4,200,000&lt;/td&gt;&lt;td&gt;+22.1%&lt;/td&gt;&lt;/tr&gt;
+      &lt;tr&gt;&lt;td&gt;Q4 2024&lt;/td&gt;&lt;td&gt;$3,900,000&lt;/td&gt;&lt;td&gt;−7.1%&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/figure&gt;</code></pre>
+
+<p><strong>Additional differentiators beyond color</strong> address the needs of users with color vision deficiency, who may represent 8% or more of the male population. Relying solely on a red line versus a green line to distinguish two data series in a line chart excludes these users entirely. The corrective pattern layers multiple redundant visual encodings: distinct line dash patterns (solid, dashed, dotted), distinct marker shapes (circle, square, triangle) at data points, and direct labeling of series at their endpoints. This approach benefits all users — it makes charts legible when printed in black and white, displayed on low-quality screens, or viewed in bright sunlight.</p>
+
+<p><strong>Keyboard navigation and screen reader exposure for interactive charts</strong> requires deliberate engineering. For SVG-based charts, individual data elements such as bars, points, or segments can receive <code>tabindex="0"</code>, <code>role="img"</code> or <code>role="graphics-symbol"</code>, and <code>aria-label</code> attributes that describe their value. For more complex interactive charts built with JavaScript visualization libraries, a custom keyboard interaction model must be implemented: arrow keys navigate between data points, Enter or Space activates a tooltip or detail view, and all data values are exposed programmatically so that when a chart element receives focus, the screen reader announces its category and value.</p>
+
+<p><strong>Iterating on Accessibility in Design Workflows</strong></p>
+
+<p>The most technically correct accessible component patterns will fail to produce an accessible product if the workflow that produces designs does not embed accessibility as a sustained concern. Corrective design at the component level must be matched by corrective process changes at the workflow level.</p>
+
+<p><strong>Including accessibility criteria in requirements and acceptance criteria from project inception</strong> shifts accessibility from a post-development audit to a pre-development specification. When a designer writes a requirement for a new form component, the requirement should specify that every input field must have a persistently visible label, error messages must use <code>aria-describedby</code>, and the component must pass WCAG 2.1 AA contrast ratios. When a developer completes a sprint ticket, the acceptance criteria should include these measurable accessibility outcomes, making them testable and non-negotiable rather than aspirational. This approach is sometimes called "shifting left" — moving accessibility consideration earlier in the development lifecycle where corrections are far less expensive.</p>
+
+<p><strong>Building and testing reusable design system components for accessibility</strong> multiplies the return on accessible design investment. If a modal component is built correctly once — with proper focus management, ARIA roles, keyboard dismissal, and the correct HTML structure — every team that pulls that component from the shared design system benefits from that investment automatically. Conversely, if an inaccessible modal is distributed through the design system, every team that uses it inherits its failures. Design system components should be treated as products with their own accessibility acceptance criteria, and they should be tested with actual assistive technologies (at minimum NVDA with Firefox, JAWS with Chrome, and VoiceOver with Safari) before being marked stable for use.</p>
+
+<p>The following table illustrates which assistive technology and browser combinations are most important to include in component testing:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Assistive Technology</th>
+      <th>Primary Browser</th>
+      <th>User Base</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NVDA</td>
+      <td>Firefox or Chrome</td>
+      <td>Windows screen reader users; free, widely used</td>
+    </tr>
+    <tr>
+      <td>JAWS</td>
+      <td>Chrome or Edge</td>
+      <td>Enterprise Windows screen reader users; market leader</td>
+    </tr>
+    <tr>
+      <td>VoiceOver</td>
+      <td>Safari (macOS / iOS)</td>
+      <td>Apple device users; critical for mobile coverage</td>
+    </tr>
+    <tr>
+      <td>TalkBack</td>
+      <td>Chrome (Android)</td>
+      <td>Android mobile screen reader users</td>
+    </tr>
+    <tr>
+      <td>Narrator</td>
+      <td>Edge</td>
+      <td>Windows users without third-party screen readers</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Regular accessibility checkpoints during design reviews</strong> prevent the accumulation of inaccessible decisions that become increasingly expensive to reverse as a project progresses. A single design review checkpoint at the end of a project — or worse, an audit after launch — discovers problems that may require fundamental redesign of components, markup structures, or interaction models. Embedding lightweight accessibility checks into every design critique and every pull request review normalizes accessibility as a quality dimension alongside visual polish and performance. Practical checkpoints can include: verifying that all new components have visible labels and focus indicators, confirming that color choices meet contrast requirements using a tool like the APCA or WCAG contrast algorithm, and reviewing any new interactive component against its corresponding ARIA Authoring Practices Guide pattern. These checks do not require an accessibility expert at every meeting — they require a shared checklist and a team culture that treats accessibility failures the same way it treats broken functionality: as a defect that must be fixed before shipping.</p>
+
+<p>The combined effect of these corrective patterns — accessible form components, well-structured navigation, properly managed modals, richly alternative data visualizations, and an accessibility-integrated workflow — is an interface that is genuinely usable by the widest possible range of people, and a codebase built on patterns that can be confidently reused and extended without reintroducing the same classes of barriers.</p>
+        <div class="notes"><strong>Notes</strong>The topic covers all five subtopic clusters from the outline: form components (labels, errors, grouping), navigation (nav landmark, aria-current, dropdowns), modals (focus on open, focus trap, Escape/return), data visualization (text alternatives, redundant encoding, keyboard/AT access), and workflow iteration (requirements, design systems, review checkpoints). Code examples use only valid, current HTML/ARIA patterns. The AT testing table is provided as a real HTML table. The disclosure vs. menu/menuitem distinction for dropdowns is included as it is a critical and commonly misapplied design decision.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

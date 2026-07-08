@@ -1,0 +1,152 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preparing for a Cognitive Walkthrough</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Cognitive Walkthrough Evaluation Method</a></div>
+  <header>
+    <h1>Preparing for a Cognitive Walkthrough</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Preparing for a Cognitive Walkthrough</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>A cognitive walkthrough is a structured usability inspection method in which evaluators simulate the step-by-step experience of a user attempting to complete a task through an interface. Unlike heuristic evaluation, which surveys an interface broadly against a checklist of design principles, the cognitive walkthrough focuses tightly on the moment-to-moment cognitive experience: what does the user notice, what do they understand, what action do they choose, and does the interface confirm that their action was correct? Because the entire validity of this method rests on accurately representing a real user's perspective, the preparation phase is not a formality — it is the foundation on which every subsequent judgment is built. Poorly prepared walkthroughs produce findings that reflect the evaluators' own expertise rather than the target users' experience, which can be just as misleading as having no evaluation at all. The preparation phase consists of four interconnected activities: defining the user profile, identifying the task sequences to be evaluated, gathering all required materials, and assembling the evaluation team.</p>
+
+<p>The <strong>user profile</strong> is a precise, written description of the person whose experience the evaluators will simulate during the walkthrough. It is not a vague audience label such as "general users" or "beginners." A useful user profile specifies at least three dimensions of the target user's background:</p>
+
+<ul>
+  <li><strong>Domain knowledge</strong> — What does the user know about the subject matter the interface addresses? A patient using a hospital appointment-booking system may have no clinical vocabulary. A nurse using the same system would have deep domain knowledge but might still be a novice with the specific software. Domain knowledge determines whether labels, terminology, and instructions will be meaningful or opaque to the user.</li>
+  <li><strong>Technical familiarity</strong> — What is the user's experience with technology in general and with this type of interface specifically? A user who has never used a mobile banking app will not automatically know that swiping left reveals hidden actions, even if that pattern is common to experienced smartphone users. Technical familiarity governs which interface conventions can be assumed and which must be made explicit.</li>
+  <li><strong>Motivation and context of use</strong> — Why is the user performing this task, and under what circumstances? A user who is anxious, rushed, or completing a task infrequently will approach the interface differently from a calm, experienced, daily user. Motivation affects risk tolerance, willingness to explore, and response to errors.</li>
+</ul>
+
+<p>The profile should be written down in a single, concrete document before the walkthrough begins. This matters because evaluators are almost always more expert than the users they are simulating. Without a written anchor, there is a well-documented tendency for evaluators to unconsciously drift back toward their own knowledge as they work through steps — a phenomenon sometimes called <em>expert creep</em>. For example, an evaluator who knows that the "hamburger" icon opens a navigation menu may automatically recognize it during the walkthrough without pausing to ask whether the simulated user would know that. A written profile that states "user has limited smartphone experience and has not encountered icon-only navigation menus" provides an explicit prompt to flag that step as a potential failure point.</p>
+
+<p>User profiles do not need to be invented from scratch. They can and should be drawn from existing design artifacts such as <strong>personas</strong> developed earlier in the design process, findings from contextual inquiry or interviews, usage analytics that characterize the primary user segment, or usability test recruitment screeners. When profiles are grounded in real user research, the walkthrough findings have greater ecological validity — they are more likely to predict actual difficulties real users will encounter.</p>
+
+<p>Once the user profile is established, the next preparation task is <strong>identifying the task sequences</strong> to be evaluated. A task sequence is a description of a goal the user wants to accomplish and the series of individual steps the evaluator will walk through to achieve it. Several principles govern the selection and formulation of good task sequences.</p>
+
+<ul>
+  <li><strong>Tasks must be written from the user's perspective, not in terms of interface controls.</strong> A task written as "click the Account Settings button, then select Notifications" is already prescribing the interface path and bypasses the central cognitive walkthrough question: would the user know to do that? The correct formulation is goal-oriented: "Turn off email notifications from the service." This framing forces evaluators to ask at each step whether the user would understand what to do next without being told.</li>
+  <li><strong>Each task must have a clearly defined starting point.</strong> Before the first step can be evaluated, the evaluator must know where the user begins — the home screen, a specific landing page, a point mid-workflow. Ambiguity about the starting point leads to inconsistent evaluations, particularly in team settings where different evaluators may begin from different states of the interface.</li>
+  <li><strong>Tasks should represent high-priority or high-frequency user goals.</strong> Because a cognitive walkthrough is time-intensive when done thoroughly, not every possible task can be evaluated. Priority should go to tasks that most users will attempt most often, tasks that involve the highest stakes if completed incorrectly (such as making a payment or deleting an account), and tasks that are new or redesigned and therefore most likely to contain unanticipated usability problems.</li>
+  <li><strong>Complex tasks must be decomposed into numbered sub-steps.</strong> For example, the goal "submit a support request" might decompose into: (1) locate the Help or Support section, (2) select the appropriate request category, (3) complete the required fields in the form, (4) attach any relevant files, (5) submit the form, (6) verify that a confirmation is received. Each numbered sub-step becomes a discrete unit of evaluation. This granularity is essential because a failure at step 2 may be entirely unrelated to and obscure a separate, independent failure at step 5.</li>
+</ul>
+
+<p><strong>Gathering required materials</strong> is the third preparation activity. It sounds procedural, but inadequate materials preparation is one of the most common reasons walkthroughs are conducted inconsistently or produce unreliable findings. The materials that must be assembled before the walkthrough begins include:</p>
+
+<ul>
+  <li><strong>A documentation template</strong> — This is a structured form or spreadsheet that evaluators complete for each sub-step of each task. At minimum, the template should capture the step being evaluated, the four standard cognitive walkthrough questions (discussed in later modules), the evaluator's judgment of success or failure at each question, and a written note explaining the reasoning. A standardized template ensures that findings from different tasks or different evaluators are recorded in comparable form and can be aggregated meaningfully afterward.</li>
+  <li><strong>All relevant interface screens or prototype states</strong> — The evaluator must be able to see or interact with every screen, modal, page, or state that the user would encounter during each task. If the prototype is incomplete and certain screens are missing, those steps cannot be evaluated. Attempting to evaluate from memory or imagination introduces exactly the kind of expert assumption the method is designed to eliminate.</li>
+  <li><strong>A firm rule against modifying the prototype during the walkthrough</strong> — When evaluators discover a problem during a walkthrough, there is sometimes an impulse to fix it immediately, especially if the design team is present. This must be resisted. Modifying the interface mid-evaluation changes the artifact being evaluated, which invalidates findings from subsequent steps and makes it impossible to reproduce the evaluation. Problems should be recorded and addressed after the walkthrough is complete.</li>
+  <li><strong>The written user profile, physically present</strong> — The user profile must be available as a reference document throughout the session, not merely reviewed once at the start. Evaluators should consult it at each step where there is any ambiguity about what the simulated user would or would not know.</li>
+</ul>
+
+<p>The fourth preparation activity is <strong>assembling the evaluation team</strong>. The cognitive walkthrough can be conducted by a single evaluator or by a team, and each approach has distinct characteristics.</p>
+
+<ul>
+  <li><strong>Solo evaluation</strong> is practical, efficient, and widely used in both academic and professional settings. A single evaluator can complete a walkthrough without the scheduling and coordination overhead of team assembly. Solo walkthroughs are particularly appropriate when time or resources are constrained, when the interface is relatively simple, or when the goal is a rapid preliminary check before more extensive evaluation. The limitation is that one person's interpretation of the user profile and the interface may miss issues that would surface in discussion with others.</li>
+  <li><strong>Team evaluation</strong> introduces deliberation at each step. When two or three evaluators work through a step together, disagreements about whether the simulated user would succeed are themselves informative — they reveal ambiguity in the interface that a single evaluator might resolve confidently (and incorrectly) in either direction. Discussion also tends to surface a wider range of potential user interpretations than any single evaluator would generate alone. The trade-off is time: team walkthroughs take significantly longer per step.</li>
+  <li><strong>Consistency of persona and task definition across evaluators</strong> is non-negotiable in team settings. If one evaluator interprets the user profile as a complete novice and another treats the user as moderately experienced, their findings will not be comparable. Before beginning, all team members should discuss and agree on the user profile's specific implications — for instance, explicitly agreeing on what conventions the simulated user would and would not recognize.</li>
+  <li><strong>Evaluator selection</strong> matters. Evaluators should have sufficient familiarity with usability principles to recognize and articulate failures, but they should not be the designers who built the interface being evaluated. Designers have intimate knowledge of the intended interaction model, which makes it extremely difficult for them to genuinely simulate a naive user's perspective. When a designer conducts a walkthrough of their own design, they tend to interpret ambiguous elements charitably based on their design intent rather than on what the interface actually communicates to an uninformed user.</li>
+</ul>
+
+<p>To make the relationships and decisions in the preparation phase concrete, the following table summarizes the key preparation components, the decisions required within each, and the consequences of inadequate preparation in that area:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Preparation Component</th>
+      <th>Key Decisions Required</th>
+      <th>Consequence of Inadequate Preparation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>User Profile</td>
+      <td>Specify domain knowledge, technical familiarity, motivation; ground in research or personas</td>
+      <td>Evaluators apply expert assumptions; real novice failures are overlooked</td>
+    </tr>
+    <tr>
+      <td>Task Sequences</td>
+      <td>Write goal-oriented tasks; define starting points; prioritize by frequency and stakes; decompose into numbered sub-steps</td>
+      <td>Evaluation path is prescribed rather than discovered; failures at individual steps are conflated</td>
+    </tr>
+    <tr>
+      <td>Required Materials</td>
+      <td>Prepare documentation template; assemble all interface screens; prohibit mid-session edits; keep user profile accessible</td>
+      <td>Findings are inconsistently recorded; evaluators fill gaps with imagination; problems are lost</td>
+    </tr>
+    <tr>
+      <td>Evaluation Team</td>
+      <td>Choose solo or team format; ensure shared user profile interpretation; select evaluators with usability knowledge but not product authorship</td>
+      <td>Inconsistent findings across evaluators; designer bias suppresses valid failure identification</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Taken together, these four preparation activities establish the controlled conditions under which a cognitive walkthrough can produce reliable, actionable findings. Each activity reinforces the others: a precise user profile makes task formulation more grounded, well-decomposed tasks make the documentation template more usable, available materials make consistent evaluation possible, and a properly assembled team ensures the user profile is applied with discipline throughout. Skipping or abbreviating any one of these activities does not merely reduce the quality of the findings in that area — it undermines the validity of the entire walkthrough, because the method's power depends on every evaluator, at every step, genuinely simulating the same, accurately characterized user.</p>
+        <div class="notes"><strong>Notes</strong>Covers the essential preparation steps required before beginning the walkthrough, including defining users, selecting tasks, and gathering materials.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

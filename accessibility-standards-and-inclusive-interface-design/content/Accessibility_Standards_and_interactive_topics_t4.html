@@ -1,0 +1,372 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Screen Reader Compatibility</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Accessibility Standards and Inclusive Interface Design</a></div>
+  <header>
+    <h1>Screen Reader Compatibility</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Screen Reader Compatibility</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Screen readers are software applications that interpret the content and structure of a web page and relay that information to users through synthesized speech or a refreshable Braille display. For users who are blind, have low vision, or have other disabilities that prevent them from reading visual content directly, screen readers are often the primary means of interacting with digital interfaces. Building screen reader compatible experiences is not simply a matter of legal compliance — it is a fundamental requirement of inclusive design. When a page is built without accessibility in mind, a screen reader user may encounter unlabeled buttons, images with no description, dynamic content changes that go completely unannounced, or entire sections of navigation that are impossible to locate efficiently. This topic examines the four pillars of screen reader compatibility in depth: semantic HTML and landmark roles, ARIA labels and descriptions, image and media accessibility, and dynamic content and live regions.</p>
+
+<p><strong>Semantic HTML and Landmark Roles</strong></p>
+
+<p>Every HTML element carries a certain amount of built-in meaning, and that meaning is exactly what screen readers depend on to describe a page to its user. When you write <code>&lt;button&gt;Submit&lt;/button&gt;</code>, the browser exposes that element to the accessibility tree with a role of <em>button</em> and a name of <em>Submit</em>. The screen reader then announces something like "Submit, button" and the user knows they can press Enter or Space to activate it. This built-in contract between native HTML elements and assistive technologies is called <strong>implicit ARIA semantics</strong>, and it is the most reliable foundation you can give any accessible interface.</p>
+
+<p>Native semantic elements carry implicit roles, states, and properties without any extra markup. Consider the following examples of elements and the roles they convey to the accessibility tree:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>HTML Element</th>
+      <th>Implicit ARIA Role</th>
+      <th>What a Screen Reader Announces</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>&lt;button&gt;</code></td>
+      <td>button</td>
+      <td>Element name, then "button"</td>
+    </tr>
+    <tr>
+      <td><code>&lt;nav&gt;</code></td>
+      <td>navigation</td>
+      <td>"Navigation" landmark</td>
+    </tr>
+    <tr>
+      <td><code>&lt;h1&gt;</code> through <code>&lt;h6&gt;</code></td>
+      <td>heading (with level)</td>
+      <td>Text content, then "heading level N"</td>
+    </tr>
+    <tr>
+      <td><code>&lt;main&gt;</code></td>
+      <td>main</td>
+      <td>"Main" landmark</td>
+    </tr>
+    <tr>
+      <td><code>&lt;header&gt;</code></td>
+      <td>banner (when top-level)</td>
+      <td>"Banner" landmark</td>
+    </tr>
+    <tr>
+      <td><code>&lt;footer&gt;</code></td>
+      <td>contentinfo (when top-level)</td>
+      <td>"Content information" landmark</td>
+    </tr>
+    <tr>
+      <td><code>&lt;aside&gt;</code></td>
+      <td>complementary</td>
+      <td>"Complementary" landmark</td>
+    </tr>
+    <tr>
+      <td><code>&lt;input type="checkbox"&gt;</code></td>
+      <td>checkbox</td>
+      <td>Label text, then "checkbox, checked/unchecked"</td>
+    </tr>
+    <tr>
+      <td><code>&lt;a href="..."&gt;</code></td>
+      <td>link</td>
+      <td>Link text, then "link"</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Landmark regions</strong> deserve special attention because they dramatically improve navigation efficiency for screen reader users. Most screen readers offer a keyboard shortcut that opens a list of all landmark regions on the page, letting the user jump directly to the section they want rather than tabbing through every element sequentially. The landmark elements — <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;aside&gt;</code>, <code>&lt;footer&gt;</code>, and <code>&lt;section&gt;</code> (when given an accessible name) — create a navigable map of the page. A well-structured page should have exactly one <code>&lt;main&gt;</code> landmark, a <code>&lt;header&gt;</code> containing site-wide branding and primary navigation, and <code>&lt;nav&gt;</code> elements wrapping every significant navigation menu. When multiple <code>&lt;nav&gt;</code> elements appear on the same page, each one should be given a distinct accessible name using <code>aria-label</code> so users can distinguish between "Primary navigation", "Breadcrumb navigation", and "Footer navigation" in the landmarks list.</p>
+
+<p>By contrast, generic container elements like <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> have no implicit role whatsoever. They are invisible to the semantic layer of the accessibility tree. A <code>&lt;div&gt;</code> styled to look like a button and given a click handler will behave like a button visually, but a screen reader will announce it as nothing more than a group or will skip it entirely. The user will have no way of knowing it is interactive. When you cannot use a native element, you must supply its semantics explicitly with ARIA roles and additional keyboard interaction support:</p>
+
+<pre><code>&lt;!-- Avoid: a div pretending to be a button --&gt;
+&lt;div class="btn" onclick="submitForm()"&gt;Submit&lt;/div&gt;
+
+&lt;!-- Better: a real button --&gt;
+&lt;button type="submit"&gt;Submit&lt;/button&gt;
+
+&lt;!-- Acceptable when a native element truly cannot be used --&gt;
+&lt;div role="button" tabindex="0"
+     onkeydown="handleKey(event)"
+     onclick="submitForm()"&gt;Submit&lt;/div&gt;
+</code></pre>
+
+<p>Note that even when you add <code>role="button"</code> and <code>tabindex="0"</code>, you still need to manually handle keyboard events — specifically pressing Enter and Space — because that behavior is built into native <code>&lt;button&gt;</code> elements but must be scripted for custom widgets. This is the core principle behind the accessibility community's maxim: <em>use the platform</em>. Native HTML semantics are free, reliable, and battle-tested across every screen reader and browser combination. Custom ARIA solutions require more code and more testing to achieve the same level of support.</p>
+
+<p>Heading hierarchy is another critical dimension of semantic structure. Screen reader users frequently navigate by jumping between headings using the H key (in NVDA or JAWS) or by pulling up a headings list, making headings a kind of table of contents for the page. Headings should form a logical outline: one <code>&lt;h1&gt;</code> per page representing the page's primary topic, followed by <code>&lt;h2&gt;</code> elements for major sections, <code>&lt;h3&gt;</code> for subsections, and so on. Skipping levels — for example going from <code>&lt;h2&gt;</code> directly to <code>&lt;h4&gt;</code> — creates a disorienting gap. Choosing heading levels based on visual size rather than document hierarchy is one of the most common accessibility mistakes on the web.</p>
+
+<p><strong>ARIA Labels and Descriptions</strong></p>
+
+<p>WAI-ARIA (Web Accessibility Initiative – Accessible Rich Internet Applications) provides a vocabulary of attributes that can supplement or override the information native HTML exposes to the accessibility tree. Three of the most important are <code>aria-label</code>, <code>aria-describedby</code>, and <code>aria-labelledby</code>. Understanding when and how to use each one is essential for building interfaces that communicate clearly to screen reader users.</p>
+
+<p><strong><code>aria-label</code></strong> provides an accessible name for an element as a plain string. When present, it completely overrides whatever the element's visible text content or associated label would otherwise convey. It is most useful for interactive elements that have no visible text label, such as icon-only buttons:</p>
+
+<pre><code>&lt;!-- An icon button with no visible text label --&gt;
+&lt;button aria-label="Close dialog"&gt;
+  &lt;svg aria-hidden="true" focusable="false"&gt;...&lt;/svg&gt;
+&lt;/button&gt;
+</code></pre>
+
+<p>Here, the SVG icon is marked <code>aria-hidden="true"</code> to prevent the screen reader from attempting to interpret its internal markup, while the <code>aria-label</code> on the button provides the accessible name "Close dialog". Without either attribute, the button might be announced as simply "button" with no name at all, leaving the user with no idea what it does. Use <code>aria-label</code> sparingly — it creates a disconnect between the visible interface and what is announced, which can be confusing for users of voice control software who try to activate elements by speaking their visible names.</p>
+
+<p><strong><code>aria-labelledby</code></strong> associates an element with one or more other elements whose text content forms the accessible name. Unlike <code>aria-label</code>, the name comes from the actual visible text of the referenced elements, which keeps the accessible name synchronized with what all users see:</p>
+
+<pre><code>&lt;h2 id="billing-heading"&gt;Billing Address&lt;/h2&gt;
+&lt;form aria-labelledby="billing-heading"&gt;
+  ...
+&lt;/form&gt;
+
+&lt;!-- Multiple IDs are space-separated and concatenated --&gt;
+&lt;span id="qty-label"&gt;Quantity&lt;/span&gt;
+&lt;span id="product-name"&gt;Blue Widget&lt;/span&gt;
+&lt;input type="number"
+       aria-labelledby="qty-label product-name"
+       value="1" /&gt;
+&lt;!-- Announced as: "Quantity Blue Widget, spin button" --&gt;
+</code></pre>
+
+<p><code>aria-labelledby</code> can reference any element on the page, even elements that are not visually near the widget being labeled, and it takes precedence over both the native label mechanism and <code>aria-label</code> in the accessible name computation hierarchy.</p>
+
+<p><strong><code>aria-describedby</code></strong> works similarly but serves a different purpose: it links an element to supplementary descriptive text that provides context rather than naming the element. After announcing the element's name and role, the screen reader will pause briefly and then read the description. This is ideal for things like form field instructions, password requirements, or error messages:</p>
+
+<pre><code>&lt;label for="email"&gt;Email address&lt;/label&gt;
+&lt;input type="email" id="email"
+       aria-describedby="email-hint email-error" /&gt;
+&lt;p id="email-hint"&gt;We will never share your email with third parties.&lt;/p&gt;
+&lt;p id="email-error" role="alert"&gt;Please enter a valid email address.&lt;/p&gt;
+&lt;!-- Announced as: "Email address, edit text. We will never share your
+     email with third parties. Please enter a valid email address." --&gt;
+</code></pre>
+
+<p>A common mistake is over-using <code>aria-describedby</code> to repeat information already conveyed visually in the label, which leads to verbose and redundant announcements. Reserve it for genuinely supplementary information. Another consideration is that descriptions are not always surfaced by screen readers unless the user explicitly requests them with certain key combinations, so critical information should be part of the label, not the description.</p>
+
+<p>The table below summarizes the key differences between these three attributes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Purpose</th>
+      <th>Source of Text</th>
+      <th>Priority in Name Computation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>aria-labelledby</code></td>
+      <td>Provides the accessible name from referenced elements</td>
+      <td>Text content of referenced DOM elements</td>
+      <td>Highest (overrides everything)</td>
+    </tr>
+    <tr>
+      <td><code>aria-label</code></td>
+      <td>Provides the accessible name as an inline string</td>
+      <td>Literal attribute value</td>
+      <td>Second (overrides native label)</td>
+    </tr>
+    <tr>
+      <td><code>aria-describedby</code></td>
+      <td>Provides supplementary description</td>
+      <td>Text content of referenced DOM elements</td>
+      <td>Does not affect name; announced separately</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Image and Media Accessibility</strong></p>
+
+<p>Images and multimedia content present a fundamental accessibility challenge: they are inherently visual or auditory, and screen reader users need textual equivalents to access the information they contain. The correct approach depends entirely on whether an image or piece of media is <em>informative</em> — conveying meaning essential to understanding the content — or <em>decorative</em> — present only for visual aesthetics.</p>
+
+<p><strong>Informative images</strong> require alternative text written into the <code>alt</code> attribute of the <code>&lt;img&gt;</code> element. Good alt text is not a description of the image as a photograph — it is a textual equivalent of the information the image communicates in context. Consider a graph showing quarterly revenue growth. The alt text should not say "A bar chart in blue and gray." It should convey the actual data, for example: "Bar chart showing quarterly revenue: Q1 $1.2M, Q2 $1.5M, Q3 $1.8M, Q4 $2.1M — consistent growth throughout the year." If a longer explanation is required, the image can be linked to a separate description using <code>aria-describedby</code> or a visible long description nearby.</p>
+
+<pre><code>&lt;!-- Informative image with meaningful alt text --&gt;
+&lt;img src="revenue-chart.png"
+     alt="Bar chart showing quarterly revenue growth from $1.2M in Q1
+          to $2.1M in Q4 of the current fiscal year." /&gt;
+
+&lt;!-- Image used as a functional link -- alt describes the destination --&gt;
+&lt;a href="/home"&gt;
+  &lt;img src="logo.png" alt="Acme Corporation homepage" /&gt;
+&lt;/a&gt;
+</code></pre>
+
+<p><strong>Decorative images</strong> should use an explicitly empty <code>alt</code> attribute: <code>alt=""</code>. This signals to the screen reader that the image carries no meaningful information and should be skipped entirely. Omitting the <code>alt</code> attribute entirely is different — when <code>alt</code> is absent, some screen readers will announce the image's filename, which is often a long, meaningless string that disrupts the reading experience. Never omit <code>alt</code>; always make a deliberate choice between descriptive text and an empty string.</p>
+
+<pre><code>&lt;!-- Decorative image: empty alt tells screen readers to skip it --&gt;
+&lt;img src="decorative-swirl.png" alt="" /&gt;
+
+&lt;!-- Decorative SVG inline -- aria-hidden removes it from the tree --&gt;
+&lt;svg aria-hidden="true" focusable="false"&gt;...&lt;/svg&gt;
+</code></pre>
+
+<p>For complex images like charts, diagrams, maps, and infographics, the brief alt attribute alone is often insufficient. Several patterns exist for providing extended descriptions:</p>
+
+<ul>
+  <li><strong>Visible caption or adjacent text:</strong> Place a full description in the surrounding prose and reference it in the alt text, e.g., <code>alt="See the table below for full data."</code></li>
+  <li><strong><code>aria-describedby</code> pointing to a details element:</strong> Link the image to a collapsible <code>&lt;details&gt;</code> block containing the long description.</li>
+  <li><strong>Figcaption:</strong> Wrap the image in a <code>&lt;figure&gt;</code> element and use <code>&lt;figcaption&gt;</code> for a visible description that all users can see.</li>
+</ul>
+
+<p><strong>Video and audio content</strong> require their own set of equivalents. Synchronized <strong>captions</strong> (closed captions or subtitles for the deaf and hard of hearing) must be provided for all prerecorded video content that contains dialogue or other meaningful audio. Captions are a text track — a WebVTT file typically — that displays the spoken words and important non-speech sounds (like "[applause]" or "[telephone ringing]") synchronized with the video timeline. In HTML5, captions are added with the <code>&lt;track&gt;</code> element:</p>
+
+<pre><code>&lt;video controls&gt;
+  &lt;source src="tutorial.mp4" type="video/mp4" /&gt;
+  &lt;track kind="captions"
+         src="tutorial-captions.vtt"
+         srclang="en"
+         label="English captions"
+         default /&gt;
+&lt;/video&gt;
+</code></pre>
+
+<p><strong>Audio descriptions</strong> are an additional narration track that describes visual information not conveyed through the primary audio — for example, a presenter writing on a whiteboard that viewers can see but listeners cannot. Audio descriptions are required under WCAG 2.1 Success Criterion 1.2.5 for prerecorded video at Level AA. For live video content, captions are required at the same level (SC 1.2.4). A transcript — a text document containing all spoken content plus descriptions of meaningful visuals — is a supplementary form of access that benefits screen reader users as well as users who prefer to read or search through content.</p>
+
+<p><strong>Dynamic Content and Live Regions</strong></p>
+
+<p>Traditional web pages load once and stay static. Screen readers can read through the rendered content in a predictable linear fashion. Modern web applications, however, are highly dynamic: content loads asynchronously, notifications appear and disappear, form validation errors are injected into the DOM, chat messages arrive in real time, and shopping cart counts update without any page navigation. When these changes happen outside the user's current focus, screen reader users have no way of knowing anything changed — unless the interface explicitly tells the assistive technology about the update. This is the problem that <strong>ARIA live regions</strong> solve.</p>
+
+<p>An ARIA live region is any element marked with the <code>aria-live</code> attribute or given one of the implicit live region roles. When content within a live region changes, the screen reader interrupts or queues an announcement of the new content, even though the user's keyboard focus has not moved to that element. The two primary values for <code>aria-live</code> reflect different levels of urgency:</p>
+
+<ul>
+  <li><strong><code>aria-live="polite"</code></strong> — The screen reader waits until the user finishes their current action or utterance before announcing the change. This is the correct choice for the vast majority of dynamic updates: search results loading, filtered list counts updating, progress notifications, and non-critical status messages.</li>
+  <li><strong><code>aria-live="assertive"</code></strong> — The screen reader interrupts whatever it is currently announcing to deliver the new content immediately. This should be reserved for genuinely critical, time-sensitive information — for example, a session timeout warning or a critical system error. Used indiscriminately, <code>assertive</code> creates a disruptive and hostile experience by constantly interrupting the user's reading flow.</li>
+</ul>
+
+<pre><code>&lt;!-- Status message region for form submission feedback --&gt;
+&lt;div role="status" aria-live="polite" aria-atomic="true"&gt;
+  &lt;!-- JavaScript will inject text here after form submission --&gt;
+&lt;/div&gt;
+
+&lt;!-- Alert region for critical errors --&gt;
+&lt;div role="alert" aria-live="assertive" aria-atomic="true"&gt;
+  &lt;!-- JavaScript will inject error text here when needed --&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>The <code>role="status"</code> and <code>role="alert"</code> roles are shorthand implicit live regions. <code>role="alert"</code> carries an implicit <code>aria-live="assertive"</code> and is appropriate for error messages. <code>role="status"</code> carries an implicit <code>aria-live="polite"</code> and suits success messages and status updates. The <code>aria-atomic="true"</code> attribute instructs the screen reader to announce the entire contents of the region when any part changes, rather than announcing only the changed node — this produces a more coherent announcement for messages assembled from multiple text nodes.</p>
+
+<p><strong>Status messages</strong> — confirmations like "Your message has been sent", "3 items match your search", or "Changes saved" — must be programmatically exposed. WCAG 2.1 Success Criterion 4.1.3 (Status Messages, Level AA) specifically requires that status messages be determinable through role or property so they can be announced without receiving keyboard focus. The key implementation pattern is to keep the live region element in the DOM at all times (even when empty) and inject or update its text content via JavaScript when the status changes. Injecting the region itself dynamically after the status is available is unreliable, because some screen readers register live regions only at page load:</p>
+
+<pre><code>&lt;!-- DO: Region is present in the DOM from the start --&gt;
+&lt;div id="status-msg" role="status" aria-live="polite"&gt;&lt;/div&gt;
+
+&lt;!-- JavaScript updates the content --&gt;
+&lt;script&gt;
+  function showStatus(message) {
+    document.getElementById('status-msg').textContent = message;
+  }
+  // After form submission:
+  showStatus('Your changes have been saved successfully.');
+&lt;/script&gt;
+
+&lt;!-- DON'T: Creating the element dynamically and inserting it --&gt;
+&lt;script&gt;
+  function showStatusBad(message) {
+    const div = document.createElement('div');
+    div.setAttribute('role', 'status');
+    div.setAttribute('aria-live', 'polite');
+    div.textContent = message;
+    document.body.appendChild(div); // Screen readers may miss this
+  }
+&lt;/script&gt;
+</code></pre>
+
+<p>Additional <code>aria-live</code> related attributes further refine announcement behavior:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Attribute</th>
+      <th>Values</th>
+      <th>Effect</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>aria-live</code></td>
+      <td><code>off</code>, <code>polite</code>, <code>assertive</code></td>
+      <td>Sets when changes are announced. <code>off</code> disables announcements.</td>
+    </tr>
+    <tr>
+      <td><code>aria-atomic</code></td>
+      <td><code>true</code>, <code>false</code></td>
+      <td>When <code>true</code>, the entire region is re-read on any change. When <code>false</code>, only changed nodes are announced.</td>
+    </tr>
+    <tr>
+      <td><code>aria-relevant</code></td>
+      <td><code>additions</code>, <code>removals</code>, <code>text</code>, <code>all</code></td>
+      <td>Specifies which types of DOM changes trigger an announcement. Defaults to <code>additions text</code>.</td>
+    </tr>
+    <tr>
+      <td><code>aria-busy</code></td>
+      <td><code>true</code>, <code>false</code></td>
+      <td>When <code>true</code>, tells the screen reader to wait before announcing changes in the region (useful during bulk DOM updates).</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A real-world example ties all these concepts together. Consider an email client built as a single-page application. The page should have a <code>&lt;header&gt;</code> landmark containing the application name and user account controls, a <code>&lt;nav&gt;</code> landmark with <code>aria-label="Mailbox folders"</code> for the sidebar, a <code>&lt;main&gt;</code> landmark for the message list, and a second <code>&lt;nav&gt;</code> with <code>aria-label="Message pagination"</code> for paging controls. Heading levels should reflect the hierarchy: the inbox name as an <code>&lt;h1&gt;</code>, each message thread subject as an <code>&lt;h2&gt;</code>. When the user sends a message, a <code>role="status"</code> region announces "Message sent." When the application detects an authentication failure, a <code>role="alert"</code> region announces "Session expired. Please log in again." Images used as contact avatars carry alt text with the contact's name, while purely decorative separator graphics use <code>alt=""</code>. Compose button icons carry <code>aria-label</code> values. Every custom dropdown menu built from <code>&lt;div&gt;</code> elements is given the ARIA menu role pattern with <code>role="menu"</code>, <code>role="menuitem"</code>, and appropriate keyboard interaction. This coherent application of all four areas of screen reader compatibility ensures that a user navigating entirely by keyboard and screen reader can accomplish the same tasks as any other user.</p>
+        <div class="notes"><strong>Notes</strong>The topic covers all four specified subtopic areas in depth with code examples, tables, and practical guidance. Includes WCAG references where relevant (SC 1.2.4, 1.2.5, 4.1.3). The closing real-world scenario synthesizes all concepts together.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

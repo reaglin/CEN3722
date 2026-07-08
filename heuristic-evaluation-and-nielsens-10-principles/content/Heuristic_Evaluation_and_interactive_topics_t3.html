@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Heuristic Evaluation Process</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Heuristic Evaluation and Nielsen&#39;s 10 Principles</a></div>
+  <header>
+    <h1>The Heuristic Evaluation Process</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>The Heuristic Evaluation Process</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Heuristic evaluation is one of the most widely used usability inspection methods in UX practice, but its value depends entirely on how rigorously it is conducted. Simply handing a list of heuristics to a team member and asking them to "look for problems" is not a heuristic evaluation — it is an informal review. A valid heuristic evaluation follows a deliberate, structured process that spans preparation, independent evaluation, systematic documentation, and thoughtful aggregation of findings. Each phase has specific requirements and rationale rooted in decades of usability research. Understanding why each step exists is just as important as knowing what to do, because it equips practitioners to adapt the process intelligently when constraints arise in real-world projects.</p>
+
+<p>The process unfolds across four interconnected phases: preparing for the evaluation, conducting the individual walkthrough, documenting usability problems, and determining the appropriate number of evaluators. Together these phases transform a set of heuristic principles into a structured, reproducible audit of an interface's usability.</p>
+
+<p><strong>Preparing for the Evaluation</strong></p>
+
+<p>Preparation is the foundation on which everything else rests. Evaluators who skip preparation tend to produce shallower findings because they lack the contextual knowledge needed to recognize when an interface is failing its intended users. Good preparation aligns the evaluation team around a common understanding of who the users are, what they are trying to accomplish, and exactly which parts of the interface are under examination.</p>
+
+<p>The first preparatory step is for evaluators to review any available <strong>personas or user profiles</strong>. A persona is a synthesized representation of a target user group — it captures goals, mental models, domain knowledge, technical literacy, and contextual constraints. When an evaluator internalizes a persona before beginning the walkthrough, they shift their perspective from "does this make sense to me?" to "does this make sense to the person who will actually use this product?" That shift is critical. A seasoned UX designer might intuitively understand an ambiguous icon, but a first-time user of the system might not. For example, if the interface is a clinical data entry tool for nurses with limited IT experience, an evaluator armed with that persona will flag jargon-heavy error messages that a technically fluent evaluator might overlook entirely.</p>
+
+<p>The second preparatory step is to <strong>define which interface sections or user flows are in scope</strong>. A large product might include dozens of screens, administrative panels, onboarding flows, and edge-case states. Attempting to evaluate everything in a single session leads to fatigue and uneven coverage. Instead, the team should explicitly agree on boundaries — for instance, "this evaluation covers the checkout flow from cart review through order confirmation, not the account settings or returns portal." Defining scope also prevents evaluators from spending disproportionate time on low-priority areas while high-risk flows receive only cursory attention.</p>
+
+<p>Third, the team should <strong>establish representative tasks or scenarios</strong> that will guide the walkthrough. A task scenario is a brief narrative that gives evaluators a realistic reason to interact with the interface, mirroring how real users would approach it. Rather than evaluating a screen in isolation by simply looking at it, evaluators follow a task path — for example: <em>"You are a new employee setting up direct deposit for the first time. Starting from the main dashboard, complete the direct deposit setup."</em> Scenarios anchor the evaluation in realistic use, making it far more likely that evaluators will encounter the usability problems users actually experience. Without scenarios, evaluators are prone to cherry-picking interesting screens rather than following the paths users are most likely to traverse.</p>
+
+<p>Finally, before the evaluation begins, all parties must <strong>agree on the version of the prototype or interface to be evaluated</strong>. This sounds obvious, but in active development environments, interfaces change rapidly. If one evaluator reviews version 1.3 of a prototype while another reviews version 1.4, their findings cannot be meaningfully aggregated — they are literally evaluating different artifacts. The team should agree on a specific build, file version, or URL, and that version should be frozen for the duration of the evaluation. This version control discipline ensures that findings are comparable and that any disagreement between evaluators reflects genuine differences in interpretation rather than differences in what was being examined.</p>
+
+<p><strong>Conducting the Individual Evaluation</strong></p>
+
+<p>Once preparation is complete, each evaluator conducts their individual walkthrough of the interface. The defining characteristic of this phase is that <strong>evaluators must work independently</strong>. This is not merely a logistical preference — it is a methodological requirement. When evaluators discuss findings in real time, a phenomenon called <strong>anchoring bias</strong> takes hold: the first opinion expressed exerts a disproportionate influence on subsequent judgments. If one evaluator declares a navigation menu confusing, others may unconsciously adopt that frame and fail to notice different, perhaps more serious, problems elsewhere. Independent evaluation preserves the diversity of perspective that makes multi-evaluator studies more powerful than single-evaluator reviews.</p>
+
+<p>The most effective approach is to conduct <strong>a minimum of two walkthroughs</strong> of the interface rather than one. The first walkthrough is deliberately <em>holistic</em> — the evaluator moves through the interface at a natural pace, following the agreed task scenarios, and forms an overall impression of the experience. This pass allows the evaluator to notice problems that only become apparent in context, such as a confusing flow that results from the accumulation of individually minor decisions. The second walkthrough is <em>heuristic-focused</em>: the evaluator returns to each screen or interaction step with the specific heuristics in hand, systematically asking whether each principle is upheld. This structured pass catches violations that might be missed when attention is distributed across the whole experience. The two-pass approach mirrors how experienced usability professionals actually work — they develop intuitive reactions first, then verify and categorize them analytically.</p>
+
+<p>During both passes, <strong>every identified problem must be documented with a reference to the heuristic it violates</strong>. This is what distinguishes a heuristic evaluation from a general critique. Linking each finding to a specific heuristic — such as Nielsen's <em>Visibility of System Status</em> or <em>Error Prevention</em> — grounds the finding in a principled framework rather than personal preference. It also makes the report more persuasive to stakeholders: a finding labeled "this violates Error Prevention because the system allows the user to delete records without any confirmation dialog" is far harder to dismiss as subjective opinion than "I think users might accidentally delete things."</p>
+
+<p>Evaluators should also <strong>note the specific location of each violation</strong> — the screen name, URL, component, or step in the task flow where the problem occurs. This serves two purposes. First, it allows the problem to be <em>reproduced</em> by another evaluator or by a developer who needs to understand exactly what needs to be fixed. Second, it enables <em>verification</em> — when findings are consolidated across evaluators, the team can confirm whether two evaluators flagged the same location (suggesting a high-priority issue) or different locations (suggesting broad coverage). A finding logged as "the error message is confusing" is nearly useless; a finding logged as "Step 3 of the registration flow, the inline error on the password field, violates Error Messages (Heuristic 9) because it states 'Invalid input' without specifying what format is required" is immediately actionable.</p>
+
+<p><strong>Documenting Usability Problems</strong></p>
+
+<p>Documentation is the tangible output of a heuristic evaluation, and its quality determines how useful the evaluation is to the design and development team. Poorly documented findings — vague, uncategorized, or lacking context — waste the effort invested in the walkthrough. Well-documented findings provide a clear, prioritized roadmap for design improvement.</p>
+
+<p>Each finding should <strong>reference the exact screen, component, or interaction step</strong> where the problem occurs. In a digital context this might mean specifying the page name, the modal dialog, the specific form field, or the state of the interface (e.g., "the error state of the login form, not the default empty state"). In a physical or hardware interface context, it might mean naming the specific panel, button, or display. This level of specificity eliminates ambiguity and allows any member of the team to navigate directly to the problem without interpretation.</p>
+
+<p>The <strong>problem description should explain what the violation is, not just that a violation exists</strong>. There is a meaningful difference between writing "Navigation is confusing" and writing "The secondary navigation disappears when the user scrolls past the page fold, violating the heuristic of Visibility of System Status, because users lose awareness of where they are in the site structure and have no persistent affordance to return to a top-level section." The latter tells the reader exactly what is happening, who is affected, and why it matters. A useful template for writing problem descriptions is: <em>[What happens] + [Why it is a problem for the user] + [Which heuristic it violates]</em>. This structure forces evaluators to articulate the reasoning behind their findings, which strengthens the analysis and makes it more resistant to pushback.</p>
+
+<p>Naming the <strong>specific heuristic violated</strong> is not bureaucratic formality — it provides a principled, theory-backed rationale for the finding. Heuristics like Nielsen's ten represent decades of accumulated knowledge about how people interact with interfaces. When a finding is anchored to one of these principles, the implicit argument is: "This is not my personal preference; this is a recognized pattern of human cognitive behavior that this interface fails to accommodate." That framing is significantly more influential in design discussions and stakeholder presentations than unaided opinion.</p>
+
+<p>Finally, <strong>including a recommended fix</strong> dramatically increases the actionability of the evaluation report. A finding that stops at problem identification is a diagnosis without a prescription. Evaluators need not provide pixel-perfect design solutions — that is the designer's role — but they should offer principled direction. For example: "Consider adding a persistent breadcrumb trail so users can always see their location in the site hierarchy" or "A confirmation dialog with a clear description of the irreversible action and an explicit Cancel option would prevent accidental deletion." These recommendations give the design team a starting point and signal that the evaluator has thought through the problem beyond surface observation.</p>
+
+<p>A well-structured finding log might capture the following fields for each issue:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Example Entry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Finding ID</td>
+      <td>HE-014</td>
+    </tr>
+    <tr>
+      <td>Screen / Location</td>
+      <td>Checkout — Step 2: Shipping Address form</td>
+    </tr>
+    <tr>
+      <td>Heuristic Violated</td>
+      <td>H9: Help users recognize, diagnose, and recover from errors</td>
+    </tr>
+    <tr>
+      <td>Severity Rating</td>
+      <td>3 — Major usability problem</td>
+    </tr>
+    <tr>
+      <td>Problem Description</td>
+      <td>When the postal code field contains an invalid entry, the error message reads "Error: Field 22" with no explanation of what format is expected. Users cannot correct their input without guessing or abandoning the form.</td>
+    </tr>
+    <tr>
+      <td>Recommended Fix</td>
+      <td>Replace the error message with plain-language guidance, e.g., "Please enter a valid 5-digit ZIP code (e.g., 90210)." Display the message inline directly below the field.</td>
+    </tr>
+    <tr>
+      <td>Evaluator</td>
+      <td>Evaluator B</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Number of Evaluators</strong></p>
+
+<p>One of the most important practical decisions in planning a heuristic evaluation is determining how many evaluators to involve. Research by Jakob Nielsen and Rolf Molich established a clear empirical relationship between the number of evaluators and the proportion of usability problems found, and the findings are counterintuitive to many practitioners.</p>
+
+<p>A <strong>single evaluator finds only about one-third of all usability problems</strong> on average. This is a sobering statistic. It means that a solo review — however thorough — leaves approximately two-thirds of problems undiscovered. This happens for several reasons: individual blind spots, domain familiarity masking problems, cognitive fatigue, and the simple fact that different people interact with interfaces differently. No single person's mental model covers the full range of the target user population.</p>
+
+<p>The research consistently identifies <strong>three to five evaluators as the optimal range</strong> for cost-effectiveness. Within this range, problem coverage rises sharply with each additional evaluator because each person brings genuinely different experience, cognitive style, and areas of focus. Three evaluators collectively tend to find somewhere between 60 and 75 percent of usability problems — a substantial improvement over any single evaluator — without requiring a large investment of time or budget. Five evaluators push coverage further still, typically surfacing 75 to 85 percent of problems, at which point the cost-benefit ratio begins to decline.</p>
+
+<p>The mechanism behind this improvement is straightforward: <strong>each evaluator brings a unique perspective that collectively improves problem coverage</strong>. One evaluator might be particularly attuned to visual hierarchy issues; another might focus on interaction patterns; a third might catch language and labeling problems. These differences are not deficiencies — they are features of the method. The aggregation of diverse independent observations produces a richer and more complete picture of usability than any single perspective could provide.</p>
+
+<p>Beyond five evaluators, <strong>the returns diminish rapidly</strong>. A sixth evaluator tends to discover very few problems not already identified by the first five. A seventh discovers even fewer new problems. The cost of recruiting, briefing, and synthesizing the findings of additional evaluators begins to outweigh the marginal value of the incremental findings they surface. This relationship is often visualized as a curve that rises steeply from one to five evaluators and then flattens toward an asymptote. The practical implication is that organizations should resist the temptation to involve "everyone" in a heuristic evaluation — more evaluators past the five-person threshold does not meaningfully improve the evaluation; it simply increases overhead.</p>
+
+<p>The table below summarizes the approximate relationship between evaluator count and problem detection rate, based on Nielsen's research:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number of Evaluators</th>
+      <th>Approximate Problems Found (%)</th>
+      <th>Practical Implication</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>~35%</td>
+      <td>Insufficient for most projects; significant blind spots remain</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>~50–55%</td>
+      <td>Acceptable for very limited budgets; still misses roughly half of problems</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>~65–70%</td>
+      <td>Minimum recommended for meaningful coverage</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>~72–78%</td>
+      <td>Strong coverage; good balance of cost and thoroughness</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>~75–85%</td>
+      <td>Recommended upper bound for cost-effectiveness</td>
+    </tr>
+    <tr>
+      <td>6+</td>
+      <td>Marginal gains only</td>
+      <td>Diminishing returns; additional cost rarely justified</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Understanding this research also has an important implication for how heuristic evaluation fits within a broader UX strategy. Because even an optimal five-person evaluation leaves some problems undiscovered, heuristic evaluation works best as part of a multi-method approach — complemented by usability testing with real users, cognitive walkthroughs, or analytics review. Each method has different strengths, and together they provide far more comprehensive coverage than any single method alone. Heuristic evaluation is particularly valuable early in the design process because it is fast, inexpensive, and does not require recruiting participants — but it is not a substitute for observing real users interacting with the system.</p>
+        <div class="notes"><strong>Notes</strong>The severity rating scale referenced in the finding log table (0–4, where 3 = Major usability problem) follows Nielsen&#39;s standard severity rating system. Instructors may wish to pair this topic with a dedicated lesson on severity ratings to give learners a complete picture of the documentation process.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

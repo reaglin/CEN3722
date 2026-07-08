@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Severity Rating</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Heuristic Evaluation and Nielsen&#39;s 10 Principles</a></div>
+  <header>
+    <h1>Severity Rating</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Severity Rating</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When a usability evaluation concludes, the raw output is typically a long list of observed violations and problems. Without some way of distinguishing a catastrophic barrier from a minor cosmetic annoyance, that list is nearly useless to a product team that must decide how to spend limited development time. Severity ratings exist precisely to solve this problem. They transform an unordered pile of qualitative observations into a structured, prioritized action list that teams can act on immediately. Understanding how severity ratings work, what scale to use, which factors drive a rating up or down, and how to record ratings consistently is an essential skill for any usability evaluator.</p>
+
+<p><strong>Purpose of Severity Ratings</strong></p>
+
+<p>Severity ratings serve three distinct but closely related purposes, each of which addresses a real organizational need.</p>
+
+<p>First, they <strong>transform qualitative findings into a prioritized action list</strong>. A usability evaluation might surface thirty problems. Without ratings, a developer reading that list has no basis for deciding whether to start with the confusing checkout button label or the navigation structure that causes users to become completely lost. A severity rating attached to each finding immediately signals which problems demand attention now and which can wait for a later sprint. The list stops being a catalogue of complaints and becomes a ranked work queue.</p>
+
+<p>Second, they <strong>help stakeholders make informed trade-off decisions about fix sequencing</strong>. Product managers, engineers, and business owners constantly balance usability improvements against feature development, deadlines, and budget. A severity rating gives them the vocabulary and the evidence to have that conversation honestly. If a rating-4 showstopper is sitting on the list, a stakeholder cannot reasonably argue that it should wait while a cosmetic tweak gets prioritized. Conversely, a rating-1 issue may legitimately be deferred when development resources are stretched. Without ratings, these trade-offs are made on gut feeling or whoever argues most persuasively in a meeting.</p>
+
+<p>Third, severity ratings <strong>provide a shared language for communicating problem urgency across teams</strong>. Design, engineering, product management, and executive leadership all interpret urgency differently. A designer might consider a broken mental model catastrophic; a backend engineer might consider it trivial compared to a data-integrity bug. A numeric severity scale, grounded in defined criteria, creates a common reference point that all disciplines can use without needing to relitigate every problem's importance from scratch. When the report says "severity 4," everyone in the room understands what that means.</p>
+
+<p><strong>Nielsen's Severity Rating Scale</strong></p>
+
+<p>The most widely used severity scale in usability practice is Jakob Nielsen's five-point scale, numbered 0 through 4. Each level has a precise meaning, and applying the levels consistently is what makes the scale useful across evaluators, projects, and organizations.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rating</th>
+      <th>Label</th>
+      <th>Meaning</th>
+      <th>Recommended Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Not a usability problem</td>
+      <td>The evaluator flagged something worth noting, but on reflection it does not constitute an actual usability problem for real users.</td>
+      <td>No fix required; may be documented for awareness.</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Cosmetic problem</td>
+      <td>A minor issue that users will notice but that does not impede task completion in any meaningful way.</td>
+      <td>Fix only if time and resources allow; lowest priority.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Minor usability problem</td>
+      <td>A problem that slows users down or causes momentary confusion, but users can work around it or recover quickly.</td>
+      <td>Low priority; fix in a future release.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Major usability problem</td>
+      <td>A significant problem that meaningfully impairs task completion; users struggle, make errors, or need help to proceed.</td>
+      <td>High priority; important to fix before release.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Usability catastrophe</td>
+      <td>A showstopper that prevents users from completing a primary task entirely; a fundamental failure of the interface.</td>
+      <td>Imperative to fix before the product ships.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Rating 0</strong> deserves particular attention because its existence is counterintuitive. During an evaluation, an experienced evaluator will sometimes flag something that initially looks suspicious — an unusual layout choice, a non-standard interaction — but that upon deeper reflection is not actually problematic for users. Rating 0 gives evaluators a disciplined way to say "I looked at this carefully and it is not a real problem." It prevents the report from being inflated with false positives that would dilute the findings that actually matter.</p>
+
+<p><strong>Ratings 1 and 2</strong> cover the broad middle ground of cosmetic and minor issues. A rating-1 problem might be an icon that is slightly ambiguous but whose label text makes the intended action clear. A rating-2 problem might be a form validation message that appears in a location users do not immediately notice, causing a few seconds of confusion before they find and correct the error. Neither is urgent, but both are worth recording so they can be addressed when the team has capacity.</p>
+
+<p><strong>Rating 3</strong> is the threshold that separates issues the team can defer from issues that genuinely need pre-launch attention. A rating-3 problem significantly impairs task completion. For example, if users consistently fail to notice a required field during checkout and only discover the omission after attempting to submit the form — causing repeated errors and frustration — that is a major usability problem. Users can eventually complete the task, but the effort required is substantial and the experience is genuinely damaged.</p>
+
+<p><strong>Rating 4</strong> is reserved for true showstoppers: problems that completely block users from finishing a primary task. An example would be a broken link in the middle of a critical workflow that sends users to a 404 page with no path back, or a primary call-to-action button that is not keyboard-accessible, preventing assistive-technology users from proceeding at all. A rating-4 finding is non-negotiable — it must be resolved before the product reaches real users.</p>
+
+<p><strong>Factors Influencing Severity</strong></p>
+
+<p>Assigning a severity rating is not purely intuitive. Nielsen's framework identifies three factors that evaluators should weigh explicitly when deciding where a problem falls on the scale. Thinking through each factor forces a more defensible, consistent rating.</p>
+
+<p><strong>Frequency</strong> refers to how often users are expected to encounter the problem during normal use. A problem that occurs on the application's home screen — visited by virtually every user on every session — has a high frequency. A problem buried deep inside an administrative settings panel that most users never open has a low frequency. Frequency alone does not determine severity, but it is a strong multiplier: a moderately disruptive problem that affects every single user on every visit warrants a higher rating than an equally disruptive problem that only one percent of users will ever trigger.</p>
+
+<p><strong>Impact</strong> refers to how severely the problem disrupts the user's ability to complete their goal once they do encounter it. Impact can range from trivial (the user barely notices) to total (the user cannot proceed at all). A misleading button label that causes users to navigate to the wrong section, spend several minutes exploring there, and then backtrack represents very high impact. A slightly awkward hover state on a decorative element represents negligible impact. Evaluators should think about what actually happens to a representative user when they hit this problem — do they breeze past it, get annoyed and slow down, make a costly error, or give up entirely?</p>
+
+<p><strong>Persistence</strong> refers to whether the problem recurs every time the user encounters the trigger, or whether it can be avoided or worked around after the user has experienced it once. A persistent problem is one that catches users every time — for example, an ambiguous radio button group where the correct option is never self-evident, forcing guessing on every form submission. A one-time problem is one where users learn from their first encounter and thereafter navigate around it — for example, a misleading onboarding screen that users only see once and never revisit. Persistent problems earn higher severity ratings because the negative experience is repeated rather than absorbed and overcome.</p>
+
+<p>These three factors interact. Consider two examples:</p>
+
+<ul>
+  <li><strong>High frequency, high impact, persistent:</strong> The primary navigation menu collapses unexpectedly on tablet viewports, making categories unreachable. Every tablet user hits this on every visit, cannot complete browsing tasks, and the problem never goes away. This is almost certainly a rating 4.</li>
+  <li><strong>Low frequency, low impact, one-time:</strong> A tooltip on a rarely-visited data-export screen contains a slightly confusing explanation that users eventually parse correctly after re-reading. Most users never see it, the confusion resolves in seconds, and once understood it is not confusing again. This is likely a rating 1 or 2.</li>
+</ul>
+
+<p>When a violation is both frequent <em>and</em> high-impact, it will almost always receive a high severity rating regardless of persistence, because the combination of broad reach and serious disruption cannot be offset by the fact that some users might eventually adapt.</p>
+
+<p><strong>Assigning and Recording Ratings</strong></p>
+
+<p>The procedural discipline around when and how ratings are assigned matters as much as the scale itself. Without proper procedure, ratings can be contaminated by social influence, anchoring bias, or incomplete documentation — all of which undermine the credibility of the evaluation.</p>
+
+<p><strong>Severity ratings must be assigned before evaluators share or compare findings.</strong> This is the most important procedural rule. If evaluators discuss their findings first and then assign ratings, each evaluator's ratings are influenced by what others said. The result is not five independent professional assessments — it is one assessment with five people nodding along. Independent rating preserves the diagnostic value of aggregating multiple expert perspectives. When evaluators later compare ratings, differences reveal genuine ambiguity or complexity in the problem, which is itself informative.</p>
+
+<p><strong>Each rating should be justified with a brief rationale tied to frequency, impact, or persistence.</strong> A rating without a rationale is an assertion without evidence. The rationale does not need to be long — one or two sentences is usually sufficient — but it must connect the rating to the specific factors that drove it. For example: <em>"Rated 3 because the error message appears only in the page header, which is outside the user's visual focus during form completion; users in testing consistently missed it and resubmitted incorrect data multiple times (high frequency, high impact)."</em> This kind of documented reasoning makes the report auditable and helps developers understand the urgency without having to reproduce the problem themselves.</p>
+
+<p><strong>Rating disagreements between evaluators are opportunities to refine problem descriptions.</strong> When one evaluator rates a problem as a 2 and another rates it as a 4, the instinct may be to simply average the scores and move on. Resist this. The disagreement almost always indicates that the evaluators defined the problem differently, were thinking about different user populations, or weighted the three factors differently. Discussing the disagreement usually results in a more precisely stated problem description that clarifies exactly which scenario earns which rating — and that precision makes the final report much more actionable.</p>
+
+<p><strong>Final agreed ratings should be recorded alongside the problem description in the formal report.</strong> The report is the lasting artifact of the evaluation. Each entry in the findings section should include: a clear problem description, the specific heuristic or principle violated, an observed or hypothetical example of the problem occurring, the three-factor analysis (frequency, impact, persistence) where helpful, and the agreed severity rating. Embedding the rating directly in the record — rather than in a separate spreadsheet column — ensures that anyone reading the report sees the problem and its urgency together, without having to cross-reference multiple documents.</p>
+
+<p>Taken together, these practices produce a severity rating system that is rigorous, transparent, and practically useful. The ratings stop being subjective impressions and become documented, reasoned professional judgments that teams can trust when making difficult decisions about what to fix, when, and why.</p>
+        <div class="notes"><strong>Notes</strong>The table renders Nielsen&#39;s 0–4 scale clearly for quick reference. Instructors may wish to supplement with real-world examples from common web applications to make the frequency/impact/persistence triad more concrete. Encourage learners to practice rating the same set of problems independently before comparing, to experience firsthand how divergent ratings improve problem descriptions.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations of WCAG Guidelines</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Accessibility Standards and Inclusive Interface Design</a></div>
+  <header>
+    <h1>Foundations of WCAG Guidelines</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Foundations of WCAG Guidelines</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Accessibility in digital design is not a feature to be added at the end of a project — it is a foundational discipline that shapes how information is structured, presented, and interacted with from the very first design decision. At the center of this discipline sits a single authoritative framework: the Web Content Accessibility Guidelines, universally known as WCAG. Understanding what WCAG is, how it is organized, and how its principles translate into real design decisions is the essential starting point for any practitioner working in accessible digital product design.</p>
+
+<p><strong>What WCAG Is and Why It Matters</strong></p>
+
+<p>WCAG stands for <strong>Web Content Accessibility Guidelines</strong>, a set of technical standards produced and maintained by the <strong>World Wide Web Consortium (W3C)</strong> through its Web Accessibility Initiative (WAI). The W3C is the international body responsible for developing the core standards that govern how the web functions — from HTML to CSS to accessibility — making WCAG the most authoritative and globally recognized framework for accessible digital content.</p>
+
+<p>The guidelines were first published in 1999 (WCAG 1.0), significantly revised in 2008 (WCAG 2.0), incrementally updated in 2018 (WCAG 2.1 adding criteria for mobile and cognitive accessibility), and further refined in 2023 (WCAG 2.2). Each iteration has expanded coverage and sharpened precision without discarding prior guidance, meaning WCAG has accumulated over two decades of research, real-world testing, and community feedback.</p>
+
+<p>WCAG addresses accessibility across a <strong>broad spectrum of disabilities</strong>. It is a common misconception that accessibility primarily concerns users who are blind. In reality, WCAG covers:</p>
+
+<ul>
+  <li><strong>Visual impairments</strong> — including total blindness, low vision, color blindness, and photosensitive conditions such as epilepsy.</li>
+  <li><strong>Auditory impairments</strong> — including total deafness and hard-of-hearing conditions that affect the ability to consume audio content.</li>
+  <li><strong>Motor impairments</strong> — including conditions that limit fine motor control, making mouse use difficult or impossible, and requiring keyboard-only or switch-device navigation.</li>
+  <li><strong>Cognitive and neurological impairments</strong> — including dyslexia, attention deficit disorders, memory difficulties, autism spectrum conditions, and anxiety disorders that affect how users process, understand, and interact with content.</li>
+  <li><strong>Speech impairments</strong> — increasingly relevant as voice-activated interfaces become more prevalent.</li>
+</ul>
+
+<p>This breadth means that adhering to WCAG does not create a narrow, specialized product. It creates a product that works better for a much larger population than designers often assume. Estimates from the World Health Organization suggest that over one billion people worldwide live with some form of disability, and many more experience <em>situational</em> impairments — a parent holding a child with one hand, a user in bright sunlight who cannot read low-contrast text, or an office worker who cannot play audio in a shared workspace. Accessible design serves all of these users.</p>
+
+<p>Beyond the moral and user-experience arguments, WCAG adherence carries significant <strong>legal and business implications</strong>. Many governments have incorporated WCAG (particularly WCAG 2.1 Level AA) into law or regulation:</p>
+
+<ul>
+  <li>In the <strong>United States</strong>, the Americans with Disabilities Act (ADA) has been interpreted by courts to require accessible websites for covered entities, and Section 508 of the Rehabilitation Act mandates WCAG 2.0 Level AA compliance for federal agencies and their contractors.</li>
+  <li>In the <strong>European Union</strong>, the Web Accessibility Directive requires public sector bodies to meet WCAG 2.1 AA, and the European Accessibility Act extends requirements to many private sector digital products.</li>
+  <li>In the <strong>United Kingdom</strong>, the Public Sector Bodies Accessibility Regulations reference WCAG 2.1 AA explicitly.</li>
+  <li>Canada, Australia, and many other jurisdictions have adopted similar frameworks.</li>
+</ul>
+
+<p>Organizations that fail to meet these standards face legal liability, reputational damage, and the exclusion of a significant portion of their potential audience. Conversely, organizations that invest in accessibility report benefits including improved SEO (search engines are, in many ways, like assistive technologies — they rely on semantic markup and text alternatives), increased customer loyalty, and reduced support costs.</p>
+
+<p><strong>WCAG Conformance Levels: A, AA, and AAA</strong></p>
+
+<p>WCAG organizes its success criteria into three <strong>conformance levels</strong> — <strong>A</strong>, <strong>AA</strong>, and <strong>AAA</strong> — each representing a progressively higher degree of accessibility. These levels are cumulative: a product conforming to AA must also meet all Level A criteria, and a product conforming to AAA must meet all A, AA, and AAA criteria.</p>
+
+<p><strong>Level A</strong> represents the <em>minimum accessibility threshold</em>. These criteria address the most severe and fundamental barriers — things that would make content completely inaccessible to certain users if absent. Failing any Level A criterion means some users simply cannot access the content at all. Examples include providing text alternatives for all non-text content (images, icons, charts), ensuring that all functionality is operable via keyboard, and not designing content that flashes more than three times per second (which can trigger seizures in photosensitive users). Level A is the floor, not the goal.</p>
+
+<p><strong>Level AA</strong> is the <em>industry and legal standard</em> adopted by the vast majority of organizations. It includes all Level A requirements plus additional criteria that address significant barriers affecting a wide range of users. Level AA is what laws and regulations typically mandate, what accessibility auditors evaluate against, and what most organizations commit to in their accessibility policies. Examples of Level AA criteria include a minimum contrast ratio of 4.5:1 for normal text, visible focus indicators for keyboard navigation, captions for all pre-recorded audio content in synchronized media, and consistent navigation across a site. When practitioners talk about "making something accessible," they almost always mean achieving Level AA conformance.</p>
+
+<p><strong>Level AAA</strong> represents the <em>highest degree of accessibility</em> but is explicitly acknowledged by W3C as not being achievable or appropriate for all content. Some AAA criteria are simply too specialized or restrictive to apply universally. For example, Level AAA requires a contrast ratio of 7:1 (versus AA's 4.5:1), sign language interpretation for all pre-recorded audio content, and no timing requirements for any user interactions. The W3C does not recommend requiring AAA conformance as a blanket policy; instead, organizations should aim for AAA criteria where feasible and where the content or audience warrants it. For instance, a government health information site for elderly users might prioritize AAA reading level requirements (plain language), while an entertainment platform might not.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Description</th>
+      <th>Typical Requirement</th>
+      <th>Example Criterion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A</td>
+      <td>Minimum threshold; critical barriers removed</td>
+      <td>Baseline for all digital products</td>
+      <td>Text alternatives for all non-text content (1.1.1)</td>
+    </tr>
+    <tr>
+      <td>AA</td>
+      <td>Standard compliance; significant barriers removed</td>
+      <td>Required by most laws and regulations</td>
+      <td>Minimum contrast ratio of 4.5:1 for text (1.4.3)</td>
+    </tr>
+    <tr>
+      <td>AAA</td>
+      <td>Highest accessibility; specialized barriers removed</td>
+      <td>Aspirational; not universally required</td>
+      <td>Enhanced contrast ratio of 7:1 for text (1.4.6)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>The Four POUR Principles</strong></p>
+
+<p>All WCAG success criteria are organized under four overarching principles, collectively known by the acronym <strong>POUR</strong>: <strong>Perceivable</strong>, <strong>Operable</strong>, <strong>Understandable</strong>, and <strong>Robust</strong>. These principles do not themselves contain testable requirements — they are the conceptual architecture within which all specific criteria are grouped. Understanding POUR gives designers a mental model for diagnosing accessibility issues even when a specific criterion is not immediately recalled.</p>
+
+<p><strong>Perceivable</strong> means that all information and user interface components must be presentable to users in ways they can actually sense. If a user cannot perceive content — because it is conveyed only through a single sensory channel that the user lacks access to — that content fails the Perceivable principle. The key insight here is that <em>the same information must be available through multiple modalities</em>. A chart that communicates data only visually is not perceivable by a blind user using a screen reader. A video with only spoken narration and no captions is not perceivable by a deaf user. Practical implications for designers include:</p>
+
+<ul>
+  <li>Writing meaningful <strong>alt text</strong> for images so screen readers can convey the image's purpose or content.</li>
+  <li>Providing <strong>captions and transcripts</strong> for audio and video content.</li>
+  <li>Never using <strong>color alone</strong> to convey meaning (e.g., using both color and a label to distinguish form field errors).</li>
+  <li>Ensuring that content does not rely exclusively on <strong>visual formatting</strong> (such as bold or italics) to communicate semantic meaning.</li>
+  <li>Maintaining sufficient <strong>color contrast</strong> so that low-vision users can distinguish text from its background.</li>
+</ul>
+
+<p><strong>Operable</strong> means that all interface components and navigation must be usable regardless of how a user interacts with a device. Many users cannot use a mouse — they may rely on a keyboard, a switch device, an eye-tracking system, voice control software, or a refreshable Braille display. The Operable principle demands that every interaction a sighted mouse user can perform must also be achievable through alternative input methods. Practical implications include:</p>
+
+<ul>
+  <li><strong>Full keyboard accessibility</strong> — every button, link, form field, and interactive component must be reachable and activatable using only the keyboard (typically Tab, Enter, Space, and arrow keys).</li>
+  <li><strong>Visible focus indicators</strong> — keyboard users need to see which element currently has focus; hiding the browser's default focus outline without providing a custom replacement is a critical failure.</li>
+  <li><strong>No keyboard traps</strong> — users must be able to move focus into and out of any component (e.g., a modal dialog) without becoming stuck.</li>
+  <li><strong>Sufficient time</strong> — users who navigate slowly must not be timed out of sessions without warning and an opportunity to extend the session.</li>
+  <li><strong>Seizure safety</strong> — content must not flash more than three times per second.</li>
+  <li><strong>Skip navigation links</strong> — allowing keyboard users to bypass repetitive header and navigation content to reach the main content directly.</li>
+</ul>
+
+<p><strong>Understandable</strong> means that content and interface behavior must be clear, predictable, and forgiving. Even if a user can perceive and operate an interface, they may still fail to understand it due to complex language, inconsistent behavior, or unhelpful error handling. This principle is especially critical for users with cognitive disabilities, learning differences, or limited digital literacy, but it benefits all users. Practical implications include:</p>
+
+<ul>
+  <li><strong>Plain language</strong> — content should be written at an appropriate reading level, with technical jargon avoided or explained.</li>
+  <li><strong>Consistent navigation</strong> — menus, headers, and interactive patterns should appear in the same location and behave the same way across pages.</li>
+  <li><strong>Helpful error messages</strong> — when a form is submitted incorrectly, the error message should identify the specific field, explain what was wrong, and suggest how to fix it. "Error" alone is not sufficient.</li>
+  <li><strong>Labels and instructions</strong> — all form fields must be clearly labeled; fields with specific formatting requirements (e.g., a date field requiring MM/DD/YYYY) must communicate that format upfront.</li>
+  <li><strong>Predictable interactions</strong> — changing focus to a form field should not automatically submit a form or trigger a page navigation; such unexpected behaviors disorient users, particularly those using assistive technologies.</li>
+</ul>
+
+<p><strong>Robust</strong> means that content must be implemented in ways that can be reliably interpreted by a wide variety of user agents — including current and future browsers, operating systems, and assistive technologies such as screen readers (JAWS, NVDA, VoiceOver, TalkBack), voice control software (Dragon NaturallySpeaking), and Braille displays. The Robust principle is primarily a technical one, addressing the quality of the underlying code rather than the visual design. Practical implications include:</p>
+
+<ul>
+  <li><strong>Valid, well-formed markup</strong> — HTML should conform to the specification; elements must be properly opened and closed, and attributes must not be duplicated, so that assistive technologies can parse the document correctly.</li>
+  <li><strong>Semantic HTML</strong> — using the correct HTML element for its intended purpose (a <code>&lt;button&gt;</code> for a button, an <code>&lt;a&gt;</code> for a link, heading elements in correct hierarchical order) ensures that assistive technologies understand the role and purpose of each element.</li>
+  <li><strong>ARIA (Accessible Rich Internet Applications)</strong> — where native HTML semantics are insufficient for complex components (e.g., a custom dropdown menu, a tab panel, or a data grid), ARIA attributes provide assistive technologies with the roles, states, and properties needed to convey the component's behavior. The first rule of ARIA is to use native HTML when it exists.</li>
+  <li><strong>Name, Role, and Value</strong> — every user interface component must expose its accessible name (what it is called), its role (what type of component it is), and its current state or value (whether a checkbox is checked, whether a menu is expanded) to assistive technologies.</li>
+</ul>
+
+<p><strong>Applying WCAG Success Criteria</strong></p>
+
+<p>WCAG success criteria are the specific, testable statements within each POUR principle. They are intentionally written as <strong>pass/fail statements</strong> that can be objectively evaluated — either a criterion is met or it is not. This distinguishes them from the broader POUR principles and from WCAG's supplementary advisory techniques, which are recommendations rather than requirements. Each criterion is assigned a conformance level (A, AA, or AAA) that reflects its relative priority and the severity of the barrier it addresses.</p>
+
+<p>For example, Success Criterion 1.4.3 (Contrast — Minimum) at Level AA states: <em>"The visual presentation of text and images of text has a contrast ratio of at least 4.5:1."</em> This is testable: a designer can measure the contrast ratio between a text color and its background using a color picker tool and compare the result against the 4.5:1 threshold. The criterion either passes or fails. There is no partial credit.</p>
+
+<p>In practice, applying WCAG success criteria during the design process involves several interconnected activities:</p>
+
+<ul>
+  <li><strong>Mapping components to criteria</strong> — During an audit or design review, each interface component should be evaluated against the criteria relevant to it. A navigation menu, for instance, is relevant to criteria about keyboard operability (2.1.1), focus visibility (2.4.7 at AA, 2.4.11 at AA in WCAG 2.2), consistent navigation (3.2.3), and name/role/value (4.1.2). A structured mapping ensures no criterion is overlooked.</li>
+  <li><strong>Distinguishing requirements from techniques</strong> — WCAG documents include both normative success criteria (required) and informative techniques (one way of satisfying the criterion, but not the only way). A designer should understand a criterion's intent before selecting a technique, because different implementation contexts may call for different solutions.</li>
+  <li><strong>Understanding the intent behind criteria</strong> — W3C publishes "Understanding" documents for each criterion that explain the intent, key terms, and worked examples. These are invaluable for interpreting edge cases. For instance, the contrast criterion makes exceptions for decorative text and logotypes, details that are only apparent from the Understanding document.</li>
+  <li><strong>Combining automated and manual testing</strong> — Automated accessibility testing tools (such as axe, Lighthouse, or WAVE) can detect roughly 30–40% of WCAG failures reliably — issues such as missing alt text, missing form labels, and insufficient contrast. The remaining failures require human judgment: a tool can confirm that an image has alt text, but only a human can evaluate whether that alt text is <em>meaningful</em>. A robust audit process combines both.</li>
+  <li><strong>Involving users with disabilities</strong> — The most reliable validation of WCAG implementation is testing with actual users who have disabilities. Automated tools and expert reviews reveal technical failures; user testing reveals whether the resulting experience is genuinely usable.</li>
+</ul>
+
+<p>It is also important to recognize that WCAG is a <em>minimum standard</em>, not a complete definition of accessible user experience. A product can technically pass every applicable WCAG criterion and still present a poor or frustrating experience for users with certain disabilities. WCAG compliance is the foundation; good accessibility practice builds well above it by incorporating inclusive design principles, user research, and ongoing iteration.</p>
+
+<p>The relationship between the POUR principles, the conformance levels, and the individual success criteria can be understood as a hierarchy: POUR provides the conceptual framework, the success criteria provide the testable requirements within that framework, and the conformance levels prioritize those requirements so that organizations know where to focus their efforts first. Mastering this structure — understanding not just what the criteria say but <em>why</em> they exist and what problem each one solves — is what separates practitioners who can mechanically check a compliance checklist from those who can design accessibly from the start.</p>
+        <div class="notes"><strong>Notes</strong>Consider supplementing this topic with a live contrast-checking exercise using a tool such as the WebAIM Contrast Checker, and a screen reader demonstration to make the POUR principles tangible. Learners benefit from seeing what a page looks like to a screen reader (linearized, text-only) as a direct illustration of the Perceivable and Robust principles. When covering conformance levels, emphasize that AA is the practical target for assessments and projects throughout this module.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

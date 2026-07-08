@@ -9,11 +9,11 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-      font-size: 16px;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      font-size: 1rem;
       line-height: 1.6;
       background: #f4f6f9;
-      color: #1e2430;
+      color: #1e2535;
     }
 
     /* ── Page shell ── */
@@ -23,141 +23,122 @@
       padding: 2rem 1.25rem 4rem;
     }
 
-    /* ── Course breadcrumb ── */
-    .breadcrumb {
-      font-size: 0.8rem;
-      color: #6b7585;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      margin-bottom: 0.5rem;
-    }
-
-    /* ── Module header ── */
-    .module-header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #265a8a 100%);
-      color: #ffffff;
-      border-radius: 10px;
-      padding: 2.25rem 2rem;
-      margin-bottom: 2.5rem;
-      box-shadow: 0 4px 18px rgba(26,58,92,0.18);
-    }
-
-    .module-header .module-number {
+    /* ── Course label ── */
+    .course-label {
+      display: inline-block;
       font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      opacity: 0.75;
-      margin-bottom: 0.4rem;
+      color: #4f6b8f;
+      background: #dde6f2;
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.75rem;
+    }
+
+    /* ── Header block ── */
+    .module-header {
+      border-left: 5px solid #2d6be4;
+      padding: 1.25rem 1.5rem;
+      background: #ffffff;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 2.5rem;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
     }
 
     .module-header h1 {
-      font-size: clamp(1.4rem, 3vw, 2rem);
+      font-size: 1.65rem;
       font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 0.9rem;
+      color: #12203a;
+      margin-bottom: 0.5rem;
     }
 
     .module-header p {
       font-size: 0.97rem;
-      opacity: 0.88;
-      max-width: 72ch;
+      color: #3d4f6a;
+      max-width: 76ch;
     }
 
-    /* ── Section title ── */
-    .section-title {
-      font-size: 1rem;
+    /* ── Section heading ── */
+    .artifacts-heading {
+      font-size: 0.8rem;
       font-weight: 700;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #4a5568;
-      margin-bottom: 1.1rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 2px solid #dce3ed;
+      color: #6b7d9a;
+      margin-bottom: 1rem;
     }
 
     /* ── Card grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.1rem;
     }
 
-    /* ── Artifact card ── */
+    /* ── Card ── */
     .card {
       background: #ffffff;
-      border: 1px solid #dce3ed;
+      border: 1px solid #dde3ed;
       border-radius: 8px;
-      padding: 1.35rem 1.4rem 1.2rem;
+      padding: 1.2rem 1.3rem;
       display: flex;
       flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      gap: 0.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
     .card:hover {
-      box-shadow: 0 6px 22px rgba(38,90,138,0.12);
-      transform: translateY(-2px);
+      box-shadow: 0 4px 14px rgba(45,107,228,0.1);
+      border-color: #b3c5e8;
     }
 
-    /* ── Card header row ── */
-    .card-header {
+    /* ── Card: name row ── */
+    .card-name-row {
       display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 0.5rem;
       flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.55rem;
     }
 
     .card-name {
       font-size: 1rem;
       font-weight: 700;
-      color: #1a3a5c;
+      color: #12203a;
       line-height: 1.3;
     }
 
     .card-name a {
-      color: #1a6bbf;
+      color: #2d6be4;
       text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s;
     }
 
-    .card-name a:hover,
-    .card-name a:focus {
-      border-bottom-color: #1a6bbf;
-      outline: none;
+    .card-name a:hover {
+      text-decoration: underline;
+      color: #1a4fb0;
     }
 
-    /* ── Source file link ── */
     .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.72rem;
+      font-size: 0.75rem;
       font-weight: 600;
-      color: #5a7fa8;
+      color: #5a7ab5;
       text-decoration: none;
-      border: 1px solid #b0c8e0;
+      background: #eaf0fc;
+      border: 1px solid #c2d3f0;
       border-radius: 4px;
-      padding: 0.18rem 0.5rem;
+      padding: 0.15rem 0.45rem;
       white-space: nowrap;
-      transition: background 0.15s, color 0.15s;
+      transition: background 0.15s ease;
     }
 
-    .source-link::before {
-      content: "⬇";
-      font-size: 0.65rem;
+    .source-link:hover {
+      background: #d3e3f8;
+      color: #1a4fb0;
     }
 
-    .source-link:hover,
-    .source-link:focus {
-      background: #e8f1fa;
-      color: #1a3a5c;
-      outline: none;
-    }
-
-    /* ── Badges row ── */
+    /* ── Card: meta badges ── */
     .card-meta {
       display: flex;
       flex-wrap: wrap;
@@ -170,26 +151,28 @@
       font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.04em;
+      text-transform: uppercase;
       border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-      line-height: 1.4;
+      padding: 0.2rem 0.5rem;
     }
 
+    /* type badge colours */
     .badge-type {
-      background: #e8f1fa;
-      color: #1a5a9a;
+      background: #e8edf7;
+      color: #3a5280;
     }
 
     .badge-filetype {
-      background: #eef6ee;
-      color: #2e7d32;
+      background: #f0f4e8;
+      color: #3c5a1a;
       font-family: "Courier New", Courier, monospace;
+      text-transform: lowercase;
     }
 
-    /* ── Description ── */
-    .card-description {
-      font-size: 0.88rem;
-      color: #3d4d5c;
+    /* ── Card: description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: #455570;
       line-height: 1.55;
       flex-grow: 1;
     }
@@ -199,13 +182,13 @@
       margin-top: 3rem;
       text-align: center;
       font-size: 0.78rem;
-      color: #9aa5b4;
+      color: #8c9ab5;
     }
 
-    /* ── Responsive tweaks ── */
+    /* ── Responsive: tighten on small screens ── */
     @media (max-width: 480px) {
-      .module-header { padding: 1.6rem 1.25rem; }
-      .card { padding: 1.1rem 1.1rem 1rem; }
+      .module-header h1 { font-size: 1.3rem; }
+      .card-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -214,29 +197,25 @@
 <div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
   <div class="page-wrapper">
 
-    <!-- Breadcrumb -->
-    <p class="breadcrumb">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
-
-    <!-- Module header -->
-    <header class="module-header">
-      <p class="module-number">Module 5</p>
-      <h1>AI-Assisted Design and Development Workflows</h1>
+    <!-- Header -->
+    <div class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</div>
+    <div class="module-header">
+      <h1>Module 5 &mdash; AI-Assisted Design and Development Workflows</h1>
       <p>
-        This module explores how artificial intelligence tools are reshaping the HCI design and
-        development lifecycle. Topics span AI coding assistants, prompting strategies, rapid
-        prototyping with AI, evaluation methods, and the ethical considerations practitioners
-        must navigate when integrating these tools into professional workflows.
+        This module explores how artificial intelligence tools are reshaping design and development
+        workflows in HCI. Topics span AI coding assistants, effective prompting strategies,
+        AI-accelerated prototyping, design quality assurance, and the ethical responsibilities that
+        accompany the use of generative tools in professional practice.
       </p>
-    </header>
+    </div>
 
-    <!-- Artifacts section -->
-    <h2 class="section-title">Module Artifacts</h2>
-
+    <!-- Artifact grid -->
+    <p class="artifacts-heading">Module Artifacts &mdash; 11 items</p>
     <div class="card-grid">
 
-      <!-- Card 1: Module Topics -->
-      <article class="card">
-        <div class="card-header">
+      <!-- 1 -->
+      <div class="card">
+        <div class="card-name-row">
           <span class="card-name">
             <a href="content/module_topics.html">Module Topics</a>
           </span>
@@ -246,96 +225,205 @@
           <span class="badge badge-type">Module Topics</span>
           <span class="badge badge-filetype">.json</span>
         </div>
-        <p class="card-description">
+        <p class="card-desc">
           A structured outline of the module's five main topic areas — AI coding assistants,
           prompting strategies, prototyping workflows, evaluation, and ethical considerations —
           with subtopics listed under each, serving as a navigational blueprint for the module's
           content.
         </p>
-      </article>
+      </div>
 
-      <!-- Card 2: AI_Assisted_Design (printable) -->
-      <article class="card">
-        <div class="card-header">
+      <!-- 2 -->
+      <div class="card">
+        <div class="card-name-row">
           <span class="card-name">
-            <a href="content/_printable.html">AI_Assisted_Design</a>
+            <a href="content/_printable.html">AI Coding Assistants</a>
           </span>
         </div>
         <div class="card-meta">
           <span class="badge badge-type">Text Content</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <p class="card-description">
+        <p class="card-desc">
           A printable HTML document covering AI-accelerated prototyping workflows, detailing key
           practices for moving from wireframes to interactive prototypes using AI tools, intended
           for learners to read, study, or print as a standalone reference on that topic.
         </p>
-      </article>
+      </div>
 
-      <!-- Card 3: AI_Assisted_Design (t1) -->
-      <article class="card">
-        <div class="card-header">
+      <!-- 3 -->
+      <div class="card">
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="content/AI_Assisted_Design_interactive_topics_t1.html">Introduction to AI Coding Assistants in HCI</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          This reading introduces AI coding assistants in the HCI context, explaining what they
+          are, how they bridge the gap between design concepts and working prototypes, and why
+          learners should understand them as part of modern interface development practice.
+        </p>
+      </div>
+
+      <!-- 4 -->
+      <div class="card">
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="content/AI_Assisted_Design_interactive_topics_t2.html">Effective Prompting Strategies for Design Tasks</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          This reading teaches learners how to write effective prompts when using AI assistants
+          for design and development tasks, covering how prompt quality affects output and
+          strategies for crafting specific, well-structured requests that yield usable results.
+        </p>
+      </div>
+
+      <!-- 5 -->
+      <div class="card">
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="content/AI_Assisted_Design_interactive_topics_t3.html">AI-Accelerated Prototyping Workflows</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          This reading describes how AI tools can accelerate the prototyping workflow in HCI,
+          walking learners through how to move from early concepts to interactive, testable
+          prototypes more efficiently by integrating AI assistance into iterative design stages.
+        </p>
+      </div>
+
+      <!-- 6 -->
+      <div class="card">
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="content/AI_Assisted_Design_interactive_topics_t4.html">Maintaining Design Quality in AI-Assisted Projects</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          This reading addresses how to maintain design quality when using AI-assisted workflows,
+          examining the risks of uncritical AI output acceptance and covering strategies learners
+          and practitioners can use to review, validate, and uphold professional design standards.
+        </p>
+      </div>
+
+      <!-- 7 -->
+      <div class="card">
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="content/AI_Assisted_Design_interactive_topics_t5.html">Ethical Considerations and Professional Responsibility</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          This reading covers the ethical responsibilities and professional obligations that arise
+          when using AI coding assistants and generative tools in HCI work, including issues
+          related to training data, transparency, bias, and accountability in AI-assisted design
+          decisions.
+        </p>
+      </div>
+
+      <!-- 8 -->
+      <div class="card">
+        <div class="card-name-row">
+          <span class="card-name">
+            <a href="content/AI_Assisted_Design_interactive.html">Ethical Considerations and Professional Responsibility</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-desc">
+          This reading covers the ethical responsibilities and professional obligations that arise
+          when using AI coding assistants and generative tools in HCI work, including issues
+          related to training data, transparency, bias, and accountability in AI-assisted design
+          decisions.
+        </p>
+      </div>
+
+      <!-- 9 -->
+      <div class="card">
+        <div class="card-name-row">
           <span class="card-name">
             <a href="content/AI_Assisted_Design_printable_topics_t1.html">AI_Assisted_Design</a>
           </span>
         </div>
         <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-type">Topic Detail</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <p class="card-description">
+        <p class="card-desc">
           A printable HTML document introducing AI coding assistants in HCI contexts — covering
           what they are, key tools such as Claude Code and GitHub Copilot, and their role in the
           design pipeline — serving as a self-contained reading on the foundational concepts of
           the module.
         </p>
-      </article>
+      </div>
 
-      <!-- Card 4: AI_Assisted_Design (t2) -->
-      <article class="card">
-        <div class="card-header">
+      <!-- 10 -->
+      <div class="card">
+        <div class="card-name-row">
           <span class="card-name">
-            <a href="content/AI_Assisted_Design_printable_topics_t2.html">AI_Assisted_Design</a>
+            <a href="content/AI_Assisted_Design_printable_topics_t2.html">Effective Prompting Strategies</a>
           </span>
         </div>
         <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-type">Topic Detail</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <p class="card-description">
+        <p class="card-desc">
           A printable HTML document on effective prompting strategies for design tasks, explaining
           how to write precise prompts, refine them iteratively, and target accessibility and
           usability goals, intended as a study reference for learners developing their AI
           interaction skills.
         </p>
-      </article>
+      </div>
 
-      <!-- Card 5: AI_Assisted_Design (t3-5) -->
-      <article class="card">
-        <div class="card-header">
+      <!-- 11 -->
+      <div class="card">
+        <div class="card-name-row">
           <span class="card-name">
-            <a href="content/AI_Assisted_Design_printable_topics_t3-5.html">AI_Assisted_Design</a>
+            <a href="content/AI_Assisted_Design_printable_topics_t3-5.html">AI Accelerated Workflows</a>
           </span>
         </div>
         <div class="card-meta">
           <span class="badge badge-type">Text Content</span>
           <span class="badge badge-filetype">.html</span>
         </div>
-        <p class="card-description">
+        <p class="card-desc">
           A duplicate or alternate version of the printable HTML document on AI-accelerated
           prototyping workflows, covering the same key practices for scaffolding and generating
           interface components with AI assistance, usable as a student reading or print handout.
         </p>
-      </article>
+      </div>
 
-    </div><!-- /.card-grid -->
+    </div><!-- /card-grid -->
 
-    <!-- Footer -->
     <footer class="page-footer">
-      <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp; Module 5</p>
+      <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Module 5</p>
     </footer>
 
-  </div><!-- /.page-wrapper -->
+  </div><!-- /page-wrapper -->
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
 <section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>

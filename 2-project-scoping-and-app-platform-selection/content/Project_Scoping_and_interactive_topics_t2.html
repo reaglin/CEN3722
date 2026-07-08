@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overview of Target Application Platforms</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Project Scoping and App Platform Selection</a></div>
+  <header>
+    <h1>Overview of Target Application Platforms</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Overview of Target Application Platforms</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Understanding the landscape of target application platforms is one of the most foundational skills in Human-Computer Interaction (HCI) design and development. Every design decision — from the placement of a navigation element to the choice of an input method — is shaped profoundly by the platform on which an application runs. Platforms differ not just technically, but in terms of their user populations, physical contexts of use, interaction modalities, and cultural expectations. A designer who understands these differences can make informed, empathetic decisions that produce experiences users find natural and satisfying. A designer who ignores them risks producing interfaces that feel foreign, clumsy, or even unusable on the target device.</p>
+
+<p>This topic provides a structured survey of the four primary platforms covered in this course — Android, iOS, Windows desktop, and Web — and then broadens the horizon to include emerging platforms such as wearables, voice interfaces, and augmented and virtual reality environments. Finally, it organizes all of these into three overarching categories — mobile, desktop, and web — each carrying its own set of human factors considerations that directly inform HCI practice.</p>
+
+<p><strong>The Four Primary Platforms</strong></p>
+
+<p><strong>Android</strong> is the world's most widely deployed mobile operating system, developed and maintained by Google and distributed across an extraordinary diversity of devices. This breadth is one of Android's defining characteristics as a platform. Unlike iOS, which ships exclusively on Apple-manufactured hardware, Android runs on devices made by dozens of manufacturers — Samsung, Google itself (through the Pixel line), OnePlus, Xiaomi, Motorola, and many others — spanning an enormous range of screen sizes, processing power, display resolutions, and price points. A flagship Samsung Galaxy device and a budget-tier Android phone sold in a developing market may both run Android, yet differ radically in RAM, CPU speed, screen quality, and even which version of Android they support.</p>
+
+<p>This diversity has profound implications for HCI design. Applications must be designed to degrade gracefully across hardware configurations. Layouts must be responsive to varying screen dimensions. Performance expectations must account for low-end devices. Culturally, Android's global reach means designers must consider international audiences, right-to-left language support, varying literacy levels, and connectivity constraints in regions where mobile data is expensive or unreliable. Android's design language is governed by <em>Material Design</em>, Google's open-source design system, which provides guidelines on typography, color, spacing, motion, and component behavior. Adhering to Material Design principles helps users develop accurate mental models because the system behaves consistently across applications.</p>
+
+<p><strong>iOS</strong>, Apple's mobile operating system, takes a fundamentally different approach. iOS runs exclusively on Apple-manufactured devices — the iPhone and, in its tablet form, the iPad — giving Apple tight control over both hardware and software. This vertical integration allows Apple to optimize the operating system deeply for its own hardware, resulting in a reputation for smooth performance and consistent behavior. The iOS user base, while smaller globally than Android's, tends to be concentrated in markets with higher average incomes, and iOS users statistically exhibit higher rates of in-app purchasing and engagement with premium applications.</p>
+
+<p>The controlled ecosystem shapes HCI considerations in important ways. Because the range of screen sizes and hardware configurations is far narrower than Android's, designers can make more precise assumptions about device capabilities. Apple enforces strict App Store review guidelines that mandate adherence to the <em>Human Interface Guidelines (HIG)</em>, Apple's comprehensive design specification covering everything from navigation patterns to gesture usage to accessibility requirements. The result is a platform culture where consistency, polish, and attention to detail are expected norms. Users of iOS applications tend to have calibrated expectations for interaction quality, and deviations from familiar patterns — such as non-standard navigation gestures — are more likely to cause friction.</p>
+
+<p><strong>Windows desktop applications</strong> occupy a very different niche. Windows, developed by Microsoft, is the dominant operating system in professional, enterprise, and productivity contexts worldwide. While mobile platforms have captured the majority of consumer computing time, Windows remains the primary environment for work that requires sustained, complex interaction: writing documents, building spreadsheets, editing video, writing code, managing databases, and operating enterprise software systems. The physical setup — a relatively large monitor, a full keyboard, and a precision pointing device such as a mouse or trackpad — enables interaction paradigms simply not available on mobile: hover states, right-click context menus, drag-and-drop across applications, resizable and overlapping windows, and fine-grained text selection and editing.</p>
+
+<p>Windows applications are governed by Microsoft's <em>Fluent Design System</em>, which provides guidance on depth, motion, material (translucency and layering), light, and scale. The Windows platform also demands particular attention to accessibility — enterprise software must often comply with legal accessibility standards such as WCAG (Web Content Accessibility Guidelines) and Section 508 in the United States. The cognitive demands of desktop applications tend to be higher; users are often engaged in extended, goal-directed tasks, and the software must support complex workflows, error recovery, and customization. Power users on Windows often rely heavily on keyboard shortcuts, and HCI design for this platform must account for keyboard-driven interaction as a first-class concern, not an afterthought.</p>
+
+<p><strong>Web applications</strong> are distinguished by their platform-agnosticism. A web application runs inside a browser — Chrome, Firefox, Safari, Edge — and can, in principle, be accessed from any device with a browser and an internet connection: a desktop computer, a laptop, a smartphone, a tablet, or even a smart TV. This universality is both the web's greatest strength and one of its central design challenges. Designers cannot assume a specific screen size, input method, browser version, network speed, or hardware capability. Responsive design — the practice of creating layouts that adapt fluidly to varying viewport dimensions — is not optional on the web; it is a baseline expectation.</p>
+
+<p>Web applications are built on open standards: HTML for structure, CSS for presentation, and JavaScript for behavior. Frameworks such as React, Vue, Angular, and Svelte have transformed web development into a discipline capable of producing highly interactive, application-like experiences in the browser. From an HCI perspective, web applications must prioritize accessibility (semantic HTML, ARIA roles, keyboard navigation) and performance (page load time directly correlates with user abandonment). The web's deployment model — push an update to the server and all users instantly receive it — is a powerful operational advantage, but it also means users may encounter changes without warning, raising questions about consistency and learnability over time.</p>
+
+<p><strong>Beyond the Four: Additional Platforms</strong></p>
+
+<p>While Android, iOS, Windows, and Web form the core of most current HCI practice, the field is actively expanding into new interaction environments that demand fundamentally different design thinking. Awareness of these platforms is not merely academic; they represent growth areas where HCI practitioners will increasingly work.</p>
+
+<p><strong>Wearable platforms</strong> — most prominently smartwatches running operating systems such as Wear OS (Google) or watchOS (Apple) — impose severe constraints that force designers to rethink nearly every assumption they carry from phone or desktop design. A smartwatch screen may measure only 1.5 to 1.9 inches diagonally, with a resolution of roughly 400 × 400 pixels. There is no room for dense information layouts, long text strings, or complex navigation hierarchies. Interaction is primarily through taps, swipes, and the digital crown (a rotating side button on Apple Watch). Sessions on wearables are typically measured in seconds, not minutes — a user glances at their wrist to check a notification or a health metric and then moves on. HCI design for wearables must be ruthlessly focused: one piece of critical information per screen, minimal input requirements, and immediate value delivery. The physical context matters enormously too; the device is worn on the body during exercise, sleep, and daily activity, making motion, heart rate sensing, and ambient awareness core design resources.</p>
+
+<p><strong>Voice interfaces</strong> represent a paradigm shift away from visual display altogether. Platforms such as Amazon Alexa, Google Assistant, Apple Siri, and Microsoft Cortana interact with users through spoken natural language. There is no screen to tap, no visual hierarchy to scan, no button to click. The entire interaction is mediated through audio: the user speaks, the system listens, interprets intent using natural language processing, and responds through synthesized speech. This imposes a completely different set of design disciplines. Conversation design replaces visual layout design. Designers must craft dialogue flows — anticipating what users might say, handling ambiguous or incorrect inputs gracefully, providing audio confirmations of actions, and avoiding overly long spoken responses that tax working memory. The absence of persistent visual display means users cannot easily review past states or undo actions by looking at the screen; the interface must be forgiving and re-stateable on demand.</p>
+
+<p><strong>Augmented Reality (AR) and Virtual Reality (VR) platforms</strong> extend HCI into three-dimensional, spatially aware environments. AR overlays digital content onto the physical world, as seen in applications built on Apple's ARKit, Google's ARCore, or devices like the Microsoft HoloLens. VR immerses the user entirely in a computer-generated environment, as on the Meta Quest headsets. Both require <em>spatial design thinking</em> — designers must consider where objects exist in three-dimensional space, how users look at and interact with them (through gaze, hand gestures, or physical controllers), and how motion sickness and perceptual fatigue are managed. Traditional UI conventions — menus, buttons, text fields — must be reimagined as three-dimensional objects anchored in space. Depth, scale, and physical metaphor become primary design tools. The cognitive and ergonomic demands on users are substantially different from screen-based interfaces; extended use of VR headsets can cause disorientation, eye strain, and motion sickness, all of which are HCI problems as much as hardware problems.</p>
+
+<p>Familiarity with these emerging platforms prepares HCI practitioners for a professional landscape that is actively diversifying. The skills developed through careful study of the four primary platforms — understanding user context, respecting interaction constraints, designing for mental models, and prioritizing human needs — transfer meaningfully to these new environments, even as the specific conventions differ dramatically.</p>
+
+<p><strong>Platform Categories: Mobile, Desktop, and Web</strong></p>
+
+<p>Cutting across the individual platform descriptions above, it is useful to organize platforms into three broad categories that share common human factors characteristics. These categories — mobile, desktop, and web — each carry a distinct profile of user context, physical interaction, cognitive demands, and design constraints.</p>
+
+<p><strong>Mobile platforms</strong> (Android smartphones, iPhones, and by extension wearables) are fundamentally defined by three interconnected characteristics: touch interaction, portability, and on-the-go usage contexts. Touch input is both empowering and limiting. Fingers are large, imprecise instruments compared to a mouse cursor; interactive targets must be large enough to tap reliably (Apple's HIG recommends a minimum tappable area of 44×44 points). Touch also enables gestural interaction — swipe, pinch, rotate, long-press — that feels natural and direct but must be carefully choreographed so gestures do not conflict with one another or with the operating system's own gestures. Portability means the device travels everywhere with the user, creating a radically varied physical context: a user might interact with a mobile app while walking, standing in a queue, riding public transport, or holding a child. One-handed use is common, and designers often use the concept of the <em>thumb zone</em> — the area of the screen comfortably reachable by the thumb when holding the phone in one hand — to prioritize placement of key controls. Lighting conditions vary from bright sunlight to dim interiors, making contrast ratios and legibility at variable sizes critical concerns. Attention is often fragmented; mobile sessions tend to be short and frequently interrupted, which means applications must support resumability — the ability to leave an app and return to exactly where the user was without losing progress.</p>
+
+<p><strong>Desktop platforms</strong> (Windows, macOS, and Linux applications) support a fundamentally different mode of engagement. The user is typically seated at a workstation with a large, stable display, a full keyboard, and a pointing device offering pixel-level precision. This physical setup enables complex, sustained interaction: multi-window workflows where a user simultaneously edits a document, references a browser tab, and monitors a communication application; precise text manipulation with keyboard shortcuts; drag-and-drop operations between applications; and deep customization through settings and preferences. Cognitive load on desktop platforms can be substantially higher than on mobile, because users are often performing complex, multi-step tasks with high stakes (financial analysis, creative production, software development). Error recovery — undo, redo, version history — must be robust. The concept of <em>progressive disclosure</em> is important: advanced features should be accessible to expert users without overwhelming novices. Keyboard shortcuts, which are invisible to new users but deeply valued by experienced ones, are a characteristic feature of desktop HCI that has no real equivalent on mobile.</p>
+
+<p><strong>Web platforms</strong> occupy a unique position because they span both mobile and desktop contexts while adding their own distinct characteristics. A web application might be used on a desktop browser with a mouse and keyboard, or on a mobile browser with touch input, or on a tablet — sometimes by the same user at different times of day. This demands a genuinely responsive approach to design, not simply scaled-down desktop layouts or scaled-up mobile layouts. Web platforms prioritize accessibility as a technical and ethical imperative: the W3C's Web Content Accessibility Guidelines (WCAG) define standards for making web content perceivable, operable, understandable, and robust for users with disabilities, including those using screen readers, switch controls, or other assistive technologies. Browser-based deployment means the application is always available without installation, reducing friction for first-time users, but also means the designer has less control over the rendering environment — different browsers may interpret CSS or JavaScript slightly differently, and users may have extensions installed that modify page behavior.</p>
+
+<p>The following table summarizes the key human factors characteristics of each platform category side by side, providing a comparative reference for design decision-making:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>Mobile</th>
+      <th>Desktop</th>
+      <th>Web</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Primary input method</strong></td>
+      <td>Touch (finger), voice</td>
+      <td>Keyboard and mouse/trackpad</td>
+      <td>Varies (mouse on desktop browser, touch on mobile browser)</td>
+    </tr>
+    <tr>
+      <td><strong>Screen size</strong></td>
+      <td>Small (4–7 inches typical)</td>
+      <td>Large (21–32 inches common)</td>
+      <td>Variable (any device with a browser)</td>
+    </tr>
+    <tr>
+      <td><strong>Usage context</strong></td>
+      <td>On-the-go, fragmented attention, variable environment</td>
+      <td>Seated, sustained attention, controlled environment</td>
+      <td>Context-dependent; designed to be universally accessible</td>
+    </tr>
+    <tr>
+      <td><strong>Session length</strong></td>
+      <td>Short, frequent</td>
+      <td>Long, sustained</td>
+      <td>Variable</td>
+    </tr>
+    <tr>
+      <td><strong>Connectivity</strong></td>
+      <td>Often variable (cellular, Wi-Fi)</td>
+      <td>Usually reliable (wired or stable Wi-Fi)</td>
+      <td>Required; performance sensitive to connection speed</td>
+    </tr>
+    <tr>
+      <td><strong>Key HCI concerns</strong></td>
+      <td>Touch target size, thumb zone, one-handed use, glanceability</td>
+      <td>Keyboard shortcuts, multi-window workflow, error recovery</td>
+      <td>Responsive layout, accessibility, cross-browser compatibility</td>
+    </tr>
+    <tr>
+      <td><strong>Deployment model</strong></td>
+      <td>App store distribution; updates require user action</td>
+      <td>Installer or enterprise deployment; managed update cycles</td>
+      <td>Instant server-side deployment; all users always on latest version</td>
+    </tr>
+    <tr>
+      <td><strong>Example platforms</strong></td>
+      <td>Android, iOS, Wear OS, watchOS</td>
+      <td>Windows, macOS, Linux</td>
+      <td>Any modern browser (Chrome, Firefox, Safari, Edge)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Taken together, the landscape of target application platforms reveals that there is no universal HCI solution. Each platform represents a distinct ecology of hardware, software, human behavior, and cultural expectation. The skilled HCI practitioner develops what might be called <em>platform literacy</em> — the ability to recognize the constraints and affordances of a given platform and use them to design experiences that feel native, natural, and genuinely useful to the people who will use them. The four primary platforms covered in this course — Android, iOS, Windows, and Web — provide a structured foundation for developing that literacy, while awareness of emerging platforms such as wearables, voice interfaces, and AR/VR ensures that this foundation remains forward-looking and professionally relevant.</p>
+        <div class="notes"><strong>Notes</strong>The table renders comparative human factors across mobile, desktop, and web in a structured format suitable for reference during design exercises. The emerging platforms section is intentionally more conceptual, as students will engage with them in professional practice rather than as primary course deliverables. Instructors may wish to supplement the AR/VR and voice interface sections with current product examples relevant to their region or industry focus.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

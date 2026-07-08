@@ -1,0 +1,223 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Keyboard Navigation and Motor Accessibility</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Accessibility Standards and Inclusive Interface Design</a></div>
+  <header>
+    <h1>Keyboard Navigation and Motor Accessibility</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Keyboard Navigation and Motor Accessibility</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Keyboard navigation is one of the most fundamental pillars of web accessibility. While mouse and touch interactions dominate how most people think about using digital interfaces, a significant portion of users rely entirely or primarily on a keyboard to operate software. This includes people with motor disabilities such as tremors, paralysis, repetitive strain injuries, or limb differences that make precise pointer control difficult or impossible. It also includes power users, developers, and people who use assistive technologies like screen readers, which themselves navigate interfaces through keyboard events. Designing for keyboard operability is not a niche concern — it is a baseline requirement under WCAG 2.1 Success Criterion 2.1.1, which mandates that all functionality be operable through a keyboard interface. The following sections examine every dimension of this requirement in depth.</p>
+
+<p><strong>Keyboard Operability Requirements</strong></p>
+
+<p>The foundational principle of keyboard operability is simple to state but demanding to implement consistently: every action a mouse user can take, a keyboard user must also be able to take. This applies universally to interactive elements including buttons, links, form controls, modals, dropdown menus, sliders, date pickers, carousels, and any other component that a user is expected to interact with. If clicking a button submits a form, pressing <code>Enter</code> while that button has focus must also submit the form. If hovering over a menu item reveals a submenu, keyboard users must be able to open that submenu using appropriate keys.</p>
+
+<p>Native HTML elements such as <code>&lt;button&gt;</code>, <code>&lt;a href&gt;</code>, <code>&lt;input&gt;</code>, <code>&lt;select&gt;</code>, and <code>&lt;textarea&gt;</code> are keyboard accessible by default. They are included in the tab order automatically and respond to standard key events. A common mistake is replacing these semantic elements with styled <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code> elements for visual design reasons, which strips away keyboard functionality entirely unless it is manually reconstructed. When custom elements are unavoidable, developers must add <code>tabindex="0"</code> to make them focusable and then explicitly handle <code>keydown</code> events to replicate expected behavior.</p>
+
+<p><strong>Keyboard traps</strong> represent one of the most severe accessibility failures possible. A keyboard trap occurs when a user tabs into a component — such as a modal dialog, a widget, or an embedded media player — and cannot tab back out. The user becomes stuck, effectively locked inside a section of the page with no way to continue navigating. WCAG 2.1 Success Criterion 2.1.2 treats keyboard traps as a critical failure requiring immediate resolution. Common causes include third-party embeds, improperly implemented custom components, and JavaScript that intercepts <code>Tab</code> key events without providing a documented exit mechanism. The only acceptable exception is when a deliberate, intentional focus containment is applied inside a modal dialog — but even then, the user must be able to close the dialog and escape the contained region using the <code>Escape</code> key.</p>
+
+<p>Custom keyboard shortcuts present a subtler but equally important concern. Many assistive technologies and browsers define their own shortcut keys. Screen readers like JAWS, NVDA, and VoiceOver use single-letter shortcuts extensively for navigation — for example, pressing <code>H</code> to jump to the next heading or <code>B</code> to jump to the next button. If a web application assigns <code>H</code> as a hotkey for "help," this creates a direct conflict that makes the application unusable for screen reader users. WCAG 2.1 Success Criterion 2.1.4 addresses this by requiring that single-character shortcuts either be remappable by the user, can be turned off entirely, or are only active when a particular component has focus. Good practice is to use modifier keys — combinations like <code>Ctrl+Shift+K</code> — for any application-level shortcuts, since these are far less likely to collide with assistive technology commands.</p>
+
+<p><strong>Logical Tab Order and Focus Management</strong></p>
+
+<p>Tab order is the sequence in which interactive elements receive focus as the user presses the <code>Tab</code> key. A logical, predictable tab order is essential because it forms the mental map through which keyboard users explore and understand a page. In the vast majority of cases, tab order should mirror the visual reading order of the page: top to bottom and left to right in left-to-right languages. This natural order is what browsers implement by default based on the DOM structure. Problems arise when CSS positioning, flexbox order manipulation, or grid layout cause elements to appear in one visual sequence while the underlying DOM places them in a completely different order. When a sighted keyboard user tabs through a page and focus jumps unexpectedly from the bottom of a column to the top of a different section, the experience is disorienting and effectively blocks task completion.</p>
+
+<p>The <code>tabindex</code> attribute allows developers to influence focus order, but it must be used carefully. Setting <code>tabindex="0"</code> inserts an element into the natural tab order at its DOM position, which is appropriate for custom interactive elements. Setting <code>tabindex="-1"</code> removes an element from the tab order but keeps it programmatically focusable via JavaScript — this is the correct approach for elements that need to receive focus under script control without being reachable by the user pressing Tab. Setting positive <code>tabindex</code> values such as <code>tabindex="3"</code> creates an explicit override of the natural DOM order and is strongly discouraged in practice. Positive tabindex values cause elements to receive focus before all elements with <code>tabindex="0"</code>, which typically produces counterintuitive and hard-to-maintain tab sequences that become fragile as the page evolves.</p>
+
+<p>One of the most important and frequently neglected aspects of focus management is handling dynamic content — particularly modals, dialogs, drawers, and other overlay patterns. When a modal opens in response to user action, sighted users see the overlay appear visually. But keyboard and screen reader users need more: focus must be programmatically moved into the modal. Without this, the user's focus remains on the button that opened the modal, sitting behind an overlay that is visually obscuring the rest of the page. The user would then tab into content that is supposed to be inaccessible, completely bypassing the modal's content. The correct implementation moves focus to the first focusable element inside the modal, or to the modal's containing element if it has been given a descriptive label and a <code>tabindex="-1"</code> to receive focus programmatically.</p>
+
+<p>Equally critical is what happens when the modal closes. Focus must be returned to the element that originally triggered the dialog — typically the button the user activated. Failing to do this drops the user's focus to an undefined location, often the top of the page or a completely unrelated element, forcing them to navigate the entire page again to find where they were. This pattern applies to any overlay-style interaction: tooltips, flyout menus, confirmation dialogs, side drawers, and context menus. The rule is consistent: focus goes in when the overlay opens, focus returns to the trigger when it closes.</p>
+
+<p><strong>Skip Navigation Links</strong></p>
+
+<p>A persistent challenge for keyboard users on pages with substantial navigation menus is the sheer volume of tab stops they must traverse before reaching the main content. A page with a header containing a logo, a primary navigation with eight links, a secondary navigation with five links, and a utility bar with three controls requires sixteen or more tab presses before the user can reach the first piece of actual content. For users who navigate this way regularly, this overhead accumulates into a significant burden.</p>
+
+<p>Skip navigation links solve this problem directly. A skip link is an anchor element placed as the very first focusable element in the page's DOM — before any navigation, headers, or other repeated content. Its <code>href</code> points to the <code>id</code> of the main content container, allowing the user to jump straight to the content with a single key press and activation. A typical implementation looks like this:</p>
+
+<pre><code>&lt;a href="#main-content" class="skip-link"&gt;Skip to main content&lt;/a&gt;
+
+&lt;!-- Later in the document --&gt;
+&lt;main id="main-content" tabindex="-1"&gt;
+  &lt;!-- page content --&gt;
+&lt;/main&gt;</code></pre>
+
+<p>The <code>tabindex="-1"</code> on the <code>&lt;main&gt;</code> element is important. While <code>&lt;main&gt;</code> is not natively focusable, the skip link sends the browser's focus to it. Without <code>tabindex="-1"</code>, some browsers will scroll to the element but not move keyboard focus there, meaning the next Tab press starts from an unexpected location rather than continuing from within the main content area.</p>
+
+<p>Skip links are commonly implemented as visually hidden by default, appearing only when they receive keyboard focus. This preserves the visual design for mouse users while making the link fully accessible to keyboard users. The recommended CSS technique uses absolute positioning to move the link off-screen, then repositions it when focused:</p>
+
+<pre><code>.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #000000;
+  color: #ffffff;
+  padding: 8px;
+  z-index: 100;
+  transition: top 0.2s;
+}
+
+.skip-link:focus {
+  top: 0;
+}</code></pre>
+
+<p>Using <code>display: none</code> or <code>visibility: hidden</code> to hide skip links is incorrect because these CSS properties also hide elements from assistive technologies and remove them from the tab order entirely, defeating the purpose. The off-screen positioning technique keeps the element in the accessibility tree and tab order while hiding it visually.</p>
+
+<p>On complex pages, a single "skip to main content" link may not be sufficient. Multiple skip links can be provided to give users efficient access to major page regions. Common examples include links to jump to the primary navigation, the search field, a sidebar, or the footer. These links should all be grouped at the very top of the page and follow the same visible-on-focus pattern. Care should be taken not to provide so many skip links that they themselves become a navigation burden — three to five is typically a reasonable maximum.</p>
+
+<p><strong>Interaction Patterns for Custom Components</strong></p>
+
+<p>Native HTML form controls handle their own keyboard interactions reliably, but modern web interfaces frequently require components that go beyond what native HTML provides: tabbed interfaces, tree views, comboboxes, data grids, carousels, accordion menus, and date pickers, among others. These custom components must implement keyboard behavior that is consistent with established conventions, because users come to these interfaces with prior experience and mental models built from using similar components elsewhere. Violating established patterns forces users to discover how each individual component works through trial and error, dramatically increasing cognitive load.</p>
+
+<p>The ARIA Authoring Practices Guide (APG), published by the W3C, defines recommended keyboard interaction patterns for a comprehensive library of common component types. These are not arbitrary choices — they are designed to align with platform conventions users already know from native desktop applications. The most important general patterns are:</p>
+
+<ul>
+  <li><strong>Tab</strong> moves focus between components on the page. Within a composite widget (such as a menu, a listbox, or a tab list), Tab typically moves focus out of the widget entirely rather than cycling through the widget's items. This prevents users from having to tab through every item inside every composite widget as they move around a page.</li>
+  <li><strong>Arrow keys</strong> navigate within a composite widget. In a tab list, <code>Left</code> and <code>Right</code> arrow keys move between tabs. In a tree view, <code>Up</code> and <code>Down</code> keys move between items and <code>Right</code> expands a collapsed node while <code>Left</code> collapses it. In a menu, <code>Up</code> and <code>Down</code> move between menu items and <code>Right</code> opens a submenu.</li>
+  <li><strong>Enter</strong> or <strong>Space</strong> activates the focused item. The specific key depends on the component: buttons respond to both, links respond to Enter, checkboxes toggle with Space, and radio buttons select with Space while using arrow keys to change selection.</li>
+  <li><strong>Escape</strong> is universally expected to dismiss, cancel, or close any overlay, popup, expanded widget, or dialog. After dismissal, focus must return to the element that triggered the component. This behavior is so deeply established in user expectations that failing to implement it consistently causes significant confusion.</li>
+  <li><strong>Home</strong> and <strong>End</strong> keys often move focus to the first or last item in a list or widget when supported.</li>
+</ul>
+
+<p>The following table summarizes the standard keyboard interactions for several common composite widget types:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Move Between Items</th>
+      <th>Activate / Select</th>
+      <th>Open / Expand</th>
+      <th>Close / Dismiss</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Menu / Menubar</td>
+      <td>Arrow keys</td>
+      <td>Enter</td>
+      <td>Enter or Down Arrow</td>
+      <td>Escape</td>
+    </tr>
+    <tr>
+      <td>Tab Panel</td>
+      <td>Left / Right Arrow</td>
+      <td>Enter or Space (or auto on focus)</td>
+      <td>N/A</td>
+      <td>N/A</td>
+    </tr>
+    <tr>
+      <td>Accordion</td>
+      <td>Up / Down Arrow</td>
+      <td>Enter or Space</td>
+      <td>Enter or Space</td>
+      <td>Enter or Space (toggle)</td>
+    </tr>
+    <tr>
+      <td>Listbox</td>
+      <td>Up / Down Arrow</td>
+      <td>Space (multi) / Enter (single)</td>
+      <td>N/A</td>
+      <td>Escape (if in popup)</td>
+    </tr>
+    <tr>
+      <td>Combobox</td>
+      <td>Up / Down Arrow (in list)</td>
+      <td>Enter</td>
+      <td>Alt + Down Arrow</td>
+      <td>Escape</td>
+    </tr>
+    <tr>
+      <td>Tree View</td>
+      <td>Up / Down Arrow</td>
+      <td>Enter</td>
+      <td>Right Arrow</td>
+      <td>Left Arrow (collapse) / Escape</td>
+    </tr>
+    <tr>
+      <td>Dialog / Modal</td>
+      <td>Tab (within dialog)</td>
+      <td>Enter / Space</td>
+      <td>N/A (opens from trigger)</td>
+      <td>Escape → focus to trigger</td>
+    </tr>
+    <tr>
+      <td>Carousel</td>
+      <td>Left / Right Arrow</td>
+      <td>Enter</td>
+      <td>N/A</td>
+      <td>N/A</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A concrete example helps illustrate how these patterns must be implemented. Consider a custom tab interface. Each tab is a button inside a container with <code>role="tablist"</code>. Each tab button has <code>role="tab"</code>. The content panel associated with each tab has <code>role="tabpanel"</code>. The tab that is currently selected has <code>aria-selected="true"</code>; others have <code>aria-selected="false"</code>. Only the active tab is in the tab order (<code>tabindex="0"</code>); inactive tabs use <code>tabindex="-1"</code>. When the user presses the Right Arrow key while a tab is focused, JavaScript moves focus to the next tab and activates it, updating <code>aria-selected</code> and <code>tabindex</code> accordingly. When the user presses Tab, focus moves entirely out of the tab list and into the associated content panel or to the next focusable element on the page. This roving <code>tabindex</code> pattern is the standard technique for managing focus within composite widgets.</p>
+
+<p>Implementing these patterns correctly from scratch is complex and error-prone. Developers should strongly consider using well-tested component libraries that have already implemented ARIA patterns, or should thoroughly test custom implementations across multiple browsers and screen reader combinations. Testing must include actual keyboard-only operation without a mouse to verify that every action can be completed, no traps exist, focus management behaves correctly on open and close, and all shortcut keys work as expected without conflicting with assistive technology commands.</p>
+        <div class="notes"><strong>Notes</strong>This topic covers WCAG 2.1 Success Criteria 2.1.1 (Keyboard), 2.1.2 (No Keyboard Trap), and 2.1.4 (Character Key Shortcuts). The ARIA Authoring Practices Guide (APG) at https://www.w3.org/WAI/ARIA/apg/ is the authoritative reference for keyboard interaction patterns in custom components. The roving tabindex technique and focus containment in modals are both well-established implementation patterns worth reinforcing in practical exercises.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

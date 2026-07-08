@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interpreting Error Analysis</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Analyzing User Testing Results and Iterative Redesign</a></div>
+  <header>
+    <h1>Interpreting Error Analysis</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Interpreting Error Analysis</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Error analysis is one of the most diagnostic activities in usability evaluation. When a user makes an error during a test session, the raw observation — "the participant clicked the wrong button" or "the user submitted the form without filling in a required field" — is only the starting point. The real work begins when you ask what that error reveals about the design itself. Interpreting error analysis means moving systematically from a catalogue of observed failures to a clear understanding of <em>why</em> those failures happened and <em>which design decisions</em> caused them. This process involves classifying errors by their type, tracing each error back to its root cause, mapping errors spatially across the interface, and assigning severity ratings so the team knows which problems demand immediate attention and which can wait. Done rigorously, error analysis transforms raw observation notes into an actionable design diagnosis.</p>
+
+<p><strong>Classifying Error Types</strong></p>
+
+<p>Not all errors are alike, and treating them as interchangeable leads to vague, unhelpful recommendations like "make it clearer." Classifying errors by type immediately points the analyst toward the category of design problem most likely responsible. The four major error types relevant to interface evaluation are slips, mistakes, navigation errors, and input errors.</p>
+
+<p><strong>Slips</strong> are execution errors. They occur when a user knows what they intend to do but their physical or automatic behavior diverges from that intention. Classic examples include clicking a button adjacent to the intended target, double-clicking when a single click was required, or dragging a file to the wrong folder because the drop zone was ambiguous. Slips are not failures of understanding — the user's mental model was correct — they are failures of <em>execution</em>, often triggered by poor affordance design. An affordance is the perceived property of an object that signals how it should be used. When affordances are weak or misleading, even experienced users misfire. For example, if two buttons — "Save Draft" and "Delete Entry" — are positioned side by side in the same visual style, a user who intends to save will sometimes delete instead. The slip exposes a design flaw in visual hierarchy and spatial separation, not a knowledge gap in the user. When you observe a high frequency of slips on a particular element, the diagnostic question is: does this element's appearance, size, position, and labeling make its correct interaction unambiguous?</p>
+
+<p><strong>Mistakes</strong> are knowledge-based errors. They occur when a user's mental model of how the system works is incorrect, and the action they take is the logical consequence of that incorrect model. If a user believes that clicking "Archive" will delete a message permanently, they will avoid archiving anything and instead develop workarounds — that is a mistake rooted in misunderstanding. Mistakes are more serious than slips because they are systematic: the user will repeat the same wrong behavior every time they encounter the same situation until their mental model is corrected. The interface bears responsibility for mistakes when it fails to communicate system behavior clearly. Misleading labels, absent confirmation messages, and opaque status indicators all contribute to mistaken mental models. When diagnosing a mistake, the key question is: what does the interface communicate about this interaction, and how does that communication diverge from the system's actual behavior?</p>
+
+<p><strong>Navigation errors</strong> occur when users cannot find their way through the interface — they land on the wrong page, retrace their steps repeatedly, or abandon a path because they cannot determine where it leads. These errors are direct indicators of problems with information architecture, labeling of navigation elements, and wayfinding cues such as breadcrumbs, progress indicators, and visual landmarks. A user who clicks "Settings" looking for notification preferences but instead finds account billing information has encountered a navigation error caused by a mismatch between the label's implied meaning and the content it contains. Navigation errors often appear in sessions as repeated back-button usage, prolonged hesitation at menu items, or explicit expressions of disorientation like "I'm not sure where I am." The analytical task is to identify whether the error stems from poor labeling, a non-intuitive hierarchy, or the absence of contextual cues that orient the user within the overall structure.</p>
+
+<p><strong>Input errors</strong> arise when users enter data incorrectly into forms or fields. These errors indicate that the interface has failed to provide sufficient guidance about what is expected. Common causes include field labels that are ambiguous or overly technical, format requirements that are unstated (for example, a date field that silently requires MM/DD/YYYY but accepts no other format), and validation feedback that is either absent or delivered too late in the process. An input error observed during a test — where a participant types a phone number with spaces and receives a generic "invalid entry" message without explanation — reveals at minimum two design failures: the field gave no format hint upfront, and the error message did not tell the user how to correct the entry. Input errors are particularly costly because they interrupt flow, increase cognitive load, and often result in users abandoning forms entirely. Classifying an error as an input error immediately focuses remediation on label clarity, inline guidance, and real-time or contextual validation feedback.</p>
+
+<p>The practical value of this classification scheme is that each category maps onto a distinct family of design fixes. Slips call for affordance improvements and spatial redesign. Mistakes call for better system feedback and clearer mental-model communication. Navigation errors call for information architecture revision. Input errors call for improved labeling and validation design. Misclassifying an error leads the team toward the wrong category of solution.</p>
+
+<p><strong>Root Cause Analysis</strong></p>
+
+<p>Classification tells you what kind of error occurred. Root cause analysis tells you <em>why</em> it occurred at the level of a specific design decision or missing design element. The distinction matters enormously. Knowing that users made a navigation error on the checkout flow is a symptom. Knowing that the error occurred because the "Continue" button label does not distinguish between saving progress and proceeding to payment — and that this ambiguity arose because the design team never specified secondary button states — is a root cause. Only root causes yield actionable recommendations.</p>
+
+<p>The most effective technique for reaching root causes is iterative questioning, often called the "five whys" method. For each observed error, the analyst asks "Why did this happen?" and then applies the same question to each successive answer until a fundamental design decision or omission is identified. Consider this sequence applied to a navigation error:</p>
+
+<ul>
+  <li><em>Observation:</em> The participant could not find the "Reports" section and spent four minutes navigating before giving up.</li>
+  <li><em>Why?</em> Because the participant looked in "Analytics" but "Reports" was listed under "Insights."</li>
+  <li><em>Why?</em> Because the label "Insights" does not clearly signal that it contains downloadable reports.</li>
+  <li><em>Why?</em> Because the label was chosen for its marketing tone rather than its descriptive accuracy during a rebrand.</li>
+  <li><em>Why?</em> Because there was no usability review of the navigation labels after the rebrand.</li>
+  <li><em>Root cause:</em> The information architecture review process did not include user-centered label testing, and marketing-driven terminology replaced functional descriptors without validation.</li>
+</ul>
+
+<p>This process prevents the common trap of treating symptoms. A symptom-level recommendation would be "rename the Insights section." A root-cause recommendation addresses both the immediate label problem and the process gap that allowed it to arise. The latter prevents the same class of error from appearing elsewhere in the interface or in future redesign cycles.</p>
+
+<p>Root causes in interface design tend to cluster into recurring categories that analysts can learn to recognize quickly. <strong>Unclear labeling</strong> — where words or icons do not match users' vocabulary or expectations — is one of the most frequent. <strong>Hidden affordances</strong> — where interactive elements do not visually signal their interactivity — account for a large proportion of slips and navigation errors. <strong>Missing or delayed feedback</strong> — where the system does not confirm that an action was received or completed — underlies many mistakes and contributes to input errors. <strong>Inconsistent interaction patterns</strong> — where similar tasks require different approaches in different parts of the interface — force users to relearn and create conditions for both slips and mistakes. <strong>Overloaded or ambiguous conceptual models</strong> — where the system's organizational logic does not match how users naturally think about the task domain — produce systematic navigation and mistake errors.</p>
+
+<p>When multiple errors across different sessions and different users trace back to the same root cause, this convergence is strong evidence of a fundamental design problem rather than an isolated incident. Documenting root causes in a structured format — linking each error instance to the specific design element implicated and the category of root cause — enables the team to see these convergence patterns and prioritize fixes that will eliminate entire clusters of errors simultaneously.</p>
+
+<p><strong>Mapping Errors to Interface Elements</strong></p>
+
+<p>Root cause analysis works at the level of individual errors. Error mapping works at the level of the whole interface. By plotting where errors occur — which screens, which components, which steps in a task flow — the analyst can identify hotspots: areas of the interface that concentrate a disproportionate number of failures. This spatial perspective reveals patterns that are invisible when errors are reviewed one at a time in a linear log.</p>
+
+<p>An error map can take several forms depending on the nature of the interface and the data available. For web or application interfaces, a common approach is to overlay error counts or icons on annotated screenshots or wireframes. Each error instance is marked at the specific element that triggered it, and color coding or symbol size can encode the error type and frequency. Heat maps generated from click-tracking tools can complement observational data by showing aggregate interaction patterns across many sessions. For multi-screen flows, a flow diagram annotated with error counts at each transition point reveals where users consistently falter moving from one step to the next.</p>
+
+<p>The analytical value of error maps becomes apparent when you step back and look at the distribution. A sparse, widely distributed pattern of single errors suggests that usability problems are isolated and varied — likely the result of multiple independent design decisions that each need individual attention. A dense cluster of errors around a single screen or component tells a very different story: it suggests that something structurally wrong is located there, something that affects nearly every user regardless of their background or task approach. High error density around a single element is one of the clearest signals that a fundamental design flaw is present — not merely a labeling tweak or visual adjustment is needed, but a reconceptualization of that element's design, placement, or role in the workflow.</p>
+
+<p>Error maps are particularly valuable for communicating findings to team members and stakeholders who did not observe the test sessions. A written list of errors requires readers to hold all the items in memory and construct their own spatial understanding of the problem. An error map makes the concentration of problems immediately visible, even to someone encountering the findings for the first time. This communicative efficiency makes error maps a standard deliverable in usability reports intended for cross-functional audiences including product managers, engineers, and executives.</p>
+
+<p>Critically, error maps should be maintained as living documents updated after each redesign iteration. After a round of design changes is implemented and a follow-up usability test is conducted, the new error map can be compared directly against the previous version. This comparison reveals whether the redesign successfully reduced errors at the targeted hotspots, whether it introduced new errors elsewhere — a phenomenon called regression — and whether the overall error density across the interface is trending in the right direction. Without this iterative tracking, it is impossible to know whether the design is genuinely improving in usability or simply shifting problems from one location to another.</p>
+
+<p><strong>Distinguishing Critical from Minor Errors</strong></p>
+
+<p>Not every error demands the same response. A usability improvement backlog that treats all errors as equally urgent will be impossible to act on rationally, because resources are always limited and some problems genuinely matter more than others. The discipline of distinguishing critical from minor errors — and applying consistent severity ratings across all issues — enables objective, data-driven prioritization rather than decisions based on which problems happen to be most memorable or most recently observed.</p>
+
+<p><strong>Critical errors</strong> are those that prevent task completion. If a user encounters this error, they cannot finish the task — not merely with difficulty, but at all. A form that cannot be submitted because a required field rejects all valid inputs is a critical error. A modal dialog that cannot be dismissed because the close button is outside the visible viewport on certain screen sizes is a critical error. These failures are sometimes called "showstoppers" because, by definition, they make it impossible for the user to accomplish their goal. Critical errors must be addressed before the next usability test iteration, because their presence in subsequent testing will block the collection of meaningful data about downstream interactions and obscure other problems that exist further in the flow.</p>
+
+<p><strong>Minor errors</strong> are those that reduce efficiency or user satisfaction but do not prevent goal achievement. A user who clicks the wrong tab first and then self-corrects has made a minor error. The task was completed, but with extra steps and perhaps some frustration. A user who misreads a label, pauses, and then interprets it correctly through context has made a minor error. These issues still deserve attention because accumulated minor errors degrade the overall user experience and can drive dissatisfaction, abandonment in naturalistic use, and poor perception of product quality — but they do not warrant the same emergency priority as showstoppers.</p>
+
+<p>Severity ratings formalize this distinction and add granularity. Most severity scales used in industry and research combine two dimensions: <strong>frequency</strong> (how often does this error occur across users and sessions?) and <strong>consequence</strong> (when it does occur, how serious is the impact?). An error that occurs rarely and has minor consequences receives a low severity rating. An error that occurs frequently and prevents task completion receives the highest severity rating. An error that occurs rarely but is catastrophic when it does occur — such as an accidental data deletion with no undo — warrants a high severity rating despite its low frequency, because the consequence dimension dominates.</p>
+
+<p>A commonly used framework for severity rating combines these dimensions into a structured scale. The table below illustrates how frequency and consequence interact to produce severity levels:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Severity Level</th>
+      <th>Frequency</th>
+      <th>Consequence</th>
+      <th>Priority for Remediation</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Critical (4)</strong></td>
+      <td>High or Low</td>
+      <td>Blocks task completion</td>
+      <td>Fix before next iteration</td>
+      <td>Form submission fails silently; user cannot proceed</td>
+    </tr>
+    <tr>
+      <td><strong>Serious (3)</strong></td>
+      <td>High</td>
+      <td>Significant difficulty or delay</td>
+      <td>Fix in next design sprint</td>
+      <td>Most users take the wrong path and must backtrack</td>
+    </tr>
+    <tr>
+      <td><strong>Moderate (2)</strong></td>
+      <td>Moderate</td>
+      <td>Noticeable friction or confusion</td>
+      <td>Schedule for near-term fix</td>
+      <td>Some users misread a label but self-correct quickly</td>
+    </tr>
+    <tr>
+      <td><strong>Minor (1)</strong></td>
+      <td>Low</td>
+      <td>Slight inefficiency or annoyance</td>
+      <td>Address when resources allow</td>
+      <td>One user briefly paused at an icon before recognizing it</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Applying a consistent severity scale across all identified issues is essential for objectivity. When each issue is rated by the same criteria, the prioritized backlog reflects the actual distribution of risk in the interface rather than the subjective emphasis placed on particular findings by individual analysts or stakeholders. It also enables meaningful communication across disciplines: a developer who sees "Severity 4" knows immediately that this issue must be resolved before the next test, without requiring extensive context from the usability team. And it creates a comparable baseline across testing rounds — if the proportion of Severity 4 issues declines from one round to the next, that is measurable evidence of usability improvement at the most consequential level of the interface.</p>
+
+<p>Together, error classification, root cause analysis, error mapping, and severity rating form an integrated analytical framework. Each technique builds on the others: you classify to understand the nature of the error, apply root cause analysis to understand its origin, map it to understand its location and prevalence, and rate its severity to understand its priority. The output of this integrated process is not merely a list of problems but a structured, evidence-based diagnosis of the interface — one that tells the design team not only what is broken, but where, why, and in what order to fix it.</p>
+        <div class="notes"><strong>Notes</strong>The five whys example is fully worked through to model the process for students. The severity table is rendered as a proper HTML table per instructions. Emphasis is placed throughout on the distinction between symptom-level and root-cause-level recommendations, which is the central cognitive shift this topic is designed to produce.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

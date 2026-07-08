@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aggregating Findings Across Evaluators</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Heuristic Evaluation and Nielsen&#39;s 10 Principles</a></div>
+  <header>
+    <h1>Aggregating Findings Across Evaluators</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Aggregating Findings Across Evaluators</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When multiple evaluators independently assess an interface — as is standard practice in heuristic evaluation and expert review — each person produces their own separate list of usability problems. No single evaluator, regardless of skill or experience, will catch every problem present in a complex interface. Research consistently shows that even expert evaluators miss a substantial portion of issues when working alone. This is not a flaw in the method; it is simply a consequence of how human attention and pattern recognition work. Different evaluators bring different mental models, different prior experiences, and different sensitivities to different kinds of problems. One evaluator might be highly attuned to navigation inconsistencies while another is more likely to notice error-recovery failures or unclear feedback. Aggregation is the process that harnesses this diversity productively, combining the separate findings of every evaluator into a single, comprehensive master list that none of them could have produced on their own.</p>
+
+<p>The aggregated findings list is not merely a procedural artifact — it is the primary deliverable of the entire evaluation. Design teams, product owners, and developers will use it to prioritize fixes, allocate development effort, and make trade-off decisions about which problems to address first. A well-constructed aggregated list gives stakeholders the clearest possible picture of the interface's usability landscape. A poorly constructed one — with duplicates, contradictory severity ratings, or vaguely merged findings — obscures that landscape and can lead to misallocated effort or overlooked critical issues. Understanding how to aggregate findings rigorously is therefore just as important as knowing how to identify problems in the first place.</p>
+
+<p><strong>Why Aggregation Is Necessary</strong></p>
+
+<p>The fundamental reason aggregation is necessary is that individual evaluators each find only a subset of the total usability problems present in an interface. This is a well-documented phenomenon. In landmark studies of heuristic evaluation, individual evaluators typically identified between 20% and 51% of known usability problems, with the average closer to one-third. The implication is stark: if you rely on a single evaluator's findings, you may be missing two-thirds of the problems. As more evaluators are added, problem coverage increases — but with diminishing returns. A team of three to five evaluators typically achieves a good balance between coverage and practical cost.</p>
+
+<p>Aggregation maximizes problem coverage by ensuring that any issue identified by <em>any</em> evaluator is included in the final deliverable. Even a problem found by only one evaluator deserves consideration. That evaluator may have a domain expertise or perspective that the others lacked. Dismissing a finding simply because only one person noticed it would undermine the purpose of running multiple evaluators in the first place.</p>
+
+<p>The aggregated list is also more credible to stakeholders than any individual report. When a problem appears on three out of four evaluators' lists, that consensus is powerful evidence that the problem is real and significant. When a problem appears on only one list, that fact is also meaningful information — it may indicate a subtler issue, or one that affects only certain user populations, and it should be documented accordingly. The breadth of discovery (how many evaluators identified a given problem) becomes part of the finding's profile and informs how confidently teams can prioritize it.</p>
+
+<p><strong>The Aggregation Meeting</strong></p>
+
+<p>The aggregation process typically takes place in a structured meeting or working session that brings all evaluators together after they have completed their independent assessments. The independence of the individual evaluation phase is critically important: evaluators must complete and document their own findings <em>before</em> seeing anyone else's list. If evaluators review each other's work prematurely, the principle of independent assessment is violated. Findings can become anchored to someone else's framing, and evaluators may unconsciously suppress observations that seem to conflict with a colleague's, or amplify ones that seem to be validated by the group.</p>
+
+<p>The meeting proceeds in a deliberate sequence. First, each evaluator presents their complete findings list without editing or filtering. This is not a time for the group to debate each issue as it is mentioned — the goal of this first phase is to ensure that every finding is on the table. A facilitator (often the evaluation team lead or a UX researcher who did not act as an evaluator) typically manages this process, recording all findings in a shared document or spreadsheet visible to the whole group.</p>
+
+<p>Once all individual lists have been presented, the group moves to the deduplication and merging phase. Findings that appear to describe the same problem are flagged and reviewed together. The group examines whether these findings truly share the same root cause and recommended fix, or whether they are distinct problems that merely resemble each other on the surface. This is nuanced work that requires careful attention, and it is described further in the next section.</p>
+
+<p>Where evaluators have assigned different severity ratings to what is determined to be the same problem, a negotiation takes place. The output of the entire meeting is a single master list: a consolidated record of usability problems with agreed-upon descriptions, consolidated evidence, and settled severity ratings. Each entry also records which evaluators originally identified it.</p>
+
+<p>A well-organized aggregation meeting benefits from some logistical groundwork. Using a shared spreadsheet or digital whiteboard tool before the meeting — where each evaluator enters their findings in a consistent format — can dramatically speed up the process. A standard format might include columns for a problem description, the affected screen or task, the violated heuristic or principle, supporting evidence or quotes, and a severity rating. When all findings arrive in a consistent structure, comparing and merging them becomes much more manageable.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Purpose</th>
+      <th>Example Entry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Problem Description</td>
+      <td>Clearly states what the usability problem is</td>
+      <td>"Error message after failed login does not indicate what was wrong or how to correct it."</td>
+    </tr>
+    <tr>
+      <td>Location / Context</td>
+      <td>Identifies where in the interface the problem occurs</td>
+      <td>Login screen, post-submission error state</td>
+    </tr>
+    <tr>
+      <td>Violated Heuristic or Principle</td>
+      <td>Links the finding to an established usability principle</td>
+      <td>Error recovery; Help users recognize, diagnose, and recover from errors</td>
+    </tr>
+    <tr>
+      <td>Supporting Evidence</td>
+      <td>Grounds the finding in observable facts</td>
+      <td>Message reads only "Login failed." No field highlighting, no guidance on password reset.</td>
+    </tr>
+    <tr>
+      <td>Severity Rating</td>
+      <td>Indicates urgency and impact</td>
+      <td>3 (Major usability problem)</td>
+    </tr>
+    <tr>
+      <td>Identified By</td>
+      <td>Records which evaluators found the problem</td>
+      <td>Evaluators 1, 3</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Deduplication and Problem Merging</strong></p>
+
+<p>Deduplication is one of the most intellectually demanding parts of the aggregation process because it requires distinguishing between problems that look similar and problems that actually <em>are</em> the same. Evaluators working independently will often describe the same interface failure in very different language, from very different angles, or in the context of different tasks. These surface differences can make it hard to recognize that two findings are describing the same underlying problem. Conversely, two findings that use nearly identical language may actually be describing different problems that share a common symptom but have different causes and require different fixes.</p>
+
+<p>The correct criterion for merging is not linguistic similarity — it is <em>shared root cause and shared recommended fix</em>. If two findings point to the same design flaw that would be resolved by the same design change, they should be merged. If resolving one finding would leave the other unaddressed, they are distinct problems and must remain separate entries.</p>
+
+<p>Consider an example. Suppose Evaluator A notes: <em>"On the account settings page, the Save button is positioned at the top of the form, which is not where users typically expect to find action buttons."</em> Evaluator B notes: <em>"On the checkout confirmation screen, the Confirm Order button is at the top of the page, opposite to convention."</em> These two findings describe the same design pattern — unconventionally placed action buttons — but they occur on different screens. They may share a root cause (a system-wide layout decision) and the same recommended fix (move primary action buttons to standard positions). If that is the case, merging them into a single finding that references both screens makes sense and correctly signals that this is a systemic problem, not a one-off. A systemic finding often warrants a higher severity rating than an isolated one.</p>
+
+<p>Now consider a different scenario. Evaluator A notes: <em>"Users cannot easily find the account settings because the link is buried in a dropdown under a non-descriptive icon."</em> Evaluator B notes: <em>"The account settings page has no clear navigation path back to the main dashboard."</em> Both findings involve account settings navigation, and it might be tempting to merge them. But the first is a <em>findability</em> problem — users cannot get <em>to</em> account settings — while the second is a <em>wayfinding/return navigation</em> problem — users cannot get back <em>from</em> account settings. These require different fixes and should remain separate findings.</p>
+
+<p>The aggregated list should also document which evaluators identified each problem. This serves two purposes. First, it provides a measure of the finding's robustness: a problem found by four out of five evaluators has a different confidence level than one found by only one. Second, it creates a useful audit trail. If a stakeholder later questions whether a finding is real, being able to say "three independent evaluators identified this issue from different task scenarios" is far more persuasive than "one person noticed this."</p>
+
+<p><strong>Negotiating Severity Across Evaluators</strong></p>
+
+<p>Even when two evaluators agree that a problem exists, they may disagree significantly on how severe it is. One evaluator might rate a navigation failure as a catastrophic problem (severity 4 on a 0–4 scale) while another rates it as a moderate problem (severity 2). These disagreements are normal and expected. Different evaluators have different domain backgrounds, different assumptions about the target user population, and different interpretations of what constitutes a complete blocking failure versus a significant inconvenience. The aggregation process must resolve these disagreements in a principled way.</p>
+
+<p>The negotiation should always begin with each evaluator explaining the reasoning behind their rating before any bargaining begins. This is crucial. An evaluator who rated the problem at severity 4 may have done so because they observed that the problem occurs on the only path to a critical feature — there is no workaround. An evaluator who rated the same problem at severity 2 may have been thinking of an alternate route through the interface that they discovered. When the first evaluator hears this, they may update their understanding of the problem's context. When the second evaluator understands the first evaluator's reasoning about path criticality, they may revise their rating upward. The point is that the reasoning must be shared and examined before any rating is changed.</p>
+
+<p>Consensus should always be grounded in observable evidence about the interface, not in personal preference or social dynamics. It is not acceptable to conclude that a problem is severity 3 simply because the most senior person in the room said so. Nor is it acceptable to settle on a rating because the evaluators want to avoid conflict. The question that should anchor every severity negotiation is: <em>What does the evidence about this interface tell us about how often this problem will occur, how severely it will affect users, and whether they will be able to work around it?</em></p>
+
+<p>A common but problematic shortcut is to average severity ratings mathematically. If Evaluator A gives a severity of 4 and Evaluator B gives a severity of 1, the arithmetic average is 2.5. But this number may reflect neither evaluator's actual position and tells stakeholders nothing useful about the problem's nature. More importantly, it hides the fact that there is real disagreement that deserves investigation. The discrepancy between a 4 and a 1 is itself meaningful — it suggests that something about the problem's impact or context was understood very differently by different evaluators, and that difference is worth exploring.</p>
+
+<p>When the group genuinely cannot reach consensus after a good-faith discussion of evidence, the right approach is transparency rather than forced agreement. Document the range of ratings (for example, "Severity ratings ranged from 2 to 4 across evaluators") and record the specific rationale that each position rests on. This gives stakeholders the full picture and allows them to make an informed decision about how to prioritize the finding. It also creates an accurate record that can be revisited if user testing later reveals more information about the problem's real-world impact.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Severity Level</th>
+      <th>Label</th>
+      <th>Typical Criteria</th>
+      <th>Priority Implication</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Not a usability problem</td>
+      <td>No impact on user task completion or satisfaction</td>
+      <td>No fix needed</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Cosmetic problem</td>
+      <td>Minor irritant; users can easily work around it or may not notice</td>
+      <td>Fix only if time and resources permit</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Minor usability problem</td>
+      <td>Causes some delay or confusion; workaround exists</td>
+      <td>Fix with low priority</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Major usability problem</td>
+      <td>Causes significant difficulty; workaround is non-obvious or burdensome</td>
+      <td>Fix with high priority</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Usability catastrophe</td>
+      <td>Prevents task completion; no workaround available</td>
+      <td>Must fix before release</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The aggregation process, done well, transforms a set of individual perspectives into a shared, evidence-based understanding of an interface's usability problems. The resulting master list is stronger than any single evaluator's report because it reflects diverse points of view, rigorously compared and systematically resolved. When that list is delivered to a design team, it gives them everything they need to make confident, prioritized decisions about what to fix — and why.</p>
+        <div class="notes"><strong>Notes</strong>The severity scale table uses Nielsen&#39;s classic 0–4 scale, which is the most widely referenced in heuristic evaluation literature and aligns well with the negotiation content. Instructors may want to note that some organizations use a 1–5 scale or a qualitative scheme; the principles of negotiation and consensus-building apply regardless of the specific scale used.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

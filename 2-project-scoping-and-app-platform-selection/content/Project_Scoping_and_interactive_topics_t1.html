@@ -1,0 +1,195 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Defining Project Scope in HCI Design</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Project Scoping and App Platform Selection</a></div>
+  <header>
+    <h1>Defining Project Scope in HCI Design</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Defining Project Scope in HCI Design</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Before a single wireframe is sketched or a single line of code is written, every successful Human-Computer Interaction (HCI) design project requires a clearly articulated project scope. Scope is the foundation upon which every subsequent decision rests. It answers the fundamental questions: <em>What are we building? For whom? Why? And within what limits?</em> Without a well-defined scope, even the most talented design team can find itself drifting — adding features that were never planned, missing deadlines, or delivering a product that fails to address the actual problem. This topic explores each dimension of project scope in depth: what scope means in an HCI context, how to identify meaningful goals, how to recognize and document constraints, how to define a target audience, and how to capture all of this in a formal project description that keeps the entire team aligned from start to finish.</p>
+
+<p><strong>What Is Project Scope?</strong></p>
+
+<p>Project scope refers to the defined set of goals, deliverables, features, tasks, and boundaries that collectively describe the full extent of a project. In HCI design, scope functions as a contract between the design team, its stakeholders, and ultimately its users. It establishes what the project <em>is</em> and, just as importantly, what it <em>is not</em>. A scope statement does not just list what will be built — it draws a clear line around the work so that everyone involved understands the boundaries.</p>
+
+<p>One of the most significant practical benefits of a well-defined scope is the prevention of <strong>feature creep</strong> — the gradual, often unplanned expansion of a project's requirements beyond its original intent. Feature creep is extremely common in design projects. A stakeholder suggests adding a social sharing function. A team member thinks a dark mode would be a nice touch. A user interview reveals an interesting use case that wasn't originally considered. Each individual addition might seem small, but collectively they can derail timelines, exhaust resources, and dilute the focus of the final product. When scope is documented clearly at the outset, the team has a principled basis for evaluating any proposed addition: <em>Does this fall within our defined scope? If not, is there a compelling reason to revise that scope formally?</em></p>
+
+<p>Scope also serves as a communication tool. Stakeholders — whether they are clients, instructors, managers, or end-user representatives — need to understand what they can expect at the end of a project. Ambiguity leads to misaligned expectations, which in turn leads to dissatisfaction even when the team has worked diligently. A clear scope document ensures that everyone is working from the same blueprint. Finally, scope must be <strong>realistic</strong>. It should reflect an honest appraisal of the team's time, skill set, and available resources. An overly ambitious scope that cannot be executed well is less valuable than a narrower scope executed with depth and quality.</p>
+
+<p><strong>Identifying Project Goals</strong></p>
+
+<p>Goals are the heart of the project scope. They describe, in precise terms, the problem the project is solving and the value it delivers to users. In HCI design, the best goals are <strong>user-centered</strong> — they articulate outcomes that matter to the people who will actually use the system, rather than outcomes that are merely technically impressive or organizationally convenient.</p>
+
+<p>A useful test for any goal is specificity: can you evaluate, at the end of the project, whether the goal was achieved? Vague goals like <em>"improve the user experience"</em> provide no clear success criterion. Specific goals like <em>"enable a first-time user to complete the registration process in under three minutes without external assistance"</em> give the team a concrete target and a basis for evaluation through usability testing.</p>
+
+<p>Goals also serve a prioritization function. In any real project, trade-offs arise. Resources run short, technical challenges emerge, and not everything on the wish list can be built. When the team has a ranked or clearly articulated set of goals, it has a principled basis for deciding which features are essential and which can be deferred or eliminated. For example, if the primary goal is to help elderly users manage medication schedules, then a complex data visualization dashboard may be far less important than large, legible typography and a simple confirmation flow.</p>
+
+<p>It is helpful to distinguish between <strong>primary goals</strong> and <strong>secondary goals</strong>. Primary goals define the core value proposition — the main problem being solved. Secondary goals describe desirable but non-essential outcomes. For instance:</p>
+
+<ul>
+  <li><strong>Primary goal:</strong> Allow community members to report local infrastructure issues (e.g., potholes, broken streetlights) directly from their mobile devices.</li>
+  <li><strong>Secondary goal:</strong> Provide users with status updates on previously submitted reports.</li>
+  <li><strong>Out of scope:</strong> Allow city employees to manage and resolve reports within the same application.</li>
+</ul>
+
+<p>This kind of layered goal structure keeps the team focused on delivering core value while clearly flagging what is a bonus and what is off the table entirely.</p>
+
+<p><strong>Defining Constraints</strong></p>
+
+<p>Constraints are the real-world limits within which the project must operate. Documenting them is not a sign of weakness or lack of ambition — it is a sign of maturity and practical wisdom. Constraints shape the scope directly: they determine what is feasible and prevent the team from committing to work that cannot realistically be delivered.</p>
+
+<p>Constraints in HCI projects typically fall into several categories:</p>
+
+<ul>
+  <li><strong>Time constraints:</strong> These define the overall project timeline and any intermediate milestones. For example, a semester-long academic project might have fixed deliverable dates for a research report, a prototype, and a final usability evaluation. Knowing these dates early allows the team to work backwards and allocate time appropriately across phases such as research, design, prototyping, and testing.</li>
+  <li><strong>Technical constraints:</strong> These reflect the capabilities and limitations of the chosen platform, tools, or technology stack. A project scoped for a standard web browser cannot reasonably incorporate features that require native device hardware access, such as gyroscope data, without a revised platform decision. Similarly, if the team is using a prototyping tool with limited animation capabilities, highly interactive micro-animations may need to be descoped.</li>
+  <li><strong>Team constraints:</strong> These reflect the skills and available bandwidth of the people doing the work. A team with strong visual design skills but limited coding experience should scope its prototype expectations accordingly — perhaps committing to a high-fidelity clickable prototype rather than a fully functional web application. Acknowledging skill gaps early allows the team to either plan for skill development, seek help, or adjust scope to match existing capabilities.</li>
+  <li><strong>Resource constraints:</strong> These include access to users for research and testing, budget for tools or software licenses, and access to relevant hardware for testing across device types.</li>
+</ul>
+
+<p>The value of documenting constraints early cannot be overstated. Consider a team that begins designing an application without acknowledging that they have only six weeks and no members with backend development experience. They might invest weeks designing complex database-driven features that can never be prototyped, tested, or demonstrated. By contrast, a team that documents these constraints upfront will design within realistic limits and deliver a coherent, testable product.</p>
+
+<p>A practical way to capture constraints is in a simple table that maps each constraint to its implication for scope:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Constraint Type</th>
+      <th>Specific Constraint</th>
+      <th>Implication for Scope</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Time</td>
+      <td>Project must be complete in 8 weeks</td>
+      <td>Prototype limited to 3–4 core user flows</td>
+    </tr>
+    <tr>
+      <td>Technical</td>
+      <td>Target platform is mobile web (no native app)</td>
+      <td>No offline functionality; limited hardware sensor access</td>
+    </tr>
+    <tr>
+      <td>Team</td>
+      <td>No team member has backend development experience</td>
+      <td>Prototype will be static/clickable, not fully functional</td>
+    </tr>
+    <tr>
+      <td>Resource</td>
+      <td>Access limited to 5 user research participants</td>
+      <td>Qualitative findings; no statistically representative data</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Scoping the Target User Audience</strong></p>
+
+<p>Defining the target user audience is one of the most consequential scoping decisions in HCI design. The entire discipline of HCI is predicated on the idea that systems should be designed around the needs, behaviors, and contexts of the people who use them. If the team does not have a clear picture of who those people are, every subsequent design decision — from information architecture to visual hierarchy to interaction model — rests on unstable ground.</p>
+
+<p>A well-defined target audience description goes beyond simple demographics such as age and location. It encompasses:</p>
+
+<ul>
+  <li><strong>Demographics:</strong> Age range, occupation, education level, geographic location, language, and other relevant population characteristics.</li>
+  <li><strong>Technical proficiency:</strong> Are users highly experienced with technology, or are they novices who may struggle with unfamiliar interface patterns? A financial planning app for retired individuals demands a very different design approach than a developer productivity tool targeting software engineers.</li>
+  <li><strong>Context of use:</strong> Where, when, and under what conditions will users interact with the system? A navigation application used while driving requires minimal cognitive load and large touch targets. A medical records system used in a clinical environment requires precision, detail, and security. The context fundamentally shapes what "good design" means for that product.</li>
+  <li><strong>User needs and pain points:</strong> What problem does the target audience currently face? What frustrations do they experience with existing solutions? These needs directly inform which features belong inside the scope and which are irrelevant distractions.</li>
+  <li><strong>Device and platform access:</strong> What devices does the audience typically use? A target audience of rural community health workers in low-income regions may primarily have access to low-end Android smartphones with unreliable internet connections — a fact that directly determines the appropriate platform and shapes technical constraints around data usage, offline support, and performance.</li>
+</ul>
+
+<p>Defining the target audience early aligns the entire team around a shared human vision. It becomes a touchstone during design reviews: <em>"Does this feature serve our target user? Would our target user understand this interface pattern? Is this interaction appropriate for the context in which our user will be operating?"</em> These questions are only answerable when the audience has been clearly defined.</p>
+
+<p>For example, consider two projects that both aim to help people track their health data. Project A targets fitness enthusiasts aged 18–35 who are comfortable with data and want detailed analytics. Project B targets elderly patients aged 65+ who are managing chronic conditions and may have limited digital literacy. The scope of features, the complexity of interaction, the visual design choices, and even the platform selection will differ dramatically between these two projects — purely because the target audiences are different. Scoping the audience is therefore not a bureaucratic exercise; it is a design-defining decision.</p>
+
+<p><strong>Writing a Formal Project Description</strong></p>
+
+<p>Once goals have been identified, constraints documented, and the target audience defined, all of this information should be synthesized into a formal project description. This document serves as the single authoritative reference for the project — a shared source of truth that every team member, stakeholder, and reviewer can consult when questions arise about what the project is and isn't trying to do.</p>
+
+<p>A well-constructed formal project description typically includes the following components:</p>
+
+<ul>
+  <li><strong>Project overview:</strong> A concise summary of the project — what it is, who it is for, and why it is being built. This section should be readable by someone entirely unfamiliar with the project and give them a clear mental model within a few sentences.</li>
+  <li><strong>Problem statement:</strong> A clear articulation of the problem the project addresses. A strong problem statement is grounded in evidence — observations, data, or user research that demonstrates the problem is real and significant.</li>
+  <li><strong>Project goals:</strong> The specific, evaluable goals the project aims to achieve, distinguished by priority (primary vs. secondary).</li>
+  <li><strong>Target user audience:</strong> A description of the intended users, covering demographics, technical proficiency, context of use, and key needs.</li>
+  <li><strong>In scope:</strong> An explicit list of the features, functions, or design areas the project will address.</li>
+  <li><strong>Out of scope:</strong> An equally explicit list of what the project will <em>not</em> address. This section is critically important — it prevents scope creep by making exclusions a conscious, documented decision rather than an oversight.</li>
+  <li><strong>Constraints:</strong> The documented time, technical, team, and resource constraints that bound the project.</li>
+  <li><strong>Platform rationale:</strong> The reasoning behind the platform selection (e.g., mobile web, iOS native, desktop application), connecting the choice back to the target audience's device access and the technical constraints identified.</li>
+  <li><strong>Key assumptions:</strong> Any assumptions the team has made that could affect the project if they prove incorrect — for example, assuming that users have consistent internet access, or that users are comfortable with touch-based navigation.</li>
+</ul>
+
+<p>The value of explicitly stating what is <em>out of scope</em> deserves particular emphasis. It is tempting to simply list what the project <em>will</em> do and leave out of scope items unspoken. However, this creates ambiguity. If a stakeholder later asks, <em>"Why doesn't your app include a social sharing feature?"</em>, a team without a documented out-of-scope section has no defensible answer. With it, they can point directly to a decision that was made deliberately, with rationale, at the beginning of the project.</p>
+
+<p>Including the <strong>rationale</strong> for key decisions — not just the decisions themselves — adds significant value to the project description. For example, rather than simply stating <em>"Platform: Mobile web"</em>, the document might explain: <em>"The mobile web platform was selected because our target audience of community volunteers predominantly uses Android smartphones and does not reliably install native applications. A mobile web approach lowers the barrier to adoption and avoids the distribution complexity of app stores."</em> This kind of reasoning helps future team members, reviewers, and stakeholders understand not just what was decided, but why — making it easier to revisit and revise decisions intelligently if circumstances change.</p>
+
+<p>Ultimately, the formal project description is a living document in spirit, even if it is formally approved at the start of a project. When circumstances change — a new constraint emerges, a goal is found to be unachievable, or user research reveals that the original audience definition was too narrow — the document should be revised formally and the revision communicated to all stakeholders. A project description that is out of date is worse than no document at all, because it creates a false sense of shared understanding where none actually exists.</p>
+
+<p>In summary, defining project scope in HCI design is not a preliminary formality to be rushed through before the "real" work begins. It <em>is</em> real work — foundational work that determines whether everything that follows will be coherent, achievable, and genuinely useful to the people the system is meant to serve. Teams that invest serious effort in scoping their projects are far better positioned to navigate the inevitable challenges of the design process, make principled trade-offs when resources run short, and ultimately deliver experiences that meet both user needs and project objectives.</p>
+        <div class="notes"><strong>Notes</strong>This topic introduces foundational scoping concepts that will underpin all subsequent HCI design decisions in the module. Instructors may wish to pair this content with a hands-on scoping exercise in which students draft a formal project description for a hypothetical or real design brief, then peer-review each other&#39;s in-scope/out-of-scope delineations.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

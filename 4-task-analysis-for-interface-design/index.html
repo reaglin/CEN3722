@@ -5,232 +5,185 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Module 4 – Task Analysis for Interface Design | CEN3722</title>
   <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      font-size: 16px;
-      scroll-behavior: smooth;
-    }
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f9;
-      color: #2c3e50;
-      line-height: 1.65;
-      min-height: 100vh;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      font-size: 1rem;
+      line-height: 1.6;
+      color: #1e2a38;
+      background: #f4f6f9;
     }
 
-    /* ── Page Shell ── */
+    /* ── Page shell ── */
     .page-wrapper {
-      max-width: 1080px;
+      max-width: 1100px;
       margin: 0 auto;
-      padding: 2.5rem 1.5rem 4rem;
+      padding: 2rem 1.25rem 4rem;
     }
 
-    /* ── Course Banner ── */
-    .course-banner {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
-      color: #ffffff;
+    /* ── Header ── */
+    .page-header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #fff;
       border-radius: 10px;
       padding: 2.25rem 2.5rem;
       margin-bottom: 2.25rem;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
     }
 
-    .course-label {
-      font-size: 0.78rem;
+    .page-header .course-label {
+      font-size: 0.8rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #a8cff0;
-      margin-bottom: 0.45rem;
+      opacity: 0.8;
+      margin-bottom: 0.4rem;
     }
 
-    .course-banner h1 {
+    .page-header h1 {
       font-size: clamp(1.4rem, 3vw, 2rem);
       font-weight: 700;
       line-height: 1.25;
-      margin-bottom: 1rem;
+      margin-bottom: 0.85rem;
     }
 
-    .course-banner p {
-      font-size: 0.97rem;
-      color: #ddeeff;
+    .page-header p {
+      font-size: 0.975rem;
+      opacity: 0.9;
       max-width: 72ch;
-      line-height: 1.7;
     }
 
-    /* ── Section Heading ── */
-    .section-heading {
-      font-size: 1.05rem;
+    /* ── Section title ── */
+    .section-title {
+      font-size: 0.75rem;
       font-weight: 700;
+      letter-spacing: 0.09em;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: #1a3a5c;
-      margin-bottom: 1.1rem;
-      padding-bottom: 0.45rem;
-      border-bottom: 2px solid #2d6a9f;
+      color: #5a6a7e;
+      margin-bottom: 1rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid #dde3ec;
     }
 
-    /* ── Card Grid ── */
+    /* ── Card grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.35rem;
+      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      gap: 1.1rem;
     }
 
-    /* ── Artifact Card ── */
+    /* ── Card ── */
     .card {
       background: #ffffff;
-      border: 1px solid #dce3ec;
-      border-radius: 9px;
-      padding: 1.5rem 1.6rem;
+      border: 1px solid #dde3ec;
+      border-radius: 8px;
+      padding: 1.25rem 1.35rem;
       display: flex;
       flex-direction: column;
-      gap: 0.75rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
     .card:hover {
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.11);
-      transform: translateY(-2px);
+      box-shadow: 0 4px 18px rgba(30, 60, 110, 0.1);
+      border-color: #b0bdce;
     }
 
-    /* ── Card Header ── */
+    /* ── Card header row ── */
     .card-header {
       display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-    }
-
-    .card-name-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.55rem;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
     }
 
     .card-name {
-      font-size: 1.05rem;
+      font-size: 0.975rem;
       font-weight: 700;
-      color: #1a3a5c;
+      color: #1e2a38;
       line-height: 1.3;
+      flex: 1;
     }
 
     .card-name a {
-      color: #1a3a5c;
+      color: #1a56a8;
       text-decoration: none;
-      border-bottom: 2px solid #2d6a9f;
-      padding-bottom: 1px;
-      transition: color 0.15s ease, border-color 0.15s ease;
     }
 
-    .card-name a:hover,
-    .card-name a:focus {
-      color: #2d6a9f;
-      border-color: #a8cff0;
-      outline: none;
+    .card-name a:hover {
+      text-decoration: underline;
+      color: #0f3d80;
     }
 
     .source-link {
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       font-weight: 600;
-      color: #5a8abf;
-      text-decoration: none;
-      background: #eaf3fb;
-      border: 1px solid #b6d4ee;
-      border-radius: 4px;
-      padding: 0.15rem 0.5rem;
       white-space: nowrap;
-      transition: background 0.15s ease, color 0.15s ease;
-      align-self: center;
+      color: #5a6a7e;
+      text-decoration: none;
+      border: 1px solid #c5cdd8;
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      line-height: 1.6;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
     }
 
-    .source-link:hover,
-    .source-link:focus {
-      background: #2d6a9f;
-      color: #ffffff;
-      border-color: #2d6a9f;
-      outline: none;
+    .source-link:hover {
+      background: #eef2f8;
+      border-color: #8fa4bf;
+      color: #1a3a5c;
     }
 
-    /* ── Metadata Badges ── */
+    /* ── Badges row ── */
     .card-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.45rem;
+      gap: 0.4rem;
       align-items: center;
     }
 
     .badge {
-      font-size: 0.72rem;
+      display: inline-block;
+      font-size: 0.68rem;
       font-weight: 600;
-      letter-spacing: 0.04em;
-      padding: 0.2rem 0.6rem;
-      border-radius: 20px;
-      white-space: nowrap;
+      letter-spacing: 0.03em;
+      border-radius: 4px;
+      padding: 0.18rem 0.55rem;
+      line-height: 1.5;
     }
 
     .badge-type {
-      background-color: #e8f0fa;
-      color: #2d5fa0;
-      border: 1px solid #c2d5ef;
+      background: #e8edf5;
+      color: #2c4a6e;
     }
 
     .badge-filetype {
-      background-color: #edf7ee;
-      color: #2a7a34;
-      border: 1px solid #b2ddb6;
-      font-family: 'Courier New', Courier, monospace;
+      background: #e6f4ea;
+      color: #2a6b3c;
+      font-family: "Courier New", monospace;
     }
 
-    /* ── Card Description ── */
+    /* ── Description ── */
     .card-description {
-      font-size: 0.9rem;
+      font-size: 0.865rem;
       color: #4a5568;
-      line-height: 1.65;
-      flex-grow: 1;
-    }
-
-    /* ── Divider ── */
-    .card-divider {
-      height: 1px;
-      background: #e8ecf1;
-      border: none;
-      margin: 0;
+      line-height: 1.55;
+      flex: 1;
     }
 
     /* ── Footer ── */
     .page-footer {
       margin-top: 3rem;
       text-align: center;
-      font-size: 0.8rem;
-      color: #8a99a8;
-      padding-top: 1.25rem;
-      border-top: 1px solid #dce3ec;
+      font-size: 0.78rem;
+      color: #8a96a3;
     }
 
-    /* ── Responsive Tweaks ── */
-    @media (max-width: 520px) {
-      .course-banner {
-        padding: 1.6rem 1.3rem;
-      }
-
-      .card {
-        padding: 1.2rem 1.25rem;
-      }
-
-      .card-name-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.4rem;
-      }
+    /* ── Responsive tweaks ── */
+    @media (max-width: 540px) {
+      .page-header { padding: 1.5rem 1.25rem; }
+      .card-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -239,102 +192,232 @@
 <div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
   <div class="page-wrapper">
 
-    <!-- ── Course Banner ── -->
-    <header class="course-banner" role="banner">
+    <!-- ── Page header ── -->
+    <header class="page-header">
       <p class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
       <h1>Module 4 &mdash; Task Analysis for Interface Design</h1>
       <p>
-        This module introduces the principles and practice of task analysis as a foundational
-        technique in human-computer interface design. Topics include Hierarchical Task Analysis
-        (HTA), Cognitive Task Analysis (CTA), and frameworks for selecting the right method for a
-        given design context. Use the artifacts below to navigate module content, review expected
-        learning outcomes, and access your team assignment.
+        This module explores the theory and practice of task analysis as a foundational method in
+        user-centred interface design. Topics include Hierarchical Task Analysis (HTA), Cognitive
+        Task Analysis (CTA), data-collection strategies, documentation techniques, and the
+        application of these methods within a collaborative group project. Use the resources below
+        to navigate readings, outcomes, and assignments for this module.
       </p>
     </header>
 
-    <!-- ── Artifact Cards ── -->
-    <main>
-      <h2 class="section-heading">Module Artifacts</h2>
+    <!-- ── Artifact grid ── -->
+    <section aria-label="Module artifacts">
+      <h2 class="section-title">Module Artifacts</h2>
+      <div class="card-grid">
 
-      <div class="card-grid" role="list">
-
-        <!-- Card 1: Module Topics -->
-        <article class="card" role="listitem">
+        <!-- Card: Module Topics -->
+        <article class="card">
           <div class="card-header">
-            <div class="card-name-row">
-              <span class="card-name">
-                <a href="content/module_topics.html">Module Topics</a>
-              </span>
-              <a
-                class="source-link"
-                href="source/hierarchy.json"
-                aria-label="Source file for Module Topics"
-              >source file</a>
-            </div>
-            <div class="card-meta">
-              <span class="badge badge-type">Module Topics</span>
-              <span class="badge badge-filetype">.json</span>
-            </div>
+            <span class="card-name">
+              <a href="content/module_topics.html">Module Topics</a>
+            </span>
+            <a class="source-link" href="source/hierarchy.json">source file</a>
           </div>
-          <hr class="card-divider" />
+          <div class="card-meta">
+            <span class="badge badge-type">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
           <p class="card-description">
-            A structured outline of the module's subject matter, covering task analysis
-            fundamentals, Hierarchical Task Analysis (HTA), Cognitive Task Analysis (CTA), and
-            method selection; used as the authoritative content map for building other module
-            materials.
+            A structured outline of the module's subject matter, covering task analysis fundamentals,
+            Hierarchical Task Analysis (HTA), Cognitive Task Analysis (CTA), and method selection;
+            used as the authoritative content map for building other module materials.
           </p>
         </article>
 
-        <!-- Card 2: Module Outcomes -->
-        <article class="card" role="listitem">
+        <!-- Card: Module Outcomes -->
+        <article class="card">
           <div class="card-header">
-            <div class="card-name-row">
-              <span class="card-name">
-                <a href="content/module_outcomes.html">Module Outcomes</a>
-              </span>
-            </div>
-            <div class="card-meta">
-              <span class="badge badge-type">Module Outcomes</span>
-              <span class="badge badge-filetype">.html</span>
-            </div>
+            <span class="card-name">
+              <a href="content/module_outcomes.html">Module Outcomes</a>
+            </span>
           </div>
-          <hr class="card-divider" />
+          <div class="card-meta">
+            <span class="badge badge-type">Module Outcomes</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
           <p class="card-description">
-            A list of five measurable module outcomes spanning remembering HTA and CTA steps
-            through applying, analyzing, and evaluating task analysis in interface design contexts,
-            mapped to Bloom's levels and course objectives; used by instructors to align
-            assessments and by learners to understand expected competencies.
+            A list of five measurable module outcomes spanning remembering HTA and CTA steps through
+            applying, analyzing, and evaluating task analysis in interface design contexts, mapped to
+            Bloom's levels and course objectives; used by instructors to align assessments and by
+            learners to understand expected competencies.
           </p>
         </article>
 
-        <!-- Card 3: Assignment -->
-        <article class="card" role="listitem">
+        <!-- Card: Assignment 4 -->
+        <article class="card">
           <div class="card-header">
-            <div class="card-name-row">
-              <span class="card-name">
-                <a href="content/Assignment_4.html">Task Analysis for AI-Assisted Software Design</a>
-              </span>
-            </div>
-            <div class="card-meta">
-              <span class="badge badge-type">Text Content</span>
-              <span class="badge badge-filetype">.html</span>
-            </div>
+            <span class="card-name">
+              <a href="content/Assignment_4.html">Assignment 4</a>
+            </span>
           </div>
-          <hr class="card-divider" />
+          <div class="card-meta">
+            <span class="badge badge-type">Text Content</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
           <p class="card-description">
-            A group project assignment (Phase 3 of a semester-long sequence) in which student
-            teams conduct a task analysis of an AI-assisted software design workflow, producing HTA
-            diagrams and CTA findings that build on prior use-case work; used by student teams as
-            the primary instructions for completing and submitting this phase.
+            A group project assignment (Phase 3 of a semester-long sequence) in which student teams
+            conduct a task analysis of an AI-assisted software design workflow, producing HTA diagrams
+            and CTA findings that build on prior use-case work; used by student teams as the primary
+            instructions for completing and submitting this phase.
+          </p>
+        </article>
+
+        <!-- Card: Foundations of Task Analysis -->
+        <article class="card">
+          <div class="card-header">
+            <span class="card-name">
+              <a href="content/Task_Analysis_for_interactive_topics_t1.html">Foundations of Task Analysis</a>
+            </span>
+          </div>
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <p class="card-description">
+            A reading that introduces task analysis as a core UX and interface design practice,
+            explaining what it is, why it matters, and how breaking down human activity into
+            constituent parts helps designers build systems that support real-world user behavior.
+          </p>
+        </article>
+
+        <!-- Card: Hierarchical Task Analysis -->
+        <article class="card">
+          <div class="card-header">
+            <span class="card-name">
+              <a href="content/Task_Analysis_for_interactive_topics_t2.html">Hierarchical Task Analysis (HTA)</a>
+            </span>
+          </div>
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <p class="card-description">
+            A reading covering Hierarchical Task Analysis (HTA), tracing its origins in industrial
+            and military psychology and explaining how the method decomposes complex user goals into
+            progressively smaller sub-tasks, which learners use to understand and document observable
+            task structures.
+          </p>
+        </article>
+
+        <!-- Card: Cognitive Task Analysis -->
+        <article class="card">
+          <div class="card-header">
+            <span class="card-name">
+              <a href="content/Task_Analysis_for_interactive_topics_t3.html">Cognitive Task Analysis (CTA)</a>
+            </span>
+          </div>
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <p class="card-description">
+            A reading on Cognitive Task Analysis (CTA) that addresses the mental processes underlying
+            user actions — such as expert decision-making and knowledge application — filling the gap
+            that HTA leaves by going beyond observable steps to capture what users think and know
+            during task execution.
+          </p>
+        </article>
+
+        <!-- Card: Comparing and Selecting Analysis Methods -->
+        <article class="card">
+          <div class="card-header">
+            <span class="card-name">
+              <a href="content/Task_Analysis_for_interactive_topics_t4.html">Comparing and Selecting Analysis Methods</a>
+            </span>
+          </div>
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <p class="card-description">
+            A reading that compares HTA and CTA as complementary rather than competing methods,
+            guiding learners and instructors in selecting the appropriate analysis technique based on
+            project context, task complexity, and the type of information needed.
+          </p>
+        </article>
+
+        <!-- Card: Data Collection for Task Analysis -->
+        <article class="card">
+          <div class="card-header">
+            <span class="card-name">
+              <a href="content/Task_Analysis_for_interactive_topics_t5.html">Data Collection for Task Analysis</a>
+            </span>
+          </div>
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <p class="card-description">
+            A reading on empirical data-collection techniques used to feed task analysis, covering
+            methods such as observation and interviews, and explaining how to gather reliable,
+            real-world evidence about how users actually perform tasks before analysis begins.
+          </p>
+        </article>
+
+        <!-- Card: Producing Task Analysis Documentation -->
+        <article class="card">
+          <div class="card-header">
+            <span class="card-name">
+              <a href="content/Task_Analysis_for_interactive_topics_t6.html">Producing Task Analysis Documentation</a>
+            </span>
+          </div>
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <p class="card-description">
+            A reading explaining how to translate raw observational and interview data into structured,
+            team-readable task analysis documents, covering documentation formats, verification
+            practices, and how to produce artefacts that are ready to inform design decisions.
+          </p>
+        </article>
+
+        <!-- Card: Applying Task Analysis to the Group Project (Topic Detail) -->
+        <article class="card">
+          <div class="card-header">
+            <span class="card-name">
+              <a href="content/Task_Analysis_for_interactive_topics_t7.html">Applying Task Analysis to the Group Project</a>
+            </span>
+          </div>
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <p class="card-description">
+            A reading that guides student project teams through applying task analysis collaboratively,
+            addressing the practical challenges of coordinating multiple observers, aligning findings,
+            and converting team-gathered evidence into structured, evidence-based design understanding.
+          </p>
+        </article>
+
+        <!-- Card: Applying Task Analysis to the Group Project (Text Content) -->
+        <article class="card">
+          <div class="card-header">
+            <span class="card-name">
+              <a href="content/Task_Analysis_for_interactive.html">Applying Task Analysis to the Group Project</a>
+            </span>
+          </div>
+          <div class="card-meta">
+            <span class="badge badge-type">Text Content</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <p class="card-description">
+            A reading that guides student project teams through applying task analysis collaboratively,
+            addressing the practical challenges of coordinating multiple observers, aligning findings,
+            and converting team-gathered evidence into structured, evidence-based design understanding.
           </p>
         </article>
 
       </div><!-- /.card-grid -->
-    </main>
+    </section>
 
-    <!-- ── Footer ── -->
-    <footer class="page-footer" role="contentinfo">
-      CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;|&nbsp; Module 4
+    <footer class="page-footer">
+      <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Module 4</p>
     </footer>
 
   </div><!-- /.page-wrapper -->

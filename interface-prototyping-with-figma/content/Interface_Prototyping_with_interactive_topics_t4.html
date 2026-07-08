@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Auto-Layout for Responsive Elements</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Interface Prototyping with Figma</a></div>
+  <header>
+    <h1>Auto-Layout for Responsive Elements</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Auto-Layout for Responsive Elements</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Auto-layout is one of the most transformative features in Figma, turning static frames into intelligent containers that resize, reflow, and redistribute their contents automatically. Before auto-layout existed, designers had to manually nudge elements whenever text changed, content was added, or a component was reused at a different size. Auto-layout eliminates that manual work by giving a frame a set of rules — direction, spacing, padding, alignment — that it enforces on its children at all times. The result is a frame that behaves much more like a CSS flexbox container than a traditional artboard, and that parallel makes it immediately useful for anyone who has ever translated a design into code. Whether you are building a single button that needs to grow around its label, a card that must accommodate variable amounts of body text, or a navigation bar that should stretch to fill any screen width, auto-layout is the mechanism that makes all of those things possible without manual intervention.</p>
+
+<p><strong>What Is Auto-Layout?</strong></p>
+
+<p>At its core, auto-layout converts a regular Figma frame into a frame that automatically manages the position of its direct children. Instead of children sitting at arbitrary x/y coordinates that you set manually, an auto-layout frame places children sequentially along a chosen axis and recalculates every child's position whenever any child changes size. This means that if a button label grows from "Save" to "Save Changes", the button's background expands to accommodate the new text without any manual resizing.</p>
+
+<p>You apply auto-layout to any selected frame — or to a selection of multiple objects that you want to group into a new frame — by pressing <strong>Shift+A</strong> on the keyboard, or by clicking the <strong>+</strong> icon next to the "Auto layout" label in the Design panel on the right side of the Figma interface. Figma immediately converts the frame, infers a direction based on whether the children are arranged more horizontally or vertically, and assigns default gap and padding values. From that point forward the frame's children are managed by the layout rules you specify.</p>
+
+<p>The <strong>direction</strong> setting is the first rule you configure. A <em>horizontal</em> auto-layout frame stacks its children left to right, like a row of buttons in a toolbar. A <em>vertical</em> auto-layout frame stacks its children top to bottom, like a list of settings rows. In newer versions of Figma a third option, <em>wrap</em>, is available: when a child would overflow the container's width it wraps onto the next line, producing grid-like layouts without requiring a dedicated grid component. Wrap mode is particularly useful for tag clouds, icon grids, and responsive card galleries.</p>
+
+<p><strong>Padding</strong> controls the space between the container's boundary and its children. Figma provides independent controls for top, right, bottom, and left padding, so you can express a button with 12 px vertical padding and 24 px horizontal padding precisely, without needing invisible spacer rectangles. The <strong>gap</strong> value controls the uniform space inserted between adjacent children along the stack direction. If a vertical list has a gap of 16 px, every pair of adjacent list items will be separated by exactly 16 px no matter how many items the list contains or how tall each item is.</p>
+
+<p><strong>Sizing Modes: Hug, Fill, and Fixed</strong></p>
+
+<p>Every auto-layout frame, and every direct child inside one, has a sizing mode for each axis (width and height independently). Understanding these three modes and how they interact is the key to building layouts that behave correctly across a wide range of content.</p>
+
+<p><strong>Hug content</strong> tells a frame to shrink itself down to the smallest size that still contains all of its children plus its own padding. A button set to hug on both axes will be exactly as wide and as tall as its label text plus the padding you defined — no more, no less. If the label text changes, the button resizes automatically. Hug is most useful for the outermost dimension of leaf-level components: buttons, tags, badges, and similar elements that should feel tight around their content. A vertical list frame set to hug height will grow taller each time a new item is added and shrink when items are removed, making it a natural container for dynamic data.</p>
+
+<p><strong>Fill container</strong> is the opposite: it tells a child to expand and consume all available space in the direction of the parent's layout axis. If a horizontal auto-layout toolbar contains three buttons where the middle button is set to fill width, that middle button will stretch to fill whatever horizontal space the toolbar has left over after the fixed-width buttons have taken their share. Fill is the equivalent of <code>flex: 1</code> in CSS and is equally powerful: it allows one element to absorb all remaining space so that siblings stay pinned to their respective edges. A search input set to fill width inside a horizontal nav bar is a classic example — the input expands to occupy all space between a logo on the left and an icon button on the right.</p>
+
+<p><strong>Fixed sizing</strong> locks a frame or child to an explicit pixel dimension. The element will not grow or shrink regardless of its content, the size of its parent, or the size of its siblings. Fixed sizing is appropriate when a dimension is constrained by a physical or brand requirement — a profile avatar must always be 40×40 px, a sidebar must always be 240 px wide. Inside a fixed-width frame, text may overflow or truncate if it is too long, which is actually useful for testing worst-case content scenarios.</p>
+
+<p>The real power emerges when you <strong>mix sizing modes inside nested frames</strong>. Consider a card component: the card itself is fixed width (say 360 px) but hugs its height. Inside the card, a vertical auto-layout frame contains a title (fixed height), a body text block (hug height), and a footer row (fixed height). The body text block grows as copy length increases, pushing the footer down and causing the card to hug to a new taller height. The card width stays fixed at 360 px throughout. This single component now correctly renders a two-sentence card and a ten-sentence card without any manual resizing — exactly the behaviour you need when handing designs off to engineers who will fill it with real data.</p>
+
+<p><strong>Spacing, Padding, and Alignment</strong></p>
+
+<p>Auto-layout replaces a class of older Figma workarounds that involved invisible spacer rectangles placed between elements to enforce gaps. Those spacers were fragile — they could be accidentally deleted, they confused collaborators, and they made component inspection confusing for developers. Independent padding inputs and a gap value make the design file self-documenting: an engineer inspecting a button can read "padding: 12 top, 12 bottom, 24 left, 24 right; gap: 8" and translate that directly into CSS.</p>
+
+<p>The <strong>gap</strong> applies uniformly between every pair of adjacent children along the stack direction. If you need non-uniform spacing — say a button group where one button is separated from the others by a larger gap — the recommended approach is to nest the outlying button in its own auto-layout frame or to use the <em>space-between</em> distribution mode rather than fighting the gap value.</p>
+
+<p><strong>Alignment</strong> controls where children sit on the axis perpendicular to the stack direction. In a horizontal auto-layout frame, you control the vertical alignment of children: start (top-align), center (middle-align), end (bottom-align), or baseline (align the text baselines of all children, which is especially useful in navigation bars that mix text and icons of different sizes). In a vertical auto-layout frame, you control the horizontal alignment of children: start (left-align), center, or end (right-align).</p>
+
+<p>The <strong>space-between</strong> distribution mode is a special alternative to the regular gap. When space-between is active, the first child is pinned to one edge of the container, the last child is pinned to the opposite edge, and any remaining children are distributed evenly in between. The gap value is ignored in this mode; the spacing is calculated dynamically based on the container's size and the sizes of the children. A navigation bar with a logo on the far left and a profile avatar on the far right, with navigation links evenly distributed in between, is a textbook use case for space-between.</p>
+
+<p>The table below summarises how alignment and distribution options map to their CSS equivalents, which is useful context for both designers and developers:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Figma Setting</th>
+      <th>Applies To</th>
+      <th>CSS Equivalent</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Horizontal direction</td>
+      <td>Stack axis</td>
+      <td><code>flex-direction: row</code></td>
+    </tr>
+    <tr>
+      <td>Vertical direction</td>
+      <td>Stack axis</td>
+      <td><code>flex-direction: column</code></td>
+    </tr>
+    <tr>
+      <td>Wrap direction</td>
+      <td>Overflow behaviour</td>
+      <td><code>flex-wrap: wrap</code></td>
+    </tr>
+    <tr>
+      <td>Align: start</td>
+      <td>Cross axis</td>
+      <td><code>align-items: flex-start</code></td>
+    </tr>
+    <tr>
+      <td>Align: center</td>
+      <td>Cross axis</td>
+      <td><code>align-items: center</code></td>
+    </tr>
+    <tr>
+      <td>Align: end</td>
+      <td>Cross axis</td>
+      <td><code>align-items: flex-end</code></td>
+    </tr>
+    <tr>
+      <td>Align: baseline</td>
+      <td>Cross axis</td>
+      <td><code>align-items: baseline</code></td>
+    </tr>
+    <tr>
+      <td>Space between</td>
+      <td>Main axis distribution</td>
+      <td><code>justify-content: space-between</code></td>
+    </tr>
+    <tr>
+      <td>Hug content</td>
+      <td>Frame sizing</td>
+      <td><code>width/height: fit-content</code></td>
+    </tr>
+    <tr>
+      <td>Fill container</td>
+      <td>Child sizing</td>
+      <td><code>flex: 1</code> or <code>flex-grow: 1</code></td>
+    </tr>
+    <tr>
+      <td>Fixed size</td>
+      <td>Frame/child sizing</td>
+      <td>Explicit <code>width</code> / <code>height</code> value</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Building Reusable List and Card Patterns</strong></p>
+
+<p>Auto-layout's most common applications in production design systems are <em>list containers</em> and <em>card components</em>, because both patterns involve variable numbers of items or variable amounts of content that must remain visually consistent.</p>
+
+<p>A <strong>list frame</strong> is typically a vertical auto-layout frame set to hug height and fixed (or fill) width. Each item inside the list is a child frame — usually a component instance — that is also auto-layout enabled. Because the list hugs its height, adding a new item instance into the list automatically pushes the list taller. Removing an item collapses it. This mirrors how a real list in a web or mobile application behaves when data is loaded, and it means that even in the design file you can validate that five items and fifty items both look correct without manually repositioning anything. A gap value on the list container ensures consistent vertical spacing between items, and top/bottom padding ensures the list doesn't begin or end with items flush against the container edge.</p>
+
+<p>A <strong>card component</strong> benefits from auto-layout in a different way. Cards almost always have a fixed or percentage-based width defined by the grid they sit in, but their height is driven by content. Setting the card to fixed width and hug height, and making the internal body text block hug its own height, means the card faithfully represents short promotional copy and long descriptive copy without manual intervention. The padding properties ensure the card always has, say, 24 px of breathing room around all its internal content regardless of how tall the content grows. Card footers (call-to-action buttons, like/share icons) can be pushed to the bottom of the card by giving the content area above them a fill height, which causes the content to absorb all remaining vertical space and push the footer to the bottom edge — a classic "sticky footer" pattern replicated entirely in Figma.</p>
+
+<p><strong>Wrapping auto-layout</strong> enables tile and grid patterns that would otherwise require Figma's grid layout or manual placement. When a horizontal auto-layout frame is set to wrap and given a fixed width, its children flow left to right and, when a child would exceed the frame's width, wrap onto the next row. Combined with a row gap (the vertical space between wrapped rows) and a column gap (the horizontal space between children on the same row), this produces a genuine responsive grid. Tag components inside a wrapping auto-layout tag cloud will reflow naturally as tags are added or removed, and the container will hug its height to the number of rows actually occupied.</p>
+
+<p>Combining list auto-layout with <strong>component variants</strong> produces some of the most powerful patterns in a design system. A list item component might have variants for states: <em>default</em>, <em>selected</em>, <em>unread</em>, and <em>disabled</em>. The selected variant might include a coloured left border or a checkmark icon that the default variant does not. Because all variants share the same auto-layout rules and padding, switching a list item instance to its selected variant does not break the overall list layout — the container automatically accommodates the slightly different child geometry.</p>
+
+<p><strong>Auto-Layout and Component Interaction</strong></p>
+
+<p>The relationship between auto-layout and Figma's component and variant system is what elevates both features from individually useful to collectively indispensable. The fundamental principle is that <strong>when an auto-layout frame's child changes size, the parent re-evaluates and resizes automatically</strong>, cascading upward through nested auto-layout frames until a fixed boundary is reached. This cascade is what makes variant switching in a prototype feel live and data-driven rather than static.</p>
+
+<p>A practical example: a notification banner component has two variants — <em>collapsed</em> (shows only a short title) and <em>expanded</em> (shows a title plus a multi-line description and action buttons). The banner uses a vertical auto-layout frame set to hug height. When you switch the instance from collapsed to expanded in a prototype interaction, the banner's height grows automatically to accommodate the additional content, and any sibling elements below it (if they sit inside an outer auto-layout frame) shift downward to give the expanded banner space. No absolute positioning, no manual frame resizing, no overlapping elements. The prototype behaves as the real implementation would.</p>
+
+<p><strong>Text overrides</strong> are another area where auto-layout's cascade behaviour is essential. When a designer or a developer testing the system overrides the label text on a button component from "OK" to "Confirm and Continue", the button's width expands because the label is set to hug. If that button sits inside a dialog footer that is a horizontal auto-layout frame set to hug width, the footer expands. If the dialog itself is a vertical auto-layout frame set to hug width, the dialog expands. The resize propagates upward through the nesting hierarchy, keeping every layer's padding and gap values intact throughout. This is the behaviour you want: changing content should never break spacing rules.</p>
+
+<p>For this propagation to work correctly in practice, every frame in the nesting hierarchy must be an auto-layout frame with appropriate sizing modes. A common mistake is to leave an intermediate frame as a regular (non-auto-layout) frame, which breaks the cascade — children inside that frame can no longer push it to resize. Auditing a complex component for this issue is straightforward: select any frame in the layer hierarchy and check whether "Auto layout" appears in the Design panel. If it does not, the frame is a hard boundary that will not resize.</p>
+
+<p>One of the highest-value habits when building with auto-layout is <strong>testing with realistic content</strong> before considering a component finished. A card component that looks perfect with a two-word title and a single sentence of body text may break visually when given a 12-word title that wraps to three lines, or when given no body text at all. Testing these edge cases inside Figma — by overriding text content to extremes and verifying that padding remains consistent, that no elements overlap, and that the overall component reflows gracefully — prevents the discovery of these failures during engineering implementation, where fixing them is more costly. Auto-layout makes this testing fast because changes propagate instantly: type a long title, watch the card expand, verify the layout looks correct, type a short title, verify it contracts cleanly.</p>
+
+<p>The combination of auto-layout, component variants, and text overrides effectively gives Figma a primitive but powerful form of data-binding. When a design system is built on these foundations, a designer can populate a list with realistic placeholder data simply by overriding text and swapping variant states, and the layout will respond as the production application would. This tightens the feedback loop between design and engineering, reduces the number of layout surprises that emerge during development, and produces a living design file that communicates intent more clearly than any static mockup could.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic groups: what auto-layout is and how to invoke it; sizing modes (hug/fill/fixed) and nesting strategies; spacing, padding, alignment, and space-between; list and card patterns including wrap; component and variant interaction including text overrides and cascade behaviour. Includes a reference table mapping Figma settings to CSS equivalents to reinforce understanding for both designers and developers.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>

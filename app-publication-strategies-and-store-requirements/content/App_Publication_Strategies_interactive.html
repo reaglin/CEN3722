@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Build Finalization and Submission Readiness</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ App Publication Strategies and Store Requirements</a></div>
+  <header>
+    <h1>Build Finalization and Submission Readiness</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Build Finalization and Submission Readiness</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Submitting an app to a public store — whether the Apple App Store, Google Play, or another distribution platform — is the culmination of every design decision, line of code, and testing cycle that came before it. Yet the submission process itself is not a formality; it is a disciplined engineering and product management phase in its own right. A poorly prepared submission can be rejected outright, trigger a lengthy review delay, or worse, reach end users in a broken state. This topic walks through every critical dimension of build finalization and submission readiness: configuring a proper release build, executing a structured pre-submission test plan, managing version numbers and release notes, and assembling the complete set of deliverables that stores expect to receive.</p>
+
+<p><strong>Release Build Configuration</strong></p>
+
+<p>A release build is fundamentally different from the debug or development build you use during daily development. During development, many tools and settings exist purely to make your life easier — they expose internal state, bypass security checks, stream verbose logs, and connect to sandboxed test servers. Every single one of those accommodations must be resolved before a build leaves your hands and enters a store's review pipeline.</p>
+
+<p><strong>Disabling debug logging, breakpoints, and developer tools</strong> is the first and most critical configuration step. Debug log statements left active in a production build are not merely wasteful — they are a security liability. Log output can expose API keys, user data, internal server addresses, or authentication tokens to anyone with access to a device and a log viewer. On Android, tools like Logcat make it trivial to read application logs from any connected device. On iOS, the unified logging system is similarly accessible. The correct approach is to gate all logging behind a compile-time or runtime flag so that verbose output is completely suppressed in release mode. Many teams use a logging abstraction layer for exactly this reason:</p>
+
+<pre><code>// Example: Conditional logging wrapper (Swift)
+func appLog(_ message: String) {
+    #if DEBUG
+    print("[DEBUG] \(message)")
+    #endif
+}
+</code></pre>
+
+<p>Similarly, any in-app developer menus, diagnostic overlays, shake-to-debug panels, or network inspection proxies (such as Charles Proxy configurations or Flipper plugins) must be completely removed or disabled in the release variant. Leaving a hidden developer menu accessible in a production app is a common cause of store rejection and a potential security vulnerability.</p>
+
+<p><strong>Incrementing the app version number and build number</strong> before each submission is a hard requirement enforced by every major app store. Both the Apple App Store and Google Play will reject a submission whose version or build identifier matches a previously uploaded build. Beyond avoiding rejection, proper version increments are the foundation of release traceability — they let you correlate crash reports, user complaints, and analytics events to a specific code snapshot. This is covered in greater depth in the version numbering section below.</p>
+
+<p><strong>Configuring production API endpoints, keys, and credentials</strong> is one of the most consequential and most frequently overlooked steps. During development, it is standard practice to point the app at a staging or development server, use test API keys, and connect to sandboxed payment or authentication environments. A release build must be wired to production infrastructure. This includes:</p>
+
+<ul>
+  <li>Base URLs for all REST or GraphQL APIs switched from staging to production hostnames</li>
+  <li>API keys and client credentials rotated to production-tier keys with appropriate rate limits and permissions</li>
+  <li>Payment processor keys switched from test/sandbox mode to live mode</li>
+  <li>Analytics and crash reporting SDKs pointed at production projects so data flows to the correct dashboards</li>
+  <li>Push notification certificates or tokens registered against the production APNs or FCM environment</li>
+</ul>
+
+<p>A robust way to manage this is through build-variant–specific configuration files. In Android, <code>build.gradle</code> supports <code>buildTypes</code> with separate <code>buildConfigField</code> values. In iOS, separate <code>.xcconfig</code> files or environment-specific plist entries serve the same purpose. The goal is that the correct configuration is selected automatically by the build system without any manual find-and-replace editing, which is error-prone.</p>
+
+<pre><code>// Android build.gradle example
+buildTypes {
+    release {
+        buildConfigField "String", "API_BASE_URL", '"https://api.production.example.com"'
+        buildConfigField "String", "API_KEY", '"prod_key_xyz"'
+        minifyEnabled true
+        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+    debug {
+        buildConfigField "String", "API_BASE_URL", '"https://api.staging.example.com"'
+        buildConfigField "String", "API_KEY", '"dev_key_abc"'
+    }
+}
+</code></pre>
+
+<p><strong>Testing release builds on physical devices or production-equivalent environments</strong> closes the gap between what works in the simulator or emulator and what users will actually experience. Hardware-specific issues — GPU rendering differences, camera permissions, NFC, biometric authentication, cellular network behavior — only surface on real devices. Ideally, the exact signed release artifact (the <code>.ipa</code> or <code>.aab</code>/<code>.apk</code>) that will be submitted to the store should be installed on physical test devices via TestFlight, Firebase App Distribution, or direct sideloading. This ensures that code signing, entitlements, and ProGuard/R8 obfuscation have not inadvertently broken any functionality.</p>
+
+<p><strong>Pre-Submission Testing Checklist</strong></p>
+
+<p>Testing a release candidate is not the same as running your regular regression suite. Pre-submission testing is a deliberate, end-to-end verification pass conducted against the actual release build, with the explicit goal of catching anything that would cause a bad user experience or a store rejection. A structured checklist approach ensures nothing is skipped under deadline pressure.</p>
+
+<p><strong>Testing all core user flows end-to-end on both minimum and current supported OS versions</strong> is the cornerstone of pre-submission testing. Most apps declare a minimum OS version in their manifest or project settings. Users running that minimum version represent a real segment of your audience and typically cannot upgrade their OS due to hardware limitations. Bugs that appear only on older OS versions are common because API behavior changes, deprecated methods get removed, and UI rendering differs across system versions. Your checklist should enumerate every critical user journey — onboarding, login, core feature usage, settings, logout, error states — and verify each one on both the oldest supported OS and the latest release.</p>
+
+<p><strong>Verifying that all external links, URLs, and API integrations are functional in the release build</strong> catches a category of bugs that is invisible during unit testing: broken connections to the outside world. Common failures include:</p>
+
+<ul>
+  <li>Help center or support links that were changed on the website but not updated in the app</li>
+  <li>Social login flows (Sign in with Apple, Google OAuth) that fail because the OAuth redirect URI is registered only for the debug bundle identifier</li>
+  <li>Deep links or universal links that are broken because the associated domain configuration was not updated</li>
+  <li>Production API endpoints that return errors because CORS policies, SSL certificates, or firewall rules differ from the staging environment</li>
+</ul>
+
+<p>Each of these should be exercised manually or through automated integration tests that run against the production environment using a dedicated QA account.</p>
+
+<p><strong>Testing the app on a range of physical device sizes and screen resolutions</strong> is especially important for platforms with highly fragmented hardware ecosystems. On Android, the variety of screen densities, aspect ratios, and display cutout shapes is enormous. On iOS, the range spans from the compact iPhone SE form factor to the largest iPad Pro. UI elements that look perfect on the device you used during development may be clipped, overlapping, or incorrectly sized on edge-case screen configurations. Pay particular attention to:</p>
+
+<ul>
+  <li>Text truncation on narrow screens</li>
+  <li>Keyboard overlap on forms in devices with smaller displays</li>
+  <li>Notch, Dynamic Island, and camera cutout safe area handling</li>
+  <li>Landscape orientation if supported</li>
+  <li>Large text / accessibility font size settings</li>
+</ul>
+
+<p><strong>Reviewing the app against each target platform's review guidelines</strong> before submission is the most efficient form of rejection prevention. Both Apple's App Store Review Guidelines and Google Play's Developer Policy Center are detailed, publicly available documents. Common reasons for rejection include: insufficient app functionality, misleading metadata, incomplete privacy nutrition labels, use of private APIs, broken demo account credentials, and missing required permissions justifications. Treating these guidelines as a checklist — not merely as documents to acknowledge during account setup — dramatically reduces the probability of rejection on first submission.</p>
+
+<p><strong>Confirming that in-app purchases, subscriptions, or monetization features function correctly</strong> in the production environment is a critical and frequently underestimated testing area. Test environments for in-app purchases (Apple's Sandbox environment, Google Play's test purchase accounts) behave differently from production in several ways: pricing tiers, subscription renewal intervals, receipt validation behavior, and promotional offer eligibility can all differ. Before submission, verify that:</p>
+
+<ul>
+  <li>All purchasable products are correctly configured and approved in the respective store console</li>
+  <li>Purchase flows complete successfully and unlock the correct content or features</li>
+  <li>Restore purchases functionality works for users who have previously purchased</li>
+  <li>Subscription management links (Apple's subscription management page, Google Play's subscription center) are correctly surfaced in the app</li>
+  <li>Server-side receipt validation, if implemented, functions against production receipts</li>
+</ul>
+
+<p><strong>Version Numbering and Release Notes</strong></p>
+
+<p>Version numbering is both a technical requirement and a communication tool. Done well, it creates a shared language between developers, QA engineers, support teams, and users. Done poorly, it causes confusion, complicates debugging, and can block store submissions.</p>
+
+<p><strong>Version numbers must be incremented with each new submission.</strong> Stores enforce this mechanically — attempting to upload a build with a version or build number that matches a previously uploaded build will result in an immediate, automated rejection. The standard convention for user-facing version numbers is Semantic Versioning (<em>SemVer</em>), structured as <code>MAJOR.MINOR.PATCH</code>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Segment</th>
+      <th>When to Increment</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MAJOR</td>
+      <td>Breaking changes, complete redesigns, or significant feature overhauls</td>
+      <td>1.0.0 → 2.0.0</td>
+    </tr>
+    <tr>
+      <td>MINOR</td>
+      <td>New features added in a backward-compatible manner</td>
+      <td>2.3.0 → 2.4.0</td>
+    </tr>
+    <tr>
+      <td>PATCH</td>
+      <td>Bug fixes, performance improvements, minor corrections</td>
+      <td>2.4.1 → 2.4.2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Each platform has a separate internal build number or version code that must also be incremented.</strong> The user-facing version string (<code>CFBundleShortVersionString</code> on iOS, <code>versionName</code> on Android) is what users see. But each platform also uses a separate numeric identifier for internal tracking: <code>CFBundleVersion</code> on iOS and <code>versionCode</code> on Android. This internal identifier must be a strictly increasing integer with every upload, even if the user-facing version string does not change (for example, when re-uploading after a rejected build). Many teams automate this using CI/CD pipelines with tools like Fastlane, which can auto-increment build numbers from a remote source of truth such as a Git tag or build server counter.</p>
+
+<p><strong>Release notes should clearly describe new features, bug fixes, and any significant changes.</strong> Release notes appear on the store listing and are often the first thing a user reads before deciding whether to update. They serve a dual purpose: informing users about improvements and signaling to reviewers what has changed since the last approved version. Effective release notes are:</p>
+
+<ul>
+  <li><strong>Specific</strong> — "Fixed a crash that occurred when users uploaded photos larger than 10 MB" is more useful than "Bug fixes and performance improvements"</li>
+  <li><strong>User-focused</strong> — Frame changes in terms of user benefit, not internal implementation detail</li>
+  <li><strong>Concise</strong> — Bullet points work well; lengthy paragraphs are rarely read in full</li>
+  <li><strong>Honest</strong> — If a significant behavior has changed, say so; users who are surprised by changes leave negative reviews</li>
+</ul>
+
+<p><strong>Consistent version numbering practices facilitate tracking and rollback.</strong> When a critical bug is discovered post-release, the ability to identify exactly which code was shipped to users — and to quickly produce a hotfix build — depends entirely on disciplined version management. Tagging your Git repository with the version number at the time of each release build, storing build artifacts by version in a build server, and maintaining a changelog file in version control are all practices that pay dividends when something goes wrong in production.</p>
+
+<p><strong>Submission Packages and Deliverables</strong></p>
+
+<p>A store submission is not just a binary file upload. It is a structured package of technical artifacts, legal declarations, marketing assets, and operational information. Each element serves a purpose, and missing or incomplete elements are a common source of rejection.</p>
+
+<p><strong>The submission package should include the signed build file, all store listing assets, and completed metadata fields.</strong> The signed build is the compiled, code-signed application binary — an <code>.ipa</code> for iOS or an <code>.aab</code> (Android App Bundle) for Google Play. Code signing is not optional; stores reject unsigned or improperly signed binaries immediately. Store listing assets include:</p>
+
+<ul>
+  <li>App icon at the required resolution and without transparency (Apple requires a 1024×1024 PNG; Google Play requires a 512×512 PNG)</li>
+  <li>Screenshots for each supported device class (phone, tablet, iPad) at the correct pixel dimensions</li>
+  <li>An optional but highly recommended feature graphic (Google Play) or preview video</li>
+  <li>App name, subtitle, and keyword fields (Apple) or short and full description (Google Play)</li>
+  <li>Category selection and content rating questionnaire</li>
+</ul>
+
+<p><strong>A link to a publicly accessible privacy policy must be included in every store submission.</strong> This is a non-negotiable requirement on both the App Store and Google Play, and has been for several years. The privacy policy must be hosted at a stable, publicly accessible URL (not behind a login wall), must accurately describe the data the app collects and how it is used, and must be written in plain language. Apple additionally requires a Privacy Nutrition Label — a structured declaration completed in App Store Connect that categorizes data collection by type and purpose. Mismatches between the declared nutrition label and the app's actual behavior are a cause for rejection.</p>
+
+<p><strong>Any required third-party licenses, SDK disclosures, or export compliance declarations must be prepared.</strong> Most apps incorporate third-party libraries and SDKs, and many of these carry license obligations (MIT, Apache 2.0, GPL, etc.) that require attribution either within the app (typically in a "Acknowledgements" or "Open Source Licenses" screen) or in accompanying documentation. Export compliance is particularly important: Apple asks explicitly whether the app uses encryption, and if so, requires either an Encryption Registration (ERN) or an annual self-classification report filed with the US Bureau of Industry and Security. Answering this question incorrectly can expose the developer to legal liability.</p>
+
+<p><strong>Demo account credentials should be provided to reviewers if the app requires login to access functionality.</strong> App reviewers are not going to create a real account, provide payment information, or complete a multi-step verification process in order to evaluate your app. If any core functionality is gated behind authentication, you must provide a working username and password for a demo account that has the app in a reviewable state. This account should:</p>
+
+<ul>
+  <li>Be pre-populated with enough data to demonstrate the app's features meaningfully</li>
+  <li>Have any required subscription or premium access already activated</li>
+  <li>Remain active and functional for the duration of the review period</li>
+  <li>Not require SMS verification, email confirmation, or other second-factor steps that the reviewer cannot complete</li>
+</ul>
+
+<p>Failure to provide working credentials when an app requires login is one of the most common and most avoidable causes of rejection.</p>
+
+<p><strong>A notes-to-reviewer section should explain any non-obvious app functionality or special testing requirements.</strong> Both App Store Connect and the Google Play Console provide a free-text field for notes to the reviewer. This field is valuable and underused. Use it to explain:</p>
+
+<ul>
+  <li>How to navigate to features that are not immediately obvious from the main screen</li>
+  <li>Why certain permissions are requested and how they are used (especially for sensitive permissions like location, contacts, or camera)</li>
+  <li>Any hardware requirements — for example, if the app requires an NFC-capable device or a specific sensor</li>
+  <li>Context for features that might appear to violate guidelines at first glance but comply upon closer inspection (for example, an app that shows adult content only after age verification)</li>
+  <li>Known limitations in the review environment that reviewers should be aware of</li>
+</ul>
+
+<p>Think of the reviewer notes as a user guide written specifically for the person whose approval you need. A clear, honest, and thorough set of notes reduces back-and-forth with the review team and increases the likelihood of a smooth first-pass approval.</p>
+
+<p>Taken together, these four areas — release build configuration, pre-submission testing, version management, and submission package assembly — constitute a repeatable, professional release process. Teams that formalize these steps into a written release checklist and practice them consistently across every release cycle find that their rejection rates drop, their time-to-approval shortens, and their post-release incident rates decrease. The discipline applied in the final hours before a submission directly determines the quality of the experience delivered to every user who installs the app.</p>
+        <div class="notes"><strong>Notes</strong>Guides students through the final steps of preparing a production-ready application build, conducting pre-submission testing, and assembling all required deliverables for store submission.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
+</body></html>
