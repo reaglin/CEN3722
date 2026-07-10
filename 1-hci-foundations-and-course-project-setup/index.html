@@ -9,120 +9,145 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --color-bg:          #f4f6f9;
-      --color-surface:     #ffffff;
-      --color-primary:     #1a3a5c;
-      --color-primary-lt:  #2457848c;
-      --color-accent:      #2e7fd4;
-      --color-accent-dark: #1a5fa8;
-      --color-border:      #dce2ea;
-      --color-text:        #1e2a38;
-      --color-text-muted:  #5a6a7e;
-      --color-tag-bg:      #e8f0fb;
-      --color-tag-text:    #1a5fa8;
-      --color-ft-bg:       #eef7f0;
-      --color-ft-text:     #1e6b3a;
-      --radius:            8px;
-      --shadow:            0 2px 8px rgba(0,0,0,.08);
-      --shadow-hover:      0 6px 20px rgba(0,0,0,.13);
-      --transition:        .2s ease;
+      --brand-dark:   #1a2b45;
+      --brand-mid:    #2c4a7c;
+      --brand-accent: #3a7bd5;
+      --brand-light:  #e8f0fb;
+      --surface:      #ffffff;
+      --surface-alt:  #f5f7fa;
+      --border:       #d1d9e6;
+      --text-primary: #1a2b45;
+      --text-secondary: #4a5568;
+      --text-muted:   #718096;
+      --tag-bg:       #edf2fb;
+      --tag-color:    #2c4a7c;
+      --radius:       8px;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+      --shadow-md:    0 4px 12px rgba(0,0,0,.10), 0 2px 4px rgba(0,0,0,.06);
     }
 
     html { font-size: 16px; }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: var(--color-bg);
-      color: var(--color-text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                   "Helvetica Neue", Arial, sans-serif;
+      background: var(--surface-alt);
+      color: var(--text-primary);
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header ── */
-    .site-header {
-      background: var(--color-primary);
+    /* ── Header Banner ── */
+    .page-header {
+      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-mid) 100%);
       color: #fff;
-      padding: 2.5rem 1.5rem 2rem;
+      padding: 3rem 1.5rem 2.5rem;
     }
 
-    .site-header .inner {
+    .header-inner {
       max-width: 1100px;
       margin: 0 auto;
     }
 
     .course-label {
       display: inline-block;
-      font-size: .75rem;
+      font-size: .78rem;
       font-weight: 600;
       letter-spacing: .08em;
       text-transform: uppercase;
-      color: #90bde8;
-      margin-bottom: .5rem;
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 4px;
+      padding: .25rem .65rem;
+      margin-bottom: 1rem;
+      color: #c9d9f5;
     }
 
-    .site-header h1 {
-      font-size: clamp(1.4rem, 3vw, 2rem);
+    .page-header h1 {
+      font-size: clamp(1.5rem, 3vw, 2.2rem);
       font-weight: 700;
       line-height: 1.25;
       margin-bottom: .9rem;
       color: #fff;
     }
 
-    .site-header p {
-      font-size: .975rem;
-      color: #c2d8ef;
-      max-width: 72ch;
-      line-height: 1.65;
-    }
-
-    /* ── Main ── */
-    main {
-      max-width: 1100px;
-      margin: 2.5rem auto;
-      padding: 0 1.25rem 3rem;
-    }
-
-    .section-heading {
+    .page-header p {
       font-size: 1rem;
+      color: #c5d5ed;
+      max-width: 740px;
+      line-height: 1.7;
+    }
+
+    /* ── Main Content ── */
+    .page-main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .section-title {
+      font-size: .72rem;
       font-weight: 700;
+      letter-spacing: .1em;
       text-transform: uppercase;
-      letter-spacing: .07em;
-      color: var(--color-text-muted);
+      color: var(--text-muted);
       margin-bottom: 1.25rem;
-      padding-bottom: .4rem;
-      border-bottom: 2px solid var(--color-border);
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--border);
     }
 
     /* ── Card Grid ── */
-    .card-grid {
+    .artifact-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.25rem;
     }
 
-    .card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
+    .artifact-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1.25rem 1.35rem 1.15rem;
+      box-shadow: var(--shadow-sm);
       display: flex;
       flex-direction: column;
-      gap: .65rem;
-      transition: box-shadow var(--transition), transform var(--transition);
+      transition: box-shadow .2s ease, transform .2s ease;
+      overflow: hidden;
     }
 
-    .card:hover {
-      box-shadow: var(--shadow-hover);
+    .artifact-card:hover {
+      box-shadow: var(--shadow-md);
       transform: translateY(-2px);
     }
 
-    /* ── Card: Top row of badges ── */
+    /* coloured top stripe by type */
+    .artifact-card::before {
+      content: "";
+      display: block;
+      height: 4px;
+      background: var(--stripe-color, var(--brand-accent));
+    }
+
+    .artifact-card[data-type="Module Topics"]::before    { --stripe-color: #6c63ff; }
+    .artifact-card[data-type="Presentation"]::before     { --stripe-color: #e67e22; }
+    .artifact-card[data-type="Topic Detail"]::before     { --stripe-color: var(--brand-accent); }
+    .artifact-card[data-type="Text Content"]::before     { --stripe-color: #27ae60; }
+    .artifact-card[data-type="Video"]::before            { --stripe-color: #e74c3c; }
+    .artifact-card[data-type="Assignment"]::before       { --stripe-color: #8e44ad; }
+
+    .card-body {
+      padding: 1.2rem 1.3rem 1.4rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: .65rem;
+    }
+
+    /* Type + filetype badges */
     .card-meta {
       display: flex;
-      flex-wrap: wrap;
-      gap: .4rem;
       align-items: center;
+      gap: .45rem;
+      flex-wrap: wrap;
     }
 
     .badge {
@@ -131,109 +156,115 @@
       font-weight: 600;
       letter-spacing: .04em;
       border-radius: 4px;
-      padding: .2em .55em;
+      padding: .18rem .5rem;
     }
 
     .badge-type {
-      background: var(--color-tag-bg);
-      color: var(--color-tag-text);
+      background: var(--tag-bg);
+      color: var(--tag-color);
+      border: 1px solid #c5d4f0;
     }
 
-    .badge-ft {
-      background: var(--color-ft-bg);
-      color: var(--color-ft-text);
-      font-family: 'Courier New', monospace;
+    .badge-filetype {
+      background: #f0f4f0;
+      color: #3a6644;
+      border: 1px solid #c3dac5;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
     }
 
-    /* ── Card: Name / Title row ── */
+    /* Card title row */
     .card-title-row {
       display: flex;
-      flex-wrap: wrap;
       align-items: baseline;
-      gap: .5rem;
+      flex-wrap: wrap;
+      gap: .45rem;
     }
 
-    .card-name {
+    .card-title {
       font-size: 1rem;
       font-weight: 700;
-      color: var(--color-text);
-      line-height: 1.3;
-      word-break: break-word;
+      line-height: 1.35;
+      color: var(--text-primary);
+      flex: 1 1 auto;
     }
 
-    .card-name a {
-      color: var(--color-accent);
+    .card-title a {
+      color: var(--brand-accent);
       text-decoration: none;
-      transition: color var(--transition);
+      border-bottom: 1px solid transparent;
+      transition: border-color .15s ease, color .15s ease;
     }
 
-    .card-name a:hover,
-    .card-name a:focus {
-      color: var(--color-accent-dark);
-      text-decoration: underline;
+    .card-title a:hover,
+    .card-title a:focus {
+      color: var(--brand-mid);
+      border-bottom-color: var(--brand-mid);
+      outline: none;
     }
 
-    .source-link {
+    .card-title a:focus-visible {
+      outline: 2px solid var(--brand-accent);
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* Source file link */
+    .link-source {
       display: inline-flex;
       align-items: center;
       gap: .25rem;
       font-size: .72rem;
       font-weight: 600;
-      color: var(--color-text-muted);
+      color: var(--text-muted);
       text-decoration: none;
-      border: 1px solid var(--color-border);
-      border-radius: 4px;
-      padding: .15em .5em;
       white-space: nowrap;
-      transition: background var(--transition), color var(--transition), border-color var(--transition);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: .15rem .45rem;
+      transition: background .15s ease, color .15s ease;
       flex-shrink: 0;
     }
 
-    .source-link:hover,
-    .source-link:focus {
-      background: var(--color-tag-bg);
-      color: var(--color-accent-dark);
-      border-color: var(--color-accent);
+    .link-source:hover,
+    .link-source:focus {
+      background: var(--brand-light);
+      color: var(--brand-mid);
+      border-color: #b0c8ef;
+      outline: none;
     }
 
-    .source-link::before {
-      content: "⬇";
-      font-size: .65rem;
+    .link-source:focus-visible {
+      outline: 2px solid var(--brand-accent);
+      outline-offset: 2px;
     }
 
-    /* ── Card: Description ── */
-    .card-desc {
+    .link-source svg {
+      flex-shrink: 0;
+    }
+
+    /* Description */
+    .card-description {
       font-size: .875rem;
-      color: var(--color-text-muted);
-      line-height: 1.6;
+      color: var(--text-secondary);
+      line-height: 1.65;
       flex: 1;
     }
 
     /* ── Footer ── */
-    .site-footer {
+    .page-footer {
       text-align: center;
-      font-size: .78rem;
-      color: var(--color-text-muted);
-      padding: 1.5rem 1rem;
-      border-top: 1px solid var(--color-border);
-      background: var(--color-surface);
+      padding: 1.5rem;
+      font-size: .8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: var(--surface);
     }
 
     /* ── Responsive ── */
-    @media (max-width: 540px) {
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-      .site-header {
-        padding: 1.75rem 1rem 1.5rem;
-      }
-    }
-
-    /* ── Focus visible ── */
-    a:focus-visible {
-      outline: 3px solid var(--color-accent);
-      outline-offset: 2px;
-      border-radius: 3px;
+    @media (max-width: 480px) {
+      .page-header { padding: 2rem 1rem 1.75rem; }
+      .page-main   { padding: 1.75rem 1rem 3rem; }
+      .artifact-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -241,214 +272,268 @@
 <div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
 <div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
 
-  <!-- ══ HEADER ══ -->
-  <header class="site-header">
-    <div class="inner">
+  <!-- ══ Page Header ══ -->
+  <header class="page-header" role="banner">
+    <div class="header-inner">
       <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
       <h1>Module 1 &mdash; HCI Foundations and Course Project Setup</h1>
       <p>
-        This module introduces the core principles of Human-Computer Interaction and walks you through
-        the tools and practices that will support your work throughout the course. You will explore
-        foundational HCI theory, establish version-control workflows with GitHub, get started with
-        Figma for collaborative design, survey AI-powered development aids, configure your local
-        environment, and launch your semester team project.
+        This module introduces the theoretical and practical foundations of Human-Computer
+        Interaction, including core HCI principles, version control with GitHub, design
+        collaboration in Figma, AI-assisted development tools, and environment setup.
+        By the end of the module, learners will have the knowledge and tools needed to
+        launch their team course project.
       </p>
     </div>
   </header>
 
-  <!-- ══ MAIN ══ -->
-  <main>
-    <h2 class="section-heading">Module Artifacts</h2>
+  <!-- ══ Main ══ -->
+  <main class="page-main" id="main-content">
+    <h2 class="section-title">Module Artifacts &mdash; 11 items</h2>
 
-    <div class="card-grid">
+    <div class="artifact-grid" role="list">
 
-      <!-- 1. Module Topics -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-ft">.json</span>
+      <!-- 1 · Module Topics -->
+      <article class="artifact-card" data-type="Module Topics" role="listitem">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="badge badge-type">Module Topics</span>
+            <span class="badge badge-filetype">.json</span>
+          </div>
+          <div class="card-title-row">
+            <h3 class="card-title">
+              <a href="content/module_topics.html">Module Topics</a>
+            </h3>
+            <a class="link-source" href="source/hierarchy.json" title="View raw source file">
+              <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true"
+                   xmlns="http://www.w3.org/2000/svg">
+                <path d="M4.5 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5"
+                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                <path d="M9 1h6v6M15 1l-7 7" stroke="currentColor" stroke-width="1.5"
+                      stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              source file
+            </a>
+          </div>
+          <p class="card-description">
+            A structured JSON outline listing the module's four main topic areas — HCI
+            fundamentals, GitHub version control, Figma collaboration, and AI tools — and
+            their sub-topics, serving as a machine-readable table of contents for the module.
+          </p>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card-desc">
-          A structured JSON outline listing the module's four main topic areas — HCI fundamentals,
-          GitHub version control, Figma collaboration, and AI tools — and their sub-topics, serving
-          as a machine-readable table of contents for the module.
-        </p>
       </article>
 
-      <!-- 2. Presentation -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Presentation</span>
-          <span class="badge badge-ft">.pptx</span>
+      <!-- 2 · Presentation -->
+      <article class="artifact-card" data-type="Presentation" role="listitem">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="badge badge-type">Presentation</span>
+            <span class="badge badge-filetype">.pptx</span>
+          </div>
+          <div class="card-title-row">
+            <h3 class="card-title">
+              <a href="presentation/HCI_Foundations_and_generated.pptx">HCI_Foundations_and_generated.pptx</a>
+            </h3>
+          </div>
+          <p class="card-description">
+            A slide deck covering the foundational topics of the module — HCI principles,
+            GitHub version control, Figma, AI tools, development environment setup, and team
+            collaboration — used by instructors to deliver or structure lecture content.
+          </p>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="presentation/HCI_Foundations_and_generated.pptx">HCI_Foundations_and_generated.pptx</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A slide deck covering the foundational topics of the module — HCI principles, GitHub version
-          control, Figma, AI tools, development environment setup, and team collaboration — used by
-          instructors to deliver or structure lecture content.
-        </p>
       </article>
 
-      <!-- 3. Topic Detail: Intro to HCI -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-ft">.html</span>
+      <!-- 3 · Topic Detail: Introduction to HCI -->
+      <article class="artifact-card" data-type="Topic Detail" role="listitem">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <h3 class="card-title">
+              <a href="content/HCI_Foundations_and_interactive_topics_t1.html">Introduction to Human-Computer Interaction</a>
+            </h3>
+          </div>
+          <p class="card-description">
+            A reading that introduces the field of HCI, explaining its interdisciplinary nature
+            and core concepts such as usability, accessibility, feedback, and User-Centered
+            Design, for learners to build foundational theoretical knowledge.
+          </p>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Foundations_and_interactive_topics_t1.html">Introduction to Human-Computer Interaction</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading that introduces the field of HCI, explaining its interdisciplinary nature and core
-          concepts such as usability, accessibility, feedback, and User-Centered Design, for learners
-          to build foundational theoretical knowledge.
-        </p>
       </article>
 
-      <!-- 4. Topic Detail: Version Control -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-ft">.html</span>
+      <!-- 4 · Topic Detail: Version Control -->
+      <article class="artifact-card" data-type="Topic Detail" role="listitem">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <h3 class="card-title">
+              <a href="content/HCI_Foundations_and_interactive_topics_t2.html">Version Control with GitHub</a>
+            </h3>
+          </div>
+          <p class="card-description">
+            A reading that explains version control concepts and practical use of GitHub —
+            including branching, committing, and collaboration workflows — enabling learners to
+            manage project code safely as a team.
+          </p>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Foundations_and_interactive_topics_t2.html">Version Control with GitHub</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading that explains version control concepts and practical use of GitHub — including
-          branching, committing, and collaboration workflows — enabling learners to manage project
-          code safely as a team.
-        </p>
       </article>
 
-      <!-- 5. Topic Detail: Figma -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-ft">.html</span>
+      <!-- 5 · Topic Detail: Figma -->
+      <article class="artifact-card" data-type="Topic Detail" role="listitem">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <h3 class="card-title">
+              <a href="content/HCI_Foundations_and_interactive_topics_t3.html">Design Collaboration with Figma</a>
+            </h3>
+          </div>
+          <p class="card-description">
+            A reading that introduces Figma as a collaborative design tool, covering its
+            interface, real-time collaboration features, and how designers and developers can
+            use it together during the UI/UX design process.
+          </p>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Foundations_and_interactive_topics_t3.html">Design Collaboration with Figma</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading that introduces Figma as a collaborative design tool, covering its interface,
-          real-time collaboration features, and how designers and developers can use it together
-          during the UI/UX design process.
-        </p>
       </article>
 
-      <!-- 6. Topic Detail: AI Tools -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-ft">.html</span>
+      <!-- 6 · Topic Detail: AI Tools -->
+      <article class="artifact-card" data-type="Topic Detail" role="listitem">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <h3 class="card-title">
+              <a href="content/HCI_Foundations_and_interactive_topics_t4.html">AI Tools in HCI and Development</a>
+            </h3>
+          </div>
+          <p class="card-description">
+            A reading that surveys AI-powered tools used in HCI and software development —
+            such as code assistants and design aids — helping learners understand how to
+            integrate AI into their design and development workflows.
+          </p>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Foundations_and_interactive_topics_t4.html">AI Tools in HCI and Development</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading that surveys AI-powered tools used in HCI and software development — such as code
-          assistants and design aids — helping learners understand how to integrate AI into their
-          design and development workflows.
-        </p>
       </article>
 
-      <!-- 7. Topic Detail: Dev Environment -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-ft">.html</span>
+      <!-- 7 · Topic Detail: Dev Environment -->
+      <article class="artifact-card" data-type="Topic Detail" role="listitem">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <h3 class="card-title">
+              <a href="content/HCI_Foundations_and_interactive_topics_t5.html">Development Environment Setup</a>
+            </h3>
+          </div>
+          <p class="card-description">
+            A reading that guides learners through setting up a consistent local development
+            environment, covering editors, configurations, and conventions needed before
+            beginning collaborative project work.
+          </p>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Foundations_and_interactive_topics_t5.html">Development Environment Setup</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading that guides learners through setting up a consistent local development environment,
-          covering editors, configurations, and conventions needed before beginning collaborative
-          project work.
-        </p>
       </article>
 
-      <!-- 8. Topic Detail: Team Collaboration -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-ft">.html</span>
+      <!-- 8 · Topic Detail: Team Collaboration -->
+      <article class="artifact-card" data-type="Topic Detail" role="listitem">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="badge badge-type">Topic Detail</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <h3 class="card-title">
+              <a href="content/HCI_Foundations_and_interactive_topics_t6.html">Team Collaboration and Project Kickoff</a>
+            </h3>
+          </div>
+          <p class="card-description">
+            A reading focused on launching a team software project successfully, covering role
+            assignment, working agreements, communication practices, and aligning the team
+            around shared project goals at kickoff.
+          </p>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Foundations_and_interactive_topics_t6.html">Team Collaboration and Project Kickoff</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A reading focused on launching a team software project successfully, covering role
-          assignment, working agreements, communication practices, and aligning the team around
-          shared project goals at kickoff.
-        </p>
       </article>
 
-      <!-- 9. Text Content: Team Collaboration (duplicate) -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-ft">.html</span>
+      <!-- 9 · Text Content: Team Collaboration (duplicate) -->
+      <article class="artifact-card" data-type="Text Content" role="listitem">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="badge badge-type">Text Content</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <h3 class="card-title">
+              <a href="content/HCI_Foundations_and_interactive.html">Team Collaboration and Project Kickoff</a>
+            </h3>
+          </div>
+          <p class="card-description">
+            A duplicate of the Team Collaboration and Project Kickoff reading, covering the same
+            content on establishing roles, working agreements, and project kickoff practices for
+            collaborative software development.
+          </p>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Foundations_and_interactive.html">Team Collaboration and Project Kickoff</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A duplicate of the Team Collaboration and Project Kickoff reading, covering the same content
-          on establishing roles, working agreements, and project kickoff practices for collaborative
-          software development.
-        </p>
       </article>
 
-      <!-- 10. Assignment -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Assignment</span>
-          <span class="badge badge-ft">.html</span>
+      <!-- 10 · Video: CEN 3722 Overview -->
+      <article class="artifact-card" data-type="Video" role="listitem">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="badge badge-type">Video</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <h3 class="card-title">
+              <a href="content/ext_d18208d2.html">CEN 3722 Overview</a>
+            </h3>
+          </div>
+          <p class="card-description">
+            This video provides an overview of the CEN 3722 course, likely covering course
+            expectations, structure, and key topics related to Human-Computer Interaction. It
+            serves as an orientation resource to help students understand what the course
+            entails and how it is organized. The video is produced by Daytona State College's
+            instructional resources team.
+          </p>
         </div>
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="assignments/index.html">HCI Foundations &mdash; Module 1 Group Project: Team Formation &amp; Project Kickoff</a>
-          </span>
-        </div>
-        <p class="card-desc">
-          A group project kickoff assignment where student teams form, set up their shared tools
-          (GitHub repository, Figma workspace, and a collaborative document), and submit initial
-          project planning materials to establish their working environment for the course project.
-        </p>
       </article>
 
-    </div><!-- /.card-grid -->
+      <!-- 11 · Assignment -->
+      <article class="artifact-card" data-type="Assignment" role="listitem">
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="badge badge-type">Assignment</span>
+            <span class="badge badge-filetype">.html</span>
+          </div>
+          <div class="card-title-row">
+            <h3 class="card-title">
+              <a href="assignments/index.html">
+                HCI Foundations &mdash; Module 1 Group Project: Team Formation &amp; Project Kickoff
+              </a>
+            </h3>
+          </div>
+          <p class="card-description">
+            A group project kickoff assignment where student teams form, set up their shared
+            tools (GitHub repository, Figma workspace, and a collaborative document), and
+            submit initial project planning materials to establish their working environment
+            for the course project.
+          </p>
+        </div>
+      </article>
+
+    </div><!-- /.artifact-grid -->
   </main>
 
-  <!-- ══ FOOTER ══ -->
-  <footer class="site-footer">
-    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;|&nbsp;
+  <!-- ══ Footer ══ -->
+  <footer class="page-footer" role="contentinfo">
+    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&middot;&nbsp;
     Module 1: HCI Foundations and Course Project Setup
   </footer>
 
