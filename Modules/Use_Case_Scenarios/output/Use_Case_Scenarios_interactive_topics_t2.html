@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identifying Stakeholders and Users</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Identifying Stakeholders and Users</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Identifying Stakeholders and Users</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Before a single use case can be written or a single requirement can be documented, a project team must answer a deceptively simple question: <em>who cares about this system?</em> The answer is almost never a short list. Systems are embedded in organizations, and organizations are webs of people, roles, departments, external partners, regulators, and automated processes — all of whom may have a stake in what the system does, how it does it, or what it produces. Stakeholder and user identification is the analytical work that makes this web visible, and it is foundational to everything that follows. When done well, it prevents requirement gaps, reduces late-stage change requests, and ensures the resulting system actually serves the people who need it. When done poorly — or skipped — teams discover missing requirements only after costly development work has already been completed.</p>
+
+<p><strong>Defining Stakeholders</strong></p>
+
+<p>A stakeholder is any individual, group, or organization that has an interest in a system's existence, behavior, or outcomes. This definition is deliberately broad, because the consequences of a system extend well beyond the people who sit at its keyboard. Stakeholders are typically organized into three categories that reflect how directly they are involved with the system.</p>
+
+<p><strong>Primary stakeholders</strong> directly use or operate the system on a day-to-day basis. They interact with the system's interface, enter data, trigger processes, and receive immediate outputs. A warehouse worker scanning barcodes into an inventory management system, a nurse entering patient vitals into an electronic health record, and a customer browsing products on an e-commerce site are all primary stakeholders. Because primary stakeholders experience the system most intensely, their needs tend to dominate discussions about usability, workflow efficiency, and error handling. Their input is essential during requirements gathering because they can identify friction points, workarounds, and task sequences that no document will reveal.</p>
+
+<p><strong>Secondary stakeholders</strong> are affected by the system's outputs without directly using it themselves. A hospital administrator who reviews reports generated by the patient records system is a secondary stakeholder — she never logs in, but the accuracy and timeliness of the system's output directly affects her decisions. Other examples include downstream departments that receive data exports, customers who receive invoices produced by a billing system, or regulatory bodies that audit system-generated logs. Secondary stakeholders are easy to overlook precisely because they are not present at the keyboard, yet their needs can impose significant requirements on the system. A secondary stakeholder who discovers six months into a project that the system cannot produce a legally required report has the potential to derail an entire release.</p>
+
+<p><strong>Key stakeholders</strong> possess formal authority over the project itself. They can approve or veto requirements, authorize budget and schedule changes, and ultimately decide whether the delivered system is acceptable. Project sponsors, product owners, department heads, and regulatory compliance officers fall into this category. Key stakeholders may or may not use the system directly, but their approval is required for the project to proceed. Requirements analysts must maintain close communication with key stakeholders because their priorities shape the scope, constraints, and acceptance criteria of the entire engagement.</p>
+
+<p>Failing to identify all stakeholders is consistently cited as one of the leading causes of requirements gaps in software projects. When a stakeholder category is missed, its requirements are not gathered. Those requirements surface later — during testing, during a compliance audit, or after deployment — at a point when addressing them is far more expensive than it would have been during analysis. Systematic stakeholder identification is therefore not a preliminary formality; it is a risk mitigation activity.</p>
+
+<p><strong>Distinguishing Users from Stakeholders</strong></p>
+
+<p>Every user is a stakeholder, but not every stakeholder is a user. This distinction matters because use cases are organized around <em>actors</em> — the entities that interact directly with the system to accomplish goals — and confusing actors with the broader stakeholder population produces use cases that are either too broad or aimed at the wrong audience.</p>
+
+<p>In use-case modeling, <strong>actors</strong> represent user roles, not named individuals. An actor is an abstraction that captures a coherent set of behaviors and goals. The actor "Loan Officer" represents every person who holds that role and interacts with the system in that capacity, not a specific employee named Maria Chen. This abstraction is important because it keeps use cases reusable and role-focused. When we write a use case for "Loan Officer," it applies to every loan officer in the organization, regardless of turnover, assignment, or branch location.</p>
+
+<p>A single stakeholder may perform multiple actor roles across different scenarios. A hospital administrator might act as "Report Viewer" when reviewing dashboards and as "System Administrator" when configuring user accounts. Each role implies a different set of interactions, permissions, and goals, and should be modeled as a distinct actor even when the same human being performs both. Collapsing multiple roles into a single actor produces use cases that are ambiguous about preconditions, permissions, and expected outcomes.</p>
+
+<p>Non-human actors deserve explicit attention. External systems, automated batch processes, hardware devices, and third-party APIs all interact with systems in ways that must be accounted for in use cases. A payment gateway that initiates a callback, a sensor that pushes telemetry data, or a nightly batch job that archives records — each of these is an actor. Omitting non-human actors from analysis causes teams to miss integration requirements, timing constraints, and error-handling scenarios that only arise at system boundaries.</p>
+
+<p>Clearly separating users (actors) from the broader stakeholder population sharpens the focus of each use case. When analysts confuse the two, use cases drift toward describing organizational concerns — reporting hierarchies, approval authorities, business rules about who owns a process — rather than the concrete interactions between a role and the system. Stakeholder concerns inform the <em>context</em> of use cases (their preconditions, postconditions, and business rules), but the use case itself is structured around what an actor does with the system.</p>
+
+<p><strong>Stakeholder Needs vs. User Goals</strong></p>
+
+<p>Although stakeholders and users are related, their motivations operate at different levels of abstraction, and conflating the two leads to requirements that are either too vague to implement or too narrow to satisfy the organization.</p>
+
+<p><strong>Stakeholder needs</strong> tend to be high-level and strategic. A chief financial officer needs to reduce invoice processing costs. A compliance department needs to ensure that all data handling meets GDPR requirements. A VP of operations needs real-time visibility into fulfillment bottlenecks. These needs drive system objectives and constraints. They answer the question: <em>why does this system need to exist?</em> Stakeholder needs appear in project charters, business cases, and high-level requirements documents. They set the boundaries within which the system must operate.</p>
+
+<p><strong>User goals</strong> are tactical and task-oriented. A billing clerk needs to match a purchase order to an invoice in fewer than thirty seconds. A warehouse picker needs to find the correct bin location without navigating more than two screens. An IT administrator needs to reset a user's password without filing a support ticket. User goals drive the specific workflows, interface behaviors, and system responses that the system must support. They answer the question: <em>what does this person need to accomplish right now?</em> User goals are the raw material from which individual use cases are constructed.</p>
+
+<p>Unresolved conflicts between stakeholder needs and user goals produce systems that are either unusable or non-compliant. Consider a case where a compliance stakeholder requires that every action be logged with a detailed audit trail, but users require a fast, keyboard-driven workflow with minimal confirmation dialogs. If this tension is not identified and resolved during requirements analysis, the team will either build a system that users abandon because it is too slow, or one that fails an audit because logging was silently omitted to meet performance targets. Surfacing these conflicts early — through workshops, prototypes, and negotiated acceptance criteria — is far less costly than discovering them after development.</p>
+
+<p>A well-maintained requirements document traces each use case back to at least one stakeholder need. This traceability ensures that every use case can be justified by a real business objective, and that every stakeholder need is addressed by at least one use case. Traceability matrices are a common tool for maintaining this linkage throughout the project lifecycle.</p>
+
+<p><strong>User Roles and Permissions</strong></p>
+
+<p>Once actors have been identified, the next analytical step is to characterize each role's scope of interaction with the system. Different roles perform different tasks, have access to different data, and operate under different constraints. Treating all users as interchangeable produces systems that are either over-permissive (everyone can do everything) or under-specified (critical workflows are never modeled).</p>
+
+<p>Each distinct role should have its own set of use cases or, where the workflows are similar, its own documented variation of a shared use case. A "Customer" and a "Customer Service Representative" might both perform a "Search Order History" task, but their access scope differs — the customer sees only her own orders, while the representative can search across all customers. This difference in scope has implications for system behavior, data filtering logic, and interface design. Modeling them as separate use cases or as separate actors in a shared use case makes this difference explicit.</p>
+
+<p>Permissions and access restrictions should be captured in the preconditions of relevant use cases. Rather than burying access control in a separate security specification that no one reads alongside the use cases, analysts should state preconditions such as "The actor must be logged in with the Inventory Manager role" or "The actor must have Edit permissions on the target record." This keeps permission requirements visible to designers and developers working from the use case, reducing the likelihood that access control is implemented inconsistently.</p>
+
+<p>Role analysis frequently reveals the need for administrative or configuration use cases that might otherwise be overlooked. When analysts discover that a "Store Manager" role can configure product pricing, they have identified a use case — "Configure Product Pricing" — that must be designed, built, and tested. Without systematic role analysis, configuration and administration capabilities are often deferred or discovered too late in the project. These capabilities are particularly prone to being forgotten because they are used infrequently and are not part of the primary business workflow that dominates requirements discussions.</p>
+
+<p>User roles should be validated with actual representatives of those roles. Analysts who define roles entirely from org charts and job descriptions frequently discover, upon talking to real workers, that formal job titles do not map cleanly to system behaviors. A "Senior Analyst" may perform tasks listed under three different formal roles, or two people with the same title may have entirely different workflows depending on their team. Validation interviews and observation sessions — job shadowing, think-aloud protocol tests, or contextual inquiry — resolve these discrepancies before they propagate into the use case model.</p>
+
+<p><strong>Techniques for Stakeholder Identification</strong></p>
+
+<p>Stakeholder identification is not a one-time event. It is an iterative analytical process that benefits from multiple complementary techniques used across the life of the project.</p>
+
+<p><strong>Stakeholder mapping</strong> is a visual technique that places the system at the center of a diagram and maps the relationships between different stakeholder groups and the system, and between groups themselves. Mapping makes it easy to spot categories of stakeholders that have not been represented in analysis sessions, to identify stakeholders who have conflicting interests, and to communicate the stakeholder landscape to project sponsors who may not be familiar with requirements analysis methods. A simple power-interest grid — plotting stakeholders by their influence over the project against their level of interest in its outcomes — is a common variant that helps teams prioritize engagement effort.</p>
+
+<p><strong>Reviewing existing documentation</strong> surfaces stakeholders who are embedded in organizational processes but not immediately visible to the analysis team. Organizational charts reveal formal reporting structures and department boundaries. Process manuals and standard operating procedures identify roles that interact with current workflows. Service-level agreements and contracts identify external parties with formal interests in system behavior. Job descriptions reveal tasks that suggest system interactions. System architecture diagrams for existing systems reveal integration points that imply external actors. Each document type opens a different window onto the stakeholder landscape.</p>
+
+<p><strong>Interviews with domain experts</strong> are among the most effective techniques for discovering informal or hidden stakeholders. Domain experts — experienced workers who have operated within the organizational context for years — know about workarounds, unofficial processes, and informal coordination mechanisms that no document records. They are aware of the vendor representative who emails spreadsheets every Monday morning, of the auditor who requests ad-hoc data extracts twice a year, and of the remote team that relies on a data feed that no one has officially documented. Structured interviews with open-ended questions ("Who else receives the output of this process?" "Who has ever complained about the way this currently works?") reliably uncover stakeholders that a desk-based analysis would miss.</p>
+
+<p><strong>Iterating stakeholder identification</strong> throughout the project acknowledges that the stakeholder population is not static. New regulatory requirements may introduce compliance stakeholders midway through a project. An organizational restructuring may create new roles or eliminate existing ones. A merger may introduce an entirely new user base with its own needs and expectations. Requirements analysts who treat stakeholder identification as a closed activity completed in week one will be unprepared for these changes. Building regular stakeholder review checkpoints into the project schedule — aligned with phase gates, sprint reviews, or major milestone reviews — ensures that the stakeholder model remains current and that emerging stakeholder needs are captured before they become expensive surprises.</p>
+
+<p>The table below summarizes the three stakeholder categories, their relationship to the system, and the primary risks of failing to engage them during requirements analysis.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stakeholder Category</th>
+      <th>Relationship to System</th>
+      <th>Typical Representatives</th>
+      <th>Risk of Omission</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Primary</td>
+      <td>Directly use or operate the system</td>
+      <td>End users, operators, data entry staff, field workers</td>
+      <td>Usability failures, workflow mismatches, high training burden, user rejection</td>
+    </tr>
+    <tr>
+      <td>Secondary</td>
+      <td>Affected by system outputs without direct use</td>
+      <td>Managers, downstream departments, customers, regulators, auditors</td>
+      <td>Missing reporting requirements, compliance failures, downstream process breakdowns</td>
+    </tr>
+    <tr>
+      <td>Key</td>
+      <td>Authority to approve or change requirements</td>
+      <td>Project sponsors, product owners, department heads, compliance officers</td>
+      <td>Scope creep, late-stage requirement reversals, failed acceptance reviews</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Effective stakeholder identification is ultimately an act of organizational empathy — the analytical discipline of ensuring that every group affected by a system has a voice in defining what that system must do. It is the prerequisite for all other requirements activities, and the quality of every subsequent artifact — use cases, data models, acceptance criteria, test plans — depends directly on how thoroughly and accurately this foundational work is done.</p>
+        <div class="notes"><strong>Notes</strong>Students often conflate the actor in a use case with the concept of a stakeholder. Reinforce the distinction: actors are roles that interact with the system (a subset of stakeholders), while stakeholders include anyone with an interest in the system&#39;s outcomes. Encourage students to build a simple stakeholder register alongside their use case diagrams and to trace each use case back to at least one identified stakeholder need. The role/permissions section pairs well with hands-on exercises where students map roles to CRUD (Create, Read, Update, Delete) permissions on key system entities.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

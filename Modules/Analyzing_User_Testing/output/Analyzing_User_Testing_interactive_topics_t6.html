@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Implementing Redesign Changes in Prototypes</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Implementing Redesign Changes in Prototypes</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Implementing Redesign Changes in Prototypes</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Once usability testing has generated a set of findings, the real design work begins: translating what you learned into concrete, deliberate changes to the prototype. This step sits at the heart of iterative user-centered design. Done well, it produces a revised prototype that is measurably better than the previous version and ready to answer the next round of usability questions. Done poorly, it produces a prototype full of well-intentioned guesses that introduce new problems while fixing old ones. Implementing redesign changes systematically — choosing the right fidelity, grounding each change in evidence, annotating your decisions, managing versions carefully, and validating before retesting — is what separates rigorous UX practice from ad hoc tinkering.</p>
+
+<p>The process begins before a single screen is touched, with a deliberate decision about how detailed the next prototype actually needs to be.</p>
+
+<p><strong>Choosing the Right Prototype Fidelity</strong></p>
+
+<p>Prototype fidelity describes how closely a prototype resembles the finished product in terms of visual detail, interactivity, and content realism. Fidelity exists on a spectrum, and the key professional skill is matching the level of fidelity to the specific questions the next test iteration needs to answer. Investing too much fidelity too early wastes time on details that will change; investing too little means the prototype cannot meaningfully simulate the experience being evaluated.</p>
+
+<p><strong>Low-fidelity prototypes</strong> — wireframes, paper sketches, clickable grayscale mockups — are appropriate when the usability questions center on structure rather than surface. If testing revealed that users cannot find a key feature because the navigation is poorly organized, the solution involves restructuring information architecture and task flows. Those changes can be fully evaluated with a low-fidelity prototype. A wireframe accurately represents whether a relocated menu item is discoverable; it does not need polished typography or brand color to do so. Similarly, if you are testing whether a revised onboarding flow guides new users through setup steps in a logical sequence, a simple clickable wireframe captures the interaction sequence without the overhead of a fully designed screen.</p>
+
+<p><strong>High-fidelity prototypes</strong> — pixel-accurate designs with real content, animations, micro-interactions, and styled components — are necessary when the usability question cannot be answered without that detail. If testing revealed that users misread a visual hierarchy (for example, they treated a secondary call-to-action as the primary one because of insufficient contrast or weight difference), a wireframe cannot reveal whether your fix works. The fix <em>is</em> the visual treatment, so you need a high-fidelity representation to evaluate it. Likewise, if users were confused by a transition animation that felt abrupt or disorienting, testing the revised animation requires implementing it at full fidelity.</p>
+
+<p>A practical heuristic: ask yourself what a participant would need to see or experience in order to reveal whether the problem has been solved. If the answer involves color, typography, motion, or rendered content, high fidelity is warranted. If the answer only requires understanding layout and flow, low fidelity is sufficient.</p>
+
+<p>Matching fidelity to purpose also has a financial and motivational benefit. Teams that build high-fidelity prototypes for every iteration often become emotionally attached to their designs — stakeholders and designers alike begin treating polished mockups as near-finished work, making it psychologically harder to accept feedback and make further changes. Low-fidelity artifacts signal that everything is still negotiable, which keeps the iterative process honest.</p>
+
+<p><strong>Translating Findings into Design Changes</strong></p>
+
+<p>After a usability test, your team possesses an issue log: a structured list of problems observed, severity ratings assigned, frequency counts, and (ideally) notes on the root causes identified during error analysis. Translating those findings into design changes is not simply a matter of fixing what looked broken. It requires a disciplined process of mapping, generating options, addressing root causes, and checking proposed solutions against established design principles.</p>
+
+<p>Every design change should map directly to a specific entry in the usability issue log. This traceability requirement exists for several reasons. It prevents "while we're at it" changes — well-meaning redesigns of things that were not actually identified as problems — which introduce risk without evidence-based justification. It also makes the design rationale auditable: if a stakeholder later asks why a particular element was changed, the answer is a citation to a log entry with observed failure data, not a matter of aesthetic preference.</p>
+
+<p>Before committing to a single solution, generate multiple alternatives. Usability findings rarely point to exactly one correct fix. Suppose the issue log records that six of eight participants failed to locate the "Save Draft" function because they expected it in the top toolbar but it was only accessible via a right-click context menu. Possible solutions include: moving the button to the toolbar, adding a keyboard shortcut with a visible affordance, duplicating the option in both locations, or adding a tooltip that surfaces the right-click option after a delay. Each option has different trade-offs in terms of screen real estate, discoverability, and implementation cost. Generating and briefly comparing these alternatives — even in a quick team discussion or a rough comparison table — leads to more considered decisions than defaulting to the first idea proposed.</p>
+
+<p>Crucially, changes must address root causes, not just visible symptoms. If participants repeatedly clicked the wrong button, the symptom is an incorrect click. The root cause might be that two buttons are visually similar and positioned adjacently, that button labels are ambiguous, or that the user's mental model of the workflow does not match the system's structure. A fix that only addresses the symptom — perhaps making the wrong button slightly smaller — may reduce error rates marginally without solving the underlying mismatch. A fix that addresses the root cause — redesigning labels to reflect user vocabulary, separating the buttons spatially, or restructuring the workflow to match user expectations — produces durable improvement.</p>
+
+<p>Before finalizing any change, review it against established usability heuristics. Nielsen's ten heuristics are the most widely used reference, but any validated set of design principles serves the purpose. Ask: does this change preserve visibility of system status? Does it match real-world conventions? Does it give users control and freedom? This review step acts as a sanity check that catches cases where a proposed fix solves one problem while introducing a heuristic violation — for example, a solution that removes an error-prone option but simultaneously hides functionality that power users depend on.</p>
+
+<p><strong>Annotating Redesigned Prototypes</strong></p>
+
+<p>A prototype without annotations is an artifact without memory. Anyone reviewing the prototype — a developer preparing to implement it, a stakeholder comparing it to the previous version, a new team member joining the project — sees <em>what</em> changed but has no idea <em>why</em>. Annotations are the mechanism that preserves design intent and transforms a prototype from a visual deliverable into a communication document.</p>
+
+<p>Each significant design change should carry an annotation that links it to the usability finding that motivated it. The annotation should be concise — one to two sentences is ideal — and should focus on rationale rather than description. The description of what changed is already visible in the design itself; the annotation explains what you learned from testing that made this change necessary.</p>
+
+<p>Consider a prototype screen where a date-picker component has been redesigned. A poor annotation reads: <em>"Date picker now shows a calendar overlay instead of a text field."</em> That describes the what, which is already obvious. A strong annotation reads: <em>"Four of six participants attempted to type dates into the text field in non-standard formats, causing validation errors; calendar overlay eliminates free-text entry to prevent formatting failures."</em> This tells a developer why the component works the way it does, which matters when they encounter edge cases during implementation. It also tells a stakeholder that this change is grounded in observed behavior, not designer preference.</p>
+
+<p>Annotations serve multiple audiences simultaneously. For developers, they clarify intent and reduce implementation errors — if a developer understands that a particular placement decision exists to improve discoverability for a specific user group, they are less likely to reposition it for technical convenience. For stakeholders, annotated prototypes function as evidence artifacts: they demonstrate that the design process is evidence-based and that changes are justified by data, which builds organizational confidence in the UX team's recommendations. For the design team itself, annotations create institutional memory that remains accessible even after team members change.</p>
+
+<p>In practice, annotations can be implemented in a variety of tools. Design platforms like Figma support comment layers and annotation plugins. Presentation tools like PowerPoint or Keynote can use numbered callouts linked to a legend. Some teams maintain a separate annotation document keyed to numbered markers on the prototype. The format matters less than the discipline of maintaining the annotations consistently across every iteration.</p>
+
+<p><strong>Version Management for Iterative Prototypes</strong></p>
+
+<p>Iterative design generates many versions of the same prototype. Without deliberate version management, prototypes become chaotic: files get overwritten, team members work on conflicting copies, and it becomes impossible to reconstruct which design was tested in which session. Version management is the set of practices that prevent this entropy.</p>
+
+<p>The foundational practice is saving each iteration as a distinct, independently preserved version before any changes are made. This sounds obvious, but teams under deadline pressure frequently modify their only copy of the current prototype in place, destroying the record of the tested design. Whether a team uses a design tool with built-in version history (like Figma's version history feature) or a manual file system, each tested prototype should be locked before the next iteration begins.</p>
+
+<p>Naming conventions should be established at the project outset and applied consistently. A reliable format includes the project name, iteration number, and date. For example: <code>ProjectName_Proto_v3_2024-09-15</code>. Some teams add a brief status tag: <code>ProjectName_Proto_v3_TESTED</code> or <code>ProjectName_Proto_v4_INPROGRESS</code>. Avoid vague names like <code>final</code>, <code>final_v2</code>, or <code>revised_new</code> — these are universally understood to be unreliable and tend to multiply as revisions continue.</p>
+
+<p>Preserving previous versions enables meaningful before-and-after comparison. When evaluating whether a redesign successfully addressed a problem, comparing the v3 and v4 prototypes side-by-side is far more informative than relying on memory. Some teams conduct internal comparison reviews before each new test session precisely to confirm that changes are clearly visible and coherent relative to the prior version.</p>
+
+<p>Alongside version files, a version changelog is an essential companion document. The changelog is a running record summarizing what changed between iterations, why each change was made (ideally with issue log references), and who made the decision. The following table illustrates a simple changelog structure:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Date</th>
+      <th>Changes Made</th>
+      <th>Issue Log Reference</th>
+      <th>Decision Owner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>v1</td>
+      <td>2024-08-01</td>
+      <td>Initial prototype created based on design brief</td>
+      <td>N/A</td>
+      <td>Design Lead</td>
+    </tr>
+    <tr>
+      <td>v2</td>
+      <td>2024-08-22</td>
+      <td>Navigation restructured; Search moved to persistent top bar</td>
+      <td>Issues #3, #7</td>
+      <td>UX Designer A</td>
+    </tr>
+    <tr>
+      <td>v3</td>
+      <td>2024-09-10</td>
+      <td>Date picker replaced with calendar overlay; error messages redesigned</td>
+      <td>Issues #2, #11</td>
+      <td>UX Designer B</td>
+    </tr>
+    <tr>
+      <td>v4</td>
+      <td>2024-09-28</td>
+      <td>Checkout flow condensed from 5 steps to 3; progress indicator added</td>
+      <td>Issues #5, #8, #14</td>
+      <td>UX Designer A</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A changelog like this serves multiple purposes: it gives new team members a rapid orientation to the project's history, it provides stakeholders with a clear account of how the design evolved and why, and it supports post-project retrospectives where teams evaluate whether their design decisions were effective.</p>
+
+<p><strong>Validating Changes Before the Next Test</strong></p>
+
+<p>Implementing redesign changes introduces risk. Every modification to a prototype — even a carefully reasoned one — can inadvertently create new usability problems, break existing task flows, or produce inconsistencies within the interface. Running a formal usability test session on a prototype that contains obvious introduced errors is a costly mistake: it wastes participant time, burns testing budget, and produces data that conflates old problems with newly introduced ones. Pre-test validation exists to catch introduced errors before participants are involved.</p>
+
+<p><strong>Internal expert reviews</strong> are the fastest form of pre-test validation. Experienced UX practitioners or designers who were not directly involved in implementing the changes review the revised prototype against the known usability heuristics and the specific issues that were being addressed. Because they are not the ones who made the changes, they approach the prototype with fresher eyes and are more likely to notice inconsistencies or violations that the implementing designer's familiarity has made invisible. A structured expert review typically takes one to two hours and can surface a significant number of critical issues before any participant sees the design.</p>
+
+<p><strong>Cognitive walkthroughs</strong> are a complementary technique that simulates user thought processes step by step through a specific task. In a cognitive walkthrough, a reviewer — or a small group of reviewers — takes on the perspective of a first-time user attempting to complete a defined task using the revised prototype. At each step, they ask: Would a user know what to do next? Is the system's response to each action clear? Does feedback reinforce the correct mental model? Cognitive walkthroughs are particularly effective for verifying that revised task flows remain logical and coherent end-to-end, which is important because a change made to one step can disrupt the logic of subsequent steps in ways that are not obvious when looking at a single screen in isolation.</p>
+
+<p>Any issues identified during internal review or cognitive walkthrough should be corrected <em>and logged</em> before the next formal test session begins. The logging step is as important as the correction. If an issue is found during pre-test validation and quietly fixed without documentation, it disappears from the team's awareness and cannot be tracked across iterations. Logging it creates a record of where the design was fragile, which informs future design decisions and helps the team recognize recurring problem patterns.</p>
+
+<p>Pre-test validation is not a replacement for real user testing — it cannot replicate the authentic diversity of user behavior, mental models, and contexts that participants bring. But it serves as a quality gate that ensures the prototype entering the next formal test session is as strong as the team can make it, so that the test session generates signal about real usability questions rather than noise from avoidable implementation errors.</p>
+
+<p>Together, these five practices — calibrating fidelity, grounding changes in evidence, annotating decisions, managing versions, and validating before testing — constitute a disciplined methodology for iterative prototype redesign. Each practice reinforces the others: annotations become more valuable when versions are properly managed; validation is more targeted when annotations clarify design intent; fidelity decisions become clearer when findings are properly mapped to root causes. Applied consistently across testing cycles, this methodology produces prototypes that improve measurably with each iteration and a design process that is transparent, defensible, and genuinely user-centered.</p>
+        <div class="notes"><strong>Notes</strong>Instructor may wish to have students practice the changelog table exercise by reviewing a provided set of usability findings and populating a version log entry with appropriate issue references. The annotation exercise — rewriting a &quot;what&quot; annotation as a &quot;why&quot; annotation — works well as a short in-class or asynchronous activity.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

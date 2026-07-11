@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations of Usability Test Data</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Foundations of Usability Test Data</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Foundations of Usability Test Data</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Usability testing generates a rich stream of information about how real people interact with a design. To extract meaningful conclusions from that information, practitioners must first understand <strong>what kinds of data are being collected</strong>, how each type is measured, and what each type can and cannot tell you on its own. The field broadly divides usability test data into two complementary categories — quantitative and qualitative — and then organises specific metrics within those categories. Mastering this vocabulary and the logic behind each measure is the essential first step in becoming a confident, evidence-driven usability practitioner.</p>
+
+<p>A single usability session might produce numbers showing that eight out of ten participants failed a checkout task, timestamps revealing that successful participants took three times as long as an expert, satisfaction ratings that hover around 50 out of 100, and think-aloud comments like <em>"I have no idea where the back button went."</em> Each of those data points is telling a different part of the same story. The craft lies in reading them together.</p>
+
+<p><strong>Quantitative vs. Qualitative Data</strong></p>
+
+<p>Quantitative data in usability testing refers to any information that can be expressed as a number and subjected to arithmetic or statistical operations. Task completion rates, time on task, error counts, and standardised satisfaction scale scores all fall into this category. These numbers allow you to make direct comparisons — between two design versions, between your product and a competitor, or between the same product measured at different points during an iterative design cycle. Because they are expressed numerically, they are less susceptible to the interpretive variation that can creep into subjective judgements. Two analysts examining the same completion rate will reach identical figures; two analysts reading the same session transcript may notice different themes.</p>
+
+<p>Qualitative data, by contrast, captures the texture of the experience: the words a participant uses while thinking aloud, the moment of visible confusion when they scan a navigation menu without finding what they expected, the post-task comment that reveals they completed the task but felt no confidence in their answer. Qualitative data is inherently richer and more contextual, but it requires careful interpretation and is harder to aggregate or compare numerically.</p>
+
+<p>The most important principle in usability data collection is that <strong>neither type is sufficient on its own</strong>. Quantitative data tells you <em>what</em> is happening; qualitative data tells you <em>why</em>. Consider a scenario where error rates on a form's address field are significantly higher in Version B of a design than in Version A. The number identifies the problem and its magnitude, but only the session recordings and think-aloud transcripts will reveal whether users are confused by ambiguous field labels, failing to notice an inline validation error message, or misunderstanding what format is expected. Without that qualitative layer, the redesign team risks fixing the wrong thing.</p>
+
+<p>Conversely, relying on qualitative findings alone — for example, acting on a participant's comment that a button felt "hidden" — without checking whether the error rate or completion rate data supports that observation can lead to over-weighting the opinion of a single vocal user. The combination of both types creates a self-checking system: numbers flag patterns across the participant group, and qualitative observations explain those patterns in human terms.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>Quantitative Data</th>
+      <th>Qualitative Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Form</td>
+      <td>Numbers, rates, scores</td>
+      <td>Words, observations, behaviours</td>
+    </tr>
+    <tr>
+      <td>Examples</td>
+      <td>Completion rate, time on task, error rate, SUS score</td>
+      <td>Think-aloud commentary, observed hesitation, interview responses</td>
+    </tr>
+    <tr>
+      <td>Primary strength</td>
+      <td>Enables comparison and tracking over time</td>
+      <td>Explains causes and reveals mental models</td>
+    </tr>
+    <tr>
+      <td>Primary limitation</td>
+      <td>Does not explain <em>why</em> a problem occurs</td>
+      <td>Difficult to aggregate; susceptible to analyst interpretation</td>
+    </tr>
+    <tr>
+      <td>Best used for</td>
+      <td>Benchmarking, prioritisation, demonstrating ROI</td>
+      <td>Diagnosing root causes, generating redesign hypotheses</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Task Completion Rates</strong></p>
+
+<p>The task completion rate is one of the most widely used and immediately legible metrics in usability testing. Its calculation is straightforward: divide the number of successful task completions by the total number of attempts, then multiply by 100 to express it as a percentage.</p>
+
+<pre><code>Task Completion Rate = (Successful Completions ÷ Total Attempts) × 100</code></pre>
+
+<p>For example, if ten participants each attempt a task and seven complete it successfully, the completion rate is 70%. That single figure immediately communicates that three out of ten users encountered an obstacle significant enough to prevent task success — a meaningful signal that warrants investigation.</p>
+
+<p>What counts as a "successful" completion must be defined before testing begins. This definition should be objective and observable: the participant reaches the order confirmation page, the document is saved in the correct folder, the filter settings produce a narrowed result set. Vague success criteria introduce subjectivity and make cross-session comparisons unreliable. Some teams use a binary success/failure coding scheme; others use a partial-credit scale where a participant who completes the task with significant difficulty or error receives a score between 0 and 1. The binary approach is simpler and more common; partial-credit scoring can be useful when you want to capture meaningful degrees of struggle.</p>
+
+<p>A low completion rate on a specific task is a strong indicator of a <strong>critical usability problem</strong>. When fewer than half of participants can complete a core workflow, that task demands immediate prioritisation in the redesign effort — regardless of how elegant or intentional the design may appear to the team. High failure rates on core tasks can directly translate to user abandonment, lost conversions, and support costs in live products.</p>
+
+<p>However, completion rates must always be interpreted in context. A 60% completion rate on a simple, single-step task like "find the search bar" represents a severe problem. The same rate on a complex, multi-step task — such as configuring advanced network settings in enterprise software — may be acceptable for a first iteration, especially if the target users are beginners unfamiliar with the domain. Task complexity, user familiarity, and the nature of the user population all modulate the meaning of a completion rate figure.</p>
+
+<p>One of the greatest strategic values of tracking completion rates is the ability to <strong>measure progress across design iterations</strong>. If Version A of a checkout flow has a 55% completion rate and Version B achieves 82%, the improvement is quantified and defensible. This kind of before-and-after comparison is invaluable when communicating the impact of UX work to stakeholders who want evidence that design investment produces results.</p>
+
+<p><strong>Error Rate Analysis</strong></p>
+
+<p>Errors occur whenever a user takes an action that does not advance them toward the correct completion of a task. Error rate analysis transforms those individual missteps into a metric that can be tracked, compared, and prioritised. The standard formula expresses error rate as a proportion:</p>
+
+<pre><code>Error Rate = Number of Errors ÷ Total Number of Opportunities for Error</code></pre>
+
+<p>The denominator — "opportunities for error" — is important and often overlooked. Reporting raw error counts without reference to how many chances users had to make those errors can be misleading. If a task involves five distinct interaction steps and each participant attempts all five, the maximum possible errors per participant is five. Normalising against opportunities allows for fair comparison across tasks of different lengths and complexity.</p>
+
+<p>Error cataloguing is the practice of recording not just how many errors occurred but <strong>what type of error each one was</strong>. Three broad categories are especially useful:</p>
+
+<ul>
+  <li><strong>Navigation errors:</strong> The user travels to the wrong section of the interface, follows an incorrect link, or uses the back button repeatedly to reorient themselves. These often indicate unclear information architecture or misleading labelling.</li>
+  <li><strong>Input errors:</strong> The user enters data in the wrong format, omits a required field, or types into the wrong form element. These frequently point to insufficient field-level guidance, unclear validation feedback, or poor label wording.</li>
+  <li><strong>Comprehension errors:</strong> The user misinterprets a label, instruction, or concept — selecting "monthly billing" when they intended annual billing because the pricing table's layout implied the opposite. These reveal gaps between the designer's mental model and the user's.</li>
+</ul>
+
+<p>When the same error occurs repeatedly — multiple participants making the same wrong turn at the same navigation node, or misreading the same label — this is a signal of a <strong>systematic design flaw</strong> rather than an isolated user slip. Individual errors can reflect a participant having a bad day or lacking specific domain knowledge; recurring patterns across participants point to something the design itself is causing. This distinction is critical for prioritisation: fixing a systematic flaw benefits all future users, while addressing a one-time slip may have negligible impact.</p>
+
+<p>Prioritising errors for remediation requires considering both <strong>frequency</strong> (how often the error occurs) and <strong>severity</strong> (how significantly the error disrupts the user's ability to complete the task). A high-frequency, low-severity error — such as users briefly hovering over the wrong menu item before self-correcting — may be lower priority than a low-frequency but catastrophic error, such as a data-deletion action that triggers without a confirmation dialogue. A simple 2×2 prioritisation matrix plotting frequency against severity can help teams make these judgements explicit and defensible.</p>
+
+<p><strong>Time on Task</strong></p>
+
+<p>Time on task measures how long a participant takes to complete a given task, typically recorded from the moment the facilitator presents the task scenario to the moment the participant declares completion or abandons the attempt. It is one of the most direct behavioural indicators of efficiency — a core dimension of usability under frameworks like ISO 9241.</p>
+
+<p>For time on task data to be meaningful, measurement conventions must be consistent. Does the clock start when the facilitator finishes reading the task, or when the participant first touches the interface? Is time still running if the facilitator intervenes? These decisions must be made before testing and applied uniformly across all sessions and all iterations being compared.</p>
+
+<p>A powerful analytical technique is to benchmark participant times against <strong>expert performance</strong>. An expert — typically a member of the design or product team who knows the interface thoroughly — completes the same task under the same conditions, and their time is recorded. The ratio of novice-to-expert time reveals how much friction the design introduces for users who lack prior familiarity. A ratio of 3:1 or higher on a frequently performed task may indicate a significant efficiency problem, even when completion rates are acceptable. Users may eventually succeed, but they are doing so slowly, which in high-frequency workflows translates to real productivity loss or frustration.</p>
+
+<p>Tracking time on task <strong>across design iterations</strong> is an excellent way to quantify the efficiency gains produced by redesign. If a task that averaged four minutes in Version A drops to ninety seconds in Version B, that improvement is concrete, communicable, and meaningful to stakeholders. Over large user bases, reductions in task time can translate to measurable savings in time, support burden, and user frustration.</p>
+
+<p>Analysts should pay close attention to <strong>outlier task times</strong> at both ends of the distribution. Unusually long times may indicate that a participant became truly lost, encountered a technical failure, or was distracted — all of which can skew mean calculations and should be investigated rather than silently excluded. Unusually short times are equally worth examining: did the participant take a shortcut the design team didn't anticipate? Did they misunderstand the task and stop prematurely? Did they already know the interface from prior exposure? Both types of outlier offer diagnostic value when treated as signals rather than noise.</p>
+
+<p><strong>Satisfaction Scores</strong></p>
+
+<p>Behavioural metrics like completion rates and time on task tell you what users <em>do</em>. Satisfaction scores tell you how users <em>feel</em>. This distinction matters because usability is not purely a performance concept — an interface that users can operate successfully but find unpleasant, confusing, or anxiety-inducing will generate poor word of mouth, low adoption, and eventual abandonment even if task completion rates are high.</p>
+
+<p>The most widely used standardised satisfaction instrument in usability testing is the <strong>System Usability Scale (SUS)</strong>, a ten-item questionnaire developed by John Brooke in 1986 and validated across thousands of studies. Each item is rated on a five-point Likert scale (strongly disagree to strongly agree), and the scoring algorithm produces a single composite score between 0 and 100. A score of 68 is considered the industry average; scores above 80 are generally regarded as indicating good usability, and scores below 50 signal serious problems warranting urgent attention. Because the SUS has been administered in such large volumes across diverse products and industries, it enables genuine benchmarking — you can compare your product's score not just to its own previous versions, but to established norms for your product category.</p>
+
+<p>The timing of satisfaction measurement affects what the data captures. <strong>Post-task satisfaction scores</strong> — collected immediately after a participant completes or abandons a specific task — reflect the immediate emotional reaction to that task experience. They are sensitive to localised friction and can pinpoint which specific tasks are generating the most dissatisfaction. <strong>Post-session scores</strong> like the SUS, collected at the end of the entire session, capture the participant's holistic, reflective impression of the interface. Both are valuable, and many research protocols gather both.</p>
+
+<p>One of the most diagnostically important patterns in usability data is the <strong>performance-satisfaction gap</strong> — a situation where behavioural metrics look acceptable but satisfaction scores are low, or vice versa. If participants are completing tasks efficiently and accurately but rating the experience poorly, this may indicate that they are succeeding only through significant cognitive effort, that they feel uncertain about whether they did the right thing even when they did, or that the interface's aesthetic or tonal qualities are creating a negative impression that the task metrics don't capture. This gap is a prompt to dig deeper into qualitative data — the think-aloud comments and post-session interviews that will explain what is causing the emotional disconnect.</p>
+
+<p>Conversely, high satisfaction with low task performance can indicate that participants enjoyed the interaction but were not aware of how poorly they performed, or that the design is pleasant but misleading — a pattern sometimes called "beautiful but broken." Recognising and investigating these gaps is one of the most sophisticated skills a usability analyst can develop, and it is only possible when both behavioural and attitudinal data are collected systematically in the same study.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic clusters for Topic 1. The SUS scoring note (68 as average, 80+ as good, below 50 as severe) reflects well-established published benchmarks (Bangor, Kortum &amp; Miller, 2008; Sauro, 2011) and is appropriate for learner context. Performance-satisfaction gap discussion extends the listed bullet points in a way that enriches practical understanding without introducing contested content.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

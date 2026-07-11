@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Review of the Prototyping Phase</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Review of the Prototyping Phase</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Review of the Prototyping Phase</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Prototyping is the backbone of user-centered design. It is the practice of building tangible, testable representations of a design idea so that assumptions can be challenged, user reactions can be observed, and course corrections can be made long before any final product is built. A prototype is not a finished product — it is a deliberate, disposable artifact created for the purpose of learning. The prototyping phase sits at the heart of the design process because it transforms abstract ideas into something concrete enough to put in front of real people and ask the most important question in design: <em>does this actually work for the people it is meant to serve?</em></p>
+
+<p>Understanding prototyping requires recognizing that it exists on a spectrum. At one end are rough, rapidly produced representations that prioritize speed and flexibility. At the other end are polished, interactive simulations that closely resemble the finished product. Neither end of the spectrum is inherently superior — each serves a distinct purpose at a distinct stage of the design process. The skill lies in knowing which type of prototype to use, when to use it, and — crucially — when to move from one to the other.</p>
+
+<p><strong>Low-Fidelity Prototyping and Ideation</strong></p>
+
+<p>Low-fidelity (lo-fi) prototypes are intentionally rough representations of a design. They may take the form of hand-drawn sketches on paper, sticky notes arranged on a whiteboard, cardboard cutouts, or simple wireframes drawn with a basic tool. The defining characteristic of a lo-fi prototype is its cheapness — cheap to make, cheap to change, and cheap to throw away. This cheapness is not a weakness; it is a strategic advantage.</p>
+
+<p>When a prototype is made of paper and pencil, the psychological cost of discarding it is negligible. This has a profound effect on behavior in a design team. Designers, developers, and stakeholders are far more willing to take creative risks, propose unconventional ideas, and challenge existing assumptions when they know that the cost of being wrong is a few minutes of sketching, not weeks of development work. <strong>Low-fidelity prototypes encourage creative risk-taking precisely because they are quick and inexpensive to discard.</strong> A team that begins with high-fidelity digital mockups is implicitly committed to those mockups from the start; a team that begins with paper is free to explore.</p>
+
+<p>Consider a design team tasked with redesigning a hospital's patient intake form. In a lo-fi ideation session, one designer might sketch a single-column form on a notepad; another might suggest a card-sorting layout using sticky notes on a table; a third might draw a conversational interface resembling a chat window. All three ideas exist simultaneously, can be evaluated side by side, and can be combined or discarded within minutes. No single sketch carries the weight of commitment. This freedom is the engine of genuine ideation.</p>
+
+<p>One of the most powerful applications of lo-fi prototyping is the <strong>paper prototyping session with real users</strong>. In a paper prototyping session, a user is presented with hand-drawn screens or interface elements and asked to interact with them as if they were a real product. A facilitator swaps paper elements in and out to simulate the system's responses. The user's confusion, hesitation, errors, and verbal reactions are all observed and recorded.</p>
+
+<p>Paper prototyping sessions are remarkable for their ability to surface <strong>fundamental usability issues before any digital work begins</strong>. Fundamental issues include problems with navigation structure, label clarity, mental model mismatches, and task flow logic — the kinds of problems that are expensive and embarrassing to discover after a product has been built. When a user picks up a paper prototype and immediately tries to tap a decorative element thinking it is a button, or when they cannot figure out where to begin a task, the team learns something invaluable at the cost of a few sheets of paper. The same discovery made during beta testing of a fully developed application carries a dramatically higher remediation cost.</p>
+
+<p>A classic example: a team designing a banking app creates paper prototypes of three different navigation structures. In sessions with six representative users, four of them consistently struggle to find the "transfer funds" function under the "Accounts" menu, where the team had placed it. They look first under a "Payments" label. This insight takes thirty minutes to uncover with paper and costs nothing to act on — the team simply redraws the navigation. Discovered after the app is launched, the same insight might require a major restructuring of the information architecture, re-routing of back-end logic, and a user communication campaign.</p>
+
+<p>A critical principle governs the transition out of lo-fi prototyping: <strong>the move from lo-fi to hi-fi prototyping should be driven by user feedback, not assumed readiness.</strong> Teams frequently make the mistake of moving to high-fidelity work on a schedule rather than on evidence. "We've been sketching for two weeks, it must be time to go digital" is a reasoning pattern that bypasses the entire point of the lo-fi stage. The correct trigger is evidence from user feedback that the fundamental structure, flow, and logic of the design are sound and understood. Only when users can successfully navigate and interpret the lo-fi prototype — when the core concept has been validated — is it appropriate to invest time in higher-fidelity representation. Moving too early locks in errors that are increasingly expensive to fix.</p>
+
+<p><strong>High-Fidelity Prototyping and Design Refinement</strong></p>
+
+<p>High-fidelity (hi-fi) prototypes are detailed, interactive representations of a design that closely approximate the look, feel, and behavior of the finished product. They are typically built with digital tools such as Figma, Adobe XD, Axure, or InVision. They include real or near-real visual design — actual typography, color palettes, imagery, and iconography — and simulate realistic interactions such as transitions, animations, and conditional logic.</p>
+
+<p>The primary advantage of hi-fi prototypes is that <strong>they allow users to engage with realistic interactions, yielding more valid usability data.</strong> When a user interacts with a high-fidelity prototype, their experience resembles what they will encounter with the finished product closely enough that their reactions — their confusion, their satisfaction, their errors — are good predictors of how they will respond to the real thing. This ecological validity is crucial when the team needs to make fine-grained decisions about interaction design: the placement of a confirmation dialog, the wording of an error message, the timing of an animation, or the affordances of a custom UI component.</p>
+
+<p>Imagine testing two different approaches to an onboarding flow for a project management tool. A lo-fi test can tell you whether users understand the general sequence of steps. A hi-fi prototype test can tell you whether users notice the subtle tooltip that explains a complex feature, whether they feel the loading animation communicates progress or confusion, and whether the visual hierarchy of the dashboard correctly signals which elements are interactive. These are questions that require realism to answer reliably.</p>
+
+<p>However, hi-fi prototyping carries a significant risk: <strong>investing too early in high-fidelity detail can create attachment to a design direction that later proves problematic.</strong> This phenomenon is sometimes called the "IKEA effect" applied to design — people place disproportionate value on things they have put effort into building. When a designer has spent forty hours carefully crafting a pixel-perfect set of screens, the psychological resistance to changing those screens — even in the face of clear evidence from user testing — becomes substantial. Stakeholders who have seen and approved polished visuals are similarly reluctant to endorse significant revisions. The high-fidelity prototype, intended as a tool for learning, becomes an obstacle to learning.</p>
+
+<p>This is why the sequencing of lo-fi before hi-fi is not merely conventional wisdom — it is a protective mechanism. By the time the team reaches hi-fi work, the fundamental design decisions should already be validated. The hi-fi stage should be refining and confirming, not discovering that the entire information architecture is wrong.</p>
+
+<p>Another important principle at the hi-fi stage is that <strong>consistent visual design in hi-fi prototypes reduces participant confusion during usability testing.</strong> When a prototype mixes polished screens with placeholder screens, uses inconsistent typography, or has gaps where interactions are not yet designed, test participants can become uncertain about whether their confusion is caused by a design flaw or an incomplete prototype. They may hesitate to proceed, ask whether something is "supposed to work," or moderate their behavior in ways that compromise the validity of the test data. A consistently designed hi-fi prototype, even if not every interaction is fully implemented, signals to participants that they are experiencing a complete system, which produces more natural and diagnostic behavior.</p>
+
+<p>In practice, achieving consistency does not require that every screen be fully built. Usability testing sessions can use a prototype with limited but consistent scope — covering the specific task flows being tested — so long as participants are not surprised by abrupt drops in fidelity mid-task. Design systems and component libraries, which define and standardize UI elements across an entire product, are invaluable for maintaining this consistency efficiently.</p>
+
+<p><strong>Iteration Between Prototype Versions</strong></p>
+
+<p>Prototyping is not a one-time event. It is a cycle. A prototype is built, tested, learned from, revised, and tested again. This cycle of iteration is where the design process earns its credibility as a user-centered practice. Without iteration, prototyping is reduced to theater — the appearance of a design process without the substance.</p>
+
+<p>The governing principle of iteration is directness: <strong>each prototype iteration should address specific issues identified in the previous round of testing.</strong> This means that testing sessions must produce actionable findings, that those findings must be prioritized and understood, and that the changes made to the next prototype version must be traceable to specific observed problems. Iteration is not about generally improving the design with each round — it is about systematically resolving known, evidenced issues.</p>
+
+<p>Consider a team testing the checkout flow of an e-commerce prototype. Version 1 testing reveals three distinct problems: users do not notice the "promo code" field because it is below the fold; users are confused by the label "billing address" when they expect "payment address"; and users hesitate at the final "Place Order" button because there is no visible indication of what happens next. Version 2 of the prototype moves the promo code field, relabels the address field, and adds a brief confirmation message preview near the button. Version 2 testing then specifically evaluates whether these three issues have been resolved. This targeted approach ensures that iteration produces measurable progress rather than undirected churn.</p>
+
+<p><strong>Tracking changes between prototype versions provides evidence of a rigorous, user-centered design process.</strong> When a design team documents what was changed in each iteration and why — citing the specific usability findings that motivated each change — they create an audit trail of their decision-making. This documentation serves multiple purposes. It demonstrates to stakeholders and clients that design decisions are evidence-based rather than arbitrary. It protects against scope creep and stakeholder pressure to revert to earlier approaches, because the team can show exactly what problems those earlier approaches caused. And it creates institutional knowledge that can inform future projects facing similar design challenges.</p>
+
+<p>Many teams use version-controlled design files, change logs, or UX research repositories to maintain this documentation. A simple practice is to include a "what changed and why" note with each new prototype version shared with stakeholders. Over the course of a project, these notes accumulate into a compelling record of the design's evolution from rough concept to validated solution.</p>
+
+<p>The consequences of failing to iterate are serious and well-documented: <strong>failure to iterate often results in a final product that retains known usability problems.</strong> When a team identifies usability issues in testing but does not revise the prototype before moving to development, those issues are almost always carried forward into the finished product. Developers implement what the design specifies; if the design specifies a flawed navigation structure that users consistently found confusing in testing, the product will ship with a confusing navigation structure. The test findings become historical curiosities rather than drivers of improvement.</p>
+
+<p>This failure mode is more common than it should be, and it typically stems from one of several causes: schedule pressure that eliminates time for additional testing rounds, a team culture that treats testing as a compliance activity rather than a learning activity, or unclear ownership of the decision to iterate. Addressing these root causes — by budgeting time for iteration from the outset, by building a culture that treats every test finding as an opportunity rather than a setback, and by designating clear responsibility for acting on research findings — is as important as any individual prototyping technique.</p>
+
+<p>The following table summarizes the key distinctions between lo-fi and hi-fi prototyping across several important dimensions:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Low-Fidelity Prototyping</th>
+      <th>High-Fidelity Prototyping</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Typical form</strong></td>
+      <td>Paper sketches, sticky notes, basic wireframes</td>
+      <td>Interactive digital mockups with real visual design</td>
+    </tr>
+    <tr>
+      <td><strong>Time to produce</strong></td>
+      <td>Minutes to hours</td>
+      <td>Hours to weeks</td>
+    </tr>
+    <tr>
+      <td><strong>Cost to change</strong></td>
+      <td>Very low</td>
+      <td>Moderate to high</td>
+    </tr>
+    <tr>
+      <td><strong>Primary purpose</strong></td>
+      <td>Explore ideas; validate structure and flow</td>
+      <td>Refine interactions; validate detailed usability</td>
+    </tr>
+    <tr>
+      <td><strong>Risk of attachment</strong></td>
+      <td>Low</td>
+      <td>High — polished work creates emotional investment</td>
+    </tr>
+    <tr>
+      <td><strong>Usability data validity</strong></td>
+      <td>Best for fundamental structural issues</td>
+      <td>Best for fine-grained interaction and visual design issues</td>
+    </tr>
+    <tr>
+      <td><strong>Appropriate stage</strong></td>
+      <td>Early ideation; before core concepts are validated</td>
+      <td>After core concepts are validated; before development</td>
+    </tr>
+    <tr>
+      <td><strong>Participant behavior</strong></td>
+      <td>May be more candid due to obviously unfinished nature</td>
+      <td>More naturalistic if consistently designed</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Together, lo-fi prototyping, hi-fi prototyping, and disciplined iteration between versions constitute a complete and powerful methodology for moving from a design idea to a validated, user-centered solution. Each component of this methodology is necessary. Lo-fi work without eventual hi-fi refinement leaves too many important interaction details unresolved. Hi-fi work without prior lo-fi validation risks building a polished solution to the wrong problem. And prototyping of any fidelity without genuine, targeted iteration is little more than an expensive way of confirming decisions already made. The full cycle — explore with lo-fi, validate, refine with hi-fi, test, iterate — is what transforms user research from a formality into the genuine engine of design quality.</p>
+        <div class="notes"><strong>Notes</strong>The table provides a concise comparative reference that complements the detailed narrative. Instructors may wish to prompt learners to apply the lo-fi-to-hi-fi transition principle to a case study scenario, asking them to identify the specific user feedback signals that should trigger the move from one fidelity level to the next.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

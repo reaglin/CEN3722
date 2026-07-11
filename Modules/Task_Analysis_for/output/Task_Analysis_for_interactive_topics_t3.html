@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cognitive Task Analysis (CTA)</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Cognitive Task Analysis (CTA)</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Cognitive Task Analysis (CTA)</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Hierarchical Task Analysis gives us a clear map of <em>what</em> users do — the observable steps, sequences, and sub-goals that make up a task. But experienced designers quickly discover that this map has a significant blind spot: it says almost nothing about <em>what is happening inside the user's head</em> while those steps are being executed. Why does an expert complete a task effortlessly while a newcomer hesitates, makes a wrong turn, or misinterprets a status message? The answer lies not in the sequence of actions but in the knowledge, judgments, and mental representations that drive those actions. Cognitive Task Analysis (CTA) is the family of methods designed to surface exactly that invisible layer. It extends the work of task analysis by systematically uncovering the cognitive demands, decision points, and knowledge structures that underlie observable behavior — and by doing so it gives designers the raw material they need to build interfaces that genuinely support the way people think, not merely the way they move their hands.</p>
+
+<p><strong>What CTA Adds Beyond HTA</strong></p>
+
+<p>The most fundamental contribution of CTA is a shift in the unit of analysis. Where HTA asks "what does the user do next?", CTA asks "what does the user need to <em>know</em>, perceive, judge, or remember in order to do that next thing?" This seemingly small shift has profound consequences for what gets designed and how it gets designed.</p>
+
+<p>One of the most important things CTA surfaces is <strong>tacit knowledge</strong> — the kind of knowledge that experienced users possess but can rarely articulate unprompted. A seasoned accountant processing an expense report knows at a glance that a particular line item is suspicious, but if asked to describe their process they may simply say "I just checked it." They are not being evasive; they genuinely cannot easily access the perceptual pattern-matching and heuristic judgment that years of practice has made automatic. CTA methods are specifically designed to slow down and externalize this automatic processing so it becomes visible. Once visible, it can be considered during design: perhaps a visual highlight, a range validator, or an inline benchmark figure would help a novice reach a similar judgment without years of experience.</p>
+
+<p>CTA also reveals <strong>decision points</strong> — moments in a task where the user must evaluate two or more possible next actions and choose between them based on system state, contextual information, or personal judgment. HTA may represent these as a branch in the task tree, but it rarely captures what information the user needs to make that branch decision correctly, what they might misread, or what happens cognitively when the information is ambiguous. CTA makes all of that explicit.</p>
+
+<p>Practically speaking, the findings from CTA directly shape several categories of design decisions: <strong>onboarding and training materials</strong> can be targeted at the precise knowledge gaps novices have rather than narrating steps that anyone can read from the screen; <strong>error messages</strong> can be written to address the actual misconception or missing information that caused the error rather than simply stating what went wrong technically; and <strong>instructional cues</strong> such as tooltips, inline hints, and contextual help can be placed at the specific moments in a workflow where cognitive demand peaks.</p>
+
+<p><strong>Key CTA Techniques</strong></p>
+
+<p>CTA is not a single method but a collection of complementary techniques, each suited to different aspects of cognitive work and different research situations. Choosing among them requires matching the technique to the complexity of the task, the expertise of the users involved, and the time and resources available for research.</p>
+
+<p><strong>Think-aloud protocols</strong> are the most widely used CTA technique and the most accessible entry point. The user is asked to perform a realistic task while continuously narrating their thought process — not explaining or justifying after the fact, but speaking their thoughts in real time as they occur. The researcher observes and records without intervening except to gently prompt continued verbalization when the user goes silent. The resulting transcript is rich with evidence of what information the user is attending to, what they expect to happen, what confuses them, and how they diagnose problems. For example, a user attempting to filter a data table might say aloud: "Okay, I see a search bar but I'm not sure if that searches the whole database or just what's on screen — I'll try it and see…" That single utterance reveals a mental model gap (uncertainty about search scope), a coping strategy (trial and error), and a potential design opportunity (clarifying the scope of the search affordance). Think-aloud protocols are particularly valuable early in a project when the design team needs a broad, exploratory view of cognitive demands across a task.</p>
+
+<p><strong>Critical Decision Method (CDM) interviews</strong> are retrospective rather than concurrent. A researcher asks an experienced practitioner to recall a specific, memorable instance of performing a particularly challenging version of the task — ideally a real incident rather than a hypothetical. Through a structured series of probing questions the interviewer works to reconstruct not just the sequence of events but the decision moments within that sequence: What information did you have at that point? What options were you weighing? What made you choose this path rather than that one? What would a less experienced person have missed? CDM is especially powerful for studying high-stakes, infrequent, or time-pressured tasks where think-aloud is impractical — surgical decisions, emergency response, financial risk assessment — and for extracting the expertise of highly skilled practitioners who cannot easily volunteer their knowledge without prompting. The method requires a skilled interviewer who can use follow-up probes such as "What would have had to be different for you to have made a different choice there?" without leading the participant.</p>
+
+<p><strong>Knowledge audits</strong> take a more systematic, structured approach. Rather than observing or interviewing around a single task performance, a knowledge audit produces a comprehensive inventory of the information types, concepts, mental categories, and heuristic rules that a user population must master. This might involve structured elicitation techniques borrowed from knowledge engineering — card sorting to discover how users categorize domain concepts, repertory grids to reveal the attributes users use to distinguish between cases, or concept mapping to show how domain knowledge is organized. Knowledge audits are especially useful when designing complex information systems, enterprise tools, or training programs where the designer needs a thorough model of the domain knowledge that the interface must support or teach.</p>
+
+<p>The following table summarizes the key characteristics of these techniques to support technique selection:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Technique</th>
+      <th>Data Collection Timing</th>
+      <th>Best Suited For</th>
+      <th>Primary Output</th>
+      <th>Key Limitation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Think-Aloud Protocol</td>
+      <td>Concurrent (during task)</td>
+      <td>Exploratory discovery of cognitive demands across a workflow</td>
+      <td>Verbatim transcripts annotated with cognitive observations</td>
+      <td>Verbalization can interfere with or alter natural cognitive processing</td>
+    </tr>
+    <tr>
+      <td>Critical Decision Method</td>
+      <td>Retrospective (after task)</td>
+      <td>Expert knowledge in high-stakes or infrequent tasks</td>
+      <td>Decision event narratives with identified cues, options, and rationale</td>
+      <td>Memory reconstruction may omit or distort details</td>
+    </tr>
+    <tr>
+      <td>Knowledge Audit</td>
+      <td>Structured elicitation session</td>
+      <td>Comprehensive domain knowledge mapping for complex systems</td>
+      <td>Concept maps, knowledge inventories, taxonomies</td>
+      <td>Time-intensive; requires skilled elicitation facilitation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In practice, CTA projects often combine techniques: a knowledge audit may establish the domain vocabulary before think-aloud sessions, and CDM interviews with experts may follow to probe the high-stakes decision moments that emerged from think-aloud observations.</p>
+
+<p><strong>Identifying Decision Points and Mental Models</strong></p>
+
+<p>Two analytical constructs sit at the heart of CTA findings: decision points and mental models. Both are diagnostic tools that connect cognitive observations to design action.</p>
+
+<p>A <strong>decision point</strong> is any moment in a task where the user must evaluate the current state of the system or environment and select among two or more possible next actions. Decision points are not always explicit branch menus or dialog boxes — they are often invisible to the interface but highly consequential to the user. Consider a user who has just submitted a form and sees a spinning indicator. A decision point has arisen: should they wait, refresh, navigate away, or try again? The interface has presented no explicit choice, but the user must nonetheless make a judgment. CTA identifies these moments, documents what information is available to the user at that point, what information the user actually needs to make the correct decision, and what happens when those two things diverge. That last question — the divergence — is where error prediction lives.</p>
+
+<p>A <strong>mental model</strong> is the user's internal representation of how the system works. It is not a technically accurate specification; it is a functional, often approximate, sometimes metaphorical model that is good enough to generate predictions about system behavior and guide action. Users form mental models from prior experience with analogous systems, from interface affordances and labels, from onboarding materials, and from trial and error. A user who has primarily used desktop email software will arrive at a web-based email client with a strong mental model derived from that experience — and certain design choices (like whether "delete" moves a message to trash or immediately destroys it) will either align with or violate that model.</p>
+
+<p>The relationship between mental models and design is bidirectional. Designers must first <em>document</em> the mental models that exist in their user population — CTA is the tool for doing this. Then they must <em>align</em> the interface's behavior, metaphors, terminology, and feedback with those models wherever alignment is possible. Where the system must behave in a way that diverges from the user's likely mental model, the design must actively work to correct the model through labeling, animation, or explanatory copy.</p>
+
+<p>The most predictive finding in CTA is often the identification of a <strong>mental model gap</strong>: a specific point where the user's model of the system diverges from its actual behavior. These gaps are not random; they cluster around certain design patterns. For example, users frequently model undo as a simple reverse of the last action, when in fact an application's undo stack may have complex branching behavior. When the user's model predicts one outcome and the system produces another, an error — or at minimum confusion and loss of trust — is almost certain to result. Documenting these gaps during CTA gives the design team a prioritized list of the exact points where design intervention will have the greatest impact on usability.</p>
+
+<p><strong>Representing CTA Findings</strong></p>
+
+<p>Raw CTA data — transcripts, interview notes, observation logs — must be synthesized into a form that a design team can act on. Several representation formats have been developed, each with different strengths depending on the audience and the design decisions being supported.</p>
+
+<p><strong>Annotated HTA diagrams</strong> are the most immediately accessible representation for teams already working with task hierarchies. The existing HTA tree is preserved but each node is augmented with cognitive annotations: what does the user need to know or perceive at this step? What decision is being made? What is the cognitive load? What mental model is being applied? This format is efficient because it builds on existing documentation and makes cognitive demands visible in the context of the task structure that the team already understands. Its limitation is that the richness of cognitive information can become visually cluttered if the annotation density is high.</p>
+
+<p><strong>Decision ladders</strong> are a more formal representation developed within the Cognitive Systems Engineering tradition, most closely associated with Jens Rasmussen's work. A decision ladder maps the complete cycle of cognitive work involved in a task episode: from the initial observation of a system state, through information processing and diagnosis, to the identification of a goal, evaluation of response options, and execution of an action. The ladder's distinctive feature is that it explicitly represents <em>shortcuts</em> — the paths that experienced practitioners take by bypassing full analytical processing and jumping directly from a recognized cue to a familiar action. These shortcuts are precisely the tacit knowledge that novices lack, making them valuable targets for design support. Decision ladders are well suited to safety-critical domains and complex procedural tasks, but their formal notation requires some investment to learn and is not always immediately legible to product teams without facilitation.</p>
+
+<p><strong>Structured tables</strong> offer a pragmatic, flexible format that trades formal rigor for immediate usability. A structured CTA table might organize findings with columns for task step, cognitive demand type, information required, current interface support, gap identified, and recommended design response. This format is particularly useful during design reviews because it directly connects analysis to action and makes it easy to compare cognitive demands across steps or across different user populations (novices versus experts, for instance).</p>
+
+<p>The following example illustrates a simplified structured CTA table for a subset of steps in a file-upload workflow:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task Step</th>
+      <th>Cognitive Demand</th>
+      <th>Information Required</th>
+      <th>Current Interface Support</th>
+      <th>Gap / Risk</th>
+      <th>Design Recommendation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Select file to upload</td>
+      <td>Recall: acceptable file formats</td>
+      <td>Which formats are accepted?</td>
+      <td>None visible at point of selection</td>
+      <td>Users attempt to upload unsupported formats, receive error only after waiting</td>
+      <td>Display accepted formats adjacent to the upload button before interaction</td>
+    </tr>
+    <tr>
+      <td>Confirm upload is in progress</td>
+      <td>Perception: system state monitoring</td>
+      <td>Is the upload running or stalled?</td>
+      <td>Static spinner with no progress indicator</td>
+      <td>Users cannot distinguish active upload from hung process; some cancel prematurely</td>
+      <td>Add a progress bar showing percentage and elapsed time; surface a "still working" message after 15 seconds</td>
+    </tr>
+    <tr>
+      <td>Respond to upload failure</td>
+      <td>Diagnosis: interpret error and decide on next action</td>
+      <td>Why did it fail? What should I do next?</td>
+      <td>Generic "Upload failed" error message</td>
+      <td>Users do not know whether to retry, reformat, or contact support; high abandonment</td>
+      <td>Provide specific error cause (file too large, network timeout, wrong format) with a contextual next-step suggestion</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The choice of representation format should always be guided by the audience who will use the findings. Design teams working in agile environments often respond best to annotated flows embedded directly in their existing design documentation, while structured tables work well for stakeholder presentations where the connection between research findings and design priorities must be made explicit. Formal notations like decision ladders are most valuable when handing off findings to a safety engineering team or writing formal human factors specifications.</p>
+
+<p><strong>CTA Findings in Interface Design</strong></p>
+
+<p>CTA is only as valuable as the design changes it produces. The synthesis of CTA findings into actionable design guidance follows a set of recurring patterns that connect the type of cognitive demand identified to the type of interface response appropriate to address it.</p>
+
+<p>When CTA identifies a <strong>step with high cognitive load</strong> — typically a step where the user must simultaneously hold many items in working memory, evaluate multiple attributes, or apply complex rules — the design response is to reduce the choices available at that moment or provide intelligent defaults that handle the most common case automatically. Progressive disclosure is a particularly useful pattern here: rather than presenting all options at once, the interface surfaces the most common path prominently and places less frequent options behind an expandable section. This directly reduces the number of items the user must evaluate at once. Similarly, smart defaults derived from the user's prior behavior or contextual data can offload the decision entirely in routine cases, reserving the user's attentional resources for genuinely exceptional situations.</p>
+
+<p>When CTA identifies a <strong>knowledge gap</strong> — a specific piece of information that users frequently lack but need to make correct decisions — the design response is some form of embedded instruction or contextual help. The key insight from CTA is that this help should be placed precisely at the moment and location where the knowledge is needed, not in a separate help system that requires the user to leave their task context. Tooltips triggered by hover or focus, inline examples within form fields, contextual sidebars that show relevant reference information as the user enters a particular workflow section — all of these represent knowledge gap responses. The difference between a CTA-informed tooltip and a generic help link is specificity: the CTA-informed tooltip addresses the exact cognitive gap identified for that step, in language that addresses the mental model the user brings to it.</p>
+
+<p>When CTA identifies a <strong>high-risk decision point</strong> — a moment where users frequently choose the wrong path and where the consequences are significant and difficult to reverse — the design response includes confirmation dialogs and robust undo functionality. The design of a confirmation dialog should itself be informed by CTA: the dialog text should name the specific consequence that users underestimate, the button labels should describe outcomes rather than simply saying "OK" and "Cancel," and the default focus should be on the safer action. Undo functionality is particularly valuable because it lowers the cost of errors at decision points without requiring the user to make the correct decision the first time — it shifts the interaction model from "prevent errors" to "make errors recoverable," which is often more realistic for complex tasks.</p>
+
+<p>Finally, the prioritization benefit of CTA should not be underestimated. Design resources are always constrained, and not every interface element can receive equal iterative attention. CTA findings create a defensible, evidence-based priority order: the steps where cognitive load is highest, where knowledge gaps are most consequential, and where decision errors have the most serious outcomes should receive the most design investment and the most rounds of testing. This transforms what might otherwise be a subjective debate about design priorities into a data-driven conversation grounded in observed user cognition.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic areas: what CTA adds beyond HTA, the three key CTA techniques with a comparison table, decision points and mental models with gap analysis, four representation formats with a worked example table, and design implications with concrete interface response patterns.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

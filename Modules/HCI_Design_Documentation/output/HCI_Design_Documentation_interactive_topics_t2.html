@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Requirements Documentation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Requirements Documentation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Requirements Documentation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Requirements documentation is the structured process of capturing everything discovered during the research and planning phase of a design or development project. It forms a foundation upon which all subsequent decisions rest. When done well, requirements documentation ensures that the final product genuinely addresses real user needs, operates according to defined behavioral expectations, respects realistic constraints, and pursues coherent design goals. Poor or incomplete documentation at this stage leads to misaligned solutions, costly redesigns, and outcomes that fail users. This section explores each major component of requirements documentation in depth, with practical guidance and illustrative examples throughout.</p>
+
+<p><strong>Documenting User Research</strong></p>
+
+<p>The first responsibility of requirements documentation is to provide a faithful, evidence-based account of the user research that was conducted. This section of a requirements document is not simply a list of conclusions — it must explain <em>how</em> those conclusions were reached and provide supporting evidence so that readers can assess the quality and credibility of the findings.</p>
+
+<p><strong>Specifying and justifying the research method</strong> is the logical starting point. Different research methods are suited to different situations, and your documentation must make the choice transparent. Common methods include semi-structured interviews, contextual inquiry, surveys, diary studies, focus groups, and usability walkthroughs. For each method used you should state what it is, why it was selected over alternatives, and why it was appropriate for the specific target user group.</p>
+
+<p>For example, if your target users are elderly residents using a healthcare portal, you might justify semi-structured interviews over an online survey by noting that the target group has lower digital literacy, that interviews allow the researcher to probe ambiguous responses, and that face-to-face interaction surfaces nuanced concerns that survey scales cannot capture. The justification should be specific to your users — not a generic statement that "interviews are a good method."</p>
+
+<p>Once the method is explained, the documentation must <strong>summarize key user needs and pain points</strong>. A pain point is a specific problem, frustration, or barrier that users currently experience. A user need is a goal or requirement that, if met, would meaningfully improve the user's experience. Both must emerge from the research data rather than from the team's assumptions.</p>
+
+<p>A well-structured summary might look like the following:</p>
+
+<ul>
+  <li><strong>Need:</strong> Users need to locate appointment information without navigating more than two levels deep in the menu hierarchy.</li>
+  <li><strong>Pain point:</strong> Participants repeatedly struggled to locate the prescription renewal page, often abandoning the task within ninety seconds.</li>
+  <li><strong>Need:</strong> Users with low vision need text to be resizable without breaking the page layout.</li>
+  <li><strong>Pain point:</strong> Several participants described feeling "overwhelmed" by the volume of notifications presented simultaneously on the dashboard.</li>
+</ul>
+
+<p>Critically, each stated need or pain point should be <strong>supported by anonymized evidence</strong> drawn directly from the research. Anonymized data samples may include paraphrased observations, behavioral counts, or direct quotes with identifying details removed. Evidence anchors the documentation in reality and prevents the team from projecting its own assumptions onto users.</p>
+
+<p>Examples of how evidence might be presented:</p>
+
+<ul>
+  <li><em>Direct quote (anonymized):</em> "I just give up and phone them. I can never find what I'm looking for on the website." — Participant 4, aged 71, healthcare portal study.</li>
+  <li><em>Behavioral observation:</em> Six of eight participants attempted to use the browser's back button to return to the home screen, rather than the in-application navigation, suggesting that the navigation structure does not match users' mental models.</li>
+  <li><em>Survey data:</em> 74% of respondents rated "finding account information quickly" as their top priority when using the platform.</li>
+</ul>
+
+<p>When multiple research methods were used — for example, initial interviews followed by a validation survey — each method should be documented separately with its own justification, findings, and evidence.</p>
+
+<p><strong>Stating Functional and Non-Functional Requirements</strong></p>
+
+<p>Requirements are formal statements that define what a system must do or how it must perform. They translate user needs and research findings into actionable specifications that designers and developers can work from. There are two principal categories: functional requirements and non-functional requirements. Both must be documented with precision.</p>
+
+<p><strong>Functional requirements</strong> specify a discrete system behavior or capability — that is, something the system must <em>do</em>. Each functional requirement should be written as a single, unambiguous statement that describes one specific behavior. Compound requirements that bundle multiple behaviors together are difficult to test and trace, and should be broken apart.</p>
+
+<p>Functional requirements are typically written in one of two standard forms:</p>
+
+<ul>
+  <li><em>The system shall…</em> form: "The system shall allow a registered user to reset their password via a link sent to their registered email address."</li>
+  <li><em>User story</em> form: "As a returning user, I want to be able to view my last three prescriptions so that I can identify which medication I need to reorder."</li>
+</ul>
+
+<p>The following table illustrates a small set of numbered functional requirements for a hypothetical healthcare portal:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ref</th>
+      <th>Functional Requirement</th>
+      <th>Source (User Need)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FR-01</td>
+      <td>The system shall display all upcoming appointments on the user's dashboard without requiring further navigation.</td>
+      <td>UN-02: Users need appointment information accessible within one click of login.</td>
+    </tr>
+    <tr>
+      <td>FR-02</td>
+      <td>The system shall allow users to request a prescription renewal through a form accessible from the dashboard.</td>
+      <td>UN-05: Users need to initiate prescription renewals without phoning the clinic.</td>
+    </tr>
+    <tr>
+      <td>FR-03</td>
+      <td>The system shall send the user an email confirmation within five minutes of a successfully submitted appointment request.</td>
+      <td>UN-08: Users need assurance that booking requests have been received.</td>
+    </tr>
+    <tr>
+      <td>FR-04</td>
+      <td>The system shall allow users to filter their appointment history by date range and appointment type.</td>
+      <td>UN-03: Users need to locate historical appointment records efficiently.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice that each requirement is numbered. <strong>Numbering requirements is essential for traceability</strong> — it allows design decisions, prototypes, and evaluation findings in later sections of a project to reference the specific requirement they address or test. Without numbering, it becomes impossible to demonstrate that requirements have been fulfilled or to identify which requirements remain unmet.</p>
+
+<p><strong>Non-functional requirements</strong> define the quality attributes of a system — how well it performs its functions rather than what functions it performs. They typically address performance, accessibility, reliability, security, usability, scalability, and compliance. The critical rule for non-functional requirements is that they must reference <em>measurable criteria</em> wherever possible. Vague statements such as "the system should be fast" or "the interface should be accessible" provide no basis for testing or verification.</p>
+
+<p>Compare these two formulations:</p>
+
+<ul>
+  <li><strong>Weak (unmeasurable):</strong> "The system should load quickly."</li>
+  <li><strong>Strong (measurable):</strong> "NFR-01: All primary page views shall load within 2.5 seconds on a standard broadband connection (minimum 10 Mbps) under normal server load conditions."</li>
+</ul>
+
+<p>A further set of examples illustrates the range of non-functional requirements and how measurability is applied:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ref</th>
+      <th>Non-Functional Requirement</th>
+      <th>Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NFR-01</td>
+      <td>All primary page views shall load within 2.5 seconds under normal network conditions (10 Mbps broadband).</td>
+      <td>Performance</td>
+    </tr>
+    <tr>
+      <td>NFR-02</td>
+      <td>The interface shall conform to WCAG 2.1 Level AA accessibility guidelines in its entirety.</td>
+      <td>Accessibility</td>
+    </tr>
+    <tr>
+      <td>NFR-03</td>
+      <td>All user-entered personal data shall be encrypted in transit using TLS 1.2 or higher.</td>
+      <td>Security</td>
+    </tr>
+    <tr>
+      <td>NFR-04</td>
+      <td>The system shall achieve a minimum System Usability Scale (SUS) score of 70 in user testing with the target demographic.</td>
+      <td>Usability</td>
+    </tr>
+    <tr>
+      <td>NFR-05</td>
+      <td>The system shall maintain 99.5% uptime measured across any rolling 30-day period, excluding scheduled maintenance windows.</td>
+      <td>Reliability</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Where a precise numerical target is genuinely not yet determinable, the documentation should at minimum specify the measurement instrument or evaluation method that will be used to assess it, and flag that the threshold will be set once baseline data is collected.</p>
+
+<p><strong>Rationale for Design Constraints</strong></p>
+
+<p>Design constraints are conditions that <em>limit</em> how the system can be designed or built. They are distinct from requirements in an important way: requirements define what the system <em>must achieve</em>, while constraints define boundaries <em>within which</em> those achievements must be made. Confusing the two leads to documentation that is unclear about what is aspirational versus what is fixed.</p>
+
+<p>Constraints typically arise from four sources:</p>
+
+<ul>
+  <li><strong>Technical constraints:</strong> The existing technology stack, platform compatibility requirements, or infrastructure limitations. For example: "The solution must be deployable as a responsive web application compatible with Google Chrome, Firefox, and Safari, as these are the browsers supported by the organization's IT policy."</li>
+  <li><strong>Legal and regulatory constraints:</strong> Statutory requirements such as data protection law (e.g., GDPR in the UK/EU), healthcare information regulations, or copyright restrictions.</li>
+  <li><strong>Organizational constraints:</strong> Budget ceilings, staffing limitations, existing supplier relationships, or mandated use of a specific content management system.</li>
+  <li><strong>Standards-based constraints:</strong> Requirements to comply with recognized external standards. Referencing authoritative standards — such as the Web Content Accessibility Guidelines (WCAG), ISO 9241 for usability, or BS 8878 for web accessibility — adds credibility and situates the constraint within an established professional framework rather than presenting it as an arbitrary internal rule.</li>
+</ul>
+
+<p>For each constraint, the documentation should explain:</p>
+
+<ul>
+  <li>What the constraint is and where it originates</li>
+  <li>Why it is a constraint rather than a requirement (i.e., it limits the solution space rather than specifying desired behavior)</li>
+  <li>How it will affect subsequent design decisions</li>
+</ul>
+
+<p>For example, an accessibility constraint might be documented as follows:</p>
+
+<p><em>Constraint C-01: The interface must conform to WCAG 2.1 Level AA. Source: Organizational policy mandated by the client's public sector equality duty under the Equality Act 2010 and the Public Sector Bodies Accessibility Regulations 2018. Impact on design: All color choices must achieve a minimum contrast ratio of 4.5:1 for standard text and 3:1 for large text. Interactive elements must be operable by keyboard alone. All images must include descriptive alternative text. These constraints will influence color palette selection, component design, and content authoring guidelines throughout the design phase.</em></p>
+
+<p>Acknowledging the <strong>impact of each constraint on subsequent design decisions</strong> is particularly important. It demonstrates that the team has genuinely thought through the practical implications rather than listing constraints as an afterthought. Where constraints are in tension with one another — for example, a strict brand color palette conflicting with WCAG contrast requirements — the documentation should acknowledge this tension and indicate how it will be resolved.</p>
+
+<p>Referencing recognized standards such as WCAG is valuable not only for credibility but also because it ties the constraint to an objective, testable benchmark. Instead of defending an accessibility decision on the basis of personal judgment, the team can point to a defined, publicly available standard that specifies exact success criteria.</p>
+
+<p><strong>Linking Requirements to Design Goals</strong></p>
+
+<p>Requirements documentation does not conclude with lists of requirements and constraints. A critical final element is the articulation of <strong>design goals</strong> — high-level objectives that translate user needs and requirements into the positive outcomes the design is intended to achieve. Design goals give the project team a shared sense of purpose and provide explicit criteria against which later design and evaluation work can be assessed.</p>
+
+<p>The relationship between user needs, requirements, and design goals should be direct and demonstrable. A design goal that cannot be traced back to a user need or stated requirement is a signal that it may reflect the team's preferences rather than genuine user-centered thinking. Conversely, a user need that does not give rise to at least one design goal suggests that the need may have been identified but not actually addressed in the design response.</p>
+
+<p>Design goals must be <strong>specific enough to evaluate against in later testing phases</strong>. Broad statements like "create a pleasant user experience" are of limited value because they cannot be measured. Well-formed design goals specify the user group, the context, the behavior, and an implied or explicit success criterion.</p>
+
+<p>Consider the contrast between vague and well-formed design goals:</p>
+
+<ul>
+  <li><strong>Vague:</strong> "Make the portal easy to use."</li>
+  <li><strong>Well-formed:</strong> "Enable users aged 60 and over to locate and request a prescription renewal within 90 seconds of logging in, without requiring assistance."</li>
+</ul>
+
+<p>The following table demonstrates how a chain of traceability might be documented, linking user needs through requirements to design goals:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>User Need</th>
+      <th>Requirement(s)</th>
+      <th>Design Goal</th>
+      <th>Evaluation Method</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>UN-02: Users need appointment information accessible within one step of login.</td>
+      <td>FR-01</td>
+      <td>DG-01: The dashboard shall surface all upcoming appointments without requiring sub-navigation, enabling users to read appointment details within 10 seconds of login.</td>
+      <td>Task-based usability test: time-on-task and success rate measured during prototype evaluation.</td>
+    </tr>
+    <tr>
+      <td>UN-05: Users need to initiate prescription renewals without phoning the clinic.</td>
+      <td>FR-02</td>
+      <td>DG-02: Users shall be able to complete a prescription renewal request entirely within the portal with no need for telephone contact.</td>
+      <td>Observation during usability test; post-task questionnaire.</td>
+    </tr>
+    <tr>
+      <td>UN-07: Users with low vision need text to be resizable.</td>
+      <td>NFR-02, C-01</td>
+      <td>DG-03: The interface shall remain fully functional and readable when browser text size is increased to 200% without horizontal scrolling.</td>
+      <td>WCAG 2.1 Success Criterion 1.4.4 automated and manual audit.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Documenting this linkage explicitly — rather than leaving it implicit — serves several important purposes. It <strong>demonstrates that design decisions were user-centered rather than arbitrary</strong>, providing an auditable rationale for why particular choices were made. It enables evaluators and stakeholders to verify that all identified needs have been addressed in the design. It also creates a contractual-style accountability within the project: each design goal effectively commits the team to achieving a defined outcome that can be tested.</p>
+
+<p>In practice, the complete requirements document — covering user research, functional and non-functional requirements, constraints, and design goals — becomes the single most referenced artefact throughout the rest of a design project. Designers return to it when making decisions, evaluators reference it when constructing test tasks, and stakeholders use it to assess whether the delivered solution fulfils the original brief. Investing care and precision in its construction pays dividends at every subsequent stage.</p>
+        <div class="notes"><strong>Notes</strong>Covers all four major subtopic clusters for Topic 1: documenting user research (method justification, needs/pain points, anonymized evidence), functional and non-functional requirements (discrete behaviors, measurable criteria, numbering for traceability), rationale for design constraints (distinguishing from requirements, source and impact, standards references), and linking requirements to design goals (derivation from user needs, specificity for evaluation, demonstrating user-centered rationale). Tables are used for requirements lists and traceability mapping. Examples are drawn from a consistent healthcare portal scenario for coherence.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

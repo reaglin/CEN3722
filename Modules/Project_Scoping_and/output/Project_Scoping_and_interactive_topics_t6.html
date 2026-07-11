@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Platform: Characteristics and Constraints</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Web Platform: Characteristics and Constraints</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Web Platform: Characteristics and Constraints</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The web is one of the most powerful and widely adopted application platforms in existence. Unlike native desktop or mobile applications, web applications run inside a browser and are accessed through a URL — no installation required, no platform gatekeeping, and no manual updates pushed to the user. Understanding the web as a platform means understanding not just its remarkable reach and flexibility, but also its genuine constraints: browser inconsistencies, limited hardware access, network dependency, and security boundaries imposed by the browser sandbox. This topic builds a thorough mental model of the web platform — what it is, how it behaves, what conventions govern good design within it, and where its boundaries lie.</p>
+
+<p>The web platform is fundamentally defined by three core technologies working in concert. <strong>HTML</strong> provides document structure and semantic meaning. <strong>CSS</strong> handles visual presentation and layout. <strong>JavaScript</strong> enables interactivity, dynamic content, and communication with remote services. Together these three layers run inside a browser engine — V8 in Chrome and Edge, SpiderMonkey in Firefox, JavaScriptCore in Safari — which interprets and renders the application for the user. Because these engines are developed independently by competing organizations, they do not always behave identically, and that divergence is one of the defining practical challenges of web development.</p>
+
+<p><strong>Web Platform Overview</strong></p>
+
+<p>Web applications are delivered over the internet (or a local network) and launched simply by navigating to a URL. This characteristic alone is transformative: a user in Tokyo and a user in Toronto can access the exact same application simultaneously without either one downloading or installing anything. The browser acts as a universal runtime that abstracts away the underlying operating system. Chrome, Firefox, Safari, and Edge are the four dominant browsers, each with significant market share and each running on multiple operating systems. A well-built web application must behave correctly across all of them.</p>
+
+<p>One of the web platform's most significant competitive advantages is its <strong>zero-friction distribution model</strong>. Native mobile apps require users to visit an app store, download a package, grant permissions, and wait for installation. Desktop applications similarly require downloads, installers, and sometimes administrator privileges. Web apps require none of this. A user clicks a link and the application is immediately available. This dramatically lowers the barrier to adoption, which is why web applications are often the preferred choice for reaching broad, general audiences who may be unwilling to go through an installation process. Updates are equally frictionless: when a developer deploys a new version of a web app, every user gets the new version the next time they load the page — there is no fragmented user base running outdated builds.</p>
+
+<p>However, the web's universal accessibility brings with it a critical design challenge: <strong>device diversity</strong>. The same URL may be visited on a 4K widescreen monitor, a mid-range Android phone with a 5-inch screen, a tablet held in landscape orientation, or a TV browser with a remote control. Responsive design is the discipline that addresses this challenge. Rather than building separate applications for each device category, responsive design uses fluid layouts, flexible images, and CSS media queries to allow a single codebase to render appropriately across the full spectrum of screen sizes. This is not optional polish — on the modern web, it is a baseline expectation. As of the mid-2020s, mobile devices account for more than half of global web traffic, meaning a web application that does not function well on a small touchscreen is functionally broken for the majority of internet users.</p>
+
+<p>Responsive design works through a system of <strong>breakpoints</strong> — specific viewport widths at which the layout changes. A common pattern uses three or four breakpoints aligned roughly with device categories:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Breakpoint Name</th>
+      <th>Typical Viewport Width</th>
+      <th>Target Device Category</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Small (sm)</td>
+      <td>0 – 639px</td>
+      <td>Mobile phones (portrait)</td>
+    </tr>
+    <tr>
+      <td>Medium (md)</td>
+      <td>640px – 1023px</td>
+      <td>Tablets, large phones (landscape)</td>
+    </tr>
+    <tr>
+      <td>Large (lg)</td>
+      <td>1024px – 1279px</td>
+      <td>Laptops, small desktops</td>
+    </tr>
+    <tr>
+      <td>Extra Large (xl)</td>
+      <td>1280px and above</td>
+      <td>Large desktops, widescreen monitors</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Beyond responsive design, the web platform has gained a powerful capability for bridging the gap between web and native apps: <strong>Progressive Web Apps (PWAs)</strong>. A PWA is a web application that leverages a set of modern browser APIs — primarily Service Workers, Web App Manifests, and the Cache API — to behave more like a native application. Service Workers are background scripts that intercept network requests, enabling the app to cache resources and respond meaningfully even when the device is offline or the network is unreliable. The Web App Manifest is a JSON file that tells the browser metadata about the app (its name, icon, theme color, and preferred display mode), enabling the user to install the app to their home screen or desktop. Once installed, a PWA can launch in its own window, without the browser chrome, appearing virtually indistinguishable from a native application. PWA technology does not eliminate the constraints of the web platform, but it meaningfully narrows the gap between web and native in scenarios involving offline use, push notifications, and fast repeat loads.</p>
+
+<p><strong>Web Design Conventions</strong></p>
+
+<p>The web has accumulated decades of established design patterns and user expectations. Users arrive at a web application with a mental model shaped by every other website they have ever visited. Violating that mental model without a compelling reason creates friction and confusion. Understanding web design conventions — and knowing when it is and is not appropriate to depart from them — is a core competency for anyone building for the web.</p>
+
+<p><strong>Navigation patterns</strong> are among the most important conventions to understand. The most common navigation patterns on the web include:</p>
+
+<ul>
+  <li><strong>Top navigation bar:</strong> A horizontal bar fixed to the top of the viewport containing the application logo, primary navigation links, and often action items like a login button or search icon. This is the dominant pattern for desktop web applications. It exploits the wide horizontal space available on larger screens and keeps global navigation permanently visible without consuming vertical content space.</li>
+  <li><strong>Hamburger menu:</strong> A button — typically represented by three horizontal lines (☰) — that reveals a hidden navigation drawer when tapped. This pattern is the standard solution for mobile viewports, where horizontal space is insufficient to show a full navigation bar. Many responsive applications use a top navigation bar at large breakpoints and collapse it to a hamburger menu at smaller breakpoints.</li>
+  <li><strong>Sidebar / drawer navigation:</strong> A vertical panel on the left (occasionally right) side of the screen containing navigation links. Common in dashboards, admin interfaces, and productivity applications where deep navigation hierarchies need to be visible without occupying the top of the screen. On mobile, sidebars are often implemented as off-canvas drawers that slide in from the edge of the screen.</li>
+  <li><strong>Breadcrumb trails:</strong> A secondary navigation aid showing the user's current location within a hierarchical structure, e.g., <em>Home › Products › Electronics › Cameras</em>. Breadcrumbs are particularly valuable in content-heavy sites and e-commerce platforms where users may navigate several levels deep.</li>
+  <li><strong>Tabs:</strong> Used to organize related content into distinct panels within a single page, reducing the need to navigate away. Common in settings screens, profile pages, and dashboard sections.</li>
+</ul>
+
+<p>Typography and color are not merely aesthetic decisions on the web — they carry <strong>accessibility obligations</strong>. The Web Content Accessibility Guidelines (WCAG), maintained by the W3C, define minimum standards that web applications must meet to be usable by people with disabilities. WCAG is organized around four principles — content must be <em>Perceivable</em>, <em>Operable</em>, <em>Understandable</em>, and <em>Robust</em> (abbreviated POUR). Two of the most practically impactful WCAG requirements relate directly to visual design:</p>
+
+<ul>
+  <li><strong>Color contrast:</strong> WCAG 2.1 Level AA requires a minimum contrast ratio of 4.5:1 between normal text and its background, and 3:1 for large text (18pt or 14pt bold and above). UI components and graphical objects must also meet a 3:1 ratio. These thresholds ensure readability for users with low vision or color blindness. A contrast ratio of 4.5:1, for example, means that pure black text on a white background (21:1) comfortably passes, while light grey text on a white background may fail.</li>
+  <li><strong>Focus indicators:</strong> Interactive elements (links, buttons, form inputs) must have a visible focus indicator so that keyboard users can see which element is currently active. Suppressing the browser's default focus outline with <code>outline: none</code> in CSS without providing an alternative is a common but serious accessibility failure.</li>
+</ul>
+
+<p>Certain visual conventions carry such strong learned expectations that violating them actively harms usability. <strong>Underlined blue text</strong> has signified a clickable hyperlink since the earliest days of the web. While modern design systems may style links differently (different color, no underline, hover effects), departing from the convention of visually distinguishing links from surrounding text — particularly within body copy — risks users not recognizing interactive elements. Similarly, users expect form submit buttons to be located at the bottom of a form, not the top; they expect clicking a logo to return them to the home page; and they expect the browser's back button to take them to the previous screen. These patterns should not be violated arbitrarily.</p>
+
+<p><strong>Web Platform Constraints and Considerations</strong></p>
+
+<p>The web platform's openness and universality come with meaningful constraints. Designing and building for the web requires understanding these constraints not as flaws to be worked around, but as defining characteristics of the platform that shape architectural decisions.</p>
+
+<p><strong>Browser support</strong> is the most immediate constraint facing any web development project. The "modern web" refers to features standardized and implemented in recent versions of major browsers, but "recent" is relative. Organizations with enterprise user bases, for example, may have significant numbers of users on older browsers because IT departments lock down browser versions or employees use outdated corporate machines. Even among current browsers, support for cutting-edge CSS or JavaScript features may be incomplete. Before adopting any modern API or CSS feature, teams should explicitly define their browser support matrix — the specific browsers and minimum versions the application is required to support — and verify that required features are available in all of them.</p>
+
+<p>Resources like <strong>Can I Use</strong> (caniuse.com) provide detailed compatibility tables showing which browsers and versions support a given feature. When a feature is not universally supported, developers have several strategies:</p>
+
+<ul>
+  <li><strong>Polyfills:</strong> JavaScript code that replicates the behavior of a missing native API, allowing older browsers to use functionality they do not natively support.</li>
+  <li><strong>Transpilation:</strong> Tools like Babel convert modern JavaScript (ES2020+) syntax into older syntax (ES5) that legacy browsers can parse and execute.</li>
+  <li><strong>Progressive enhancement:</strong> Building a baseline experience that works in all supported browsers, then layering enhanced functionality for browsers that support it — rather than building for the best browser and degrading for others.</li>
+  <li><strong>Graceful degradation:</strong> Building with modern features but detecting their absence and providing a fallback experience when they are not available.</li>
+</ul>
+
+<p><strong>Hardware access</strong> is substantially more restricted in a browser than in a native application. Native mobile apps can access the camera, microphone, GPS, accelerometer, gyroscope, Bluetooth, NFC, push notifications, and the local file system with deep integration. Web applications can access some of these — the browser-based APIs for camera/microphone (MediaDevices), geolocation (Geolocation API), and device orientation (DeviceOrientation API) are mature and widely supported — but access to Bluetooth (Web Bluetooth), NFC (Web NFC), USB (WebUSB), and the file system (File System Access API) is limited, experimental, or restricted to secure contexts and specific browsers. More importantly, even where hardware APIs exist on the web, they require explicit user permission grants and operate at a higher level of abstraction than their native equivalents, which can limit fidelity and performance in hardware-intensive use cases.</p>
+
+<p>This has direct implications for project planning. A web application is an excellent choice for a content platform, a business productivity tool, a social application, or an e-commerce experience. It is a less suitable choice for an application that needs to deeply integrate with device hardware — for example, an industrial control application communicating with proprietary Bluetooth hardware, or a medical device application requiring raw sensor data — where native APIs provide capabilities that the web platform cannot reliably match.</p>
+
+<p><strong>Network latency and offline behavior</strong> must be explicitly planned for, not treated as afterthoughts. Web applications are fundamentally network-dependent: assets are fetched from servers, data is retrieved from APIs, and the initial page load itself requires a successful network handshake. Network conditions vary wildly across users — a user on a fiber connection in a city center experiences a very different web than a user on a 3G connection in a rural area, or a user on an airplane with intermittent Wi-Fi. Design decisions must account for this reality:</p>
+
+<ul>
+  <li><strong>Loading states:</strong> The UI must communicate clearly when data is being fetched, so users do not think the application has frozen. Skeleton screens, spinners, and progress indicators are common patterns.</li>
+  <li><strong>Error states:</strong> The UI must handle API failures gracefully — displaying a helpful error message and a retry option rather than a blank screen or a cryptic error code.</li>
+  <li><strong>Offline states:</strong> If any part of the application must function without a network connection, this requires specific architectural investment. Service Workers can cache static assets and previously fetched data, enabling the app to render something meaningful offline. Truly offline-capable data entry (where users fill in forms while offline and sync when connectivity resumes) requires local storage strategies and conflict resolution logic.</li>
+  <li><strong>Performance budgets:</strong> Network-dependent applications should define and enforce performance budgets — maximum acceptable values for metrics like Time to First Byte (TTFB), First Contentful Paint (FCP), and Largest Contentful Paint (LCP) — to ensure a usable experience on slower connections.</li>
+</ul>
+
+<p><strong>The browser security sandbox</strong> is a fundamental architectural feature of the web platform that restricts what code running in a web page can do. The sandbox enforces several critical security boundaries:</p>
+
+<ul>
+  <li><strong>Same-Origin Policy (SOP):</strong> JavaScript running on one origin (defined as a combination of protocol, hostname, and port) cannot read data from a different origin without explicit permission. This prevents malicious scripts on one site from reading cookies, localStorage, or DOM content from another site the user is simultaneously logged into. CORS (Cross-Origin Resource Sharing) is the mechanism by which servers grant controlled exceptions to the same-origin policy for specific API endpoints.</li>
+  <li><strong>File system access:</strong> Browser-based JavaScript cannot freely read or write to the user's file system. It can only read files the user explicitly selects via a file input element or the File System Access API (with user permission), and it can only write files by triggering a browser download prompt. This is a deliberate security constraint that prevents web pages from silently exfiltrating or modifying files on the user's computer.</li>
+  <li><strong>OS interaction:</strong> Web applications cannot directly call operating system APIs, launch other applications, access system-level information (like the list of installed programs), or interact with system notifications without going through browser-provided APIs (like the Notifications API) that require user permission.</li>
+  <li><strong>HTTPS requirement:</strong> Modern browser features, including Service Workers, geolocation, camera/microphone access, and Web Bluetooth, are restricted to <em>secure contexts</em> — pages served over HTTPS. This is not merely a recommendation; browsers actively block these APIs on HTTP pages. Any production web application must be served over HTTPS.</li>
+</ul>
+
+<p>Understanding the browser sandbox is important both for security reasoning and for realistic capability planning. When a client asks whether a web application can "read files from a network drive" or "automatically send an email from the user's Outlook," the answer is almost certainly no — not because of a deficiency in the development team's skill, but because the browser sandbox exists precisely to prevent those kinds of automatic, unprompted interactions with the user's system. Recognizing these boundaries early in a project prevents architectural dead ends and sets accurate expectations with stakeholders.</p>
+
+<p>Taken together, these characteristics — universal access via URL, responsive and cross-browser design requirements, progressive enhancement, hardware limitations, network dependency, and the security sandbox — define the web as a specific kind of platform with specific strengths and specific constraints. The web excels at reaching broad audiences with zero installation friction, delivering up-to-date experiences, and supporting collaborative, content-rich, and transactional applications. It is a poor fit for applications requiring deep hardware integration, guaranteed offline operation with complex sync, or interactions the browser sandbox explicitly prohibits. A clear-eyed understanding of both sides of this ledger is what separates thoughtful web platform decisions from costly mid-project pivots.</p>
+        <div class="notes"><strong>Notes</strong>Consider supplementing with a comparison table of web vs. native mobile vs. desktop platform characteristics when used alongside platform-selection modules. The WCAG contrast ratio figures cited (4.5:1 for normal text, 3:1 for large text) are from WCAG 2.1 Level AA — instructors may wish to note that WCAG 2.2 and the emerging WCAG 3.0 (APCA) approach contrast measurement differently.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

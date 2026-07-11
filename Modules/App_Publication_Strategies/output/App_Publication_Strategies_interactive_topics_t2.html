@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apple App Store Submission Process</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Apple App Store Submission Process</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Apple App Store Submission Process</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Publishing an application to the Apple App Store is one of the most structured and rigorous release processes in consumer software distribution. Unlike many other platforms, Apple enforces a multi-layered submission workflow that spans account enrollment, cryptographic code signing, metadata configuration, visual asset preparation, and a human-assisted automated review. Understanding each stage in depth — and understanding <em>why</em> each requirement exists — is essential for any developer or team planning to distribute iOS, iPadOS, macOS, tvOS, or watchOS applications through Apple's marketplace. A single misconfigured provisioning profile, a missing privacy policy URL, or a screenshot taken from the wrong device simulator can halt a release entirely. What follows is a thorough walkthrough of every major phase of the submission process.</p>
+
+<p><strong>Apple Developer Program Enrollment</strong></p>
+
+<p>Before a single line of code can reach a user through the App Store, the developer or organization responsible for the app must be a paid member of the Apple Developer Program. Enrollment is completed at <em>developer.apple.com</em> and carries an annual fee of <strong>$99 USD</strong> (prices may vary by currency and region, but the USD figure is the standard reference). This fee is not a one-time cost — it recurs annually, and if membership lapses, any apps already on the App Store remain available to existing users but cannot receive updates until membership is renewed.</p>
+
+<p>Enrollment requires verifiable legal identity information. Individual developers must provide their legal name and agree to Apple's developer agreements; the identity is validated against government-recognized identity documents and, in some regions, through Apple's integration with Dun &amp; Bradstreet or similar identity-verification services. Organizations enrolling as a company or corporation must additionally provide a <strong>D-U-N-S number</strong>, which is a unique nine-digit identifier issued by Dun &amp; Bradstreet. Apple uses this to confirm the legal existence of the organization. The enrollment process for organizations can take several days to several weeks if the D-U-N-S number needs to be created or updated.</p>
+
+<p>It is important to understand who "owns" the Developer Program account. The person who completes enrollment becomes the <strong>Account Holder</strong> (also called the Team Agent). This role has the highest level of authority within the team: only the Account Holder can accept new legal agreements from Apple (which are required after major WWDC announcements), manage certificates, and initiate certain financial operations. Additional team members can be added in App Store Connect under roles such as Admin, Developer, Marketing, or Sales, each with progressively restricted permissions.</p>
+
+<p>A separate tier exists called the <strong>Apple Developer Enterprise Program</strong>, which also carries an annual fee (currently $299 USD). This program is intended <em>exclusively</em> for organizations that need to distribute proprietary, internal-use applications directly to their own employees without going through the public App Store. Apps signed with an Enterprise distribution certificate cannot legally be distributed to anyone outside the organization. Apple has enforced this boundary aggressively — in 2019, it temporarily revoked enterprise certificates from companies that had distributed apps to the general public through enterprise signing, effectively disabling those apps for all users. The Enterprise Program is not a route to bypass App Store review for public distribution.</p>
+
+<p>Membership in the standard Apple Developer Program provides access to several critical resources beyond App Store distribution: access to beta versions of iOS, macOS, and other operating systems before public release; access to <strong>App Store Connect</strong>, the web-based portal for managing app listings and sales; access to <strong>Xcode</strong>'s full suite of distribution and profiling tools; and the ability to generate the distribution certificates and provisioning profiles covered in the next section.</p>
+
+<p><strong>Provisioning Profiles and Code Signing</strong></p>
+
+<p>Code signing is the cryptographic mechanism Apple uses to guarantee two things: first, that an application was built and authorized by a known, verified developer; and second, that the application has not been tampered with between the time it was built and the time it runs on a device. Understanding the components involved requires understanding how public-key cryptography is applied here.</p>
+
+<p>A <strong>distribution certificate</strong> is an X.509 digital certificate that binds a developer's identity (as validated by Apple) to a public/private key pair. The private key lives on the developer's Mac — specifically in the macOS Keychain — and must be kept secure. If the private key is lost, the certificate cannot be used for signing on another machine without exporting it. If it is compromised, a bad actor could potentially sign malicious software as if it came from your organization. The certificate is created through the Apple Developer portal under <em>Certificates, Identifiers &amp; Profiles</em>. During creation, Xcode or Keychain Access generates a Certificate Signing Request (CSR), which is a file containing your public key and identity information. Apple signs this CSR with its own certificate authority, producing the distribution certificate that is trusted by iOS and macOS devices.</p>
+
+<p>There are two primary types of distribution certificates relevant to App Store submission:</p>
+
+<ul>
+  <li><strong>Apple Distribution certificate</strong> — the modern, unified certificate used for submitting to the App Store across all Apple platforms. This replaced the older "iOS Distribution" and "Mac App Distribution" certificate types for most workflows.</li>
+  <li><strong>Mac Installer Distribution certificate</strong> — used specifically for signing the installer package (.pkg) for macOS apps submitted through the Mac App Store, in addition to the app bundle itself.</li>
+</ul>
+
+<p>A <strong>provisioning profile</strong> is a file that acts as a trust bridge between a specific app, a specific certificate, and Apple's authorization to run or distribute that app. It contains: the App ID (bundle identifier), the distribution certificate(s) authorized to sign the app, the entitlements the app is permitted to use (such as Push Notifications, iCloud, or HealthKit), and, for development profiles, a list of device UDIDs that may run the app. For App Store distribution profiles, the device list is replaced by Apple's own authorization for store distribution — meaning the profile does not need to enumerate specific devices because the App Store itself handles delivery.</p>
+
+<p>It is a critical distinction that apps submitted to the App Store must be signed with a <strong>distribution provisioning profile</strong>, not a development one. A development profile allows running apps on a small list of registered test devices via Xcode; a distribution profile authorizes delivery to any device through the App Store. Submitting an archive signed with the wrong profile type will result in a validation error before the build even reaches Apple's review queue.</p>
+
+<p>In modern Xcode (version 8 and later), <strong>Automatic Signing</strong> can manage certificates and profiles on behalf of the developer, creating and refreshing them as needed. While this is convenient for development, many teams prefer <strong>Manual Signing</strong> for production builds to ensure precise control over which certificate and profile are used — particularly important in CI/CD pipelines where multiple engineers or build servers share an account. Tools like <em>Fastlane Match</em> have emerged specifically to synchronize certificates and profiles across development teams by storing them in an encrypted Git repository.</p>
+
+<p>When Xcode builds and archives an application for distribution, it embeds the provisioning profile inside the <code>.ipa</code> bundle (the iOS App Archive) and cryptographically signs the binary and all embedded frameworks with the private key. When a device installs the app, iOS verifies the signature against Apple's certificate authority chain, checks that the provisioning profile is valid and unexpired, and confirms that the entitlements in the binary match those granted by the profile. Any mismatch causes installation to fail.</p>
+
+<p><strong>App Store Connect Configuration</strong></p>
+
+<p>App Store Connect (<em>appstoreconnect.apple.com</em>) is the web portal where developers manage every aspect of their App Store presence: creating app records, uploading builds, configuring metadata, setting pricing, managing testers via TestFlight, and viewing sales and analytics data. Before a build can be uploaded, the app record must be properly initialized.</p>
+
+<p>Every app requires a globally unique <strong>bundle identifier</strong> (bundle ID), registered in the Apple Developer portal under <em>Identifiers</em>. The bundle ID follows reverse-DNS notation — for example, <code>com.yourcompany.yourapp</code>. Once registered and associated with an App Store Connect record, the bundle ID cannot be changed for that app. It also cannot be reused by another app, even if the original app is removed from the store. Choosing a bundle ID is therefore a permanent decision, and teams should follow a consistent naming convention that reflects their organization's domain.</p>
+
+<p>The App Store Connect record for a new app requires the following to be set before submission:</p>
+
+<ul>
+  <li><strong>App Name</strong> — the name displayed on the App Store listing, up to 30 characters. This is distinct from the app's display name on the device home screen, though they are typically kept consistent. Name uniqueness is enforced — Apple will reject a name that is identical or confusingly similar to an existing app.</li>
+  <li><strong>Subtitle</strong> — an optional secondary label up to 30 characters, displayed beneath the app name in search results. Effective subtitles convey the app's core value proposition concisely.</li>
+  <li><strong>Description</strong> — up to 4,000 characters explaining what the app does. Only the first few lines are visible without tapping "more," so the opening sentences are especially important for conversion. Unlike the name and subtitle, the description can be updated at any time without submitting a new app version.</li>
+  <li><strong>Keywords</strong> — up to 100 characters total, comma-separated, used by Apple's search algorithm. Keywords are not publicly visible but significantly affect discoverability. They are shared across all localizations and cannot exceed the character limit across the entire field.</li>
+  <li><strong>Support URL and Marketing URL</strong> — web addresses that appear on the product page. The support URL is required; the marketing URL is optional.</li>
+  <li><strong>Privacy Policy URL</strong> — an absolute URL to the app's privacy policy, required for all apps. Discussed further in the review guidelines section.</li>
+</ul>
+
+<p><strong>Pricing and availability</strong> are configured separately within App Store Connect. Developers can choose a price tier (from Free to various paid tiers, with Apple taking a 30% commission on paid apps and in-app purchases for most developers, or 15% for those qualifying under the Small Business Program), set introductory pricing for subscriptions, and restrict or enable distribution to specific countries and regions. Apple manages currency conversion automatically based on the selected tier, though developers can also set custom prices per storefront in newer versions of App Store Connect.</p>
+
+<p>Once the app record is configured and a build has been prepared, the build is uploaded to App Store Connect. There are two primary methods:</p>
+
+<ul>
+  <li><strong>Xcode's Archive and Distribute workflow</strong> — in Xcode, select <em>Product → Archive</em>, which compiles the app in release configuration and creates an <code>.xcarchive</code> bundle. From the Organizer window, the developer selects <em>Distribute App → App Store Connect → Upload</em>, and Xcode handles validation and upload automatically. This is the most common method for individual developers and small teams.</li>
+  <li><strong>Transporter</strong> — a standalone macOS application (available free on the Mac App Store) that accepts a pre-exported <code>.ipa</code> file and uploads it to App Store Connect. This is commonly used in CI/CD pipelines (e.g., with Jenkins, GitHub Actions, or Fastlane) where the build and export steps are automated and the Xcode GUI is not interactive.</li>
+</ul>
+
+<p>After upload, the build undergoes Apple's automated processing pipeline, which performs static analysis, symbol processing, and BitCode compilation (for older platforms). Processing typically takes 5–30 minutes, after which the build becomes available to attach to an App Store version or distribute via TestFlight for beta testing.</p>
+
+<p><strong>App Store Asset Requirements</strong></p>
+
+<p>Visual assets are a significant part of the App Store submission and directly affect both review approval and user conversion rates. Apple has precise technical requirements for each asset type, and submitting incorrectly sized or formatted assets will block submission.</p>
+
+<p>The <strong>app icon</strong> for the App Store listing must be provided at exactly <strong>1024×1024 pixels</strong>, in PNG format, with no transparency (the alpha channel must be absent or fully opaque). This single image is used by Apple to generate all display sizes programmatically. The icon must not contain rounded corners — Apple applies the rounded rectangle mask itself on the device and in the App Store. Icons that include a pre-rendered rounded corner treatment will appear to have double-rounded or misaligned corners. As of Xcode 14 and later, developers can use a single 1024×1024 source in an <code>AppIcon</code> asset catalog and let Xcode generate all required sizes, which greatly simplifies the process.</p>
+
+<p><strong>Screenshots</strong> are among the most conversion-critical assets on an App Store listing. Apple requires screenshots for specific device size classes, and the minimum required sizes as of the current guidelines are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Device Category</th>
+      <th>Display Size</th>
+      <th>Required Resolution (Portrait)</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>iPhone (Super Retina XDR Max)</td>
+      <td>6.5-inch</td>
+      <td>1284 × 2778 px</td>
+      <td>Yes (required for iPhone apps)</td>
+    </tr>
+    <tr>
+      <td>iPhone (Retina HD 5.5-inch)</td>
+      <td>5.5-inch</td>
+      <td>1242 × 2208 px</td>
+      <td>Yes (required for iPhone apps)</td>
+    </tr>
+    <tr>
+      <td>iPad Pro (6th gen, 12.9-inch)</td>
+      <td>12.9-inch</td>
+      <td>2048 × 2732 px</td>
+      <td>Yes (required for iPad apps)</td>
+    </tr>
+    <tr>
+      <td>iPhone (6.7-inch, iPhone 14 Plus / 15 Plus)</td>
+      <td>6.7-inch</td>
+      <td>1290 × 2796 px</td>
+      <td>Optional (replaces 6.5-inch if provided)</td>
+    </tr>
+    <tr>
+      <td>Apple Watch</td>
+      <td>Various</td>
+      <td>Varies by Series</td>
+      <td>Required for watchOS-only apps</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Up to ten screenshots can be provided per device size. Screenshots can be in portrait or landscape orientation, and for apps that support both, it is advisable to provide both orientations to demonstrate the full UI. Critically, Apple's guidelines require that all screenshots and previews <strong>accurately reflect the current version of the app's actual UI</strong>. Using mockup frames (device bezels placed around screenshots) is permitted but the content shown must be the real app interface, not a design prototype or placeholder. Submitting screenshots that misrepresent the app's functionality is grounds for rejection and, if done deliberately, can result in removal from the App Store.</p>
+
+<p><strong>App previews</strong> are short autoplay videos (up to three per device size) that appear at the beginning of the screenshot gallery. They must be between <strong>15 and 30 seconds</strong> in duration, recorded directly from the device or a simulator running the actual app. Screen recordings captured with Xcode's SimulatorRecorder or a physical device connected to QuickTime are both acceptable sources. Apple prohibits app previews that contain content not present in the app, use actors or voiceovers to demo features, or show the app performing actions that are not available to the user. Video files must be in the H.264 or HEVC codec, in an MP4 or MOV container, with no audio exceeding the volume normalization limit Apple specifies in the asset upload tool.</p>
+
+<p>Localized screenshots and previews can be provided per language/region storefront, allowing developers to show region-appropriate content (translated UI, locally relevant imagery) on each country's App Store. If localized assets are not provided for a particular language, Apple falls back to the default language assets.</p>
+
+<p><strong>App Review Guidelines and Common Rejections</strong></p>
+
+<p>Apple's App Review Guidelines (<em>developer.apple.com/app-store/review/guidelines</em>) are a publicly available document covering Safety, Performance, Business, Design, and Legal requirements. Every app submitted to the App Store is evaluated against these guidelines by a combination of automated tooling and human reviewers. Review typically takes 24–48 hours for initial submissions, though expedited reviews can be requested for critical bug fixes (such as crashes affecting a large user base or time-sensitive content like live event apps) through a formal request process in App Store Connect.</p>
+
+<p>The most fundamental performance requirement is that the app must be <strong>free of crashes and significant bugs</strong> at the time of submission. Apple reviewers test the app on actual devices running the current publicly available operating system. If the app crashes on launch, hangs during basic navigation, or exhibits broken functionality in the primary use case, it will be rejected with a reference to Guideline 2.1 (App Completeness). This seems obvious, but it is a surprisingly common rejection vector for teams that test primarily on simulators or on specific device configurations that do not match the reviewer's test environment. Testing on a range of physical devices before submission — including older hardware with less RAM — is essential.</p>
+
+<p>A <strong>privacy policy</strong> is mandatory for all apps submitted to the App Store, regardless of whether the app collects any personal data. The privacy policy must be accessible from within the app (typically via a link in a Settings or About screen) and the URL must be entered in App Store Connect. The policy itself must accurately describe what data is collected, how it is used, whether it is shared with third parties, and how users can request deletion of their data (particularly relevant for apps distributed in the EU under GDPR or in California under CCPA). Apple's own <em>Privacy Nutrition Labels</em> — the data collection disclosures on every App Store product page — must also be completed in App Store Connect and must match what is described in the privacy policy and what the app actually does.</p>
+
+<p>The prohibition on <strong>private APIs and undocumented system features</strong> (Guideline 2.5.1) is enforced through both automated static analysis and manual review. Private APIs are Objective-C or Swift symbols that are present in Apple's frameworks but not documented in the public SDK. Apple's automated review pipeline scans all submitted binaries for known private API selectors. Even if the private API is called indirectly through a third-party SDK, Apple holds the developer responsible. The practical implication is that all third-party libraries and SDKs must be vetted before inclusion in a release build — an analytics or advertising SDK silently calling a private API can cause a rejection that appears to come out of nowhere. Apple's policy exists because private APIs are subject to change or removal in any OS update, which can cause apps to break silently in production.</p>
+
+<p><strong>Guideline 4.0 (Design)</strong> is broader and more subjective than the technical guidelines. It requires that apps meet minimum standards of quality and provide meaningful functionality beyond a simple web view or static content display. A "shell app" that wraps a website without adding native functionality or value will be rejected under 4.0. Apps that are incomplete, that closely copy other apps without adding original value, or that have a user interface that is confusing, broken, or significantly below platform norms are also subject to rejection under the Design guidelines. Apple's Human Interface Guidelines (HIG) serve as the design reference — while developers are not required to follow every HIG recommendation, egregious deviations (such as navigation patterns that conflict with expected iOS behavior) can trigger a 4.0 rejection.</p>
+
+<p>Other frequently encountered rejection reasons include:</p>
+
+<ul>
+  <li><strong>Missing or incomplete demo account credentials</strong> — if the app requires login to access functionality, a fully functional demo account with credentials must be provided to the reviewer in the App Review Information field of App Store Connect. Apps where the reviewer cannot access core functionality due to missing credentials are rejected.</li>
+  <li><strong>Guideline 3.1.1 (In-App Purchase)</strong> — any digital goods or services consumed within the app must be sold through Apple's In-App Purchase system, which routes payment through Apple and provides Apple its commission. Offering digital purchases through a third-party payment processor (or directing users to a website to complete a purchase) within the app is prohibited. Physical goods and services rendered outside the app (e.g., a ride-sharing payment, a restaurant delivery) are exempt.</li>
+  <li><strong>Guideline 5.1.1 (Data Collection and Storage)</strong> — apps must not collect more data than necessary for the app's stated functionality, and must obtain appropriate user consent (using Apple's App Tracking Transparency framework for cross-app tracking) before doing so.</li>
+  <li><strong>Incomplete or inaccurate metadata</strong> — the app's description, screenshots, or categories that misrepresent the app's actual functionality can trigger a 4.3 (Spam) or 2.3 (Accurate Metadata) rejection.</li>
+</ul>
+
+<p>When an app is rejected, Apple sends a message through the <strong>Resolution Center</strong>, a messaging interface within App Store Connect. The message identifies the relevant guideline(s) and describes the specific behavior that triggered the rejection. Developers can respond in two ways: they can reply with a message explaining why they believe the app is compliant (an appeal), or they can acknowledge the feedback, fix the issue in the app or metadata, and resubmit. Resubmission restarts the review queue. For persistent disagreements, developers may submit a formal appeal to the App Review Board, a separate team at Apple that reviews contested decisions — though this process is slower and the outcome is not guaranteed. Throughout this process, clear and professional communication with the reviewer (possible through the Resolution Center) often resolves misunderstandings faster than resubmitting immediately.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full Apple App Store submission lifecycle: Developer Program enrollment (individual vs. enterprise, $99/year, D-U-N-S for orgs), distribution certificates and provisioning profiles (code signing mechanics, development vs. distribution profiles, Automatic vs. Manual signing), App Store Connect configuration (bundle IDs, metadata fields, pricing, upload via Xcode Organizer or Transporter), visual asset requirements (1024&#215;1024 icon, 6.5-inch and 5.5-inch screenshots, 15–30s previews), and App Review Guidelines including crashes, privacy policy requirement, private API prohibition, Guideline 4.0 Design, IAP rules, and the Resolution Center appeals process.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

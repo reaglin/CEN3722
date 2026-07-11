@@ -3,279 +3,419 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Project Scoping and App Platform Selection – CEN3722</title>
+  <title>Module 2 – Project Scoping and App Platform Selection | CEN3722</title>
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    /* ── Reset & base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
-      background-color: #f4f6f9;
-      color: #2c3e50;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
+      color: #1e2533;
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
-      color: #ffffff;
-      padding: 2.5rem 1.5rem 2rem;
+    /* ── Top bar ── */
+    .top-bar {
+      background: #1a3557;
+      color: #c9d9ec;
+      font-size: 0.8rem;
+      letter-spacing: 0.04em;
+      padding: 0.45rem 2rem;
+    }
+    .top-bar span + span::before {
+      content: ' › ';
+      margin: 0 0.35em;
+      opacity: 0.6;
     }
 
-    .header-inner {
-      max-width: 960px;
+    /* ── Page header ── */
+    .page-header {
+      background: linear-gradient(135deg, #1a3557 0%, #1f5096 100%);
+      color: #fff;
+      padding: 2.8rem 2rem 2.4rem;
+    }
+    .page-header__inner {
+      max-width: 1060px;
       margin: 0 auto;
     }
-
-    .course-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+    .page-header__eyebrow {
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      opacity: 0.78;
-      margin-bottom: 0.45rem;
+      color: #9ec4f0;
+      margin-bottom: 0.55rem;
     }
-
-    header h1 {
+    .page-header h1 {
       font-size: clamp(1.45rem, 3vw, 2rem);
       font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 0.85rem;
+      line-height: 1.25;
+      margin-bottom: 1rem;
     }
-
-    header p {
+    .page-header__intro {
       font-size: 0.97rem;
-      max-width: 680px;
-      opacity: 0.9;
-      line-height: 1.65;
+      color: #c6daf5;
+      max-width: 720px;
+      line-height: 1.7;
     }
 
     /* ── Main content ── */
     main {
-      max-width: 960px;
-      margin: 2.5rem auto;
-      padding: 0 1.25rem 3rem;
+      max-width: 1060px;
+      margin: 2.5rem auto 4rem;
+      padding: 0 1.25rem;
     }
 
+    /* ── Section heading ── */
     .section-heading {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
+      font-size: 0.72rem;
       text-transform: uppercase;
-      color: #5a6a7e;
+      letter-spacing: 0.1em;
+      color: #5a6a82;
+      font-weight: 600;
       margin-bottom: 1.1rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 2px solid #dce3ec;
+      padding-bottom: 0.45rem;
+      border-bottom: 2px solid #dce3ed;
     }
 
     /* ── Card grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.1rem;
+      margin-bottom: 2.8rem;
     }
 
+    /* ── Card ── */
     .card {
-      background: #ffffff;
-      border: 1px solid #dce3ec;
+      background: #fff;
+      border: 1px solid #dce3ed;
       border-radius: 8px;
-      padding: 1.35rem 1.4rem 1.25rem;
+      padding: 1.2rem 1.3rem 1.15rem;
       display: flex;
       flex-direction: column;
       gap: 0.55rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
     }
-
     .card:hover {
-      box-shadow: 0 4px 14px rgba(0,0,0,0.1);
-      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(26, 53, 87, 0.1);
+      border-color: #a8c0dc;
     }
 
-    /* ── Card header row ── */
-    .card-header {
+    /* ── Card – meta row ── */
+    .card__meta {
       display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.55rem 0.75rem;
-    }
-
-    .card-name {
-      font-size: 0.97rem;
-      font-weight: 650;
-      color: #1a3a5c;
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-
-    .card-name a {
-      color: #1a3a5c;
-      text-decoration: underline;
-      text-decoration-color: rgba(26,58,92,0.35);
-      text-underline-offset: 3px;
-      word-break: break-word;
-    }
-
-    .card-name a:hover {
-      color: #2563a8;
-      text-decoration-color: #2563a8;
-    }
-
-    .source-link {
-      font-size: 0.73rem;
-      font-weight: 600;
-      color: #2563a8;
-      text-decoration: none;
-      white-space: nowrap;
-      border: 1px solid #9dbde8;
-      border-radius: 4px;
-      padding: 0.15em 0.5em;
-      background: #eef4fc;
-      flex-shrink: 0;
-      transition: background 0.15s, border-color 0.15s;
-    }
-
-    .source-link:hover {
-      background: #d4e6f8;
-      border-color: #2563a8;
-    }
-
-    /* ── Badges row ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
       align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
     }
-
     .badge {
       display: inline-block;
       font-size: 0.68rem;
-      font-weight: 700;
+      font-weight: 600;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       border-radius: 4px;
       padding: 0.18em 0.55em;
+      white-space: nowrap;
+    }
+    /* Badge colour by type */
+    .badge--module-topics   { background: #e8f0fb; color: #1f5096; }
+    .badge--presentation    { background: #fff3e0; color: #b45309; }
+    .badge--topic-detail    { background: #e6f4ea; color: #1b6c3b; }
+    .badge--text-content    { background: #f0eaff; color: #5b21b6; }
+    .badge--assignment      { background: #fce8e8; color: #9b1c1c; }
+
+    .filetype-tag {
+      font-size: 0.68rem;
+      color: #6b7a92;
+      background: #f1f4f8;
+      border-radius: 4px;
+      padding: 0.18em 0.5em;
+      font-family: 'Consolas', 'Courier New', monospace;
     }
 
-    .badge-type {
-      background: #e8f0fe;
-      color: #1a3a7c;
-    }
-
-    .badge-filetype {
-      background: #f0f4f8;
-      color: #4a5568;
-      font-family: 'Courier New', Courier, monospace;
+    /* ── Card – title row ── */
+    .card__title {
+      font-size: 0.97rem;
       font-weight: 600;
-      letter-spacing: 0.02em;
+      color: #1e2533;
+      line-height: 1.35;
+      display: flex;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .card__title a {
+      color: #1a5296;
+      text-decoration: none;
+    }
+    .card__title a:hover {
+      text-decoration: underline;
+      color: #0d3872;
+    }
+    .card__title--plain {
+      color: #1e2533;
     }
 
-    /* ── Description ── */
-    .card-description {
-      font-size: 0.875rem;
+    /* ── Source link ── */
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.71rem;
+      font-weight: 500;
+      color: #5a7a9f;
+      text-decoration: none;
+      border: 1px solid #b8cfe6;
+      border-radius: 4px;
+      padding: 0.15em 0.5em;
+      white-space: nowrap;
+      transition: background 0.15s, color 0.15s;
+    }
+    .source-link:hover {
+      background: #e4eff9;
+      color: #1a3557;
+      border-color: #7aaad4;
+    }
+    .source-link::before {
+      content: '⬇';
+      font-size: 0.65rem;
+    }
+
+    /* ── Card – description ── */
+    .card__desc {
+      font-size: 0.865rem;
       color: #4a5568;
       line-height: 1.6;
       flex: 1;
     }
 
+    /* ── Responsive tweaks ── */
+    @media (max-width: 520px) {
+      .page-header { padding: 2rem 1.1rem 1.8rem; }
+      .card-grid { grid-template-columns: 1fr; }
+    }
+
     /* ── Footer ── */
     footer {
+      background: #1a3557;
+      color: #7fa3c7;
       text-align: center;
-      padding: 1.25rem 1rem;
       font-size: 0.78rem;
-      color: #8899aa;
-      border-top: 1px solid #dce3ec;
+      padding: 1.1rem 1rem;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="header-inner">
-      <p class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
+  <!-- Top breadcrumb bar -->
+  <div class="top-bar" aria-label="Breadcrumb">
+    <span>CEN3722 – Introduction to Human Computer Interfaces</span>
+    <span>Module 2</span>
+  </div>
+
+  <!-- Page header -->
+  <header class="page-header">
+    <div class="page-header__inner">
+      <p class="page-header__eyebrow">CEN3722 &mdash; Module 2</p>
       <h1>Project Scoping and App Platform Selection</h1>
-      <p>
-        This module introduces the foundational steps of defining a software project's scope
-        and selecting an appropriate target platform. Students will explore platform categories,
-        platform-specific design considerations for Android, iOS, and others, and will begin
-        collaborative group work to produce a formal project scope document.
+      <p class="page-header__intro">
+        This module introduces the foundational practices of defining project scope within an HCI context and evaluating major application platforms&mdash;Android, iOS, Windows, and the web&mdash;to guide informed design and development decisions. Explore the readings, review the lecture deck, and complete the assignments to build a solid basis for your semester-long group project.
       </p>
     </div>
   </header>
 
+  <!-- Main content -->
   <main>
-    <h2 class="section-heading">Module Artifacts</h2>
 
+    <!-- ── Module Reference ── -->
+    <h2 class="section-heading">Module Reference</h2>
     <div class="card-grid">
 
-      <!-- Artifact 1: Module Topics -->
+      <!-- Module Topics -->
       <div class="card">
-        <div class="card-header">
-          <span class="card-name">
-            <a href="module_topics.html">Module Topics</a>
-          </span>
+        <div class="card__meta">
+          <span class="badge badge--module-topics">Module Topics</span>
+          <span class="filetype-tag">.json</span>
+        </div>
+        <div class="card__title">
+          <a href="module_topics.html">Module Topics</a>
           <a class="source-link" href="../hierarchy.json">source file</a>
         </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <p class="card-description">
-          A structured outline of the module's topics and subtopics, covering project scoping,
-          target platform categories, and platform-specific characteristics for Android, iOS,
-          and others, used as a navigational reference for the module's content.
-        </p>
-      </div>
-
-      <!-- Artifact 2: Assignment 1.1 -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-name">
-            <a href="module_assignment_A001_Group_Project_Assignment_1_1_Project.html">Assignment 1.1: Project Scope Definition and Formal Project Description</a>
-          </span>
-          <a class="source-link" href="../assignments/A001_Group_Project_Assignment_1_1_Project.md">source file</a>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Assignment</span>
-          <span class="badge badge-filetype">.md</span>
-        </div>
-        <p class="card-description">
-          A detailed markdown assignment sheet guiding student groups through creating a formal
-          project scope document that defines measurable goals, target users, platform justification,
-          and design constraints, serving as the first installment of a semester-long group
-          project series.
-        </p>
-      </div>
-
-      <!-- Artifact 3: Group Project Assignment 1 (no viewHref link, no sourceHref) -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-name">
-            <a href="../assignments/A002_Group_Project_Group_Project_Assignment_1.html">Group Project Assignment 1: Project Scoping and Platform Selection</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Assignment</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          An HTML assignment brief directing student teams to collaboratively define their app
-          project scope and select a target platform, outlining submission requirements, estimated
-          effort, and group coordination expectations as the first entry in the ongoing group
-          project series.
-        </p>
+        <p class="card__desc">A structured outline of the module's topics and subtopics, covering project scoping, target platform categories, and platform-specific characteristics for Android, iOS, and others, used as a navigational reference for the module's content.</p>
       </div>
 
     </div>
+
+    <!-- ── Lecture Materials ── -->
+    <h2 class="section-heading">Lecture Materials</h2>
+    <div class="card-grid">
+
+      <!-- Presentation -->
+      <div class="card">
+        <div class="card__meta">
+          <span class="badge badge--presentation">Presentation</span>
+          <span class="filetype-tag">.pptx</span>
+        </div>
+        <div class="card__title">
+          <a href="../presentations/Project_Scoping_and_generated.pptx">Project_Scoping_and_generated.pptx</a>
+        </div>
+        <p class="card__desc">A slide deck covering the full module on project scoping and app platform selection, introducing concepts such as defining scope, platform overviews, and tool selection; used by instructors as a lecture presentation or by learners as a study reference.</p>
+      </div>
+
+    </div>
+
+    <!-- ── Topic Readings ── -->
+    <h2 class="section-heading">Topic Readings</h2>
+    <div class="card-grid">
+
+      <!-- T1 -->
+      <div class="card">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card__title">
+          <a href="Project_Scoping_and_interactive_topics_t1.html">Defining Project Scope in HCI Design</a>
+        </div>
+        <p class="card__desc">A reading that explains how to establish project scope in HCI design by defining goals, boundaries, constraints, and target users before any design work begins; used by learners to understand why and how scope shapes all subsequent design decisions.</p>
+      </div>
+
+      <!-- T2 -->
+      <div class="card">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card__title">
+          <a href="Project_Scoping_and_interactive_topics_t2.html">Overview of Target Application Platforms</a>
+        </div>
+        <p class="card__desc">A reading surveying the four major application platforms (Android, iOS, Windows, and web), explaining how platform choice fundamentally influences design and development decisions; used by learners to orient themselves to the platform landscape before diving into platform-specific details.</p>
+      </div>
+
+      <!-- T3 -->
+      <div class="card">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card__title">
+          <a href="Project_Scoping_and_interactive_topics_t3.html">Android Platform: Characteristics and Constraints</a>
+        </div>
+        <p class="card__desc">A reading detailing Android's design characteristics, constraints, device fragmentation, and UI conventions that designers and developers must account for; used by learners to understand the unique challenges and considerations when targeting the Android platform.</p>
+      </div>
+
+      <!-- T4 -->
+      <div class="card">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card__title">
+          <a href="Project_Scoping_and_interactive_topics_t4.html">iOS Platform: Characteristics and Constraints</a>
+        </div>
+        <p class="card__desc">A reading detailing iOS's tightly controlled hardware-software ecosystem, Apple's design conventions, App Store constraints, and expectations designers must meet; used by learners to understand the specific requirements and conventions governing iOS app design.</p>
+      </div>
+
+      <!-- T5 -->
+      <div class="card">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card__title">
+          <a href="Project_Scoping_and_interactive_topics_t5.html">Windows Platform: Characteristics and Constraints</a>
+        </div>
+        <p class="card__desc">A reading covering Windows as a desktop platform, including its dominant installed base, UI conventions, input models, and constraints relevant to software designers and developers; used by learners to understand what targeting Windows entails for HCI design.</p>
+      </div>
+
+      <!-- T6 -->
+      <div class="card">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card__title">
+          <a href="Project_Scoping_and_interactive_topics_t6.html">Web Platform: Characteristics and Constraints</a>
+        </div>
+        <p class="card__desc">A reading explaining the web as an application platform, covering browser-based delivery, cross-platform reach, accessibility considerations, and the technical and design constraints unique to web applications; used by learners to understand web-specific HCI design challenges.</p>
+      </div>
+
+      <!-- T7 -->
+      <div class="card">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card__title">
+          <a href="Project_Scoping_and_interactive_topics_t7.html">Platform Selection: Criteria and Decision-Making</a>
+        </div>
+        <p class="card__desc">A reading presenting the criteria and decision-making framework for selecting an application platform, covering factors such as audience, technical feasibility, cost, and team capability; used by learners to evaluate and justify platform choices in their own projects.</p>
+      </div>
+
+      <!-- T8 -->
+      <div class="card">
+        <div class="card__meta">
+          <span class="badge badge--topic-detail">Topic Detail</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card__title">
+          <a href="Project_Scoping_and_interactive_topics_t8.html">Design and Development Tools by Platform</a>
+        </div>
+        <p class="card__desc">A reading cataloguing the wireframing, prototyping, visual design, coding, and debugging tools available for each major platform, explaining how toolchain choices affect workflow and platform alignment; used by learners to identify appropriate tools for their chosen platform.</p>
+      </div>
+
+      <!-- Text Content duplicate -->
+      <div class="card">
+        <div class="card__meta">
+          <span class="badge badge--text-content">Text Content</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card__title">
+          <a href="Project_Scoping_and_interactive.html">Design and Development Tools by Platform</a>
+        </div>
+        <p class="card__desc">A duplicate reading identical to the topic detail above, cataloguing design and development tools by platform including wireframing, prototyping, and coding tools; used by learners to identify and compare appropriate toolchains for their target platform.</p>
+      </div>
+
+    </div>
+
+    <!-- ── Assignments ── -->
+    <h2 class="section-heading">Assignments</h2>
+    <div class="card-grid">
+
+      <!-- Assignment 1.1 -->
+      <div class="card">
+        <div class="card__meta">
+          <span class="badge badge--assignment">Assignment</span>
+          <span class="filetype-tag">.md</span>
+        </div>
+        <div class="card__title">
+          <a href="module_assignment_A001_Group_Project_Assignment_1_1_Project.html">Assignment 1.1: Project Scope Definition and Formal Project Description</a>
+          <a class="source-link" href="../assignments/A001_Group_Project_Assignment_1_1_Project.md">source file</a>
+        </div>
+        <p class="card__desc">A detailed markdown assignment sheet guiding student groups through creating a formal project scope document that defines measurable goals, target users, platform justification, and design constraints, serving as the first installment of a semester-long group project series.</p>
+      </div>
+
+      <!-- Assignment Group Project 1 -->
+      <div class="card">
+        <div class="card__meta">
+          <span class="badge badge--assignment">Assignment</span>
+          <span class="filetype-tag">.html</span>
+        </div>
+        <div class="card__title">
+          <a href="../assignments/A002_Group_Project_Group_Project_Assignment_1.html">Group Project Assignment 1: Project Scoping and Platform Selection</a>
+        </div>
+        <p class="card__desc">An HTML assignment brief directing student teams to collaboratively define their app project scope and select a target platform, outlining submission requirements, estimated effort, and group coordination expectations as the first entry in the ongoing group project series.</p>
+      </div>
+
+    </div>
+
   </main>
 
   <footer>
-    CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Project Scoping and App Platform Selection
+    <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp; Module 2: Project Scoping and App Platform Selection</p>
   </footer>
 
 

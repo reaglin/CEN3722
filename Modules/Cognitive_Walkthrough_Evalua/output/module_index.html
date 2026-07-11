@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cognitive Walkthrough Evaluation Method — CEN3722</title>
+  <title>Cognitive Walkthrough Evaluation Method – CEN3722</title>
   <style>
     /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -11,293 +11,438 @@
     body {
       font-family: 'Segoe UI', Arial, sans-serif;
       background: #f4f6f9;
-      color: #2c3340;
+      color: #222;
       min-height: 100vh;
       line-height: 1.6;
     }
 
-    /* ── Header / Hero ── */
+    /* ── Header ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
-      color: #ffffff;
-      padding: 2.8rem 1.5rem 2.2rem;
+      background: linear-gradient(135deg, #1a3a5c 0%, #25567e 100%);
+      color: #fff;
+      padding: 2.5rem 1.5rem 2rem;
       text-align: center;
     }
 
     header .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
+      font-size: 0.8rem;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.3);
-      border-radius: 20px;
-      padding: 0.25rem 0.85rem;
-      margin-bottom: 1rem;
+      color: #a8c8e8;
+      margin-bottom: 0.5rem;
     }
 
     header h1 {
-      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-size: clamp(1.5rem, 4vw, 2.3rem);
       font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 1rem;
       line-height: 1.25;
+      margin-bottom: 1rem;
     }
 
-    header p {
-      font-size: 1rem;
+    header p.intro {
       max-width: 680px;
       margin: 0 auto;
-      color: rgba(255,255,255,0.88);
+      font-size: 1rem;
+      color: #cde0f2;
+      line-height: 1.7;
     }
 
-    /* ── Main Container ── */
+    /* ── Main container ── */
     main {
-      max-width: 960px;
-      margin: 2.5rem auto 3rem;
+      max-width: 1100px;
+      margin: 2.5rem auto;
       padding: 0 1.25rem;
     }
 
-    /* ── Section Heading ── */
+    /* ── Section heading ── */
     .section-heading {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.14em;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #1a3a5c;
       text-transform: uppercase;
-      color: #5a6478;
-      margin-bottom: 1.1rem;
+      letter-spacing: 0.08em;
+      border-bottom: 2px solid #c5d8ec;
       padding-bottom: 0.45rem;
-      border-bottom: 2px solid #dde2eb;
+      margin-bottom: 1.5rem;
     }
 
-    /* ── Card Grid ── */
+    /* ── Card grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.25rem;
     }
 
-    /* ── Artifact Card ── */
+    /* ── Card ── */
     .card {
-      background: #ffffff;
-      border: 1px solid #dde2eb;
-      border-radius: 10px;
-      padding: 1.4rem 1.4rem 1.2rem;
+      background: #fff;
+      border: 1px solid #dde5ef;
+      border-radius: 8px;
+      padding: 1.25rem 1.25rem 1.1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s, transform 0.18s;
     }
 
     .card:hover {
-      box-shadow: 0 6px 22px rgba(37, 99, 168, 0.12);
+      box-shadow: 0 4px 18px rgba(26, 58, 92, 0.12);
       transform: translateY(-2px);
     }
 
-    /* ── Card Top Row: type badge + file type pill ── */
+    /* ── Card top row: badges ── */
     .card-meta {
       display: flex;
-      align-items: center;
-      gap: 0.5rem;
       flex-wrap: wrap;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
     }
 
     .badge-type {
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      background: #e8f0fb;
-      color: #2563a8;
-      border-radius: 20px;
-      padding: 0.2rem 0.65rem;
+      background: #e6eef8;
+      color: #1a3a5c;
     }
 
     .badge-filetype {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      background: #f0f2f6;
-      color: #5a6478;
-      border-radius: 20px;
-      padding: 0.2rem 0.6rem;
+      background: #eaf4ec;
+      color: #245c30;
       font-family: 'Courier New', monospace;
+      letter-spacing: 0;
     }
 
-    /* ── Card Name Row ── */
-    .card-name-row {
+    /* ── Card title row ── */
+    .card-title-row {
       display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
       flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.55rem;
     }
 
     .card-name {
-      font-size: 1.05rem;
+      font-size: 1rem;
       font-weight: 700;
       color: #1a3a5c;
-      line-height: 1.3;
+      word-break: break-word;
     }
 
-    .card-name a.primary-link {
-      color: #2563a8;
-      text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.18s ease, color 0.18s ease;
-    }
-
-    .card-name a.primary-link:hover,
-    .card-name a.primary-link:focus {
+    .card-name a {
       color: #1a3a5c;
-      border-bottom-color: #2563a8;
-      outline: none;
+      text-decoration: none;
+      border-bottom: 2px solid #5592c4;
+    }
+
+    .card-name a:hover {
+      color: #25567e;
+      border-bottom-color: #1a3a5c;
     }
 
     .source-link {
       font-size: 0.72rem;
-      font-weight: 600;
-      color: #5a6478;
+      font-weight: 500;
+      color: #5a7fa4;
       text-decoration: none;
-      border: 1px solid #c8cfdb;
-      border-radius: 12px;
-      padding: 0.15rem 0.55rem;
       white-space: nowrap;
-      transition: background 0.18s ease, color 0.18s ease, border-color 0.18s ease;
+      border: 1px solid #b0cce4;
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      transition: background 0.15s, color 0.15s;
     }
 
-    .source-link:hover,
-    .source-link:focus {
-      background: #e8f0fb;
-      color: #2563a8;
-      border-color: #2563a8;
-      outline: none;
+    .source-link:hover {
+      background: #ddeaf6;
+      color: #1a3a5c;
     }
 
-    /* ── Card Description ── */
+    /* ── Description ── */
     .card-description {
-      font-size: 0.88rem;
-      color: #4a5368;
+      font-size: 0.875rem;
+      color: #444;
       line-height: 1.6;
-      flex-grow: 1;
-    }
-
-    /* ── Divider ── */
-    .card-divider {
-      height: 1px;
-      background: #eef0f5;
-      border: none;
-      margin: 0.1rem 0 0;
+      flex: 1;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
-      padding: 1.5rem 1rem 2rem;
+      padding: 2rem 1rem;
       font-size: 0.78rem;
-      color: #8a93a6;
-      border-top: 1px solid #dde2eb;
-      background: #f4f6f9;
-    }
-
-    /* ── Focus Visible (accessibility) ── */
-    a:focus-visible {
-      outline: 2px solid #2563a8;
-      outline-offset: 2px;
-      border-radius: 3px;
+      color: #7a90a8;
+      border-top: 1px solid #dde5ef;
+      margin-top: 2.5rem;
     }
 
     /* ── Responsive tweaks ── */
     @media (max-width: 480px) {
-      header { padding: 2rem 1rem 1.6rem; }
-      .card { padding: 1.1rem; }
+      .card-grid { grid-template-columns: 1fr; }
+      header h1  { font-size: 1.35rem; }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</div>
+    <p class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
     <h1>Cognitive Walkthrough Evaluation Method</h1>
-    <p>
-      Explore the artifacts for this module to learn about the cognitive walkthrough technique &mdash;
-      a structured usability evaluation method that assesses learnability by stepping through tasks
-      from the perspective of a new user.
+    <p class="intro">
+      This module introduces the Cognitive Walkthrough as a structured usability inspection technique.
+      Learners will explore its theoretical foundations, learn how to prepare and execute a walkthrough,
+      identify and document failure points, and practice communicating usability findings to design stakeholders.
+      Use the artifacts below to navigate readings, topic overviews, and supporting materials.
     </p>
   </header>
 
   <main>
-    <p class="section-heading">Module Artifacts &mdash; 3 items</p>
+    <h2 class="section-heading">Module Artifacts</h2>
 
     <div class="card-grid">
 
-      <!-- ── Card 1: Module Topics ── -->
-      <article class="card">
+      <!-- 1 -->
+      <div class="card">
         <div class="card-meta">
-          <span class="badge-type">Module Topics</span>
-          <span class="badge-filetype">.json</span>
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
         </div>
-        <div class="card-name-row">
+        <div class="card-title-row">
           <span class="card-name">
-            <a class="primary-link" href="module_topics.html">Module Topics</a>
+            <a href="module_topics.html">Module Topics</a>
           </span>
           <a class="source-link" href="../hierarchy.json">source file</a>
         </div>
-        <hr class="card-divider" />
         <p class="card-description">
-          An outline of all topics and subtopics covered in this module, including the cognitive
-          walkthrough&rsquo;s theoretical foundations, preparation steps, four evaluative questions,
-          and related procedures, giving learners and instructors a structured overview of the
-          module&rsquo;s scope.
+          An outline of all topics and subtopics covered in this module, including the cognitive walkthrough's
+          theoretical foundations, preparation steps, four evaluative questions, and related procedures, giving
+          learners and instructors a structured overview of the module's scope.
         </p>
-      </article>
+      </div>
 
-      <!-- ── Card 2: Printable HTML ── -->
-      <article class="card">
+      <!-- 2 -->
+      <div class="card">
         <div class="card-meta">
-          <span class="badge-type">Text Content</span>
-          <span class="badge-filetype">.html</span>
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-name-row">
+        <div class="card-title-row">
           <span class="card-name">
-            <a class="primary-link" href="_printable.html">Printable HTML</a>
+            <a href="_interactive.html">Cognitive_Walkthrough_Evalua</a>
           </span>
         </div>
-        <hr class="card-divider" />
         <p class="card-description">
-          A printable HTML document presenting the full module content on the cognitive walkthrough
-          method &mdash; its origins, theoretical basis, preparation requirements, and step-by-step
-          evaluation procedure &mdash; intended for learners to read, study, or print as a
-          self-contained reference.
+          Core instructional reading covering the origins, theoretical basis, and key characteristics of the
+          Cognitive Walkthrough method—including its development by Polson et al. and how evaluators step through
+          an interface without real users—for learners to study as primary course content.
         </p>
-      </article>
+      </div>
 
-      <!-- ── Card 3: Printable HTML — Topics ── -->
-      <article class="card">
+      <!-- 3 -->
+      <div class="card">
         <div class="card-meta">
-          <span class="badge-type">Text Content</span>
-          <span class="badge-filetype">.html</span>
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
         </div>
-        <div class="card-name-row">
+        <div class="card-title-row">
           <span class="card-name">
-            <a class="primary-link" href="Cognitive_Walkthrough_Evalua_printable_topics.html">Printable HTML &mdash; Topics</a>
+            <a href="_printable.html">Overview of CW</a>
           </span>
         </div>
-        <hr class="card-divider" />
         <p class="card-description">
-          A printable HTML topic-overview document that covers all module topics at a high level
-          with brief introductions and key points for each, intended as a concise summary learners
-          or instructors can use for quick review or course planning.
+          A printable HTML document presenting the full module content on the cognitive walkthrough method —
+          its origins, theoretical basis, preparation requirements, and step-by-step evaluation procedure —
+          intended for learners to read, study, or print as a self-contained reference.
         </p>
-      </article>
+      </div>
 
-    </div>
+      <!-- 4 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Cognitive_Walkthrough_Evalua_interactive_topics_t1.html">Cognitive_Walkthrough_Evalua</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A duplicate or alternate version of the core instructional reading on the foundations of the Cognitive
+          Walkthrough method, covering the same origins and evaluator-based inspection approach, which learners
+          or instructors can reference alongside the primary text.
+        </p>
+      </div>
+
+      <!-- 5 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Cognitive_Walkthrough_Evalua_interactive_topics_t2.html">Preparing for a Cognitive Walkthrough</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that introduces the cognitive walkthrough method, explaining what it is, how it differs from
+          heuristic evaluation, and what evaluators must define and prepare before beginning a walkthrough session.
+        </p>
+      </div>
+
+      <!-- 6 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Cognitive_Walkthrough_Evalua_interactive_topics_t3.html">The Step-by-Step Cognitive Walkthrough Procedure</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that walks through the step-by-step cognitive walkthrough procedure, explaining how evaluators
+          work through each action in a task sequence and apply a fixed set of diagnostic questions to assess usability.
+        </p>
+      </div>
+
+      <!-- 7 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Cognitive_Walkthrough_Evalua_interactive_topics_t4.html">Identifying and Documenting Failure Points</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that covers how to systematically recognize, categorize, and document usability failure points
+          uncovered during a cognitive walkthrough so that findings are precise and actionable enough to inform
+          design improvements.
+        </p>
+      </div>
+
+      <!-- 8 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Cognitive_Walkthrough_Evalua_interactive_topics_t5.html">Applying the Method to Peer Prototypes</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that guides learners through applying the cognitive walkthrough method to real peer-created
+          prototypes, bridging classroom instruction and authentic UX practice by evaluating actual interface designs.
+        </p>
+      </div>
+
+      <!-- 9 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Cognitive_Walkthrough_Evalua_interactive_topics_t6.html">Interpreting Results and Communicating Findings</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that explains how to move beyond raw walkthrough notes by synthesizing and interpreting findings
+          into patterns, severity assessments, and clearly communicated usability reports for design stakeholders.
+        </p>
+      </div>
+
+      <!-- 10 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Overview</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Cognitive_Walkthrough_Evalua_interactive_topics.html">Cognitive_Walkthrough_Evalua</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A text content artifact for the Cognitive Walkthrough module that contains no retrievable preview content,
+          making its specific subject matter and intended instructional use impossible to determine from the
+          information provided.
+        </p>
+      </div>
+
+      <!-- 11 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Cognitive_Walkthrough_Evalua_interactive.html">Interpreting Results and Communicating Findings</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A reading that explains how to move beyond raw walkthrough notes by synthesizing and interpreting findings
+          into patterns, severity assessments, and clearly communicated usability reports for design stakeholders.
+        </p>
+      </div>
+
+      <!-- 12 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Cognitive_Walkthrough_Evalua_lesson-plan.html">Recall Steps Guiding</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A learning-objectives page focused on the remember/recall level, specifying that learners should be able
+          to list the sequential steps of the Cognitive Walkthrough method and identify the guiding questions
+          associated with each step, used by instructors to set expectations and by learners to self-assess
+          foundational knowledge.
+        </p>
+      </div>
+
+      <!-- 13 -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Overview</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Cognitive_Walkthrough_Evalua_printable_topics.html">Cognitive_Walkthrough_Evalua</a>
+          </span>
+        </div>
+        <p class="card-description">
+          A printable HTML topic-overview document that covers all module topics at a high level with brief
+          introductions and key points for each, intended as a concise summary learners or instructors can use
+          for quick review or course planning.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
   </main>
 
   <footer>
     CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp;
-    Cognitive Walkthrough Evaluation Method
+    Module: Cognitive Walkthrough Evaluation Method
   </footer>
 
 

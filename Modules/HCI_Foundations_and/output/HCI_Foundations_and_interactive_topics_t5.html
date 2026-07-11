@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Development Environment Setup</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Development Environment Setup</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Development Environment Setup</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Before a single line of production code is written, every member of a development team needs a working, consistent environment. A <strong>development environment</strong> is the complete collection of tools, configurations, and conventions that allow a developer to write, test, and share code reliably. When environments differ between team members — different editors, different Git versions, different folder layouts — small inconsistencies compound into real problems: code that works on one machine crashes on another, merge conflicts arise from formatting differences, and onboarding new contributors becomes a painful, undocumented process. This topic walks through each layer of a professional development environment setup, from choosing a code editor to verifying that every tool in the chain is communicating correctly.</p>
+
+<p><strong>Choosing a Code Editor</strong></p>
+
+<p>A code editor is the primary interface between a developer and their source code, so choosing one that is well-supported, extensible, and familiar to the team pays dividends throughout the entire project lifecycle. <strong>Visual Studio Code (VS Code)</strong>, published by Microsoft, has become the dominant choice in both industry and education for several concrete reasons. It is completely free and open-source, it runs identically on Windows, macOS, and Linux, and it has an enormous ecosystem of community-maintained extensions. According to the Stack Overflow Developer Survey, VS Code has consistently been the most-used development environment for several years running, which means tutorials, troubleshooting threads, and team knowledge are widely available.</p>
+
+<p>Out of the box, VS Code provides syntax highlighting, IntelliSense autocompletion, an integrated terminal, and built-in Git support. However, its real power comes from <strong>extensions</strong>. Extensions are installable packages that add or enhance functionality within the editor. The categories most relevant to a development team include:</p>
+
+<ul>
+  <li><strong>Language support:</strong> Extensions such as the Python extension, ESLint for JavaScript, or the Pylance language server add deep language-specific features like type checking, go-to-definition, and inline documentation.</li>
+  <li><strong>Linters:</strong> A linter statically analyzes code for errors and style violations before the code is ever run. For example, ESLint flags unused variables and inconsistent quote styles in JavaScript files, while Flake8 or Pylint does the same for Python.</li>
+  <li><strong>Formatters:</strong> Tools like Prettier (JavaScript/CSS/HTML) and Black (Python) automatically reformat code to a consistent style on save. This eliminates entire categories of superficial merge conflicts caused by differing indentation or trailing whitespace.</li>
+  <li><strong>AI assistance:</strong> Extensions such as GitHub Copilot provide AI-powered code suggestions and completions inline as you type, accelerating routine coding tasks.</li>
+</ul>
+
+<p>A crucial team practice is to commit a <strong>recommended extensions list</strong> directly into the repository. VS Code supports this through a file located at <code>.vscode/extensions.json</code>. When any team member opens the project folder, VS Code reads this file and offers to install all recommended extensions automatically. An example file looks like this:</p>
+
+<pre><code>{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "ms-python.python",
+    "github.copilot"
+  ]
+}</code></pre>
+
+<p>Pairing this with a <code>.vscode/settings.json</code> file that enforces format-on-save ensures that every developer's editor behaves the same way, regardless of their personal preferences. This is not about restricting individuality — it is about eliminating environmental noise so that code review focuses on logic, not whitespace.</p>
+
+<p><strong>Installing and Configuring Git Locally</strong></p>
+
+<p>Git is a distributed version control system that tracks every change made to a codebase over time. Without Git, collaborative development becomes a nightmare of emailed zip files and overwritten work. Installing Git provides the command-line tools — <code>git clone</code>, <code>git commit</code>, <code>git push</code>, and dozens more — that form the backbone of modern collaborative development.</p>
+
+<p>Installation varies by operating system. On macOS, running <code>git --version</code> in the terminal will prompt the installation of the Xcode Command Line Tools if Git is not already present, or you can install it via Homebrew with <code>brew install git</code>. On Windows, the recommended approach is to download the official <strong>Git for Windows</strong> installer from <code>git-scm.com</code>, which also installs Git Bash, a Unix-like terminal emulator. On Linux, Git is available through the system package manager, for example <code>sudo apt install git</code> on Debian/Ubuntu systems.</p>
+
+<p>After installation, the <strong>first configuration step</strong> is setting a username and email address. Git embeds this information into every commit, creating a permanent, auditable record of who made each change:</p>
+
+<pre><code>git config --global user.name "Amara Nwosu"
+git config --global user.email "amara.nwosu@example.com"</code></pre>
+
+<p>The <code>--global</code> flag applies these settings to all repositories on the machine. Using a real name and the email address associated with your GitHub account is important because GitHub uses the email to link commits to your profile, displaying your contribution graph accurately.</p>
+
+<p>For authentication — the process by which GitHub verifies that you are who you claim to be when pushing code — there are two main options: HTTPS with a personal access token, and <strong>SSH key authentication</strong>. SSH is strongly preferred for day-to-day work because it is more secure, more convenient, and does not require re-entering credentials. The mechanism works through a <em>public/private key pair</em>: you generate two mathematically linked files, keep the private key on your machine, and upload the public key to GitHub. When you push code, GitHub challenges your machine with a cryptographic puzzle that only the private key can solve, proving your identity without ever transmitting a password.</p>
+
+<p>The steps to set up SSH authentication are:</p>
+
+<ul>
+  <li>Generate a key pair: <code>ssh-keygen -t ed25519 -C "amara.nwosu@example.com"</code></li>
+  <li>Accept the default file location (<code>~/.ssh/id_ed25519</code>) and optionally set a passphrase for extra security.</li>
+  <li>Copy the public key to your clipboard: <code>cat ~/.ssh/id_ed25519.pub</code></li>
+  <li>In GitHub, navigate to <em>Settings → SSH and GPG keys → New SSH key</em> and paste the public key.</li>
+  <li>Test the connection: <code>ssh -T git@github.com</code> — a successful response reads <em>"Hi username! You've successfully authenticated."</em></li>
+</ul>
+
+<p>Once authentication is configured, the <strong><code>git clone</code></strong> command copies a remote repository from GitHub to your local machine, creating a fully functional local copy including all branches, commit history, and tracked files:</p>
+
+<pre><code>git clone git@github.com:your-org/your-repository.git</code></pre>
+
+<p>Using the SSH URL (which begins with <code>git@github.com:</code>) rather than the HTTPS URL ensures the SSH key is used for all subsequent operations in that repository.</p>
+
+<p><strong>Cloud Development with GitHub Codespaces</strong></p>
+
+<p>Even with careful documentation, getting every team member's local environment to an identical working state can take hours and still produce subtle differences. <strong>GitHub Codespaces</strong> addresses this by running the development environment entirely in the cloud. A Codespace is essentially a virtual machine hosted by GitHub, pre-configured with VS Code running in the browser (or connectable via the local VS Code desktop application). Because the environment runs on GitHub's servers, the developer's local operating system — whether Windows, macOS, or Linux — becomes irrelevant. The code runs in a consistent Linux-based container every time.</p>
+
+<p>The behavior of a Codespace is controlled by a <strong>devcontainer configuration</strong>, stored in the repository at <code>.devcontainer/devcontainer.json</code>. This file specifies the base Docker image (the operating system and pre-installed software), additional tools to install, VS Code extensions to enable, and startup commands to run. A minimal example for a Node.js project might look like:</p>
+
+<pre><code>{
+  "name": "Node.js Project",
+  "image": "mcr.microsoft.com/devcontainers/node:18",
+  "extensions": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint"
+  ],
+  "postCreateCommand": "npm install"
+}</code></pre>
+
+<p>When any team member opens this repository in a Codespace, GitHub builds a container from this specification, installs the listed extensions, and runs <code>npm install</code> automatically. The result is that every contributor starts from an <em>identical, reproducible environment</em> without any manual setup. This is particularly valuable for teams with mixed experience levels, where a newcomer might spend an entire day debugging a local environment issue that an experienced developer would solve in minutes.</p>
+
+<p>Codespaces also integrates seamlessly with the GitHub repository. Because the Codespace is already authenticated with GitHub under your account, cloning, pushing, and creating pull requests work immediately — there is no SSH key setup required in the cloud environment. Commits made in a Codespace are attributed to your GitHub account just as they would be from a local machine.</p>
+
+<p><strong>Project Folder Structure and Conventions</strong></p>
+
+<p>A repository is not just a collection of files — it is a communication tool. The way files and folders are organized communicates the architecture of the project to every contributor, present and future. Establishing and documenting a clear folder structure from the very beginning of a project prevents the gradual accumulation of misplaced files that makes large codebases difficult to navigate.</p>
+
+<p>The <strong>README file</strong> at the root of the repository is the natural home for folder structure documentation. On day one of the project, before most of the folders even contain meaningful content, the README should describe what each top-level directory is for. A typical project might use a structure such as:</p>
+
+<pre><code>my-project/
+├── src/           # Application source code
+├── assets/        # Images, fonts, and static files
+├── docs/          # Documentation and design notes
+├── tests/         # Automated test files
+├── .vscode/       # Editor configuration shared with the team
+├── .devcontainer/ # Codespaces/devcontainer configuration
+├── .gitignore     # Files and folders excluded from version control
+└── README.md      # Project overview and setup instructions</code></pre>
+
+<p><strong>File naming conventions</strong> are a subtle but important source of cross-platform bugs. macOS and Windows use case-insensitive file systems by default, meaning <code>Styles.css</code> and <code>styles.css</code> are treated as the same file. Linux, which is the operating system used in most production and cloud environments (including Codespaces), uses a <em>case-sensitive</em> file system, meaning these are two completely different files. A project developed on macOS might import a file as <code>import './utils.js'</code> while the actual file is named <code>Utils.js</code>. This works locally but breaks when deployed to a Linux server. Adopting a strict, documented convention — for example, all files use <code>kebab-case</code> (lowercase words separated by hyphens) — eliminates this class of error entirely.</p>
+
+<p>A sensible set of conventions covers the following areas:</p>
+
+<ul>
+  <li><strong>Case style:</strong> Choose one convention (kebab-case for files, PascalCase for React component files, snake_case for Python modules) and apply it consistently.</li>
+  <li><strong>Directory depth:</strong> Avoid deeply nested folder hierarchies; prefer flat structures where the purpose of each folder is immediately obvious.</li>
+  <li><strong>No spaces in names:</strong> File and directory names with spaces cause problems in command-line tools, scripts, and URLs. Use hyphens or underscores instead.</li>
+  <li><strong>.gitignore:</strong> Always create a <code>.gitignore</code> file that excludes <code>node_modules/</code>, compiled output, OS-specific files like <code>.DS_Store</code>, and any files containing secrets or credentials.</li>
+</ul>
+
+<p><strong>Verifying the Complete Setup</strong></p>
+
+<p>Setting up tools is not the same as verifying that those tools work together correctly. An <strong>end-to-end verification</strong> is the only reliable way to confirm that the local Git installation, the editor, SSH authentication, and the remote GitHub repository are all communicating as expected. This verification should be performed independently by every single team member — not just the team lead, and not skipped because "it probably works."</p>
+
+<p>The following sequence constitutes a thorough end-to-end verification test:</p>
+
+<ul>
+  <li><strong>Clone the repository using SSH:</strong> <code>git clone git@github.com:your-org/your-repository.git</code>. A successful clone confirms that Git is installed, SSH authentication is working, and network access to GitHub is available.</li>
+  <li><strong>Open the cloned folder in VS Code:</strong> Confirm that recommended extensions are prompted for installation. If <code>.vscode/extensions.json</code> is present and populated, VS Code should display a notification offering to install them.</li>
+  <li><strong>Make a trivial change:</strong> Edit a file — for example, add a comment to the README — save it, then run <code>git status</code> in the terminal to confirm Git detects the modification.</li>
+  <li><strong>Commit and push:</strong> Run <code>git add .</code>, then <code>git commit -m "chore: verify setup for [your name]"</code>, then <code>git push</code>. A successful push confirms the complete write path from local machine to the remote repository.</li>
+  <li><strong>Verify on GitHub:</strong> Open the repository in a browser and confirm the commit appears in the history with the correct author name and email.</li>
+</ul>
+
+<p>The reason this step deserves emphasis is not bureaucratic — it is practical. Authentication issues, misconfigured email addresses, permission errors, and missing extensions are all problems that are trivial to fix in the first week of a project and potentially very disruptive in the fourth week when a deadline is approaching. Catching a broken setup during a low-stakes verification exercise rather than during a critical push is a significant advantage.</p>
+
+<p>The table below summarizes the key tools introduced in this setup, their purpose, and the verification signal that confirms each one is working correctly:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tool / Configuration</th>
+      <th>Purpose</th>
+      <th>Verification Signal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>VS Code</td>
+      <td>Primary code editor with extension support</td>
+      <td>Editor opens; recommended extensions prompt appears</td>
+    </tr>
+    <tr>
+      <td><code>.vscode/extensions.json</code></td>
+      <td>Ensures consistent editor extensions across the team</td>
+      <td>VS Code offers to install all listed extensions on first open</td>
+    </tr>
+    <tr>
+      <td>Git (local install)</td>
+      <td>Version control command-line tools</td>
+      <td><code>git --version</code> returns a version number</td>
+    </tr>
+    <tr>
+      <td>Git global config</td>
+      <td>Ties commits to a named contributor with correct email</td>
+      <td><code>git config --global --list</code> shows correct name and email</td>
+    </tr>
+    <tr>
+      <td>SSH key pair</td>
+      <td>Secure, passwordless authentication with GitHub</td>
+      <td><code>ssh -T git@github.com</code> returns a success message</td>
+    </tr>
+    <tr>
+      <td>GitHub Codespaces</td>
+      <td>Cloud-hosted, OS-independent development environment</td>
+      <td>Codespace launches, runs <code>postCreateCommand</code>, editor is ready</td>
+    </tr>
+    <tr>
+      <td><code>.devcontainer/devcontainer.json</code></td>
+      <td>Standardizes the Codespaces environment for all contributors</td>
+      <td>New Codespace matches the specified image and has correct extensions</td>
+    </tr>
+    <tr>
+      <td>Folder structure + README</td>
+      <td>Documents the project layout for all contributors</td>
+      <td>README describes each directory; structure is present in the repo</td>
+    </tr>
+    <tr>
+      <td>File naming convention</td>
+      <td>Prevents case-sensitivity errors across operating systems</td>
+      <td>All files follow the documented convention; no mixed-case ambiguities</td>
+    </tr>
+    <tr>
+      <td>End-to-end verification commit</td>
+      <td>Confirms the full clone → edit → commit → push workflow works</td>
+      <td>Commit appears on GitHub with correct author attribution</td>
+    </tr>
+  </tbody>
+</table>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic areas: editor choice and extensions, local Git installation and SSH configuration, GitHub Codespaces with devcontainer, folder structure and naming conventions, and end-to-end setup verification. Practical code examples are included for each configuration file or command sequence discussed.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

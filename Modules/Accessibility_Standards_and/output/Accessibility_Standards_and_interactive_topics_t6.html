@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Auditing</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Accessibility Auditing</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Accessibility Auditing</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Accessibility auditing is the systematic process of evaluating a digital interface — a website, web application, or prototype — against recognized accessibility standards, most commonly the <strong>Web Content Accessibility Guidelines (WCAG)</strong>, to identify barriers that prevent users with disabilities from accessing or using the product effectively. An audit is not a single action but a disciplined, multi-layered methodology that combines automated tools, manual inspection, and direct testing with assistive technologies. Each layer reveals a different class of problem, and only together do they produce a thorough picture of an interface's accessibility health. The end goal is not merely a list of failures but a prioritized, actionable remediation plan that design and engineering teams can act on with clarity and confidence.</p>
+
+<p>Understanding why this matters requires appreciating the breadth of the affected audience. Users with visual impairments navigate with screen readers or rely on high-contrast displays. Users with motor disabilities may use only a keyboard, a switch device, or eye-tracking hardware. Users with cognitive disabilities benefit from predictable layouts, clear labels, and error prevention. An interface that has never been audited routinely contains dozens of barriers invisible to sighted, mouse-using testers — barriers that effectively lock out a significant portion of the population and, in many jurisdictions, expose organizations to legal liability under laws such as the Americans with Disabilities Act (ADA) or the European Accessibility Act.</p>
+
+<p><strong>Audit Methods and Tools</strong></p>
+
+<p>A robust audit draws on three complementary methods, each targeting a distinct category of accessibility problem.</p>
+
+<p><strong>Automated accessibility scanners</strong> are software tools that parse a page's DOM and CSS, then flag violations of rules that can be evaluated algorithmically. Common findings include missing <code>alt</code> attributes on images, insufficient color contrast ratios, form inputs without associated <code>&lt;label&gt;</code> elements, buttons or links with no accessible name, and duplicate <code>id</code> attributes that break ARIA relationships. Popular tools include <strong>axe DevTools</strong> (available as a browser extension and as a CI-integrated library), <strong>Lighthouse</strong> (built into Chrome DevTools), <strong>WAVE</strong> (a browser extension from WebAIM), and <strong>IBM Equal Access Checker</strong>. These tools are fast and highly repeatable, making them ideal for integration into automated testing pipelines so that regressions are caught before code is merged.</p>
+
+<p>However, automated tools are limited by design. Research consistently shows they can only detect approximately <strong>30–40% of WCAG failures</strong>. They cannot determine whether a visible focus indicator is sufficiently clear, whether a modal dialog traps focus correctly under all interaction paths, whether the announced reading order of a complex data table conveys the intended meaning, or whether an error message is genuinely understandable to a user unfamiliar with technical jargon. These qualitative, contextual judgments require human evaluation.</p>
+
+<p><strong>Manual keyboard-only testing</strong> is indispensable for verifying interaction patterns that no scanner can evaluate. The tester removes the mouse entirely and navigates the full interface using only the keyboard — primarily <code>Tab</code> and <code>Shift+Tab</code> to move between focusable elements, <code>Enter</code> and <code>Space</code> to activate controls, arrow keys for widgets like menus, sliders, and radio groups, and <code>Escape</code> to dismiss dialogs. The tester checks that:</p>
+
+<ul>
+  <li>Every interactive element receives a visible focus indicator — not just a faint browser default outline, but a clearly perceivable ring or highlight that meets WCAG 2.2's <strong>Focus Appearance</strong> criterion (minimum area and contrast).</li>
+  <li>Focus order follows a logical reading sequence — typically left-to-right, top-to-bottom in Western layouts — so that the journey through the page makes semantic sense.</li>
+  <li>No <strong>keyboard trap</strong> exists, meaning the user can always move focus out of any component without resorting to special escape sequences undocumented in the interface. A classic failure point is a custom modal dialog that does not return focus to a predictable element on close.</li>
+  <li>All functionality available via mouse is also achievable by keyboard alone — drag-and-drop operations, hover-triggered tooltips with additional information, and custom dropdown menus built with <code>&lt;div&gt;</code> elements rather than native <code>&lt;select&gt;</code> controls are frequent failure areas.</li>
+</ul>
+
+<p><strong>Screen reader testing</strong> validates the assistive technology experience — what a blind or low-vision user actually hears when they navigate the interface. Screen readers do not simply read text on screen; they interpret the <strong>accessibility tree</strong>, a structured representation of the page built from semantic HTML and ARIA attributes. Because different screen readers on different browsers produce different accessibility trees, testing across combinations is important. The standard pairings used in professional audits are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Screen Reader</th>
+      <th>Primary Browser</th>
+      <th>Platform</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>JAWS (Job Access With Speech)</td>
+      <td>Chrome, Edge</td>
+      <td>Windows</td>
+    </tr>
+    <tr>
+      <td>NVDA (NonVisual Desktop Access)</td>
+      <td>Firefox, Chrome</td>
+      <td>Windows</td>
+    </tr>
+    <tr>
+      <td>VoiceOver</td>
+      <td>Safari</td>
+      <td>macOS / iOS</td>
+    </tr>
+    <tr>
+      <td>TalkBack</td>
+      <td>Chrome</td>
+      <td>Android</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>During screen reader testing, the auditor listens critically: Is each image's <code>alt</code> text meaningful in context? Does a decorative icon carry an empty <code>alt=""</code> so it is silently skipped? When a form validation error occurs, is the error announced automatically or must the user hunt for it? Does a carousel announce its current slide count? Is a data table announced with its column and row headers so the relationship between cell and heading is clear when navigating cell by cell? These are questions only live screen reader interaction can answer.</p>
+
+<p><strong>Auditing Your Own Prototype</strong></p>
+
+<p>When evaluating a prototype — a Figma mockup exported to HTML, a coded prototype, or a staging environment — the auditor adapts these general methods to the specific fidelity and context of what is being tested. A structured approach prevents overlooked areas and keeps findings consistent.</p>
+
+<p><strong>Keyboard-only navigation review</strong> is the recommended first step because it requires no special tooling and immediately surfaces the most fundamental interaction failures. Open the prototype in a browser, disconnect or ignore the mouse, and attempt to complete every core user journey — registration, form submission, navigation between pages, activating a modal, completing a purchase. As you move through the interface, note every location where focus becomes invisible, jumps unexpectedly, loops in a trap, or simply never arrives on an element that appears interactive. This pass often reveals architectural problems — components built with non-semantic elements — that will require structural fixes rather than surface-level attribute changes.</p>
+
+<p><strong>Color contrast analysis</strong> is the next layer. Using a tool such as the <strong>Colour Contrast Analyser</strong> (a free desktop application from TPGi), <strong>WebAIM's Contrast Checker</strong>, or the color picker built into axe DevTools, the auditor samples every meaningful text-and-background combination in the prototype. WCAG 2.1 Level AA requires:</p>
+
+<ul>
+  <li>A contrast ratio of at least <strong>4.5:1</strong> for normal text (below 18pt, or below 14pt bold).</li>
+  <li>A contrast ratio of at least <strong>3:1</strong> for large text (18pt or larger, or 14pt bold or larger).</li>
+  <li>A contrast ratio of at least <strong>3:1</strong> for non-text UI components such as button borders, input field borders, and focus indicators.</li>
+</ul>
+
+<p>Common failure patterns include light grey placeholder text in form inputs, white text on medium-brand-color buttons, and disabled-state text that is indistinguishable from the background. When checking contrast, remember to test every interactive state — default, hover, focus, active, and visited — because a button may pass in its default state but fail on its focus or hover state.</p>
+
+<p><strong>Inspection of interactive elements for accessible names</strong> is a critical check that automated tools partially cover but that requires contextual judgment. Every button, link, form control, and custom widget must have an accessible name that accurately describes its purpose. The accessible name is what a screen reader announces and what voice-control users speak to activate a control. Sources of accessible names, in order of precedence as defined by the <strong>accessible name computation algorithm</strong>, include:</p>
+
+<ul>
+  <li><code>aria-labelledby</code> pointing to visible text elsewhere on the page</li>
+  <li><code>aria-label</code> providing an invisible string directly on the element</li>
+  <li>A native HTML <code>&lt;label&gt;</code> associated via <code>for</code>/<code>id</code> or by wrapping the input</li>
+  <li>The element's own visible text content (for buttons and links)</li>
+  <li>The <code>alt</code> attribute for images used as controls</li>
+  <li>The <code>title</code> attribute as a last resort (unreliable and not recommended)</li>
+</ul>
+
+<p>A prototype review should inspect every icon-only button (the trash icon, the share icon, the ellipsis menu) to confirm an accessible name is provided. It should verify that linked images carry descriptive <code>alt</code> text. It should confirm that every form input — text fields, checkboxes, radio buttons, selects, date pickers — is programmatically associated with a visible label, not merely positioned adjacent to one.</p>
+
+<p><strong>Documentation of each finding</strong> should occur in parallel with testing, not after. Each finding is recorded immediately with four pieces of information: the affected component (identified by page, component name, or screenshot annotation), the relevant <strong>WCAG success criterion</strong> (referenced by number and name, such as <em>1.4.3 Contrast (Minimum)</em>), the observed failure (a specific, factual description of what was found), and a <strong>severity rating</strong>. Recording findings in real time prevents the auditor from relying on memory and ensures that even minor issues discovered during a keyboard pass are not lost by the time the formal report is assembled.</p>
+
+<p><strong>Prioritizing Accessibility Findings</strong></p>
+
+<p>Not all accessibility failures carry equal weight. A pragmatic remediation strategy requires prioritizing findings by the severity of the barrier they create for users. A widely used three-tier severity model maps directly to the impact on a user's ability to accomplish goals.</p>
+
+<p><strong>Critical issues</strong> are those that completely prevent a user from completing a core task. They represent total blockers. Examples include a login form with no accessible labels, making it impossible for a screen reader user to identify the username and password fields; a keyboard trap inside a navigation menu that a keyboard user cannot escape; or a modal dialog that never receives focus, meaning an assistive technology user cannot interact with it. A critical issue does not merely cause frustration — it makes a feature entirely inaccessible. These findings must be resolved at the highest priority, ideally before any other development work on the affected area proceeds, and certainly before a feature launches.</p>
+
+<p><strong>Serious issues</strong> create significant barriers that substantially degrade the user experience but may have partial workarounds — alternative paths a user could theoretically take, though often with considerable effort. An example is a complex custom dropdown built entirely with <code>&lt;div&gt;</code> elements and JavaScript that is mostly keyboard-operable but mispronounces item counts to screen readers, or a multi-step form where error messages appear visually but are not announced, requiring the user to manually navigate back to find where the problem is. Serious issues should be addressed before a product launches and are treated as near-critical in any well-governed accessibility program.</p>
+
+<p><strong>Minor issues</strong> cause friction and reduce quality but do not block access to content or functionality. An example is a tooltip that conveys supplementary (but non-essential) information and lacks a keyboard trigger, or a decorative image that carries a redundant <code>alt</code> attribute describing its appearance when it adds no meaning. Minor issues are real failures and should be documented and tracked, but they are appropriate candidates for scheduling in an iterative improvement backlog rather than holding a launch.</p>
+
+<p>Severity should also be weighted by the <strong>frequency of the affected component</strong>. A minor contrast failure in a once-per-session modal carries less urgency than the same minor contrast failure in a global navigation element rendered on every page of the product.</p>
+
+<p><strong>Writing Accessibility Findings and Recommendations</strong></p>
+
+<p>The quality of an audit's written output determines how actionable it is. A finding that says only "button is not accessible" gives a developer nothing to work with. A well-structured finding communicates exactly what is wrong, exactly where it is, exactly why it matters, and exactly how to fix it.</p>
+
+<p>Each finding should contain the following components:</p>
+
+<ul>
+  <li><strong>Affected element:</strong> Identify the component by name, page, screenshot reference, or code snippet. For example: <em>"The 'Submit' button on the Contact Form page (contact.html)"</em> or <em>"All icon-only buttons in the comment thread component."</em></li>
+  <li><strong>WCAG criterion violated:</strong> Reference the specific success criterion by number, name, and conformance level. For example: <em>"WCAG 2.1 Success Criterion 4.1.2 Name, Role, Value (Level A)."</em> This gives designers, developers, and accessibility leads a shared vocabulary and links the finding to a formal standard, which is important for legal and compliance contexts.</li>
+  <li><strong>Observed failure:</strong> Describe what was found in factual, observable terms. Avoid vague language. For example: <em>"The search icon button renders as <code>&lt;button&gt;&lt;svg&gt;...&lt;/svg&gt;&lt;/button&gt;</code> with no visible text, no <code>aria-label</code>, and no <code>title</code>. When navigated to with NVDA and Chrome, the screen reader announces 'button' with no name, providing no indication of the button's purpose."</em></li>
+  <li><strong>Specific, actionable recommendation:</strong> Do not simply say "fix the accessible name." Describe the exact change. For example: <em>"Add <code>aria-label="Search"</code> to the <code>&lt;button&gt;</code> element: <code>&lt;button aria-label="Search"&gt;</code>. Alternatively, add a visually hidden <code>&lt;span class="sr-only"&gt;Search&lt;/span&gt;</code> inside the button as its text content."</em> When there are multiple valid remediation paths, list them in order of recommendation so the developer understands the preferred approach.</li>
+  <li><strong>User impact statement:</strong> Articulate the real-world consequence of the failure for an actual user. This is the component most frequently omitted and most valuable for stakeholder communication. For example: <em>"A blind user navigating by screen reader encounters this button as an unlabeled control. Without knowing the button's purpose, they cannot determine whether to activate it or skip it, forcing them to rely on trial and error or abandon the task entirely."</em> Impact statements translate technical failures into human experiences, which helps product owners, project managers, and business stakeholders understand why accessibility matters and prioritize investment accordingly.</li>
+</ul>
+
+<p>The following example illustrates a complete, well-formed finding:</p>
+
+<pre><code>Finding: Unlabeled icon button in comment thread component
+Severity: Critical
+WCAG Criterion: 4.1.2 Name, Role, Value (Level A)
+Affected Element: "Delete comment" button (icon only) rendered as:
+  &lt;button class="delete-btn"&gt;
+    &lt;svg aria-hidden="true"&gt;...&lt;/svg&gt;
+  &lt;/button&gt;
+
+Observed Failure:
+The button has no accessible name. The SVG is correctly hidden
+from the accessibility tree via aria-hidden="true", but no
+alternative name is provided on the &lt;button&gt; element itself.
+NVDA + Chrome announces: "button". JAWS + Chrome announces: "button".
+
+Recommendation:
+Add aria-label="Delete comment" to the &lt;button&gt; element:
+  &lt;button class="delete-btn" aria-label="Delete comment"&gt;
+If the label must reflect dynamic context (e.g., which comment),
+use aria-label="Delete comment by [author name]" populated from
+the data model.
+
+User Impact:
+A screen reader user navigating the comment thread encounters
+multiple unlabeled buttons in sequence. They cannot determine
+which button deletes, edits, or reports a comment. They risk
+activating the wrong action — including irreversibly deleting
+their own content — or are forced to abandon the interaction.</code></pre>
+
+<p>Structuring every finding in this way — element, criterion, failure, recommendation, impact — creates a document that serves multiple audiences simultaneously. Developers receive precise technical instructions. Designers see the affected component in context. Product owners understand business and human risk. Accessibility leads can track remediation against WCAG conformance targets. The audit report becomes not merely a record of failures but a roadmap for building a more inclusive product.</p>
+        <div class="notes"><strong>Notes</strong>This topic covers the process of systematically evaluating an interface for accessibility failures and documenting findings to guide remediation.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hierarchical Task Analysis (HTA)</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Hierarchical Task Analysis (HTA)</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Hierarchical Task Analysis (HTA)</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Hierarchical Task Analysis (HTA) is a structured method for understanding how users accomplish goals by breaking complex activities into progressively smaller, more manageable units of work. Originally developed by Annett and Duncan in the 1960s within industrial and military psychology, HTA has since become one of the most widely applied techniques in human–computer interaction, usability engineering, and user-centered design. Its enduring value lies in the way it makes the internal logic of a task visible and inspectable: by arranging goals, tasks, and subtasks in a tree structure, analysts and designers can reason clearly about what users need to do, in what order, and under what conditions — long before a single pixel of interface is drawn.</p>
+
+<p>Unlike simpler checklists or linear workflows, HTA captures the genuine complexity of real user behavior. It acknowledges that many goals involve choices, conditions, and parallel paths, and it provides explicit notation for expressing those nuances. The result is a living document that bridges user research and design, giving design teams a traceable, justifiable foundation for every structural and navigational decision they make.</p>
+
+<p><strong>Principles of HTA</strong></p>
+
+<p>The foundational intellectual commitment of HTA is a <em>top-down decomposition</em> philosophy. Analysis always starts from the highest-level user goal within the scope of the study — not from the interface that currently exists, not from the steps a system enforces, but from what the user is fundamentally trying to achieve. This orientation keeps the analysis honest and prevents it from accidentally inheriting the biases or inefficiencies of legacy designs.</p>
+
+<p>From that top-level goal, the analyst asks a deceptively simple question: <em>What does the user have to do to accomplish this?</em> The answer produces a set of subtasks. Each subtask is then treated as a goal in its own right and subjected to the same question, producing another layer of subtasks. This recursive process continues downward through however many levels of granularity the project requires. The resulting structure is genuinely hierarchical: every node (except the root) belongs to exactly one parent, and every parent task is fully accomplished when all of its children are accomplished.</p>
+
+<p>A critical principle is that the hierarchy makes <em>dependencies and sequences explicit</em>. When subtasks are listed under a parent, the analyst is not merely cataloguing activities — they are asserting a structural claim about how those activities combine to produce the parent. This forces precision that informal task descriptions rarely achieve. If two subtasks must happen in sequence, that is documented. If one subtask is only triggered by a condition, that too is recorded. Nothing is left implicit.</p>
+
+<p>HTA is particularly well-suited to <em>procedural, goal-directed tasks</em> with clear start and end points — tasks like booking a flight, submitting an expense claim, configuring a device, or renewing a subscription. These tasks have a definite goal state (the booking is confirmed, the claim is submitted), and users follow recognizable paths to reach it. HTA is less naturally suited to purely exploratory or creative activities without clear end states, though it can still be applied to the procedural components embedded within them.</p>
+
+<p><strong>HTA Notation and Diagrams</strong></p>
+
+<p>HTA uses a <em>hierarchical numbering scheme</em> to uniquely identify every task node and to encode its position in the tree at a glance. The top-level task is conventionally numbered 0. Its immediate subtasks are numbered 1, 2, 3, and so on. The subtasks of task 1 are numbered 1.1, 1.2, 1.3. Subtasks of task 1.2 become 1.2.1, 1.2.2, and so forth. This system means that any node's number tells you both its identity and its ancestry without needing to trace the diagram.</p>
+
+<p>Alongside the task nodes, HTA introduces the concept of <strong>plans</strong>. A plan is attached to every task that has subtasks and describes the order, conditions, or rules governing how those subtasks must be executed. Plans are where the logical richness of HTA really lives. Common plan types include:</p>
+
+<ul>
+  <li><strong>Fixed sequence:</strong> Subtasks must be performed in the listed order (e.g., "Do 1, then 2, then 3"). This is appropriate when each step creates a precondition for the next.</li>
+  <li><strong>Any order:</strong> Subtasks may be performed in any sequence (e.g., "Do 1, 2, and 3 in any order"). This is appropriate for tasks where steps are independent of one another.</li>
+  <li><strong>Conditional:</strong> Only certain subtasks are performed depending on the situation (e.g., "If new user, do 1.1; if returning user, do 1.2"). This captures decision points and branching paths.</li>
+  <li><strong>Iterative:</strong> A subtask or set of subtasks is repeated until a condition is met (e.g., "Repeat 2.1 until all items are reviewed").</li>
+  <li><strong>Discretionary:</strong> The user decides which subtasks to perform and when, based on their own judgment.</li>
+</ul>
+
+<p>HTA can be represented in two complementary formats: <em>diagrams</em> and <em>indented outlines</em>. Diagrams present the hierarchy visually as a tree, with boxes for tasks connected by lines to their parent and child nodes. Plans are typically written below the parent box or on the connecting lines. Diagrams offer an immediate gestalt view of the entire task structure and are excellent for communicating with stakeholders in presentations or workshops. Indented outlines express the same hierarchy as structured text, with indentation levels replacing the branching lines of the diagram. Outlines are easier to produce, edit, and version-control, and they integrate naturally into design documentation and specification documents.</p>
+
+<p>The following table illustrates how the numbering, task descriptions, and plans combine in an outline representation for a simplified "Book a Flight" goal:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task Number</th>
+      <th>Task Description</th>
+      <th>Plan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Book a flight</td>
+      <td>Do 1, then 2, then 3, then 4 in sequence</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Search for available flights</td>
+      <td>Do 1.1, 1.2, 1.3, then 1.4 in sequence</td>
+    </tr>
+    <tr>
+      <td>1.1</td>
+      <td>Enter origin and destination</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>1.2</td>
+      <td>Enter travel dates</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>1.3</td>
+      <td>Specify number of passengers</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>1.4</td>
+      <td>Submit search</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Select a flight</td>
+      <td>If filtering needed, do 2.1; then do 2.2</td>
+    </tr>
+    <tr>
+      <td>2.1</td>
+      <td>Apply filters (price, airline, stops)</td>
+      <td>Do any subset in any order</td>
+    </tr>
+    <tr>
+      <td>2.2</td>
+      <td>Choose flight from results list</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Provide passenger details</td>
+      <td>Do 3.1, 3.2, 3.3 in any order</td>
+    </tr>
+    <tr>
+      <td>3.1</td>
+      <td>Enter passenger name(s)</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>3.2</td>
+      <td>Enter contact information</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>3.3</td>
+      <td>Enter passport or ID details</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Complete payment</td>
+      <td>Do 4.1, then 4.2, then 4.3 in sequence</td>
+    </tr>
+    <tr>
+      <td>4.1</td>
+      <td>Select payment method</td>
+      <td>If new card, do 4.1.1; if saved card, do 4.1.2</td>
+    </tr>
+    <tr>
+      <td>4.1.1</td>
+      <td>Enter card details</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>4.1.2</td>
+      <td>Confirm saved card</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>4.2</td>
+      <td>Review order summary</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>4.3</td>
+      <td>Confirm and submit payment</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Consistent notation across an entire project team is not a cosmetic concern — it is essential for the documentation to function as a shared, authoritative artifact. When different analysts apply different numbering conventions, plan vocabularies, or decomposition depths, the resulting documents cannot be compared, merged, or reliably handed off between team members. Establishing a notation standard at the outset of a project pays dividends throughout the design and evaluation phases.</p>
+
+<p><strong>The Decomposition Process in HTA</strong></p>
+
+<p>Conducting an HTA in practice begins with <em>scoping the analysis</em>: identifying which user goal will serve as the root of the hierarchy. This is usually determined by the research questions driving the project. If the project concerns improving the checkout flow of an e-commerce site, the root goal might be "Purchase selected items." If it concerns an enterprise HR system, the root might be "Submit annual leave request." The scope decision matters because it determines the depth and breadth of the entire analysis.</p>
+
+<p>With the root goal defined, the analyst proceeds by decomposition. At each level, the question is: <em>What must the user do to accomplish this task?</em> The answers become the children of the current node. A useful quality check is to ask whether each subtask is both <em>necessary</em> (the parent cannot be achieved without it) and <em>sufficient in combination</em> (performing all children completes the parent). If a proposed subtask is optional in all circumstances, it may belong in a conditional plan rather than as a mandatory branch. If the children do not fully account for completion of the parent, something is missing.</p>
+
+<p>Decomposition stops — at any given branch — when the steps have become <em>discrete enough to directly suggest interface actions</em>. This stopping criterion is sometimes called the <em>P × C rule</em> from Annett and Duncan's original formulation: decomposition is no longer worthwhile when the performance cost (effort of further analysis) outweighs the cost of inadequate specification. In practical UX work, the informal version of this rule is: stop when you can point at a specific UI element (a button, a form field, a dropdown) and say "this subtask is accomplished by interacting with this control." Going deeper than that produces detail that belongs in a style guide or component specification rather than a task analysis.</p>
+
+<p>Critically, the decomposed tasks must be <em>validated against real user data</em>. An HTA constructed purely from the analyst's assumptions or from system documentation risks encoding the designer's mental model rather than the user's. Observation sessions, contextual inquiry, think-aloud studies, and interviews with actual users are all appropriate sources of validation. Where the observed user behavior diverges from the analyst's initial decomposition, the HTA should be revised to match reality. A common discovery during validation is that users accomplish a subtask in a different order than expected, or that they routinely skip a step the analyst considered mandatory — both of which have direct implications for design.</p>
+
+<p><strong>Applying HTA to Interface Design</strong></p>
+
+<p>Once constructed and validated, an HTA becomes a powerful generative tool for interface design. The structural relationships captured in the hierarchy map onto interface structures in predictable and useful ways.</p>
+
+<p><em>Top-level tasks frequently correspond to primary navigation.</em> If the HTA for an application has five major subtasks under the root goal, those five tasks are candidates for the five items in the primary navigation bar or the five tiles on a dashboard home screen. This is not a mechanical rule — good design requires judgment — but the HTA provides an evidence-based rationale for why those categories exist and what user goals they serve. Without HTA, navigation categories often reflect organizational structure or developer convenience rather than user goals.</p>
+
+<p><em>Sequential subtasks suggest step-by-step interface patterns.</em> When an HTA plan calls for a strict sequence — do step A, then step B, then step C — this is a strong signal that the interface should guide the user through that sequence explicitly. Wizard patterns, stepped forms, and progress indicators all exist precisely to support sequential task structures. HTA makes the case for using these patterns from user research rather than from aesthetic preference.</p>
+
+<p><em>Conditional plans reveal where the interface must branch.</em> Every conditional plan in an HTA identifies a point where the user's situation determines which path they follow. At these points, the interface must either detect the condition automatically (and route the user appropriately) or present a clear decision point that allows the user to self-select their path. Failing to surface conditional branches in the interface forces users to navigate a path designed for a different user type, which is a common source of friction and error.</p>
+
+<p><em>Iterative plans indicate where repetition support is needed.</em> When an HTA plan specifies that a subtask repeats until a condition is met — for example, adding multiple items to a list — the interface should provide affordances for that repetition: an "Add another" button, a dynamic list, a bulk-entry mechanism. Without HTA, these needs are easily overlooked until user testing reveals the gap.</p>
+
+<p>Beyond individual patterns, HTA documentation provides <em>traceable justification</em> for design decisions. When a stakeholder asks "Why is the checkout split into four screens?" or "Why does the filter panel appear here rather than there?", the design team can point to specific nodes and plans in the HTA and explain precisely which user tasks and conditions motivated those decisions. This traceability strengthens the design team's position in reviews and makes it easier to assess the impact of proposed changes: altering a design element whose rationale is anchored in HTA requires revisiting the task analysis, which immediately surfaces any downstream consequences.</p>
+
+<p>Consider a concrete design application: suppose the HTA for a recipe app reveals that the "Cook a recipe" goal has subtasks including "View ingredient list," "Follow step-by-step instructions," and "Set cooking timers" — and that the plan governing them is discretionary, meaning users move between these subtasks in whatever order suits them while cooking. This insight argues against a linear wizard interface (which would lock users into a sequence) and in favor of a tabbed or freely navigable layout where all three sections are always accessible. The HTA has directly and defensibly shaped the information architecture.</p>
+
+<p>The power of HTA ultimately lies in this combination of rigor and applicability. It is rigorous because it requires explicit, validated documentation of every task and its governing logic. It is applicable because its outputs map directly onto the vocabulary of interface design: navigation, screens, forms, wizards, branches, and repetition mechanisms. Used well, HTA transforms the messy reality of user behavior into a structured, communicable model that design teams can reason about, argue from, and build upon throughout the entire design lifecycle.</p>
+        <div class="notes"><strong>Notes</strong>The flight-booking worked example is woven through the notation section to give learners a single consistent illustration they can follow across numbering, plans, and the HTML table. The table renders all task/plan data; no ASCII art is used. Plan types are listed as a &lt;ul&gt; for scannability. The design implications section connects each HTA feature (sequential plans, conditional plans, iterative plans) to a named interface pattern to make the application concrete.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

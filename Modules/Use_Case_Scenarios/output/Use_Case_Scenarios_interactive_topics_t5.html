@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Writing Use Case Scenarios</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Writing Use Case Scenarios</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Writing Use Case Scenarios</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>A use case scenario is one of the most powerful tools in a business analyst's or systems designer's repertoire. Where a use case itself describes <em>what</em> a system must support, the use case scenario describes precisely <em>how</em> that support unfolds — step by step, actor by actor, condition by condition. Writing good use case scenarios is both a discipline and a craft: the document must be rigorous enough to drive development and testing, yet clear enough that a business stakeholder can read it and confirm it matches their intent. This topic walks through every element of a well-constructed use case scenario, from the header that identifies and controls the document to the final postcondition that certifies a goal has been met.</p>
+
+<p>The sections that follow treat each structural component in depth. Together they form a complete methodology for drafting use case scenarios that are traceable, testable, and unambiguous.</p>
+
+<p><strong>Structuring a Use Case Document</strong></p>
+
+<p>Before a single step of behavior is written, the use case document needs a solid structural skeleton. Structure is what makes a collection of use cases manageable across a large project and what allows any team member — developer, tester, or stakeholder — to locate exactly the information they need quickly.</p>
+
+<p><strong>Unique identifiers for traceability.</strong> Every use case must carry a unique identifier. A common convention is a prefix that signals the system or module followed by a sequential number: <code>UC-001</code>, <code>UC-002</code>, and so on. Some organizations include a category code, such as <code>UC-ORD-001</code> for an order management use case. The identifier is not cosmetic; it is the anchor for traceability. When a developer implements a feature, they reference <code>UC-012</code>. When a tester writes a test case, they link it to <code>UC-012</code>. When a change request arrives, the team can immediately see which use cases are affected. Without unique identifiers, traceability collapses into a guessing game.</p>
+
+<p><strong>Use case names as verb phrases.</strong> The name of a use case should always be a short, purposeful verb phrase that captures the actor's goal. Good examples include <em>Submit Order</em>, <em>Reset Password</em>, <em>Generate Monthly Sales Report</em>, and <em>Approve Leave Request</em>. Poor names include <em>Order Screen</em> (names a screen, not a goal), <em>Order Processing</em> (vague and passive), or <em>The User Does Something with the Cart</em> (imprecise and not in phrase form). The verb-phrase convention keeps the team focused on outcomes rather than technology, and it makes a list of use cases readable as a catalog of system capabilities.</p>
+
+<p><strong>Uniform template application.</strong> Every use case in a project should be documented using the same template. This consistency is not bureaucratic rigidity — it is a practical necessity. When templates differ, reviewers must mentally re-orient with each document they open, and automated tools that parse use cases for requirements management cannot function reliably. Establish the template early, communicate it to all contributors, and enforce it in reviews. A minimal standard template typically includes fields for: identifier, name, description, actors, preconditions, main success scenario, alternative flows, exception flows, postconditions, and version history.</p>
+
+<p><strong>Version history and approval status.</strong> The document header should contain a version history table and an explicit approval status field. Version history allows the team to understand how the use case has evolved — critical when a late-breaking change is disputed and the team needs to know what was agreed to at project kickoff versus what was agreed to in sprint three. Approval status (Draft, Under Review, Approved, Deprecated) prevents a developer from implementing a scenario that is still being debated by stakeholders. The table below shows a typical header structure:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Example Value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Use Case ID</td>
+      <td>UC-ORD-003</td>
+    </tr>
+    <tr>
+      <td>Use Case Name</td>
+      <td>Submit Order</td>
+    </tr>
+    <tr>
+      <td>Author</td>
+      <td>J. Morales</td>
+    </tr>
+    <tr>
+      <td>Date Created</td>
+      <td>2024-03-10</td>
+    </tr>
+    <tr>
+      <td>Last Updated</td>
+      <td>2024-04-02</td>
+    </tr>
+    <tr>
+      <td>Version</td>
+      <td>1.3</td>
+    </tr>
+    <tr>
+      <td>Status</td>
+      <td>Approved</td>
+    </tr>
+    <tr>
+      <td>Approved By</td>
+      <td>Product Owner — S. Chen</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A version history section below the header would log each version with the date, the author, and a brief note describing what changed (for example, <em>v1.2 — Added alternative flow A2 for guest checkout</em>).</p>
+
+<p><strong>Writing the Main Success Scenario</strong></p>
+
+<p>The main success scenario (sometimes called the basic flow or happy path) describes the sequence of events that unfolds when everything goes as intended: the actor has the right permissions, the data is valid, the system is available, and the user achieves their goal. It is the spine of the use case; all alternative and exception flows branch from and return to it.</p>
+
+<p><strong>One discrete action or system response per step.</strong> Each numbered step must describe exactly one thing that happens. Compare these two approaches:</p>
+
+<ul>
+  <li><em>Weak:</em> "The Customer logs in, navigates to the cart, reviews the items, and clicks Submit."</li>
+  <li><em>Strong:</em> Step 3 — The Customer clicks the <strong>Submit Order</strong> button. Step 4 — The System validates the cart contents against current inventory. Step 5 — The System displays the order confirmation page with a unique order number.</li>
+</ul>
+
+<p>The weak version bundles four distinct actions into one sentence. If step 3 fails during testing, testers cannot pinpoint which of the four actions failed. Atomic steps eliminate that ambiguity.</p>
+
+<p><strong>Active voice from the actor's or system's perspective.</strong> Every step should begin with the actor's name or the word "System" followed by a verb in the active, present tense. This convention makes it immediately clear who is responsible for each action. For example: <em>"The Customer enters a shipping address in the Shipping Address field."</em> Not: <em>"A shipping address is entered."</em> The passive voice obscures who acts, which matters enormously when the scenario is used to assign responsibilities or write tests.</p>
+
+<p><strong>Completeness for testability.</strong> A tester should be able to sit down with the main success scenario and verify each step independently. This means steps must be specific enough to be observable. <em>"The System processes the payment"</em> is not testable as written — a tester cannot observe "processes." Rewritten: <em>"The System sends a charge request to the payment gateway and receives an approval response."</em> Now the tester knows exactly what to look for in logs or on screen.</p>
+
+<p><strong>The final step confirms goal achievement.</strong> The last step of the main success scenario should always leave no doubt that the actor's goal has been fully achieved. For a <em>Submit Order</em> use case, an appropriate final step would be: <em>"The System sends an order confirmation email to the Customer's registered email address."</em> This closes the loop — the customer not only sees a confirmation on screen but receives durable proof of the transaction.</p>
+
+<p>A condensed example of a main success scenario for <em>Submit Order</em> (UC-ORD-003) illustrates all four principles:</p>
+
+<pre><code>Main Success Scenario
+
+1. The Customer clicks the "Proceed to Checkout" button from the Shopping Cart page.
+2. The System displays the Checkout page pre-populated with the Customer's saved shipping address and default payment method.
+3. The Customer reviews the order summary, shipping address, and payment details.
+4. The Customer clicks the "Submit Order" button.
+5. The System validates that all items in the cart are in stock.
+6. The System submits a charge request to the Payment Gateway for the order total.
+7. The Payment Gateway returns an approval code.
+8. The System creates an order record in the database with status "Confirmed" and assigns a unique order number.
+9. The System displays the Order Confirmation page showing the order number, itemized list, and estimated delivery date.
+10. The System sends an order confirmation email to the Customer's registered email address.
+    [Goal achieved: Customer has placed and received confirmation of a valid order.]
+</code></pre>
+
+<p><strong>Documenting Alternative Flows</strong></p>
+
+<p>Alternative flows (also called alternative paths or extensions) represent choices or variations that are still valid and successful — they are not errors. They answer the question: <em>"What if the user does something different, but still achieves a legitimate outcome?"</em></p>
+
+<p><strong>Different valid choices at a given step.</strong> An alternative flow always branches from a specific step in the main scenario. The reference must be explicit: <em>"At step 3, if the Customer selects a different shipping address..."</em> This anchoring prevents alternative flows from floating in isolation — a reader always knows exactly where in the main flow the variation occurs.</p>
+
+<p><strong>Indicating where the flow rejoins or diverges.</strong> Every alternative flow must specify two things: where it branches off and what happens afterward — specifically whether it rejoins the main scenario (and at which step), ends the use case with a different successful outcome, or leads into an exception flow. For example:</p>
+
+<pre><code>Alternative Flow A1: Customer uses a new shipping address
+
+  Branches from: Step 3
+  A1.1  The Customer clicks "Add New Address."
+  A1.2  The System displays the Add Address form.
+  A1.3  The Customer enters the new address details and clicks "Save."
+  A1.4  The System validates the address format and saves the new address.
+  A1.5  The System updates the Checkout page with the new address selected.
+  Rejoins: Main flow at Step 3 (Customer continues reviewing checkout details).
+</code></pre>
+
+<p><strong>Common types of alternative flows.</strong> Three categories of alternative flows appear repeatedly across use cases and deserve explicit attention:</p>
+
+<ul>
+  <li><strong>Selecting different options:</strong> The user picks a non-default but equally valid choice, such as selecting a different payment method (credit card instead of saved PayPal account).</li>
+  <li><strong>Using shortcuts:</strong> The user invokes a faster path to the same outcome, such as clicking a one-click purchase button that skips the checkout review page.</li>
+  <li><strong>Canceling an action:</strong> The user deliberately abandons the current task. This is valid behavior and should be documented as an alternative flow, not an exception. The flow should confirm that the system returns the user to a stable, appropriate state and that no unintended changes are persisted.</li>
+</ul>
+
+<p><strong>Incorporating alternative flows from task analysis.</strong> During task analysis and stakeholder interviews, analysts discover many variations in how users approach a task. Each variation that represents a legitimate path to a valid outcome should be captured as an alternative flow. If a task analysis reveals that 30% of users access the checkout from a wish list rather than the main shopping cart, that is an alternative flow worth documenting. A systematic approach — cataloging all discovered variations, evaluating each as an alternative versus an exception, and assigning each a unique identifier (A1, A2, A3, etc.) — prevents flows from being overlooked and ensures completeness.</p>
+
+<p><strong>Documenting Exception Flows</strong></p>
+
+<p>Exception flows represent situations where something goes wrong — an error occurs, input is invalid, an external system fails, or the system reaches an unexpected state. Unlike alternative flows, exception flows are not the user choosing a different path; they are disruptions that must be handled gracefully.</p>
+
+<p><strong>Triggers for exception flows.</strong> An exception flow is triggered by one of three categories of problems:</p>
+
+<ul>
+  <li><strong>Invalid input:</strong> The user enters data that fails validation (e.g., a malformed email address, a credit card number that fails the Luhn check).</li>
+  <li><strong>System errors:</strong> An internal component fails (e.g., the database is unavailable, a timeout occurs during processing).</li>
+  <li><strong>Unexpected states:</strong> The system discovers a condition it did not anticipate (e.g., an item that was in stock when added to the cart has since sold out).</li>
+</ul>
+
+<p><strong>Notifying the user of the problem.</strong> Every exception flow must describe exactly how the system communicates the problem to the user. Good exception handling is specific: the system must display a meaningful error message, not a generic "An error occurred." For example, if payment is declined, the message should indicate that payment was declined (without revealing security-sensitive details) and suggest what the user should do next. Vague error messages are a common complaint in usability studies and a direct symptom of poorly specified exception flows.</p>
+
+<p><strong>Recovery paths.</strong> Wherever the user can correct the problem and continue the main task, the exception flow must describe that recovery path explicitly. For example:</p>
+
+<pre><code>Exception Flow E2: Payment declined
+
+  Triggered at: Step 6 (Payment Gateway returns a decline response)
+  E2.1  The System displays a "Payment Declined" message on the Checkout page,
+        advising the Customer to verify payment details or use a different method.
+  E2.2  The System re-displays the Checkout page with the payment section highlighted.
+  E2.3  The Customer updates payment details or selects a different payment method.
+  Rejoins: Main flow at Step 4 (Customer clicks "Submit Order").
+</code></pre>
+
+<p>This recovery path means the user does not lose their cart contents or have to restart from the beginning — a critical usability and business requirement that would be missed if exception flows were undocumented.</p>
+
+<p><strong>Unrecoverable exceptions.</strong> Some exceptions cannot be resolved by the user during the session — for example, a complete database failure during order processing. For these cases, the exception flow must specify two things: how the system preserves any data the user has already provided (to avoid forcing them to re-enter everything if they try again), and how the system communicates the failure honestly. For example:</p>
+
+<pre><code>Exception Flow E4: System failure during order processing
+
+  Triggered at: Step 8 (System fails to write order record to database)
+  E4.1  The System rolls back the payment charge request to prevent billing without order creation.
+  E4.2  The System logs the full error details to the system event log.
+  E4.3  The System saves the Customer's cart contents to the session store for recovery.
+  E4.4  The System displays a "Service Temporarily Unavailable" message with a reference number
+        and instructs the Customer to try again in 10 minutes or contact support.
+  [No rejoining of main flow; use case ends in failure state.]
+</code></pre>
+
+<p>Specifying rollback and data preservation in the exception flow is not just good UX practice — it is a direct requirement handed to developers about transactional integrity.</p>
+
+<p><strong>Specifying Preconditions and Postconditions</strong></p>
+
+<p>Preconditions and postconditions are the use case's contract with the world. They state what must be true for the scenario to begin and what will be true when it ends. Without them, use cases float in a context-free vacuum — testers cannot set up test environments correctly and developers cannot know what state the system must be in before their code runs.</p>
+
+<p><strong>Preconditions must be verifiable.</strong> A precondition is a statement about the state of the system and its actors that must be confirmed as true before the use case begins. The key word is <em>verifiable</em>: a precondition must be something a tester or the system itself can actually check. Compare:</p>
+
+<ul>
+  <li><em>Weak (vague):</em> "The user is ready to order."</li>
+  <li><em>Strong (verifiable):</em> "The Customer is authenticated. The Customer's shopping cart contains at least one item. All items in the cart have a current price in the product catalog."</li>
+</ul>
+
+<p>The strong version gives developers and testers concrete, testable facts. Vague preconditions lead to misunderstandings about what the system is expected to handle versus what should be enforced upstream.</p>
+
+<p><strong>Postconditions for the main flow.</strong> The main success scenario's postcondition should state, in verifiable terms, what is true after the scenario completes successfully. For <em>Submit Order</em>: <em>"An order record exists in the database with status 'Confirmed.' The Customer's cart is empty. A charge has been applied to the Customer's payment method for the order total. A confirmation email has been delivered to the Customer's registered address."</em> Each clause is independently verifiable — a tester can check the database, inspect the cart, verify the charge, and confirm email delivery.</p>
+
+<p><strong>Postconditions for alternative flows.</strong> Alternative flows may end in states that differ from the main success postcondition. A <em>Cancel Order</em> alternative flow might have the postcondition: <em>"The Customer's cart is preserved with its original contents. No charge has been applied. The Customer is on the Shopping Cart page."</em> This is a valid and complete outcome, just different from the full success state. Documenting it explicitly prevents a tester from incorrectly marking a cancelled-order scenario as a failure because the order record was not created.</p>
+
+<p><strong>Direct usability as test case inputs.</strong> Well-written preconditions and postconditions transform use cases into test case templates almost automatically. The precondition becomes the test setup. The main flow steps become the test actions. The postcondition becomes the pass/fail criteria. This tight mapping between use case documentation and testing is one of the primary reasons rigorous pre/postcondition specification pays off in reduced testing effort and fewer defects.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Use Case Element</th>
+      <th>Maps to Test Case Element</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Preconditions</td>
+      <td>Test setup / environment conditions</td>
+    </tr>
+    <tr>
+      <td>Main scenario steps</td>
+      <td>Test steps / actions</td>
+    </tr>
+    <tr>
+      <td>Main postconditions</td>
+      <td>Expected results / pass criteria</td>
+    </tr>
+    <tr>
+      <td>Alternative flow steps</td>
+      <td>Alternative test path actions</td>
+    </tr>
+    <tr>
+      <td>Alternative postconditions</td>
+      <td>Expected results for alternative paths</td>
+    </tr>
+    <tr>
+      <td>Exception flow triggers</td>
+      <td>Negative test conditions</td>
+    </tr>
+    <tr>
+      <td>Exception flow outcomes</td>
+      <td>Expected error handling / recovery results</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Writing Clear and Unambiguous Steps</strong></p>
+
+<p>Even a perfectly structured use case can fail in practice if its steps are written unclearly. Ambiguous steps are a leading cause of misalignment between what stakeholders intended, what developers built, and what testers verified. The following principles, applied consistently, eliminate the most common sources of ambiguity.</p>
+
+<p><strong>Use specific verbs, not vague ones.</strong> Words like "handles," "manages," "processes," and "deals with" tell the reader almost nothing about what concretely happens. Replace them with verbs that describe observable, specific actions:</p>
+
+<ul>
+  <li>Instead of <em>"The System processes the form,"</em> write <em>"The System validates each required field for correct format and completeness."</em></li>
+  <li>Instead of <em>"The User interacts with the cart,"</em> write <em>"The Customer clicks the Remove button next to the selected item."</em></li>
+  <li>Preferred specific verbs include: <em>clicks, enters, selects, displays, submits, navigates to, highlights, enables, disables, saves, redirects, sends, receives, validates, calculates.</em></li>
+</ul>
+
+<p><strong>Name the actor explicitly.</strong> Pronouns introduce ambiguity as soon as a use case involves more than one actor. In a system where a Customer, a Store Manager, and an automated Notification Service all participate, a step that reads "They confirm the change" is genuinely unclear. Always name the actor: <em>"The Store Manager clicks the Confirm button."</em> This applies to the system as well — write <em>"The System"</em> rather than <em>"it."</em></p>
+
+<p><strong>One action per step, not compound sequences.</strong> Compound steps — those that describe two or more actions joined by "and" or "then" — violate the atomicity principle. If one action in a compound step fails, it is impossible to know precisely where the failure occurred. Consider:</p>
+
+<ul>
+  <li><em>Compound (avoid):</em> "The Customer enters a username and password and clicks Login."</li>
+  <li><em>Atomic (preferred):</em> Step 1 — The Customer enters a username in the Username field. Step 2 — The Customer enters a password in the Password field. Step 3 — The Customer clicks the Login button.</li>
+</ul>
+
+<p>The atomic version looks more verbose, but it is far more useful during testing, debugging, and UI design — each interaction with the interface is separately accountable.</p>
+
+<p><strong>Managing technical jargon.</strong> Use cases are shared documents — read by developers, but also by product owners, business stakeholders, and QA teams with varying technical backgrounds. Technical terms should be used only when they add precision that everyday language cannot provide, and only if they are defined in a project glossary. For example, "The System executes a RESTful POST request to the payment endpoint" may be appropriate in a developer-facing specification, but in a use case reviewed by the Finance department, "The System submits the payment details to the payment service" conveys the same intent with far less confusion. Establishing and linking to a project glossary lets analysts use necessary technical terms without alienating non-technical readers.</p>
+
+<p>The table below summarizes common step-writing pitfalls and their corrections:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pitfall</th>
+      <th>Example of the Problem</th>
+      <th>Corrected Version</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Vague verb</td>
+      <td>The System handles the request.</td>
+      <td>The System validates the request parameters and returns an HTTP 200 response.</td>
+    </tr>
+    <tr>
+      <td>Pronoun instead of actor name</td>
+      <td>They click Submit.</td>
+      <td>The Customer clicks the Submit button.</td>
+    </tr>
+    <tr>
+      <td>Compound step</td>
+      <td>The Customer fills in the form and submits it.</td>
+      <td>Step 4: The Customer completes all required fields. Step 5: The Customer clicks Submit.</td>
+    </tr>
+    <tr>
+      <td>Passive voice obscuring actor</td>
+      <td>The order is confirmed.</td>
+      <td>The System displays an order confirmation message to the Customer.</td>
+    </tr>
+    <tr>
+      <td>Undefined jargon</td>
+      <td>The System fires a webhook.</td>
+      <td>The System sends an automated notification to the fulfillment service. [If "webhook" is in the glossary, it may be used as a parenthetical clarification.]</td>
+    </tr>
+    <tr>
+      <td>Non-verifiable step</td>
+      <td>The System processes the payment quickly.</td>
+      <td>The System submits the charge request and receives a response within 5 seconds.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Taken together, these principles — structural rigor, a complete main scenario, systematically documented alternative and exception flows, verifiable pre/postconditions, and precise step writing — produce use case scenarios that serve every audience on a project. Developers get unambiguous implementation targets. Testers get ready-made test blueprints. Stakeholders get a readable narrative of system behavior they can validate against their real-world needs. And the organization gets a traceable, maintainable requirements artifact that can survive the inevitable changes of any project lifecycle.</p>
+        <div class="notes"><strong>Notes</strong>Students should practice writing a complete use case scenario from scratch using a provided template. A good exercise is to take a familiar task (such as resetting a password or booking a meeting room) and draft all six components: header with identifier and version history, main success scenario, at least two alternative flows, at least two exception flows (one recoverable, one not), and explicit pre/postconditions. Peer review sessions should focus on checking for vague verbs, compound steps, and unverifiable conditions.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

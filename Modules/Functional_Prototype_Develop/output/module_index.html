@@ -1,34 +1,27 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Functional Prototype Development and Testing Preparation — CEN3722</title>
   <style>
     /* ── Reset & Base ── */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      font-size: 16px;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f4f6f9;
-      color: #2c3e50;
-      line-height: 1.6;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: #f4f6f9;
+      color: #1e2a38;
+      line-height: 1.65;
       min-height: 100vh;
     }
 
-    /* ── Header / Banner ── */
+    /* ── Header ── */
     header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2e6da4 100%);
-      color: #ffffff;
+      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
+      color: #fff;
       padding: 2.5rem 1.5rem 2rem;
+      border-bottom: 4px solid #f0a500;
     }
 
     .header-inner {
@@ -37,200 +30,174 @@
     }
 
     .course-label {
-      display: inline-block;
       font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      background-color: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 4px;
-      padding: 0.2rem 0.65rem;
-      margin-bottom: 0.85rem;
-      color: #d6eaf8;
+      color: #b8d4f5;
+      margin-bottom: 0.45rem;
     }
 
     header h1 {
       font-size: clamp(1.45rem, 3vw, 2rem);
       font-weight: 700;
       line-height: 1.25;
-      margin-bottom: 0.9rem;
-      letter-spacing: -0.01em;
+      margin-bottom: 0.85rem;
     }
 
     header p {
       font-size: 0.97rem;
-      color: #cce0f5;
+      color: #d6e8ff;
       max-width: 720px;
-      line-height: 1.65;
+      line-height: 1.7;
     }
 
-    /* ── Main Content ── */
+    /* ── Main Container ── */
     main {
       max-width: 960px;
-      margin: 2.5rem auto 3rem;
-      padding: 0 1.5rem;
+      margin: 2.2rem auto 3rem;
+      padding: 0 1.25rem;
     }
 
-    .section-heading {
-      font-size: 0.72rem;
+    .section-label {
+      font-size: 0.75rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #7f8c9a;
+      color: #5a7499;
       margin-bottom: 1.1rem;
-      padding-bottom: 0.45rem;
-      border-bottom: 2px solid #dce3ea;
+      padding-bottom: 0.35rem;
+      border-bottom: 2px solid #dde4ee;
     }
 
-    /* ── Artifact Grid ── */
-    .artifact-grid {
+    /* ── Card Grid ── */
+    .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
+      gap: 1.2rem;
     }
 
-    /* ── Artifact Card ── */
-    .artifact-card {
+    /* ── Card ── */
+    .card {
       background: #ffffff;
-      border: 1px solid #dce3ea;
+      border: 1px solid #dde4ee;
       border-radius: 8px;
-      padding: 1.35rem 1.4rem 1.2rem;
+      padding: 1.35rem 1.4rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, transform 0.18s ease;
     }
 
-    .artifact-card:hover {
-      box-shadow: 0 4px 16px rgba(46, 109, 164, 0.12);
-      border-color: #aac4de;
+    .card:hover {
+      box-shadow: 0 6px 22px rgba(30, 60, 100, 0.11);
+      transform: translateY(-2px);
     }
 
-    /* ── Card Top Row: badges ── */
+    /* ── Card Meta Row ── */
     .card-meta {
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.5rem;
       flex-wrap: wrap;
     }
 
     .badge {
       display: inline-block;
       font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
+      font-weight: 700;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
+      padding: 0.18em 0.55em;
       border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-      line-height: 1.4;
+      line-height: 1.5;
     }
 
     .badge-type {
-      background-color: #e8f0fb;
-      color: #2e6da4;
-      border: 1px solid #b8d0ed;
+      background: #e8f0fb;
+      color: #2563a8;
     }
 
     .badge-filetype {
-      background-color: #eef6ee;
-      color: #2e7d32;
-      border: 1px solid #b2dfb2;
-      font-family: 'Courier New', Courier, monospace;
+      background: #eef7f0;
+      color: #27744a;
+      font-family: "Courier New", Courier, monospace;
     }
 
-    /* ── Card Name / Link Row ── */
-    .card-name-row {
+    /* ── Card Title Row ── */
+    .card-title-row {
       display: flex;
       align-items: baseline;
       flex-wrap: wrap;
       gap: 0.55rem;
     }
 
-    .card-name {
-      font-size: 1.02rem;
+    .card-title {
+      font-size: 1rem;
       font-weight: 700;
       color: #1a3a5c;
       line-height: 1.3;
     }
 
-    .card-name a {
-      color: #1a6fba;
+    .card-title a {
+      color: #1a3a5c;
       text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.15s ease, color 0.15s ease;
+      border-bottom: 2px solid #2563a8;
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
     }
 
-    .card-name a:hover,
-    .card-name a:focus {
-      color: #114d85;
-      border-bottom-color: #1a6fba;
+    .card-title a:hover,
+    .card-title a:focus {
+      color: #2563a8;
+      border-color: #f0a500;
       outline: none;
     }
 
     .source-link {
-      font-size: 0.76rem;
-      font-weight: 500;
-      color: #5d7fa3;
+      font-size: 0.73rem;
+      font-weight: 600;
+      color: #5a7499;
       text-decoration: none;
-      background-color: #f0f5fb;
-      border: 1px solid #c0d5ea;
+      border: 1px solid #beccde;
       border-radius: 4px;
-      padding: 0.15rem 0.5rem;
+      padding: 0.15em 0.5em;
       white-space: nowrap;
-      transition: background-color 0.15s ease, color 0.15s ease;
+      transition: background 0.15s, color 0.15s, border-color 0.15s;
     }
 
     .source-link:hover,
     .source-link:focus {
-      background-color: #dceaf7;
-      color: #1a3a5c;
+      background: #2563a8;
+      color: #fff;
+      border-color: #2563a8;
       outline: none;
-    }
-
-    .source-link::before {
-      content: '⬇ ';
-      font-size: 0.7rem;
     }
 
     /* ── Card Description ── */
     .card-description {
-      font-size: 0.88rem;
-      color: #4a5568;
-      line-height: 1.6;
-      flex-grow: 1;
+      font-size: 0.875rem;
+      color: #3d5268;
+      line-height: 1.65;
+      flex: 1;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
-      padding: 1.5rem 1rem 2rem;
       font-size: 0.78rem;
-      color: #9aabb8;
-      border-top: 1px solid #dce3ea;
-      background-color: #f4f6f9;
+      color: #8a9bb0;
+      padding: 1.5rem 1rem 2rem;
+      border-top: 1px solid #dde4ee;
+      max-width: 960px;
+      margin: 0 auto;
     }
 
-    /* ── Accessibility: focus-visible ── */
-    a:focus-visible {
-      outline: 3px solid #2e6da4;
-      outline-offset: 2px;
-      border-radius: 3px;
-    }
-
-    /* ── Responsive tweaks ── */
+    /* ── Responsive ── */
     @media (max-width: 520px) {
-      header {
-        padding: 2rem 1rem 1.5rem;
-      }
-
-      main {
-        margin-top: 1.75rem;
-      }
-
-      .artifact-grid {
-        grid-template-columns: 1fr;
-      }
+      header { padding: 1.75rem 1rem 1.5rem; }
+      .card { padding: 1.1rem 1.1rem 1rem; }
+      .card-title { font-size: 0.95rem; }
     }
   </style>
 </head>
@@ -238,46 +205,180 @@
 
   <header>
     <div class="header-inner">
-      <span class="course-label">CEN3722 — Introduction to Human Computer Interfaces</span>
+      <p class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
       <h1>Functional Prototype Development and Testing Preparation</h1>
       <p>
-        This module guides learners through the process of evolving design concepts into functional
-        prototypes ready for user testing. Topics span transitioning from mockups to working
-        implementations, managing design handoff, configuring development environments, and
-        establishing a structured testing preparation workflow. Use the artifacts below to explore
-        the module's resources and materials.
+        This module guides learners through the transition from static design mockups to working,
+        interactive prototypes and prepares them for structured usability testing. Topics span
+        development environment setup, design-to-code handoff strategies, user proficiency surveying,
+        and the creation of rigorous testing protocols — ensuring that prototype builds and test plans
+        are fully aligned before studies begin.
       </p>
     </div>
   </header>
 
   <main>
-    <p class="section-heading">Module Artifacts</p>
+    <p class="section-label">Module Artifacts &mdash; 7 items</p>
 
-    <div class="artifact-grid">
+    <div class="card-grid">
 
-        <div class="artifact-card">
-          <div class="card-meta">
-            <span class="badge badge-type">Module Topics</span>
-            <span class="badge badge-filetype">.json</span>
-          </div>
-
-          <div class="card-name-row">
-            <span class="card-name">
-                <a href="module_topics.html">Module Topics</a>
-            </span>
-              <a class="source-link" href="../hierarchy.json">source file</a>
-          </div>
-
-          <p class="card-description">
-            Covers the key topics in the module — including transitioning from mockups to functional prototypes, design handoff, development environment setup, and testing preparation — serving as a topic outline to help learners and instructors navigate the scope and structure of the module.
-          </p>
+      <!-- 1 · Module Topics -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
         </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="module_topics.html">Module Topics</a>
+          </span>
+          <a class="source-link" href="../hierarchy.json">source file</a>
+        </div>
+        <p class="card-description">
+          Covers the key topics in the module — including transitioning from mockups to functional
+          prototypes, design handoff, development environment setup, and testing preparation —
+          serving as a topic outline to help learners and instructors navigate the scope and
+          structure of the module.
+        </p>
+      </div>
 
-    </div>
+      <!-- 2 · From Mockup to Functional Prototype -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Functional_Prototype_Develop_interactive_topics_t1.html">From Mockup to Functional Prototype</a>
+          </span>
+        </div>
+        <p class="card-description">
+          This reading explains why static mockups are insufficient for serious design validation
+          and introduces the concept of functional prototypes, covering what makes a prototype
+          'functional,' the trade-offs involved, and how teams decide when to make the transition
+          from static screens to working, interactive builds.
+        </p>
+      </div>
+
+      <!-- 3 · Transition Strategies from Design to Code -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Functional_Prototype_Develop_interactive_topics_t2.html">Transition Strategies from Design to Code</a>
+          </span>
+        </div>
+        <p class="card-description">
+          This reading covers strategies for translating polished design mockups into coded
+          prototypes, addressing common pitfalls in the handoff process and providing guidance
+          on how designers and developers can collaborate to maintain consistency between visual
+          intent and functional behavior.
+        </p>
+      </div>
+
+      <!-- 4 · Development Environment Setup and Use -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Functional_Prototype_Develop_interactive_topics_t3.html">Development Environment Setup and Use</a>
+          </span>
+        </div>
+        <p class="card-description">
+          This reading walks through the decisions and steps involved in setting up a development
+          environment for prototype building, including tool selection, collaboration practices,
+          and workflow considerations that teams must address before writing any prototype code.
+        </p>
+      </div>
+
+      <!-- 5 · Designing User Proficiency Surveys -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Functional_Prototype_Develop_interactive_topics_t4.html">Designing User Proficiency Surveys</a>
+          </span>
+        </div>
+        <p class="card-description">
+          This reading explains how to design user proficiency surveys administered before
+          usability sessions, covering why participant background — such as technology experience,
+          domain familiarity, and prior product exposure — matters and how to craft survey
+          questions that accurately capture it.
+        </p>
+      </div>
+
+      <!-- 6 · Designing Usability Testing Protocols -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Functional_Prototype_Develop_interactive_topics_t5.html">Designing Usability Testing Protocols</a>
+          </span>
+        </div>
+        <p class="card-description">
+          This reading describes how to design a usability testing protocol, covering the key
+          components of the governing document that structures a user study, why standardization
+          matters, and how to prevent facilitator drift and inconsistency across testing sessions.
+        </p>
+      </div>
+
+      <!-- 7 · Integrating Prototype and Testing Preparation (Topic Detail) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Functional_Prototype_Develop_interactive_topics_t6.html">Integrating Prototype and Testing Preparation</a>
+          </span>
+        </div>
+        <p class="card-description">
+          This reading addresses the challenge of aligning parallel workstreams — prototype
+          development and test protocol design — so they are fully compatible when testing begins,
+          offering guidance on coordination strategies to prevent mismatches between what the
+          prototype does and what the test expects.
+        </p>
+      </div>
+
+      <!-- 8 · Integrating Prototype and Testing Preparation (Text Content) -->
+      <div class="card">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-title-row">
+          <span class="card-title">
+            <a href="Functional_Prototype_Develop_interactive.html">Integrating Prototype and Testing Preparation</a>
+          </span>
+        </div>
+        <p class="card-description">
+          This reading addresses the challenge of aligning parallel workstreams — prototype
+          development and test protocol design — so they are fully compatible when testing begins,
+          offering guidance on coordination strategies to prevent mismatches between what the
+          prototype does and what the test expects.
+        </p>
+      </div>
+
+    </div><!-- /.card-grid -->
   </main>
 
   <footer>
-    CEN3722 — Introduction to Human Computer Interfaces &nbsp;|&nbsp; Functional Prototype Development and Testing Preparation
+    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp;
+    Functional Prototype Development and Testing Preparation
   </footer>
 
 

@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Designing Usability Testing Protocols</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Designing Usability Testing Protocols</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Designing Usability Testing Protocols</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>A usability testing protocol is the foundational document that governs every aspect of a user study — from the moment a participant walks through the door (or joins a video call) to the final note taken after they leave. Without a carefully designed protocol, testing sessions can drift in unpredictable directions: facilitators may phrase tasks differently across sessions, note-takers may capture inconsistent data, and the environment may vary enough that results from one session become incomparable to results from another. A well-constructed protocol eliminates this variability by specifying, in advance and in writing, exactly what will happen, when it will happen, and who is responsible for making it happen. The result is a study whose findings genuinely reflect how real people interact with a design — not how a particular facilitator happened to conduct a session on a particular day.</p>
+
+<p>Designing a usability testing protocol is an iterative, collaborative act. It requires thinking simultaneously about research goals, participant experience, team coordination, and data quality. Each section of the protocol feeds the others: the research objectives shape which tasks get written, the tasks shape the facilitator script, the script shapes what data gets collected, and the logistics shape whether any of it can actually be executed reliably. Understanding how these pieces fit together — and why each one matters — is the core skill this topic develops.</p>
+
+<p><strong>Anatomy of a Usability Testing Protocol</strong></p>
+
+<p>A complete usability testing protocol is a single, authoritative document that every team member can reference before, during, and after a session. Treating it as a living specification — rather than a loose collection of notes — is what transforms ad hoc observation into rigorous, repeatable research. At minimum, a protocol covers five core areas: study objectives, participant criteria, task scenarios, a facilitator script, and data collection procedures.</p>
+
+<p><strong>Study objectives</strong> articulate the specific questions the study is designed to answer. They should be precise enough that a team member who did not attend the planning meetings could read them and understand exactly what the study is trying to learn. A vague objective like "see how people use the checkout flow" is far less useful than "determine whether first-time users can locate and apply a discount code without assistance during the checkout process." Specific objectives keep tasks focused and prevent scope creep during analysis.</p>
+
+<p><strong>Participant criteria</strong> define who qualifies to take part in the study. These criteria flow directly from the target user population identified during earlier research phases and typically include demographics, domain knowledge, experience with related products, and any exclusion criteria. For example, a study of a healthcare appointment-booking tool might require participants who have booked a medical appointment at least once in the past year, own a smartphone, and are not employed in healthcare IT — because healthcare IT professionals may have atypical mental models of booking interfaces.</p>
+
+<p><strong>Task scenarios</strong> describe what participants will be asked to do. They are distinct from a simple list of features to test; instead, they are realistic, goal-oriented situations written from the participant's perspective. Task design is covered in depth below.</p>
+
+<p><strong>A facilitator script</strong> provides verbatim language for every point in the session where the facilitator speaks — the welcome, the think-aloud instructions, the prompts, the task introductions, and the closing debrief. Writing the script verbatim is critical because it ensures every participant receives the same information and cues, regardless of which team member is facilitating. Verbal variation between sessions is one of the most common — and most overlooked — sources of noise in usability data.</p>
+
+<p><strong>Data collection procedures</strong> specify what data will be gathered, in what format, by whom, and using which tools. These procedures are inseparable from the rest of the protocol: if the tasks do not define completion criteria, data collectors cannot reliably score task success; if roles are not assigned, two note-takers may capture redundant information while critical behavioral observations go unrecorded.</p>
+
+<p>Standardizing procedures across sessions is not merely a methodological nicety — it is what makes the data interpretable. If one participant is given a task in a quiet room with the facilitator seated across a table, while another completes the same task in a noisy open-plan office with the facilitator hovering behind them, any performance difference between the two could reflect the environment rather than the design. The protocol eliminates this ambiguity by specifying the environment setup required for each session: the physical arrangement of the room, the configuration of the device or prototype, the presence or absence of observers, and — for remote studies — the screen-sharing software, camera placement, and internet connection requirements.</p>
+
+<p>Finally, all team members — UX researchers, designers, product managers, and any stakeholders who will observe sessions — should review the protocol and formally sign off before testing begins. This review process serves multiple purposes. It surfaces ambiguities in task wording that only a designer who built the interface might notice. It ensures that observers understand their role and will not intervene during sessions. It creates shared ownership of the methodology, which in turn makes it easier to achieve consensus during analysis. A simple sign-off log at the front of the protocol document — listing each reviewer, their role, and the date they approved — is sufficient for most teams.</p>
+
+<p><strong>Writing Task Scenarios</strong></p>
+
+<p>Task scenarios are arguably the most consequential part of a usability testing protocol. They are the instrument through which research objectives are translated into observable participant behavior. Poorly written tasks can invalidate an entire study: if tasks are too directive, they tell participants what to do rather than revealing how they naturally approach a problem; if tasks are too vague, participants spend time trying to understand the task rather than interacting with the design.</p>
+
+<p>The foundational principle of task scenario writing is <em>realistic framing</em>. Tasks should present participants with a goal or situation — the kind of thing a real user might be trying to accomplish — rather than a procedural instruction. Compare these two formulations:</p>
+
+<ul>
+  <li><strong>Instruction-style (avoid):</strong> "Click on the 'My Account' tab, then select 'Order History,' and find your most recent order."</li>
+  <li><strong>Scenario-style (preferred):</strong> "You placed an order last week and want to check whether it has shipped yet. Please go ahead and do that."</li>
+</ul>
+
+<p>The instruction-style task tells the participant exactly which interface elements to interact with, effectively guiding them through the design and masking any navigational confusion they might otherwise experience. The scenario-style task gives them a realistic goal and lets the interface succeed or fail on its own merits.</p>
+
+<p>A closely related principle is the prohibition on including interface labels or navigation cues within the task wording. If the navigation bar has an item labeled "Order History," a task that says "find your order history" primes participants to scan for that exact label. The task has now become a visual search exercise rather than a test of information architecture. Instead, frame tasks in the language of the user's goal: "check whether your package has shipped," "find out when your item will arrive," "see what you ordered last week." These phrasings all test the same flow without contaminating the data with interface terminology.</p>
+
+<p>Each task should map explicitly to one or more research questions or usability hypotheses documented in the study objectives. This mapping should be recorded in the protocol itself, because it makes analysis more efficient and ensures that no objective goes untested. A simple mapping table works well:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Research Question / Hypothesis</th>
+      <th>Completion Criterion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Check whether your order has shipped</td>
+      <td>Can users locate order status without using search?</td>
+      <td>Participant reaches the order detail page showing tracking status</td>
+    </tr>
+    <tr>
+      <td>Apply a discount code at checkout</td>
+      <td>Is the discount code field discoverable during checkout?</td>
+      <td>Participant successfully applies a code and sees the reduced price</td>
+    </tr>
+    <tr>
+      <td>Update your delivery address</td>
+      <td>Can users edit account information without calling support?</td>
+      <td>Participant saves a new address and sees the confirmation message</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A well-designed task set includes both <strong>primary tasks</strong> and <strong>secondary tasks</strong>. Primary tasks test the core functionality that the product must support for users to accomplish their main goals — in an e-commerce context, this might be finding a product, adding it to a cart, and completing a purchase. Secondary tasks test peripheral or supporting functionality: saving a product for later, comparing two items, or accessing help documentation. Including secondary tasks matters because usability problems in peripheral features can erode trust and engagement even when core functionality works well.</p>
+
+<p>Completion criteria deserve particular attention. Without an explicit definition of what counts as task completion, two facilitators observing the same session may score it differently, making cross-session comparison unreliable. Completion criteria should describe a specific, observable state: a confirmation page appearing, a success message displaying, the participant navigating to a particular screen, or the participant explicitly stating they believe they have finished. Criteria should also address edge cases — for example, "if the participant reaches the confirmation page but the discount was not applied, the task is scored as a partial success and the facilitator records the specific failure point."</p>
+
+<p>The sequence of tasks within a session also requires deliberate design. Tasks should generally progress from simpler and less anxiety-inducing to more complex, allowing participants to acclimate to the think-aloud protocol before facing cognitively demanding scenarios. If task order is likely to introduce learning effects — where completing one task makes a related task easier — counterbalancing or randomizing task order across participants is advisable, with the randomization scheme documented in the protocol.</p>
+
+<p><strong>Developing Facilitator Scripts</strong></p>
+
+<p>The facilitator script is the protocol's most human-facing component. It governs every word the facilitator speaks during a session and is the primary mechanism for ensuring that every participant experiences the study in the same way. A common mistake is to write the script as a set of bullet-point reminders rather than verbatim text, leaving facilitators to improvise the actual words. This introduces the very variability the protocol is designed to eliminate. Every section of the script should be written in full sentences, ready to be read aloud.</p>
+
+<p>The script opens with an <strong>introduction</strong> that covers several essential points: the purpose of the study (explained in participant-friendly terms, without revealing specific hypotheses), the voluntary nature of participation and the right to withdraw at any time, the consent and recording process, and the think-aloud instructions. The think-aloud explanation deserves special care because most people find it unnatural to narrate their own behavior. An effective introduction uses an analogy and a brief practice exercise:</p>
+
+<pre><code>"Before we begin, I want to explain what we mean by 'thinking aloud.' 
+As you work through each task, I'd like you to say out loud whatever 
+is going through your mind — what you're looking at, what you're 
+expecting to happen, what's confusing or surprising. It's a bit like 
+narrating your own actions for someone who can't see the screen. 
+
+Let me give you a quick example. If I were searching for a restaurant 
+online, I might say: 'Okay, I'm typing the neighborhood into the search 
+bar... I see a list of results... I'm going to sort by rating because 
+I want a highly-rated place... this one looks good, I'll click on it.' 
+Any questions about that? 
+
+Let's do a quick practice. Can you tell me — thinking aloud — how you 
+would make a cup of tea?"</code></pre>
+
+<p>This approach accomplishes several things: it normalizes the behavior, provides a concrete model, and gives the facilitator an opportunity to coach the participant before the tasks begin, without any risk to the study data.</p>
+
+<p>The script must also provide <strong>scripted neutral responses</strong> to the predictable requests participants make during sessions. When a participant asks "Am I doing this right?" or "Should I click here?" the facilitator must neither confirm nor correct — doing so would introduce facilitator bias and potentially change the participant's behavior for the rest of the session. Standard neutral responses include:</p>
+
+<ul>
+  <li>"There are no right or wrong answers — we're testing the design, not you."</li>
+  <li>"What would you do if I weren't here?"</li>
+  <li>"Whatever feels natural to you."</li>
+  <li>"I can't answer that during the task, but please keep going and tell me what you're thinking."</li>
+</ul>
+
+<p>Having these responses written in the script prevents facilitators from inadvertently giving helpful hints under the social pressure of a participant who appears frustrated or confused. That frustration and confusion is precisely the data the study is trying to capture.</p>
+
+<p>When participants fall silent — absorbed in reading, scanning the interface, or simply thinking — the script should include <strong>think-aloud prompts</strong> to re-engage verbalization without steering the participant toward any particular action. Effective prompts are open and non-directional:</p>
+
+<ul>
+  <li>"What are you thinking right now?"</li>
+  <li>"Can you tell me what you're looking at?"</li>
+  <li>"What are you expecting to happen?"</li>
+  <li>"Talk me through what you're doing."</li>
+</ul>
+
+<p>The script should specify a timing threshold — for example, "if the participant has been silent for more than 15 seconds, use one of the following prompts" — so that facilitators apply prompts consistently rather than based on personal comfort with silence.</p>
+
+<p>The <strong>closing debrief</strong> section of the script is as important as the introduction. It is the facilitator's opportunity to collect reflective data that participants cannot provide in the moment — their overall impressions, the moments that surprised or frustrated them, and their comparison to other products they use. Debrief questions should be scripted to ensure consistent post-task data collection. Typical closing questions include:</p>
+
+<ul>
+  <li>"Overall, how would you describe your experience today?"</li>
+  <li>"Was there anything that confused or frustrated you? Can you describe it?"</li>
+  <li>"Was there anything that worked particularly well or felt satisfying to use?"</li>
+  <li>"If you could change one thing about what you experienced today, what would it be?"</li>
+  <li>"Is there anything you were expecting to find that you didn't?"</li>
+</ul>
+
+<p>Some protocols also administer a standardized post-session questionnaire — such as the System Usability Scale (SUS) or the Single Ease Question (SEQ) after each task — immediately before the debrief conversation. If so, the script should specify exactly when these instruments are administered and include verbatim instructions for completing them.</p>
+
+<p><strong>Planning Data Collection Methods</strong></p>
+
+<p>A usability study produces two distinct categories of data: quantitative metrics that can be measured and compared numerically, and qualitative data that captures the texture of participant experience in words, behaviors, and observations. A robust protocol plans for both, specifying in advance what will be collected, how, and by whom.</p>
+
+<p>The standard <strong>quantitative metrics</strong> for usability testing are well established and should be defined task by task in the protocol:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Definition</th>
+      <th>How It Is Recorded</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Task completion rate</td>
+      <td>The proportion of participants who successfully complete a task according to the defined completion criterion</td>
+      <td>Binary success/failure scored by the facilitator or note-taker at task end</td>
+    </tr>
+    <tr>
+      <td>Time on task</td>
+      <td>Elapsed time from when the facilitator finishes reading the task prompt to when the participant reaches the completion criterion or abandons the task</td>
+      <td>Stopwatch or timestamp from session recording</td>
+    </tr>
+    <tr>
+      <td>Error rate</td>
+      <td>The number of incorrect actions, wrong paths taken, or failed attempts before task completion or abandonment</td>
+      <td>Counted by note-taker from observation or session recording</td>
+    </tr>
+    <tr>
+      <td>Post-task satisfaction rating</td>
+      <td>Participant's self-reported ease or satisfaction, typically using the Single Ease Question (1–7 scale) or a similar instrument</td>
+      <td>Participant completes questionnaire immediately after each task</td>
+    </tr>
+    <tr>
+      <td>Overall usability score</td>
+      <td>Standardized post-session measure such as the SUS (0–100 scale derived from 10 Likert items)</td>
+      <td>Participant completes questionnaire at session end</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The protocol should specify exactly who records each metric and at what point in the session. Ambiguity about responsibility — "someone should time the tasks" — reliably leads to missed data.</p>
+
+<p><strong>Qualitative data sources</strong> require equally explicit planning. Think-aloud transcripts, either produced in real time by a note-taker or generated post-session from recordings, are the richest qualitative data source in usability testing — they reveal not just what participants do but why, in their own words. Observer notes capture behavioral data that audio and video recordings may miss: hesitation, physical leaning toward the screen, expressions of confusion or delight, and navigation detours that are difficult to describe verbally. Post-task and post-session questionnaires with open-ended items collect reflective commentary that participants are often better able to articulate after the fact than during the task.</p>
+
+<p>Assigning explicit roles and defining what each role records is one of the most practically important decisions in protocol design. A typical three-person usability study team includes:</p>
+
+<ul>
+  <li><strong>Facilitator:</strong> Reads the script, manages the session flow, administers tasks, uses neutral prompts, and conducts the debrief. The facilitator does <em>not</em> take notes during the session — doing so would split their attention and affect their ability to maintain a neutral, attentive presence.</li>
+  <li><strong>Note-taker:</strong> Records participant behavior, verbatim quotes, errors, and observations in real time, using a structured observation sheet that aligns with the task list. The note-taker should be in the room (or on the call) but not visible to the participant if possible, to minimize the feeling of being watched.</li>
+  <li><strong>Observer(s):</strong> Stakeholders, designers, or additional researchers who watch the session without interacting. Observers typically record their own impressions and questions, which are collected and discussed in a team debrief immediately after each session. The protocol should specify that observers do not speak during sessions and communicate with the facilitator only through a pre-agreed back-channel (e.g., a chat window) if absolutely necessary.</li>
+</ul>
+
+<p>Recording — screen capture, audio, video, or eye-tracking — must be addressed in the protocol before the first session, not as an afterthought. The protocol should specify which recording systems will be used, who is responsible for starting and stopping recordings, where recordings will be stored and for how long, and how participant consent to being recorded will be obtained and documented. In many jurisdictions, recording participants without explicit consent is legally prohibited; even where it is not, it is ethically required. The consent form and recording consent should be separate, clearly worded documents reviewed during the session introduction.</p>
+
+<p><strong>Session Logistics and Environment Planning</strong></p>
+
+<p>Even a methodologically perfect protocol can fail if the logistics are chaotic. Session logistics planning addresses the practical realities of running multiple back-to-back research sessions: time management, environment setup, equipment reliability, and team coordination.</p>
+
+<p><strong>Buffer time between sessions</strong> is consistently underestimated in early protocol designs. A session scheduled to run 60 minutes needs at least 15–20 minutes of buffer afterward for three distinct activities: resetting the prototype or environment to its starting state, conducting a brief team debrief while observations are fresh, and preparing for the next participant. Resetting the environment is particularly important for prototype-based studies — any state changes introduced by the previous participant (saved addresses, items in a cart, partially completed forms) must be cleared before the next participant begins. A written reset checklist, included as an appendix to the protocol, makes this process faster and more reliable.</p>
+
+<p>The <strong>physical or virtual environment setup</strong> should be documented in enough detail that a team member who did not attend the setup could configure the environment correctly from the protocol alone. For in-person studies, this includes: the room layout (where the participant sits, where the facilitator sits, where observers are positioned or separated by a one-way mirror), device placement and orientation, the starting state of the prototype (which screen, which browser, which account is logged in), and any ambient conditions that should be controlled (noise level, lighting, temperature). For remote studies, the setup documentation should cover: which video conferencing platform and version will be used, how screen sharing will be initiated, how the participant's screen and audio will be recorded, what the facilitator should do if the participant's technology fails, and which prototype URL or application build will be shared with participants.</p>
+
+<p>A <strong>pre-session checklist</strong> is one of the most effective tools for preventing last-minute logistics failures. It should be completed by a designated team member before each session — not just before the first session. Checklists tend to be most useful when they are organized by category and include explicit confirmation steps rather than vague reminders. A sample checklist structure might include:</p>
+
+<ul>
+  <li><strong>Equipment:</strong> Recording software is open and tested. Screen capture resolution and audio levels are confirmed. Backup recording device is ready. Note-taking sheets are printed or digital template is open.</li>
+  <li><strong>Prototype / product access:</strong> Prototype is reset to starting state. Test account credentials are confirmed. All task flows have been checked end-to-end in the current build.</li>
+  <li><strong>Consent and documentation:</strong> Consent forms are printed (or digital consent link is ready). Participant incentive is prepared. Participant's arrival time and contact details are confirmed.</li>
+  <li><strong>Team:</strong> All team members have reviewed today's task list. Observer roles have been briefed. Back-channel communication method is confirmed.</li>
+</ul>
+
+<p>Working through this checklist before every session, not just the first, prevents the kind of compounding errors — a prototype that is still mid-task from the previous participant, a recording that was never started — that are easy to overlook in the rush between sessions.</p>
+
+<p><strong>Pilot Testing the Protocol</strong></p>
+
+<p>No protocol, however carefully designed, survives first contact with a real participant without some revision. Pilot testing is the structured process of running one or more complete mock sessions before the first real participant session, with the explicit goal of finding and fixing problems in the protocol itself.</p>
+
+<p>A pilot session should be conducted with a colleague, friend, or recruited individual who is not a study participant and whose data will not be included in the analysis. The pilot participant should be someone whose background is roughly similar to the target participant profile — a subject matter expert playing the role of a first-time user introduces different problems than a genuine novice would. The pilot should be run exactly as a real session would be run: the full facilitator script is used, all recording systems are active, note-takers observe and record, and the full debrief is conducted at the end.</p>
+
+<p>The pilot serves as a validation test for every element of the protocol simultaneously. Task wording that seemed clear during protocol writing may prove confusing in practice — participants may interpret a scenario differently than intended, or may find a task so easy or so difficult that it provides no useful data. Time estimates for tasks are almost always wrong until calibrated against a real attempt; the pilot allows the team to confirm whether the session can be completed within the scheduled time or whether tasks need to be cut, simplified, or reordered.</p>
+
+<p>After the pilot, the team should debrief systematically, reviewing each element of the protocol against what actually happened:</p>
+
+<ul>
+  <li>Were any task wordings misinterpreted? How should they be revised?</li>
+  <li>Were any tasks too easy or too trivial to generate useful behavioral data?</li>
+  <li>Were any tasks so difficult that the pilot participant could not make any progress? Does this reflect a real usability problem in the design, or does it reflect a task design problem?</li>
+  <li>Did the facilitator script feel natural and appropriately neutral, or did any language feel stilted, leading, or confusing?</li>
+  <li>Did all recording systems function correctly? Were there any audio, video, or screen capture issues?</li>
+  <li>Was the session timing accurate? Does the overall session length fit within the scheduled slot?</li>
+  <li>Were the note-taking sheets or templates adequate to capture the observations that emerged?</li>
+</ul>
+
+<p>All changes made after the pilot — including revised task wording, deleted or added tasks, updated timing estimates, and corrected logistics — should be documented in a change log appended to the protocol. This log creates a clear record of the final, approved protocol version and ensures that no team member accidentally uses a pre-pilot draft during the real study sessions. Version-controlling the protocol document (using a shared document platform with version history, or a simple naming convention like "Protocol_v1_post-pilot") is a straightforward way to maintain this record.</p>
+
+<p>If the pilot reveals significant problems — multiple misunderstood tasks, a session that runs far over time, or a fundamental mismatch between the tasks and the prototype's current state — a second pilot may be warranted before the study begins. The cost of an additional pilot session is trivial compared to the cost of discovering mid-study that the protocol is generating unusable data.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full protocol design lifecycle from structure through pilot testing. The facilitator script examples and table-formatted quantitative metrics are particularly useful for students building their first protocol. Consider pairing this content with a downloadable protocol template and a sample observation sheet for note-takers.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

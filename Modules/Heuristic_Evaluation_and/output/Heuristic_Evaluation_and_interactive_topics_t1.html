@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Heuristic Evaluation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to Heuristic Evaluation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Heuristic Evaluation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Heuristic Evaluation (HE) is one of the most widely used and practically accessible methods in the usability professional's toolkit. At its core, it is a structured inspection technique in which one or more evaluators systematically examine a user interface and judge its compliance against a set of recognized usability principles — commonly referred to as <strong>heuristics</strong>. Unlike a user test, where real end users attempt representative tasks while observers record difficulties, heuristic evaluation is an expert-driven activity: the evaluators themselves act as surrogates for end users, drawing on their knowledge of human behavior, interface conventions, and usability principles to anticipate where real users are likely to struggle. Understanding what HE is, where it came from, when to apply it, and what it can and cannot do is essential before attempting to conduct or interpret one.</p>
+
+<p><strong>What Is Heuristic Evaluation?</strong></p>
+
+<p>The most important conceptual distinction to grasp immediately is that heuristic evaluation is an <em>inspection method</em>, not a <em>user test</em>. In a usability test, real members of the target audience interact with a product, and problems are observed as they occur naturally. In a heuristic evaluation, no end users are present at all. Instead, trained evaluators walk through the interface — examining screens, flows, interactions, and feedback mechanisms — and identify elements that violate or comply with established usability principles. Each violation is recorded as a usability problem and typically assigned a severity rating.</p>
+
+<p>Because evaluators are standing in for users rather than observing them, the quality of an HE is tightly coupled to the evaluator's expertise. A usability specialist who deeply understands cognitive load, mental models, error recovery, and interface conventions will surface problems that a casual observer would overlook entirely. Research by Jakob Nielsen consistently showed that <strong>usability specialists find roughly twice as many problems</strong> as non-specialists performing the same evaluation. This does not mean novices cannot participate — it means the method rewards investment in evaluator skill and, when novices are used, requires that their findings be interpreted with appropriate caution.</p>
+
+<p>A key practical virtue of HE is its flexibility with respect to design fidelity. The method can be applied at virtually any stage of the design process:</p>
+
+<ul>
+  <li><strong>Paper prototypes and wireframes:</strong> Even rough sketches can be evaluated. The evaluator examines the layout, labeling, and implied flow without needing working functionality.</li>
+  <li><strong>Interactive prototypes:</strong> Mid-fidelity prototypes with clickable paths allow evaluators to assess transition feedback, error handling, and interaction sequencing.</li>
+  <li><strong>Fully implemented products:</strong> Live software, websites, or applications can be evaluated, including edge cases, error states, and help systems that are often absent from earlier prototypes.</li>
+</ul>
+
+<p>This stage-agnosticism makes HE especially attractive in fast-moving development environments. A team can get structured, actionable feedback on a concept before a single line of production code is written, dramatically reducing the cost of discovering and fixing problems.</p>
+
+<p>Relative to laboratory usability testing — which requires recruiting participants, scheduling sessions, staffing observers, and sometimes renting dedicated testing facilities — heuristic evaluation is <strong>fast and inexpensive</strong>. A typical HE with three to five evaluators can be completed in a day or two of evaluation effort, with findings consolidated shortly thereafter. This speed makes it realistic to run multiple rounds of evaluation across a project lifecycle rather than relying on a single, high-stakes test.</p>
+
+<p><strong>Origins and Context</strong></p>
+
+<p>Heuristic evaluation was introduced by Jakob Nielsen and Rolf Molich in 1990 and subsequently refined through empirical research that analyzed large collections of real usability problems identified across diverse interfaces. The critical insight driving the method's development was that usability problems are not random — they cluster around a relatively small set of recurring interface failures. If those failure categories could be captured as explicit principles, evaluators could use them as a structured checklist to guide systematic inspection.</p>
+
+<p>Early versions of the heuristics were broader and more numerous — some formulations included dozens of principles. Through analysis of which principles actually mapped onto real usability problems with consistency and explanatory power, Nielsen's <strong>1994 refinement</strong> distilled the list into ten heuristics. This consolidation was deliberate: a shorter, more memorable list is more usable in practice. Evaluators can hold ten principles in working memory across an evaluation session; they cannot practically apply forty.</p>
+
+<p>The ten heuristics are intentionally expressed at a high level of abstraction. Principles such as "visibility of system status" or "error prevention" are not tied to any specific platform, technology, or interaction paradigm. This generality is a feature, not a shortcoming. It means the same ten heuristics can be applied coherently to a desktop application, a mobile app, a voice interface, an in-vehicle infotainment system, or a complex enterprise dashboard. The evaluator's job is to interpret each heuristic in the context of the specific interface being examined and ask whether, and how well, the design satisfies the principle.</p>
+
+<p>It is worth noting that the heuristics were <em>empirically derived</em> rather than theoretically prescribed. They were not invented by reasoning from first principles about what good design ought to look like; they were discovered by examining what actually goes wrong when real people use real systems. This empirical grounding gives them practical credibility and helps explain why they have remained relevant across decades of rapid technological change.</p>
+
+<p><strong>When to Use Heuristic Evaluation</strong></p>
+
+<p>HE's flexibility means it can contribute meaningfully at multiple points in a product's lifecycle, though the nature and focus of the evaluation naturally shifts depending on where in the process it occurs.</p>
+
+<ul>
+  <li><strong>Early-stage evaluation (concepts and low-fidelity prototypes):</strong> At this stage, the most valuable thing HE can surface is <em>structural</em> problems — issues with information architecture, navigation models, conceptual organization, and major interaction paradigms. Catching a fundamentally flawed navigation structure at the wireframe stage costs a fraction of what it costs to restructure it after development. Evaluators examining early prototypes should focus especially on heuristics related to match between the system and the real world, user control and freedom, and consistency and standards.</li>
+  <li><strong>Mid-fidelity evaluation (interactive prototypes):</strong> Once clickable paths exist, evaluators can probe interaction-level concerns: does the system provide adequate feedback when users take actions? Are error messages clear and helpful? Is the sequence of steps required to complete tasks logical? This is also a good stage to examine whether affordances — visual cues about how interface elements behave — are present and unambiguous.</li>
+  <li><strong>Post-launch evaluation (live product):</strong> Evaluating a shipped product with HE serves a different purpose. Rather than preventing problems from reaching users, the goal is to catalog existing issues, prioritize them, and inform an iterative improvement roadmap. Post-launch HE can also be valuable when a product is being redesigned: it provides a structured audit of what is currently broken, which helps scope and justify the redesign effort.</li>
+</ul>
+
+<p>Across all these stages, a crucial principle governs appropriate use of HE: <strong>it complements rather than replaces user testing</strong>. The two methods surface different classes of problems with different mechanisms. HE is good at identifying clear violations of established principles — things that are objectively inconsistent, confusing, or contrary to convention. User testing is good at revealing problems that only emerge when real people with real goals, real prior experiences, and real misunderstandings encounter the system. Some of the most consequential usability failures — a mental model mismatch, a misleading label that users in a specific domain interpret differently than designers intended, a workflow that breaks down under realistic data conditions — are essentially invisible to heuristic evaluators and only become apparent when observed in user testing. A mature usability practice uses both.</p>
+
+<p><strong>Advantages and Limitations</strong></p>
+
+<p>HE's advantages are substantial and help explain its enduring popularity:</p>
+
+<ul>
+  <li><strong>No user recruitment required:</strong> This is the most immediate practical advantage. Recruiting representative participants for usability testing is time-consuming, expensive, and sometimes logistically difficult (especially for specialized or hard-to-reach user populations). HE requires only evaluators, making it feasible even under tight constraints.</li>
+  <li><strong>Speed:</strong> A complete evaluation cycle — briefing evaluators, individual inspection sessions, and debriefing to consolidate findings — can realistically be completed in one to two days. This makes HE compatible with agile sprint cycles and rapid iteration schedules.</li>
+  <li><strong>Low cost:</strong> With no participant incentives, no facility rental, and minimal scheduling overhead, HE is among the most economical formal usability methods available.</li>
+  <li><strong>Applicable to any fidelity:</strong> As described above, HE works on sketches, wireframes, prototypes, and finished products alike.</li>
+  <li><strong>Produces structured, actionable output:</strong> Because findings are tied to specific heuristics and assigned severity ratings, HE produces a prioritized list of issues that development teams can act on directly.</li>
+</ul>
+
+<p>At the same time, HE carries real limitations that practitioners must acknowledge:</p>
+
+<ul>
+  <li><strong>Evaluator expertise dependency:</strong> The quality of an HE is only as good as the evaluators conducting it. Less experienced evaluators tend to report more false positives (flagging things that are not actually problems) and miss genuine issues that require deeper knowledge of user behavior to anticipate. Organizations that use HE without investing in evaluator expertise risk getting a false sense of security from a superficial inspection.</li>
+  <li><strong>Missed authentic-use problems:</strong> Evaluators examine the interface in a deliberate, analytical mode that is fundamentally different from how users experience it. Problems that arise from time pressure, emotional state, divided attention, domain knowledge gaps, or unusual task sequences are difficult to replicate through inspection alone. A button label that seems perfectly clear to an evaluator examining it in isolation may be consistently misunderstood by users who encounter it mid-task with a different cognitive frame.</li>
+  <li><strong>False positives and evaluator bias:</strong> Evaluators sometimes flag issues that reflect personal preferences or idiosyncratic interpretations of heuristics rather than genuine usability problems. This is a particular risk when evaluators are not sufficiently familiar with the target user population and its specific conventions or expectations.</li>
+  <li><strong>Diminishing returns from a single evaluator:</strong> Research on HE consistently shows that a single evaluator, even an expert, finds only a fraction of the problems present in a system. Nielsen's studies suggest that <strong>five evaluators</strong> collectively identify approximately 75% of usability problems — a substantial improvement over what any one evaluator finds alone. This means HE should almost always be conducted with multiple evaluators, and their findings aggregated, to achieve useful coverage.</li>
+</ul>
+
+<p>The relationship between number of evaluators and problem discovery rate is worth examining concretely. The table below illustrates the approximate cumulative problem discovery rate as evaluators are added, based on Nielsen's empirical findings:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Number of Evaluators</th>
+      <th>Approximate % of Usability Problems Found</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>~35%</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>~50%</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>~60%</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>~70%</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>~75%</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>~85–90%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The pattern follows a classic diminishing returns curve. Going from one to five evaluators nearly doubles problem discovery; going from five to ten adds meaningful but proportionally smaller gains. For most practical projects, three to five evaluators represents a reasonable balance between thoroughness and resource investment. Crucially, evaluators should conduct their inspections <em>independently</em> before comparing notes — if evaluators collaborate in real time, they tend to anchor on each other's observations, reducing the diversity of problems surfaced.</p>
+
+<p>In summary, heuristic evaluation is a powerful, flexible, and cost-effective tool that belongs in every design team's usability practice. It is best understood not as a replacement for other methods but as a complementary technique: rapid, expert-driven, and capable of identifying a broad range of interface problems efficiently — particularly when applied by skilled evaluators, used in multiples of three to five, and paired with user testing to fill the gaps that expert inspection alone cannot address.</p>
+        <div class="notes"><strong>Notes</strong>The diminishing returns table values are based on Nielsen&#39;s published empirical research on HE evaluator aggregation. The approximate percentages are well-established in the usability literature and appropriate for instructional use. Instructors may wish to note that these figures vary somewhat across studies and interface types, and that the &quot;5 evaluators&quot; figure is a general guideline rather than a universal law.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluation Documentation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Evaluation Documentation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Evaluation Documentation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Evaluation documentation is the formal record of how a usability evaluation was conducted, what was discovered, and how those discoveries shaped the design. It serves as evidence that the design process was grounded in real user behaviour rather than assumption, and it creates a traceable chain from observation to design decision. Strong evaluation documentation allows anyone reading the report — a collaborator, a client, an assessor, or a future team member — to understand exactly what was tested, who was involved, what happened, and what changed as a result. Done well, it transforms raw session notes and recordings into a coherent, reasoned account of a design's evolution.</p>
+
+<p>Evaluation documentation typically covers four interconnected areas: the methodology used, the findings produced, the design changes those findings motivated, and an honest reflection on the evaluation's limitations. Each area requires a different kind of writing and a different kind of thinking, but together they form a complete picture of the evaluation cycle.</p>
+
+<p><strong>Documenting Evaluation Methodology</strong></p>
+
+<p>The methodology section answers the question: <em>what did you do, and why did you do it that way?</em> It is not sufficient to simply name the evaluation method. A reader needs to understand the method well enough to judge whether it was appropriate for the stage of design and whether the findings it produced are trustworthy. This requires three things: a clear definition of the method, a justification for its selection, and a precise description of how it was implemented.</p>
+
+<p>Begin by naming and defining the evaluation method. Evaluation methods vary considerably in their assumptions, procedures, and outputs. A <strong>think-aloud usability test</strong> involves participants completing tasks while verbalising their thoughts, producing rich qualitative data about confusion and mental models. A <strong>heuristic evaluation</strong> involves trained evaluators inspecting an interface against a set of established usability principles, producing expert-judgement findings without direct user involvement. A <strong>cognitive walkthrough</strong> steps through a task sequence asking whether users would know what to do at each step. Each method has a distinct identity, and conflating them — or describing only part of one — leaves the reader unable to evaluate the work's rigour.</p>
+
+<p>After defining the method, explain why it was appropriate at this particular stage of the project. Different evaluation methods suit different stages of development. Early in a project, when a prototype is low-fidelity or incomplete, heuristic evaluation can identify fundamental structural problems without the overhead of recruiting participants. Later, when a higher-fidelity prototype exists, think-aloud testing with representative users produces findings that reflect real-world behaviour more directly. If you used a think-aloud test with a paper prototype at mid-fidelity, say explicitly that you chose this method because the prototype was sufficiently interactive to support task completion but not so polished that participants would hesitate to criticise it. Justification is not padding — it demonstrates methodological awareness.</p>
+
+<p>Next, describe the participants. This includes how many people took part, how they were recruited, what criteria qualified them for inclusion, and what ethical protocols were followed. Recruitment criteria might include factors such as prior experience with similar software, age range, accessibility needs, or domain expertise. Ethical protocols typically include obtaining informed consent, explaining the right to withdraw without consequence, clarifying that the evaluation tests the design and not the participant, and describing how data will be stored and anonymised. Even in a student or academic context these protocols matter, and omitting them from the documentation implies they were not followed.</p>
+
+<p>An example participants description might read: <em>Five participants were recruited through a university mailing list. Inclusion criteria required that participants used a smartphone for at least one hour per day and had made an online purchase within the previous three months. All participants provided written informed consent before the session began. They were informed that participation was voluntary and that they could withdraw at any time. No personally identifiable information was recorded; participants were assigned codes (P1 through P5) used throughout the data.</em> This level of detail gives the reader confidence that the sample was purposeful and that ethical obligations were met.</p>
+
+<p>Finally, specify the tasks, scenarios, or heuristics used. If you conducted user testing, list the tasks participants were asked to complete and include the exact wording used, since wording influences behaviour significantly. Vague instructions such as "find something to buy" produce different behaviour than precise ones such as "you want to purchase a medium blue cotton t-shirt for £25 or less — please find and add one to your basket." If you used scenarios, describe the fictional context you provided to ground the tasks in realistic motivation. If you conducted a heuristic evaluation, name the heuristic set used (for example, Nielsen's ten usability heuristics) and note any modifications. Including the actual task list or heuristic set as an appendix, with a summary in the main body, is good practice.</p>
+
+<p><strong>Presenting Evaluation Findings</strong></p>
+
+<p>The findings section is where raw data becomes meaningful. Its purpose is to communicate clearly and honestly what was observed and what that means, without conflating the two. The most important discipline in writing findings is the consistent separation of <strong>factual observations</strong> from <strong>interpretive conclusions</strong>. An observation is something that could have been captured on video: a participant clicked the wrong button, a participant paused for twelve seconds on a particular screen, a participant said "I'm not sure where to go from here." An interpretation is a claim about why that happened or what it means: the participant was confused because the call-to-action lacked visual prominence.</p>
+
+<p>Mixing observation and interpretation without signalling the distinction makes findings harder to challenge, verify, or build on. The cleaner approach is to state the observation first, then offer the interpretation explicitly framed as such. For example: <em>Three of the five participants attempted to use the search bar before noticing the category menu (observation). This suggests the search bar's position at the top of the viewport made it the dominant navigational affordance, while the category menu's location in the sidebar was not perceived as a primary entry point (interpretation).</em></p>
+
+<p>Quantitative data should be presented with appropriate metrics. If you measured task completion, report the number and proportion of participants who completed each task successfully. If you recorded time-on-task, report median times rather than means when the sample is small, since means are distorted by outliers. Error frequencies — the number of times participants made a specific mistake — should be counted and reported per task. Presenting quantitative findings in a structured table makes patterns immediately visible.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Participants Completing (n=5)</th>
+      <th>Completion Rate</th>
+      <th>Median Time (seconds)</th>
+      <th>Error Frequency</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Find and add a product to basket</td>
+      <td>5</td>
+      <td>100%</td>
+      <td>42</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Apply a discount code at checkout</td>
+      <td>3</td>
+      <td>60%</td>
+      <td>87</td>
+      <td>11</td>
+    </tr>
+    <tr>
+      <td>Locate the returns policy</td>
+      <td>2</td>
+      <td>40%</td>
+      <td>134</td>
+      <td>7</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A table like this immediately communicates where the significant problems lie. A 40% completion rate on a task that should be straightforward, combined with high error frequency and long median time, signals a serious usability problem that warrants investigation and design response.</p>
+
+<p>Qualitative feedback — verbal comments made during the session, answers to post-task questions, or responses in a debrief — should be used as supporting evidence for the interpretive claims you make. Participant quotes are particularly powerful because they convey the emotional and cognitive experience of using the design in the user's own words. However, they must be anonymised to protect participant privacy. Replace names and any identifying details with participant codes. A well-chosen quote can anchor an abstract finding in lived experience: <em>"I didn't even notice there was a code field until I'd already clicked 'pay'" (P3).</em> This quote, placed alongside the quantitative finding that only 60% of participants successfully applied a discount code, makes the problem vivid and credible without requiring the reader to imagine it.</p>
+
+<p>Avoid cherry-picking quotes that support a predetermined conclusion. If participants gave contradictory feedback — some finding a feature useful, others finding it confusing — document both responses and reflect on what might explain the divergence. Honest presentation of mixed findings is a mark of methodological integrity.</p>
+
+<p><strong>Linking Evaluation Findings to Design Iterations</strong></p>
+
+<p>An evaluation report that stops at findings is incomplete. The purpose of evaluation in a user-centred design process is to inform design decisions, and the documentation must make those connections explicit. This section explains what changed in the design as a direct result of the evaluation, and why.</p>
+
+<p>For each significant usability problem identified, describe the problem clearly, then describe the design change made in response. The description should be specific enough that a reader could look at the before and after states of the design and understand what changed and why. Vague statements like "we improved the checkout flow" are not sufficient. A clear statement looks like this: <em>Three of five participants failed to locate the discount code field before completing payment (Task 2, 60% completion rate). In response, the discount code input was relocated from a collapsed accordion element beneath the order summary to a persistently visible field immediately above the payment button, accompanied by a label reading "Have a discount code? Enter it here."</em> This statement names the problem, cites the evidence, describes the change, and implies the rationale — all in a single, traceable passage.</p>
+
+<p>Not every finding will, or should, result in a design change. Resources are finite, some problems are minor, some fall outside the scope of the current iteration, and occasionally a finding reflects a participant characteristic rather than a genuine design flaw. When a finding did not produce a design change, document this explicitly and provide a reasoned justification. Silence is not justification. If you decided not to act on a finding, say so and explain why. For example: <em>P2 expressed difficulty reading the body text and suggested increasing the font size. This was noted but not actioned in the current iteration because the existing font size (16px) meets WCAG AA contrast requirements and all other participants read the text without difficulty. The participant's comment may reflect individual visual acuity rather than a systemic design problem, but the finding will be monitored in future evaluations.</em> This response shows that the finding was taken seriously, evaluated against evidence, and handled with appropriate caution rather than dismissed.</p>
+
+<p>To reinforce traceability — the ability to follow a finding forward to a design decision and backward from a design decision to its evidential basis — use explicit cross-references between the evaluation and design sections of your documentation. Reference specific findings by task number, participant code, or finding identifier when describing design changes in the design iteration section. Conversely, in the evaluation findings section, note where a finding connects to a design iteration already documented elsewhere. This bidirectional referencing means that any reader entering the documentation at any point can navigate to the relevant evidence or decision without having to read the entire document linearly.</p>
+
+<p>Cross-referencing also demonstrates that the design process was responsive rather than arbitrary. When a design change can be traced directly to an observed problem, it is much easier to defend that change to a stakeholder or assessor than when the rationale exists only in the designer's memory.</p>
+
+<p><strong>Reflecting on Evaluation Limitations</strong></p>
+
+<p>Every evaluation has limitations. A limitations section does not undermine the value of the work — it demonstrates critical thinking and intellectual honesty, and it helps future evaluators and designers understand the conditions under which the findings should be interpreted. Omitting a limitations discussion implies either that the evaluation was perfect (implausible) or that its constraints were not considered (problematic).</p>
+
+<p>Identify limitations specifically rather than generically. Generic statements like "the sample size was small" say very little. A specific limitation statement identifies the particular constraint, explains what it means for the findings, and connects it to the evaluation's actual design. For example: <em>All five participants were undergraduate students aged 19–23 recruited from a single university department. This means the sample lacks age diversity and may not represent the intended user population, which includes adults aged 30–60 with varying levels of digital literacy. Findings related to navigation confidence and error recovery behaviour may therefore underestimate the difficulty that less technically fluent users would experience.</em></p>
+
+<p>Common categories of limitation include participant recruitment, task design, and evaluation environment. <strong>Recruitment limitations</strong> arise when the participant sample does not fully represent the target user population — due to convenience sampling, small numbers, demographic homogeneity, or the exclusion of users with specific accessibility needs. <strong>Task design limitations</strong> arise when the tasks used in the evaluation do not adequately cover the range of actions real users would perform, when task wording unintentionally guides participants toward or away from certain behaviours, or when the scenario provided is not realistic enough to elicit genuine user behaviour. <strong>Environmental limitations</strong> arise when the evaluation setting — a quiet lab, a video call, a screen-share session — differs meaningfully from the real-world context in which the product would be used, potentially suppressing behaviours like distraction, interruption, or the use of multiple devices.</p>
+
+<p>After identifying limitations, explain how they may have influenced the findings. This is the analytical step that transforms a list of problems into a meaningful discussion. If the evaluation was conducted over video call rather than in person, consider how the absence of physical co-presence might have made it harder to observe non-verbal cues, or how technical difficulties might have affected participant performance. If tasks were completed in a fixed order, consider whether earlier tasks might have taught participants skills or orientations that influenced their performance on later tasks (a learning effect).</p>
+
+<p>Finally, suggest how future evaluations could address these limitations given more time or resources. This forward-looking reflection is constructive rather than merely self-critical. Suggestions might include recruiting a larger and more demographically diverse sample, conducting sessions in the environments where the product would actually be used (contextual inquiry), randomising task order across participants to control for learning effects, or including participants with disabilities to assess accessibility more thoroughly. These suggestions do not need to be exhaustive, but they should be plausible and directly responsive to the limitations identified.</p>
+
+<p>Taken together, the four components of evaluation documentation — methodology, findings, design links, and limitations — create a document that is simultaneously a record, an argument, and a reflection. It records what happened rigorously enough that it could be understood and partially replicated. It argues that the design decisions made were grounded in evidence. And it reflects honestly on the conditions under which the evidence was gathered. This combination is what distinguishes professional, user-centred design documentation from a superficial account of activities completed.</p>
+        <div class="notes"><strong>Notes</strong>Covers all four subtopic clusters: methodology documentation, findings presentation, linking findings to design iterations, and limitations reflection. Includes a worked HTML table for quantitative findings, participant quote examples, cross-referencing guidance, and specific worked examples for each major concept. No headings used; structure is conveyed through bold labels and paragraph flow as required.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

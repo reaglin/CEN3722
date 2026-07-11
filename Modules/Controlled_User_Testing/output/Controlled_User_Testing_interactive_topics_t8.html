@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Compiling Structured Results for Analysis</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Compiling Structured Results for Analysis</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Compiling Structured Results for Analysis</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>After conducting usability testing sessions, the raw material you have collected — spreadsheets of timing data, pages of observation notes, video recordings, think-aloud transcripts, and questionnaire scores — represents potential insight, not yet knowledge. The work of converting that material into knowledge happens during analysis and reporting. This process demands discipline: a systematic approach to organizing data, an honest eye for distinguishing genuine usability problems from statistical noise, and the craft to communicate findings so clearly that stakeholders can act on them with confidence. Each stage of this process builds on the last, and shortcuts at any stage undermine the credibility of everything that follows.</p>
+
+<p><strong>Organizing Raw Data After Testing</strong></p>
+
+<p>The foundation of trustworthy analysis is a clean, complete, and well-organized data archive. Before any interpretation begins, every piece of collected data must be located, labeled, and stored in a structure that supports retrieval and cross-referencing. Disorganized data leads directly to errors in analysis — missed observations, mislabeled participants, and conclusions drawn from incomplete evidence.</p>
+
+<p>All quantitative data — task completion outcomes, time-on-task measurements, error counts, and questionnaire scores — should be entered into a single shared spreadsheet. The spreadsheet should be organized so that each row represents one participant and each column represents one measured variable. This layout, sometimes called a <em>tidy data</em> format, makes it straightforward to calculate averages, sort by task, filter by participant group, and generate charts. An example structure might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Participant ID</th>
+      <th>Session Date</th>
+      <th>Task 1 Completed</th>
+      <th>Task 1 Time (s)</th>
+      <th>Task 2 Completed</th>
+      <th>Task 2 Time (s)</th>
+      <th>SUS Score</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>P01</td>
+      <td>2024-03-10</td>
+      <td>Yes</td>
+      <td>47</td>
+      <td>No</td>
+      <td>—</td>
+      <td>72.5</td>
+    </tr>
+    <tr>
+      <td>P02</td>
+      <td>2024-03-10</td>
+      <td>Yes</td>
+      <td>63</td>
+      <td>Yes</td>
+      <td>88</td>
+      <td>65.0</td>
+    </tr>
+    <tr>
+      <td>P03</td>
+      <td>2024-03-11</td>
+      <td>No</td>
+      <td>—</td>
+      <td>Yes</td>
+      <td>54</td>
+      <td>80.0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice that when a participant did not complete a task, time-on-task is left blank with a dash rather than filled with a zero or an estimate. A zero would falsely inflate the appearance of fast performance; a dash clearly signals that the value is absent because the task was not completed. This kind of precision in data entry prevents subtle distortions during later calculations.</p>
+
+<p>Qualitative data requires an equally deliberate approach. Observation notes taken during sessions should be compiled into a single document and labeled with both the participant ID and the session date before any editing or synthesis begins. If multiple team members took notes simultaneously during the same session, their records should be merged under the same label and distinguished by observer initials rather than overwritten. Transcripts of think-aloud audio or video should follow the same convention. A file named something like <code>P04_2024-03-12_Transcript_JR.docx</code> tells you immediately who was observed, when, and who produced the document.</p>
+
+<p>Video and audio recordings must be backed up to at least two separate locations — typically a team shared drive and a local hard drive — and each file should include a timestamp that corresponds to a session log. This timestamping is particularly valuable during analysis when a team member wants to locate the moment a specific incident occurred without scrubbing through an entire recording. A session log entry like <em>"P06 encountered the checkout error at approximately 14:32 into the recording"</em> saves significant time and ensures that evidence can be independently verified.</p>
+
+<p>Perhaps the single most important data management rule is this: <strong>never overwrite original files.</strong> All raw data files — unedited notes, original spreadsheet entries, unprocessed recordings — must be preserved exactly as they were created during testing. Any processed version (a cleaned spreadsheet, an annotated transcript, an edited highlight reel) should be saved as a new file in a clearly labeled folder. This discipline protects against accidental corruption of evidence and allows the team to return to primary sources at any point if a question arises about whether an analysis step introduced an error.</p>
+
+<p><strong>Identifying Usability Problems and Patterns</strong></p>
+
+<p>With data organized, the team can begin the analytical work of identifying genuine usability problems. The central challenge here is distinguishing signal from noise — separating issues that reflect real weaknesses in the design from observations that reflect individual differences, momentary confusion, or simple unfamiliarity with the task.</p>
+
+<p>The most reliable indicator of a genuine usability problem is <em>frequency across participants</em>. If seven out of eight participants struggled to locate the filter controls on a search results page, that pattern is compelling evidence of a design problem regardless of what any individual participant said about it. Conversely, if only one participant missed a feature that every other participant found instantly, the observation may reflect something specific to that individual — their prior experience, their testing environment, or even a moment of distraction — rather than a flaw in the interface. This does not mean single-participant observations should be discarded; they should be noted and examined more closely, but they require additional corroborating evidence before being reported as usability problems.</p>
+
+<p>Cross-referencing quantitative metrics with qualitative observations is the analytical technique that transforms numbers and notes into meaningful findings. Suppose the time-on-task data shows that participants spent an average of 3.5 minutes on Task 3, compared to under 90 seconds on the other three tasks. That number alone raises a flag, but it doesn't explain what happened. When you review the observation notes alongside those timing values, you might find that six of the eight participants navigated away from the correct page at least once while attempting Task 3 — a behavioral observation that explains the time spike and points directly to the navigational element that needs redesign. Quantitative data identifies <em>where</em> problems are occurring; qualitative data illuminates <em>why</em>.</p>
+
+<p>Severity ratings provide a structured way to prioritize findings. A usability problem that caused eight out of eight participants to fail a critical task is categorically more urgent than a problem that caused mild confusion for two participants on an optional feature. A commonly used severity framework considers two dimensions: <strong>frequency</strong> (how many participants encountered the issue) and <strong>impact</strong> (how severely it affected task completion, including whether it caused task failure, significant delay, or minor frustration). Multiplying or combining these dimensions produces a severity score that helps the team and stakeholders understand which problems should be addressed first. A simple version of such a framework might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Severity Level</th>
+      <th>Description</th>
+      <th>Typical Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Critical</td>
+      <td>Majority of participants failed to complete a task or made serious errors</td>
+      <td>Must be fixed before launch</td>
+    </tr>
+    <tr>
+      <td>Serious</td>
+      <td>Several participants had significant difficulty; task completion was delayed or compromised</td>
+      <td>High priority for next iteration</td>
+    </tr>
+    <tr>
+      <td>Moderate</td>
+      <td>Some participants experienced confusion or hesitation; task was eventually completed</td>
+      <td>Address in upcoming design cycle</td>
+    </tr>
+    <tr>
+      <td>Minor</td>
+      <td>Isolated or cosmetic issues; few participants affected; no impact on task success</td>
+      <td>Log for future consideration</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Critically, not every observation made during testing is a usability problem. When a participant comments that they prefer a different color scheme, or that they personally would rather the navigation be organized differently from convention, that is a preference — and preferences vary widely across individuals. A usability problem has a more specific definition: it is a characteristic of the design that prevents or impairs users from accomplishing their goals effectively and efficiently. Conflating personal preferences with usability problems leads to reports that are difficult to act on and that may even push design changes in the wrong direction. Analysts must maintain this distinction consistently throughout the synthesis process.</p>
+
+<p><strong>Structuring the Results Report</strong></p>
+
+<p>A usability test results report is a formal document, and its structure determines whether findings are accessible and actionable or merely comprehensive. A well-structured report does not force readers to dig through dense methodology to find out what they should do; it is organized to serve different audiences — from executives who need a quick summary to developers who need precise behavioral details.</p>
+
+<p>The <strong>executive summary</strong> is the most strategically important section of the report because it is the section that the most influential readers are most likely to actually read. It should be written last, after all other sections are complete, and it should do three things: state the purpose of the study in one or two sentences, identify the most critical findings in plain language, and summarize the highest-priority recommendations. It should never exceed one page. An executive summary that buries its most important finding in the fourth paragraph has failed its purpose.</p>
+
+<p>The <strong>study overview</strong> section serves as the methodological record. It documents the research questions the study was designed to answer, the characteristics of the participant sample (age range, relevant experience, how they were recruited), the tasks participants were asked to complete, the prototype or product version tested, the testing environment and any tools used, and the dates sessions were conducted. This section is the audit trail that allows a reader — or a future team member reviewing the report months later — to evaluate the generalizability of the findings and to replicate the study if needed. Precision matters here: rather than writing <em>"participants were experienced users,"</em> write <em>"participants had a minimum of two years of experience with e-commerce platforms and made at least four online purchases per month."</em></p>
+
+<p>The findings sections form the body of the report. A principle that improves the intellectual honesty of any research report is this: <strong>present evidence before conclusions.</strong> Rather than opening a finding with the conclusion — "The checkout flow is confusing" — open it with the evidence — "Six of eight participants attempted to edit their cart contents after reaching the payment screen, and five of those six did not find their way back to the cart successfully." The conclusion follows from the evidence, and the reader can evaluate for themselves whether the evidence warrants the conclusion. This approach builds trust in the report's credibility because it shows rather than simply asserts.</p>
+
+<p>The <strong>recommendations</strong> section translates findings into design guidance. Each recommendation should be specific enough that a designer or developer can implement it without further clarification, and it should be explicitly linked to the finding that supports it. A vague recommendation like "improve the navigation" is not actionable. A specific recommendation like "Add a persistent 'Back to Cart' link at the top of the payment screen, directly beneath the progress indicator, to address the six participants who lost their path back to the cart during checkout" gives the design team a precise target and the evidence that motivates it. The link between finding and recommendation must be traceable — ideally with a reference to the finding number or section — so that stakeholders can understand why each change is being proposed.</p>
+
+<p><strong>Presenting Quantitative Findings</strong></p>
+
+<p>Quantitative data gives a usability report its empirical backbone. Numbers communicate precision and allow comparisons across tasks, participant groups, and benchmark standards in ways that prose alone cannot. But numbers without context mislead as easily as they inform, so every quantitative finding requires careful framing.</p>
+
+<p>Task completion rate tables should always report both the raw count and the percentage so that readers can assess the absolute size of the evidence as well as the proportion. Reporting only that "75% of participants completed Task 2" obscures whether that percentage comes from 3 out of 4 participants or 30 out of 40. The table below illustrates a well-formed task completion summary:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Task Description</th>
+      <th>Completions (n)</th>
+      <th>Total Participants</th>
+      <th>Completion Rate (%)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Task 1</td>
+      <td>Find a product using search</td>
+      <td>8</td>
+      <td>8</td>
+      <td>100%</td>
+    </tr>
+    <tr>
+      <td>Task 2</td>
+      <td>Add item to wishlist</td>
+      <td>6</td>
+      <td>8</td>
+      <td>75%</td>
+    </tr>
+    <tr>
+      <td>Task 3</td>
+      <td>Complete checkout with a promo code</td>
+      <td>3</td>
+      <td>8</td>
+      <td>38%</td>
+    </tr>
+    <tr>
+      <td>Task 4</td>
+      <td>Locate order history</td>
+      <td>7</td>
+      <td>8</td>
+      <td>88%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Time-on-task data should be reported with both the mean and the range of observed values. The mean alone obscures individual variation that is often diagnostically meaningful. If the mean time-on-task for a given task is 2 minutes but the range is 45 seconds to 8 minutes, that spread reveals that some participants flew through the task while others struggled dramatically — a pattern that suggests the task has two distinct modes of interaction and may warrant further investigation. Standard deviation can be added when the team has a larger sample and wants to communicate variability more precisely, but for typical moderated usability studies with small samples (5–12 participants), mean and range are generally sufficient and more readily interpretable by non-statistician stakeholders.</p>
+
+<p>When reporting scores from standardized questionnaires such as the System Usability Scale (SUS), scores become most meaningful when placed alongside published benchmarks. A SUS score of 68 is the published average across a large corpus of products, and a score above 80.3 is associated with adjective ratings of "excellent." Without these reference points, a stakeholder reading a SUS score of 71 has no way to judge whether that represents a strong or weak result. The report should make these comparisons explicit:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Study Result</th>
+      <th>Benchmark / Reference</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mean SUS Score</td>
+      <td>71.25</td>
+      <td>68 = industry average (Bangor et al., 2008)</td>
+      <td>Slightly above average; rated "Good"</td>
+    </tr>
+    <tr>
+      <td>Task 3 Completion Rate</td>
+      <td>38%</td>
+      <td>Internal target: ≥ 80%</td>
+      <td>Critically below target; immediate redesign needed</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Every chart, graph, and data table in the report must carry a clear title and an explanatory caption. The caption should be written so that a reader who encountered the visual element in isolation — without reading the surrounding paragraphs — could still understand what is being shown and why it matters. A caption like <em>"Table 3. Task completion rates across all four tasks. Task 3 (completing checkout with a promo code) had the lowest completion rate at 38%, substantially below the team's target of 80%."</em> does the work of connecting the visual to the finding. Visuals without captions force the reader to do interpretive work that the author should have done, and in fast-reading contexts like executive briefings, captionless visuals are frequently misread or simply skipped.</p>
+
+<p><strong>Presenting Qualitative Findings and Recommendations</strong></p>
+
+<p>Qualitative findings give the numbers human context. They reveal the reasoning behind participant behavior, surface expectations the design failed to meet, and provide the narrative texture that makes a report persuasive rather than merely informative. The challenge with qualitative data is that it is inherently voluminous and variable — dozens of pages of notes and transcripts must be synthesized into findings that are both accurate and concise.</p>
+
+<p>The most effective organizational approach is to group qualitative findings into <em>themed sections</em> that correspond to major problem areas. Rather than presenting findings chronologically session by session or participant by participant (which reads like a diary rather than an analysis), the report should cluster related observations under a shared label that names the problem area. For example, themes might be labeled: <em>Navigation and Wayfinding, Form Completion Errors, Mental Model Mismatches, Error Recovery,</em> and <em>Positive Interactions Worth Preserving.</em> This thematic structure allows a reader to jump directly to the area most relevant to their work — a navigation designer can go straight to the wayfinding section — and it communicates that the team has synthesized the data rather than merely transcribed it.</p>
+
+<p>Direct participant quotes serve as primary evidence for attitudinal findings and reported expectations. A quote captures the participant's own words and carries a kind of authenticity that paraphrase cannot replicate. When a report states that "participants found the confirmation step confusing," that is an interpretation. When it states that "participants found the confirmation step confusing" and then cites a participant saying <em>"I wasn't sure if I had actually placed the order or just saved a draft — there was no obvious confirmation"</em> (P05), the interpretation is grounded in evidence that the reader can evaluate. Quotes should be selected because they are representative — meaning they express something that multiple participants communicated in some form — not because they are colorful or extreme. Using an outlier quote as if it represents the group is a form of misrepresentation.</p>
+
+<p><em>Critical incidents</em> — moments when something went significantly wrong during a session — deserve especially careful description. A critical incident should be narrated with enough specificity that a reader who was not present can form a clear mental picture of exactly what happened: what the participant was trying to do, what interface element they interacted with, what the system did in response, and what the consequence was for task completion. Compare these two versions of the same incident:</p>
+
+<ul>
+  <li><em>Vague version:</em> "One participant had trouble with the promo code field."</li>
+  <li><em>Specific version:</em> "P03 typed the promo code 'SAVE20' into the promo field and clicked Apply. The field cleared and displayed the message 'Code not found' in gray text at 11pt below the field. P03 did not see the error message, waited approximately 15 seconds, and then clicked 'Place Order' without the discount applied. After the order confirmation screen appeared, P03 said, 'Wait, did my discount go through? I don't see it anywhere.' The promo code error message was below the fold on P03's screen resolution and was not visible without scrolling."</li>
+</ul>
+
+<p>The specific version gives designers everything they need to understand and fix the problem: the error message's location, its visual weight, the viewport issue, and the downstream consequence of the failure. Vague descriptions force the development team to conduct their own investigation to reproduce a problem they should have been handed fully documented.</p>
+
+<p>Each design recommendation should be written as a specific, implementable action directly tied to a documented finding. Recommendations that float free of evidence feel like opinions; recommendations anchored to findings feel like conclusions. A useful structural template for writing recommendations is: <em>action verb + specific design element + rationale linked to finding.</em> For example:</p>
+
+<ul>
+  <li><strong>Finding:</strong> Six of eight participants failed to notice the promo code error message because it appeared below the fold and in low-contrast gray text (see Finding 3.2).</li>
+  <li><strong>Recommendation:</strong> Reposition the promo code error message to appear directly above the Apply button in high-contrast red text (minimum 4.5:1 contrast ratio), and scroll the viewport to bring the message into view automatically when an error occurs.</li>
+</ul>
+
+<p>This structure means that every stakeholder reading the recommendation — whether a visual designer, a front-end developer, or a product manager — receives both the what and the why in a single entry. Recommendations written this way can be directly transferred to a design backlog or sprint planning document without further translation, which is the ultimate measure of a well-constructed usability report.</p>
+
+<p>Taken together, these practices — rigorous data organization, disciplined pattern identification, structured reporting, evidence-led quantitative presentation, and specific qualitative synthesis — transform raw session data into a document that serves both as an honest record of what was observed and as a practical guide to what should change. A results report built on these foundations gives design teams and stakeholders alike the confidence to act.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic clusters in depth with worked examples, HTML tables, inline code for filenames, and comparative prose examples. The narrative flows continuously without headings per the formatting constraint. Tables use proper thead/tbody structure throughout.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

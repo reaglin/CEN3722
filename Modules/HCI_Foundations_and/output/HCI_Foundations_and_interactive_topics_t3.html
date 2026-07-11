@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Collaboration with Figma</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Design Collaboration with Figma</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Design Collaboration with Figma</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Figma has become one of the most widely adopted design tools in the technology industry, and for good reason: it brings designers, developers, product managers, and stakeholders into a single shared environment where work can happen simultaneously, transparently, and without the friction of emailing files back and forth. Whether you are designing a mobile app, a web dashboard, or a marketing landing page, Figma provides the canvas, the components, and the collaboration infrastructure to take an idea from a rough sketch all the way to a developer-ready specification — all inside a web browser. This topic walks through everything you need to know to get started with Figma in a team setting, from understanding what the tool actually is, to setting up your workspace, to using its specialized tools for brainstorming, UI design, and handing off finished designs to developers.</p>
+
+<p><strong>What Is Figma?</strong></p>
+
+<p>Figma is a cloud-based interface design and prototyping tool. Unlike older desktop applications such as Adobe XD or Sketch, Figma runs entirely inside a web browser. There is nothing to install, no license file to manage, and no risk of a teammate opening a file with an incompatible version of the software. You navigate to <em>figma.com</em>, sign in, and your entire design workspace — every file, every project, every version of every design you have ever saved — is immediately available from any computer with a browser and an internet connection.</p>
+
+<p>This browser-based architecture is not just a convenience feature; it is the foundation of what makes Figma genuinely collaborative. Because every file lives in the cloud rather than on someone's hard drive, multiple people can open the same file at the exact same moment and edit it simultaneously. You can watch a teammate's cursor move across the canvas in real time, see a component they are placing appear on screen as they drag it, and leave a comment on their work before they have even finished the current frame. This kind of live, multiplayer editing was essentially impossible in traditional desktop design tools and represents a fundamental shift in how design teams work.</p>
+
+<p>The range of people who use Figma professionally is broader than many expect. <strong>Designers</strong> use it to create wireframes, high-fidelity mockups, and interactive prototypes. <strong>Developers</strong> use it to inspect finished designs for exact measurements, colors, and typography before writing a single line of code. <strong>Product managers</strong> use it to map out user flows and gather stakeholder feedback. <strong>UX researchers</strong> use it to build simple prototypes for usability testing. Because everyone works in the same file rather than sharing static screenshots or PDFs, the risk of miscommunication between these roles is dramatically reduced.</p>
+
+<p>For students and educators, Figma offers an <strong>Education plan</strong> that unlocks all of the features of the paid Professional tier at no cost. This includes unlimited projects, full version history, advanced prototyping capabilities, shared component libraries, and access to Dev Mode — the developer handoff layer explained later in this topic. To qualify, you must verify your status using a school-issued email address. Once verified, you gain access to the same toolset that professional product teams at companies like Airbnb, Microsoft, Spotify, and Google use daily.</p>
+
+<p><strong>Setting Up the Education Team Workspace</strong></p>
+
+<p>When you first create a Figma account with a verified school email address, you become eligible to create or join an <strong>Education team workspace</strong>. A team workspace in Figma is a shared organizational container — think of it like a shared Google Drive folder, but purpose-built for design files. All members of the team can see every project inside it, open any file, and collaborate in real time without needing individual sharing permissions for each document.</p>
+
+<p>The verification process is straightforward. After signing up with your school email, Figma will prompt you to apply for the Education plan through their official verification page. Once approved — which typically happens within a few minutes to a day — your account is upgraded and you can create an Education team. You then invite your collaborators (classmates, teammates, or an instructor) by sending them a link or entering their email addresses. Anyone who joins using a verified school email also receives the Education plan benefits for free.</p>
+
+<p>Why does the Education plan matter in practice? The free Starter plan limits you to three projects and does not include full version history or advanced sharing features. With the Education plan, those restrictions disappear. <strong>Unlimited projects</strong> means your team can organize work into as many logical buckets as makes sense — one project per sprint, one per feature area, or one per course assignment. <strong>Full version history</strong> means Figma automatically saves a named, browsable record of every significant change to a file, which is invaluable when you want to compare an early wireframe to a polished mockup or recover work that was accidentally deleted. <strong>Advanced prototyping</strong> unlocks features like conditional interactions and variables, which let you simulate more realistic user flows beyond simple screen-to-screen navigation.</p>
+
+<p>From a workflow perspective, the team workspace also establishes a shared home for <strong>component libraries</strong> — reusable design elements like buttons, form fields, and navigation bars that any member of the team can pull into their own files. Publishing a shared library from the team workspace means that when one designer updates a component, everyone else on the team sees the update reflected in their files automatically, keeping the design language consistent across an entire project.</p>
+
+<p><strong>FigJam for Ideation and Brainstorming</strong></p>
+
+<p>Figma ships with a companion tool called <strong>FigJam</strong>, which is a digital whiteboard designed specifically for early-stage creative work. While Figma itself is optimized for precision — pixel-perfect layouts, exact typography, measured spacing — FigJam is intentionally loose and freeform, designed to encourage rapid idea generation without worrying about polish.</p>
+
+<p>In a FigJam canvas, team members can drop <strong>sticky notes</strong> in any color to capture individual ideas, drag in <strong>shapes and connectors</strong> to sketch system diagrams or user journey maps, paste in <strong>images and screenshots</strong> for reference, and write freehand with a drawing tool. The interface deliberately echoes the experience of gathering around a physical whiteboard, but with the obvious advantage that remote team members can participate equally. Every participant has their own named cursor visible to everyone else, so you can literally see who is placing which sticky note in real time.</p>
+
+<p>FigJam includes several features that go beyond a passive canvas to actively facilitate group participation. <strong>Cursor chat</strong> lets you type a message that floats next to your cursor, visible to everyone, without interrupting the flow of work — a lightweight way to ask a quick question or react to something without switching to a separate chat app. <strong>Stamps</strong> let you react to content on the canvas with emoji-like icons (a checkmark, a star, a fire symbol) so teammates can signal agreement or enthusiasm without derailing a session. <strong>Voting</strong> is a structured facilitation tool: the session organizer can enable a voting timer, every participant places a limited number of votes on the ideas they find most compelling, and when the timer expires FigJam tallies the results. This turns what might otherwise be an awkward or dominated discussion into a democratic, data-driven prioritization exercise.</p>
+
+<p>One of the most useful integration features is the ability to link a FigJam file directly to a Figma design file. Once a brainstorming session produces a prioritized set of ideas, you can embed a link in the FigJam board pointing to the Figma file where those ideas are being executed, and vice versa. This keeps ideation and implementation connected in a traceable way: anyone on the team can follow the thread from "here is the idea we voted on" all the way to "here is how it looks as a finished UI component."</p>
+
+<p><strong>Designing UI with Figma</strong></p>
+
+<p>When it is time to move from whiteboard thinking into actual interface design, Figma's main canvas is where the work happens. The foundational building block in Figma is the <strong>Frame</strong>. A Frame is essentially an artboard — a defined rectangular container that represents a screen or a section of an interface. Figma ships with preset frame sizes for common device types (iPhone 15, Android Large, desktop browser widths, tablet dimensions, and more), which means you can start designing for a specific target environment immediately without manually calculating pixel dimensions.</p>
+
+<p>Frames are also the structural equivalent of a <code>&lt;div&gt;</code> in HTML in a meaningful way: they can be nested inside each other, they support Auto Layout (Figma's version of flexbox, which automatically repositions child elements as content changes), and they define the boundaries within which your design lives. If you have ever been frustrated that a button label grew longer and broke a fixed-width design, Auto Layout solves that problem — the frame stretches to accommodate its contents according to rules you set, just like a flex container does in CSS.</p>
+
+<p><strong>Components</strong> are reusable design elements. You create a component once — say, a primary button with a label, a background color, and a corner radius — and then place <em>instances</em> of that component anywhere in your design. If you later decide the button's corner radius should be 8px instead of 4px, you change it in the main component and every instance updates automatically across every frame in your file. Components can have <strong>variants</strong> — predefined states such as Default, Hover, Pressed, and Disabled — which let you represent the full interactive lifecycle of a UI element in a single, organized component set. This mirrors how developers think about components in frameworks like React or Vue, making the handoff between design and engineering much more intuitive.</p>
+
+<p><strong>Interactive prototypes</strong> in Figma allow you to wire frames together so that clicking a button navigates to another screen, just as it would in a real app. You define interactions by drawing connection arrows between frames and specifying the trigger (a click, a hover, a drag) and the animation (an instant cut, a slide from the right, a fade). The resulting prototype can be opened in a full-screen presentation mode and shared with stakeholders or test participants via a URL — no engineering involvement required. For a user flow like "user taps Login → sees loading screen → arrives at Home Dashboard," a Figma prototype communicates the intended experience far more effectively than a static screenshot ever could.</p>
+
+<p>Figma's <strong>Community</strong> is a public library of files shared by designers around the world. You can search for UI kits for specific platforms (iOS, Material Design, Windows), complete template files for common interface patterns (onboarding flows, dashboards, e-commerce checkout screens), icon sets, illustration packs, and more. Duplicating a Community file into your own workspace gives you a fully editable starting point. Using a well-structured Community template for a course project means you are not reinventing foundational UI components — you are learning from how professional designers structure files while focusing your energy on the unique design decisions that actually matter for your specific project.</p>
+
+<p><strong>Comments</strong> are a native feature of the Figma canvas that serve as the primary channel for design feedback. Any collaborator — whether they have edit access or only view access — can click the comment tool, click anywhere on the canvas, and type a note. Comments appear as pinned numbered markers on the design, can be replied to in threads, and can be resolved when the feedback has been addressed. This means a full critique of a design can happen in one place without generating a separate email chain, a Slack thread, and a Google Doc that each contain different pieces of the same conversation.</p>
+
+<p><strong>Dev Mode: Bridging Design and Code</strong></p>
+
+<p>The final stage in most design workflows is the handoff to engineering — the point at which a developer needs to take a finished visual design and implement it in real code. Historically this was a painful, error-prone process. Developers would receive a flat image or a PDF, try to estimate spacing and font sizes visually, and produce code that looked slightly wrong in ways that were hard to articulate. Figma's <strong>Dev Mode</strong> is purpose-built to eliminate that friction.</p>
+
+<p>When a developer opens a Figma file in Dev Mode (toggled via a switch in the toolbar), the interface shifts to a developer-optimized view. Clicking on any element on the canvas — a button, a text label, a card, an icon — instantly displays a panel showing every property of that element in precise, implementation-ready terms:</p>
+
+<ul>
+  <li><strong>Spacing and dimensions:</strong> exact width, height, padding, and margin values in pixels (or whatever unit system the file uses)</li>
+  <li><strong>Typography:</strong> font family, font weight, font size, line height, letter spacing, and text alignment</li>
+  <li><strong>Color:</strong> fill and stroke colors in HEX, RGB, HSL, or HSB format, with opacity values</li>
+  <li><strong>Corner radius:</strong> border-radius values for rounded elements</li>
+  <li><strong>Effects:</strong> box-shadow and background-blur values expressed in CSS-compatible syntax</li>
+</ul>
+
+<p>Beyond raw property values, Dev Mode generates <strong>code snippets automatically</strong>. For a selected element, Figma can output ready-to-use CSS, iOS Swift UI declarations, or Android XML — the developer selects which language or framework they are working in and the snippet updates accordingly. For example, selecting a styled button might produce:</p>
+
+<pre><code>/* CSS */
+.primary-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 24px;
+  background-color: #3B5BDB;
+  border-radius: 8px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #FFFFFF;
+  box-shadow: 0px 4px 12px rgba(59, 91, 219, 0.4);
+}</code></pre>
+
+<p>This snippet is not guaranteed to be copy-paste production-ready in every case — it reflects what the design file specifies, and the developer still needs to integrate it into their actual codebase — but it provides an accurate, unambiguous starting point that eliminates guesswork about values and reduces the back-and-forth between design and engineering teams.</p>
+
+<p>Dev Mode also includes a <strong>version comparison</strong> feature. As a design evolves across multiple rounds of feedback and revision, Dev Mode can display a visual diff between two named versions of a file — highlighting exactly which elements changed, which were added, and which were removed. This is especially valuable when a developer has already built a first iteration and needs to understand the delta for a second sprint: rather than eyeballing two screenshots side by side, they can see precisely what is different and update only those parts of the codebase.</p>
+
+<p>Taken together, Figma's full feature stack — from the browser-based real-time canvas to FigJam's brainstorming tools, the UI design environment, and Dev Mode's handoff capabilities — forms a continuous pipeline. Ideas are captured in FigJam, translated into high-fidelity designs in Figma, prototyped and tested, refined through in-canvas comments, and finally handed to developers through Dev Mode, all within a single platform that every member of the team can access from any device at any time.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Primary Users</th>
+      <th>Key Capability</th>
+      <th>Figma Plan Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>FigJam Whiteboard</td>
+      <td>Whole team</td>
+      <td>Sticky notes, voting, cursor chat for ideation</td>
+      <td>Starter (limited) / Education (full)</td>
+    </tr>
+    <tr>
+      <td>Frames &amp; Auto Layout</td>
+      <td>Designers</td>
+      <td>Responsive screen containers that reflow content</td>
+      <td>All plans</td>
+    </tr>
+    <tr>
+      <td>Components &amp; Variants</td>
+      <td>Designers</td>
+      <td>Reusable UI elements with multiple states</td>
+      <td>All plans</td>
+    </tr>
+    <tr>
+      <td>Interactive Prototypes</td>
+      <td>Designers, PMs, Researchers</td>
+      <td>Clickable flows simulating real app navigation</td>
+      <td>Education / Professional</td>
+    </tr>
+    <tr>
+      <td>Shared Component Libraries</td>
+      <td>Design teams</td>
+      <td>Team-wide reusable design system published from workspace</td>
+      <td>Education / Professional</td>
+    </tr>
+    <tr>
+      <td>Comments</td>
+      <td>All stakeholders</td>
+      <td>Pinned feedback threads directly on the canvas</td>
+      <td>All plans</td>
+    </tr>
+    <tr>
+      <td>Dev Mode</td>
+      <td>Developers</td>
+      <td>Exact specs and auto-generated CSS/Swift/XML snippets</td>
+      <td>Education / Professional</td>
+    </tr>
+    <tr>
+      <td>Version History</td>
+      <td>Whole team</td>
+      <td>Named, browsable record of all design changes</td>
+      <td>Education / Professional</td>
+    </tr>
+  </tbody>
+</table>
+        <div class="notes"><strong>Notes</strong>Introduces Figma as the primary design and prototyping tool for the course project. Students set up an education team workspace and learn how Figma supports ideation, UI design, and design-to-code handoff. The CSS code example in the Dev Mode section is illustrative; actual output will vary depending on the design file&#39;s structure and the selected framework in Dev Mode.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

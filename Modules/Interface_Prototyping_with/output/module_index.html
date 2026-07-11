@@ -3,215 +3,237 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Interface Prototyping with Figma — CEN3722</title>
+  <title>Interface Prototyping with Figma – CEN3722</title>
   <style>
     /* ── Reset & Base ── */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    html {
-      font-size: 16px;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background-color: #f4f6f9;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      background: #f4f6f9;
       color: #1e2530;
       line-height: 1.6;
       min-height: 100vh;
     }
 
-    /* ── Header / Hero ── */
+    /* ── Header Banner ── */
     header {
       background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
-      color: #ffffff;
-      padding: 3rem 2rem 2.5rem;
-      border-bottom: 4px solid #f0a500;
+      color: #fff;
+      padding: 2.75rem 2rem 2.25rem;
     }
 
     .header-inner {
-      max-width: 960px;
+      max-width: 1080px;
       margin: 0 auto;
     }
 
     .course-label {
       display: inline-block;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      background-color: rgba(255, 255, 255, 0.15);
-      border: 1px solid rgba(255, 255, 255, 0.3);
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
       border-radius: 4px;
-      padding: 0.2rem 0.65rem;
+      padding: 0.25rem 0.65rem;
       margin-bottom: 0.85rem;
-      color: #d6e8ff;
+      color: #cfe3ff;
     }
 
     header h1 {
-      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-size: clamp(1.55rem, 4vw, 2.25rem);
       font-weight: 700;
       line-height: 1.25;
-      margin-bottom: 0.85rem;
+      margin-bottom: 0.9rem;
       letter-spacing: -0.01em;
     }
 
     header p {
       font-size: 1rem;
-      color: #cce0f5;
+      color: #d0e4ff;
       max-width: 680px;
       line-height: 1.7;
     }
 
     /* ── Main Content ── */
     main {
-      max-width: 960px;
-      margin: 2.5rem auto;
-      padding: 0 1.5rem 3rem;
+      max-width: 1080px;
+      margin: 2.5rem auto 4rem;
+      padding: 0 1.5rem;
     }
 
-    .section-title {
-      font-size: 0.75rem;
+    .section-heading {
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #6b7a8d;
-      margin-bottom: 1.2rem;
+      color: #5a7291;
+      margin-bottom: 1.25rem;
       padding-bottom: 0.5rem;
-      border-bottom: 1px solid #dde2ea;
+      border-bottom: 2px solid #dde4ee;
     }
 
-    /* ── Artifact Card Grid ── */
+    /* ── Card Grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.25rem;
     }
 
     .card {
       background: #ffffff;
-      border: 1px solid #dde2ea;
+      border: 1px solid #dde4ee;
       border-radius: 10px;
-      padding: 1.4rem 1.5rem;
+      padding: 1.35rem 1.4rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.2s ease, border-color 0.2s ease;
+      gap: 0.55rem;
+      transition: box-shadow 0.18s ease, border-color 0.18s ease;
     }
 
     .card:hover {
-      box-shadow: 0 4px 18px rgba(37, 99, 168, 0.1);
-      border-color: #b0c8e8;
+      box-shadow: 0 6px 22px rgba(37, 99, 168, 0.1);
+      border-color: #aac4e8;
     }
 
     /* ── Card Header Row ── */
     .card-header {
       display: flex;
-      align-items: baseline;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .card-name-block {
+      display: flex;
       flex-wrap: wrap;
-      gap: 0.5rem 0.75rem;
+      align-items: baseline;
+      gap: 0.45rem;
+      flex: 1;
     }
 
-    .artifact-name {
-      font-size: 1.05rem;
+    .card-name {
+      font-size: 0.97rem;
       font-weight: 600;
-      color: #1e2530;
+      color: #1a3a5c;
+      line-height: 1.35;
+      word-break: break-word;
     }
 
-    .artifact-name a {
-      color: #1a5fad;
+    .card-name a {
+      color: #1a5eb8;
       text-decoration: none;
-      border-bottom: 2px solid transparent;
+      border-bottom: 1px solid transparent;
       transition: border-color 0.15s ease, color 0.15s ease;
     }
 
-    .artifact-name a:hover,
-    .artifact-name a:focus {
-      color: #0e3f7e;
-      border-bottom-color: #0e3f7e;
+    .card-name a:hover,
+    .card-name a:focus {
+      color: #0d3e84;
+      border-bottom-color: #0d3e84;
       outline: none;
     }
 
     .source-link {
-      font-size: 0.76rem;
-      font-weight: 500;
-      color: #2563a8;
-      background-color: #eff5ff;
-      border: 1px solid #c2d9f5;
-      border-radius: 4px;
-      padding: 0.15rem 0.5rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #5a7291;
       text-decoration: none;
+      background: #eef3fb;
+      border: 1px solid #c8d8ee;
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
       white-space: nowrap;
-      transition: background-color 0.15s ease, color 0.15s ease;
+      transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
       flex-shrink: 0;
+    }
+
+    .source-link::before {
+      content: "⬇";
+      font-size: 0.65rem;
     }
 
     .source-link:hover,
     .source-link:focus {
-      background-color: #2563a8;
-      color: #ffffff;
+      background: #d5e5f8;
+      color: #1a3a5c;
+      border-color: #9ab8de;
       outline: none;
     }
 
-    /* ── Metadata Badges ── */
-    .card-meta {
+    /* ── Badges ── */
+    .badge-row {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.45rem;
+      gap: 0.4rem;
+      align-items: center;
     }
 
     .badge {
-      font-size: 0.72rem;
+      font-size: 0.68rem;
       font-weight: 600;
       letter-spacing: 0.04em;
       text-transform: uppercase;
       border-radius: 4px;
-      padding: 0.18rem 0.55rem;
+      padding: 0.18rem 0.5rem;
     }
 
     .badge-type {
-      background-color: #eef2f7;
-      color: #4a5568;
-      border: 1px solid #d5dce8;
+      background: #eaf0fc;
+      color: #2d5fa8;
+      border: 1px solid #c5d8f5;
     }
 
     .badge-filetype {
-      background-color: #fff8ec;
-      color: #8a5a00;
-      border: 1px solid #f5dcaa;
-      font-family: 'Courier New', Courier, monospace;
-      text-transform: none;
-      letter-spacing: 0;
+      background: #f0f4f0;
+      color: #3a6b3a;
+      border: 1px solid #b8d8b8;
+      font-family: "Courier New", monospace;
+      font-size: 0.65rem;
     }
 
-    /* ── Card Description ── */
+    /* ── Description ── */
     .card-description {
-      font-size: 0.9rem;
+      font-size: 0.875rem;
       color: #4a5568;
       line-height: 1.65;
+      flex: 1;
+    }
+
+    /* ── Divider ── */
+    .card-divider {
+      border: none;
+      border-top: 1px solid #edf0f6;
+      margin: 0.2rem 0 0;
     }
 
     /* ── Footer ── */
     footer {
       text-align: center;
-      padding: 1.5rem 1rem;
+      padding: 1.5rem 1rem 2rem;
       font-size: 0.8rem;
-      color: #8a94a2;
-      border-top: 1px solid #dde2ea;
-      background-color: #f4f6f9;
+      color: #8a9bb5;
+      border-top: 1px solid #dde4ee;
+      background: #fff;
     }
 
-    /* ── Responsive Tweaks ── */
-    @media (max-width: 500px) {
-      header {
-        padding: 2rem 1.25rem 2rem;
+    /* ── Responsive ── */
+    @media (max-width: 520px) {
+      .card-grid {
+        grid-template-columns: 1fr;
       }
 
-      .card {
-        padding: 1.1rem 1.15rem;
+      header {
+        padding: 2rem 1.25rem 1.75rem;
+      }
+
+      main {
+        margin-top: 1.75rem;
       }
     }
   </style>
@@ -223,44 +245,238 @@
       <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
       <h1>Interface Prototyping with Figma</h1>
       <p>
-        This module introduces students to interface prototyping using Figma, one of the industry's
-        leading collaborative design tools. Learners will explore core concepts including frames,
-        grids, component libraries, and auto-layout to create professional, user-centered interface
-        prototypes.
+        This module introduces learners to the full prototyping workflow in Figma, covering
+        foundational concepts, design-system construction, responsive layout, and high-fidelity
+        polish — culminating in a collaborative group prototype project. Use the artifacts below
+        to navigate module content, lectures, and topic guides.
       </p>
     </div>
   </header>
 
   <main>
-    <h2 class="section-title">Module Artifacts</h2>
+    <p class="section-heading">Module Artifacts &mdash; 10 items</p>
 
     <div class="card-grid">
 
-        <div class="card">
-          <div class="card-header">
-            <span class="artifact-name">
-                <a href="module_topics.html">Module Topics</a>
-                  <a
-                    class="source-link"
-                    href="../hierarchy.json"
-                    aria-label="Source file for Module Topics"
-                  >source file</a>
+      <!-- Artifact 1: Module Topics -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-name-block">
+            <span class="card-name">
+              <a href="module_topics.html">Module Topics</a>
+            </span>
+            <a class="source-link" href="../hierarchy.json">source file</a>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          This artifact outlines the module's topic structure, covering Figma fundamentals such as
+          the interface, frames, grids, component libraries, and auto-layout, serving as a
+          syllabus-style roadmap for learners and instructors to navigate the module's content
+          sequence.
+        </p>
+      </article>
+
+      <!-- Artifact 2: Creating_a_Prototype.pptx -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-name-block">
+            <span class="card-name">
+              <a href="../presentations/Creating_a_Prototype.pptx">Creating_a_Prototype.pptx</a>
             </span>
           </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Module Topics</span>
-            <span class="badge badge-filetype">.json</span>
-          </div>
-          <p class="card-description">
-            This artifact outlines the module&#x27;s topic structure, covering Figma fundamentals such as the interface, frames, grids, component libraries, and auto-layout, serving as a syllabus-style roadmap for learners and instructors to navigate the module&#x27;s content sequence.
-          </p>
         </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Presentation</span>
+          <span class="badge badge-filetype">.pptx</span>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          A slide deck walking learners step by step through building interactive prototypes in
+          Figma, from setting up a free account and understanding fidelity levels to progressing
+          from low- to high-fidelity designs, intended for use as a lecture presentation or
+          self-study reference.
+        </p>
+      </article>
+
+      <!-- Artifact 3: Introduction to Figma -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-name-block">
+            <span class="card-name">
+              <a href="Interface_Prototyping_with_interactive_topics_t1.html">Introduction to Figma and the Prototyping Workflow</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          Introduces Figma's browser-based environment, core concepts, and overall prototyping
+          workflow, giving learners foundational context before they begin working with the tool's
+          specific features.
+        </p>
+      </article>
+
+      <!-- Artifact 4: Frames, Grids -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-name-block">
+            <span class="card-name">
+              <a href="Interface_Prototyping_with_interactive_topics_t2.html">Frames, Grids, and Screen Layout</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          Explains how to use Figma frames as structural containers for digital interfaces and
+          covers how grids and layout guides help designers create consistent, well-organized
+          screen layouts.
+        </p>
+      </article>
+
+      <!-- Artifact 5: Component Library -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-name-block">
+            <span class="card-name">
+              <a href="Interface_Prototyping_with_interactive_topics_t3.html">Building a Component Library</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          Covers how to create, organize, and reuse components in Figma — including master
+          components and instances — so learners can build a scalable design system that stays
+          consistent across an entire project.
+        </p>
+      </article>
+
+      <!-- Artifact 6: Auto-Layout -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-name-block">
+            <span class="card-name">
+              <a href="Interface_Prototyping_with_interactive_topics_t4.html">Auto-Layout for Responsive Elements</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          Explains Figma's auto-layout feature, showing learners how to build frames and components
+          that automatically resize and reflow their contents when text changes or elements are
+          added or removed.
+        </p>
+      </article>
+
+      <!-- Artifact 7: Interactive Prototyping -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-name-block">
+            <span class="card-name">
+              <a href="Interface_Prototyping_with_interactive_topics_t5.html">Interactive Prototyping and Connections</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          Guides learners through wiring static frames into a clickable prototype using Figma's
+          Prototype tab, including setting up connections, triggers, actions, transitions, and
+          scrolling behaviors.
+        </p>
+      </article>
+
+      <!-- Artifact 8: High-Fidelity Design -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-name-block">
+            <span class="card-name">
+              <a href="Interface_Prototyping_with_interactive_topics_t6.html">High-Fidelity Design and Visual Polish</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          Covers the techniques used to elevate wireframes into polished, high-fidelity mockups,
+          focusing on visual properties such as typography, color, imagery, and other design
+          details that reflect a realistic final product.
+        </p>
+      </article>
+
+      <!-- Artifact 9: Group Project (Topic Detail) -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-name-block">
+            <span class="card-name">
+              <a href="Interface_Prototyping_with_interactive_topics_t7.html">Building and Submitting the Group Project Prototype</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          Provides guidance on planning, collaborating, reviewing, and correctly submitting a group
+          Figma prototype, helping student teams coordinate their work and meet submission
+          requirements.
+        </p>
+      </article>
+
+      <!-- Artifact 10: Group Project (Text Content) -->
+      <article class="card">
+        <div class="card-header">
+          <div class="card-name-block">
+            <span class="card-name">
+              <a href="Interface_Prototyping_with_interactive.html">Building and Submitting the Group Project Prototype</a>
+            </span>
+          </div>
+        </div>
+        <div class="badge-row">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <hr class="card-divider" />
+        <p class="card-description">
+          Provides guidance on planning, collaborating, reviewing, and correctly submitting a group
+          Figma prototype, helping student teams coordinate their work and meet submission
+          requirements.
+        </p>
+      </article>
 
     </div>
   </main>
 
   <footer>
-    CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Interface Prototyping with Figma
+    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp;
+    Interface Prototyping with Figma
   </footer>
 
 

@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Human-Computer Interaction</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to Human-Computer Interaction</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Human-Computer Interaction</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Human-Computer Interaction, commonly abbreviated as HCI, is the interdisciplinary field concerned with how people interact with computing systems and how to design those systems so that the interaction is effective, efficient, and satisfying. It draws from computer science, cognitive psychology, ergonomics, design, and sociology to answer a deceptively simple question: <em>how do we make technology work better for the humans who use it?</em> Understanding HCI is not merely an academic exercise — every design decision in a software product, from the color of a button to the wording of an error message, is an HCI decision with real consequences for the people who encounter it.</p>
+
+<p>Before diving into principles and processes, it helps to be precise about what HCI actually studies. At its core, HCI examines the <strong>relationship between three things</strong>: users, the tasks those users want to accomplish, and the technology systems that mediate the accomplishment of those tasks. A user might be a nurse entering medication data into a hospital portal, a teenager scrolling a social media feed, or an engineer monitoring a manufacturing pipeline on an embedded display. The task might be simple and discrete, like resetting a password, or complex and ongoing, like composing a research report. The technology might be a touchscreen smartphone, a voice assistant, a web browser, or a physical control panel. HCI asks: given a particular user trying to accomplish a particular task through a particular technology, how can the design of that technology make the experience as smooth and successful as possible?</p>
+
+<p>One of the most important concepts HCI introduces is <strong>cognitive load</strong> — the mental effort required to use a system. Every interface element a user encounters demands some share of their finite attention and working memory. When an interface is cluttered, uses unfamiliar terminology, or requires users to remember information from one screen to apply it on another, cognitive load rises. High cognitive load leads to errors, frustration, and abandonment. Good HCI design actively works to <em>reduce</em> unnecessary cognitive load by making interfaces predictable, legible, and forgiving. For example, a form that shows a preview of a formatted phone number as the user types it removes the mental burden of wondering whether the input format is correct. The payoff is measurable: reduced cognitive load increases user satisfaction, decreases error rates, and shortens the time needed to complete tasks.</p>
+
+<p>It is also worth noting how broadly HCI principles apply. They are not confined to any single platform or device category. Whether you are designing a <strong>web application</strong>, a <strong>mobile app</strong>, <strong>desktop software</strong>, or a <strong>firmware interface on an embedded system</strong> like a smart thermostat or medical device, the same fundamental questions apply: Can users find what they need? Do they understand what the system is doing? Can they recover from mistakes? The answers will look different depending on the platform — a mobile design must account for touch targets and small screens in ways a desktop design does not — but the underlying human factors remain constant.</p>
+
+<p><strong>Core HCI Principles</strong> form the vocabulary that designers and developers use to evaluate and improve interfaces. These principles are not abstract ideals; they are practical criteria that can be tested and measured. The four foundational principles covered here are usability, accessibility, feedback, and consistency.</p>
+
+<p><strong>Usability</strong> is perhaps the central concept in HCI. It measures how effectively and efficiently users can achieve their goals with a system, and how satisfied they are while doing so. The International Organization for Standardization defines usability in terms of three components: <em>effectiveness</em> (can users complete their goals?), <em>efficiency</em> (how much effort and time does completion require?), and <em>satisfaction</em> (how pleasant is the experience?). A system can fail on any one of these dimensions while appearing to succeed on the others. A checkout flow that technically lets users complete a purchase but takes twelve steps to do so is effective but inefficient. Usability is evaluated through methods like usability testing, heuristic evaluation, and task analysis — methods you will encounter throughout this course.</p>
+
+<p><strong>Accessibility</strong> ensures that systems are usable by people across a wide range of abilities, including those with visual, auditory, motor, or cognitive impairments. Accessibility is sometimes treated as an afterthought or a legal checkbox, but from an HCI perspective it is a design quality that benefits everyone. Captions on videos help users who are deaf, but they also help someone watching in a noisy café. High-contrast text aids users with low vision but also improves readability for anyone in a bright outdoor environment. Designing accessibly from the start is far less costly than retrofitting it later, and it reflects a commitment to the principle that technology should serve the full diversity of its user population. Standards like the Web Content Accessibility Guidelines (WCAG) provide concrete, testable criteria for making digital interfaces more accessible.</p>
+
+<p><strong>Feedback</strong> is the mechanism by which a system communicates to users that their actions have had an effect, and what that effect was. Without feedback, users are left to wonder: did my click register? Is the file uploading? Did my form submit successfully? Uncertainty leads to repeated actions (like clicking a button multiple times) or premature abandonment. Good feedback is <em>immediate</em>, <em>informative</em>, and <em>appropriate in magnitude</em>. A subtle animation that shows a button depressing when clicked is sufficient for a simple action. A multi-step file upload should show a progress indicator, and the completion of that upload should be confirmed with a clear success message. Error feedback is equally important — rather than simply saying "Error," a well-designed error message tells users what went wrong and how to fix it. For instance, instead of "Invalid input," a form might display "Phone number must be 10 digits — please remove any spaces or dashes."</p>
+
+<p><strong>Consistency</strong> means that similar elements behave and appear in similar ways throughout a system, and that the system aligns with conventions users have learned from other software. There are two types: <em>internal consistency</em> (all buttons in your application look and behave the same way) and <em>external consistency</em> (your application follows platform conventions that users already know, such as placing a back arrow at the top-left on mobile). Consistency dramatically reduces the learning curve for new users because they can apply prior knowledge rather than learning new rules for every element. When consistency is violated — when a destructive action like "Delete" is styled in the same way as a safe action like "Save" — users are surprised and errors increase. Jakob Nielsen's well-known usability heuristics list consistency and standards as one of the ten most important principles of interface design, and decades of research support this.</p>
+
+<p><strong>The User-Centered Design process</strong>, often abbreviated UCD, is the methodology through which HCI principles are put into practice during the creation of a product. Rather than assuming that designers and developers know what users need, UCD insists on grounding every design decision in an understanding of actual users and their actual contexts. This represents a significant shift from technology-centered design, which focuses first on what a system <em>can</em> do rather than what users <em>need</em> it to do.</p>
+
+<p>UCD begins with <strong>user research</strong>. Before sketching a single screen, designers invest time in understanding who the users are, what goals they are trying to accomplish, what environment they will use the system in, and what problems they currently experience. Research methods include <em>interviews</em> (asking users directly about their experiences and needs), <em>observations or contextual inquiry</em> (watching users work in their natural environment to understand actual behavior, which often differs from self-reported behavior), <em>surveys</em> (gathering data from larger populations), and <em>diary studies</em> (asking users to record their experiences over time). This research produces artifacts like <strong>personas</strong> — richly detailed fictional characters that represent key user types — and <strong>user journey maps</strong> — visual narratives of how a user moves through a task from beginning to end. These artifacts keep the design team focused on real human needs rather than hypothetical ones.</p>
+
+<p>Once user needs are understood, UCD moves into <strong>ideation and prototyping</strong>. Design solutions are imagined, sketched, and turned into prototypes — representations of the interface that can be tested without the cost of full development. Prototypes range from low-fidelity paper sketches or wireframes (quick, cheap, easy to modify) to high-fidelity interactive mockups built in tools like Figma (realistic enough to closely simulate the final product). The critical point is that prototypes are built <em>to be tested and discarded or revised</em>, not to be preserved. Their value lies in making design ideas concrete enough that real users can interact with them and reveal problems.</p>
+
+<p><strong>Usability testing</strong> is the process of observing representative users attempting to complete realistic tasks with a prototype or working system while the design team watches, listens, and takes notes. The goal is not to ask users what they think of the design — users are often poor judges of their own future behavior — but to observe what they <em>actually do</em> and where they struggle. Even small usability tests with five participants reliably reveal the majority of major usability problems in an interface. Findings from testing are fed back into the design, which is then modified and tested again. This cycle of <strong>iteration</strong> — design, prototype, test, revise, repeat — is not optional padding in the UCD process; it is the mechanism through which quality is achieved. Skipping it is one of the most common and costly mistakes in software development.</p>
+
+<p>The economic argument for UCD is compelling. Research consistently shows that usability problems caught during design are dramatically cheaper to fix than problems discovered after a product has launched. A change to a wireframe takes minutes. A change to production code — especially if it requires rearchitecting database interactions or redesigning APIs — can take weeks and affect other systems. The IBM Systems Sciences Institute famously estimated that fixing a defect in production can cost up to 100 times more than fixing it in the requirements phase. UCD's emphasis on early and repeated testing is therefore not just good design practice; it is sound project economics.</p>
+
+<p><strong>HCI and the Software Development Lifecycle</strong> are deeply intertwined, though HCI is sometimes treated as separate from or subordinate to development. In mature software organizations, HCI activities occur at every stage of the SDLC. During <strong>requirements gathering</strong>, HCI methods enrich the process by bringing the user perspective into technical requirements. Instead of writing requirements solely as system behaviors ("the system shall allow users to reset their password"), teams informed by HCI write them as user needs and stories: "As a returning user who has forgotten my password, I want to reset it in under two minutes so that I can access my account without contacting support." Personas developed through user research make requirements discussions more concrete and help teams avoid designing for hypothetical edge-case users rather than typical ones.</p>
+
+<p>During the <strong>design and development phases</strong>, prototyping and usability testing run in parallel with technical implementation. In agile development environments, this often means a design team works one or two sprints ahead of the development team, validating designs before they are built. This approach, sometimes called a <strong>dual-track agile</strong> model, ensures that developers are implementing designs that have already been tested with users, reducing rework. Component libraries and design systems — shared collections of reusable, pre-approved UI components — are one practical output of integrating HCI into development, because they enforce consistency across a product while speeding up both design and development work.</p>
+
+<p>After launch, HCI work continues. <strong>Post-launch analytics</strong> — data about how users actually behave in the live product — reveal patterns that laboratory testing cannot always predict. Heatmaps show which parts of a page attract attention; funnel analysis shows where users drop out of a multi-step process; session recordings show actual navigation paths. Combined with ongoing user feedback gathered through surveys, support tickets, and interviews, this data informs a continuous improvement cycle. Products that treat launch as the end of the design process quickly fall behind user expectations; those that treat it as the beginning of an ongoing feedback loop become progressively easier and more satisfying to use.</p>
+
+<p><strong>Why HCI matters in the context of this course</strong> becomes clear when you consider the skills and habits of mind you will be developing over the coming weeks. This is not a course about learning to use software tools in isolation. The tools — <strong>Figma</strong> for collaborative interface design and prototyping, and <strong>GitHub</strong> for version control and collaborative code management — are the same tools used by UX designers and software engineers in professional settings. Learning them in the context of a real design project means you are not just acquiring technical skills; you are practicing the <em>workflow</em> of professional design and development teams.</p>
+
+<p>The <strong>course project</strong> is intentionally structured to give you hands-on experience applying the HCI principles introduced in this module to a real interface problem. You will conduct user research, make design decisions grounded in that research, prototype your designs, test them, and iterate. Each of those steps is an opportunity to experience firsthand why HCI principles exist — not as rules handed down from authority, but as hard-won solutions to recurring human problems with technology.</p>
+
+<p><strong>Peer collaboration</strong> in this course mirrors the cross-functional team structures common in industry, where UX designers, product managers, and software engineers must communicate across disciplinary boundaries and make shared decisions. Learning to articulate design rationale, give and receive constructive critique, and negotiate trade-offs between usability ideals and technical constraints is as important as learning any specific tool or principle. The shared vocabulary you build in this first module — usability, accessibility, feedback, consistency, UCD — is the foundation for all of that collaboration. When everyone on a team means the same thing when they say "this isn't usable," productive conversation becomes possible.</p>
+
+<p>To consolidate the key concepts introduced in this module, the following table summarizes the four core HCI principles, what each one means in practice, and a brief example of how each manifests in a real interface:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Principle</th>
+      <th>What It Means</th>
+      <th>Example in Practice</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Usability</strong></td>
+      <td>Users can achieve their goals effectively, efficiently, and with satisfaction.</td>
+      <td>A shopping cart that persists across sessions so users don't lose items if they close the browser.</td>
+    </tr>
+    <tr>
+      <td><strong>Accessibility</strong></td>
+      <td>The system is usable by people with a wide range of abilities and disabilities.</td>
+      <td>All images have descriptive alt text so screen reader users understand visual content.</td>
+    </tr>
+    <tr>
+      <td><strong>Feedback</strong></td>
+      <td>The system communicates clearly when and how user actions have taken effect.</td>
+      <td>A loading spinner and then a "Message sent!" confirmation after submitting a contact form.</td>
+    </tr>
+    <tr>
+      <td><strong>Consistency</strong></td>
+      <td>Similar elements look and behave the same throughout the system and across familiar conventions.</td>
+      <td>All destructive actions (delete, remove, cancel) are styled in red and require a confirmation dialog.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>As you move through this course, return to these principles often. They are not a checklist to complete once and set aside; they are a lens through which every design decision you make should be examined. The best HCI practitioners develop an almost reflexive habit of asking, with every design choice: <em>Does this serve the user? Does it reduce their cognitive load? Does it give them appropriate feedback? Is it consistent with what they already know?</em> Developing that habit of mind is what this course is, at its deepest level, designed to help you do.</p>
+        <div class="notes"><strong>Notes</strong>This topic establishes foundational HCI vocabulary and mental models. Instructors may wish to supplement with a brief live demonstration — for example, showing a poorly designed form alongside a well-designed one and asking students to identify which HCI principles are violated or upheld. The table at the end of the body can serve as a reference card students return to throughout the module. Consider assigning a short reflection exercise in which students identify one HCI success and one HCI failure they have personally experienced as technology users, described using the vocabulary introduced here (usability, accessibility, feedback, consistency).</div>
+      </div>
+    </details>
+  </main>
+</body></html>

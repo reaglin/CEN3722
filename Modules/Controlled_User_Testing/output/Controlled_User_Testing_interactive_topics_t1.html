@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foundations of Experimental Design for Usability Testing</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Foundations of Experimental Design for Usability Testing</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Foundations of Experimental Design for Usability Testing</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Experimental design is the backbone of any rigorous usability study. Before a single participant sits down in front of a prototype or live product, a well-prepared research team will have already made dozens of consequential decisions: What exactly are we trying to learn? Which aspects of the interface will we manipulate? What behaviors or attitudes will we measure? How will we ensure that what we observe actually reflects real user experience rather than noise, bias, or procedural error? Answering these questions in advance — and documenting the answers formally — is what separates a controlled usability study from an informal walkthrough. This body of planning work is called <strong>experimental design</strong>, and mastering it is essential for any practitioner who wants to produce findings that are credible, actionable, and defensible to stakeholders.</p>
+
+<p>Usability testing sits at the intersection of scientific inquiry and design practice. Unlike pure laboratory experiments in cognitive psychology, usability studies are conducted under real-world constraints: limited budgets, small participant pools, proprietary products, and tight development timelines. Good experimental design acknowledges these constraints while still applying the core logic of controlled inquiry — holding as many variables as possible constant while deliberately varying the one thing you want to learn about. When that logic is applied rigorously, even a modestly sized study can yield insights that meaningfully improve a product.</p>
+
+<p><strong>What Is Experimental Design in Usability Testing?</strong></p>
+
+<p>At its most fundamental level, experimental design is the process of specifying the <em>structure and rules</em> of a study before data collection begins. This structure answers three foundational questions: (1) What will be compared or measured? (2) Who will participate and how will they be assigned to conditions? (3) What procedures will remain constant across all sessions to ensure fair comparison?</p>
+
+<p>Every usability study, regardless of how informal it appears, has an implicit design. The difference between a thoughtfully designed study and a poorly designed one is whether that structure was chosen deliberately or allowed to emerge haphazardly. When the structure is haphazard, <strong>extraneous variables</strong> — factors other than the one you intended to study — can influence results and make it impossible to know whether observed performance differences are meaningful or merely artifacts of inconsistent procedures, varying participant backgrounds, or the order in which tasks were presented.</p>
+
+<p>Consider a team testing two different navigation structures for an e-commerce website. If some participants are tested in a quiet room while others are tested in a noisy open office, any difference in task completion rates could be due to the navigation design <em>or</em> to distraction levels. The environment has become an extraneous variable. A well-designed study controls for this by standardizing the testing environment across all participants and conditions.</p>
+
+<p>One of the earliest and most consequential design decisions is whether to use a <strong>within-subjects</strong> or <strong>between-subjects</strong> design. In a <em>within-subjects</em> (also called <em>repeated-measures</em>) design, every participant is exposed to all conditions being tested. For instance, each participant might attempt the same set of tasks using both the old navigation structure and the new one. This approach is efficient because it requires fewer total participants, and it controls for individual differences — since the same person experiences both conditions, variability due to differences in skill level or prior experience is reduced. The main risk is <strong>carryover effects</strong>: exposure to one condition influences performance in another, most commonly through learning (having seen the tasks once, participants do them faster the second time regardless of which interface they are using). Counterbalancing the order in which participants encounter conditions — half see A then B, half see B then A — is the standard mitigation.</p>
+
+<p>In a <em>between-subjects</em> design, each participant experiences only one condition. Group A uses the old navigation; Group B uses the new one. This eliminates carryover effects entirely but requires more participants to achieve equivalent statistical power, and it introduces the risk that the two groups differ from each other in ways that affect performance independently of the interface design. Random assignment to conditions is the primary safeguard against this risk.</p>
+
+<p>Before any methodological choice is finalized, the team must articulate clear <strong>research questions</strong>. A research question is not a vague goal like "understand how users feel about the checkout flow." It is a specific, answerable question such as: "Do users who encounter the redesigned checkout flow complete purchases faster than users who encounter the current flow?" or "What errors do first-time users make when attempting to apply a discount code?" The precision of the research question determines the precision of every downstream decision — which tasks to assign, which variables to measure, and which analysis strategy to apply. Teams that skip this step often collect data that is interesting in a general way but impossible to use for confident decision-making.</p>
+
+<p><strong>Independent and Dependent Variables</strong></p>
+
+<p>The language of variables is borrowed from experimental science, but it applies cleanly to usability research. Understanding variable types is not mere academic formality — it is a practical tool for designing studies that generate unambiguous, usable findings.</p>
+
+<p>The <strong>independent variable (IV)</strong> is the factor the researcher deliberately manipulates or assigns. It is the thing you believe might have an effect, and you want to find out whether it does and how large that effect is. In a usability study, common independent variables include:</p>
+
+<ul>
+  <li>Interface version (e.g., current design vs. redesign)</li>
+  <li>Navigation structure (e.g., top navigation vs. sidebar navigation)</li>
+  <li>User expertise level (e.g., novice users vs. experienced users assigned to different study groups)</li>
+  <li>Input modality (e.g., touchscreen vs. keyboard-and-mouse)</li>
+  <li>Information architecture variant (e.g., three-level hierarchy vs. flat structure)</li>
+</ul>
+
+<p>Crucially, the researcher <em>controls</em> the independent variable — they decide which participant experiences which condition. This is what distinguishes a true experiment from an observational study. When a researcher cannot control the IV (for example, when studying differences between users who have already self-selected into using one product versus another), the study is quasi-experimental, and causal conclusions must be drawn more cautiously.</p>
+
+<p>The <strong>dependent variable (DV)</strong> is the outcome you measure. It "depends on" the independent variable — the hypothesis is that changes in the IV will produce changes in the DV. In usability testing, dependent variables typically fall into a handful of well-established categories:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Example Dependent Variables</th>
+      <th>How Measured</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Effectiveness</td>
+      <td>Task completion rate, error rate</td>
+      <td>Observer coding, log files</td>
+    </tr>
+    <tr>
+      <td>Efficiency</td>
+      <td>Time on task, number of clicks, pages visited</td>
+      <td>Timer, screen recording, analytics</td>
+    </tr>
+    <tr>
+      <td>Satisfaction</td>
+      <td>Post-task rating, SUS score, NPS</td>
+      <td>Questionnaire (e.g., Likert scale)</td>
+    </tr>
+    <tr>
+      <td>Learnability</td>
+      <td>Performance improvement across repeated attempts</td>
+      <td>Within-session repeated measurement</td>
+    </tr>
+    <tr>
+      <td>Error recovery</td>
+      <td>Time to recover from an error, recovery success rate</td>
+      <td>Observer coding, screen recording</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Labeling your variables explicitly before data collection is not bureaucratic box-checking — it prevents a serious methodological problem called <strong>outcome switching</strong>, where researchers unconsciously (or consciously) shift attention to whatever measure happens to look favorable after the data comes in. If you specify in advance that your primary DV is task completion rate and your secondary DVs are time on task and a post-task satisfaction rating, you are committed to reporting those measures regardless of what they show. This protects the integrity of your findings and builds stakeholder trust.</p>
+
+<p>One of the great advantages of usability testing compared to many other research methods is that <em>multiple dependent variables can be measured simultaneously within a single session</em>. A participant attempting a task can be timed (efficiency), observed for errors (effectiveness), and asked to rate the difficulty afterward (satisfaction) — all within a few minutes. This multidimensional picture is far more useful than any single metric in isolation. A task might be completed quickly but rated as stressful; another might be slow but feel intuitive. Both pieces of information are diagnostically valuable.</p>
+
+<p><strong>Study Validity: Internal and External</strong></p>
+
+<p>Validity is the degree to which a study measures what it claims to measure and produces conclusions that can be trusted. Researchers distinguish between two fundamental types: <strong>internal validity</strong> and <strong>external validity</strong>. Both matter, but they are threatened by different factors and require different safeguards.</p>
+
+<p><em>Internal validity</em> refers to the confidence with which you can attribute observed outcomes to the independent variable rather than to some other cause. A study has poor internal validity when <strong>confounds</strong> are present — variables that co-vary with the IV and could plausibly explain the results on their own. Common threats to internal validity in usability studies include:</p>
+
+<ul>
+  <li><strong>Experimenter bias:</strong> The moderator inadvertently provides more help, encouragement, or cues to participants in one condition than another. Even subtle variations in tone of voice can bias results. The standard safeguard is a detailed, scripted moderator guide used consistently across all sessions.</li>
+  <li><strong>Selection bias:</strong> Participants assigned to different conditions happen to differ from each other in relevant ways (e.g., one group has more experience with the product category). Random assignment to conditions mitigates this in true experiments.</li>
+  <li><strong>Order effects:</strong> In within-subjects designs, the order in which conditions are experienced affects performance. Counterbalancing addresses this.</li>
+  <li><strong>Instrumentation changes:</strong> If the prototype or the measurement tools change partway through data collection, early and late participants are not experiencing the same study. Version-locking prototypes before testing begins is essential.</li>
+  <li><strong>Demand characteristics:</strong> Participants guess the study's purpose and modify their behavior to meet perceived expectations. Careful framing of instructions ("we are testing the design, not your ability") and think-aloud protocols help surface genuine behavior.</li>
+</ul>
+
+<p>The single most effective strategy for protecting internal validity is <strong>standardizing session procedures</strong>. This means every participant receives the same introduction, the same task wording (read verbatim from a script), the same prompts when stuck, and the same closing questionnaire, administered in the same environment by the same or equivalently trained moderators. Variation in procedure is variation you cannot account for in your analysis.</p>
+
+<p><em>External validity</em> refers to the generalizability of findings — the degree to which results obtained in the study setting apply to the real-world context of actual product use. A study can be perfectly internally valid (you know exactly what caused the observed behavior) but externally invalid (nobody behaves that way outside the test room). Threats to external validity include:</p>
+
+<ul>
+  <li><strong>Unrepresentative participants:</strong> If your participants are primarily young, tech-savvy university students but your product serves older adults with low digital literacy, findings about navigation efficiency will not generalize. Recruiting from the actual user population — or a close approximation — is the primary safeguard.</li>
+  <li><strong>Artificial tasks:</strong> Lab tasks that feel contrived and bear little resemblance to genuine use scenarios produce behavior that does not reflect real usage. Tasks should be grounded in observed user goals.</li>
+  <li><strong>Testing environment artifacts:</strong> Being observed, knowing you are in a study, and using a prototype rather than a live product all affect behavior. Remote unmoderated testing — where participants complete tasks in their own environment — can improve ecological validity at the cost of some observational richness.</li>
+</ul>
+
+<p>There is an inherent tension between internal and external validity: the tighter your experimental controls (which protect internal validity), the more artificial the study situation becomes (which threatens external validity). Skilled researchers navigate this tension by choosing controls that matter most for their specific research question and accepting some limitations in exchange for actionable findings.</p>
+
+<p><strong>Pilot testing</strong> — running one or more complete sessions with participants who are similar to but not part of the final study sample — is one of the most important and frequently skipped steps in usability research. A pilot session reveals threats to validity before they can corrupt the entire dataset: task wording that is ambiguous, a prototype interaction that crashes, a questionnaire item that is interpreted differently than intended, or a session that runs 45 minutes longer than planned. Every hour spent in piloting can save many hours of data collection with fundamentally flawed procedures.</p>
+
+<p><strong>Choosing a Study Type: Formative vs. Summative</strong></p>
+
+<p>Not all usability studies share the same goal, and the goal determines the design. The broadest and most useful distinction is between <strong>formative</strong> and <strong>summative</strong> testing, terms that originate in educational evaluation but map cleanly onto the product development context.</p>
+
+<p><em>Formative testing</em> is conducted during the design and development process to discover problems and inform iterative improvement. The guiding question is: "What is broken, and how can we fix it?" Formative studies are typically:</p>
+
+<ul>
+  <li><strong>Exploratory and qualitative in emphasis:</strong> The primary output is a list of usability problems, user mental models, and navigation patterns — not a performance benchmark.</li>
+  <li><strong>Small in sample size:</strong> Five to eight participants are often sufficient to surface the most prevalent usability problems, because the goal is problem discovery, not statistical estimation. This insight traces back to Jakob Nielsen's early research on diminishing returns in problem discovery.</li>
+  <li><strong>Flexible in procedure:</strong> Moderators may probe more deeply when something interesting emerges, ask follow-up questions, and explore unexpected paths through the interface.</li>
+  <li><strong>Iterative:</strong> Results are fed back into the design quickly, and another round of testing may follow after changes are made.</li>
+</ul>
+
+<p><em>Summative testing</em> is conducted to evaluate a finished or near-finished product against defined standards, benchmarks, or competitors. The guiding question is: "How well does this product perform?" Summative studies are typically:</p>
+
+<ul>
+  <li><strong>Quantitative in emphasis:</strong> The primary outputs are metrics — task completion rates, time on task, error counts, satisfaction scores — that can be compared against historical baselines, industry benchmarks, or competing products.</li>
+  <li><strong>Larger in sample size:</strong> Meaningful statistical comparisons generally require at least 20 to 30 participants per condition, sometimes more, depending on expected effect sizes and acceptable error rates.</li>
+  <li><strong>Rigidly standardized in procedure:</strong> Every aspect of the session is scripted to ensure comparability across participants and study sessions.</li>
+  <li><strong>Less iterative in the short term:</strong> Results may inform a future design cycle rather than immediate changes.</li>
+</ul>
+
+<p>The choice between formative and summative testing is not always either/or. In many product development programs, both types are used at different phases — formative testing during design sprints and summative testing before release or as part of a periodic benchmarking program. A well-designed research roadmap sequences these types intentionally, using formative work to improve the product enough that summative measurement becomes meaningful.</p>
+
+<p>The study type also influences task design. Formative tasks are often broader and scenario-based ("Imagine you just received a gift card for this store. Find something to buy for your brother's birthday."), encouraging exploration and revealing where users get confused. Summative tasks are often more precise and standardized ("Using this website, find and purchase a men's medium blue Oxford shirt and apply the promotional code SAVE20 at checkout."), allowing accurate timing and error coding.</p>
+
+<p><strong>Ethical Considerations in Usability Studies</strong></p>
+
+<p>Usability testing involves recruiting real people, observing their behavior, recording their screen and voice, and analyzing their performance. These activities carry ethical responsibilities that are not optional — they are foundational to the integrity of the research and to the dignity of participants. Most institutional research ethics frameworks, as well as professional codes of conduct from bodies like the User Experience Professionals Association (UXPA), require adherence to principles that trace back to landmark documents in research ethics such as the Belmont Report.</p>
+
+<p>The cornerstone principle is <strong>informed consent</strong>. Before any data collection begins — including any pre-session screener or demographic questionnaire — participants must be told:</p>
+
+<ul>
+  <li>The general purpose of the study (what kind of product or experience is being evaluated)</li>
+  <li>What they will be asked to do during the session</li>
+  <li>How the session will be recorded and who will have access to recordings</li>
+  <li>How their data will be stored, used, and eventually disposed of</li>
+  <li>That their participation is voluntary and they may withdraw at any time</li>
+</ul>
+
+<p>The consent process must be conducted in plain language that participants can genuinely understand. Using legal jargon or dense paragraphs to technically "obtain" consent while practically obscuring what participants are agreeing to is an ethical violation, not a safeguard. The purpose of the study should be explained at a level appropriate to the participant — and while researchers sometimes withhold specific hypotheses to avoid demand characteristics (a legitimate methodological concern), they must not deceive participants about the fundamental nature of the activity.</p>
+
+<p>The right to withdraw — to stop the session at any time, for any reason, without explanation, without penalty, and without forfeiting any compensation already earned — must be communicated clearly and honored unconditionally. Participants sometimes feel social pressure to continue even when they are uncomfortable. A good moderator periodically reminds participants that they are free to stop, and watches for signs of distress that might warrant pausing or ending the session.</p>
+
+<p><strong>Data privacy</strong> is a specific and increasingly regulated dimension of research ethics. Usability data often includes screen recordings, audio recordings, facial video, and typed text — all of which may capture personal information incidentally. Best practices include:</p>
+
+<ul>
+  <li><strong>Anonymization or de-identification:</strong> Replace participant names with codes (P01, P02, etc.) in all analysis files and reports. Do not share recordings that display participants' faces or voices beyond the immediate research team without explicit additional consent.</li>
+  <li><strong>Data minimization:</strong> Collect only the data you actually need for your research questions. If facial expression data is not part of your analysis plan, do not record faces.</li>
+  <li><strong>Secure storage:</strong> Store recordings and personally identifiable information in password-protected or encrypted systems with access limited to team members who need it.</li>
+  <li><strong>Retention limits:</strong> Define in advance how long data will be retained and delete it according to that schedule.</li>
+</ul>
+
+<p>In contexts where usability testing involves sensitive populations — children, people with disabilities, individuals with cognitive impairments, or employees being tested by their employer — additional protections apply. Studies involving minors require parental or guardian consent in addition to the child's assent. Studies involving employees require careful attention to whether participation can truly be voluntary given the inherent power differential between employer and employee.</p>
+
+<p>Ethical practice in usability research is not a bureaucratic hurdle to clear before the "real" work begins. It is the foundation on which trustworthy, replicable, and socially responsible research is built. Teams that treat participants with genuine respect and transparency tend to get richer, more candid data in return — participants who trust the process engage more authentically with tasks and share more honest feedback.</p>
+        <div class="notes"><strong>Notes</strong>This topic introduces foundational concepts that underpin all subsequent usability testing methodology. Emphasis should be placed on the practical consequences of each design decision — why variable labeling prevents outcome switching, why counterbalancing matters in within-subjects designs, and why piloting is worth the time. The formative/summative distinction is especially useful for practitioners who need to justify study design choices to stakeholders. Ethical content should be treated as substantive, not perfunctory.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

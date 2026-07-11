@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conducting Live User Testing Sessions</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Conducting Live User Testing Sessions</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Conducting Live User Testing Sessions</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Running a live user testing session is one of the most consequential activities in the entire usability research process. Everything that has come before — recruiting participants, designing tasks, building prototypes, writing a test plan — is preparation for this moment. When a real person sits down (physically or virtually) and attempts to use your product, you gain direct, unfiltered evidence about whether your design works. But that evidence is only as good as how well the session is run. A poorly facilitated session introduces bias, loses critical observations, creates an uncomfortable experience for the participant, and ultimately produces data you cannot fully trust. A well-run session, by contrast, feels almost invisible to the participant — they simply try to use the product while the team learns an enormous amount about where it succeeds and where it fails.</p>
+
+<p>Live sessions are complex because they involve simultaneous demands: managing a human relationship with the participant, keeping the session on schedule, capturing behavioral data in real time, operating recording technology, and staying alert for unexpected findings. No single person can do all of this effectively at once. That is why professional usability testing distributes responsibilities across a small team, why preparation of the environment is treated as a non-negotiable discipline, and why the opening and closing of each session follow a deliberate structure. The following sections build a complete picture of how to execute a live user testing session from the moment the team prepares the room to the moment the internal debrief ends.</p>
+
+<p><strong>Team Roles During a Testing Session</strong></p>
+
+<p>One of the most important structural decisions in user testing is clarifying who does what during the session itself. When roles are undefined, team members step on each other, observations get missed, and the participant picks up on the team's disorganization. When roles are clearly assigned and rehearsed, each person can give their full attention to a focused job.</p>
+
+<p>The <strong>facilitator</strong> is the person in the room (or on the call) with the participant. This is the most demanding role. The facilitator's job is to guide the participant through the session structure — welcoming them, explaining the think-aloud protocol, delivering task prompts, asking follow-up questions, and closing the session. Critically, the facilitator must maintain <em>neutral communication</em> at all times. This means never reacting to a participant's success or failure with approval or disappointment, never answering questions that would give away how the interface is supposed to work, and never finishing the participant's sentences or steering them toward a correct path. Phrases like "That's great!" or "You almost had it!" seem harmless but they tell the participant what the facilitator expects, which contaminates the data. Instead, the facilitator uses neutral acknowledgments: "Okay," "I see," "Tell me what you're thinking," or "What would you do next?" The facilitator also manages time — knowing when to let a participant struggle productively and when to move on to keep the session within its window.</p>
+
+<p>The <strong>note-taker</strong> works in parallel with the facilitator, usually in the same room or in an observer window, and documents everything. Their job is to create a contemporaneous record of observations, direct quotes from the participant, behavioral signals (hesitations, backtracking, expressions of frustration or delight), and task outcomes (completed, completed with difficulty, abandoned, failed). The note-taker should use a pre-structured observation sheet aligned to the tasks so that data across participants is captured consistently and can be compared later. Good note-taking prioritizes specificity: "Participant clicked the 'Account' menu three times before finding 'Settings'" is far more useful than "Participant was confused by settings." The note-taker does <em>not</em> participate in the conversation with the participant — silence is essential. Even nodding or making eye contact with the facilitator can introduce subtle dynamics that affect the session.</p>
+
+<p><strong>Observers</strong> may include designers, developers, product managers, or stakeholders who want to watch the session. Their presence is valuable because witnessing real user behavior firsthand is far more persuasive than reading a report. However, observers must remain completely silent during the session. A stakeholder who calls out "They're using it wrong!" or a developer who sighs audibly when their feature is ignored will distort the participant's behavior and undermine the entire exercise. Best practice is to place observers in a separate room watching a live video feed, or in a virtual session, to mute them and hide their video. Each observer should document their own observations independently using the same structured sheet or a blank notes document. Independent observation before group discussion reduces groupthink during the debrief.</p>
+
+<p>The <strong>immediate post-session debrief</strong> is the moment when all team members — facilitator, note-taker, and observers — come together, typically for no more than 10–15 minutes, right after the participant leaves. The goal is to capture the team's freshest impressions before memory degrades and before the next session begins. A structured approach helps: each person shares the single most important observation they recorded, the team flags any discrepancies between what they saw, and tentative themes or surprises are noted. This raw debrief material feeds directly into the formal analysis phase. Waiting until all sessions are complete to discuss observations wastes the clarity that comes immediately after watching someone struggle with your design.</p>
+
+<p><strong>Session Environment Setup</strong></p>
+
+<p>The environment in which testing takes place has a direct effect on data quality. An environment that is unprepared, cluttered with distractions, or technically unreliable forces both the facilitator and the participant to deal with problems that should have been solved in advance. Setup is not glamorous work, but it is the foundation of a successful session.</p>
+
+<p>The most fundamental requirement is that <strong>the product or prototype is reset to the same starting state before every participant session</strong>. This sounds obvious but is frequently overlooked. If participant three starts a session where participant two's test data has populated a form, or where a modal dialog is already open from a previous interaction, their experience is not comparable to participants one and two. For digital prototypes this might mean clearing browser history and cookies, returning to a specific URL, resetting a demo account's data, or re-launching a prototype tool. For paper prototypes it means reassembling all materials in their original configuration. The reset checklist should be written down and executed systematically — not done from memory in the 90 seconds between sessions.</p>
+
+<p><strong>All recording tools must be tested and confirmed functional at least 15 minutes before the session begins.</strong> This window is not arbitrary. It gives the team time to diagnose and solve problems without running into the participant's arrival time. Recording checks should cover screen capture software (is it capturing the correct screen? is the resolution acceptable?), audio levels (is the microphone picking up the participant's voice clearly?), camera angles (if behavioral observation or eye tracking is used), and any remote collaboration tools if observers are watching from another location. A failed recording discovered after a session is an irreversible loss — you cannot go back and re-run the session with the same participant under the same conditions.</p>
+
+<p>The <strong>physical or virtual environment</strong> should be treated as a controlled space. For in-person sessions, this means booking a room where interruptions are unlikely, posting a "Session in progress — do not disturb" sign, silencing phones (including the facilitator's), and ensuring comfortable lighting and seating. For remote sessions, it means briefing the participant in advance to find a quiet location, closing unnecessary browser tabs that might generate notifications, and confirming that the video conferencing setup will not time out or display distracting elements. Even small environmental disruptions — a phone buzzing on a table, a colleague opening the door — pull the participant's attention and can interrupt think-aloud verbalization at a critical moment.</p>
+
+<p><strong>Session materials must be organized and accessible at the start.</strong> This includes: signed or digital consent forms (or a system to collect consent at session start), confirmation of the screener so the facilitator can verify the participant meets the profile, printed or digital task cards or prompts in the correct order, post-test questionnaires ready to administer, any physical props or supplementary materials needed for specific tasks, and participant incentive documentation. Fumbling through a folder looking for a consent form in front of a participant is an avoidable source of awkwardness that erodes confidence in the process.</p>
+
+<p><strong>Opening the Session</strong></p>
+
+<p>The opening minutes of a testing session are disproportionately important. The participant arrives with some combination of nervousness, curiosity, and uncertainty about what is expected of them. The facilitator's job during the opening is to establish rapport, set accurate expectations, obtain valid consent, and train the participant in the behaviors — especially think-aloud verbalization — that will make their contribution useful. A rushed or poorly structured opening produces guarded, quiet participants who treat the session like a test they are being graded on.</p>
+
+<p><strong>Welcoming the participant</strong> means genuinely making them feel comfortable before any formal proceedings begin. A brief, natural conversation — asking if they found the location easily, offering water — signals that this is a collaborative interaction, not an interrogation. The facilitator then explains, in plain language, the general purpose and structure of the session: "We're asking people to try some tasks using an early version of a product we're working on. The whole session will take about 45 minutes. There's no right or wrong answer — we're testing the design, not testing you." That last phrase, "we're testing the design, not testing you," is especially important and should always be said explicitly. Many participants arrive worried about being judged. Removing that concern is what enables them to behave naturally.</p>
+
+<p><strong>Reviewing and confirming informed consent</strong> must happen before any recording begins or any task activity takes place. Walk the participant through the consent form — do not simply hand it over and wait for a signature. Highlight the key points: what will be recorded, who will see the recordings, how data will be stored and for how long, the participant's right to stop the session at any time without penalty, and any compensation details. Answer questions honestly. Only when the participant has signed (or verbally confirmed, in remote sessions where a digital signature has been collected in advance) should you proceed. This is not a bureaucratic formality — it is an ethical and often legal requirement, and treating it as such signals professionalism to the participant.</p>
+
+<p><strong>Explaining the think-aloud protocol</strong> is one of the most practically important steps in the opening. Think-aloud means the participant narrates their thoughts and actions continuously as they work: what they are looking at, what they expect to happen, what they are deciding, what is confusing them. This narration gives the team access to the participant's mental model in real time, which is far richer than observing clicks alone. But think-aloud is not a natural behavior — most people do not narrate what they are doing while they are doing it. The facilitator must explain it and then practice it through a <strong>warm-up exercise</strong>: a simple, low-stakes task unrelated to the product being tested (a common example is asking the participant to think aloud while using a familiar website like a weather app or a news site). The warm-up serves two purposes — it trains the verbalization behavior before real tasks begin, and it helps the participant relax by doing something familiar. After the warm-up, the facilitator can reinforce the behavior: "That's exactly the kind of thing I'd like you to keep doing throughout — just keep telling me what you're seeing and thinking."</p>
+
+<p>Finally, the facilitator must <strong>clarify that participants should not ask for help during tasks but can flag frustrations verbally.</strong> This is a nuanced instruction because it can feel strange to the participant — they are used to being able to ask for help when something is hard. The facilitator should frame it clearly: "If you get stuck or something doesn't work the way you expect, just keep talking about what you're seeing and what you'd try. That's actually the most useful information for us. I won't be able to help you navigate the product during the tasks, but I'm always happy to hear what you're thinking." Participants who understand this ground rule in advance are much less likely to freeze or stop verbalizing when they encounter difficulty.</p>
+
+<p><strong>Managing In-Session Challenges</strong></p>
+
+<p>Even the best-prepared sessions encounter unexpected situations. The facilitator's ability to manage these challenges without introducing bias or disrupting the session's integrity is what separates experienced practitioners from novices. Most challenges fall into predictable categories, which means they can be prepared for in advance.</p>
+
+<p><strong>Participants who fall silent during tasks</strong> are a common challenge. Think-aloud verbalization requires conscious effort, and when a participant is deeply concentrated on a difficult task, they often stop narrating. Silence is problematic because the team cannot tell whether the participant is confidently working through a decision or is completely lost. The facilitator should re-engage with <em>neutral prompts</em> — questions or invitations that encourage verbalization without steering. Examples include: "What are you thinking right now?", "What are you looking at?", "What would you do next?", and "Tell me more about that." These prompts are deliberately open-ended. Prompts like "Are you confused?" or "Does that button make sense?" suggest a specific interpretation and should be avoided. If a participant consistently falls silent, the facilitator can add a gentle reminder at the start of the next task: "Remember to keep talking me through your thinking as you go."</p>
+
+<p><strong>Off-task conversation</strong> is another frequent challenge. Participants sometimes begin talking about their general preferences, unrelated experiences, or tangential opinions: "You know, I actually had a really bad experience with a different app that does something similar — let me tell you about it…" This is natural human behavior, and shutting it down rudely would damage rapport. However, long digressions eat into session time and can prevent all tasks from being completed. The facilitator should redirect politely but promptly: "That's really interesting — I'd love to hear more about that at the end of the session. For now, can we focus on this task and come back to that thought later?" Following through — actually returning to the point at the end if time allows — signals respect and maintains goodwill.</p>
+
+<p><strong>Technology failures</strong> require pre-planned protocols, not improvised decisions. Before testing begins, the team should agree on answers to questions like: What happens if the prototype crashes mid-task? (Answer: the facilitator calmly notes the timestamp, the note-taker flags the incident, and the session pauses for the minimum necessary time to restore the prototype to the correct state.) What happens if the screen recording fails? (Answer: is the session continued with note-taking only, or paused to restart the recording?) What is the threshold for abandoning a session due to technical problems? Having these answers documented and communicated to the whole team means that when a failure occurs, the facilitator can handle it smoothly — reassuring the participant that this is a known possibility and they are handling it — rather than visibly panicking and conferring with colleagues in a way that unsettles the participant.</p>
+
+<p><strong>Participants who request help during tasks</strong> put the facilitator in a delicate position. The facilitator's instinct may be to help — after all, the participant seems frustrated and helping would resolve the problem. But providing help changes the nature of the interaction from naturalistic observation to assisted use, which invalidates the task as a measure of real-world usability. The pre-defined assistance protocol should specify what the facilitator says and does. A typical response is: "I really want to see how you'd approach this on your own — what would you try next if you were at home?" If the participant is completely stuck and unable to proceed, the protocol might allow the facilitator to provide a minimum necessary hint (e.g., pointing to the general area of the screen without explaining what to do) while flagging the incident in the notes, or to move on to the next task and record the current task as incomplete. What the protocol must prevent is improvised, inconsistent help that makes participant experiences incomparable.</p>
+
+<p><strong>Closing the Session and Post-Session Debrief</strong></p>
+
+<p>The closing sequence of a user testing session is as structured and purposeful as the opening. It covers data collection that can only happen after tasks are complete, ethical obligations to the participant, and the team's own immediate analytical work.</p>
+
+<p>The <strong>post-test questionnaire</strong> must be administered before the facilitator reveals anything about the study's true goals or discusses what they observed. Questionnaires like the System Usability Scale (SUS) or the Single Ease Question (SEQ) are designed to capture participants' overall subjective impressions while those impressions are still fresh and uncontaminated by the facilitator's framing. If the facilitator says "We were really interested in whether people could find the checkout button" before the questionnaire is administered, the participant's answers will be influenced by that information. Administer first, explain later.</p>
+
+<p>The <strong>participant debrief</strong> comes after the questionnaire is complete and all task-related data has been collected. This is the moment to explain the actual purpose of the research — what the team was testing, what questions they were trying to answer, and why the study matters. This debrief fulfills a key ethical obligation. Participants have given their time and in some cases have experienced frustration during the session; they deserve to understand why. The debrief also often yields rich qualitative data — once participants understand the context, they sometimes offer opinions and explanations that they could not have provided during the tasks themselves. The facilitator should invite this: "Now that you know what we were exploring, is there anything you'd like to add about your experience?"</p>
+
+<p><strong>Distributing incentives and confirming data privacy</strong> are the final administrative steps. Incentives — whether cash, gift cards, or other compensation — should be distributed as promised, with any required documentation completed on the spot. If participants were promised anonymization of their data, signed a confidentiality agreement, or were given any assurances about how recordings would be used or stored, those commitments should be explicitly confirmed: "Just to confirm, your session recording will only be seen by our research team and will be deleted after our analysis is complete." This confirmation is not redundant — it closes the ethical loop opened when consent was obtained at the start.</p>
+
+<p>The <strong>internal team debrief</strong>, held immediately after the participant leaves, is the final and critically important step. Its purpose is not to analyze all the data — that comes later — but to capture the team's raw, fresh impressions before they fade or become mixed up with impressions from subsequent sessions. A tight structure helps: each team member shares their top observation, the group identifies any moments of strong agreement (a participant behavior that everyone noticed independently is a particularly reliable signal), and any unusual or surprising events are noted. Disagreements between what different team members observed are also valuable — they point to moments worth reviewing in the recording. This debrief should be documented, even briefly, because these immediate impressions are an important input into the formal analysis. Teams that skip the immediate debrief and wait until all sessions are complete to discuss findings often lose these first-impression signals, which are sometimes the sharpest and most honest reactions to what the design reveals.</p>
+
+<p>The table below summarizes each team role, their primary responsibility during the session, and the key behavior required for that role to function effectively.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>Primary Responsibility</th>
+      <th>Key Required Behavior</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Facilitator</td>
+      <td>Guide the participant through tasks and prompts; manage session flow</td>
+      <td>Maintain strict neutrality; use open-ended language; never answer design questions</td>
+    </tr>
+    <tr>
+      <td>Note-taker</td>
+      <td>Document observations, quotes, task outcomes, and behavioral signals in real time</td>
+      <td>Stay silent; use structured observation sheets; prioritize specificity over interpretation</td>
+    </tr>
+    <tr>
+      <td>Observers</td>
+      <td>Watch the session and record independent observations</td>
+      <td>Remain completely silent; document independently before group discussion</td>
+    </tr>
+    <tr>
+      <td>All Team Members</td>
+      <td>Participate in immediate post-session debrief</td>
+      <td>Share top observations promptly; note agreements, discrepancies, and surprises</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Executing live user testing sessions well is a discipline that improves with practice, but even a first-time team can run effective sessions by internalizing the principles behind each practice: clarity of roles prevents critical observations from being missed; environment preparation removes avoidable variables; a structured opening establishes the conditions for authentic participant behavior; prepared responses to in-session challenges keep the data clean; and a deliberate closing sequence honors both the participant's contribution and the team's analytical needs. Every session is an opportunity to learn not just about the product but about how to run better sessions, and the team debrief is where both kinds of learning take root.</p>
+        <div class="notes"><strong>Notes</strong>Students should be encouraged to role-play all three session roles (facilitator, note-taker, observer) before conducting real sessions — the nuances of neutral facilitation language in particular are difficult to internalize without practice. Consider providing a sample observation sheet template alongside this topic.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

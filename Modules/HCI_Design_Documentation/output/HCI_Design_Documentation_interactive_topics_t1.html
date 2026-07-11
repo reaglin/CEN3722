@@ -1,0 +1,123 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to HCI Development Reporting</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to HCI Development Reporting</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to HCI Development Reporting</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>An HCI Development Report is a structured, formal document that records every significant stage of a human-computer interaction design project, from the earliest identification of user needs through to the final evaluation of a working prototype. Unlike an informal lab notebook or a reflective journal, the development report is written for an external audience and must stand on its own as a complete, self-contained account of the design process. Understanding what the report is for, who will read it, and what role it plays in the broader design workflow is essential before a single word of it is written.</p>
+
+<p>The importance of this kind of document extends well beyond the immediate project. It creates a permanent, inspectable record that connects every design choice to the evidence and reasoning that motivated it. When a team decides to adopt a tabbed navigation structure rather than a hamburger menu, or to increase font size after a usability test revealed readability problems, those decisions must be traceable in the report. A reader who has never encountered the project should be able to follow the chain from a stated user requirement through a design decision and on to an evaluation finding that either validates or challenges that decision. This traceability is the defining characteristic of a professional HCI report and what distinguishes it from a simple project summary.</p>
+
+<p><strong>Purpose of an HCI Development Report</strong></p>
+
+<p>At its most fundamental level, the report serves three interconnected purposes. First, it functions as a <em>traceable document</em> that links design decisions to user requirements and evaluation outcomes. Every interface choice documented in the report should be anchored to something observable: a requirement gathered from user interviews, a finding from a heuristic evaluation, a pattern identified during prototype testing. This anchoring prevents design decisions from appearing arbitrary and demonstrates that the team was responding to real evidence rather than personal preference.</p>
+
+<p>Consider a concrete example. Suppose a team is designing a mobile application for elderly users managing medication schedules. During requirements gathering, interviews reveal that users struggle with small touch targets. The team responds by adopting larger buttons with a minimum tap area of 44 × 44 pixels. In the report, this decision should appear with an explicit reference to the interview findings, possibly cross-referenced to an appendix containing interview transcripts or a summary table of user needs. Later, if usability testing confirms that tap errors have decreased, that evaluation outcome should be linked back to the same decision. The reader can then trace a complete arc: <em>user need → design response → evaluation outcome</em>. Without this traceability, the report fails its primary purpose.</p>
+
+<p>Second, the report demonstrates <em>professional practice</em>. HCI as a discipline has established methodologies — user-centred design, iterative prototyping, formative and summative evaluation — and a professional report shows that the team applied these methodologies systematically rather than improvising. Stakeholders reading the report — whether they are academic assessors, client organisations, or future team members inheriting the project — use it to judge whether the design process was conducted rigorously. A report that skips from initial sketches directly to a final prototype, with no account of user involvement or iterative refinement, signals poor professional practice regardless of how polished the final interface looks.</p>
+
+<p>Third, the report gives stakeholders a basis for <em>assessing the quality of the HCI process</em> independent of the product itself. An interface might appear clean and attractive, but if the report reveals that no user testing was conducted, or that accessibility needs were never considered, informed stakeholders will rightly question whether the design would actually perform well in real use. Conversely, a report that meticulously documents iterative testing, identifies limitations honestly, and proposes well-reasoned future improvements inspires confidence even if the prototype is not yet fully polished. The report and the prototype together constitute the deliverable; neither is sufficient alone.</p>
+
+<p><strong>Audience and Tone</strong></p>
+
+<p>Identifying the audience correctly shapes every aspect of how the report is written. HCI development reports are typically addressed to readers who possess a working knowledge of HCI principles and terminology — they will understand terms such as <em>affordance</em>, <em>cognitive load</em>, <em>Fitts's Law</em>, or <em>think-aloud protocol</em> without requiring definitions. However, they will not be familiar with the specific project, its particular users, the organisation it serves, or the design rationale that emerged during the team's work. This means the writer must strike a careful balance: use professional vocabulary confidently, but never assume the reader shares background knowledge about the project itself.</p>
+
+<p>The tone must remain <em>formal and objective</em> throughout. This applies even when describing activities that are inherently exploratory or iterative, such as brainstorming sessions, paper prototyping, or early-stage user walkthroughs. It is natural for design work to involve uncertainty, false starts, and revision, and the report should not pretend otherwise — but it must describe these activities analytically rather than anecdotally. The difference can be illustrated by contrasting two ways of describing the same event:</p>
+
+<ul>
+  <li><strong>Inappropriate (informal, first-person):</strong> <em>"We tried a dropdown menu but users hated it, so we changed it to radio buttons."</em></li>
+  <li><strong>Appropriate (formal, objective):</strong> <em>"Initial evaluation of the dropdown implementation revealed that three of five participants were unable to locate the correct option within the allotted time. The interface was subsequently revised to present the same choices as a set of visible radio buttons, reducing the interaction to a single step."</em></li>
+</ul>
+
+<p>The second version conveys the same events but does so with precision, quantification where possible, and no reliance on subjective language. It also eliminates first-person reference. Most HCI development reports are written in the third person or in the passive voice to maintain this formal register. References to the team should use constructions such as <em>"the design team,"</em> <em>"the developers,"</em> or passive constructions such as <em>"a decision was made to..."</em> or <em>"the prototype was revised to..."</em> This is not mere stylistic convention; it signals that the decisions described belong to a professional process, not to individual personalities, and makes the document easier to read critically and objectively.</p>
+
+<p>Consistency of tone also matters across sections. The introduction, the methodology description, the evaluation findings, and the conclusions should all feel like they come from the same document. A common error is to write the methodology section in careful formal prose and then slip into a more casual register when describing evaluation results or limitations. Readers notice this inconsistency, and it undermines the overall impression of professionalism.</p>
+
+<p><strong>The Report as a Design Artefact</strong></p>
+
+<p>One of the most important conceptual shifts required when approaching an HCI development report is to understand that the report is not merely a description of something that happened — it is itself a product of the design process and carries its own design obligations. A well-structured, coherent, and complete report demonstrates that the team followed a principled HCI methodology; a poorly organised or incomplete report creates doubt about whether that methodology was actually applied, regardless of what the text claims.</p>
+
+<p>The report provides an <em>auditable trail</em> of decisions. The word "auditable" is significant: it means another competent practitioner should be able to read the report and not only understand what was done, but also assess whether it was done correctly, identify what was omitted, and potentially replicate the process with a different design team or in a different context. This is analogous to the role of a methods section in empirical research — it should be detailed enough to support scrutiny. An HCI report that describes its evaluation process only as "user testing was conducted" fails this standard; one that specifies the number of participants, their characteristics, the tasks they were given, the protocol followed, and the measures recorded meets it.</p>
+
+<p>Completeness and coherence are therefore as important as the interface prototype itself. A development report might cover some or all of the following major components, depending on the scope of the project:</p>
+
+<ul>
+  <li><strong>Project context and problem statement:</strong> What problem is being addressed, who the users are, and what constraints govern the design.</li>
+  <li><strong>Requirements specification:</strong> Functional and non-functional requirements derived from user research, presented in a structured form.</li>
+  <li><strong>Design rationale:</strong> An account of why particular design directions were chosen, often with reference to HCI principles, guidelines, or standards.</li>
+  <li><strong>Prototype description:</strong> A detailed account of the prototype(s) produced, sufficient for a reader to understand what was built and at what fidelity.</li>
+  <li><strong>Evaluation methodology and findings:</strong> A rigorous account of how the prototype was tested, what was found, and how findings were interpreted.</li>
+  <li><strong>Iterative revisions:</strong> Documentation of how early designs were modified in response to evaluation findings.</li>
+  <li><strong>Limitations and future work:</strong> An honest assessment of what was not achieved and what further design or evaluation work would be needed.</li>
+</ul>
+
+<p>Coherence means that these components must connect logically. Requirements introduced early in the report should reappear in the evaluation section, where the reader learns whether they were successfully met. Design decisions documented in the rationale section should be reflected in the prototype description. If a section could be removed without affecting the sense of any other section, it is probably not well integrated and the report's coherence is weakened.</p>
+
+<p>Finally, it is worth recognising that writing the report is not a task to be completed after the design work is finished. The best HCI development reports are built incrementally alongside the design process itself, with sections drafted and revised as each stage of the project is completed. This practice not only reduces the burden at the end of the project but also improves the quality of the documentation, since decisions and findings are recorded while they are fresh rather than reconstructed from memory. Treating the report as a living document — a genuine companion to the design work rather than a retrospective summary — is one of the clearest markers of professional HCI practice.</p>
+        <div class="notes"><strong>Notes</strong>Establishes the purpose of professional HCI development reports and explains how they function as a traceable record of design decision-making from start to finish.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

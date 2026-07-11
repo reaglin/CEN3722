@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Use Case Scenarios</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to Use Case Scenarios</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Use Case Scenarios</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Software projects fail for many reasons, but one of the most common is a gap between what stakeholders <em>intend</em> a system to do and what developers actually build. Use Case Scenarios exist precisely to close that gap. They are a structured, narrative technique for capturing how a person interacts with a system to achieve a specific goal, written in language clear enough for every stakeholder to read, challenge, and confirm. Before writing a single line of code or drawing a single wireframe, teams that invest time in solid use case scenarios tend to discover ambiguities, contradictions, and missing requirements early — when they are cheap to fix rather than expensive to rework.</p>
+
+<p>Understanding use cases thoroughly means understanding not just their format but their purpose, their relationship to other requirements artifacts, and the discipline required to keep them user-centered. The sections below build that understanding from the ground up.</p>
+
+<p><strong>What Is a Use Case Scenario?</strong></p>
+
+<p>A use case scenario is a focused description of a single goal that a user (or another external system) wants to accomplish, told as a sequence of interactions between that user and the system. The word <em>scenario</em> is deliberate: it implies a story with a beginning (something triggers the interaction), a middle (a sequence of steps unfolds), and an end (the goal is either achieved or not). Every detail in a use case scenario is anchored to that goal — if a detail does not help explain how the goal is pursued or what can go wrong along the way, it does not belong.</p>
+
+<p>Three qualities define a well-formed use case scenario:</p>
+
+<ul>
+  <li><strong>Goal orientation.</strong> The scenario focuses on exactly one thing the user is trying to accomplish — for example, "withdraw cash from an ATM," "register for a university course," or "submit an insurance claim." If a scenario tries to cover multiple independent goals at once, it becomes too large to reason about and too vague to test.</li>
+  <li><strong>User perspective, not system internals.</strong> A use case describes what the user sees and does and what the system presents or responds with — not how the database stores a record or how a microservice authenticates a token. The internal logic is hidden behind the system's responses. This keeps the scenario readable by non-technical stakeholders and prevents it from becoming prematurely tied to implementation decisions that may change.</li>
+  <li><strong>Concrete and testable.</strong> Abstract requirements like "the system shall be user-friendly" cannot be tested. A use case scenario like "the user enters an invalid date format and the system displays an inline error message identifying which field is wrong" can be directly turned into a test case. This testability is one of the most powerful practical benefits of the technique.</li>
+</ul>
+
+<p>Because scenarios are written in plain, structured prose rather than formal notation or code, both a chief technology officer and a customer-service manager can read the same document and either confirm it matches their understanding or point out where it does not. That shared readability is not a cosmetic nicety — it is the mechanism by which the technique catches misunderstandings before they become defects.</p>
+
+<p>Consider a simple example. Suppose a team is building an online library catalogue. A vague requirement might read: "Users can search for books." A use case scenario for the same capability might look like this:</p>
+
+<pre><code>Goal: Find a book by title keyword
+Actor: Library patron
+Precondition: The patron has opened the catalogue home page.
+
+Main success scenario:
+  1. The patron types one or more keywords into the search box.
+  2. The patron presses Enter or clicks the Search button.
+  3. The system displays a list of matching titles, showing author,
+     publication year, and availability status for each.
+  4. The patron clicks a title of interest.
+  5. The system displays the full record for that title.
+  6. The patron notes the call number and closes the record.
+
+Postcondition: The patron has identified a book they wish to locate
+               on the shelves.
+</code></pre>
+
+<p>Even this short scenario raises questions a feature list never would: What if no results are found? How many results appear per page? What counts as a "match" — exact title only, or any keyword in the title? Each of those questions points to a real design or business decision that must be made before the feature can be built correctly.</p>
+
+<p><strong>Role of Use Cases in Requirements Gathering</strong></p>
+
+<p>Requirements gathering is the process of discovering, documenting, and validating what a system must do. It is notoriously difficult because stakeholders often cannot articulate their needs in abstract terms — they think in terms of tasks they perform, problems they encounter, and outcomes they care about. Use cases align naturally with that way of thinking, which is why they are such an effective elicitation tool.</p>
+
+<p>When a business analyst sits down with a stakeholder and asks "Walk me through how you currently handle a customer return," the stakeholder narrates a sequence of actions and decisions — exactly the raw material of a use case. The analyst can then draft a scenario, review it with the stakeholder, and refine it until both parties agree it accurately represents the intended system behavior. That review cycle transforms vague intentions into verifiable, documented agreements.</p>
+
+<ul>
+  <li><strong>Translating stakeholder goals into verifiable system behaviors.</strong> Every step in a use case describes something the system must do or something the user must be able to do. Each of those steps can later become one or more test cases. A requirement that cannot be expressed as a step in some use case scenario is either too vague to implement or perhaps not a real requirement at all.</li>
+  <li><strong>Providing a shared reference point.</strong> Designers use use cases to understand what screens and interactions are needed. Developers use them to understand the expected system responses. Testers use them as the basis for test scripts. When all three groups are working from the same document, misalignments between design, implementation, and testing are far less likely. This shared reference also means that when a dispute arises about what the system "should" do, the team has an agreed-upon document to consult rather than relying on whoever can argue most forcefully.</li>
+  <li><strong>Prioritizing and scoping work.</strong> Because each use case represents a complete user goal, it forms a natural unit of work that can be estimated, prioritized, and included or excluded from a release scope. A feature list entry like "reporting" is too large and vague to schedule. Use cases like "generate monthly sales summary report" and "export customer contact list to CSV" are discrete, estimable, and independently shippable.</li>
+  <li><strong>Revealing gaps.</strong> Feature lists describe capabilities in isolation. Use cases describe capabilities in context — what the user does before, what state the system must be in, what happens afterward. That contextual structure exposes gaps that feature lists routinely hide. A team might list "user authentication" as a feature without ever considering: What happens when a session expires mid-transaction? What if the user has forgotten their password and there is no reset mechanism yet? Use cases surface these gaps because they force the team to walk through the complete interaction.</li>
+</ul>
+
+<p><strong>Key Components of a Use Case</strong></p>
+
+<p>A fully specified use case contains several standard components. Not every project requires the same level of formality, but understanding each component and its purpose allows a team to make deliberate choices about which details to include.</p>
+
+<ul>
+  <li><strong>Actor.</strong> The actor is the entity — almost always a human user, but sometimes an external system — that initiates the interaction and has the goal the use case serves. Identifying the actor precisely matters because different actors may have different permissions, different data, and different success criteria for what looks like "the same" action. A customer browsing products and an inventory manager browsing products are different actors with different goals and different system behaviors available to them. Actors are described by their role, not by their name — "registered customer," not "Jane Smith."</li>
+  <li><strong>Preconditions.</strong> Preconditions state what must already be true about the system and the actor before the use case can begin. They are not steps in the scenario; they are assumed facts. For example: "The user is logged in," or "The shopping cart contains at least one item," or "The requested document has been approved by a manager." Preconditions are important because they define the scope of the use case — they tell the reader what scenarios are handled elsewhere. If the user is <em>not</em> logged in, a different use case handles that.</li>
+  <li><strong>Main success scenario (happy path).</strong> This is the numbered sequence of steps that describes the ideal interaction — the one where everything goes as expected and the actor achieves their goal. Steps alternate between actor actions and system responses. Each step should be atomic and observable. "The user completes the form and submits it" is too compressed. "The user fills in the required fields and clicks Submit" followed by "The system validates the input and displays a confirmation message" is better because each step is independently verifiable. The main success scenario is the backbone of the use case; all other components extend or qualify it.</li>
+  <li><strong>Alternative flows (extensions).</strong> Real interactions rarely follow the happy path every time. Alternative flows document the branching logic: what happens when the user enters invalid data, when a network timeout occurs, when a required resource is unavailable, or when the user chooses an optional path. Each alternative flow is anchored to a specific step in the main scenario and describes how the interaction diverges from and, where possible, rejoins the main flow. For example: "At step 3, if the credit card number fails validation, the system highlights the card number field and displays the message 'Please check your card number.' The user may correct the entry and return to step 3, or cancel the transaction." Without alternative flows, a use case is incomplete — it describes only one of many possible realities.</li>
+  <li><strong>Postconditions.</strong> Postconditions describe the state of the system after the use case completes — both on success and, where relevant, on failure. A success postcondition for an order placement use case might be: "A new order record exists in the system with status 'Confirmed,' and a confirmation email has been queued for delivery to the customer." A failure postcondition might be: "No order record has been created and the customer's payment method has not been charged." Postconditions matter because they define the boundary between this use case and whatever comes next, and they make the scenario testable: after executing the scenario, a tester can inspect the system and verify that the postcondition holds.</li>
+</ul>
+
+<p>The table below summarizes each component, its purpose, and a brief example drawn from an e-commerce checkout scenario:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Purpose</th>
+      <th>Example (E-commerce Checkout)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Actor</td>
+      <td>Identifies who initiates and participates in the interaction</td>
+      <td>Registered customer</td>
+    </tr>
+    <tr>
+      <td>Preconditions</td>
+      <td>States what must be true before the scenario begins</td>
+      <td>Customer is logged in; cart contains at least one item; item is in stock</td>
+    </tr>
+    <tr>
+      <td>Main success scenario</td>
+      <td>Describes the ideal step-by-step interaction</td>
+      <td>Customer reviews cart → enters shipping address → selects payment method → confirms order → system creates order and sends confirmation email</td>
+    </tr>
+    <tr>
+      <td>Alternative flows</td>
+      <td>Documents divergences from the main path</td>
+      <td>Payment is declined → system notifies customer and prompts for a different payment method</td>
+    </tr>
+    <tr>
+      <td>Postconditions</td>
+      <td>Describes system state after the scenario completes</td>
+      <td>Order record created with status "Confirmed"; inventory decremented; confirmation email queued</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Use Cases vs. User Stories</strong></p>
+
+<p>Use cases and user stories are both user-centered requirements techniques, and they are often confused or conflated. Understanding the differences — and the legitimate uses of each — helps teams choose the right tool for their situation and avoid applying either technique poorly.</p>
+
+<p>A user story is a short, informal statement of a user's need, typically written in the form: <em>"As a [role], I want [capability] so that [benefit]."</em> For example: "As a registered customer, I want to save my shipping address so that I don't have to re-enter it every time I check out." The story is intentionally brief. It is a placeholder for a conversation, not a complete specification. Details are worked out just in time, typically in a sprint planning meeting or a backlog refinement session.</p>
+
+<p>A use case for the same capability would specify the actor, preconditions, the step-by-step interaction for saving an address, the steps for selecting a saved address during checkout, what happens when the user wants to edit or delete a saved address, what happens if the save fails, and what the system state looks like afterward. That level of detail is far more than a user story provides — and intentionally so, for different reasons.</p>
+
+<ul>
+  <li><strong>Depth of detail.</strong> User stories defer detail to later conversations. Use cases capture detail upfront. Neither approach is universally superior; the right choice depends on project context, team size, stakeholder availability, and the cost of late-stage changes.</li>
+  <li><strong>Alternative paths and edge cases.</strong> User stories typically describe only the happy path. Edge cases and error conditions are either captured as separate stories or discussed informally. Use cases explicitly require the team to document alternative flows, which means edge cases are identified and agreed upon before development begins rather than discovered during testing or after release.</li>
+  <li><strong>Planning fit.</strong> User stories integrate naturally into agile iteration planning. Their brevity makes them easy to estimate, prioritize, and reorganize. Use cases are more naturally suited to environments where upfront specification is valued — regulated industries, large enterprise projects, or safety-critical systems where the cost of a misunderstood requirement is very high.</li>
+  <li><strong>Shared emphasis on user goals.</strong> Despite their differences in format and granularity, both techniques share a foundational principle: the user's goal must remain central. A use case that drifts into describing database schemas has lost its purpose just as surely as a user story that describes an API endpoint. The discipline of keeping requirements user-centered is what both techniques, at their best, enforce.</li>
+</ul>
+
+<p>In practice, many teams use both. User stories drive sprint planning and backlog management. For complex or high-risk features, the team elaborates the story into a full use case before development begins. This hybrid approach captures the planning flexibility of user stories and the analytical rigor of use cases without forcing a choice between them.</p>
+
+<p>To make the comparison concrete, consider the same feature — "reset a forgotten password" — expressed both ways:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Aspect</th>
+      <th>User Story</th>
+      <th>Use Case Scenario</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Format</td>
+      <td>"As a registered user, I want to reset my password so that I can regain access to my account."</td>
+      <td>Structured document with actor, preconditions, numbered steps, alternative flows, postconditions</td>
+    </tr>
+    <tr>
+      <td>Length</td>
+      <td>One sentence</td>
+      <td>One to several pages depending on complexity</td>
+    </tr>
+    <tr>
+      <td>Edge cases covered</td>
+      <td>Implicitly deferred (e.g., link expires, email not found)</td>
+      <td>Explicitly documented as alternative flows</td>
+    </tr>
+    <tr>
+      <td>Testability</td>
+      <td>Requires elaboration before test cases can be written</td>
+      <td>Steps map directly to test cases</td>
+    </tr>
+    <tr>
+      <td>Best suited for</td>
+      <td>Agile sprint planning, backlog management</td>
+      <td>Upfront specification, regulated or complex systems</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Use Case Scenarios, then, are not a relic of a pre-agile era — they are a precise, powerful tool for making requirements concrete, shared, and verifiable. Whether a team uses them exclusively, alongside user stories, or selectively for complex features, the discipline of thinking through a user's complete interaction with a system — including what can go wrong — produces better software and fewer surprises at delivery time.</p>
+        <div class="notes"><strong>Notes</strong>Consider supplementing this topic with a hands-on activity where students take a vague feature statement and progressively build it into a full use case scenario, adding each component in turn. This reinforces the structural understanding and immediately shows students how much detail a feature list omits.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

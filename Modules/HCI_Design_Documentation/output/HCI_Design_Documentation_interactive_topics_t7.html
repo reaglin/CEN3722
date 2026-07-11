@@ -1,0 +1,237 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Report Structure, Referencing, and Presentation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Report Structure, Referencing, and Presentation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Report Structure, Referencing, and Presentation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Producing a professional HCI development report requires far more than simply recording what was done during a project. The document must communicate a coherent, evidence-based story about how a design problem was identified, investigated, iterated upon, and ultimately resolved. To achieve that, the report must be structured predictably so that any reader — whether a client, an academic assessor, or a fellow practitioner — can locate information quickly, evaluate the quality of the reasoning, and trust that the evidence presented is properly sourced. The conventions described below are not arbitrary bureaucratic rules; each one exists because it solves a specific communication problem that arises when complex, multi-stage design work is written up for a professional audience.</p>
+
+<p><strong>Standard Report Structure</strong></p>
+
+<p>A professional HCI report is divided into three broad zones: the front matter, the body, and the back matter. Each zone plays a distinct role, and together they transform what could be a loose collection of observations and design artefacts into a navigable, self-contained document.</p>
+
+<p><strong>Front matter</strong> consists of the elements a reader encounters before the main content begins. The <em>title page</em> names the project, identifies the authors, states the institutional or client context, and provides the submission or publication date. Even in student contexts this page signals professionalism; a missing or carelessly formatted title page creates an immediate negative impression. The <em>abstract</em> (sometimes called an executive summary in industry reports) is a condensed, self-contained description of the entire project — its purpose, the methods used, the principal findings, and the key design outcomes. Crucially, the abstract must be intelligible without reading the rest of the report; many stakeholders read only this section before deciding whether to engage further. The abstract is written last, even though it appears first. The <em>table of contents</em> lists every numbered section and subsection with corresponding page numbers, allowing readers to navigate directly to the content most relevant to them. In longer reports, separate lists of figures and tables are added immediately after the table of contents.</p>
+
+<p><strong>Body organisation</strong> in an HCI report should mirror the chronological stages of the design process itself. This is not merely a stylistic choice — it reflects the fact that each stage of HCI work produces outputs that become inputs to the next stage, and a reader needs to follow that chain of reasoning. A typical body structure moves through: an introduction that frames the problem and the report's scope; a literature review or contextual background that situates the project within established HCI theory and prior work; a requirements section reporting the outcomes of user research (interviews, observations, surveys); a design rationale section documenting ideation and the decisions made in moving from requirements to early concepts; a prototyping section presenting low- and high-fidelity prototypes with the reasoning behind design choices; an evaluation section reporting usability testing results; and a discussion or conclusion section that synthesises findings, acknowledges limitations, and suggests future directions. When the body is organised this way, each section answers a predictable question: <em>What did we need to know? What did we find out? What did we design? How did we test it? What does it mean?</em></p>
+
+<p><strong>Appendices</strong> carry supporting evidence that is necessary for completeness and reproducibility but would interrupt the flow of the body if inserted inline. Every appendix must be clearly labelled (Appendix A, Appendix B, and so on) with a descriptive title, and each must be explicitly referenced somewhere in the body text. Typical appendix content in an HCI report includes: raw interview transcripts or survey response data; completed participant consent forms and information sheets; full sets of usability test tasks and protocols; additional prototype screens or wireframes not discussed in the body; and any statistical output files. A reader should be able to consult an appendix to verify a claim made in the body without having to guess which appendix is relevant.</p>
+
+<p><strong>Writing Cohesive Narratives Across Sections</strong></p>
+
+<p>One of the most common weaknesses in student and junior-practitioner HCI reports is that the sections read as independent mini-essays rather than as chapters in a single argument. A requirements section might describe ten user needs, but the subsequent design section presents prototypes that address only four of them, with no explanation of the gap. An evaluation section might report a usability finding without connecting it back to the design decision that caused it. These disconnections make the report difficult to assess and suggest that the design decisions themselves were not properly reasoned.</p>
+
+<p><strong>Explicit cross-referencing</strong> is the primary technical remedy. When body text in the design section builds on a finding from the requirements section, name that connection directly: <em>"The decision to use a bottom navigation bar addresses the thumb-reach constraint identified in Section 3.2"</em> rather than leaving the reader to infer the link. Similarly, when an appendix is relevant, the referral must be active rather than passive: <em>"Full interview transcripts are provided in Appendix B"</em> rather than hoping the reader will look for them independently.</p>
+
+<p><strong>Section-opening signpost statements</strong> serve a related function. The first paragraph of each major section should do two things simultaneously: state the purpose of this section and articulate how it relates to what came before. For example, a prototyping section might open with: <em>"Having established in the previous section that users require rapid access to frequently used features and that cognitive load during task completion is a significant concern, this section presents the low-fidelity wireframes developed to address those requirements and explains the design decisions that shaped the high-fidelity prototype."</em> That single sentence prevents the section from appearing to start from scratch and reminds the reader of the through-line of the project.</p>
+
+<p>The underlying principle is that the report must answer an implicit "so what?" at every transition. The requirements section must set up what the design section will resolve. The design section must create questions that the evaluation section will answer. The conclusion must synthesise what all previous sections, taken together, demonstrate. When writers treat their own report as a story with a beginning, middle, and end, cross-section coherence tends to improve naturally.</p>
+
+<p><strong>Academic Referencing</strong></p>
+
+<p>In an HCI report, references serve a specific argumentative function: they demonstrate that design decisions are grounded in established knowledge rather than personal preference. When a decision is justified by citing Nielsen's usability heuristics, Fitts's Law, Norman's principles of affordance and feedback, or a peer-reviewed usability study, the report gains credibility because the reasoning can be independently verified. A report that makes design claims without citations is simply asserting opinion.</p>
+
+<p>The types of sources typically cited in HCI reports include:</p>
+<ul>
+  <li><strong>Theoretical frameworks and models</strong> — for example, Norman's Action Cycle, Shneiderman's Eight Golden Rules, or the Technology Acceptance Model (TAM), cited when they are used to analyse user behaviour or justify interface conventions.</li>
+  <li><strong>Usability guidelines and standards</strong> — for example, ISO 9241-11 (the international standard defining usability in terms of effectiveness, efficiency, and satisfaction) or platform-specific human interface guidelines, cited when a specific design standard is being followed.</li>
+  <li><strong>Empirical research findings</strong> — peer-reviewed studies reporting usability test outcomes, eye-tracking experiments, or field studies, cited when they inform specific design choices such as typography sizes, menu depth, or colour contrast ratios.</li>
+  <li><strong>Methodological sources</strong> — texts on user research methods (interviews, contextual inquiry, card sorting), cited in the methodology section to justify the chosen approach.</li>
+</ul>
+
+<p><strong>Consistency</strong> in referencing style is non-negotiable. Whether the required style is APA, Harvard, IEEE, or another system, every in-text citation and every entry in the reference list must follow the same format without exception. Mixed referencing styles — APA in-text citations with IEEE-style reference list entries, for instance — indicate careless proofreading and undermine the credibility of the entire document. The most common errors include: inconsistent use of italics for journal and book titles; missing or incorrectly formatted DOIs or URLs; inconsistent treatment of multiple authors; and missing publication years. Many institutions provide referencing guides, and tools such as Zotero, Mendeley, or citation generators can reduce formatting errors, but all automatically generated citations must be checked manually because errors are common.</p>
+
+<p>The <strong>reference list</strong> appears at the end of the main body, before the appendices, and includes every source cited in the report — no more and no less. Sources that were read but not cited do not appear (that would be a bibliography, which is a different thing). The list is formatted according to the prescribed style: alphabetically by author surname in APA and Harvard systems, or numerically in order of first citation in IEEE. Every entry must contain enough information for a reader to locate the original source independently.</p>
+
+<p><strong>Use of Visual Evidence</strong></p>
+
+<p>HCI reports are inherently visual documents. Wireframes, usability test result charts, persona cards, journey maps, affinity diagrams, and prototype screenshots are not decorative — they are primary evidence. How they are presented determines whether they support or undermine the report's argument.</p>
+
+<p><strong>Numbering and captioning</strong> every visual element is the foundational requirement. Figures (which include photographs, diagrams, charts, screenshots, and any non-tabular visual) are numbered sequentially throughout the report: Figure 1, Figure 2, and so on. Tables are numbered in their own separate sequence: Table 1, Table 2, and so on. Each figure and table receives a concise but descriptive caption. In APA style the caption appears below a figure and above a table; in other styles the convention may differ, but whichever convention is adopted must be applied uniformly. A good caption describes what the visual shows and, where necessary, explains what the reader should notice: <em>"Figure 4. Heat map generated from eye-tracking data during Task 2, showing concentrated fixations on the top-left navigation panel and near-zero attention to the bottom action bar."</em> That caption does analytical work, not merely labelling work.</p>
+
+<p><strong>In-text referencing of visuals</strong> is a requirement that is frequently overlooked. Every figure and table must be explicitly called out in the body text at the point where it becomes relevant: <em>"As shown in Figure 4…"</em> or <em>"Table 2 summarises the task completion rates across all five participants."</em> A figure that is inserted into the document but never mentioned in the text appears to float free of the argument — the reader cannot know whether it is illustrating a point, providing raw data for inspection, or included by accident. Conversely, a visual should never be placed in the document before its first in-text reference; the reference in the text should logically precede or immediately accompany the visual.</p>
+
+<p><strong>Resolution and clarity</strong> are practical requirements with real consequences. A wireframe screenshot that is pixelated or too small to read the interface labels defeats the purpose of including it. All raster images (photographs, screenshots) should be exported or captured at a resolution sufficient to remain legible when printed at A4 size — typically 150 dpi minimum for screenshots and 300 dpi for photographs. Vector graphics (SVG, PDF-embedded diagrams) scale without quality loss and should be used for charts and diagrams wherever possible. Before submission, every visual should be inspected at 100% zoom in the final PDF to confirm legibility.</p>
+
+<p>The table below summarises the key rules for presenting visual evidence consistently:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Element</th>
+      <th>Numbering</th>
+      <th>Caption Position</th>
+      <th>In-text Reference Required?</th>
+      <th>Minimum Resolution</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Photographs and screenshots</td>
+      <td>Figure sequence (Figure 1, 2, …)</td>
+      <td>Below the image</td>
+      <td>Yes — before or alongside the figure</td>
+      <td>150 dpi at final print size</td>
+    </tr>
+    <tr>
+      <td>Charts and graphs</td>
+      <td>Figure sequence</td>
+      <td>Below the image</td>
+      <td>Yes</td>
+      <td>Vector preferred; 150 dpi minimum if raster</td>
+    </tr>
+    <tr>
+      <td>Wireframes and prototypes</td>
+      <td>Figure sequence</td>
+      <td>Below the image</td>
+      <td>Yes</td>
+      <td>Legible labels at A4 print size</td>
+    </tr>
+    <tr>
+      <td>Data tables</td>
+      <td>Table sequence (Table 1, 2, …)</td>
+      <td>Above the table</td>
+      <td>Yes — before the table appears</td>
+      <td>N/A (text-based)</td>
+    </tr>
+    <tr>
+      <td>Diagrams (journey maps, affinity diagrams)</td>
+      <td>Figure sequence</td>
+      <td>Below the image</td>
+      <td>Yes</td>
+      <td>Vector preferred; all text must be legible</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Presentation and Formatting Standards</strong></p>
+
+<p>Formatting is the visual layer of the report's argument. Inconsistent formatting does not merely look unprofessional — it actively interferes with comprehension by creating ambiguity about the logical hierarchy of content. A reader who cannot immediately distinguish a section heading from a subsection heading has to do extra cognitive work to understand the document's structure, and that work detracts from their engagement with the ideas.</p>
+
+<p><strong>Heading hierarchy and typography</strong> must be defined early and applied without deviation. A three-level heading system is sufficient for most HCI reports: a primary level for major sections (Introduction, Requirements, Design, Evaluation, Conclusion), a secondary level for subsections within those, and a tertiary level for sub-subsections where needed. Each level should be visually distinct — typically through a combination of font size, weight (bold or regular), and vertical spacing — and these distinctions must be maintained throughout. Body text should use a readable serif or sans-serif font at 11 or 12 point with 1.15 or 1.5 line spacing. All paragraphs should be formatted consistently, whether that means uniform indentation of the first line or uniform space between paragraphs. Code samples, if any, should appear in a monospace font within a visually distinguished block. These choices should be encoded in named paragraph and character styles within the word processor rather than applied manually, because manual formatting is the primary source of inconsistency in multi-section documents.</p>
+
+<p><strong>Word count management</strong> requires deliberate planning. Most assessed HCI reports specify a total word count, and the distribution of that count across sections is not arbitrary. The body of the report — requirements, design, evaluation — should consume the largest portion because that is where the substantive intellectual work is presented. The introduction and conclusion together typically account for ten to fifteen percent of the total. The abstract is usually excluded from the word count but is itself subject to its own limit (commonly 150–300 words). A common mistake is to write an excessively long literature review or introduction and then compress the evaluation section, which produces a document that dwells on context at the expense of the project's actual findings. A rough planning allocation for a 4,000-word report might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Section</th>
+      <th>Approximate Word Count</th>
+      <th>Percentage of Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Introduction</td>
+      <td>300–400</td>
+      <td>8–10%</td>
+    </tr>
+    <tr>
+      <td>Background / Literature Review</td>
+      <td>400–600</td>
+      <td>10–15%</td>
+    </tr>
+    <tr>
+      <td>Requirements and User Research</td>
+      <td>700–900</td>
+      <td>18–22%</td>
+    </tr>
+    <tr>
+      <td>Design and Prototyping</td>
+      <td>800–1,000</td>
+      <td>20–25%</td>
+    </tr>
+    <tr>
+      <td>Evaluation</td>
+      <td>700–900</td>
+      <td>18–22%</td>
+    </tr>
+    <tr>
+      <td>Discussion and Conclusion</td>
+      <td>300–400</td>
+      <td>8–10%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Final formatting review</strong> is essential in any report written collaboratively, because different authors inevitably apply formatting rules differently. One author may use double spaces after full stops; another may not. One may write "Figure 1" with a capital F and another "figure 1" in lowercase. One section may have 12pt spacing after headings and another 6pt. These discrepancies are invisible to each individual author but immediately apparent to a reader encountering the full document. The final review should be conducted by a single person who goes through the entire document specifically looking for formatting inconsistencies rather than reading for content. A useful technique is to use the word processor's "find and replace" function to locate common errors (double spaces, inconsistent hyphenation, mixed heading capitalisation styles) and the styles panel to confirm that named styles are applied consistently. The document should be exported to its final submission format (typically PDF) and reviewed again in that format, because some formatting issues only become visible in the rendered output.</p>
+
+<p>A consolidated checklist for the final review might include:</p>
+<ul>
+  <li><strong>Front matter complete:</strong> title page, abstract, table of contents, and lists of figures and tables all present and correctly formatted.</li>
+  <li><strong>Heading hierarchy consistent:</strong> all level-1, level-2, and level-3 headings visually uniform throughout the document.</li>
+  <li><strong>All figures and tables numbered and captioned:</strong> no visual element appears without a label, and no figure or table number is skipped or duplicated.</li>
+  <li><strong>All figures and tables referenced in body text:</strong> each visual is explicitly called out before or at the point of its appearance.</li>
+  <li><strong>All citations match the reference list:</strong> every in-text citation has a corresponding reference list entry and vice versa.</li>
+  <li><strong>Referencing style applied uniformly:</strong> consistent formatting of authors, dates, titles, and source information throughout the reference list.</li>
+  <li><strong>Cross-references accurate:</strong> all section, figure, and table numbers cited in the text match the actual numbers in the document.</li>
+  <li><strong>Word count within limits:</strong> total count and per-section allocation checked against the specification.</li>
+  <li><strong>Appendices labelled and referenced:</strong> each appendix has a title and is cited at least once in the body.</li>
+  <li><strong>Images legible in final PDF:</strong> all figures readable at standard screen zoom and at print size.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>The topic covers all five subtopic clusters: standard report structure (front matter, body organisation mirroring HCI process stages, appendices), cohesive narrative writing (cross-referencing, section-opening signposts, unified flow), academic referencing (types of HCI sources, consistency requirements, reference list conventions), use of visual evidence (numbering, captioning, in-text referencing, resolution), and presentation/formatting standards (heading hierarchy, word count distribution, final collaborative review). Two HTML tables are included: one summarising visual element presentation rules and one illustrating approximate word count distribution across sections.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

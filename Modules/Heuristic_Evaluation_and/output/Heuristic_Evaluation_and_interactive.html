@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Evaluating Peer Prototypes</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Evaluating Peer Prototypes</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Evaluating Peer Prototypes</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Heuristic Evaluation (HE) is one of the most widely used and respected usability inspection methods in UX and interaction design. In this module, you will move beyond practice exercises and apply the complete HE process independently to three prototypes created by your peers. This is a significant step: you are no longer evaluating a controlled example with known issues, but instead bringing your expert eye to real design work produced in real conditions, with all the ambiguity and variation that entails. The expectations for this module are correspondingly higher — both in the rigour of your methodology and in the professionalism of your conduct.</p>
+
+<p>Understanding the full scope of this assignment before you begin is essential. Rushing into the first evaluation without a clear picture of what is required across all three can lead to inconsistent depth, missed heuristics, or reports that vary wildly in quality. Read through the requirements carefully, organise your materials, and approach each evaluation as a discrete, self-contained professional task.</p>
+
+<p><strong>Module Assignment Overview</strong></p>
+
+<p>The assignment requires you to evaluate three distinct peer prototypes. Each prototype is a separate design artefact, and each must receive its own dedicated, formally structured Heuristic Evaluation report. You cannot combine findings from two prototypes into a single report, nor can you cross-reference issues between prototypes as a way of shortening your documentation. Each report must stand alone as a complete, professional deliverable.</p>
+
+<p>During each evaluation, you are required to systematically consider all ten of Nielsen's usability heuristics. This is not optional, and it does not mean simply listing the heuristics at the top of your report. It means actively and deliberately testing the prototype against each heuristic in turn, asking whether the design satisfies, partially satisfies, or violates the principle — and documenting your reasoning with specific, observable evidence for every finding you record.</p>
+
+<p>Every finding you document must be accompanied by a severity rating using the standard 0–4 scale. This scale provides a shared, structured language for communicating how serious a usability problem is, independent of subjective impression. The ratings are defined as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rating</th>
+      <th>Label</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Not a usability problem</td>
+      <td>Reviewed and found to be a non-issue; no action required.</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Cosmetic problem only</td>
+      <td>Need not be fixed unless extra time is available; very low impact on usability.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Minor usability problem</td>
+      <td>Low priority; fixing this would improve the experience but it is not urgent.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Major usability problem</td>
+      <td>High priority; important to fix as it significantly impairs the user's ability to complete tasks.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Usability catastrophe</td>
+      <td>Imperative to fix before the product can be released; prevents task completion entirely.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Severity ratings must be applied thoughtfully, not mechanically. A severity 3 finding in one prototype should reflect the same level of impact as a severity 3 finding in another — your scale must remain consistent across all three reports. When in doubt, ask yourself: how much does this problem impair a real user's ability to complete their goal? That question should anchor every rating you assign.</p>
+
+<p><strong>Maintaining Evaluator Independence</strong></p>
+
+<p>Perhaps the most critical procedural requirement of this assignment is that you complete all individual evaluations independently, without sharing or discussing your findings with classmates until every report is fully documented. This is not a bureaucratic rule — it reflects a foundational principle of rigorous evaluation methodology. The entire value of running multiple independent evaluators is that each person surfaces problems the others might not notice, because they each bring their own mental model, prior experience, and attentional focus. If evaluators compare notes mid-process, those independent perspectives collapse into a single shared view, and the evaluation loses much of its power to surface the full range of issues.</p>
+
+<p>Consider a concrete example: suppose you evaluate a prototype and find a confusing navigation structure but miss an inconsistency in the iconography. A classmate finds the icon issue but misses the navigation problem. If you compare findings before finalising your reports, you each add the other's discoveries to your own list — but neither of you independently validated those findings. Your reports now contain findings you did not personally discover or assess, which undermines the integrity of both evaluations.</p>
+
+<p>Independence also requires a specific habit during the evaluation itself: record findings as you discover them, in real time. Do not make mental notes with the intention of writing them up later. Memory is selective and reconstructive — by the time you sit down to write, you will have forgotten the exact screen, the precise interaction, or the specific wording that made a problem evident. Write your observations directly into your notes or report draft as you move through the prototype. A simple timestamped log of findings, captured screen by screen, will make your final report far easier to write and far more accurate.</p>
+
+<p>Collaboration before all individual reports are complete does not just reduce evaluation quality — it also undermines the academic validity of the work. Each report must reflect your own expert assessment. Submitting a report that incorporates another evaluator's undisclosed contributions misrepresents your individual work, regardless of intent.</p>
+
+<p><strong>Professional Conduct in Peer Evaluation</strong></p>
+
+<p>Evaluating a classmate's prototype introduces a social dimension that professional HE of a commercial product does not. It is natural to feel cautious about identifying problems in a peer's work, or conversely to be harsher than you would be with a professional product because the context feels less formal. Neither of these tendencies serves the designer or the evaluation. Your job is to be a rigorous, fair, and constructive professional evaluator — not a critic, and not a cheerleader.</p>
+
+<p>Every finding you document must be grounded in two things: a specific heuristic and observable evidence from the prototype. This framing protects both you and the designer. When you write "the error message on screen 4 provides no indication of what went wrong or how to recover, violating Heuristic 9 (Help users recognise, diagnose, and recover from errors)," you are making a professional, evidence-based observation. You are not making a judgment about the designer's competence. The problem exists in the design artefact, and it can be fixed in the next design artefact. That distinction matters enormously.</p>
+
+<p>Avoid all personal commentary about the designer's skill, effort, or intent. Phrases such as "the designer clearly didn't think about the user," "this is a lazy implementation," or even well-meaning observations like "I can tell a lot of effort went into this" have no place in a formal HE report. They introduce subjectivity, they shift focus from the design to the person, and they reduce the professional credibility of your evaluation. A finding should read as if it could have been written about any interface by any qualified evaluator — not as if it was written by someone who knows whose work they are assessing.</p>
+
+<p>Recommendations should be constructive and should respect the designer's creative direction. If a prototype uses an unconventional layout that creates a genuine discoverability problem, your recommendation should address the discoverability problem — not suggest abandoning the unconventional layout entirely. You are not the designer. Your role is to identify where the current design creates friction for users and to suggest directions for improvement, not to impose your own aesthetic or structural preferences.</p>
+
+<p>It is also worth internalising a broader professional truth: usability problems are not failures. Every design — including the products built by the most experienced teams in the world — contains usability issues. That is precisely why iterative design, user testing, and heuristic evaluation exist. Finding problems in a prototype is not an indictment of the designer; it is the purpose of the evaluation. Approach every report with that understanding, and your findings will be more honest, more useful, and more professionally presented.</p>
+
+<p><strong>Calibrating Evaluations Across Prototypes</strong></p>
+
+<p>One of the subtler challenges of evaluating multiple prototypes in sequence is maintaining a consistent evaluative standard. Humans naturally calibrate their expectations based on recent experience. If the first prototype you evaluate is exceptionally polished, you may unconsciously raise your bar and apply a harsher standard to the second. If the first is rough, you may become more lenient. Neither response produces fair or useful evaluations, and the problem compounds across three prototypes evaluated over several days.</p>
+
+<p>The most effective countermeasure is procedural consistency. Use exactly the same systematic walkthrough process for every prototype, regardless of your initial impression of its quality. This means defining your walkthrough tasks before you begin each evaluation, working through the interface in a structured sequence rather than exploring freely, and completing at least two full walkthroughs per prototype — one focused on task completion and one focused on systematic heuristic checking.</p>
+
+<p>Before starting each new evaluation, take a moment to review all ten Nielsen heuristics explicitly. This is not just a memory exercise — it is a deliberate cognitive reset. Reading the heuristics reactivates your evaluative framework and prevents you from drifting into a mode where you are only watching for the types of problems you found in the previous prototype. Each prototype may violate a very different subset of heuristics, and your walkthrough should be open to that full range.</p>
+
+<p>The ten heuristics you must systematically apply to each prototype are:</p>
+
+<ul>
+  <li><strong>H1 — Visibility of system status:</strong> Does the interface keep users informed about what is happening through appropriate, timely feedback?</li>
+  <li><strong>H2 — Match between system and the real world:</strong> Does the system use language, concepts, and conventions that are familiar to the user rather than system-oriented terminology?</li>
+  <li><strong>H3 — User control and freedom:</strong> Can users easily undo and redo actions, and escape from unwanted states without having to go through extended processes?</li>
+  <li><strong>H4 — Consistency and standards:</strong> Are conventions followed consistently throughout the interface, and does the design conform to platform and industry norms?</li>
+  <li><strong>H5 — Error prevention:</strong> Does the design proactively prevent problems from occurring in the first place, rather than relying on error messages after the fact?</li>
+  <li><strong>H6 — Recognition rather than recall:</strong> Are options, actions, and information visible and retrievable without requiring the user to remember information from earlier in the interaction?</li>
+  <li><strong>H7 — Flexibility and efficiency of use:</strong> Does the interface support accelerators and shortcuts that allow experienced users to complete tasks more quickly?</li>
+  <li><strong>H8 — Aesthetic and minimalist design:</strong> Does the interface avoid presenting irrelevant or rarely needed information that competes with important content?</li>
+  <li><strong>H9 — Help users recognise, diagnose, and recover from errors:</strong> Are error messages expressed in plain language, do they precisely identify the problem, and do they suggest a constructive solution?</li>
+  <li><strong>H10 — Help and documentation:</strong> If help or documentation is necessary, is it easy to find, task-focused, and genuinely useful?</li>
+</ul>
+
+<p>Performing a consistent number of walkthroughs per prototype is also important for controlling evaluation depth. If you conduct three walkthroughs of the first prototype and only one of the third because you are tired or pressed for time, the third report will almost certainly contain fewer findings — not because the prototype has fewer problems, but because you looked less carefully. Plan your evaluation sessions in advance, allocate similar time blocks to each prototype, and treat reduced thoroughness on a later prototype as a methodological flaw, not a time-saving measure.</p>
+
+<p>Finally, keep your working notes from each evaluation completely separate. Use clearly labelled documents or folders, one per prototype, from the very beginning. Mixing notes, especially during the write-up phase, is a practical risk that can introduce errors and blur the boundaries between your three independent assessments. Treating each evaluation as a self-contained professional project — from first walkthrough to final report — is both good methodology and good professional practice.</p>
+        <div class="notes"><strong>Notes</strong>Covers all listed subtopics in depth: assignment overview, independence requirements, professional conduct standards, and cross-prototype calibration. The severity rating scale is rendered as an HTML table. The ten heuristics are listed as a structured unordered list for easy reference during study.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

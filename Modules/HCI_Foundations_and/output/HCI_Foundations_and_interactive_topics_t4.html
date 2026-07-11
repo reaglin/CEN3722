@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tools in HCI and Development</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>AI Tools in HCI and Development</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>AI Tools in HCI and Development</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Artificial intelligence has moved from a speculative technology into an everyday part of how software is designed, built, tested, and maintained. Whether a designer is exploring layout options for a new dashboard, a developer is writing a complex algorithm, or a QA engineer is looking for edge-case failures, AI-powered tools are now active participants in those workflows. Understanding how these tools work, where they genuinely help, and where they can mislead you is essential for anyone working in Human-Computer Interaction (HCI) or software development today. This topic surveys the full landscape — from AI's role in visual design through its integration across the software development lifecycle — and closes with clear guidelines for using AI responsibly in your own work.</p>
+
+<p><strong>How AI Supports the Design Process</strong></p>
+
+<p>Design decisions that once required extensive manual research and iteration can now be informed by AI systems that have processed enormous volumes of user behavior data, accessibility guidelines, and established design patterns. This does not mean AI replaces the designer's judgment — it means AI can surface options and flag problems faster than a human working alone.</p>
+
+<p><strong>Suggesting UI layouts and color schemes based on user behavior data.</strong> Modern AI design tools analyze patterns drawn from millions of real interfaces and user interactions to recommend layouts, spacing, typography pairings, and color palettes. For example, a tool might suggest placing the primary call-to-action button in the upper-right quadrant of a card because click-through data consistently shows higher engagement there compared to centered or lower placements. Color scheme recommendations can account for contrast ratios required by WCAG accessibility standards, emotional associations validated through user research (e.g., blue tones for trust in financial applications), and brand consistency rules. These recommendations are valuable precisely because they encode a breadth of evidence no individual designer could manually review in a typical project timeline.</p>
+
+<p>Consider a practical scenario: a designer is building a mobile checkout flow. An AI assistant might analyze the component library and user session data to suggest a single-column vertical layout with large touch targets, a progress indicator at the top, and high-contrast action buttons — all grounded in established mobile usability research. The designer can then evaluate that recommendation against the specific brand voice, the target audience's characteristics, and any business constraints that the AI does not know about.</p>
+
+<p><strong>Automated visual testing tools use AI to detect design inconsistencies across devices.</strong> One of the most labor-intensive parts of UI development is cross-device and cross-browser visual regression testing — verifying that a button still looks correct on a small Android phone, a tablet in landscape mode, and a wide desktop monitor. AI-powered visual testing platforms such as Applitools or Percy use computer vision models to compare rendered screenshots pixel-by-pixel (and at a semantic level) to detect unintended shifts in layout, font rendering differences, misaligned elements, or color changes introduced by a code update. Unlike simple pixel-diff tools, AI-based approaches can distinguish a meaningful layout break from an inconsequential sub-pixel anti-aliasing difference, dramatically reducing false positives. This frees developers to focus their attention on defects that would actually affect users.</p>
+
+<p><strong>AI recommendations should be treated as starting points, not final design decisions.</strong> This is a principle worth emphasizing because the fluency and confidence of AI output can make it feel more authoritative than it is. AI tools are trained on historical data and general patterns; they have no knowledge of your specific users, your organization's unique constraints, your legal requirements, or the nuanced goals of a particular project. A color palette that performs well for a general e-commerce audience may be entirely wrong for a medical device interface where color conventions carry clinical meaning. A layout that maximizes engagement on a consumer app may be inappropriate for a professional tool used by experts who prioritize information density over visual simplicity. The designer's role is to critically evaluate AI suggestions, test them with real users, and make informed decisions — using AI output as a well-researched first draft rather than a finished answer.</p>
+
+<p><strong>AI Coding Assistants</strong></p>
+
+<p>AI coding assistants represent one of the most immediately impactful applications of large language models (LLMs) in professional practice. Tools such as GitHub Copilot, Amazon CodeWhisperer, Tabnine, and ChatGPT/Claude used in a coding context have become widely adopted because they address real friction points in day-to-day development work.</p>
+
+<p><strong>Suggesting completions as developers type, reducing keyboarding effort.</strong> The most visible feature of AI coding assistants is inline autocomplete — as you begin typing a function, method call, or variable name, the assistant predicts what you are likely to write next and offers a completion in grayed-out text that you can accept with a single keystroke. This goes far beyond simple syntax completion (which IDEs have provided for decades). Modern AI assistants can predict entire function bodies, complete a loop with the correct iteration logic, or fill in a configuration object based on the surrounding code context. For repetitive but non-trivial tasks — writing getters and setters, constructing fetch calls with proper error handling, formatting date strings — this dramatically reduces the mechanical typing burden and lets developers stay in a flow state focused on higher-level problem solving.</p>
+
+<p><strong>Natural language prompts can generate functional code, tests, and documentation automatically.</strong> Beyond completion, many AI tools accept natural language instructions. A developer can write a comment such as <code>// fetch user data from /api/users, handle loading and error states, return a typed response</code> and the assistant generates a complete, syntactically correct implementation. Similarly, a developer can prompt: <em>"Write unit tests for the following function covering edge cases including null input, empty array, and maximum integer values"</em> and receive a test suite as a starting point. Documentation generation is another high-value use case — providing a function and asking for a JSDoc comment block, a README section, or an API reference entry. These capabilities compress tasks that previously took significant time into seconds, leaving developers more time for architecture, design, and difficult problem solving.</p>
+
+<p>As a concrete example, imagine a developer needs a Python function to paginate through a REST API that uses cursor-based pagination:</p>
+
+<pre><code># Prompt given to AI: "Write a Python function that fetches all pages
+# of results from a cursor-based REST API endpoint, handles rate limiting
+# with exponential backoff, and returns a combined list of results."
+
+import time
+import requests
+
+def fetch_all_pages(url, headers, params=None, max_retries=5):
+    results = []
+    cursor = None
+    params = params or {}
+
+    while True:
+        if cursor:
+            params["cursor"] = cursor
+
+        for attempt in range(max_retries):
+            response = requests.get(url, headers=headers, params=params)
+            if response.status_code == 429:
+                wait = 2 ** attempt
+                time.sleep(wait)
+                continue
+            response.raise_for_status()
+            break
+        else:
+            raise Exception("Max retries exceeded due to rate limiting.")
+
+        data = response.json()
+        results.extend(data.get("items", []))
+        cursor = data.get("next_cursor")
+        if not cursor:
+            break
+
+    return results</code></pre>
+
+<p>This is a reasonable starting implementation that a developer can review, adapt, and extend — but it requires careful evaluation before use in production (more on that below).</p>
+
+<p><strong>AI-assisted code reviews can flag style inconsistencies and potential bugs before merging.</strong> Some AI tools integrate directly into pull request workflows. They analyze the diff of a proposed code change and comment on potential issues: a variable that is declared but never used, a missing null check before dereferencing an object, a SQL query construction pattern that could be vulnerable to injection, inconsistent naming conventions compared to the rest of the codebase, or a logic path that is unreachable. This acts as an automated first-pass reviewer that catches common issues before a human reviewer spends time on them, allowing human code review to focus on higher-order concerns like architecture, correctness of business logic, and maintainability.</p>
+
+<p><strong>Developers must review AI-generated code critically — it can introduce bugs or security issues.</strong> This is the most important caveat in this entire section. AI coding assistants are pattern-matching systems trained on vast code corpora — including code that was incorrect, insecure, or outdated. They do not understand the semantics of what they are generating in the way a thoughtful developer does. Common failure modes include:</p>
+
+<ul>
+  <li><strong>Hallucinated APIs:</strong> The AI may generate calls to library functions or API endpoints that do not exist, sometimes with plausible-sounding names.</li>
+  <li><strong>Security vulnerabilities:</strong> AI-generated code has been shown to reproduce known vulnerability patterns, such as hard-coded credentials, missing input sanitization, or improper cryptographic implementations.</li>
+  <li><strong>Subtle logic errors:</strong> The generated code may appear correct at a glance but fail for edge cases the AI did not account for (off-by-one errors, incorrect handling of empty collections, wrong operator precedence).</li>
+  <li><strong>Outdated patterns:</strong> If the training data included older library versions, the generated code may use deprecated APIs or patterns that have known issues in newer versions.</li>
+  <li><strong>Licensing concerns:</strong> AI models may reproduce code verbatim from their training data, potentially including code licensed under terms (e.g., GPL) that conflict with your project's license.</li>
+</ul>
+
+<p>The practical rule is: <em>treat every line of AI-generated code as code written by a capable but fallible junior developer who did not know your specific requirements</em>. Read it carefully, run it, test it, and take ownership of it before it enters your codebase.</p>
+
+<p><strong>AI Across the Software Development Lifecycle</strong></p>
+
+<p>AI is not limited to the moment when a developer is writing code. It is increasingly embedded across every phase of the software development lifecycle (SDLC), from the earliest planning discussions through long-term post-deployment monitoring.</p>
+
+<p><strong>In planning, AI can identify requirement gaps and predict project timeline risks.</strong> During the requirements and planning phase, AI tools can analyze a set of user stories or requirement documents and flag ambiguities, contradictions, or areas where requirements are underdefined. For example, a requirements analysis tool might detect that a user story specifies behavior for logged-in users but says nothing about what happens for unauthenticated access — a gap that, if unnoticed, could lead to a security issue or a poor user experience discovered late in development. On the project management side, AI models trained on historical project data can analyze a proposed scope, team size, and schedule and predict the probability of timeline slippage, flag tasks that have historically been underestimated in similar projects, or suggest that a particular integration dependency carries high risk.</p>
+
+<p><strong>During testing, AI automatically generates test cases and scans for security vulnerabilities.</strong> Writing comprehensive test suites is time-consuming, and coverage gaps are a persistent source of shipped bugs. AI testing tools can analyze source code, API contracts, or user interface specifications and generate test cases automatically — including boundary condition tests, negative tests (invalid input), and tests for common failure modes. For security, AI-powered static analysis tools (SAST) scan codebases for patterns associated with known vulnerability classes (OWASP Top 10, CWE categories), while AI-driven dynamic analysis tools (DAST) can generate attack payloads and probe running applications for weaknesses. These tools do not replace professional security review, but they catch a significant proportion of common vulnerabilities before code is shipped.</p>
+
+<p><strong>Post-deployment, AI monitors system performance and predicts failures before users are affected.</strong> Once an application is running in production, AI-powered observability platforms (such as Datadog, Dynatrace, or New Relic's AI-assisted features) continuously analyze logs, metrics, and traces. Using anomaly detection, these systems can identify when a metric — say, API response latency, error rate, or memory consumption — is trending in an unusual direction even before it crosses a static threshold that would trigger a traditional alert. Predictive failure detection means that operations teams can investigate and resolve emerging issues before they escalate into outages affecting users. AI can also assist with root cause analysis, correlating anomalies across multiple services to suggest where a problem likely originated in a complex distributed system.</p>
+
+<p>The following table summarizes how AI tools map across the SDLC phases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>SDLC Phase</th>
+      <th>AI Tool Category</th>
+      <th>Example Benefit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Planning &amp; Requirements</td>
+      <td>Requirements analysis, risk prediction</td>
+      <td>Flags incomplete user stories; predicts schedule risk from scope</td>
+    </tr>
+    <tr>
+      <td>Design</td>
+      <td>UI suggestion, visual testing</td>
+      <td>Proposes accessible color palettes; detects cross-device layout breaks</td>
+    </tr>
+    <tr>
+      <td>Development</td>
+      <td>Code completion, generation, review</td>
+      <td>Autocompletes boilerplate; generates unit tests; flags potential bugs in PRs</td>
+    </tr>
+    <tr>
+      <td>Testing &amp; QA</td>
+      <td>Test generation, SAST/DAST</td>
+      <td>Generates boundary-condition tests; scans for SQL injection patterns</td>
+    </tr>
+    <tr>
+      <td>Deployment &amp; Ops</td>
+      <td>Anomaly detection, predictive monitoring</td>
+      <td>Detects latency spikes before SLA breach; assists root cause analysis</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Responsible Use of AI in This Course</strong></p>
+
+<p>Given how capable and accessible AI tools have become, this course takes a clear position: AI assistance is permitted and even encouraged as a learning accelerator, but it must be used responsibly. The following principles define what responsible use looks like in this context.</p>
+
+<p><strong>All AI-generated code must be read, understood, and verified by the student before use.</strong> Submitting AI-generated code without reading and comprehending it is equivalent to submitting someone else's work. Before any AI-generated code enters your project, you must be able to explain what every significant line does, why it is structured the way it is, and how it fits into the broader system. Verification means running the code, writing tests for it, and confirming it behaves correctly in your specific context — not just that it looks plausible. If an AI generates a function and you cannot explain its logic during a code review or assessment, that is a signal that you need to study it more carefully before using it.</p>
+
+<p><strong>Over-reliance on AI without understanding can mask skill gaps that appear in assessments.</strong> AI tools are not available in every professional or evaluative context, and even when they are available, using them effectively requires underlying knowledge. A developer who has relied on AI to generate all their error-handling code without understanding exception propagation, error types, or recovery strategies will struggle when they encounter a novel situation the AI handles poorly, or when they need to debug a subtle failure at 2am with no AI assistance. Assessments in this course are designed to test your ability to reason about and solve problems independently. Skill gaps hidden by AI assistance during project work will become visible in those contexts — better to identify and address them early.</p>
+
+<p><strong>Intellectual property and licensing considerations apply to AI-generated content.</strong> The legal landscape around AI-generated code is still evolving, but several important considerations are already well-established in practice. First, AI models may reproduce portions of their training data, which could include code under restrictive licenses (GPL, AGPL) that impose obligations on derivative works — including requiring you to open-source your own code. Second, the ownership of AI-generated output is contested in many jurisdictions; in general, you should not assume that AI-generated code is automatically free of third-party rights. Third, for any project that will be distributed, used commercially, or submitted to an organization with its own IP policies, you should understand the terms of service of the AI tool you used and consult the relevant policies. In the context of course projects, the immediate concern is academic integrity policy, but developing awareness of these broader IP considerations is part of professional preparation.</p>
+
+<p><strong>Documenting where and how AI tools were used promotes transparency and academic integrity.</strong> Transparency is the practical expression of integrity when using AI. When you submit work that involved AI assistance, document it: which tool you used, what prompt or input you provided, what output you received, and what modifications you made. This documentation serves several purposes. It lets instructors understand your process and give you appropriate feedback. It prevents any ambiguity about what is your original contribution. It builds a habit of provenance tracking that is increasingly expected in professional contexts — engineering teams, open-source projects, and organizations are beginning to require disclosure of AI tool use in the same way they require disclosure of third-party library dependencies. Practically, you might include a brief AI usage note in a comment block, a project README section, or a submission cover note describing your use of AI assistance on that component.</p>
+
+<p>Taken together, these principles reflect a broader truth: AI tools are most valuable when used by practitioners who deeply understand their domain. The goal of learning to develop software and design user interfaces is not to produce outputs — it is to develop the judgment, skill, and understanding that let you produce excellent outputs consistently, evaluate the work of AI tools and teammates critically, and continue growing as the technology evolves. AI assistance used thoughtfully accelerates that development; AI assistance used as a shortcut around understanding undermines it.</p>
+        <div class="notes"><strong>Notes</strong>Covers all four major subtopic clusters: AI in design, AI coding assistants, AI across the SDLC, and responsible use guidelines. Includes a worked code example, an HTML table mapping AI tools to SDLC phases, and concrete illustrative scenarios throughout. Emphasizes the critical evaluation principle consistently across all sections.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

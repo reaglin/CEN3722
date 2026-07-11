@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Figma and the Prototyping Workflow</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Introduction to Figma and the Prototyping Workflow</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Figma and the Prototyping Workflow</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Figma has rapidly become one of the most widely adopted tools in UI/UX design, and for good reason: it runs entirely in the browser, requires no installation, and keeps every collaborator working on the same live file simultaneously. Before diving into frames, components, or interactions, it pays to understand how the application is structured and how a well-organised file makes every subsequent stage of the design process smoother. This topic walks through the core areas of the Figma interface, explains how files and pages should be organised for a multi-screen project, unpacks the collaboration features that make Figma distinctive, and then maps out the four-stage workflow that this module follows — from a blank canvas all the way to a testable, shareable prototype.</p>
+
+<p>Understanding the interface is not just about knowing where buttons live. Each panel in Figma has a specific role, and recognising which panel to reach for at any given moment keeps your workflow efficient and reduces the frustration of hunting for a setting that is hiding in plain sight.</p>
+
+<p><strong>The Left Panel: Layers, Pages, and Assets</strong></p>
+<p>The left panel is your primary navigation and structural hub. It operates across three tabs — <em>Layers</em>, <em>Assets</em>, and (when you have a file open) the page list at the very top of the panel.</p>
+<ul>
+  <li><strong>Layers tab:</strong> Every object you place on the canvas — a frame, a rectangle, a text node, an image, or a component instance — appears as an entry in the Layers panel. Objects are nested hierarchically: a frame contains groups, groups contain shapes and text, and so on. Renaming layers with descriptive labels (for example, <code>Card / Product / Image</code> rather than <code>Rectangle 47</code>) is one of the highest-return habits you can build early, because it makes selecting elements, reading the prototype flow, and handing off to developers dramatically easier.</li>
+  <li><strong>Assets tab:</strong> This tab surfaces all components available to you — both those defined within the current file and those published from connected team libraries. When you need to drop a button, an icon, or a navigation bar onto the canvas, you search for it here rather than copy-pasting from another frame. The Assets panel also shows local styles (colours, text styles, effects) that have been published for reuse.</li>
+  <li><strong>Pages list:</strong> Sitting above the Layers and Assets tabs is a compact list of every page in the file. Clicking a page name switches the canvas view entirely. Pages are described in more detail below, but it is worth noting here that the left panel is where you create, rename, reorder, and delete them.</li>
+</ul>
+
+<p><strong>The Canvas: Infinite and Multi-Page</strong></p>
+<p>The canvas is the central workspace — the large area where you actually place and arrange design elements. A few properties of the canvas are worth internalising from the start:</p>
+<ul>
+  <li>The canvas is <em>effectively infinite</em> in all directions. You can zoom out with <code>Ctrl/Cmd + Scroll</code> or the zoom control in the top-right corner and keep placing frames far apart without hitting an edge. This makes it practical to lay out an entire user flow horizontally across one page, allowing you to read the journey at a glance.</li>
+  <li>A single Figma file supports <em>multiple pages</em>. Each page has its own independent canvas, so you might dedicate one page to a mobile flow, another to a desktop variant, and a third to a component exploration or a style guide — all within one shareable URL.</li>
+  <li>Zooming and panning are non-destructive. Pressing <code>Shift + 1</code> fits the whole canvas in view; <code>Shift + 2</code> zooms to a selected object. These keyboard shortcuts become second nature quickly.</li>
+  <li>The canvas background colour can be changed in the right panel when nothing is selected, which is useful when you want dark frames to be distinguishable from the canvas itself.</li>
+</ul>
+
+<p><strong>The Right Properties Panel: Contextual Controls</strong></p>
+<p>The right panel is entirely context-sensitive — its contents change depending on what you have selected (or not selected) on the canvas. This is one of Figma's most elegant design decisions, because it surfaces only the controls relevant to your current task rather than overwhelming you with every possible setting at once.</p>
+<ul>
+  <li><strong>Nothing selected:</strong> The panel shows file-level settings — canvas background colour and prototype device settings (the device frame shown in presentation mode).</li>
+  <li><strong>A frame selected:</strong> You see dimensions, position (X/Y coordinates), corner radius, clipping behaviour, fill, stroke, effects (drop shadows, blurs), and — critically — the Auto Layout controls if Auto Layout has been applied to that frame.</li>
+  <li><strong>A text layer selected:</strong> Font family, weight, size, line height, letter spacing, alignment, and text truncation options all appear.</li>
+  <li><strong>A component instance selected:</strong> You see the instance properties, any exposed component properties, and a link back to the main component.</li>
+  <li><strong>Prototype tab active:</strong> The right panel switches to show interaction triggers, animation settings, and scrolling behaviour — the panel literally transforms to support a different mode of work.</li>
+</ul>
+<p>Because the right panel changes so fluidly, new users sometimes panic when a control they expect to see has disappeared. The answer is almost always that a different type of object is selected, or that the Design/Prototype/Inspect tab at the top of the panel needs to be switched.</p>
+
+<p><strong>The Toolbar: Quick Access to Core Tools</strong></p>
+<p>The toolbar runs horizontally across the top of the screen. It provides one-click (or one-keystroke) access to the tools you use most frequently:</p>
+<ul>
+  <li><strong>Move tool (V):</strong> Selects and repositions objects. This is the default mode.</li>
+  <li><strong>Scale tool (K):</strong> Resizes objects while preserving proportions — important when scaling a group of elements that includes strokes or effects.</li>
+  <li><strong>Frame tool (F):</strong> Creates a frame, which is Figma's fundamental layout container. Frames can represent screens, cards, modals, or any bounded region. When you draw a frame with the Frame tool, the right panel offers preset device sizes (iPhone 15, iPad, Desktop 1440, and many others) as a shortcut.</li>
+  <li><strong>Shape tools (R for rectangle, O for ellipse, L for line):</strong> Basic geometric primitives used both as visual elements and as masks.</li>
+  <li><strong>Pen tool (P):</strong> Vector path drawing, used for custom icons, illustrations, and any shape that primitives cannot produce.</li>
+  <li><strong>Text tool (T):</strong> Places a text layer. Clicking creates a single-line text node that expands as you type; clicking and dragging creates a fixed-width text box that wraps.</li>
+  <li><strong>Component tools:</strong> The toolbar also provides access to the Resources panel (a superset of Assets) and, depending on your plan, the widget and plugin ecosystems.</li>
+  <li><strong>Collaboration controls:</strong> To the right of the toolbar sit the share button, the zoom percentage, the Multiplayer avatars (showing who else is in the file), and the Presentation mode button.</li>
+</ul>
+
+<p><strong>Pages and File Organisation</strong></p>
+<p>A well-structured Figma file is one of the clearest signs of a mature designer. Pages act as tabs — much like sheets in a spreadsheet — and each page can represent a distinct stage, device size, or section of a project. Here are the conventions worth adopting from day one:</p>
+<ul>
+  <li><strong>Use pages to separate concerns, not to fragment work arbitrarily.</strong> Common page structures include: <em>Cover</em> (a thumbnail-ready overview), <em>Design System / Styles</em>, <em>Wireframes</em>, <em>Mobile – Main Flow</em>, <em>Mobile – Onboarding</em>, <em>Desktop</em>, and <em>Archive</em>. Keeping exploratory or rejected work in an Archive page rather than deleting it preserves decision history without cluttering the active workspace.</li>
+  <li><strong>Consistent frame naming enables correct prototype linking.</strong> When you connect screens with prototype interactions, Figma uses frame names as destination labels. A frame named <code>Home – Default</code> is navigable and understandable in the Prototype panel; a frame named <code>Frame 312</code> is not. Establish a naming convention — such as <code>ScreenName – State</code> (e.g., <code>Cart – Empty</code>, <code>Cart – Items Added</code>) — and apply it before you start drawing connections.</li>
+  <li><strong>Sections and cover frames aid presentation mode.</strong> Figma's Sections feature (accessible from the toolbar or right-click menu) lets you draw a labelled bounding region around a group of related frames. In presentation mode or when sharing a file link, viewers can immediately see which frames belong together. Alternatively, placing a large, clearly labelled text frame at the start of a group achieves a similar orienting effect. This is particularly valuable when stakeholders are reviewing the file directly rather than watching a guided walkthrough.</li>
+  <li><strong>Frame order on the canvas matters for prototype flow.</strong> When Figma auto-generates a prototype flow, it follows frames from left to right. Arranging your screens in reading order (left to right, top to bottom for vertical sub-flows) keeps the prototype logical without requiring manual reordering later.</li>
+</ul>
+
+<p>The table below summarises a recommended page structure for a typical module project:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Page Name</th>
+      <th>Contents</th>
+      <th>Purpose</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Cover</td>
+      <td>Project title, date, version, team names</td>
+      <td>Identifies the file at a glance in the team file browser</td>
+    </tr>
+    <tr>
+      <td>Styles &amp; Components</td>
+      <td>Colour styles, text styles, master components</td>
+      <td>Single source of truth for design tokens and reusable elements</td>
+    </tr>
+    <tr>
+      <td>Wireframes</td>
+      <td>Low-fidelity layout sketches</td>
+      <td>Early structural decisions before committing to visual style</td>
+    </tr>
+    <tr>
+      <td>Mobile Flow</td>
+      <td>All high-fidelity mobile screens</td>
+      <td>Primary design and prototype canvas for mobile</td>
+    </tr>
+    <tr>
+      <td>Desktop Flow</td>
+      <td>All high-fidelity desktop screens</td>
+      <td>Responsive or separate desktop designs</td>
+    </tr>
+    <tr>
+      <td>Archive</td>
+      <td>Discarded explorations, old iterations</td>
+      <td>Preserves history without cluttering active pages</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Collaboration and Sharing Basics</strong></p>
+<p>One of Figma's foundational selling points is that it was built for collaboration from the ground up — not bolted on as an afterthought. Understanding the collaboration model is essential not just for teamwork, but for managing who can do what to your file.</p>
+<ul>
+  <li><strong>Shareable links with scoped permissions:</strong> When you click the <em>Share</em> button in the top-right corner, you can copy a link and choose the permission level for anyone who opens it: <em>Can view</em>, <em>Can comment</em>, or <em>Can edit</em>. View-only links are appropriate for stakeholder reviews and developer handoff — recipients can inspect layers and copy CSS values but cannot modify anything. Comment-only links invite feedback without risking accidental edits. Edit links should be shared only with trusted collaborators who are actively contributing to the design.</li>
+  <li><strong>Live multiplayer with visible cursors:</strong> When two or more people have the file open simultaneously, their cursors appear on the canvas in real time, each labelled with the user's name. You can see exactly what a collaborator is looking at or working on. You can also "follow" a collaborator by clicking their avatar in the top-right toolbar — your view will mirror theirs, which is useful during design reviews or pair-design sessions. This feature makes remote design critiques feel genuinely synchronous.</li>
+  <li><strong>Pinned comments for contextual feedback:</strong> In Comment mode (triggered by pressing <code>C</code> or clicking the comment icon in the toolbar), any user with at least comment permission can click anywhere on the canvas to leave a note pinned to that exact spot. Comments can be directed at specific elements, can include @mentions to notify teammates, and can be marked as resolved once addressed. This creates a structured, traceable feedback loop directly within the design file — far more reliable than feedback scattered across email threads or chat messages.</li>
+  <li><strong>Version history for safe iteration:</strong> Figma saves your work continuously and automatically, but it also maintains a named version history accessible via <em>File → Show Version History</em>. You can manually save a named version at any significant milestone (for example, <em>v1.0 – Stakeholder Review</em>), and Figma also creates automatic checkpoints over time. If a design direction turns out to be a dead end, or if a collaborator accidentally deletes a section, you can browse the version timeline and restore the file to any earlier state. This makes experimentation genuinely low-risk.</li>
+</ul>
+
+<p><strong>From Mockup to Prototype: The Module Workflow</strong></p>
+<p>The rest of this module follows a deliberate four-stage progression. Each stage builds on the previous one, and jumping ahead — for example, trying to add prototype interactions before establishing a solid component structure — typically creates rework. Understanding the rationale behind the sequence helps you apply it confidently, not just mechanically.</p>
+<ul>
+  <li><strong>Stage One — Frame Setup and Screen Layout with Grids:</strong> Before placing any content, you create frames at the correct device dimensions and apply layout grids. A layout grid (added via the right panel when a frame is selected) overlays columns, rows, or a uniform grid onto the frame, giving you a visual reference for aligning elements consistently. For example, a mobile frame at 390 px wide might use a 12-column grid with 16 px gutters and 20 px margins — a system that ensures buttons, text blocks, and images all sit on the same invisible rhythm. Getting this right at the start means every subsequent element you place inherits a coherent spatial logic.</li>
+  <li><strong>Stage Two — Reusable Components:</strong> Once the layout scaffolding is in place, the next priority is identifying which UI elements will appear more than once — buttons, input fields, navigation bars, cards, icons — and converting them into components. A component is a master element defined once; every copy placed on the canvas is an <em>instance</em> of that master. When you update the master component, every instance updates automatically. This stage is about discipline: doing it before detailed design begins means you never have to retroactively synchronise dozens of manually placed copies.</li>
+  <li><strong>Stage Three — Auto Layout for Responsive Elements:</strong> With components established, you apply Auto Layout to the frames and components that need to respond gracefully to changing content. Auto Layout turns a frame into a flex-like container: its children stack horizontally or vertically, and the container grows or shrinks to fit its contents. A button with Auto Layout, for instance, will widen automatically if you change its label from <em>OK</em> to <em>Save Changes</em>. Without Auto Layout, you would manually resize the button every time the text changes — a small but multiplying source of inconsistency. At this stage you also define padding, gaps between elements, and resizing behaviours (fixed, hug contents, fill container) that will govern how designs respond as content varies.</li>
+  <li><strong>Stage Four — Prototype Interactions:</strong> The final stage switches Figma from design tool to prototyping tool. In the Prototype tab of the right panel, you draw interaction arrows between frames, specifying the trigger (on click, on hover, on drag, after delay), the action (navigate to, open overlay, scroll to, back), and the animation (instant, dissolve, slide in, smart animate). Smart Animate is particularly powerful: when two frames share layers with identical names, Figma interpolates the position, size, opacity, and other properties of those layers to produce smooth, app-like transitions without any code. The result of this stage is a clickable prototype accessible via a shareable presentation link — something a real user can tap through on their device to provide meaningful feedback before a single line of production code is written.</li>
+</ul>
+
+<p>The diagram below summarises the four stages and their key deliverables:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>Focus</th>
+      <th>Key Figma Features</th>
+      <th>Deliverable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Frame setup and layout</td>
+      <td>Frame tool, Layout Grids, device presets</td>
+      <td>Correctly sized, grid-aligned screen frames</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Reusable components</td>
+      <td>Components, Variants, Assets panel</td>
+      <td>A local component library covering repeated UI elements</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Responsive content</td>
+      <td>Auto Layout, Fill/Hug/Fixed constraints</td>
+      <td>Components and frames that adapt to content changes without manual resizing</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Prototype interactions</td>
+      <td>Prototype tab, Smart Animate, overlays, flows</td>
+      <td>A shareable, clickable prototype representing the full user flow</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Taken together, these four stages reflect a principle that underpins professional design practice: <em>structure first, detail second, interactivity last</em>. By the time you are placing prototype arrows in Stage Four, the underlying design should be solid enough that the connections accurately represent a real user experience — not a wishful sketch that will need to be redesigned after the first round of user testing. This module is designed to build those habits from the ground up, starting with the very interface and workflow orientation covered here.</p>
+        <div class="notes"><strong>Notes</strong>Consider demonstrating the live multiplayer cursor feature during a synchronous class session — seeing multiple cursors move in real time is one of the most immediately convincing demonstrations of Figma&#39;s collaborative model. For Stage Four, briefly previewing Smart Animate early (even before formally teaching it) can help students appreciate why the naming discipline introduced in Stage Two matters.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

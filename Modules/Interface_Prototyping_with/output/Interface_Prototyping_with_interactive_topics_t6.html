@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>High-Fidelity Design and Visual Polish</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>High-Fidelity Design and Visual Polish</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>High-Fidelity Design and Visual Polish</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>High-fidelity design is the stage in the product design process where a wireframe — a skeletal layout of functionality and structure — is transformed into a polished, realistic visual representation of the intended final product. Where a wireframe communicates what goes where, a high-fidelity mockup communicates how things look, feel, and behave. This shift demands deliberate attention to colour, typography, imagery, iconography, and visual effects. When executed well, a high-fidelity design gives stakeholders, developers, and testers a shared, unambiguous visual reference, reducing costly misinterpretations during implementation. The principles and techniques covered here are grounded primarily in Figma — one of the industry's most widely adopted interface design tools — though the concepts translate broadly to any professional design environment.</p>
+
+<p>The foundation of any high-fidelity system is a consistent set of reusable design decisions. Rather than styling each element individually and hoping for uniformity, professional designers encode their choices as <strong>styles</strong> — named, reusable definitions for colour, typography, and effects that can be updated in one place and propagated everywhere they are used. This is not merely a workflow convenience; it is the mechanism that makes large-scale design systems maintainable and coherent over time.</p>
+
+<p><strong>Defining and Applying Colour Styles</strong></p>
+
+<p>Colour is one of the most powerful communicators in visual design. It directs attention, conveys meaning, establishes brand identity, and signals interactive state. Managing colour ad hoc — typing hex values directly into fill fields element by element — creates a brittle system. Change a brand colour and you face a hunt through dozens of screens. Colour styles solve this problem decisively.</p>
+
+<p>In Figma, a colour style is created by selecting any element, navigating to the <strong>Fill</strong> section of the design panel on the right, and clicking the four-dot grid icon that appears beside the fill swatch. A dialog prompts you to name the style and save it. From that moment forward, the colour exists as a named token in your document's local styles library, ready to be applied to any fill, stroke, or text colour on any frame.</p>
+
+<p>The naming convention you choose matters enormously. The most robust approach is a <strong>token hierarchy</strong>, expressed with forward-slash notation. Figma interprets slashes as group separators, organising your palette into collapsible categories in the style picker. Consider the difference between these two approaches:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ad Hoc Naming</th>
+      <th>Token Hierarchy Naming</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Blue</td>
+      <td>Brand/Primary</td>
+    </tr>
+    <tr>
+      <td>Dark Blue</td>
+      <td>Brand/Primary Dark</td>
+    </tr>
+    <tr>
+      <td>Red for errors</td>
+      <td>Feedback/Error</td>
+    </tr>
+    <tr>
+      <td>Light grey bg</td>
+      <td>Surface/Background</td>
+    </tr>
+    <tr>
+      <td>Text colour</td>
+      <td>Text/Primary</td>
+    </tr>
+    <tr>
+      <td>Disabled text</td>
+      <td>Text/Disabled</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Token hierarchy naming communicates <em>purpose</em>, not merely appearance. <code>Brand/Primary</code> tells every designer and developer exactly what role this colour plays. If the brand colour shifts from royal blue to indigo next quarter, you edit the single style definition and the update propagates instantly to every element — every button, every header, every badge — that references it. This is the superpower of colour styles: a single source of truth that eliminates drift.</p>
+
+<p>Colour styles are not limited to flat solid fills. Figma supports <strong>gradient fills</strong> within a style, including linear, radial, angular, and diamond gradients. This enables you to define, for example, a <code>Brand/Gradient Hero</code> style used consistently across hero banners, splash screens, or card headers. When the gradient stops need adjustment, editing the style updates every surface using it simultaneously. Gradients are commonly used for background treatments, button states, overlay tints, and decorative accents — all of which benefit from centralised style management.</p>
+
+<p>When sharing styles across files or teams, Figma's <strong>library publishing</strong> feature allows a designated design system file to push its styles to consuming project files, ensuring cross-team consistency without requiring manual synchronisation.</p>
+
+<p><strong>Typography Styles and Text Hierarchy</strong></p>
+
+<p>Typography is the backbone of interface legibility and information architecture. Every decision — typeface, size, weight, line height, letter spacing — shapes how easily users parse content, which elements draw the eye first, and how the interface feels emotionally. Managing these decisions through <strong>text styles</strong> is just as essential as managing colour through colour styles.</p>
+
+<p>A text style in Figma captures the full set of typographic properties as a single reusable definition:</p>
+
+<ul>
+  <li><strong>Font family</strong> — the typeface, such as Inter, Roboto, or Playfair Display</li>
+  <li><strong>Font weight</strong> — Regular, Medium, SemiBold, Bold, and so on</li>
+  <li><strong>Font size</strong> — measured in pixels within Figma</li>
+  <li><strong>Line height</strong> — the vertical distance between lines, expressed as a pixel value or percentage</li>
+  <li><strong>Letter spacing</strong> — tracking, measured in pixels or as a percentage of the font size</li>
+  <li><strong>Paragraph spacing</strong> — additional space added between paragraphs</li>
+  <li><strong>Text decoration</strong> — underline or strikethrough, where applicable</li>
+</ul>
+
+<p>To create a text style, select any text element, click the four-dot icon in the <strong>Text</strong> section of the design panel, name it, and save. The style is then available in the style picker for any text layer. Crucially, applying a text style <em>decouples visual appearance from text content</em>. The style governs how text looks; the actual words remain editable. If you decide later to increase your base body size from 14px to 16px, edit the <code>Body/Regular</code> style once and every paragraph on every screen updates automatically.</p>
+
+<p>The concept of <strong>type hierarchy</strong> is central to high-fidelity design. A type hierarchy is a deliberate system of visual levels that guides a user's eye through screen content in the intended order of importance. A well-constructed hierarchy might include:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Style Name</th>
+      <th>Typical Use</th>
+      <th>Example Properties</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Heading/H1</td>
+      <td>Page or screen title</td>
+      <td>32px, Bold, line-height 40px</td>
+    </tr>
+    <tr>
+      <td>Heading/H2</td>
+      <td>Section header</td>
+      <td>24px, SemiBold, line-height 32px</td>
+    </tr>
+    <tr>
+      <td>Heading/H3</td>
+      <td>Card title or subsection</td>
+      <td>20px, SemiBold, line-height 28px</td>
+    </tr>
+    <tr>
+      <td>Body/Regular</td>
+      <td>Paragraph text</td>
+      <td>16px, Regular, line-height 24px</td>
+    </tr>
+    <tr>
+      <td>Body/Small</td>
+      <td>Supporting or secondary text</td>
+      <td>14px, Regular, line-height 20px</td>
+    </tr>
+    <tr>
+      <td>Label/Medium</td>
+      <td>Button labels, input labels</td>
+      <td>14px, Medium, letter-spacing 0.1px</td>
+    </tr>
+    <tr>
+      <td>Caption/Default</td>
+      <td>Timestamps, metadata, footnotes</td>
+      <td>12px, Regular, line-height 16px</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Without this hierarchy, a screen becomes visually flat — users cannot quickly identify what is most important. With it, scanning is fast and natural: the large, bold H1 orients the user to the page's purpose, H2s and H3s organise sections, body text delivers detail, and captions provide contextual metadata without competing for primary attention.</p>
+
+<p>Figma supports both <strong>Google Fonts</strong> and <strong>locally installed fonts</strong>. Google Fonts are available directly within Figma's font picker when the Figma desktop application is running, making it straightforward to adopt a web-standard typeface. Custom brand fonts installed on your operating system are also accessible, provided the Figma desktop app is used. This means your design mockups can use the exact typefaces that will appear in the finished product, eliminating the guesswork that comes from using substitute fonts.</p>
+
+<p><strong>Working with Images and Fills</strong></p>
+
+<p>Realistic imagery is one of the clearest signals that a design has moved beyond wireframe fidelity. Placeholder boxes labelled "image here" communicate structure; actual photographs or illustrations communicate mood, context, and realism. Figma handles image fills flexibly and non-destructively.</p>
+
+<p>To apply an image fill, select any shape, frame, or component, navigate to the <strong>Fill</strong> section of the design panel, and change the fill type from <strong>Solid</strong> to <strong>Image</strong>. A file picker opens, allowing you to choose an image from your local file system. The image is embedded in the Figma file as a fill — not a separate layer — meaning the shape's geometry constrains the image rather than the image dictating the layout.</p>
+
+<p>Once applied, Figma offers four <strong>fill modes</strong> that control how the image scales and positions within its container:</p>
+
+<ul>
+  <li><strong>Fill</strong> — scales the image uniformly until it covers the entire shape, cropping any overflow. This is equivalent to CSS <code>background-size: cover</code> and is ideal for hero images, card thumbnails, and backgrounds where full coverage matters more than showing every pixel of the image.</li>
+  <li><strong>Fit</strong> — scales the image uniformly until the entire image is visible within the shape, potentially leaving empty space (letterboxing). Equivalent to <code>background-size: contain</code>. Useful for product images or logos where showing the full image without cropping is essential.</li>
+  <li><strong>Crop</strong> — keeps the image at a fixed scale and allows you to pan and reposition it within the frame. The <strong>Edit image</strong> button in the toolbar activates a crop handle overlay, letting you drag the image to precisely frame the most important subject matter — a face, a product detail, a landscape horizon.</li>
+  <li><strong>Tile</strong> — repeats the image in a grid pattern to fill the shape. Useful for texture fills, patterns, or fabric swatches.</li>
+</ul>
+
+<p>For sourcing imagery, the <strong>Unsplash plugin</strong> is installed from the Figma Community and provides direct access to thousands of royalty-free photographs without leaving the canvas. You can search by keyword — "coffee shop", "team meeting", "abstract texture" — and insert results directly as fills or image layers. Similar plugins exist for illustrations (e.g., Blush) and avatars (e.g., UI Faces), allowing rapid population of realistic content across multiple screens without rights concerns.</p>
+
+<p>A sophisticated technique is layering fills. Figma allows multiple fills on a single element, stacked in order. A common pattern is placing a dark linear gradient fill above an image fill on the same frame, creating a darkened overlay that ensures text placed on top remains legible. Because both fills live on the same element, the overlay scales perfectly with any resize.</p>
+
+<p><strong>Icons and Vector Assets</strong></p>
+
+<p>Icons are the visual shorthand of interface design. A magnifying glass communicates search, a bell communicates notifications, a gear communicates settings — all without a word of text. Producing high-fidelity designs requires crisp, correctly sized, contextually appropriate icons that behave as first-class design citizens rather than inserted bitmaps.</p>
+
+<p>Figma's native format for icons is <strong>SVG (Scalable Vector Graphics)</strong>. SVG files imported into Figma — either by dragging from the file system or using File → Place Image — are parsed into editable vector paths. This means you can select individual path nodes, change colours, adjust stroke widths, or combine paths using boolean operations (Union, Subtract, Intersect, Exclude). Critically, because SVGs are resolution-independent mathematical descriptions of shape, they scale to any size — from a 16px favicon to a 256px splash illustration — without any loss of sharpness. This stands in stark contrast to raster images (PNG, JPG), which degrade when scaled beyond their native resolution.</p>
+
+<p>Rather than sourcing SVGs externally and importing them one by one, Figma plugins provide direct access to curated icon libraries on canvas:</p>
+
+<ul>
+  <li><strong>Material Icons</strong> — Google's comprehensive icon library covering hundreds of interface concepts in five style variants (filled, outlined, rounded, sharp, two-tone)</li>
+  <li><strong>Feather Icons</strong> — a minimal, clean open-source icon set with a consistent 24px grid and stroke-based style</li>
+  <li><strong>Iconify</strong> — a meta-plugin aggregating dozens of icon sets (Font Awesome, Heroicons, Phosphor, Lucide, and more) searchable from a single panel</li>
+</ul>
+
+<p>When placing icons alongside text — in navigation bars, list items, buttons, or form fields — the correct approach is to wrap both the icon and the text in an <strong>auto-layout frame</strong>. Auto-layout controls the spacing between children automatically, ensures the icon and label remain vertically centred, and adapts to content changes (such as a shorter or longer label) without manual repositioning. For example, a button containing a left-aligned icon and a label would be an auto-layout frame set to horizontal direction, with a fixed gap between children and padding on all four sides.</p>
+
+<p>A powerful workflow advantage: applying a <strong>colour style</strong> to an icon's fill (or stroke) means that when the brand palette updates, every icon using that style recolours instantly — no need to select and recolour icons individually across hundreds of screens. This is especially important in dark-mode or theme-switching scenarios, where icon colours must shift between light and dark surface variants.</p>
+
+<p><strong>Effects: Shadows, Blurs, and Overlays</strong></p>
+
+<p>Visual effects add depth, separation, and atmosphere to an interface. Used with restraint and consistency, they make a flat layout read as a three-dimensional composition where surfaces at different elevations are clearly distinguishable. Used carelessly, they produce visual noise. Figma provides a powerful effects system that supports drop shadows, inner shadows, layer blur, and background blur.</p>
+
+<p><strong>Drop shadows</strong> simulate a light source casting a shadow beneath an element, lifting it visually above the surface behind it. Each drop shadow in Figma is configured with:</p>
+
+<ul>
+  <li><strong>X offset</strong> — horizontal displacement of the shadow relative to the element (positive = right, negative = left)</li>
+  <li><strong>Y offset</strong> — vertical displacement (positive = down, negative = up)</li>
+  <li><strong>Blur radius</strong> — how soft and diffuse the shadow edge is; a value of 0 produces a hard edge, larger values produce softer shadows</li>
+  <li><strong>Spread</strong> — expands or contracts the shadow before blurring; positive spread makes shadows larger than the element, useful for glow effects</li>
+  <li><strong>Colour and opacity</strong> — most shadows use dark colours (often near-black or a dark tint of the surface colour) at low opacity (10–30%) for subtlety</li>
+</ul>
+
+<p>Figma allows <strong>multiple shadow layers</strong> to be stacked on a single element. This is a technique borrowed from Material Design's elevation system, where complex, realistic shadows are achieved by combining a near shadow (small offset, low blur, higher opacity) with a far shadow (larger offset, higher blur, lower opacity):</p>
+
+<pre><code>Shadow 1 (near): X 0, Y 1, Blur 3, Spread 0, Black 20%
+Shadow 2 (far):  X 0, Y 4, Blur 12, Spread 0, Black 10%</code></pre>
+
+<p>The combination produces a shadow that reads as physically plausible — denser close to the object, diffusing further out — far more convincingly than any single shadow layer can achieve.</p>
+
+<p><strong>Background blur</strong> is one of Figma's most visually striking effects. Applied to a frame that sits over other content, it blurs whatever is behind the frame through it, creating the <em>frosted glass</em> aesthetic — famously used in iOS system interfaces, macOS menu bars, and many modern web UI overlays. The technique requires the frame to have a semi-transparent fill (for example, white at 40% opacity) so the blurred background shows through. The blur intensity value controls how strongly the background is blurred; values between 10 and 30 produce a convincing frost without completely obscuring background content.</p>
+
+<p><strong>Layer blur</strong> blurs the element itself and everything within it, useful for depth-of-field effects, loading states, or conveying that a layer is inactive or behind a modal.</p>
+
+<p>Just as with colours and typography, effects should be captured as <strong>effect styles</strong> wherever possible. Figma allows you to save any effect configuration (or combination of effects) as a named style — for example, <code>Elevation/Card</code>, <code>Elevation/Modal</code>, or <code>Glow/Brand</code>. This ensures that every card across every screen uses precisely the same shadow values, and that an art direction decision — say, softening all card shadows — is implemented by editing one style rather than hunting through dozens of components. Consistency in effects, like consistency in colour and type, is what separates a polished system from an accumulation of individual decisions.</p>
+
+<p>Taken together, these five domains — colour styles, typography styles, image fills, icon assets, and visual effects — are the toolkit through which a wireframe becomes a high-fidelity design. Each technique is independently valuable, but their combined effect is multiplicative: a screen with a coherent colour system, a clear type hierarchy, expressive imagery, crisp icons, and well-calibrated shadows reads as a fully realised product concept rather than a rough sketch. That fidelity builds stakeholder confidence, sharpens developer specifications, and provides a reliable foundation for usability testing with realistic stimuli.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic areas in depth with illustrative tables, code examples, and detailed explanations of each property and workflow. The fill modes table and type hierarchy table provide scannable reference material alongside the prose explanations.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

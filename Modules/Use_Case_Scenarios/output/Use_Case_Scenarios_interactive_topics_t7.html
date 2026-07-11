@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Documenting and Communicating Requirements</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Documenting and Communicating Requirements</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Documenting and Communicating Requirements</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Well-written use cases represent a significant investment of time, thought, and collaboration. Yet that investment pays dividends only when the resulting documents are organized so people can find what they need, communicated in ways that different audiences can absorb, kept accurate as the project evolves, and actively used to drive the design and testing work that follows. This topic covers the full lifecycle of use case documentation — from setting up a repository to feeding finished use cases into interface design and acceptance testing.</p>
+
+<p>Think of a use case repository, a traceability matrix, a stakeholder walkthrough, and a change log not as bureaucratic overhead but as the connective tissue that holds a project together. Without them, even the most carefully written use case becomes an island: disconnected from the business goal that motivated it, invisible to the developer building the feature, and unverifiable by the tester who must confirm the system works.</p>
+
+<p><strong>Organizing a Use Case Repository</strong></p>
+
+<p>A use case repository is the single authoritative location — a wiki, a requirements management tool, a shared document library, or a version-controlled folder — where all use case documents live. The first and most consequential organizational decision is <em>how to group them</em>. Three common schemes each serve different project needs:</p>
+
+<ul>
+  <li><strong>By actor:</strong> All use cases initiated by the Customer are grouped together, all use cases initiated by the Administrator are grouped together, and so on. This scheme is intuitive when the project is primarily concerned with distinct user populations and their journeys through the system. A product owner responsible for the customer experience can navigate directly to every scenario that affects their users.</li>
+  <li><strong>By functional area:</strong> Use cases for Order Management sit in one folder, use cases for Inventory sit in another, and use cases for Reporting sit in a third. This mirrors how business domains are often organized and makes it easy for subject-matter experts who own a domain to review everything relevant to them at once.</li>
+  <li><strong>By system module:</strong> Use cases are grouped according to the software component or microservice that implements them — Payment Service, Notification Engine, User Profile Service. This scheme is most useful in technical reviews and during implementation, because a developer assigned to a module can quickly locate every use case that governs its behavior.</li>
+</ul>
+
+<p>In practice, many projects use a hybrid: a primary grouping by functional area, with tags or cross-reference links by actor and by module. What matters most is that the scheme is <em>consistent and documented</em> so that every new use case has an obvious, agreed-upon home.</p>
+
+<p>A <strong>naming and numbering convention</strong> is equally important. A use case named "UC-ORD-007: Place Order" communicates the functional area (ORD = Orders), a unique sequence number, and a descriptive title in a single identifier. This identifier appears in design documents, test plans, defect tickets, and meeting notes, allowing anyone reading any artifact to trace it back to the governing use case without ambiguity. Without a consistent scheme, references accumulate — "the checkout use case," "the order placement scenario," "UC12," "Order Flow v2" — and traceability collapses.</p>
+
+<p><strong>Version control</strong> for use cases is not optional on any project of meaningful size. Requirements evolve; use cases approved in iteration one will be revised by iteration three. Version control — whether provided by a dedicated requirements tool like Jama or Doors, a wiki with page history, or a Git repository — ensures that:</p>
+
+<ul>
+  <li>Every change is recorded with a timestamp and the name of the person who made it.</li>
+  <li>Previous versions remain recoverable, which is essential when a change introduces problems and the team must understand what was agreed earlier.</li>
+  <li>Two people cannot silently overwrite each other's edits.</li>
+  <li>Released or baselined versions of use cases can be clearly distinguished from drafts under active revision.</li>
+</ul>
+
+<p>Finally, <strong>access permissions</strong> must be configured deliberately. Business stakeholders, developers, testers, and project managers all need read access so they can consult use cases at any time. But write access — the ability to change an approved use case — should be restricted to authorized roles such as the business analyst or requirements lead. This prevents well-intentioned but uncoordinated edits from corrupting the baseline. Stakeholders who want a change should submit it through the change request process described later in this topic; they should not edit the document directly.</p>
+
+<p><strong>Traceability Between Requirements and Use Cases</strong></p>
+
+<p>Traceability is the ability to follow a requirement forward through design and implementation, and backward from a test case to the need that motivated the feature. It answers two of the most important questions in software development: "Does everything we are building trace back to a genuine stakeholder need?" and "Is every stakeholder need covered by something we are building and testing?"</p>
+
+<p><strong>Backward traceability</strong> — also called upstream traceability — links each use case to the source requirement, stakeholder need, or business goal that motivated it. For example:</p>
+
+<ul>
+  <li>Business Goal BG-04: Reduce customer abandonment at checkout → Stakeholder Need SN-12: Allow customers to save a cart and return later → Use Case UC-ORD-007: Place Order (including the alternative flow for resuming a saved cart).</li>
+</ul>
+
+<p>This chain proves that UC-ORD-007 exists for a documented reason. It also means that if BG-04 is deprioritized or removed, the team can immediately identify which use cases are affected and decide whether to keep, revise, or retire them.</p>
+
+<p><strong>Forward traceability</strong> — also called downstream traceability — links use cases to the design elements and implementation tasks derived from them. A use case step sequence might link to a wireframe, an API endpoint specification, a database schema change, and a sprint backlog item. This chain proves that every requirement has been addressed in design and implementation. It also enables impact analysis: if a use case changes, forward traceability immediately reveals which wireframes must be revised, which API contracts are affected, and which sprint tasks must be revisited.</p>
+
+<p><strong>Test traceability</strong> links test cases back to the use cases they verify. UC-ORD-007 might link to ten test cases: one for the main success scenario, one for each alternative flow, and one for each exception flow. This linkage serves two purposes: it ensures that every path through a use case is tested (coverage), and it allows the team to quickly identify which tests must be re-run when a use case changes (regression scope).</p>
+
+<p>The mechanism for recording all of this is the <strong>traceability matrix</strong> — a table that maps identifiers across levels. A simple version might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Business Goal</th>
+      <th>Stakeholder Need</th>
+      <th>Use Case</th>
+      <th>Design Artifact</th>
+      <th>Test Case(s)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BG-04</td>
+      <td>SN-12</td>
+      <td>UC-ORD-007</td>
+      <td>WF-014, API-ORD-03</td>
+      <td>TC-087, TC-088, TC-089</td>
+    </tr>
+    <tr>
+      <td>BG-01</td>
+      <td>SN-03</td>
+      <td>UC-AUTH-002</td>
+      <td>WF-002, API-AUTH-01</td>
+      <td>TC-010, TC-011</td>
+    </tr>
+    <tr>
+      <td>BG-07</td>
+      <td>SN-19</td>
+      <td>UC-RPT-005</td>
+      <td>WF-031, DB-RPT-02</td>
+      <td>TC-102, TC-103, TC-104</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The matrix is a living artifact. Whenever a use case is added, revised, or retired — or whenever a new design artifact or test case is created — the matrix must be updated. On larger projects this is maintained in a requirements management tool that generates the matrix automatically from linked records. On smaller projects a spreadsheet can suffice, provided someone is explicitly responsible for keeping it current.</p>
+
+<p><strong>Communicating Use Cases to Stakeholders</strong></p>
+
+<p>Use cases are authored by analysts but consumed by a wide range of people: executives evaluating scope, developers interpreting requirements, testers designing test scenarios, and business domain experts validating correctness. A single communication format does not serve all of these audiences equally well. Effective communication means <em>tailoring the presentation</em> to the audience without creating multiple competing versions of the truth.</p>
+
+<p><strong>Executive summaries</strong> give business stakeholders a high-level view of what the system will and will not do. An executive summary of use case coverage might list each functional area, the number of use cases in it, the actors involved, and a one-sentence description of the primary goal. Executives do not need to read step-by-step flows; they need to answer questions like "Does this system handle our B2B customers differently from our B2C customers?" and "Are returns and refunds in scope for this release?" A coverage summary lets them answer those questions without wading through technical detail.</p>
+
+<p><strong>Use case diagrams</strong> (from the UML standard) are the standard visual tool for high-level communication. A use case diagram shows actors as stick figures on the left and right of the diagram, the system boundary as a rectangle, and use cases as ovals within the boundary, with lines (associations) connecting actors to the use cases they participate in. The diagram does not describe <em>how</em> anything works; it shows <em>who</em> does <em>what</em> at a glance. For a business stakeholder unfamiliar with structured requirements documents, a well-drawn use case diagram is often the most productive starting point for a conversation about scope. It answers the question "Is this what we agreed to build?" before anyone has to read a single numbered step.</p>
+
+<p><strong>Walkthroughs</strong> — sometimes called structured walkthroughs or scenario walkthroughs — are facilitated sessions in which the analyst guides stakeholders through a use case step by step, asking them to imagine performing each action and to flag anything that does not match their mental model of the process. Walkthroughs are substantially more effective than asking stakeholders to read and comment on documents independently, for several reasons:</p>
+
+<ul>
+  <li>Reading a document is a passive activity; walking through a scenario engages the stakeholder's procedural memory and surfaces tacit knowledge ("Oh, but what happens if the customer has a store credit? We always apply that first").</li>
+  <li>Misunderstandings surface in real time and can be resolved on the spot rather than accumulating as written comments that require additional clarification rounds.</li>
+  <li>Stakeholders who would never find time to read a forty-page requirements document will often spend ninety minutes in a walkthrough session.</li>
+</ul>
+
+<p>Walkthroughs should be structured: the analyst explains the preconditions, reads or paraphrases each step, pauses for questions, and explicitly asks about alternative and exception flows ("What if the payment is declined? What if the customer enters an invalid address?"). Notes taken during the walkthrough feed directly into the next revision of the use case.</p>
+
+<p><strong>Technical audiences</strong> — developers, architects, database engineers, testers — need the full detailed specification. This means the complete step-by-step main flow, every alternative flow numbered and labeled, every exception flow with its trigger and system response, all preconditions and postconditions, business rules referenced by identifier, and any supplemental notes about data constraints or integration points. Providing technical audiences with only an executive summary or a use case diagram and expecting them to fill in the details themselves is a common and costly mistake. The details are exactly what they need, and when those details are absent, developers invent them — often incorrectly.</p>
+
+<p><strong>Maintaining Use Cases Through Change</strong></p>
+
+<p>Requirements change. This is not a failure of planning; it is the normal trajectory of a project as stakeholders learn more about what the system can and should do. The goal is not to prevent change but to manage it in a controlled way so that the team always shares a single, current, accurate understanding of what is being built.</p>
+
+<p>A <strong>formal change request process</strong> is the foundation of controlled change. Any stakeholder — business owner, developer, tester, or analyst — who believes a use case needs to change submits a change request that describes the proposed change, the reason for it, and the requestor's name and date. The change request is reviewed (typically by a change control board or its lightweight equivalent: the project manager, lead analyst, and a business representative) who decide to approve, reject, or defer it. Only approved changes are incorporated into the baseline use cases. This process prevents the repository from being silently edited by anyone with a browser and a strong opinion, and it creates an auditable record of every decision made about scope.</p>
+
+<p><strong>Impact analysis</strong> is performed before a change is approved. The analyst examines the traceability matrix and asks: if this use case changes, what else is affected? A change to UC-ORD-007 might affect the wireframe for the checkout screen, the API contract for the order submission endpoint, three test cases, and — if the change touches shared business rules — two other use cases that reference the same rule. Impact analysis prevents the team from approving a seemingly small change without realizing that it requires rework across a dozen downstream artifacts. The output of impact analysis is an estimate of the effort required to implement the change consistently, which informs the approval decision.</p>
+
+<p>Once a change is approved and incorporated, the <strong>updated use case must be re-reviewed and re-approved</strong> by the stakeholders who originally approved it. This step is sometimes skipped under time pressure, and it is almost always regretted: a change that seemed unambiguous in a change request form often turns out, when written into the actual step sequence, to have implications that the approver did not anticipate. Re-approval closes the loop and ensures that the signed-off use case actually says what the stakeholder intended.</p>
+
+<p>Each use case document should contain a <strong>changelog</strong> — a table at the beginning or end of the document that records every version, the date it was created, the name of the person who made the change, and a brief description of what changed. For example:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Date</th>
+      <th>Author</th>
+      <th>Description of Change</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1.0</td>
+      <td>2024-02-10</td>
+      <td>A. Reyes</td>
+      <td>Initial approved version.</td>
+    </tr>
+    <tr>
+      <td>1.1</td>
+      <td>2024-03-05</td>
+      <td>A. Reyes</td>
+      <td>Added alternative flow 3a: Apply store credit. Per CR-047.</td>
+    </tr>
+    <tr>
+      <td>1.2</td>
+      <td>2024-04-18</td>
+      <td>M. Okafor</td>
+      <td>Revised postcondition to reflect new order confirmation email requirement. Per CR-061.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The changelog means that anyone reading the use case can immediately see its history without digging through a version control log. It also provides the audit trail that is often required for compliance, contractual, or regulatory reasons.</p>
+
+<p><strong>Use Cases as Input to Design and Testing</strong></p>
+
+<p>A use case is not just a requirements document; it is a specification for behavior that directly drives two downstream activities: interface design and testing. Making this connection explicit — and involving designers and testers early — dramatically improves the quality of both the use cases and the artifacts derived from them.</p>
+
+<p><strong>Each flow maps to at least one design scenario.</strong> The main success scenario of UC-ORD-007 describes the happy path: the customer selects items, provides a valid address, enters valid payment information, and the system confirms the order. This scenario maps directly to the primary wireframe or prototype screen for the checkout flow. Alternative flow 3a — applying store credit — maps to a design variation showing the store credit deduction in the order summary. The designer who is handed a fully written use case with all its flows has a checklist of scenarios the interface must support; gaps in the use case become gaps in the interface design.</p>
+
+<p><strong>Exception flows identify error states the interface must address.</strong> Exception flow 4b — "Payment authorization fails" — is not a nice-to-have edge case; it is a scenario that will occur for a meaningful percentage of real users. The use case specifies that the system should display an error message and allow the customer to re-enter payment details. The designer must therefore design that error state: what does the message say? Where does it appear? Which fields are cleared and which are retained? Without the exception flow documented in the use case, the error state is easily overlooked in interface design, and the first time it is noticed is when a tester or — worse — a real customer encounters it.</p>
+
+<p><strong>Acceptance test cases can be derived directly from use case flows.</strong> Each step sequence in a use case, combined with its preconditions and postconditions, contains almost everything needed to write an acceptance test case. Consider a simplified use case excerpt:</p>
+
+<pre><code>Precondition: Customer is logged in. Cart contains at least one item.
+Main Flow:
+  Step 1. Customer navigates to checkout.
+  Step 2. System displays order summary with items, subtotal, and delivery options.
+  Step 3. Customer selects a delivery option.
+  Step 4. Customer enters a valid delivery address.
+  Step 5. Customer enters valid payment details.
+  Step 6. Customer confirms the order.
+  Step 7. System processes payment and creates an order record.
+  Step 8. System displays an order confirmation page with a unique order number.
+Postcondition: Order record exists in system with status "Confirmed." 
+               Confirmation email sent to customer.
+</code></pre>
+
+<p>From this, a tester can immediately derive a test case: set up a logged-in customer account with a cart containing one item; execute steps 1 through 6; verify that step 7 creates an order record and step 8 displays an order number; verify the postconditions by checking the database and the email log. Every alternative flow and exception flow generates an additional test case in the same way. A project that maintains well-written use cases with complete flows effectively has a first draft of its acceptance test suite embedded in its requirements documentation.</p>
+
+<p><strong>Early involvement of designers and testers in use case review pays compounding returns.</strong> When a designer reviews a use case before it is baselined, they ask questions like: "In exception flow 4b, you say 'display an error message' — what information should that message contain? Should the customer be able to save their cart at that point?" These questions improve the use case before it is approved. When a tester reviews a use case before it is baselined, they ask: "How will we verify the postcondition that the confirmation email was sent? Is there a test email environment available?" These questions surface infrastructure and environment requirements that would otherwise be discovered mid-sprint. The cost of revising a use case before approval is negligible; the cost of the same revision after design and implementation have begun is far higher. Early cross-functional review of use cases is one of the highest-return practices in requirements management.</p>
+        <div class="notes"><strong>Notes</strong>The topic integrates all four subtopic clusters — repository organization, traceability, stakeholder communication, change management, and design/testing input — into a single cohesive narrative. The two HTML tables (traceability matrix and changelog) illustrate concepts that benefit from tabular presentation. The code block demonstrates how a concrete use case excerpt maps to derived test cases, grounding the abstract principle in a tangible example.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

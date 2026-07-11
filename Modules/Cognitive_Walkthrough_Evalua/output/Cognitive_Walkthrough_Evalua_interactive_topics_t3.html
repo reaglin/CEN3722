@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Step-by-Step Cognitive Walkthrough Procedure</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>The Step-by-Step Cognitive Walkthrough Procedure</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>The Step-by-Step Cognitive Walkthrough Procedure</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The Cognitive Walkthrough is a structured usability inspection method in which evaluators simulate the experience of a user attempting to complete a task by working through each individual action step and asking a fixed set of diagnostic questions. Unlike heuristic evaluation, which judges an interface against a broad list of design principles, the Cognitive Walkthrough is explicitly anchored in <strong>user cognition</strong> — it forces evaluators to think about what a user would actually perceive, interpret, and decide at every moment of interaction. The method is grounded in the theory of <em>exploratory learning</em>, which recognises that most users do not read manuals but instead attempt to figure out how an interface works by trying things, reading labels, and responding to feedback. The four evaluative questions operationalise this theory into a repeatable inspection procedure.</p>
+
+<p>Before the walkthrough begins, evaluators must define three things with precision: the <strong>user profile</strong> (who the target user is, what they know, and what they do not know), the <strong>specific task</strong> to be evaluated, and the <strong>complete sequence of action steps</strong> required to accomplish that task using the interface as designed. Each step in that sequence — every click, keypress, selection, or form entry — becomes a unit of analysis. The four questions are then applied to each unit in order. This granularity is what makes the method powerful: it does not evaluate the interface as a whole in one sweep but instead exposes precisely where in the flow of a task the design is likely to break down for a real user.</p>
+
+<p>A critical procedural rule is that a failure answer to any one of the four questions flags a potential usability problem at that step, but evaluators must still continue and apply the remaining questions. This discipline is important because different questions reveal different categories of problem. A step might pass the first question but fail the third, meaning the user has the right intention but will misinterpret the control they need to use. Skipping later questions after an early failure would cause those problems to go undetected. Equally, finding that a step fails multiple questions reveals a compounding usability deficit that is more serious than a single-point failure and therefore warrants higher priority in redesign efforts.</p>
+
+<p>A further distinguishing feature of the four questions is the way they collectively <strong>redirect evaluator attention away from aesthetics and toward cognition</strong>. Evaluators who are themselves designers or developers naturally tend to see an interface through the lens of how it was built or how it looks. The questions interrupt this tendency by demanding a different perspective: not "is this button well designed?" but "would a user with this background, in this moment, think to press this button, find it, understand it, and know whether pressing it worked?" Each question targets a distinct layer of the user's mental process, and together they map the full cognitive journey from forming a goal to confirming its completion.</p>
+
+<p>The <strong>first question</strong> asks whether users will try to achieve the right goal at this step. This targets the very beginning of the cognitive cycle — goal formation. When a user decides to do something with a piece of software, they begin with a high-level intention, such as "I want to share this document." To accomplish that intention they must form a series of <em>intermediate sub-goals</em> — for example, "I need to open a sharing panel," then "I need to enter a recipient's email address," then "I need to set the permission level," and so on. The first question asks whether the design of the interface at this particular step will lead the user to form the correct sub-goal for this moment in the sequence.</p>
+
+<p>Failure at this question does not necessarily mean the user has the wrong ultimate goal. It means the design has failed to communicate what the next step is or why it is needed. A common and well-documented source of failure here is a <strong>vocabulary mismatch</strong> between the language the interface uses and the language the user naturally thinks in. Consider a user trying to log out of a web application. If the interface labels this action "End Session," a user unfamiliar with that phrasing may form the sub-goal of finding a "Log Out" or "Sign Out" link and may never recognise "End Session" as relevant to their goal. The mismatch is not about the action being invisible — it is about the framing of the action failing to map onto the user's mental model. When this question fails, the design response is typically to revise labels, section headings, or navigational structure so that the interface's language aligns with the user's vocabulary and expectations.</p>
+
+<p>Another scenario where the first question fails is when the interface presents too many options simultaneously and provides no clear signal about which sub-goal the user should pursue next. A dashboard crowded with equally prominent widgets, links, and calls to action gives users no cognitive scaffolding — every element looks equally like it might be the right next step. The design lacks what might be called <em>task narrative</em>: the sense that the interface is guiding the user through a logical progression. Evaluators who identify this kind of failure at Question 1 are flagging a structural issue with the interface's information architecture, not merely a surface-level labeling problem.</p>
+
+<p>The <strong>second question</strong> asks whether users will notice that the correct action is available. Where the first question deals with goal formation, the second deals with <em>perception</em> — specifically, whether the control, link, button, or input field that the user needs at this step is visually detectable in the interface as presented. This question is rooted in a well-established behavioural fact: users do not read interfaces the way they read books. They <strong>scan</strong>, skipping over large portions of the screen and attending to elements that are salient — those that stand out through size, colour, contrast, position, motion, or familiar form.</p>
+
+<p>An action that exists in the interface but is not noticed by users is, from a practical usability standpoint, equivalent to an action that does not exist at all. This is a stark but accurate formulation. If the "Submit" button in a multi-step form is rendered in a low-contrast grey at the bottom of a long scrollable page, and users consistently scroll back to the top looking for a way to proceed, the button's existence offers them no benefit. The design has failed at the perceptual layer before any question of comprehension arises. Evaluators applying Question 2 must genuinely adopt the perspective of a user who is <em>scanning</em> rather than carefully reading — they must ask not "is this control on the page?" but "would a user scanning this page in the context of this task direct their attention to this control?"</p>
+
+<p>Failure at Question 2 typically points toward solutions involving <strong>visual hierarchy</strong> — the use of size, weight, colour, spacing, and position to signal importance and direct attention. It may also indicate a placement problem: a control that is contextually disconnected from the content it acts upon is harder to associate with the relevant task. For instance, a "Delete" option buried in a dropdown menu accessed via a small icon with no label, located far from the item it deletes, is likely to be missed. The fix is not merely aesthetic; it requires repositioning and foregrounding the control so that it is visually present where and when the user needs it.</p>
+
+<p>The <strong>third question</strong> asks whether users will recognise the action they have noticed as the correct one for their current goal. This is a crucial distinction from the second question. A user can see a button — their eyes can land on it — and still not understand what it does or whether using it will advance their goal. Question 3 targets the layer of <em>interpretation</em>: given that the user has noticed this control, will they correctly understand its function and judge it to be the right thing to do at this point?</p>
+
+<p>Users interpret unfamiliar controls by drawing on two resources: <strong>prior experience</strong> with similar interfaces and <strong>conventions</strong> that have become standardised across the software they use. A floppy disk icon is conventionally understood to mean "save," even by users who have never used a physical floppy disk, because the convention has been perpetuated across decades of software. A magnifying glass icon is understood to mean "search." These conventions allow users to interpret controls correctly even without explicit instruction. The third question therefore also asks whether the interface is honouring those conventions or departing from them in ways that will mislead users.</p>
+
+<p>Failure at Question 3 takes several characteristic forms. An icon that is novel and lacks an accompanying text label will be opaque to users who have no prior reference for it. A button labelled with an internal or technical term — such as "Normalise Record" in a database application used by non-technical staff — may be noticed perfectly well but will not be recognised as the action needed to merge duplicate entries. In both cases, the user sees the control but cannot correctly decode it. The remedies suggested by a Question 3 failure include clearer and more descriptive text labels, the addition of <em>tooltips</em> that explain a control's function on hover, in-context help text adjacent to the control, or a redesign of the control's label to use language that directly names the outcome ("Merge Duplicate Records" instead of "Normalise Record").</p>
+
+<p>It is worth emphasising that Question 3 is asking about the user's <em>prediction</em> of what the action will do, not about what it actually does. A user who believes a button labelled "Process" will immediately delete their data will not click it even if it is in fact a safe and reversible operation. The design must communicate the consequence of an action before the action is taken — this is the essence of what Question 3 is probing. Affordances, labels, and contextual cues must together construct an accurate and reassuring picture of what will happen when the user commits to the action.</p>
+
+<p>The <strong>fourth question</strong> asks whether users will understand the feedback they receive after taking the action. This question closes the cognitive loop. After a user takes an action, the interface must communicate the result: did the action succeed? Did something go wrong? Is a process still running? The fourth question examines whether the feedback the interface provides — or fails to provide — allows the user to correctly evaluate the outcome and decide what to do next.</p>
+
+<p>Feedback functions in several distinct modes. <strong>Success feedback</strong> confirms that the action had the intended effect: a file was saved, a message was sent, a purchase was completed. This kind of feedback is essential for building user confidence in the interface. When it is absent, users are left uncertain — they may click "Submit" a second time because they cannot tell whether the first click registered, resulting in duplicate submissions and confusion. <strong>Progress feedback</strong> signals that an operation is underway and that the user should wait: spinners, progress bars, and status messages all serve this function. Without them, users assume the interface has frozen and often take disruptive actions like force-closing the application. <strong>Error feedback</strong> communicates that something went wrong and should explain both what the problem is and what the user can do to correct it.</p>
+
+<p>The quality of error messages is a particularly rich area revealed by the fourth question. A message that says only "Error 403" tells the user nothing actionable. A message that says "You do not have permission to view this page — contact your administrator to request access" gives the user a clear understanding of what happened and a path forward. Evaluators applying Question 4 must consider not just whether feedback is present but whether it is <em>interpretable</em> by the target user. Feedback expressed in technical or system-level language may be accurate but completely unintelligible to the non-technical user the interface is designed to serve.</p>
+
+<p>Ambiguous feedback is equally problematic. A form that returns to a blank state after submission gives no indication of whether the submission succeeded or whether the data was simply cleared. A confirmation message that says "Your changes have been applied" is helpful; one that says "Operation complete" is vague enough to create doubt. Even positive outcomes need to be communicated with enough specificity that users can confidently move on to their next goal without uncertainty about whether this step was truly finished.</p>
+
+<p>The following table summarises the four questions, the cognitive layer each targets, the characteristic failure mode associated with each, and the typical design response when a failure is identified:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Cognitive Layer Targeted</th>
+      <th>Characteristic Failure Mode</th>
+      <th>Typical Design Response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Will users try to achieve the right goal?</td>
+      <td>Goal formation / sub-goal identification</td>
+      <td>Vocabulary mismatch; interface fails to signal the correct next sub-goal</td>
+      <td>Revise labels, headings, and navigational framing to match user language and mental models</td>
+    </tr>
+    <tr>
+      <td>Will users notice the correct action is available?</td>
+      <td>Perception / visual salience</td>
+      <td>Control exists but is not visually detectable during normal scanning behaviour</td>
+      <td>Improve visual hierarchy, contrast, and placement of the control relative to its context</td>
+    </tr>
+    <tr>
+      <td>Will users recognise the action as correct?</td>
+      <td>Interpretation / affordance decoding</td>
+      <td>Control is seen but its function or consequence is unclear or misleading</td>
+      <td>Add descriptive labels, tooltips, or contextual help; align with established conventions</td>
+    </tr>
+    <tr>
+      <td>Will users understand the feedback they receive?</td>
+      <td>Outcome evaluation / system response comprehension</td>
+      <td>Feedback is absent, ambiguous, technical, or fails to suggest corrective action on error</td>
+      <td>Provide clear success, progress, and error messages in plain user language with actionable guidance</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Applied sequentially across every action step in a task, these four questions transform the Cognitive Walkthrough from a general review into a precise diagnostic instrument. Each question builds on the one before it in a logical chain: a user must first form the right goal, then perceive the relevant control, then interpret it correctly, then understand the result of using it. A breakdown at any link in this chain interrupts task completion. By examining every step through all four lenses, evaluators build a detailed map of cognitive friction points in the interface — a map that is directly actionable because each identified failure points toward a specific and well-understood category of design remedy.</p>
+        <div class="notes"><strong>Notes</strong>The four-question framework is the operational core of the Cognitive Walkthrough method. Emphasising the sequential and layered nature of the questions — each targeting a distinct cognitive stage — helps evaluators understand why all four must be applied even when earlier questions reveal failures. The vocabulary mismatch concept under Question 1 and the salience/scanning insight under Question 2 are particularly important for learners to internalise, as these are the most frequently misunderstood aspects of the method in practice.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

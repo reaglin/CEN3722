@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Development Environment Setup and Use</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Development Environment Setup and Use</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Development Environment Setup and Use</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Building a usable, testable prototype is not purely a design challenge — it is equally an engineering and operational challenge. Before the first line of prototype code is written, a team must make deliberate decisions about which tools they will use, how they will collaborate on the codebase, how they will work efficiently during the build phase, and how they will get the finished artifact into the hands of real test participants. Each of these concerns is interconnected: a poorly chosen technology stack can make rapid deployment difficult; a missing version-control discipline can cause the team to accidentally overwrite a working prototype hours before a test session; a local development workflow that no one has documented can leave a new team member unable to run the project at all. This topic addresses all four of these concerns as a unified body of professional practice.</p>
+
+<p><strong>Choosing an Appropriate Technology Stack</strong></p>
+
+<p>The most technically sophisticated stack is rarely the most appropriate one for a usability testing prototype. The fundamental goal of a prototype is to present realistic interaction patterns to test participants as quickly and reliably as possible — not to demonstrate engineering ambition. Stack selection should therefore be driven by three practical questions: What do we already know? What will deploy quickly? What do the test tasks actually require?</p>
+
+<p>Choosing technologies the team already knows dramatically reduces the time spent debugging environment issues rather than building the prototype itself. If everyone on the team is comfortable with plain HTML, CSS, and vanilla JavaScript, that combination will almost always outperform a team struggling to configure a framework they learned last week. Frameworks like React, Vue, or Svelte can be excellent choices when the team is already proficient with them, but they introduce build pipelines, module bundlers, and dependency graphs that add friction when time is short.</p>
+
+<p>The second criterion — support for rapid deployment to an accessible URL or device — rules out many architectures that would be entirely appropriate for a production system. A prototype does not need a containerized microservices backend. In the vast majority of usability test scenarios, the "backend" can be simulated with one of the following lightweight approaches:</p>
+
+<ul>
+  <li><strong>Static HTML/CSS/JS sites</strong> — Require no server-side runtime at all. They can be hosted on GitHub Pages, Netlify, Vercel, or Cloudflare Pages in minutes, often with a single command or a push to a repository branch.</li>
+  <li><strong>Mock APIs</strong> — Tools like <em>json-server</em>, <em>MSW (Mock Service Worker)</em>, or hosted services like <em>MockAPI.io</em> let the prototype make realistic HTTP requests that return pre-scripted JSON, simulating real backend behaviour without building any server logic.</li>
+  <li><strong>Local JSON data files</strong> — For prototypes that simply need to render lists, search results, or detail pages, a plain <code>.json</code> file fetched with the Fetch API is often sufficient. There is no database, no authentication layer, and no server to configure.</li>
+</ul>
+
+<p>The third criterion is that the stack must support the specific interaction patterns the test tasks require. If a task asks participants to fill out a multi-step form with inline validation, the team needs to be able to implement client-side form logic. If a task involves filtering a product catalogue, the team needs the ability to manipulate and re-render a list. These requirements should be mapped explicitly to stack capabilities before the decision is made, not discovered mid-build.</p>
+
+<p>A useful way to evaluate candidate stacks before committing is to score them against the criteria that matter most for the project:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stack Option</th>
+      <th>Team Familiarity</th>
+      <th>Deploy Speed</th>
+      <th>Supports Required Interactions</th>
+      <th>Overall Fit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Plain HTML + CSS + Vanilla JS</td>
+      <td>High</td>
+      <td>Very Fast</td>
+      <td>Moderate (sufficient for most tasks)</td>
+      <td>Excellent for simple–moderate prototypes</td>
+    </tr>
+    <tr>
+      <td>React + json-server mock API</td>
+      <td>Medium (if team knows React)</td>
+      <td>Fast (with Vite or CRA)</td>
+      <td>High (component-driven UI, state management)</td>
+      <td>Good when team is React-proficient</td>
+    </tr>
+    <tr>
+      <td>Next.js + Vercel</td>
+      <td>Medium–Low (SSR concepts)</td>
+      <td>Fast (Vercel integration)</td>
+      <td>High</td>
+      <td>Overkill unless SSR behaviour must be tested</td>
+    </tr>
+    <tr>
+      <td>Full custom backend (Node/Express + database)</td>
+      <td>Variable</td>
+      <td>Slow (infrastructure setup)</td>
+      <td>High</td>
+      <td>Almost never justified for a test prototype</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The takeaway from this analysis is almost always that simpler is better. A prototype that works reliably on a static hosting platform is worth far more to the research team than a sophisticated architecture that requires troubleshooting on the morning of a test session.</p>
+
+<p><strong>Setting Up Version Control</strong></p>
+
+<p>Version control is not an optional professional nicety — it is the single most important operational safeguard for a prototype project. Without it, the team has no reliable way to recover from mistakes, coordinate parallel work, or return to a known-good state before a test session. Git is the universal standard and should be initialized at the very beginning of the project, before any other files are created.</p>
+
+<p>The foundational practice is to commit frequently and to write descriptive commit messages. A commit message like <code>fix bug</code> is nearly useless in a project history. A message like <code>fix: validation error clears correctly on form step 2</code> allows any team member — including the original author a week later — to understand what changed and why. A widely used convention is the <em>Conventional Commits</em> format, which prefixes messages with a type such as <code>feat:</code>, <code>fix:</code>, <code>chore:</code>, or <code>refactor:</code>. This is not mandatory, but adopting <em>any</em> consistent convention is far better than having none.</p>
+
+<p>Branching is the mechanism that allows multiple team members to build different features or flows in parallel without interfering with each other's work. A simple but effective branching strategy for a small prototype project looks like this:</p>
+
+<ul>
+  <li><strong>main</strong> — Always contains the most recently verified, stable version of the prototype. Nothing is committed directly to <code>main</code> except through a reviewed merge.</li>
+  <li><strong>Feature branches</strong> — Named after the feature or flow being built (e.g., <code>feature/checkout-flow</code>, <code>feature/search-results-filter</code>). Each developer works in their own branch and merges into <code>main</code> when the feature is complete and tested locally.</li>
+  <li><strong>Fix branches</strong> — Short-lived branches for correcting specific bugs found during review or testing (e.g., <code>fix/mobile-nav-overflow</code>).</li>
+</ul>
+
+<p>One of the most practically valuable version-control habits for prototype work is <strong>tagging release-ready commits</strong>. Before each test session, the team should create a Git tag that marks the exact state of the prototype that will be tested:</p>
+
+<pre><code>git tag -a v1.0-session1 -m "Prototype state for usability test session 1, 2024-11-15"
+git push origin v1.0-session1</code></pre>
+
+<p>If a late-stage change introduced between sessions causes a critical failure, the team can immediately check out the tagged commit and redeploy it, rather than scrambling to diagnose and undo an unknown number of changes. This one practice has saved countless test sessions from preventable disaster.</p>
+
+<p>Teams should also document their conventions in a short file — often called <code>CONTRIBUTING.md</code> — stored in the repository itself. This file should specify the branching model, commit message format, and any other project-specific norms. When a new team member joins, they can read this file and immediately understand how to participate in the workflow without relying on verbal handoffs.</p>
+
+<p><strong>Local Development and Live Preview Workflows</strong></p>
+
+<p>Working efficiently during the build phase requires a local development environment that reduces friction between making a change and seeing its effect. The most impactful capability is <strong>automatic browser refresh on file save</strong>, commonly called "hot reload" or "live reload." Without this, developers must manually switch to the browser and refresh after every change — a small friction that adds up to significant wasted time and broken concentration over a full day of work.</p>
+
+<p>Most modern development toolchains include this capability out of the box. Some common examples:</p>
+
+<ul>
+  <li><strong>Vite</strong> — Starts a local dev server with <code>npm run dev</code> and provides near-instant hot module replacement for React, Vue, Svelte, and plain JavaScript projects.</li>
+  <li><strong>Parcel</strong> — Zero-configuration bundler that automatically serves files and refreshes the browser on save.</li>
+  <li><strong>Live Server</strong> (VS Code extension) — The simplest possible option for plain HTML/CSS/JS projects; right-click an HTML file and select "Open with Live Server."</li>
+  <li><strong>Browsersync</strong> — Particularly useful for testing across multiple devices simultaneously, as it synchronises scroll position and interactions across all connected browsers.</li>
+</ul>
+
+<p>Cross-browser and cross-device testing should happen continuously throughout development, not as a single step at the very end. It is far easier to fix a layout that breaks on Safari or a tap target that is too small on mobile when the issue is discovered immediately after the relevant code is written. Discovering these issues the day before a test session means fixing them under time pressure, which invites new bugs. A practical habit is to open the prototype in at least two browsers (typically Chrome and Safari or Firefox) and at a mobile viewport size after completing each significant feature.</p>
+
+<p>Browser developer tools are an essential part of the local development workflow and deserve deliberate attention. The key capabilities relevant to prototype development include:</p>
+
+<ul>
+  <li><strong>Elements / Inspector panel</strong> — Allows real-time inspection and editing of the DOM and CSS. Invaluable for diagnosing layout issues without touching the source files.</li>
+  <li><strong>Console</strong> — Displays JavaScript errors, warnings, and <code>console.log()</code> output. The first place to look when an interaction is not behaving as expected.</li>
+  <li><strong>Network panel</strong> — Shows all HTTP requests made by the page, including requests to mock APIs or JSON files. Useful for confirming that data is being fetched correctly and for diagnosing failed requests.</li>
+  <li><strong>Device toolbar / Responsive Design Mode</strong> — Simulates different screen sizes and pixel densities. Not a substitute for testing on real devices, but an efficient way to catch obvious layout problems early.</li>
+  <li><strong>Performance and Accessibility panels</strong> — Less critical for prototype work but useful if the test tasks involve performance perception or if accessibility is an explicit research focus.</li>
+</ul>
+
+<p>The local environment configuration must be documented. This means writing a <code>README.md</code> file that any team member can follow to get the project running from scratch on a new machine. At minimum, this documentation should specify: the required runtime versions (e.g., Node.js 20.x), the installation command (e.g., <code>npm install</code>), and the command to start the development server (e.g., <code>npm run dev</code>). If environment variables are needed, the README should list which variables are required and how to obtain values for them — never the actual secret values themselves. A team that can onboard a new contributor in under ten minutes from a documented README has solved a problem that many prototype teams ignore until it becomes urgent.</p>
+
+<p><strong>Deploying the Prototype for Testing</strong></p>
+
+<p>Deployment is the point at which the prototype transitions from a private development artifact to a live testing tool, and it introduces an entirely different class of risks. The most important principle of deployment is timing: the prototype should be deployed to its final testing URL significantly in advance of the first test session — ideally at least 24 to 48 hours ahead. This buffer allows time to discover and resolve environment-specific issues that do not appear during local development, such as broken asset paths, CORS errors when the domain changes, or missing environment variables on the hosting platform.</p>
+
+<p>Before a test session, the deployed prototype must be validated against the same conditions participants will experience. This means:</p>
+
+<ul>
+  <li><strong>Device types</strong> — If participants will use smartphones, the prototype must be tested on actual smartphones, not only in the browser's device simulator. Real devices expose issues with touch handling, font rendering, and viewport behaviour that simulators miss.</li>
+  <li><strong>Network conditions</strong> — If participants will access the prototype over a home broadband connection or cellular data, testing only on a fast office network can produce false confidence. Tools like Chrome's network throttling option in the developer tools can simulate slower connections, and cloud-based testing platforms can test from real network locations.</li>
+  <li><strong>Browsers</strong> — Know which browser participants will use (often specified in the recruitment screener) and validate the prototype in exactly that browser and version.</li>
+</ul>
+
+<p>Any accounts, login credentials, or pre-populated test data required by the test tasks must be configured in the deployed environment before testing begins — not as an afterthought. If a task requires a participant to log in as a specific user and see a personalised dashboard, that user account and its associated data must exist and be in the correct state. If the same test account will be used across multiple sessions, the team must have a documented reset procedure that restores the account to its baseline state between sessions.</p>
+
+<p>Perhaps the most commonly overlooked deployment practice is having a <strong>rollback plan</strong>. A rollback plan answers the question: if the deployed prototype breaks critically five minutes before a test session, what do we do? The answer should be specific and pre-tested, not improvised under pressure. A well-formed rollback plan might look like this:</p>
+
+<ul>
+  <li>The previous stable version is tagged in Git (e.g., <code>v1.0-session2</code>) and can be checked out immediately.</li>
+  <li>The deployment command to push that tagged version to the hosting platform is documented and verified to work.</li>
+  <li>One team member has the credentials and access necessary to trigger the deployment.</li>
+  <li>The team has estimated that the rollback process takes no more than five minutes, giving them a realistic option even close to session start time.</li>
+</ul>
+
+<p>Popular static hosting platforms such as Netlify and Vercel provide built-in deployment history and one-click rollback to any previous deployment, which makes this plan trivial to execute. Teams using these platforms should familiarise themselves with the rollback interface before they need it urgently, not during a crisis.</p>
+
+<p>The discipline of thorough deployment preparation reflects a broader principle: the prototype exists to serve the research, and the research cannot produce valid findings if the prototype fails during the session. Every practice described in this topic — from choosing an appropriate stack to having a documented rollback plan — is ultimately in service of the same goal: ensuring that when a participant sits down to complete a task, the prototype works exactly as intended.</p>
+        <div class="notes"><strong>Notes</strong>Instructors may wish to pair this topic with a hands-on lab in which students initialize a Git repository, configure a live-reload development server, deploy to a static hosting platform (e.g., GitHub Pages or Netlify), and practice tagging a release and executing a rollback. The table comparing stack options can be used as a discussion prompt for stack selection decisions. Emphasize that the concepts here apply regardless of the specific tools chosen — the principles of familiarity, simplicity, continuous cross-device testing, and pre-session deployment validation are tool-agnostic.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

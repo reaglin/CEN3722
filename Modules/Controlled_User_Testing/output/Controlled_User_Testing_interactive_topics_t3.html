@@ -1,0 +1,234 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Scenario Scripting</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Task Scenario Scripting</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Task Scenario Scripting</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Task scenario scripting is one of the most consequential stages of usability test design. A well-constructed scenario places a participant in a realistic situation, motivates them to act as a genuine user would, and generates behavioral data that accurately reflects how real people experience a product. A poorly written scenario, by contrast, can lead participants toward the correct answer, confuse them with irrelevant context, or produce results that cannot be meaningfully compared across sessions. Understanding the craft behind scenario writing — from the initial prompt to the closing debrief — is essential for anyone conducting rigorous usability research.</p>
+
+<p>The sections below walk through every dimension of task scenario scripting: what makes a scenario fundamentally sound, how to write effective context and prompts, how to define and measure success, how to pilot and refine scenarios before the main study, and how to assemble all of these elements into a coherent test script.</p>
+
+<p><strong>What Makes a Good Task Scenario?</strong></p>
+
+<p>A good task scenario earns its place in a usability study by satisfying four foundational criteria: it reflects what real users actually do, it withholds the solution, it has a clear endpoint, and it is positioned appropriately in the overall task sequence.</p>
+
+<p><strong>Grounding tasks in authentic user activities</strong> is the most important starting point. Tasks that do not correspond to genuine use cases will produce data about a fictional version of your product's audience. Before writing a single scenario, you should draw on prior research — interviews, analytics, support ticket analysis, diary studies, or contextual inquiry — to establish the activities that real users actually perform. If your analytics show that 60% of users visit a healthcare portal to download an explanation of benefits document, then a task about downloading that document belongs in your study. A task about adjusting notification preferences, if analytics show that almost no one does this, would be a lower priority unless there is a specific design hypothesis to test.</p>
+
+<p>This principle also guards against the common mistake of writing tasks that reflect the designer's mental model of the product rather than the user's mental model of their own goals. Users do not think "I need to navigate to the Account Settings panel and select the Billing sub-menu." They think "I want to find out when my next payment is due." Your scenario should reflect the latter framing entirely.</p>
+
+<p><strong>Avoiding implied paths or solutions</strong> is the second hallmark of a well-designed scenario. When a scenario inadvertently names interface elements, uses the exact vocabulary of menu labels, or describes the steps a user should take, it ceases to be a usability test and becomes a guided tutorial. This problem is sometimes called <em>leading the witness</em>. The scenario should describe what the user wants to achieve, not how the interface enables them to achieve it.</p>
+
+<p>Consider this contrast:</p>
+
+<ul>
+  <li><em>Problematic:</em> "Click the 'Settings' icon in the top-right corner and find where you can change your password."</li>
+  <li><em>Improved:</em> "You are worried that someone may have accessed your account without your permission. Take whatever steps you feel are appropriate to secure your account."</li>
+</ul>
+
+<p>The improved version describes a believable user concern and leaves the participant entirely free to navigate as they would naturally. The problematic version all but tells the participant where to click, eliminating the diagnostic value of the test entirely.</p>
+
+<p><strong>Defining a clear, observable endpoint</strong> ensures that every facilitator, across every session, knows unambiguously when a task is complete. The endpoint does not have to be a single correct action — sometimes multiple paths lead to a valid completion — but the criteria for completion must be visible and agreed upon before data collection begins. Observable endpoints might include: a specific confirmation screen appearing, a document appearing in a downloads folder, a form submission message being displayed, or a product appearing in a shopping cart. Endpoints that rely on subjective judgment ("the participant seems satisfied") create inconsistent data.</p>
+
+<p><strong>Ordering tasks from simple to complex</strong> is a practical measure that serves both the participant and the data quality. Beginning with a straightforward, low-stakes task helps the participant acclimate to the think-aloud protocol and the general environment of the study. It builds confidence and establishes a comfortable rhythm. As the session progresses, more complex or unfamiliar tasks can be introduced without the participant feeling immediately overwhelmed. A good rule of thumb is to think of the task sequence as an arc: orientation tasks first, core-use-case tasks in the middle, and edge-case or complex tasks toward the end.</p>
+
+<p><strong>Writing Scenario Context and Prompts</strong></p>
+
+<p>The writing style of a scenario has enormous influence on how a participant interprets and approaches a task. Even small word choices can introduce bias, create confusion, or inadvertently guide behavior.</p>
+
+<p><strong>The context narrative</strong> exists to place the participant in a believable situation that motivates the task. It should be brief — typically two to four sentences — and should use plain, everyday language. The goal is for the participant to understand immediately why they would be doing this task, without needing to decode technical terminology or hold a large amount of information in working memory. Context narratives that are too long become cognitive burdens; participants may misremember details or fixate on irrelevant story elements.</p>
+
+<p>A well-written context narrative for a travel booking application might read: <em>"You are planning a weekend trip to visit a friend in Chicago next month. You have a rough idea of when you want to travel but haven't booked anything yet."</em> This two-sentence setup is instantly relatable, introduces no interface vocabulary, and provides just enough specificity to motivate the action prompt that follows.</p>
+
+<p><strong>The action prompt</strong> follows the context narrative and tells the participant what outcome they are trying to achieve. It should describe the end goal in the user's own terms, not the system's terms. The distinction matters deeply: the user's goal is "find a flight that works for me," not "use the search functionality to query available routes." Action prompts written from the system's perspective will cue participants to look for interface features rather than pursue goals, which produces very different — and less valid — behavioral data.</p>
+
+<p>Crucially, the action prompt should <strong>avoid using the exact labels or terminology used in the interface</strong>. If the navigation bar contains a link labeled "My Reservations," the scenario should not use that phrase. Instead, it might say "find the trips you have already booked." This forces participants to discover the correct terminology themselves, which is precisely the behavior you want to observe. If participants cannot connect their natural language ("trips I've booked") to the interface label ("My Reservations"), that is a meaningful usability finding about label clarity.</p>
+
+<p><strong>Second-person voice</strong> — writing "you" rather than "the user" or a third-person character name — keeps participants engaged and helps them inhabit the scenario more naturally. Compare these two versions:</p>
+
+<ul>
+  <li><em>Third-person:</em> "Sarah needs to update her billing address after moving to a new apartment."</li>
+  <li><em>Second-person:</em> "You have recently moved to a new apartment and need to make sure your billing information is current."</li>
+</ul>
+
+<p>The second-person version is more direct and more likely to produce authentic responses because the participant is not being asked to simulate someone else — they are being placed directly into the situation. This mirrors how users actually encounter the product in real life.</p>
+
+<p><strong>Task Measurability and Success Criteria</strong></p>
+
+<p>For usability data to be actionable and comparable across participants, success must be defined before testing begins — not interpreted after the fact. Defining success criteria in advance prevents observer bias from creeping into scoring decisions.</p>
+
+<p><strong>Binary success/failure</strong> is the simplest and most common measurement framework. A task is either completed successfully or it is not. This approach is straightforward to score, easy to aggregate across participants, and sufficient for many research questions. For example, in a task asking participants to locate a return policy, success might be defined as: <em>participant navigates to the correct page and reads or identifies the return window duration.</em> Any session in which the participant fails to reach that page, or reaches it but cannot identify the relevant information, is scored as a failure.</p>
+
+<p><strong>Graduated completion levels</strong> add nuance when a task can be partially accomplished. A three-point scale might distinguish between full success (goal achieved without assistance), partial success (goal achieved with one or more prompts from the facilitator or by discovering a workaround), and failure (goal not achieved). This is particularly useful for complex multi-step tasks where a participant might complete four of five required steps before getting stuck. Graduated scoring preserves information that a binary system would discard.</p>
+
+<p><strong>Time-on-task</strong> is among the most widely used quantitative measures in usability testing. It captures the elapsed time from when a participant begins working on a task to when they reach the defined endpoint (or abandon the task). Because time-on-task is a continuous variable, it can be averaged across participants, compared between design versions, and used to identify which tasks are disproportionately slow relative to their expected complexity. However, time-on-task is only meaningful if the start and end points are defined with precision. Starting the clock the moment the facilitator finishes reading the scenario aloud, and stopping it the moment the success criterion is met, produces consistent data. Ambiguity about either endpoint introduces noise.</p>
+
+<p><strong>Failure conditions</strong> must be operationally defined just as carefully as success conditions. The two most common failure conditions are task abandonment — the participant explicitly gives up and says they would not continue — and requests for help — the participant asks the facilitator for guidance. Both are valuable data points, but only if they are recorded consistently. Teams should agree in advance on how to handle requests for help: typically the facilitator will gently redirect with a neutral prompt such as "What would you do if I weren't here?" before eventually confirming that the task should be counted as a failure if the participant cannot proceed. This decision tree should be written into the test script itself.</p>
+
+<p>The table below summarizes common task measurement approaches alongside their primary advantages and appropriate use cases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Measurement Type</th>
+      <th>Description</th>
+      <th>Advantages</th>
+      <th>Best Used When</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Binary Success/Failure</td>
+      <td>Task is either completed or not</td>
+      <td>Simple to score, easy to aggregate</td>
+      <td>Tasks have a single unambiguous endpoint</td>
+    </tr>
+    <tr>
+      <td>Graduated Completion</td>
+      <td>Success scored on a scale (e.g., full / partial / fail)</td>
+      <td>Preserves nuance for complex tasks</td>
+      <td>Multi-step tasks where partial completion is informative</td>
+    </tr>
+    <tr>
+      <td>Time-on-Task</td>
+      <td>Elapsed time from task start to defined endpoint</td>
+      <td>Quantitative, comparable across sessions and versions</td>
+      <td>Efficiency is a key research question</td>
+    </tr>
+    <tr>
+      <td>Task Abandonment</td>
+      <td>Participant explicitly gives up on the task</td>
+      <td>Captures severity of failure; emotionally informative</td>
+      <td>Any study; must always be operationally defined</td>
+    </tr>
+    <tr>
+      <td>Help Requests</td>
+      <td>Participant asks for facilitation assistance</td>
+      <td>Signals critical confusion points</td>
+      <td>Any study; response protocol must be scripted</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Piloting and Refining Task Scenarios</strong></p>
+
+<p>Even the most carefully written scenarios benefit from a pilot session — a rehearsal run of the full test conducted with one or two participants who share characteristics with the target audience but whose data will not be included in the final study results. Piloting is not a luxury; it is a quality-control mechanism that prevents systematic problems from corrupting an entire study.</p>
+
+<p><strong>Pilots reveal unclear wording and unintended cues.</strong> Language that appears neutral to the researcher who wrote it may function quite differently in practice. A pilot participant might ask for clarification on a word you assumed was universally understood, or they might interpret the scenario in a completely unexpected way that reveals an ambiguity you had not noticed. In one common example, a scenario that uses the word "account" might be interpreted by some participants as referring to their profile settings and by others as referring to their billing information — two entirely different interface areas. Piloting surfaces these ambiguities before they contaminate real study data.</p>
+
+<p>Pilots also expose <strong>unintended leading cues</strong>. Sometimes researchers inadvertently embed synonyms for interface labels — close enough to the actual label that participants recognize them immediately, but not so obvious that the researchers noticed during writing. A pilot session makes these leaks visible because you can observe participants moving directly to the correct location without any apparent search behavior, which is a strong signal that the scenario is doing too much work for them.</p>
+
+<p><strong>Timing data from pilots</strong> serves a critical logistical function. Until you have watched a real participant attempt each task, your time estimates for task completion are educated guesses at best. Pilots provide empirical baseline durations that allow you to set realistic per-task time allocations in the main study. If your pilot shows that a task you estimated would take three minutes consistently takes eight to ten minutes, you need to either simplify the task, adjust the session schedule, or remove one or more tasks from the script entirely. Running a study with unrealistic time allocations leads to rushed facilitation, incomplete data, and a stressful experience for participants.</p>
+
+<p><strong>Changes made after piloting must be documented.</strong> If you revise a scenario wording, alter a success criterion, reorder tasks, or change any aspect of the test script based on pilot findings, that change and its rationale should be recorded in a changelog. This documentation is essential for methodological transparency, particularly if findings will be shared with stakeholders, published, or used to compare against a future study of the same product. Without a documented record of changes, it becomes impossible to interpret differences between study versions accurately.</p>
+
+<p><strong>Rotating roles during the pilot</strong> provides a secondary but meaningful benefit. When team members take turns as facilitator, note-taker, and observer, each person gains firsthand understanding of the demands and subtleties of each role. The note-taker learns what a facilitator needs in real time; the facilitator learns what the note-taker can realistically capture. This cross-training leads to smoother, better-coordinated sessions in the main study and reduces the likelihood that a facilitator will inadvertently coach a participant simply because they did not appreciate how leading a question sounds from the participant's perspective.</p>
+
+<p><strong>Sequencing and the Test Script</strong></p>
+
+<p>A test script is the master document that governs everything that happens during a usability session, from the moment the participant arrives until they leave. It ensures consistency across sessions, reduces the cognitive load on the facilitator, and serves as a record of exactly what each participant was asked to do.</p>
+
+<p><strong>The opening section</strong> of a test script typically includes a welcome and introduction, a consent confirmation, an explanation of the think-aloud protocol, and warm-up questions designed to ease the participant into the session. The consent confirmation should be explicit and unhurried — participants must understand what data is being collected, how it will be used, and that they may withdraw at any time. Warm-up questions serve a dual purpose: they give the participant a chance to talk comfortably before the formal tasks begin, and they provide contextual information about the participant's background and relevant experience that may help interpret their subsequent behavior.</p>
+
+<p>A typical warm-up question sequence for a banking application study might include questions like: <em>"How often do you currently use online banking tools?"</em> and <em>"What device do you most often use to check your account balance?"</em> These questions are low-pressure, genuinely informative, and help ease the participant into the rhythm of speaking aloud during the session.</p>
+
+<p><strong>Each task entry in the script</strong> should contain everything the facilitator needs to manage that task consistently across sessions. At minimum, this includes the verbatim prompt text (which should be read aloud exactly as written, not paraphrased), the success criteria, the defined failure conditions and how to respond to them, any observer or note-taker cues (such as "note exact first click"), and space or a notation system for recording outcomes and observations. Including success criteria directly in the script, rather than on a separate sheet, prevents the facilitator from having to switch documents during a live session.</p>
+
+<p>Here is an example of how a single task entry might be structured within a script:</p>
+
+<pre><code>TASK 3: Updating a Shipping Address
+
+PROMPT (read verbatim):
+"You have recently moved and want to make sure that anything you order
+in the future gets sent to your new address. Please go ahead."
+
+SUCCESS CRITERIA:
+- Participant navigates to the address management section (any path accepted)
+- Participant successfully saves a new or updated address
+- Confirmation message or visual indicator of save is observed
+
+FAILURE CONDITIONS:
+- Participant explicitly states they give up (record as abandonment)
+- Participant asks for help: respond with "What would you do if I weren't here?"
+  If still unable to proceed after one redirect, record as help-assisted failure
+
+NOTES FOR OBSERVER:
+- Note first navigation choice made after prompt is read
+- Note any verbal expression of confusion about terminology
+- Record time from prompt end to task completion or failure
+
+TIME ALLOCATION: 5 minutes</code></pre>
+
+<p><strong>Transition language</strong> between tasks is a detail that many researchers overlook but that has a measurable effect on session quality. If a facilitator says "Great job on that one!" before moving to the next task, they are implicitly communicating positive evaluation of the participant's performance, which can inflate confidence and change behavior on subsequent tasks. Neutral, consistent transitions preserve the integrity of the study. Phrases like "Thank you, we'll now move to the next task" or simply "Okay, let's go ahead to the next one" are appropriately neutral and should be written into the script verbatim so that all facilitators use identical language.</p>
+
+<p>This principle extends to responses during tasks as well. When participants ask "Am I doing this right?" the scripted response should be something like "There are no right or wrong answers — we're interested in what you would naturally do." When participants express frustration, the scripted response should be empathetic but non-leading: "I understand, that sounds frustrating. What would you do next?" Having these responses pre-written ensures that no facilitator accidentally provides validation or corrective guidance that affects the participant's subsequent behavior.</p>
+
+<p><strong>The closing section</strong> of the script brings the session to a structured end and captures overall impressions that task-level data alone cannot provide. This typically includes a post-task questionnaire (standardized instruments like the System Usability Scale or the Single Ease Question are commonly used), open-ended debrief questions, and an opportunity for participants to share anything they noticed that the tasks did not specifically address. Closing questions might include: <em>"Was there anything about the experience that surprised you?"</em> or <em>"If you could change one thing about what you saw today, what would it be?"</em> The debrief is also the appropriate place to explain the purpose of the study in more detail, if it was kept partially concealed during the session to reduce demand characteristics.</p>
+
+<p>A complete, well-structured test script transforms usability testing from an improvised conversation into a disciplined method of inquiry. When every facilitator follows the same script, reads the same prompts verbatim, delivers the same transitions, and applies the same success criteria, the resulting data can be meaningfully compared, aggregated, and used to drive confident design decisions.</p>
+        <div class="notes"><strong>Notes</strong>Covers the design and writing of realistic, measurable task scenarios that guide participants through the usability test while eliciting meaningful behavioral data.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

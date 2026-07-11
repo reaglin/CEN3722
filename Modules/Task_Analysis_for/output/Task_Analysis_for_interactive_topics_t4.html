@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Comparing and Selecting Analysis Methods</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Comparing and Selecting Analysis Methods</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Comparing and Selecting Analysis Methods</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every task analysis effort begins with a methodological choice, and that choice carries real consequences for the quality, depth, and utility of the information you gather. Hierarchical Task Analysis (HTA) and Cognitive Task Analysis (CTA) are not competing methods that one replaces the other — they are complementary tools built to answer different kinds of design questions. Understanding what each method does well, where each falls short, and how to scope your analysis before you begin are the skills that separate a productive task analysis from one that produces pages of documentation but little actionable insight. This topic develops each of those considerations in depth so you can approach method selection as a deliberate, reasoned decision rather than a habit or default.</p>
+
+<p><strong>Strengths and Limitations of HTA</strong></p>
+
+<p>Hierarchical Task Analysis organises work into a structured tree of goals, sub-goals, and operations, governed by plans that specify how and when sub-goals are executed. Its most immediate practical virtue is that this structure is <em>visual and highly communicable</em>. A well-drawn HTA diagram can be placed in front of a stakeholder, a developer, or a content designer with no prior training in task analysis and they will understand — at least in broad terms — what users are trying to accomplish and in what sequence. This makes HTA an unusually effective tool for aligning cross-functional teams early in a design project, when shared vocabulary and shared mental models of the task domain matter enormously.</p>
+
+<p>HTA is also relatively fast to produce when the task under analysis is procedural and well-defined. Consider a task like submitting an expense report through a corporate finance system. The steps have a recognisable sequence, the inputs and outputs are concrete, and most users perform the task in broadly the same way. An experienced analyst can conduct a small number of observations and brief interviews, then produce a usable HTA within a day or two. That speed has real value in projects operating under time pressure, and it means the team can move quickly from analysis to design exploration.</p>
+
+<p>However, HTA's clarity comes at a price. The method captures <em>what</em> people do and in what order, but it does not capture <em>why</em> they do it that way, what they are thinking while they do it, or what knowledge they are drawing on to make decisions. Consider the difference between two users submitting that same expense report. A new employee follows each step literally, unsure why certain fields are mandatory or what happens if they make an error. An experienced employee recognises immediately that a particular field requires a cost centre code they have memorised, skips a confirmation screen they know is irrelevant for domestic travel, and catches a common system error before it occurs. An HTA of both users might look almost identical, masking a significant difference in cognitive demand and error risk. This is not a flaw that can be patched — it is structural. HTA was designed to represent task structure, not cognitive process.</p>
+
+<p>A related limitation is that HTA can <em>oversimplify tasks that vary with experience</em>. Novice and expert users often do not perform tasks in the same sequence, with the same granularity of attention, or with the same recovery strategies when something goes wrong. An HTA built primarily from observation of expert users may produce a decomposition that looks clean and logical but bears little resemblance to the struggle a new user encounters. Conversely, an HTA built from novice observation may include steps that experts have long since automated and no longer consciously execute. Neither version is wrong, but a single HTA without qualification about which user population it represents can mislead design decisions.</p>
+
+<p><strong>Strengths and Limitations of CTA</strong></p>
+
+<p>Cognitive Task Analysis addresses the gap that HTA leaves open. Its defining purpose is to surface the mental processes that drive task performance — the perceptual cues users attend to, the knowledge structures they consult, the judgements they make under uncertainty, and the mental models they apply when the system behaves unexpectedly. These are precisely the things that experienced users struggle to articulate unprompted, because expertise involves the progressive automation of knowledge that was once effortful and conscious. A senior intensive care nurse monitoring a patient's vital signs is not running through a checklist — she is pattern-matching against a rich mental model built from hundreds of clinical encounters. CTA methods such as the Critical Decision Method, Think-Aloud Protocol, and knowledge elicitation interviews are designed to excavate that tacit knowledge and make it available for design purposes.</p>
+
+<p>The practical payoff is that CTA produces data that directly informs decisions about <em>feedback, guidance, and error handling</em> — the parts of interface design that novice users depend on most and that are most often underspecified. If a CTA reveals that users make a particular class of decision by attending to three specific data points on the screen, a designer can ensure those data points are visually prioritised and co-located. If a CTA reveals that users commonly misinterpret a system state during a high-stakes operation, the design team has the specific cognitive mechanism of that misinterpretation and can engineer a more effective feedback signal. This kind of actionable, mechanism-level insight is what distinguishes CTA outputs from more surface-level analysis.</p>
+
+<p>The costs, however, are significant. CTA is <em>more time-consuming</em> than HTA at every stage. Data collection through methods like the Critical Decision Method requires skilled facilitation — the interviewer must probe without leading, pursue productive tangents without losing the thread of the interview, and recognise when a participant's account of events contains an implicit cognitive decision that warrants a follow-up question. These skills are not trivial. An inexperienced researcher conducting a CTA-style interview will often obtain a narrative of events that looks superficially rich but contains almost no genuine cognitive content — essentially a verbal version of an observable task sequence.</p>
+
+<p>Analysis of CTA data is equally demanding. Unlike an HTA diagram, which has a well-established representational convention, CTA data can be represented in multiple formats — knowledge audit tables, decision requirement tables, critical cue inventories, cognitive demands tables — and none of these formats has the intuitive legibility of a hierarchical diagram. Without a clear analytical framework applied consistently across the dataset, CTA outputs can become a large, unstructured collection of observations and quotes that is difficult to translate into specific design recommendations. Investing in CTA without investing in the analytical infrastructure to process its outputs is a common and costly mistake.</p>
+
+<p><strong>A structured comparison of the two methods</strong></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>HTA</th>
+      <th>CTA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Primary focus</td>
+      <td>Observable task structure and sequence</td>
+      <td>Cognitive processes, knowledge, and decision-making</td>
+    </tr>
+    <tr>
+      <td>Output format</td>
+      <td>Hierarchical diagram with plans</td>
+      <td>Tables, decision trees, knowledge maps (varies by method)</td>
+    </tr>
+    <tr>
+      <td>Stakeholder accessibility</td>
+      <td>High — visual and self-explanatory</td>
+      <td>Lower — requires interpretation and framing</td>
+    </tr>
+    <tr>
+      <td>Data collection time</td>
+      <td>Relatively short for well-defined tasks</td>
+      <td>Substantially longer; requires multiple sessions</td>
+    </tr>
+    <tr>
+      <td>Researcher skill required</td>
+      <td>Moderate</td>
+      <td>High — trained facilitation essential</td>
+    </tr>
+    <tr>
+      <td>Captures expert-novice differences</td>
+      <td>Poorly</td>
+      <td>Well</td>
+    </tr>
+    <tr>
+      <td>Informs feedback and error handling</td>
+      <td>Indirectly</td>
+      <td>Directly</td>
+    </tr>
+    <tr>
+      <td>Best suited to</td>
+      <td>Procedural, sequential, well-defined tasks</td>
+      <td>Judgement-heavy, knowledge-intensive, or safety-critical tasks</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Choosing the Right Method</strong></p>
+
+<p>The most reliable way to choose between HTA and CTA — or to decide whether to use both — is to begin by articulating the <em>primary design question</em> the analysis needs to answer. This question is more specific than "what do users do?". It might be: "How should the navigation of this onboarding flow be structured so that users can complete registration without abandoning?" That is a question about task structure, sequence, and navigation — precisely what HTA is built to answer. Alternatively, the question might be: "Why do experienced operators sometimes fail to recognise an impending system alarm in time to intervene?" That is a question about perception, mental models, and situation awareness — precisely what CTA is built to answer.</p>
+
+<p>A useful heuristic is to reach for <strong>HTA when the design problem is primarily structural</strong> — when you need to understand and document what steps the system must support, in what order, and with what options for alternative paths. User onboarding flows, checkout processes, form-based data entry workflows, and administrative dashboard navigation are all areas where HTA tends to deliver the greatest return on analytical investment. The outputs translate directly into information architecture decisions, navigation design, and content sequencing.</p>
+
+<p>Reach for <strong>CTA when the design problem is primarily cognitive</strong> — when users must make judgements, interpret ambiguous information, apply specialised knowledge, or manage cognitive load under time pressure. Clinical decision support systems, financial analysis tools, emergency response interfaces, complex configuration systems, and any domain involving significant expertise are strong candidates for CTA. When the cost of user error is high or when the gap between novice and expert performance is large, CTA data provides the depth of understanding necessary to design interventions that actually reduce error risk.</p>
+
+<p>In many real projects, the most comprehensive and defensible analysis combines both methods. A common and effective sequence is to begin with HTA to establish the structural skeleton of the task domain — what goals exist, how they decompose, what the procedural sequence looks like. This structural map then identifies the sub-tasks that carry the greatest cognitive demand, ambiguity, or error risk. CTA is then applied selectively to those high-priority nodes, providing the cognitive depth where it is most needed without incurring the full cost of a CTA across the entire task domain. This combined approach produces documentation that satisfies stakeholders who need structural clarity (the HTA layer) and designers who need cognitive mechanism detail (the CTA layer).</p>
+
+<p>It is also important to recognise that <strong>time and resource constraints are legitimate factors</strong> in method selection, and that pretending otherwise leads to analysis projects that are either abandoned before completion or completed superficially. A thorough CTA of a complex medical device interface might require eight to twelve weeks of data collection and analysis with two trained researchers. If the project timeline does not accommodate that investment, the right response is not to conduct a rushed and under-resourced CTA — it is to conduct a well-scoped HTA that honestly documents the cognitive questions it was unable to address, and to flag those questions as risks that warrant attention in usability testing. Method selection decisions, including the constraints that shaped them, should be documented in the analysis deliverable so that future design teams understand what the analysis covers and what it does not.</p>
+
+<p><strong>Scoping a Task Analysis</strong></p>
+
+<p>Before any task decomposition begins — whether using HTA, CTA, or a combination — the analysis must be scoped. Scoping is the process of defining the boundaries, user population, and goals that will govern what gets included in the analysis and what gets set aside. Without deliberate scoping, task analysis efforts expand organically until they are either unmanageable or so broad and shallow that their outputs cannot support specific design decisions. A well-scoped analysis with a narrow, clearly defined focus will almost always produce more actionable results than a broad but underspecified one.</p>
+
+<p>The first scoping decision is to <strong>define the primary user group</strong>. User groups are not monolithic. Within any user population there are differences in experience level, domain knowledge, frequency of system use, physical context of use, and personal working style. Each of these differences can produce meaningfully different task behaviour. Before decomposing tasks, the analyst must specify which user group the analysis is targeting. This does not mean other groups are irrelevant — it means they are documented as explicit out-of-scope populations or as secondary populations to be addressed in a subsequent analysis phase. A task analysis that tries to represent all users simultaneously often ends up representing none of them accurately. The choice of primary user group should be driven by the design question: who are you most trying to support, and whose task behaviour will most directly shape the design decisions you face?</p>
+
+<p>The second scoping decision is to <strong>specify the system boundaries</strong> — the definition of what interactions fall within the scope of the analysis and what falls outside it. In most digital product contexts, users do not interact only with the system under design. They consult external resources, communicate with colleagues, use other software tools, and navigate organisational processes that exist entirely outside the interface. A task analysis that attempts to capture all of this context simultaneously becomes unwieldy. The analyst must draw a boundary: for example, "This analysis covers the interactions a user performs within the invoice management module, from logging in to submitting an approved invoice for payment. It does not cover the approval workflow that occurs in the organisation's separate finance system, nor the email communications users may engage in outside the platform." That boundary statement is not a claim that the out-of-scope items are unimportant — it is a clarification of what this analysis is responsible for documenting.</p>
+
+<p>The third scoping discipline is to <strong>document the assumptions made during scoping</strong> explicitly and systematically. Every scoping decision rests on assumptions about users, context, and system behaviour. For example: "We assume that the primary user group has at least six months of experience with the legacy system and is therefore familiar with core domain concepts, even if they are new to this interface." That assumption, if left undocumented, becomes invisible. Future team members inheriting the analysis may apply its findings to onboarding entirely new users — a population for whom the assumption is false and the analysis is potentially misleading. Documented assumptions serve as a map of the analysis's limits. They signal where the findings apply with confidence and where they should be treated with caution.</p>
+
+<p>Assumptions worth documenting typically include: the experience level and technical fluency of the primary user group; the devices, environments, and access conditions under which tasks are performed; the frequency and criticality of the tasks under analysis; and any dependencies on external systems, processes, or information sources that the analysis takes as given. When the design context changes — when the user group shifts, when the system is extended into a new domain, or when the deployment environment changes — these documented assumptions make it straightforward to identify which parts of the analysis need to be revisited and which remain valid.</p>
+
+<p>Together, these scoping disciplines — defining the user group, specifying system boundaries, and documenting assumptions — transform a task analysis from a vague documentation exercise into a precise analytical instrument. The resulting analysis is not just easier to produce; it is easier to use, easier to maintain, and easier to defend when its findings are challenged. A scoped analysis with clear boundaries produces outputs that tell a specific design team what they need to know about a specific user population performing specific tasks in a specific context. That specificity is what makes a task analysis genuinely useful rather than merely thorough.</p>
+        <div class="notes"><strong>Notes</strong>Consider pairing this topic with a worked example in which students receive a brief design brief and must justify in writing which method they would select and how they would scope the analysis — including the assumptions they are making. This reinforces the decision-making process rather than just the declarative content.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

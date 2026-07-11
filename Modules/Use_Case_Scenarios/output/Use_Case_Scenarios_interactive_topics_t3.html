@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Requirements Gathering Techniques</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Requirements Gathering Techniques</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Requirements Gathering Techniques</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Requirements elicitation is the disciplined process of discovering, extracting, and articulating what a system must do and what qualities it must possess. It sits at the very foundation of any software or systems development effort, and the consequences of doing it poorly ripple outward through every subsequent phase of a project. Studies consistently identify poorly elicited or ambiguously documented requirements as the leading cause of project failure — not faulty code, not inadequate testing, and not poor project management, but a fundamental misunderstanding of what the system was supposed to accomplish in the first place. Understanding elicitation techniques thoroughly is therefore not an academic exercise; it is the most practical skill a business analyst, systems engineer, or product manager can develop.</p>
+
+<p>A foundational insight is that <strong>no single elicitation technique is sufficient on its own</strong>. Every method has blind spots. Interviews reveal individual perspectives but may miss cross-functional conflicts. Workshops surface shared understanding but can be dominated by vocal stakeholders. Surveys reach large audiences but sacrifice depth. Document analysis reveals history but not future intent. Skilled practitioners treat these techniques as complementary instruments in an ensemble, selecting and combining them based on the nature of the project, the availability of stakeholders, and the type of information being sought.</p>
+
+<p>A second critical insight is the distinction between <strong>explicit stated needs</strong> and <strong>implicit assumed behaviors</strong>. Explicit requirements are the ones stakeholders consciously articulate: "The system must allow a user to reset their password." Implicit requirements are the ones nobody mentions because everyone assumes they are obvious: "Of course the system won't display another user's private data." Implicit requirements are particularly dangerous because they go undocumented and therefore unverified. Effective elicitation actively hunts for implicit assumptions by asking probing follow-up questions, observing actual work practices, and reviewing analogous systems. The classic example is a stakeholder who requests "a faster horse" when what they actually need is reliable transportation — the stated request encodes an implicit assumption about the solution space that, if accepted literally, forecloses better alternatives.</p>
+
+<p>Requirements elicitation is also <strong>iterative rather than a one-time event</strong>. Early in a project, stakeholders often cannot fully articulate their needs because they have not yet seen prototypes, encountered edge cases, or thought through complex scenarios. As the project progresses and stakeholders interact with wireframes, prototypes, and partial implementations, new requirements emerge and earlier ones are refined or even reversed. Agile methodologies formalize this reality by incorporating regular backlog refinement sessions and sprint reviews as ongoing elicitation activities. Even in plan-driven environments, change control processes exist precisely because elicitation never truly ends. Analysts who treat the initial requirements document as a sealed artifact do so at their peril.</p>
+
+<p><strong>Interviews and Contextual Inquiry</strong> represent the most personal and direct category of elicitation techniques. An interview is a structured or semi-structured conversation between an analyst and one or more stakeholders, conducted with the explicit goal of uncovering needs, constraints, goals, and concerns. The power of interviews lies in their directness: there is no intermediary, no survey form standing between the analyst and the stakeholder's knowledge.</p>
+
+<p><strong>Structured interviews</strong> follow a predetermined script of questions, ensuring that the same questions are asked of every participant. This consistency makes responses comparable across interviewees and is especially valuable when the analyst needs to identify patterns or disagreements across a stakeholder population. For example, if an analyst is gathering requirements for an expense management system and asks every department manager the same twelve questions about their approval workflow, the responses can be tabulated and analyzed systematically. The tradeoff is rigidity: a structured interview may miss information that falls outside the prepared question set, and it can feel impersonal to stakeholders who want to explain their situation in their own terms.</p>
+
+<p><strong>Unstructured interviews</strong> take the opposite approach. The analyst begins with a broad opening prompt — "Tell me about how you currently handle customer onboarding" — and then follows the stakeholder's train of thought, asking clarifying and probing questions as the conversation develops. Unstructured interviews are excellent for early-stage discovery when the analyst does not yet know enough about the domain to formulate specific questions. They surface unexpected concerns and reveal the stakeholder's mental model of the problem space. The tradeoff is that results are harder to compare across participants and the conversation can wander into topics that are not directly relevant.</p>
+
+<p>In practice, most professional interviews are <strong>semi-structured</strong>: the analyst prepares a set of anchor questions to ensure that key topics are covered, but allows the conversation to diverge when productive threads emerge, then steers back to the remaining anchor questions. A well-prepared semi-structured interview guide for a new inventory management system might include anchor questions such as: What is the biggest pain point in your current inventory process? How do you currently handle discrepancies between physical stock and system records? What reports do you use most frequently, and what decisions do they support? Each of these anchors can spawn multiple follow-up probes depending on the answers given.</p>
+
+<p><strong>Contextual inquiry</strong> is a more immersive technique that combines interview with direct observation. Rather than asking a warehouse supervisor to describe how they receive shipments, the analyst visits the warehouse, watches the supervisor process an actual delivery, and asks questions in the moment: "I noticed you just cross-referenced that packing slip against a spreadsheet on your phone — is that a standard step in the process?" Contextual inquiry is particularly powerful for surfacing implicit requirements, because people routinely do things they would never think to mention in a traditional interview. The workaround spreadsheet, the sticky note on the monitor, the verbal confirmation shouted across the room — these workarounds and informal practices reveal gaps in existing systems and often point directly to high-value requirements in the new one.</p>
+
+<p>Regardless of interview format, <strong>prompt review of notes and recordings is essential</strong>. Memory degrades rapidly after an interview, and context that seemed obvious in the moment becomes ambiguous hours later. Best practice is to write up a clean summary of each interview within 24 hours, noting not just what was said but the analyst's interpretations and any follow-up questions that need to be asked. Many analysts send a brief summary to the interviewee for confirmation, which both validates the interpretation and builds stakeholder trust.</p>
+
+<p><strong>Workshops and Focus Groups</strong> gather multiple stakeholders simultaneously to elicit requirements through facilitated group discussion. The fundamental advantage of a workshop over individual interviews is efficiency: a skilled facilitator can surface, discuss, and provisionally resolve a requirement in a two-hour workshop that would have required three separate interviews and two follow-up email chains to achieve the same result. More importantly, workshops surface <strong>divergent stakeholder perspectives</strong> in a forum where they can be negotiated directly rather than discovered later as conflicting requirements documents.</p>
+
+<p>Consider a scenario in which the sales team and the finance team both have requirements for a new CRM system. In individual interviews, each group might describe their needs without awareness of the other's constraints. In a workshop, when the sales director says "the system should allow reps to offer custom pricing discounts without approval" and the CFO immediately responds "that would make revenue recognition impossible to manage," the conflict is surfaced and must be resolved before it becomes embedded in contradictory requirements. Workshops make this kind of cross-functional alignment possible.</p>
+
+<p><strong>Structured workshop activities</strong> are essential for keeping large groups productive. A scenario walkthrough asks participants to trace a complete business process step by step — for example, walking through the entire order-to-cash cycle from customer inquiry to payment receipt — and identifying where the current process breaks down and what the new system must do differently at each step. A <strong>requirements brainstorming session</strong> might use affinity mapping: participants write requirements on sticky notes, which are then grouped into themes on a whiteboard, giving the group a visual map of the requirement landscape. A <strong>prioritization exercise</strong> such as MoSCoW (Must Have, Should Have, Could Have, Won't Have) can help stakeholders reach consensus on scope before they leave the room.</p>
+
+<p>Remote and distributed teams require additional deliberate effort to replicate the collaborative energy of in-person workshops. Tools such as Miro, MURAL, and Microsoft Whiteboard provide virtual sticky notes, diagrams, and voting features that support the same structured activities. Video conferencing with breakout rooms allows the facilitator to split a large group into smaller working groups for focused exercises. The key discipline for remote workshops is <strong>over-facilitation</strong>: in a physical room, body language signals confusion or disengagement; on a video call, silence is ambiguous. Remote facilitators must check in more frequently, call on participants by name, and use polls and visual artifacts to maintain active participation.</p>
+
+<p><strong>Surveys and Questionnaires</strong> are the appropriate tool when the analyst needs to reach a large or geographically dispersed stakeholder population, when statistical analysis of responses is desired, or when the project budget and timeline do not permit individual interviews with every affected user. A survey is an asynchronous, self-administered instrument — stakeholders complete it on their own time — which makes it scalable in a way that interviews and workshops are not.</p>
+
+<p><strong>Closed questions</strong> offer predefined response options: yes/no, multiple choice, Likert scales (e.g., "Rate your satisfaction with the current reporting feature on a scale of 1 to 5"), or ranked lists. Closed questions produce structured, quantifiable data. If 73% of respondents indicate that they find the current search feature "difficult" or "very difficult" to use, that is a statistically meaningful finding that can directly justify a requirement: "The new system's search functionality must achieve a usability rating of 4 or higher on a 5-point scale from at least 80% of users." Closed questions also make analysis efficient — responses can be aggregated automatically by any survey tool.</p>
+
+<p><strong>Open questions</strong> invite free-text responses: "What is the most frustrating aspect of the current system?" or "Describe a recent situation where the system failed to support your work." Open questions can surface entirely unexpected needs that the analyst would never have thought to ask about directly. A closed question asking about satisfaction with specific features assumes the analyst already knows which features matter; an open question about frustration might reveal that the real problem is something the analyst had not yet considered. The cost is analytical effort: free-text responses must be read, coded, and synthesized manually, which is time-consuming at scale.</p>
+
+<p><strong>Survey design quality</strong> is critical and frequently underestimated. Leading questions bias respondents toward the answer the question implies: "How much would you benefit from a faster dashboard?" presupposes that the current dashboard is too slow and that speed is a priority. A neutral formulation is: "How would you describe the current dashboard's loading speed?" Loaded questions, double-barreled questions ("Do you find the system fast and easy to use?" conflates two dimensions into one), and ambiguous terms ("frequently," "often," "large") all degrade the validity of survey data. Every survey should be piloted with a small group before broad distribution to catch these problems.</p>
+
+<p><strong>Response rates and sample representativeness</strong> determine how much confidence can be placed in survey results. A survey completed by 200 out of 1,000 users has a 20% response rate. If those 200 respondents are disproportionately power users, senior staff, or people with strong grievances, the data will not represent the full user population. Analysts should segment responses by user role, department, or experience level to check for representation gaps and should interpret results cautiously when response rates are low or sample composition is skewed. Following up with targeted outreach to underrepresented groups — or supplementing survey data with interviews from those groups — is often necessary to obtain a complete picture.</p>
+
+<p><strong>Document Analysis and Existing System Review</strong> is a form of elicitation that requires no live stakeholder interaction at all, yet can yield an enormous volume of requirements information. The premise is straightforward: the organization has been operating before this project began, and the artifacts it has produced — system documentation, process manuals, regulatory filings, training materials, screenshots, database schemas — encode a wealth of knowledge about current functionality, business rules, and user workflows.</p>
+
+<p><strong>Current system documentation</strong> — technical specifications, user manuals, API documentation, data dictionaries — establishes the baseline of what the existing system does. This baseline is critical for two reasons. First, it identifies <strong>functionality that must be preserved</strong>: if the current system generates 47 standard reports and the business depends on all of them, the new system must replicate that capability at minimum. Discovering this in the first week through document analysis is far better than discovering it in user acceptance testing. Second, baseline documentation reveals the <strong>technical constraints</strong> that the new system will need to accommodate: legacy data formats, integration points with other systems, and regulatory compliance requirements that are already baked into the current architecture.</p>
+
+<p><strong>Process manuals and standard operating procedures (SOPs)</strong> describe how work is supposed to be done. They capture the business rules, approval hierarchies, decision criteria, and workflow sequences that the new system must support. For example, an SOP for purchase order approval might specify that any purchase over $10,000 requires sign-off from a VP-level manager, while purchases under $500 can be approved by any team lead. These thresholds are explicit business rules that must be implemented in the new system and would easily be overlooked without document review.</p>
+
+<p>However, documents describe the <em>intended</em> process, not necessarily the <em>actual</em> process. This gap is where <strong>gap analysis</strong> becomes essential. When document analysis is combined with contextual inquiry or interviews, analysts frequently discover that what people actually do differs significantly from what the manuals say they should do. A procurement manual might specify a three-quote requirement for all purchases over $5,000, but observations reveal that 40% of purchases in that range proceed with a single quote and a handwritten justification note. This discrepancy is itself a requirement: the new system needs to either enforce the three-quote rule (if the business wants to tighten compliance) or accommodate the single-quote exception workflow (if the workaround reflects legitimate business flexibility that the SOP failed to capture). Either way, it is a requirement that would have been invisible without comparing documented to observed behavior.</p>
+
+<p><strong>Legacy system constraints</strong> discovered during document review must be explicitly flagged as risks. An aging mainframe system may store customer records in a fixed-width flat-file format that cannot accommodate certain modern data structures. A legacy billing system may use a proprietary customer ID scheme that conflicts with the ID scheme the new system intends to use. These are not requirements for the new system per se, but they are constraints that will shape what the new system can and cannot do without costly data migration or integration work. Documenting them early — and flagging them as risks in the requirements documentation — ensures that architects, developers, and project managers are aware of them before they become expensive surprises late in the project.</p>
+
+<p>The following table summarizes the primary elicitation techniques, their key strengths, their limitations, and the conditions under which each is most effective:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Technique</th>
+      <th>Best Used When</th>
+      <th>Key Strengths</th>
+      <th>Key Limitations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Structured Interview</td>
+      <td>Comparing responses across many stakeholders</td>
+      <td>Consistent data; easy to compare; covers all planned topics</td>
+      <td>May miss unanticipated issues; can feel rigid</td>
+    </tr>
+    <tr>
+      <td>Unstructured Interview</td>
+      <td>Early discovery; exploring unknown domain</td>
+      <td>Surfaces unexpected needs; builds rapport</td>
+      <td>Hard to compare responses; can lose focus</td>
+    </tr>
+    <tr>
+      <td>Contextual Inquiry</td>
+      <td>Surfacing implicit requirements; observing real workflows</td>
+      <td>Reveals actual behavior; uncovers workarounds</td>
+      <td>Time-intensive; requires site access; observer effect</td>
+    </tr>
+    <tr>
+      <td>Workshop / Focus Group</td>
+      <td>Resolving cross-functional conflicts; shared processes</td>
+      <td>Efficient; surfaces disagreements; builds consensus</td>
+      <td>Risk of groupthink; dominant voices can skew results</td>
+    </tr>
+    <tr>
+      <td>Survey / Questionnaire</td>
+      <td>Large or dispersed user population; quantitative data needed</td>
+      <td>Scalable; anonymity encourages candor; comparable data</td>
+      <td>Low response rates; limited depth; design errors bias results</td>
+    </tr>
+    <tr>
+      <td>Document Analysis</td>
+      <td>Understanding baseline systems; discovering business rules</td>
+      <td>Non-intrusive; comprehensive baseline; reveals legacy constraints</td>
+      <td>Documents may be outdated; does not capture actual behavior</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Bringing these techniques together in practice requires deliberate planning. A professional elicitation plan for a mid-size project might sequence the techniques as follows: begin with <strong>document analysis</strong> to understand the current system and business context before speaking with anyone; conduct <strong>unstructured discovery interviews</strong> with key stakeholders to understand priorities and pain points; follow up with <strong>contextual inquiry</strong> for high-complexity workflows to observe actual behavior; run a <strong>requirements workshop</strong> to synthesize findings, resolve conflicts, and prioritize; and deploy a <strong>survey</strong> to validate findings with a broader user population. Each technique informs and sharpens the next, and the combined output is far more complete and reliable than any single technique could produce alone.</p>
+
+<p>The goal throughout is not simply to collect information but to build a shared, validated understanding of what the system must do — one that captures both what stakeholders say they need and what they actually need, one that makes implicit assumptions explicit, and one that is rich enough to support the writing of precise, testable use cases and requirements specifications. That shared understanding is the foundation on which every subsequent phase of the project depends.</p>
+        <div class="notes"><strong>Notes</strong>Consider supplementing this content with worked examples of interview question guides and sample survey instruments. The gap analysis concept pairs well with as-is / to-be process mapping exercises. The table provides a useful reference card students can return to when choosing techniques for case study assignments.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

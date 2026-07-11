@@ -5,177 +5,177 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Final HCI Evaluation, Reflection, and Lessons Learned — CEN3722</title>
   <style>
-    /* ── Reset & base ── */
+    /* ── Reset & Base ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
       background: #f4f6f9;
-      color: #1e2530;
-      min-height: 100vh;
+      color: #1e2633;
       line-height: 1.6;
+      min-height: 100vh;
     }
 
-    /* ── Page wrapper ── */
-    .page-wrapper {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 2.5rem 1.25rem 4rem;
+    /* ── Header / Hero ── */
+    header {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2b6196 100%);
+      color: #fff;
+      padding: 3rem 2rem 2.5rem;
+      text-align: center;
     }
 
-    /* ── Course label ── */
-    .course-label {
+    header .course-label {
       display: inline-block;
-      font-size: 0.75rem;
-      font-weight: 700;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.35);
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #5a6a84;
-      background: #e2e8f0;
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 0.85rem;
+      padding: 0.28rem 0.85rem;
+      margin-bottom: 1rem;
+      color: #d6e9ff;
     }
 
-    /* ── Header ── */
-    .page-header {
-      border-bottom: 3px solid #2d6be4;
-      padding-bottom: 1.4rem;
-      margin-bottom: 2rem;
-    }
-
-    .page-header h1 {
-      font-size: clamp(1.45rem, 3vw, 2rem);
+    header h1 {
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
       font-weight: 700;
-      color: #111827;
+      letter-spacing: -0.01em;
+      margin-bottom: 1rem;
       line-height: 1.25;
-      margin-bottom: 0.75rem;
     }
 
-    .page-header p {
-      font-size: 0.975rem;
-      color: #4a5568;
-      max-width: 72ch;
+    header p {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: #cde2f7;
+      line-height: 1.7;
     }
 
-    /* ── Section heading ── */
-    .artifacts-heading {
-      font-size: 0.7rem;
+    /* ── Main content ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
       font-weight: 700;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: #7a8ba6;
-      margin-bottom: 1rem;
+      color: #5a7fa8;
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 2px solid #d8e4ef;
     }
 
-    /* ── Card grid ── */
+    /* ── Card Grid ── */
     .card-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 1.25rem;
     }
 
-    /* ── Artifact card ── */
     .card {
       background: #ffffff;
-      border: 1px solid #dde3ed;
+      border: 1px solid #dce6f0;
       border-radius: 10px;
-      padding: 1.35rem 1.5rem;
+      padding: 1.35rem 1.4rem 1.25rem;
       display: flex;
       flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
+      gap: 0.55rem;
+      transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
 
     .card:hover {
-      box-shadow: 0 4px 18px rgba(45, 107, 228, 0.1);
-      border-color: #b3c4e8;
+      box-shadow: 0 6px 24px rgba(30, 70, 120, 0.11);
+      transform: translateY(-2px);
     }
 
-    /* ── Card top row ── */
-    .card-top {
+    /* ── Card Header Row ── */
+    .card-title-row {
       display: flex;
-      align-items: flex-start;
-      gap: 0.6rem;
+      align-items: baseline;
       flex-wrap: wrap;
+      gap: 0.5rem;
     }
 
     .card-name {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #111827;
-      flex: 1 1 auto;
+      font-size: 1rem;
+      font-weight: 650;
+      color: #1a3a5c;
+      line-height: 1.35;
     }
 
     .card-name a {
-      color: #2d6be4;
+      color: #1a5fa8;
       text-decoration: none;
       border-bottom: 1px solid transparent;
-      transition: border-color 0.15s;
+      transition: border-color 0.15s, color 0.15s;
     }
 
     .card-name a:hover,
     .card-name a:focus {
-      border-bottom-color: #2d6be4;
+      color: #0d3d73;
+      border-bottom-color: #0d3d73;
       outline: none;
     }
 
     .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
       font-size: 0.72rem;
       font-weight: 600;
-      color: #5a6a84;
+      color: #5a7fa8;
       text-decoration: none;
-      background: #eef2fa;
-      border: 1px solid #cdd6ea;
+      background: #eaf2fb;
+      border: 1px solid #b8d4ee;
       border-radius: 4px;
-      padding: 0.22rem 0.55rem;
+      padding: 0.15rem 0.45rem;
       white-space: nowrap;
       transition: background 0.15s, color 0.15s;
-      align-self: flex-start;
-      margin-top: 2px;
+      flex-shrink: 0;
     }
 
     .source-link:hover,
     .source-link:focus {
-      background: #dce6f7;
-      color: #1a4db5;
+      background: #cce0f5;
+      color: #0d3d73;
       outline: none;
     }
 
-    .source-link svg {
-      flex-shrink: 0;
-    }
-
-    /* ── Badges ── */
-    .badges {
+    /* ── Badge row ── */
+    .card-meta {
       display: flex;
       flex-wrap: wrap;
-      gap: 0.45rem;
+      gap: 0.4rem;
+      align-items: center;
     }
 
     .badge {
-      font-size: 0.68rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      font-size: 0.7rem;
       font-weight: 600;
       letter-spacing: 0.04em;
-      padding: 0.2rem 0.55rem;
-      border-radius: 20px;
       text-transform: uppercase;
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
     }
 
     .badge-type {
-      background: #e8f0fe;
-      color: #2d5cbf;
-      border: 1px solid #c6d7fb;
+      background: #edf2ff;
+      color: #3b5bdb;
+      border: 1px solid #c5d0f5;
     }
 
     .badge-filetype {
-      background: #f0fdf4;
-      color: #276749;
-      border: 1px solid #bbf0d3;
-      font-family: "Courier New", Courier, monospace;
+      background: #f0faf4;
+      color: #2d7a4f;
+      border: 1px solid #b2dfc5;
+      font-family: 'Courier New', monospace;
       text-transform: lowercase;
       letter-spacing: 0;
     }
@@ -183,86 +183,212 @@
     /* ── Description ── */
     .card-description {
       font-size: 0.875rem;
-      color: #4a5568;
+      color: #3d5166;
       line-height: 1.65;
+      flex-grow: 1;
     }
 
     /* ── Footer ── */
-    .page-footer {
-      margin-top: 3.5rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid #dde3ed;
-      font-size: 0.78rem;
-      color: #8a99b3;
+    footer {
       text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.78rem;
+      color: #8fa8c0;
+      border-top: 1px solid #dce6f0;
+      background: #fff;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      header { padding: 2rem 1.25rem 2rem; }
+      .card-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
-  <div class="page-wrapper">
 
-    <!-- ── Header ── -->
-    <header class="page-header">
-      <span class="course-label">CEN3722 — Introduction to Human Computer Interfaces</span>
-      <h1>Final HCI Evaluation, Reflection, and Lessons Learned</h1>
-      <p>
-        This module brings together the full arc of the course by revisiting HCI theory in practice,
-        reviewing analysis and prototyping phases, applying formal evaluation methods, and synthesising
-        key lessons learned. Use the artifacts below to explore the module's content, reference
-        structured outlines, and prepare for summative assessment.
-      </p>
-    </header>
+  <header>
+    <div class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</div>
+    <h1>Final HCI Evaluation, Reflection, and Lessons Learned</h1>
+    <p>
+      This module brings together the full arc of the HCI design process—from theory and analysis
+      through prototyping and evaluation—and guides learners in reflecting on what worked, what
+      didn't, and which lessons can be carried forward to strengthen future interface design practice.
+    </p>
+  </header>
 
-    <!-- ── Artifact grid ── -->
-    <p class="artifacts-heading">Module Artifacts</p>
+  <main>
+    <p class="section-label">Module Artifacts &mdash; 9 items</p>
 
     <div class="card-grid">
 
-      <!-- Card: Module Topics -->
-      <article class="card">
-        <div class="card-top">
+      <!-- 1: Module Topics -->
+      <div class="card">
+        <div class="card-title-row">
           <span class="card-name">
             <a href="module_topics.html">Module Topics</a>
           </span>
-          <a class="source-link" href="../hierarchy.json">
-            <!-- small document icon -->
-            <svg width="11" height="13" viewBox="0 0 11 13" fill="none" aria-hidden="true"
-                 xmlns="http://www.w3.org/2000/svg">
-              <path d="M1.5 1.5h5l2.5 2.5V11.5a.5.5 0 01-.5.5h-7a.5.5 0 01-.5-.5v-9.5a.5.5 0 01.5-.5z"
-                    stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
-              <path d="M6.5 1.5V4H9" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"
-                    stroke-linejoin="round"/>
-              <line x1="2.75" y1="6.5" x2="8.25" y2="6.5" stroke="currentColor" stroke-width="1.1"
-                    stroke-linecap="round"/>
-              <line x1="2.75" y1="8.5" x2="8.25" y2="8.5" stroke="currentColor" stroke-width="1.1"
-                    stroke-linecap="round"/>
-            </svg>
-            source file
-          </a>
+          <a class="source-link" href="../hierarchy.json">source file</a>
         </div>
-
-        <div class="badges">
+        <div class="card-meta">
           <span class="badge badge-type">Module Topics</span>
           <span class="badge badge-filetype">.json</span>
         </div>
-
         <p class="card-description">
-          A structured outline of the module's core topics covering HCI theory application,
-          review of analysis and prototyping phases, evaluation methods, and lessons learned,
-          used by instructors to organize content delivery and by learners to navigate what
-          will be covered.
+          A structured outline of the module's core topics covering HCI theory application, review of
+          analysis and prototyping phases, evaluation methods, and lessons learned, used by instructors
+          to organize content delivery and by learners to navigate what will be covered.
         </p>
-      </article>
+      </div>
 
-    </div><!-- /.card-grid -->
+      <!-- 2: Connecting HCI Theory -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Final_HCI_Evaluation_interactive_topics_t1.html">Connecting HCI Theory to Design Outcomes</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          Explains how HCI theories (such as mental models, affordances, and feedback principles) directly
+          influence concrete design decisions, helping learners connect academic concepts to real interface outcomes.
+        </p>
+      </div>
 
-    <!-- ── Footer ── -->
-    <footer class="page-footer">
-      CEN3722 — Introduction to Human Computer Interfaces &nbsp;|&nbsp;
-      Final HCI Evaluation, Reflection, and Lessons Learned
-    </footer>
+      <!-- 3: Review of the Analysis Phase -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Final_HCI_Evaluation_interactive_topics_t2.html">Review of the Analysis Phase</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          Reviews the user analysis phase of the HCI design process—covering user research, needs
+          identification, and task analysis—to help learners understand why thorough upfront analysis
+          drives all later design decisions.
+        </p>
+      </div>
 
-  </div><!-- /.page-wrapper -->
+      <!-- 4: Review of the Prototyping Phase -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Final_HCI_Evaluation_interactive_topics_t3.html">Review of the Prototyping Phase</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          Reviews the prototyping phase of user-centered design, covering types of prototypes, their
+          purpose as testable and disposable representations, and how they enable early assumption-testing
+          and iterative course correction.
+        </p>
+      </div>
+
+      <!-- 5: Review of the Evaluation Phase -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Final_HCI_Evaluation_interactive_topics_t4.html">Review of the Evaluation Phase</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          Reviews the evaluation phase of user-centered design, covering usability testing methods,
+          expert review techniques, and how evaluation reveals gaps between designer intent and actual
+          user experience.
+        </p>
+      </div>
+
+      <!-- 6: Structured Feedback -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Final_HCI_Evaluation_interactive_topics_t5.html">Structured Feedback on Design Quality</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          Covers how to give, receive, and act on structured design feedback from peers, stakeholders,
+          and usability experts, helping learners interpret critique and use it to improve interface quality.
+        </p>
+      </div>
+
+      <!-- 7: Process Execution -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Final_HCI_Evaluation_interactive_topics_t6.html">Process Execution and Team Collaboration</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          Addresses the practical execution of HCI design projects, covering team roles, communication,
+          planning, and documentation practices that determine whether a project succeeds beyond individual
+          technical skill.
+        </p>
+      </div>
+
+      <!-- 8: Reflection — Topic Detail -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Final_HCI_Evaluation_interactive_topics_t7.html">Reflection and Lessons Learned</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          Guides learners through post-project reflection in HCI, explaining how to identify what worked,
+          what failed, and what lessons can be carried forward to improve future design practice.
+        </p>
+      </div>
+
+      <!-- 9: Reflection — Text Content -->
+      <div class="card">
+        <div class="card-title-row">
+          <span class="card-name">
+            <a href="Final_HCI_Evaluation_interactive.html">Reflection and Lessons Learned</a>
+          </span>
+        </div>
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <p class="card-description">
+          Guides learners through post-project reflection in HCI, explaining how to identify what worked,
+          what failed, and what lessons can be carried forward to improve future design practice.
+        </p>
+      </div>
+
+    </div>
+  </main>
+
+  <footer>
+    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;|&nbsp;
+    Final HCI Evaluation, Reflection, and Lessons Learned
+  </footer>
+
 
 <footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
 </body>

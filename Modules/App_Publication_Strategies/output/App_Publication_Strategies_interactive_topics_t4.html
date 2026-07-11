@@ -1,0 +1,394 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Deployment Strategies</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Web Deployment Strategies</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Web Deployment Strategies</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Deploying a web application to a production environment is far more than simply copying files to a server. It is a disciplined engineering process that encompasses choosing the right hosting infrastructure, automating build and release workflows, securing traffic with certificates, delivering Progressive Web App capabilities, and optimising the experience so that both users and search engines are satisfied. Each of these dimensions interacts with the others: a poorly chosen hosting platform can undermine an otherwise excellent build pipeline; an expired SSL certificate can instantly disable PWA features; and an unoptimised bundle can erase the ranking benefits of perfect metadata. The sections that follow unpack each dimension in depth, providing the conceptual foundation and practical detail needed to make sound deployment decisions.</p>
+
+<p><strong>Web Hosting Options and Platforms</strong></p>
+
+<p>The first architectural decision a team must make is where the application will live. The answer depends heavily on whether the application is <em>static</em> or <em>dynamic</em>, and on non-technical factors such as budget, expected traffic volume, and the geographic spread of the user base.</p>
+
+<p>A <strong>static web application</strong> is one whose files — HTML, CSS, JavaScript, images, and other assets — are fully pre-built and do not change in response to server-side logic at request time. Because every visitor receives the same files, a static site can be served entirely from a Content Delivery Network (CDN) edge node rather than from a central origin server, which dramatically reduces latency. Platforms designed specifically for this pattern include:</p>
+
+<ul>
+  <li><strong>GitHub Pages</strong> — directly serves a repository branch or a <code>/docs</code> folder, making it ideal for documentation sites, portfolios, and open-source project pages. It is free for public repositories and requires zero server configuration.</li>
+  <li><strong>Netlify</strong> — adds a layer of build automation on top of CDN delivery. A developer pushes code; Netlify pulls it, runs the configured build command (e.g., <code>npm run build</code>), and deploys the output to its global edge network. It also provides instant rollbacks, deploy previews for pull requests, serverless functions, and form handling.</li>
+  <li><strong>Vercel</strong> — created by the team behind Next.js and optimised for JavaScript frameworks, Vercel offers similar CDN-backed static hosting alongside Edge Functions and Incremental Static Regeneration (ISR), a hybrid model that pre-renders pages at build time but can revalidate them in the background without a full rebuild.</li>
+</ul>
+
+<p>A <strong>dynamic web application</strong> generates responses on the fly — querying databases, enforcing authentication, running business logic, or personalising content per user. These applications require persistent server processes or equivalent compute resources. The dominant providers in this space are the hyperscale cloud platforms:</p>
+
+<ul>
+  <li><strong>Amazon Web Services (AWS)</strong> — offers Elastic Compute Cloud (EC2) for full virtual machine control, Elastic Beanstalk for managed application hosting, Elastic Container Service (ECS) and Elastic Kubernetes Service (EKS) for container orchestration, and a vast array of managed services (RDS for databases, ElastiCache for caching, S3 for object storage, CloudFront for CDN).</li>
+  <li><strong>Microsoft Azure</strong> — provides App Service for PaaS web hosting, Azure Kubernetes Service (AKS), Azure Functions for serverless compute, and deep integration with the Microsoft ecosystem including Active Directory for identity.</li>
+  <li><strong>Google Cloud Platform (GCP)</strong> — offers Cloud Run for containerised workloads that scale to zero, Google Kubernetes Engine (GKE), App Engine, and Firebase Hosting with Cloud Functions, which is particularly popular for mobile-adjacent web projects.</li>
+</ul>
+
+<p><strong>Serverless functions</strong> represent a middle ground that deserves special attention. Rather than managing an always-on server, the developer deploys individual functions that the cloud provider executes in ephemeral containers on demand. AWS Lambda, Azure Functions, Google Cloud Functions, Netlify Functions, and Vercel Edge Functions all follow this model. The key advantages are that the provider handles scaling automatically — from zero requests to millions — and billing is based on actual invocations and execution time rather than reserved capacity. The trade-off is that functions have execution time limits, can experience "cold start" latency when a container must be provisioned from scratch after a period of inactivity, and are less suited to workloads requiring persistent in-memory state.</p>
+
+<p>When selecting a hosting platform, four criteria should drive the evaluation:</p>
+
+<ul>
+  <li><strong>Scalability</strong> — can the platform handle sudden traffic spikes (e.g., a viral marketing campaign) without manual intervention? CDN-based static hosts and serverless platforms scale inherently; traditional single-server deployments require deliberate autoscaling configuration.</li>
+  <li><strong>Cost</strong> — static and serverless platforms often have generous free tiers and pay-per-use pricing, making them economical at low traffic. Long-running containers or VMs may become cheaper at high, consistent traffic because reserved pricing is available.</li>
+  <li><strong>Geographic distribution</strong> — a CDN with edge nodes in many regions reduces round-trip latency for global users. A single-region server will always be slower for users on the opposite side of the planet.</li>
+  <li><strong>Ease of deployment</strong> — managed platforms abstract infrastructure concerns, reducing operational burden on small teams. Bare-metal or IaaS deployments offer maximum control but require dedicated DevOps expertise.</li>
+</ul>
+
+<p><strong>Build Pipelines and Continuous Deployment</strong></p>
+
+<p>Modern web development relies on toolchains — bundlers, transpilers, linters, test runners — that must be executed in a precise sequence before code is ready to serve to users. A <strong>build pipeline</strong> is the automated system that orchestrates these steps consistently and repeatably, eliminating the "works on my machine" problem and reducing the risk of human error in the release process.</p>
+
+<p>A typical build pipeline for a JavaScript web application proceeds through several stages:</p>
+
+<ul>
+  <li><strong>Install dependencies</strong> — <code>npm ci</code> (or the equivalent for Yarn or pnpm) installs exactly the versions recorded in the lockfile, ensuring reproducibility.</li>
+  <li><strong>Lint and static analysis</strong> — tools such as ESLint and TypeScript's compiler catch code quality and type errors before any tests run, providing fast feedback.</li>
+  <li><strong>Run automated tests</strong> — unit tests (Jest, Vitest), integration tests, and end-to-end tests (Playwright, Cypress) verify that the application behaves correctly. A failing test aborts the pipeline, preventing broken code from reaching production.</li>
+  <li><strong>Build</strong> — the bundler (Vite, webpack, Parcel) compiles, tree-shakes, minifies, and outputs deployment artifacts: typically a <code>dist/</code> or <code>build/</code> directory containing optimised static files.</li>
+  <li><strong>Publish artifacts</strong> — the built output is uploaded to the hosting platform, a container registry, or an artifact store.</li>
+</ul>
+
+<p><strong>Continuous Deployment (CD)</strong> extends this pipeline so that every commit to a designated branch (commonly <code>main</code> or <code>production</code>) that passes all pipeline stages is automatically released to the target environment with no human approval step required. This is distinct from <em>Continuous Delivery</em>, where the pipeline produces a release-ready artifact that a human then chooses to deploy. CD is powerful because it forces teams to keep the codebase in a constantly deployable state, encourages small and frequent commits, and compresses the time between writing a feature and users benefiting from it.</p>
+
+<p>Popular CI/CD platforms include GitHub Actions, GitLab CI/CD, CircleCI, Jenkins, and Bitbucket Pipelines. A minimal GitHub Actions workflow for a static site might look like:</p>
+
+<pre><code>name: Deploy to Netlify
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3
+        with:
+          publish-dir: './dist'
+          production-branch: main
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+</code></pre>
+
+<p><strong>Version control integration</strong> is central to trustworthy CD. Every deployment is tied to a specific Git commit SHA. This traceability means the team can always answer "exactly what code is running in production right now?" — a question that becomes critical during incident response. Many platforms display the commit hash and message alongside each deployment in their dashboards.</p>
+
+<p>Despite the best automated safeguards, a broken deployment will occasionally reach production. A robust <strong>rollback strategy</strong> minimises the blast radius. Options include:</p>
+
+<ul>
+  <li><strong>Instant rollback via the platform</strong> — Netlify and Vercel retain every prior deployment indefinitely and allow a one-click revert to any previous build. The DNS or edge routing simply points back to the previous artifact.</li>
+  <li><strong>Git revert</strong> — a new commit that undoes the offending change is pushed to the main branch, triggering the CD pipeline to build and deploy a corrected version. This preserves a clean linear history of what happened.</li>
+  <li><strong>Blue-green deployments</strong> — two identical production environments ("blue" and "green") exist simultaneously. Traffic is routed to one while the other receives the new deployment. If the new version is healthy, traffic switches; if not, the router stays pointed at the stable environment with no downtime.</li>
+  <li><strong>Canary releases</strong> — the new version receives a small percentage of traffic (e.g., 5 %) while the rest continues to hit the old version. Monitoring determines whether the canary is healthy before a full rollout proceeds.</li>
+</ul>
+
+<p><strong>Domain Configuration and SSL Certificates</strong></p>
+
+<p>A professional web application is accessed at a meaningful domain name rather than a raw IP address or platform-generated URL. The process of connecting a custom domain to a hosting provider involves two systems working together: the <strong>domain registrar</strong> and the <strong>Domain Name System (DNS)</strong>.</p>
+
+<p>A domain is registered through a registrar (Namecheap, Google Domains, GoDaddy, Cloudflare Registrar, etc.) for an annual fee. Once registered, the owner controls the domain's DNS records, which are typically managed either in the registrar's own interface or delegated to a third-party nameserver such as Cloudflare's. To point a domain at a hosting provider, the operator creates DNS records of the appropriate types:</p>
+
+<ul>
+  <li><strong>A record</strong> — maps the domain to an IPv4 address. Used when the hosting provider exposes a static IP.</li>
+  <li><strong>AAAA record</strong> — the IPv6 equivalent of an A record.</li>
+  <li><strong>CNAME record</strong> — maps the domain (or a subdomain) to another domain name rather than a direct IP. Netlify and Vercel both instruct users to create a CNAME pointing to their own platform hostname (e.g., <code>exciting-project-abc123.netlify.app</code>), allowing the platform to handle routing and certificate management transparently.</li>
+  <li><strong>ALIAS / ANAME record</strong> — some DNS providers offer this as a CNAME-like record that can also be applied to the root domain (the "apex"), working around a DNS specification limitation that prohibits a true CNAME on an apex domain.</li>
+</ul>
+
+<p>Once the domain resolves to the correct server, all traffic must be secured with <strong>SSL/TLS certificates</strong>. SSL (Secure Sockets Layer) has technically been superseded by TLS (Transport Layer Security), but the term "SSL certificate" remains common in practice. The certificate enables HTTPS by providing two guarantees: it proves the server's identity (the browser can verify the certificate was issued by a trusted Certificate Authority for this specific domain) and it establishes an encrypted channel so that data transmitted between the user's browser and the server cannot be read or tampered with by anyone on the network path.</p>
+
+<p>Obtaining a certificate was historically a manual, paid process. <strong>Let's Encrypt</strong>, a free, automated, and open Certificate Authority launched in 2016, transformed the landscape. Using the ACME protocol, a server can prove domain control to Let's Encrypt and receive a 90-day certificate entirely automatically. Most modern hosting platforms — Netlify, Vercel, GitHub Pages with custom domains, AWS Certificate Manager for CloudFront, Cloudflare — provision Let's Encrypt certificates automatically when a custom domain is added, with no manual steps required from the developer.</p>
+
+<p><strong>HTTPS is not optional</strong> for contemporary web applications. The browser enforces increasingly strict security policies that are gated on a secure context (a page served over HTTPS or from localhost):</p>
+
+<ul>
+  <li>Service Workers — the foundation of Progressive Web Apps — will not register on HTTP pages.</li>
+  <li>The Geolocation API, the Camera/Microphone APIs, the Web Bluetooth API, and the Web Authentication API all require a secure context.</li>
+  <li>PWA installation prompts are suppressed on non-HTTPS origins.</li>
+  <li>Google's search ranking algorithms use HTTPS as a positive ranking signal.</li>
+  <li>Modern browsers display a "Not Secure" warning in the address bar for HTTP pages, eroding user trust.</li>
+</ul>
+
+<p><strong>Automatic certificate renewal</strong> is therefore a critical operational concern. Let's Encrypt certificates expire after 90 days by design (shorter lifetimes reduce the window of exposure if a private key is compromised). Automated renewal, triggered several weeks before expiry, must be configured and monitored. A renewal failure that goes unnoticed will result in browsers displaying certificate error pages to all users — effectively taking the site offline. Managed hosting platforms handle renewal automatically; self-managed servers using Certbot or similar ACME clients should have renewal configured as a cron job or systemd timer, with alerting on failure.</p>
+
+<p><strong>Progressive Web App Deployment</strong></p>
+
+<p>A Progressive Web App (PWA) is a web application that uses modern browser APIs to deliver an experience comparable to a native application: it can be installed on the user's device, work offline, receive push notifications, and appear in the system app launcher and task switcher. Deploying a PWA correctly requires several specific files and configurations beyond a standard web application.</p>
+
+<p>The <strong>web app manifest</strong> is a JSON file — conventionally named <code>manifest.json</code> or <code>site.webmanifest</code> — linked from the HTML <code>&lt;head&gt;</code> that describes the application's identity and appearance when installed. A representative manifest:</p>
+
+<pre><code>{
+  "name": "My Awesome App",
+  "short_name": "AwesomeApp",
+  "description": "An example Progressive Web Application",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a73e8",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
+</code></pre>
+
+<p>Key fields explained:</p>
+
+<ul>
+  <li><strong>name / short_name</strong> — <code>name</code> is used in splash screens and install prompts; <code>short_name</code> is used under the home screen icon where space is limited.</li>
+  <li><strong>display</strong> — <code>standalone</code> hides the browser UI (address bar, navigation buttons), making the app feel native. Other values are <code>fullscreen</code>, <code>minimal-ui</code>, and <code>browser</code>.</li>
+  <li><strong>theme_color</strong> — colours the browser's toolbar on Android and the title bar area on desktop when the app is installed.</li>
+  <li><strong>icons</strong> — must include at least 192×192 and 512×512 pixel variants. A <code>maskable</code> icon has safe-zone padding so it renders correctly inside shaped icon containers on Android.</li>
+  <li><strong>start_url</strong> — the URL loaded when the user launches the installed app. Including a query parameter like <code>?source=pwa</code> allows analytics to distinguish PWA launches from browser visits.</li>
+</ul>
+
+<p>The <strong>service worker</strong> is a JavaScript file served from the application's origin that the browser installs and runs in a background thread separate from the main page. It acts as a programmable network proxy: the service worker intercepts every network request made by the page and can decide to serve a response from its cache, forward the request to the network, or apply a combination strategy. This is what enables offline functionality. A minimal service worker using the Cache-First strategy for static assets:</p>
+
+<pre><code>const CACHE_NAME = 'my-app-v1';
+const STATIC_ASSETS = [
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/app.js',
+  '/icons/icon-192.png'
+];
+
+// Installation: cache static assets
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(STATIC_ASSETS))
+  );
+  self.skipWaiting();
+});
+
+// Activation: remove outdated caches
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) =>
+      Promise.all(keys.filter((k) => k !== CACHE_NAME).map((k) => caches.delete(k)))
+    )
+  );
+  self.clients.claim();
+});
+
+// Fetch: serve from cache, fall back to network
+self.addEventListener('fetch', (event) => {
+  event.respondWith(
+    caches.match(event.request).then((cached) => cached || fetch(event.request))
+  );
+});
+</code></pre>
+
+<p>For production applications, libraries such as <strong>Workbox</strong> (from Google) generate service workers with well-tested caching strategies, cache expiry, background sync, and push notification support, reducing the risk of subtle caching bugs.</p>
+
+<p>The requirement that <strong>PWAs must be served over HTTPS</strong> exists because a service worker can intercept and modify any network request made by the page — a capability that would be catastrophically dangerous if exploited by a network attacker. The browser refuses to register a service worker on an insecure origin, ensuring this power is available only to the legitimate server. Localhost is the only exception, to facilitate local development.</p>
+
+<p>PWAs have historically been limited to the mobile web browser and desktop browser contexts. Increasingly, however, they can be distributed through <strong>native app stores</strong>. The key mechanisms are:</p>
+
+<ul>
+  <li><strong>Trusted Web Activities (TWA)</strong> — an Android feature that allows a PWA to be wrapped in a thin native Android shell and submitted to the Google Play Store. The TWA uses Chrome's rendering engine to display the web app, and Digital Asset Links (a JSON file at <code>/.well-known/assetlinks.json</code>) prove that the website and the Android app are owned by the same entity, which removes the browser UI from the PWA when launched from the Play Store listing. Tools like <strong>Bubblewrap</strong> (a CLI) and <strong>PWABuilder</strong> automate TWA generation.</li>
+  <li><strong>Microsoft Store</strong> — Microsoft accepts PWA submissions directly through PWABuilder, and Windows 11 renders installed PWAs as first-class applications indistinguishable from native Win32 or UWP apps.</li>
+  <li><strong>Apple App Store</strong> — Apple's support for PWAs on iOS has historically lagged behind Android. As of iOS 16.4, installed PWAs on the home screen support push notifications, and capabilities continue to expand. Full App Store distribution of PWAs requires a WKWebView wrapper and is subject to App Store review policies.</li>
+</ul>
+
+<p><strong>Web App Performance and SEO Considerations</strong></p>
+
+<p>A deployed application that is slow or invisible to search engines fails its users and its business objectives regardless of how elegant the code is. Performance and discoverability must be treated as first-class deployment concerns rather than afterthoughts.</p>
+
+<p>Google's <strong>Core Web Vitals</strong> are a set of user-centric performance metrics that measure real-world experience and directly influence search rankings. The three primary metrics are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>What It Measures</th>
+      <th>Good Threshold</th>
+      <th>Poor Threshold</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Largest Contentful Paint (LCP)</strong></td>
+      <td>Time from page navigation start until the largest visible content element (image, video poster, or text block) is rendered</td>
+      <td>≤ 2.5 s</td>
+      <td>&gt; 4.0 s</td>
+    </tr>
+    <tr>
+      <td><strong>Interaction to Next Paint (INP)</strong></td>
+      <td>Latency of the slowest interaction (click, tap, key press) during the page's lifetime — replaced First Input Delay in 2024</td>
+      <td>≤ 200 ms</td>
+      <td>&gt; 500 ms</td>
+    </tr>
+    <tr>
+      <td><strong>Cumulative Layout Shift (CLS)</strong></td>
+      <td>Sum of unexpected layout shift scores; measures visual stability — elements moving around as the page loads</td>
+      <td>≤ 0.1</td>
+      <td>&gt; 0.25</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Improving Core Web Vitals requires targeted optimisation at multiple layers:</p>
+
+<ul>
+  <li><strong>Images</strong> — use modern formats (WebP, AVIF) which are 25–50 % smaller than JPEG/PNG at equivalent quality. Implement responsive images with <code>srcset</code> and <code>sizes</code> so browsers download only the resolution they need. Add explicit <code>width</code> and <code>height</code> attributes (or CSS aspect-ratio) to prevent layout shifts as images load. Lazy-load below-the-fold images with <code>loading="lazy"</code>.</li>
+  <li><strong>JavaScript</strong> — code-split large bundles so only the code needed for the current route is downloaded. Tree-shake to eliminate dead code. Defer or async-load non-critical scripts. Minification (via Terser, esbuild, or the bundler's built-in minimiser) removes whitespace, shortens variable names, and can reduce bundle size by 30–60 %.</li>
+  <li><strong>CSS</strong> — minify stylesheets. Consider critical CSS inlining (embedding the styles needed for above-the-fold content directly in the HTML <code>&lt;head&gt;</code> so the first render requires no additional round trip) and loading the full stylesheet asynchronously.</li>
+  <li><strong>Fonts</strong> — subset web fonts to include only the characters actually used. Use <code>font-display: swap</code> to show fallback text immediately while the custom font loads, avoiding invisible text (FOIT — Flash of Invisible Text).</li>
+  <li><strong>Caching and CDN</strong> — set aggressive <code>Cache-Control</code> headers (e.g., <code>max-age=31536000, immutable</code>) on versioned assets (files whose filenames include a content hash), so returning visitors load nothing from the network. Serve all assets from a CDN edge node close to the user.</li>
+</ul>
+
+<p><strong>Meta tags</strong> are HTML elements in the <code>&lt;head&gt;</code> that communicate page identity and context to search engines and social platforms without being visible to the user:</p>
+
+<pre><code>&lt;!-- Core SEO meta tags --&gt;
+&lt;title&gt;Best Running Shoes 2024 | ShoeStore&lt;/title&gt;
+&lt;meta name="description"
+      content="Discover the top-rated running shoes of 2024 reviewed by experts.
+               Free shipping on orders over $50."&gt;
+
+&lt;!-- Open Graph tags (Facebook, LinkedIn, WhatsApp previews) --&gt;
+&lt;meta property="og:title" content="Best Running Shoes 2024"&gt;
+&lt;meta property="og:description"
+      content="Expert reviews and rankings of 2024's top running shoes."&gt;
+&lt;meta property="og:image" content="https://example.com/og-running-shoes.jpg"&gt;
+&lt;meta property="og:url" content="https://example.com/running-shoes-2024"&gt;
+&lt;meta property="og:type" content="article"&gt;
+
+&lt;!-- Twitter Card tags --&gt;
+&lt;meta name="twitter:card" content="summary_large_image"&gt;
+&lt;meta name="twitter:title" content="Best Running Shoes 2024"&gt;
+&lt;meta name="twitter:description"
+      content="Expert reviews and rankings of 2024's top running shoes."&gt;
+&lt;meta name="twitter:image" content="https://example.com/og-running-shoes.jpg"&gt;
+</code></pre>
+
+<p>The <code>&lt;title&gt;</code> tag is the primary signal search engines use to understand and display a page in results. The <code>description</code> meta tag does not directly affect ranking but strongly influences click-through rate by appearing as the snippet below the page title in search results. Open Graph tags control the rich preview cards generated when a URL is shared on social media — without them, platforms fall back to unpredictable heuristics.</p>
+
+<p>Two files serve as a map and a rulebook for search engine crawlers:</p>
+
+<ul>
+  <li><strong>sitemap.xml</strong> — an XML document listing every URL that should be indexed, optionally with the last-modified date and update frequency. This is especially valuable for large sites where some pages might not be discovered through normal link-following, and for new sites where crawlers have not yet built up a picture of the site's structure. The sitemap's location is declared in <code>robots.txt</code> or submitted directly through Google Search Console.</li>
+  <li><strong>robots.txt</strong> — a plain-text file at the site root that instructs crawlers which paths they are and are not permitted to access. For example, <code>Disallow: /admin/</code> prevents crawlers from indexing internal admin pages. It is important to note that <code>robots.txt</code> is advisory — well-behaved crawlers respect it, but malicious bots do not; it is not a security mechanism.</li>
+</ul>
+
+<p>A well-formed <code>robots.txt</code> with a sitemap reference:</p>
+
+<pre><code>User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Allow: /
+
+Sitemap: https://example.com/sitemap.xml
+</code></pre>
+
+<p>For Single Page Applications (SPAs) built with React, Vue, or Angular, SEO deserves special attention. An SPA that renders content entirely in the browser via JavaScript will present an empty HTML shell to crawlers that do not execute JavaScript — causing the page to appear blank in search results. The solutions are:</p>
+
+<ul>
+  <li><strong>Server-Side Rendering (SSR)</strong> — the server executes the JavaScript framework and sends fully rendered HTML to the client. Next.js (React), Nuxt (Vue), and SvelteKit provide SSR out of the box.</li>
+  <li><strong>Static Site Generation (SSG)</strong> — all pages are pre-rendered to static HTML at build time. Ideal for content that does not change per-user.</li>
+  <li><strong>Prerendering services</strong> — a middleware layer detects crawler user agents and serves pre-rendered HTML snapshots while serving the normal SPA to regular browsers.</li>
+</ul>
+
+<p>Performance measurement should be continuous rather than a one-time pre-launch activity. Tools such as <strong>Google Lighthouse</strong> (built into Chrome DevTools and available as a CI integration), <strong>PageSpeed Insights</strong> (which combines lab data from Lighthouse with real-user field data from the Chrome User Experience Report), and <strong>WebPageTest</strong> provide detailed audits and recommendations. Integrating Lighthouse into the CD pipeline — failing the build if scores drop below defined thresholds — prevents performance regressions from silently accumulating over time.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic clusters: hosting options and platforms (static, dynamic, serverless), build pipelines and CD (pipeline stages, CD definition, version control traceability, rollback strategies), domain configuration and SSL (DNS record types, TLS purpose, HTTPS requirements, automatic renewal), PWA deployment (manifest fields, service worker lifecycle, HTTPS requirement, app store distribution via TWA and PWABuilder), and performance/SEO (Core Web Vitals table, asset optimisation techniques, meta tags with code example, sitemap.xml and robots.txt, SPA SEO considerations).</div>
+      </div>
+    </details>
+  </main>
+</body></html>

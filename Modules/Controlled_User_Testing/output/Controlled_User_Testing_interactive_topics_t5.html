@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quantitative Data Collection</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Quantitative Data Collection</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Quantitative Data Collection</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Quantitative data collection in usability testing is the practice of capturing numerical measurements that describe how users interact with a system. Unlike qualitative observations — which describe <em>why</em> something happens or what a user feels — quantitative metrics answer questions like <em>how many</em>, <em>how long</em>, and <em>how often</em>. These numbers allow research teams to compare performance across tasks, across sessions, and even across entirely different products or versions of the same product. When collected rigorously, quantitative data transforms subjective impressions into defensible, repeatable evidence that can guide design decisions with confidence. This section covers the four pillars of good quantitative usability data collection: the core metrics themselves, the standardized questionnaires that complement behavioral observation, the instruments used to capture everything reliably, and the practices that keep timing and measurement consistent from one session to the next.</p>
+
+<p><strong>Core Usability Metrics</strong></p>
+
+<p>Four behavioral metrics form the foundation of almost every quantitative usability study. Together they paint a picture of both effectiveness (whether users achieve their goals) and efficiency (how much effort it costs them).</p>
+
+<p><strong>Task completion rate</strong> is the most fundamental usability metric. It is calculated as the percentage of participants who successfully complete a given task, where success is defined before data collection begins. For example, if 12 out of 16 participants successfully add an item to a shopping cart and proceed to checkout without abandoning the process, the task completion rate for that task is 75%. Because this metric is binary — each attempt is coded as a success or a failure — it is easy to collect and easy to communicate to stakeholders who are unfamiliar with usability research. However, a raw pass/fail coding can obscure partial successes, so some teams use a scale (e.g., 1 = completed without help, 2 = completed with a facilitator prompt, 3 = failed) to capture more nuance while still producing a comparable number. Across tasks and studies, completion rates benchmark the overall learnability and discoverability of a design.</p>
+
+<p><strong>Time-on-task</strong> records how long a participant takes to complete a task from the moment they begin until the moment they reach a defined end state. Shorter times generally indicate a more efficient design, but time must always be interpreted alongside completion rate — a very fast time means nothing if the participant reached the wrong destination. Time-on-task data is typically right-skewed: most participants finish within a similar range, but a small number of struggling participants produce very high values that pull the arithmetic mean upward. For this reason, it is good practice to report both the mean and the median, and sometimes to report the geometric mean, which is less sensitive to extreme outliers. As a concrete example, if task times in seconds are 45, 52, 48, 61, 180 (one participant got completely lost), the mean is 77.2 s but the median is 52 s — the median is far more representative of the typical experience.</p>
+
+<p><strong>Error rate</strong> counts the number of incorrect actions, wrong paths, or recoverable mistakes a participant makes while attempting a task. Errors can be defined at multiple levels of granularity: a broad definition might count every navigation dead-end, while a narrow definition might count only actions that require the participant to backtrack. Teams must agree on the error definition before testing begins and apply it consistently. High error rates on a specific task are a strong signal that an element of the design is misleading or confusing. Distinguishing between <em>slips</em> (accidental errors, such as clicking the wrong button because two buttons are placed too close together) and <em>mistakes</em> (errors arising from incorrect mental models, such as looking for "Account Settings" under "Help") can point the design team toward different types of fixes.</p>
+
+<p><strong>Efficiency metrics</strong> such as clicks per task, page visits per task, or keystrokes per task provide a finer-grained view of behavioral efficiency. If the optimal path to completing a task requires 4 clicks and participants average 9.3 clicks, that gap reveals unnecessary navigation overhead. These metrics are especially useful when comparing two design versions: Version A might have the same completion rate as Version B, but if Version A requires an average of 3 fewer clicks per task, it is objectively more efficient. Efficiency metrics are most meaningful when the optimal or expected path is documented in the test script so that actual performance can be compared against that baseline.</p>
+
+<p><strong>Standardized Usability Questionnaires</strong></p>
+
+<p>Behavioral metrics capture what users <em>do</em>, but they do not directly capture how users <em>perceive</em> the experience. Standardized questionnaires fill this gap by collecting self-reported perception data in a format that has been validated by published research and that yields scores comparable to established benchmarks.</p>
+
+<p>The <strong>System Usability Scale (SUS)</strong> is a 10-item questionnaire developed by John Brooke in 1986 that remains one of the most widely used instruments in the field. Participants rate each statement on a 5-point Likert scale from "Strongly Disagree" to "Strongly Agree." The items alternate between positively worded statements (e.g., "I thought the system was easy to use") and negatively worded statements (e.g., "I found the system unnecessarily complex"), which reduces the tendency to respond in a uniform direction without thinking carefully. A specific scoring formula converts the raw responses to a single number on a 0–100 scale. Crucially, this scale is <em>not</em> a percentage — a score of 68 is considered average, scores above 80 are generally considered "good" or "excellent," and scores below 51 indicate serious usability problems. Because hundreds of published SUS scores are available in the literature, a team can immediately place their product in context — for instance, knowing that their enterprise software scored 62 while the industry average for similar tools is around 70 tells a clear story for stakeholders.</p>
+
+<p>The SUS scoring procedure is worth understanding in detail:</p>
+
+<ul>
+  <li>For odd-numbered items (positively worded), subtract 1 from the raw score.</li>
+  <li>For even-numbered items (negatively worded), subtract the raw score from 5.</li>
+  <li>Sum all 10 converted scores and multiply by 2.5 to get the final 0–100 score.</li>
+</ul>
+
+<p>This formula ensures that a neutral response (all 3s) yields a score of exactly 50, anchoring the scale's midpoint to a meaningful reference.</p>
+
+<p>The <strong>Single Ease Question (SEQ)</strong> is a single 7-point Likert item — "Overall, how would you rate the difficulty of this task?" — administered immediately after each task attempt, before the participant moves on to the next task. Because it is administered per-task rather than at the end of the session, the SEQ captures fresh, task-specific perceptions rather than a retrospective impression of the whole session. Average SEQ scores can be compared across tasks to identify which tasks felt hardest to users, and scores above 5 on the 7-point scale are generally associated with satisfactory ease. The SEQ is deliberately simple: its brevity means it does not interrupt the flow of a session, and its single-item format makes it easy to aggregate and communicate. When a task has a low completion rate <em>and</em> a low SEQ score, that double signal is a particularly compelling argument for a redesign.</p>
+
+<p>The key practical guideline for both instruments is <strong>administration consistency</strong>. The SUS must always be administered at the end of the full session, after all tasks are complete, not after individual tasks. The SEQ must always be administered immediately after each task, before the participant learns whether they succeeded or failed. If different sessions administer questionnaires at different points, the resulting scores cannot be meaningfully compared. Facilitators should read the same introductory framing for questionnaires in every session, and participants should complete questionnaires independently without facilitator interpretation of the items.</p>
+
+<p><strong>Designing Data Collection Instruments</strong></p>
+
+<p>Even excellent metrics become useless if the instruments used to capture them are ambiguous, inconsistent, or difficult to use under the pressure of a live session. A data collection instrument is any structured form — digital or paper — that a team member uses during or after a session to record observations and measurements.</p>
+
+<p>Every instrument should contain a consistent set of <strong>header fields</strong> at the top of each page or screen: participant ID, session date and time, the name or number of the task being observed, and the name of the team member completing the form. These fields make it possible to link records back to specific sessions and to identify which observer recorded which data, which is important if inter-rater reliability needs to be assessed later.</p>
+
+<p>For task-level behavioral data, a well-designed instrument typically includes a row or section for each task with clearly labeled columns or fields. A sample structure might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task #</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+      <th>Duration (s)</th>
+      <th>Completion (1/0)</th>
+      <th>Error Count</th>
+      <th>Click Count</th>
+      <th>SEQ Score</th>
+      <th>Notes / Behaviors Observed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Task 1</td>
+      <td>10:04:12</td>
+      <td>10:06:03</td>
+      <td>111</td>
+      <td>1</td>
+      <td>2</td>
+      <td>7</td>
+      <td>6</td>
+      <td>Hesitated on nav menu; tried "Help" first</td>
+    </tr>
+    <tr>
+      <td>Task 2</td>
+      <td>10:07:30</td>
+      <td>10:10:45</td>
+      <td>195</td>
+      <td>0</td>
+      <td>5</td>
+      <td>14</td>
+      <td>2</td>
+      <td>Could not locate filter; gave up after 3 min</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Observation logs that run alongside the behavioral metrics form should include columns for <strong>timestamps</strong> of key events, the specific behaviors observed (described in neutral, behavioral terms rather than interpretations), and any <strong>facilitator prompts</strong> used. Recording prompts is important because a facilitator saying "remember, you can do anything you'd normally do" is a neutral reminder, but a facilitator saying "have you tried the settings menu?" is an intervention that may have influenced the participant's behavior and therefore the resulting metrics. Any task completed only after such a directive prompt should be flagged so the team can decide whether to code it as a full success or a partial success.</p>
+
+<p><strong>Piloting the instruments</strong> before the first real session is non-negotiable. A dry run with a colleague acting as a participant will reveal fields that are redundant, columns that are too narrow to write in, ambiguous labels that two observers would interpret differently, and missing fields for data that the team assumed it would capture. Instruments that seem adequate in the abstract often break down under the time pressure of a live session. Piloting also gives observers practice recording at the pace of a real session.</p>
+
+<p><strong>Digital data entry tools</strong> — such as spreadsheet-based forms, dedicated usability testing platforms, or even custom web forms — significantly reduce transcription errors compared to paper. When a note-taker enters a time-on-task duration directly into a shared spreadsheet, there is no subsequent transcription step where a handwritten "51" might be read as "57." Digital tools can also enforce data types (e.g., only accepting numbers in numeric fields), flag missing entries, and automatically calculate derived values like duration from start and end timestamps. When using digital tools in a session, however, the team should have a paper backup ready in case of technical failure.</p>
+
+<p><strong>Timing and Measurement Consistency</strong></p>
+
+<p>Timing data is only meaningful if every measurement is taken the same way. Even small inconsistencies in when the clock starts and stops, or which tool is used to measure, can introduce enough noise to make within-study comparisons unreliable.</p>
+
+<p>The <strong>task start and end points</strong> must be precisely defined in the test script before data collection begins, not left to the judgment of each observer in the moment. A vague instruction like "start timing when the participant begins the task" can produce very different measurements: one observer starts the clock when the facilitator finishes reading the task prompt; another starts it when the participant first touches the mouse. These small differences compound across participants and tasks. Operationally defined start and end points might read: <em>"Start timing when the facilitator says 'Please begin.' Stop timing when the participant verbally confirms they have completed the task or when they explicitly state they cannot proceed."</em></p>
+
+<p>All team members who record time-on-task must use the <strong>same tool</strong> — whether a dedicated stopwatch, the stopwatch function of a smartphone, or a timestamp entered into a digital form — and must be trained to apply the start/stop criteria identically. If different observers use different tools in different sessions, the results cannot be pooled without introducing systematic measurement error.</p>
+
+<p>Sessions inevitably produce <strong>outlier timing data</strong> caused by events outside the participant's control: a computer freezes for 30 seconds, a fire alarm forces an interruption, or a facilitator accidentally navigates away from the prototype. These events should <em>never</em> be silently discarded from the dataset. Instead, the affected data point should be retained in the raw data file with a clear flag and explanatory note. The team can then decide during analysis — using pre-established rules — how to handle flagged data points: include them, exclude them, or report results both ways. Silent deletion creates an incomplete audit trail and, if the practice is uneven across sessions, introduces bias into the dataset.</p>
+
+<p>Consistent measurement practices also mean applying the <strong>same completion criteria</strong> for every participant. If Task 3 is considered complete when the user reaches a specific confirmation screen, then every observer must use that same endpoint — not a slightly earlier screen that looks like a success, and not waiting for an additional confirmation step that some facilitators might expect. Inconsistent completion criteria can dramatically inflate or deflate completion rates and distort time-on-task values.</p>
+
+<p><strong>Aggregating Quantitative Data</strong></p>
+
+<p>Once all sessions are complete, raw data must be consolidated and summarized in a way that supports both accurate analysis and clear communication. Aggregation is not merely a technical step; the choices made here determine what the data actually says.</p>
+
+<p><strong>Task completion rates</strong> are aggregated by calculating the percentage of participants who successfully completed each task. If 5 out of 8 participants completed Task 2, the completion rate is 62.5%. These percentages can then be compared across tasks to identify which tasks are most problematic, and tracked across design iterations to show whether changes improved performance. When reporting completion rates, teams should always report the underlying counts (e.g., "5 of 8 participants") alongside the percentages, because percentages calculated from small samples can be misleading — a 12.5 percentage point change can represent just one additional participant.</p>
+
+<p>For <strong>time-on-task</strong>, reporting the mean alone is often insufficient because task time distributions are almost always right-skewed. Best practice is to report both the mean and the median, and to include a measure of spread such as standard deviation or the interquartile range. This allows readers to understand both the central tendency and the variability of performance. If one task shows a mean of 95 seconds but a median of 48 seconds, that gap tells a story about a subset of users who struggled disproportionately, even if the majority completed the task quickly.</p>
+
+<p><strong>Error counts</strong> should be aggregated in at least two ways: <em>per task</em> (total errors across all participants for a given task, which reveals which tasks are most error-prone) and <em>per participant</em> (total errors across all tasks for a given participant, which can reveal whether a small number of users are responsible for a disproportionate share of errors). These two views often tell different stories and should both be examined. A high per-task error count that is distributed evenly across participants suggests a systemic design flaw; the same error count concentrated in two or three participants might suggest a different user mental model or prior experience pattern worth exploring qualitatively.</p>
+
+<p>All aggregation should be performed in a <strong>spreadsheet or dedicated analysis tool</strong> rather than calculated by hand. A well-structured spreadsheet has raw data in one area — one row per participant per task, with columns for each metric — and summary calculations in a separate area that reference the raw data using formulas. This structure makes it easy to audit calculations, add late-arriving session data, and reproduce the analysis. Manual calculations on paper or in a word processor are error-prone and leave no audit trail. Even simple errors in arithmetic can undermine the credibility of findings if they are discovered during a stakeholder review.</p>
+
+<p>When aggregating data across sessions conducted on different days or by different facilitators, teams should also check for <strong>systematic differences between groups</strong> — for instance, whether morning sessions produced faster times than afternoon sessions, or whether participants recruited from one channel had notably different completion rates than those from another. These patterns do not necessarily invalidate the data, but they are important context for interpreting the aggregated results and should be reported transparently.</p>
+        <div class="notes"><strong>Notes</strong>Covers task completion rate, time-on-task, error rate, and efficiency metrics as core behavioral measures; the SUS and SEQ as standardized self-report instruments with scoring details; instrument design principles including header fields, observation log structure, piloting, and digital tools; operational definition of task timing criteria, measurement tool consistency, and proper handling of outlier data; and aggregation of completion rates, time-on-task (mean + median), and error counts by task and by participant using spreadsheet tools.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

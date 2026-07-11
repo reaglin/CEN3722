@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final Implementation Documentation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Final Implementation Documentation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Final Implementation Documentation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Final implementation documentation is the capstone artifact of a design project. It serves as a comprehensive, honest record of what was built, why it was built that way, and how faithfully the finished product reflects the intentions laid out during requirements gathering and prototyping. Unlike a prototype walkthrough or a design rationale written mid-process, final implementation documentation speaks to the <em>completed</em> state of the system — capturing decisions that crystallised only during the act of building, deviations that were necessary or unavoidable, and evidence that user needs have genuinely been addressed. Good documentation at this stage is not a formality; it is the primary way a design team communicates the integrity and traceability of their work to stakeholders, assessors, and future maintainers.</p>
+
+<p>The four major concerns of final implementation documentation are: accurately describing the finished interface, explaining the decisions made during implementation, accounting for any departures from the prototype, and demonstrating that requirements have been met. Each concern is addressed in depth below.</p>
+
+<p><strong>Describing the Final Interface</strong></p>
+
+<p>The first obligation of final implementation documentation is to give any reader — regardless of whether they have followed the project from the start — a clear, concrete picture of what the finished interface looks like and how it behaves. The most effective way to do this is through annotated screenshots of every key screen and every meaningful interaction state.</p>
+
+<p>Annotated screenshots go beyond simple image captions. Each annotation should point to a specific UI element and explain its purpose, its relationship to a user task, or the design decision it embodies. For example, a screenshot of a checkout confirmation screen might carry annotations such as: <em>"Order summary collapsed by default to reduce cognitive load on confirmation — users can expand to verify line items if needed"</em>, or <em>"Primary action button uses high-contrast colour meeting WCAG 2.1 AA contrast ratio of 4.5:1."</em> Annotations of this quality turn a static image into a design argument.</p>
+
+<p>Key screens to document typically include:</p>
+<ul>
+  <li>The initial landing or home screen, including any onboarding state shown to first-time users</li>
+  <li>Each primary feature screen that directly supports a core user task</li>
+  <li>Empty states, error states, loading states, and confirmation or success states — because these interaction states are where many usability problems hide</li>
+  <li>Any modal dialogs, drawers, or overlay panels that contain significant functionality</li>
+  <li>Responsive or adaptive variants if the interface targets multiple viewport sizes</li>
+</ul>
+
+<p>Beyond cataloguing screens, the documentation must explain how the interface supports the core user tasks identified during the requirements phase. This means taking each task — typically expressed as a user story or scenario, for instance <em>"As a registered user, I want to filter search results by date so that I can find recent content quickly"</em> — and walking through precisely which interface elements, flows, and affordances allow a real user to accomplish it. This narrative connects the finished product back to the reason it was built, making the documentation a bridge between requirements and delivery rather than a standalone description.</p>
+
+<p>Grounding design decisions in recognised principles and guidelines strengthens this description considerably. When the documentation notes that a navigation pattern was chosen because it aligns with Nielsen's heuristic of <em>recognition rather than recall</em>, or that a form layout follows the GOV.UK Design System's field-label positioning guidelines, it demonstrates that decisions were principled rather than arbitrary. Relevant reference points include established usability heuristics (Nielsen, Shneiderman's Eight Golden Rules), platform-specific human interface guidelines (Apple HIG, Google Material Design), accessibility standards (WCAG 2.1), and any domain-specific style guides or organisational standards that applied to the project.</p>
+
+<p><strong>Documenting Implementation Decisions</strong></p>
+
+<p>Every project discovers things during implementation that the prototype never anticipated. A prototype is a controlled approximation; the act of building the real system surfaces constraints, edge cases, and opportunities that are simply invisible at the wireframe or clickable-prototype stage. Final implementation documentation must capture these emergent decisions honestly and explain them clearly.</p>
+
+<p>Typical categories of unanticipated implementation decisions include:</p>
+<ul>
+  <li><strong>Technical constraints:</strong> A chosen animation library did not support the gesture interaction designed in the prototype, requiring a different interaction model to be substituted.</li>
+  <li><strong>Data-driven changes:</strong> Real data contained entries far longer than the sample data used in prototyping, causing labels to truncate or wrap in ways that broke the layout, necessitating a revised typographic approach.</li>
+  <li><strong>Platform behaviour:</strong> A native mobile keyboard covered a form field that was accessible in the prototype tool but was occluded in production, requiring the form scroll behaviour to be adjusted.</li>
+  <li><strong>Integration realities:</strong> An API returned data in a different structure or with additional latency, requiring a loading skeleton state that was never part of the original design.</li>
+</ul>
+
+<p>For each such decision, the documentation should justify the choice in terms of one or more of the following lenses: <strong>usability</strong> (does the decision maintain or improve the experience for users?), <strong>technical feasibility</strong> (was the original approach simply not implementable within the available technology stack or timeframe?), and <strong>design consistency</strong> (does the decision preserve the visual language, interaction patterns, and mental model established throughout the rest of the interface?). A decision justified on only one of these grounds is weaker than one that satisfies all three; the documentation should acknowledge trade-offs honestly when they exist.</p>
+
+<p>Critically, each implementation decision should also be evaluated against the original design goals. If the project's stated goal was to allow novice users to complete a task in under three steps, and an implementation decision added a step, the documentation must confront that directly: either presenting evidence that usability testing showed the extra step did not harm completion rates, or acknowledging that a goal was compromised and explaining why the trade-off was accepted.</p>
+
+<p><strong>Documenting Deviations from the Prototype</strong></p>
+
+<p>Deviations from the prototype are not failures — they are normal, expected outcomes of the transition from design artefact to working system. What matters is that they are identified explicitly, explained honestly, and assessed for their impact on the design's ability to meet its requirements. Undocumented deviations create gaps in the audit trail that make it impossible for anyone reviewing the project to understand what was intended versus what was delivered.</p>
+
+<p>A structured approach to deviation documentation works best. For each deviation, the record should capture:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature or Element</th>
+      <th>Prototype Version</th>
+      <th>Implemented Version</th>
+      <th>Reason for Deviation</th>
+      <th>Impact on Requirements</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Search autocomplete</td>
+      <td>Dropdown appeared after 1 character typed</td>
+      <td>Dropdown appears after 3 characters typed</td>
+      <td>API query cost and latency made per-keystroke requests impractical; debounce threshold set to 3 characters</td>
+      <td>Minor — user testing showed no measurable increase in task completion time; requirement for responsive search considered met</td>
+    </tr>
+    <tr>
+      <td>Onboarding carousel</td>
+      <td>5-screen animated carousel with video embeds</td>
+      <td>3-screen static carousel, no video</td>
+      <td>Video assets were not delivered by content team within project timeline; 3 screens retained the most critical content</td>
+      <td>Partial — the requirement to contextualise all four primary features for new users is only partially met; the omitted screens covered two secondary features</td>
+    </tr>
+    <tr>
+      <td>Dark mode toggle</td>
+      <td>Prominent toggle in main navigation bar</td>
+      <td>Toggle moved to user profile settings page</td>
+      <td>Navigation bar became overcrowded on small viewports; toggle repositioned to reduce clutter and align with platform conventions</td>
+      <td>Neutral — usability heuristic of aesthetic and minimalist design better served; discoverability of toggle reduced but no requirement specified its placement</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The reasons for deviations fall into several recurring categories. <strong>Technical reasons</strong> include platform limitations, performance constraints, third-party API behaviour, or library incompatibilities. <strong>Time-based reasons</strong> include features descoped due to deadline pressure, often documented as known limitations or items deferred to a future iteration. <strong>Usability-driven reasons</strong> are in many ways the most positive category — they reflect cases where testing or real-data exposure revealed that the prototype approach was actually worse than the alternative, and the deviation represents a genuine design improvement.</p>
+
+<p>The impact assessment for each deviation is the most important field in that record. The documentation should clearly state whether the deviation: (a) has no meaningful effect on the design's ability to meet its requirements, (b) partially compromises a requirement and by how much, or (c) causes a requirement to be unmet, and why that outcome was accepted rather than addressed.</p>
+
+<p><strong>Tracing Design Decisions to Outcomes</strong></p>
+
+<p>The final and most rigorous section of implementation documentation establishes a traceable line from every major requirement to its realisation in the finished interface. This is sometimes called a <em>requirements traceability matrix</em> in engineering contexts, but in a UX or interaction design project it is better understood as a design accountability record — a document that allows anyone to verify that the design was purposeful and evidence-based.</p>
+
+<p>The structure of this tracing exercise begins with each requirement stated in the terms used during the requirements phase. For each requirement, the documentation then specifies: which interface elements, flows, or features address it; and what evaluation evidence confirms it has been met. Evaluation evidence might include usability test results (e.g., task completion rates, error rates, think-aloud observations), expert review findings, heuristic evaluation scores, or accessibility audit outcomes.</p>
+
+<p>For example:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Requirement</th>
+      <th>Implementation Evidence</th>
+      <th>Evaluation Evidence</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Users must be able to reset their password without contacting support</td>
+      <td>Self-service password reset flow accessible from login screen; confirmation email with expiring token; inline error messages for invalid token</td>
+      <td>5/5 participants completed reset task without assistance in usability test; average time on task 47 seconds</td>
+      <td>Fully met</td>
+    </tr>
+    <tr>
+      <td>Interface must be operable by keyboard-only users</td>
+      <td>All interactive elements have visible focus indicators; tab order follows logical reading order; modal dialogs trap focus correctly; skip-to-content link implemented</td>
+      <td>Keyboard navigation audit conducted against WCAG 2.1 success criteria 2.1.1 and 2.4.3; two minor focus-order issues in the settings panel identified and resolved prior to submission</td>
+      <td>Fully met</td>
+    </tr>
+    <tr>
+      <td>New users should be able to complete core task within first session without training</td>
+      <td>Contextual inline help tooltips on first interaction with each major feature; progressive disclosure used to hide advanced options until needed</td>
+      <td>3/5 participants completed core task unaided in first session; 2 participants required one prompt; learnability requirement considered partially met</td>
+      <td>Partially met — further onboarding improvements identified for next iteration</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Acknowledging partially met requirements is not a weakness in the documentation — it is a mark of its integrity. A design project that claims all requirements were fully met without qualification is almost certainly not being honest. Partially met requirements should be accompanied by a clear explanation: was the shortfall due to a deviation from the prototype, a scope reduction, a technical constraint, or an underestimation of the complexity of the user task? And what, if anything, has been identified as a path to fully meeting the requirement in a subsequent iteration?</p>
+
+<p>This traceability record, taken together with the annotated interface description, the implementation decision log, and the deviation register, constitutes a complete and professionally credible account of the design — one that demonstrates not just what was built, but why every significant choice was made, and what evidence supports the claim that the design serves its users.</p>
+        <div class="notes"><strong>Notes</strong>Explains how to document the final implemented design, including a description of the interface, design decisions made during implementation, and any deviations from the prototype.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

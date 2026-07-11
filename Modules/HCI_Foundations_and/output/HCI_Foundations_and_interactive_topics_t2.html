@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Version Control with GitHub</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Version Control with GitHub</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Version Control with GitHub</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Software projects, even small ones, generate a constant stream of decisions: a function is rewritten, a bug is fixed, a feature is added, and then perhaps rolled back when it causes problems. Without a system to track these changes, teams quickly find themselves lost in a tangle of folders named <code>final_v2</code>, <code>final_ACTUAL</code>, and <code>backup_before_changes</code>. Version control solves this problem systematically, and GitHub brings version control into a collaborative, cloud-hosted environment with a rich set of project management tools built right in.</p>
+
+<p><strong>What Is Version Control?</strong></p>
+
+<p>Version control is a system that records every change made to a set of files over time, creating a complete, navigable history of the project from its very first line of code to the present moment. Think of it as an unlimited undo history that is shared across an entire team, stored permanently, and queryable at any point.</p>
+
+<p>At its core, a version control system works by capturing <em>snapshots</em> of the project. Each snapshot is called a <strong>commit</strong>. A commit records exactly which files changed, what those changes were (lines added or removed), who made the change, and when. Because every commit is stored permanently, the project's evolution is fully auditable: you can open any commit from six months ago and see the exact state of every file at that moment.</p>
+
+<p>Three properties make version control indispensable for any project involving more than one person — or even just one person working over time:</p>
+
+<ul>
+  <li><strong>Complete history preservation.</strong> Every change is logged with its author, timestamp, and a descriptive message. If a newly deployed feature causes production errors, the team can trace exactly which commit introduced the problem and revert to a known-good state in seconds. No work is ever truly lost.</li>
+  <li><strong>Simultaneous collaboration without conflict.</strong> Two developers can edit different parts of the codebase at the same time without overwriting each other's work. The version control system tracks each person's changes on separate <em>branches</em> and provides tools to merge those changes together intelligently, flagging only the cases where the same lines were edited in conflicting ways.</li>
+  <li><strong>Full restoration capability.</strong> Any earlier version of the project can be restored at any time. This is useful not only for recovering from bugs but also for testing how code behaved at a specific release, auditing changes for security reviews, or simply understanding why a particular decision was made.</li>
+</ul>
+
+<p>Git is by far the most widely used version control system today. It is <em>distributed</em>, meaning every developer has a complete copy of the entire repository history on their own machine. This means work can continue offline and no single server failure can destroy the project history. GitHub is the most popular platform for hosting Git repositories in the cloud and layering collaboration features on top of them.</p>
+
+<p><strong>GitHub as a Collaboration Platform</strong></p>
+
+<p>GitHub is far more than a place to store code. It is a fully featured collaboration platform that supports the entire lifecycle of a software project, from initial planning through deployment and beyond.</p>
+
+<p><strong>Cloud-hosted repositories</strong> are the foundation. When a repository is pushed to GitHub, every team member can clone it to their own machine, contribute changes, and push those changes back — all without any manual file sharing. Because the repository lives in the cloud, it is accessible from any device with an internet connection, and it serves as the authoritative source of truth for the project.</p>
+
+<p><strong>Built-in project management tools</strong> mean teams rarely need separate task-tracking software. GitHub provides three tightly integrated tools:</p>
+
+<ul>
+  <li><strong>Issues</strong> act as task tickets. A developer can open an issue to report a bug, request a feature, or ask a question. Issues can be assigned to specific team members, tagged with color-coded labels (such as <em>bug</em>, <em>enhancement</em>, or <em>documentation</em>), and directly linked to the commits or pull requests that resolve them.</li>
+  <li><strong>Projects</strong> provide Kanban-style or spreadsheet-style boards that give the team a visual overview of all work in progress. Cards on the board correspond to issues and pull requests, so the board always reflects the real state of the codebase.</li>
+  <li><strong>Discussions</strong> create a threaded forum space within the repository for broader conversations that do not fit neatly into a specific issue — design decisions, team announcements, or open-ended questions.</li>
+</ul>
+
+<p><strong>GitHub Actions</strong> is a powerful automation engine built directly into GitHub. Workflows defined in YAML files can be triggered by events such as a push to the main branch or the opening of a pull request. Common uses include running automated tests to verify that new code does not break existing functionality, checking code style with a linter, building the project, and deploying it to a server. This practice — automatically testing and integrating code changes — is called <em>Continuous Integration/Continuous Deployment</em> (CI/CD), and GitHub Actions makes it accessible even to small teams.</p>
+
+<p><strong>GitHub Copilot</strong> is an AI-powered coding assistant that integrates directly into editors like Visual Studio Code. It reads the context of the code being written and offers real-time suggestions for completing lines, writing entire functions, generating test cases, or explaining unfamiliar code. For learners and experienced developers alike, Copilot accelerates the writing of boilerplate code and helps explore unfamiliar APIs without leaving the editor.</p>
+
+<p><strong>Creating and Configuring a Repository</strong></p>
+
+<p>A repository (often abbreviated as <em>repo</em>) is the container for everything related to a project: all source files, the complete history of every commit, branch information, and the metadata that supports collaboration. Setting a repository up correctly from the start saves significant headaches later.</p>
+
+<p>When creating a new repository on GitHub, several decisions matter immediately:</p>
+
+<ul>
+  <li><strong>Visibility.</strong> A <em>public</em> repository is visible to anyone on the internet (though only authorized collaborators can write to it). A <em>private</em> repository is visible only to invited collaborators. Most team projects start as private and are made public only when ready.</li>
+  <li><strong>Initializing with a README.</strong> Selecting this option creates the repository's first commit automatically, which makes it immediately cloneable.</li>
+  <li><strong>Choosing a license.</strong> For open-source projects, a license defines how others can use, modify, and distribute the code.</li>
+</ul>
+
+<p>The <strong>README file</strong> (<code>README.md</code>) is typically the first thing a visitor or new team member reads. A well-written README covers the project's purpose in plain language, the technologies it uses, step-by-step instructions for setting up a local development environment, how to run tests, and guidelines for contributing. Because GitHub renders Markdown automatically, the README can include formatted headings, code blocks, and links without any special tooling.</p>
+
+<p>The <strong>.gitignore file</strong> tells Git which files and directories to ignore — that is, never to track or commit. This is critically important for two reasons. First, many files generated during development (compiled binaries, dependency folders like <code>node_modules/</code>, editor configuration files like <code>.DS_Store</code>) would pollute the repository with noise. Second, and more urgently, sensitive files such as those containing API keys, database passwords, or private certificates must never be committed to a repository, even a private one, because leaked credentials are a serious security risk. A typical <code>.gitignore</code> entry looks like this:</p>
+
+<pre><code># Ignore environment variable file containing secrets
+.env
+
+# Ignore Node.js dependencies folder
+node_modules/
+
+# Ignore compiled Python bytecode
+__pycache__/
+*.pyc
+</code></pre>
+
+<p>GitHub provides pre-made <code>.gitignore</code> templates for dozens of languages and frameworks, making it easy to start with sensible defaults.</p>
+
+<p><strong>Access permissions</strong> control what each collaborator can do with the repository. GitHub's permission model uses roles:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>What They Can Do</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Read</td>
+      <td>View and clone the repository; open issues and discussions.</td>
+    </tr>
+    <tr>
+      <td>Triage</td>
+      <td>Read access plus the ability to manage issues and pull requests without writing code.</td>
+    </tr>
+    <tr>
+      <td>Write</td>
+      <td>Push branches, open pull requests, and merge approved changes.</td>
+    </tr>
+    <tr>
+      <td>Maintain</td>
+      <td>Write access plus repository management tasks, excluding sensitive settings.</td>
+    </tr>
+    <tr>
+      <td>Admin</td>
+      <td>Full control, including changing settings, managing permissions, and deleting the repository.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>For most course projects, contributors are given <em>Write</em> access while the project owner retains <em>Admin</em> access.</p>
+
+<p><strong>Branching and Pull Requests</strong></p>
+
+<p>Branching is the mechanism that allows a team to develop multiple features, fix bugs, and experiment — all simultaneously — without any of that work interfering with the stable, deployable version of the project.</p>
+
+<p>Imagine the project history as a timeline. The <strong>main branch</strong> (historically called <em>master</em>, now conventionally called <em>main</em>) represents that timeline's trunk. A golden rule of collaborative development is that the <code>main</code> branch should always contain code that works. It should be the version you would feel comfortable showing to a user or deploying to a server at any moment. Work in progress, experiments, and unreviewed code should never live directly on <code>main</code>.</p>
+
+<p>When a developer starts working on a new feature or bug fix, they create a <strong>feature branch</strong>. This branch is a diverging copy of <code>main</code> at that moment in time. All commits for the new work happen on this branch, completely isolated from <code>main</code> and from any other branches being developed simultaneously. A typical branching workflow looks like this:</p>
+
+<pre><code># Start from an up-to-date main branch
+git checkout main
+git pull origin main
+
+# Create and switch to a new feature branch
+git checkout -b feature/user-authentication
+
+# ... make changes, then stage and commit them ...
+git add .
+git commit -m "Add login form and session handling"
+
+# Push the feature branch to GitHub
+git push origin feature/user-authentication
+</code></pre>
+
+<p>Branch names should be short and descriptive. Common conventions include prefixes like <code>feature/</code>, <code>bugfix/</code>, or <code>hotfix/</code> to immediately communicate the branch's purpose.</p>
+
+<p>Once the work on a feature branch is complete, the developer opens a <strong>pull request</strong> (PR) on GitHub. A pull request is a formal proposal to merge the changes from the feature branch into <code>main</code>. But it is much more than a merge button — it is a structured conversation about the code. Team members can:</p>
+
+<ul>
+  <li>Read a diff showing exactly which lines were added, modified, or deleted.</li>
+  <li>Leave inline comments on specific lines to ask questions or suggest improvements.</li>
+  <li>Request changes, requiring the author to revise the code before it can be merged.</li>
+  <li>Approve the pull request once they are satisfied with the changes.</li>
+</ul>
+
+<p>This review process catches bugs, enforces coding standards, and spreads knowledge of the codebase across the team. No one person becomes the only one who understands a particular part of the system.</p>
+
+<p>After the required number of approvals is received (teams often require at least one reviewer's approval), the pull request is <strong>merged</strong>. GitHub offers several merge strategies:</p>
+
+<ul>
+  <li><strong>Merge commit</strong>: Creates a dedicated merge commit that records the integration of the two branches. Preserves the full history of the feature branch.</li>
+  <li><strong>Squash and merge</strong>: Combines all commits from the feature branch into a single commit on <code>main</code>. Produces a cleaner, more readable history.</li>
+  <li><strong>Rebase and merge</strong>: Replays the feature branch commits on top of <code>main</code> without a merge commit, creating a perfectly linear history.</li>
+</ul>
+
+<p>After merging, the feature branch is typically deleted — it has served its purpose and the changes now live in <code>main</code>.</p>
+
+<p><strong>GitHub for Project Management</strong></p>
+
+<p>One of GitHub's most underappreciated strengths is how tightly its project management features connect to the actual code. Unlike standalone tools where task lists and code live in separate systems, GitHub keeps them in the same place, making it easy to trace every task back to the exact commits that completed it.</p>
+
+<p><strong>GitHub Issues</strong> are the fundamental unit of work tracking. An issue might describe a bug ("Login button unresponsive on mobile Safari"), a feature request ("Add dark mode support"), or a documentation task ("Write setup guide for Windows users"). Issues support:</p>
+
+<ul>
+  <li><strong>Assignees</strong>: One or more team members responsible for resolving the issue.</li>
+  <li><strong>Labels</strong>: Color-coded tags like <em>bug</em>, <em>enhancement</em>, <em>help wanted</em>, or custom labels specific to the project.</li>
+  <li><strong>Linking to code</strong>: When a pull request includes the phrase <code>Closes #42</code> in its description, GitHub automatically closes issue #42 when the pull request is merged. This creates a traceable link between the problem and its solution.</li>
+</ul>
+
+<p><strong>Project boards</strong> (via GitHub Projects) provide a visual workspace for managing issues and pull requests. The classic layout uses columns to represent workflow stages. A simple board might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>To Do</th>
+      <th>In Progress</th>
+      <th>In Review</th>
+      <th>Done</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Set up database schema</td>
+      <td>Build login form</td>
+      <td>Add email validation</td>
+      <td>Initialize repository</td>
+    </tr>
+    <tr>
+      <td>Write API endpoints</td>
+      <td>Style navigation bar</td>
+      <td></td>
+      <td>Create README</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Cards on the board are linked directly to issues or pull requests, so moving a card from <em>In Progress</em> to <em>Done</em> is as meaningful as it looks — it reflects real work completed in the codebase. GitHub's newer Projects interface also supports a spreadsheet view, custom fields, and automated rules (for example, automatically moving a card to <em>In Review</em> when a pull request is opened).</p>
+
+<p><strong>Milestones</strong> allow teams to group related issues together under a shared goal and track collective progress toward that goal. For instance, a milestone called <em>Version 1.0 Launch</em> might contain fifteen issues covering everything needed for the first public release. GitHub displays a progress bar showing the percentage of those issues that have been closed, giving the whole team a clear sense of how close they are to the milestone's target date. Milestones are especially useful in course projects for mapping issues to sprint deadlines or graded deliverables.</p>
+
+<p>Together — repositories, branches, pull requests, issues, project boards, and milestones — GitHub provides everything a team needs to plan, build, review, and ship software collaboratively. Learning to use these tools fluently is not just a technical skill; it is the foundation of how professional software teams operate.</p>
+        <div class="notes"><strong>Notes</strong>Introduces GitHub as the central collaboration and code management platform for the course project. Students set up repositories, learn branching strategies, and understand how GitHub supports team workflows.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

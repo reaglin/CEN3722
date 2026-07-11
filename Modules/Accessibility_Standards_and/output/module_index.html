@@ -1,205 +1,124 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Accessibility Standards and Inclusive Interface Design — CEN3722</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Accessibility Standards and Inclusive Interface Design – CEN3722</title>
   <style>
     /* ── Reset & Base ── */
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html {
-      font-size: 16px;
-      scroll-behavior: smooth;
+    :root {
+      --clr-bg:          #f4f6f9;
+      --clr-surface:     #ffffff;
+      --clr-border:      #dde2ea;
+      --clr-primary:     #1a4f8a;
+      --clr-primary-dk:  #133a68;
+      --clr-accent:      #2e7d32;
+      --clr-accent-lt:   #e8f5e9;
+      --clr-text:        #1e2530;
+      --clr-muted:       #5a6475;
+      --clr-badge-bg:    #eef2f8;
+      --clr-badge-text:  #2b4779;
+      --clr-tag-bg:      #fdf3e3;
+      --clr-tag-text:    #7a4a00;
+      --radius:          8px;
+      --shadow:          0 2px 8px rgba(0,0,0,.08);
+      --transition:      0.18s ease;
     }
 
     body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background-color: #f4f6f9;
-      color: #1e2530;
-      line-height: 1.65;
-      min-height: 100vh;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--clr-bg);
+      color: var(--clr-text);
+      line-height: 1.6;
+      padding-bottom: 3rem;
     }
 
-    /* ── Skip Link (Accessibility) ── */
-    .skip-link {
-      position: absolute;
-      top: -999px;
-      left: 0;
-      background: #1a4d8f;
+    /* ── Header Banner ── */
+    .site-header {
+      background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-primary-dk) 100%);
       color: #fff;
-      padding: 0.5rem 1rem;
-      z-index: 9999;
-      border-radius: 0 0 4px 0;
-      font-size: 0.9rem;
-      text-decoration: none;
-    }
-    .skip-link:focus {
-      top: 0;
+      padding: 2.75rem 1.5rem 2.25rem;
     }
 
-    /* ── Header / Banner ── */
-    header {
-      background: linear-gradient(135deg, #1a4d8f 0%, #1e6fba 60%, #1a9bba 100%);
-      color: #ffffff;
-      padding: 3rem 1.5rem 2.5rem;
-      text-align: center;
+    .header-inner {
+      max-width: 1060px;
+      margin: 0 auto;
     }
 
     .course-label {
       display: inline-block;
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 600;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      background-color: rgba(255, 255, 255, 0.18);
-      border: 1px solid rgba(255, 255, 255, 0.35);
-      border-radius: 20px;
-      padding: 0.25rem 0.85rem;
-      margin-bottom: 1.1rem;
-      color: #d9ecff;
+      background: rgba(255,255,255,0.18);
+      color: #d8e8ff;
+      border-radius: 4px;
+      padding: 0.25rem 0.65rem;
+      margin-bottom: 0.85rem;
     }
 
-    header h1 {
-      font-size: clamp(1.55rem, 3.5vw, 2.4rem);
+    .site-header h1 {
+      font-size: clamp(1.45rem, 3.5vw, 2.1rem);
       font-weight: 700;
-      letter-spacing: -0.01em;
       line-height: 1.25;
-      max-width: 780px;
-      margin: 0 auto 1rem;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.01em;
     }
 
-    header p.intro {
-      font-size: 1rem;
+    .site-header p {
+      font-size: 0.97rem;
+      color: #c5d9f5;
       max-width: 680px;
-      margin: 0 auto;
-      color: #cce4f7;
-      line-height: 1.7;
+      line-height: 1.65;
     }
 
     /* ── Main Content ── */
     main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2.5rem 1.25rem 4rem;
+      max-width: 1060px;
+      margin: 2.25rem auto 0;
+      padding: 0 1.25rem;
     }
 
-    /* ── Section heading ── */
-    .section-heading {
-      font-size: 1.05rem;
+    .section-label {
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: #4a5568;
-      border-bottom: 2px solid #d1dbe8;
-      padding-bottom: 0.55rem;
-      margin-bottom: 1.6rem;
+      letter-spacing: 0.1em;
+      color: var(--clr-muted);
+      margin-bottom: 1.1rem;
+      border-bottom: 2px solid var(--clr-border);
+      padding-bottom: 0.5rem;
     }
 
-    /* ── Artifact Grid ── */
-    .artifact-grid {
+    /* ── Card Grid ── */
+    .card-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.4rem;
+      gap: 1.25rem;
     }
 
-    /* ── Artifact Card ── */
-    .artifact-card {
-      background: #ffffff;
-      border: 1px solid #dce4ef;
-      border-radius: 10px;
-      padding: 1.4rem 1.5rem 1.3rem;
+    .card {
+      background: var(--clr-surface);
+      border: 1px solid var(--clr-border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.35rem 1.4rem 1.25rem;
       display: flex;
       flex-direction: column;
       gap: 0.6rem;
-      box-shadow: 0 2px 8px rgba(26, 77, 143, 0.07);
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
+      transition: box-shadow var(--transition), transform var(--transition);
     }
 
-    .artifact-card:hover {
-      box-shadow: 0 6px 20px rgba(26, 77, 143, 0.13);
+    .card:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,.12);
       transform: translateY(-2px);
     }
 
-    /* ── Card Top Row ── */
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-    }
-
-    .artifact-name {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: #1e2530;
-      line-height: 1.3;
-      flex: 1 1 auto;
-      min-width: 0;
-    }
-
-    .artifact-name a {
-      color: #1a4d8f;
-      text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: border-color 0.15s ease, color 0.15s ease;
-    }
-
-    .artifact-name a:hover,
-    .artifact-name a:focus {
-      color: #1e6fba;
-      border-bottom-color: #1e6fba;
-      outline: none;
-    }
-
-    .artifact-name a:focus-visible {
-      outline: 3px solid #1e6fba;
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    /* ── Source Link ── */
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.73rem;
-      font-weight: 600;
-      color: #5a7fa8;
-      text-decoration: none;
-      background: #edf3fb;
-      border: 1px solid #c2d5ea;
-      border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-      white-space: nowrap;
-      align-self: flex-start;
-      margin-top: 0.15rem;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #d8e9f7;
-      color: #1a4d8f;
-      outline: none;
-    }
-
-    .source-link:focus-visible {
-      outline: 3px solid #1e6fba;
-      outline-offset: 2px;
-      border-radius: 3px;
-    }
-
-    .source-link svg {
-      flex-shrink: 0;
-    }
-
-    /* ── Badges Row ── */
-    .card-badges {
+    /* ── Card Badges Row ── */
+    .card-meta {
       display: flex;
       flex-wrap: wrap;
       gap: 0.45rem;
@@ -216,120 +135,292 @@
     }
 
     .badge-type {
-      background-color: #e8f0fb;
-      color: #1a4d8f;
-      border: 1px solid #c0d3f0;
+      background: var(--clr-badge-bg);
+      color: var(--clr-badge-text);
+      border: 1px solid #c5d3e8;
     }
 
     .badge-filetype {
-      background-color: #f0faf3;
-      color: #1a6e38;
-      border: 1px solid #b3dfbf;
-      font-family: 'Courier New', Courier, monospace;
-      letter-spacing: 0.03em;
+      background: var(--clr-tag-bg);
+      color: var(--clr-tag-text);
+      border: 1px solid #e8d5aa;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
     }
 
-    /* ── Description ── */
-    .artifact-description {
-      font-size: 0.88rem;
-      color: #4a5568;
-      line-height: 1.6;
+    /* ── Card Name ── */
+    .card-name {
+      font-size: 1.02rem;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--clr-text);
+    }
+
+    .card-name a {
+      color: var(--clr-primary);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: border-color var(--transition), color var(--transition);
+    }
+
+    .card-name a:hover,
+    .card-name a:focus {
+      color: var(--clr-primary-dk);
+      border-bottom-color: var(--clr-primary-dk);
+      outline: none;
+    }
+
+    .card-name a:focus-visible {
+      outline: 3px solid #5b9bd5;
+      outline-offset: 2px;
+      border-radius: 2px;
+    }
+
+    /* ── Source Link ── */
+    .source-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--clr-accent);
+      text-decoration: none;
+      background: var(--clr-accent-lt);
+      border: 1px solid #b8dfba;
+      border-radius: 4px;
+      padding: 0.18rem 0.5rem;
+      margin-left: 0.5rem;
+      vertical-align: middle;
+      white-space: nowrap;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    .source-link:hover,
+    .source-link:focus {
+      background: #c8e6c9;
+      color: var(--clr-accent);
+      outline: none;
+    }
+
+    .source-link:focus-visible {
+      outline: 3px solid #5b9bd5;
+      outline-offset: 2px;
+    }
+
+    .source-link svg {
+      flex-shrink: 0;
+    }
+
+    /* ── Card Description ── */
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--clr-muted);
+      line-height: 1.65;
       flex: 1;
     }
 
     /* ── Footer ── */
-    footer {
-      background: #1e2530;
-      color: #8a9ab5;
+    .site-footer {
       text-align: center;
-      font-size: 0.8rem;
-      padding: 1.4rem 1rem;
-      letter-spacing: 0.02em;
+      margin-top: 3rem;
+      font-size: 0.78rem;
+      color: var(--clr-muted);
     }
 
-    footer span {
-      color: #c0cfe3;
-      font-weight: 600;
-    }
-
-    /* ── Responsive Tweaks ── */
-    @media (max-width: 540px) {
-      header {
-        padding: 2.2rem 1rem 2rem;
-      }
-
-      .artifact-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .card-top {
-        flex-direction: column;
-      }
+    /* ── Responsive tweaks ── */
+    @media (max-width: 480px) {
+      .card-grid { grid-template-columns: 1fr; }
+      .site-header { padding: 2rem 1.1rem 1.75rem; }
     }
   </style>
 </head>
 <body>
 
-  <a class="skip-link" href="#main-content">Skip to main content</a>
-
-  <!-- ── Header ── -->
-  <header role="banner">
-    <div class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</div>
-    <h1>Accessibility Standards and Inclusive Interface Design</h1>
-    <p class="intro">
-      This module explores the principles and practices behind building digital experiences that work
-      for everyone. Learners will examine WCAG guidelines, the POUR framework, accessible visual
-      design, keyboard navigation patterns, and screen reader compatibility to develop inclusive,
-      standards-compliant interfaces.
-    </p>
+  <!-- ═══ HEADER ═══ -->
+  <header class="site-header" role="banner">
+    <div class="header-inner">
+      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
+      <h1>Accessibility Standards and Inclusive Interface Design</h1>
+      <p>
+        This module explores the principles, guidelines, and practical techniques that underpin
+        accessible and inclusive digital design. Topics span WCAG guidelines, accessible visual
+        design, keyboard navigation, screen reader compatibility, inclusive design philosophy,
+        accessibility auditing, and corrective design patterns.
+      </p>
+    </div>
   </header>
 
-  <!-- ── Main ── -->
-  <main id="main-content">
+  <!-- ═══ MAIN CONTENT ═══ -->
+  <main>
+    <h2 class="section-label">Module Artifacts</h2>
 
-    <h2 class="section-heading">Module Artifacts</h2>
+    <div class="card-grid" role="list">
 
-    <div class="artifact-grid" role="list">
-
-      <!-- ── Artifact: Module Topics ── -->
-      <article class="artifact-card" role="listitem" aria-label="Module Topics artifact">
-
-        <div class="card-top">
-          <div class="artifact-name">
-            <!-- viewHref is non-empty → render as link -->
-            <a href="module_topics.html">Module Topics</a>
-          </div>
-          <!-- sourceHref is non-empty → render secondary source link -->
+      <!-- Card 1: Module Topics -->
+      <article class="card" role="listitem">
+        <div class="card-meta">
+          <span class="badge badge-type">Module Topics</span>
+          <span class="badge badge-filetype">.json</span>
+        </div>
+        <div class="card-name">
+          <a href="module_topics.html">Module Topics</a>
           <a class="source-link" href="../hierarchy.json" aria-label="Source file for Module Topics">
             <svg aria-hidden="true" focusable="false" width="11" height="11" viewBox="0 0 16 16" fill="currentColor">
-              <path d="M4.5 1A1.5 1.5 0 0 0 3 2.5v11A1.5 1.5 0 0 0 4.5 15h7A1.5 1.5 0 0 0 13 13.5V5.621a1.5 1.5 0 0 0-.44-1.06L9.94 1.94A1.5 1.5 0 0 0 8.878 1.5H4.5zm0 1h4.378a.5.5 0 0 1 .354.146l2.622 2.622a.5.5 0 0 1 .146.353V13.5a.5.5 0 0 1-.5.5h-7a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5z"/>
+              <path d="M12.5 2h-9A1.5 1.5 0 002 3.5v9A1.5 1.5 0 003.5 14h9a1.5 1.5 0 001.5-1.5v-3a.5.5 0 00-1 0v3a.5.5 0 01-.5.5h-9a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h3a.5.5 0 000-1h-3z"/>
+              <path d="M16 1.5A1.5 1.5 0 0014.5 0h-5a.5.5 0 000 1h5a.5.5 0 01.5.5v5a.5.5 0 001 0v-5z"/>
+              <path d="M6.354 10.354l8-8a.5.5 0 00-.708-.708l-8 8a.5.5 0 00.708.708z"/>
             </svg>
             source file
           </a>
         </div>
-
-        <div class="card-badges">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-
-        <p class="artifact-description">
-          A structured outline of the module's learning topics—covering WCAG guidelines and POUR
-          principles, accessible color and visual design, keyboard navigation, and screen reader
-          compatibility—used by learners to preview what the module covers and by instructors to
-          verify curriculum scope.
+        <p class="card-desc">
+          A structured outline of the module's learning topics—covering WCAG guidelines and POUR principles,
+          accessible color and visual design, keyboard navigation, and screen reader compatibility—used by
+          learners to preview what the module covers and by instructors to verify curriculum scope.
         </p>
-
       </article>
 
-    </div><!-- /.artifact-grid -->
+      <!-- Card 2: Foundations of WCAG Guidelines -->
+      <article class="card" role="listitem">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="Accessibility_Standards_and_interactive_topics_t1.html">Foundations of WCAG Guidelines</a>
+        </div>
+        <p class="card-desc">
+          This reading introduces the Web Content Accessibility Guidelines (WCAG) as the foundational
+          framework for digital accessibility, covering its structure, principles, and role in shaping
+          design decisions from the start of a project; learners use it to build conceptual grounding
+          before studying specific accessibility requirements.
+        </p>
+      </article>
 
+      <!-- Card 3: Accessible Color and Visual Design -->
+      <article class="card" role="listitem">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="Accessibility_Standards_and_interactive_topics_t2.html">Accessible Color and Visual Design</a>
+        </div>
+        <p class="card-desc">
+          This reading explains how to apply color and visual design choices accessibly, covering contrast
+          ratios, color blindness considerations, low vision accommodations, and cognitive accessibility;
+          learners and instructors use it to understand how visual presentation can either barrier or
+          support diverse users.
+        </p>
+      </article>
+
+      <!-- Card 4: Keyboard Navigation and Motor Accessibility -->
+      <article class="card" role="listitem">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="Accessibility_Standards_and_interactive_topics_t3.html">Keyboard Navigation and Motor Accessibility</a>
+        </div>
+        <p class="card-desc">
+          This reading covers keyboard navigation as a core accessibility requirement, explaining how users
+          with motor disabilities rely on keyboard-only interaction and what designers must do to ensure
+          full keyboard operability; learners use it to understand focus management, tab order, and
+          motor-accessible interface patterns.
+        </p>
+      </article>
+
+      <!-- Card 5: Screen Reader Compatibility -->
+      <article class="card" role="listitem">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="Accessibility_Standards_and_interactive_topics_t4.html">Screen Reader Compatibility</a>
+        </div>
+        <p class="card-desc">
+          This reading explains how screen readers work and how web content must be structured—using
+          semantic HTML, ARIA roles, and proper labeling—to be interpreted correctly by assistive
+          technologies; learners use it to design and evaluate interfaces that are operable for blind
+          and low-vision users.
+        </p>
+      </article>
+
+      <!-- Card 6: Inclusive Design Principles Beyond WCAG -->
+      <article class="card" role="listitem">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="Accessibility_Standards_and_interactive_topics_t5.html">Inclusive Design Principles Beyond WCAG</a>
+        </div>
+        <p class="card-desc">
+          This reading presents inclusive design as a philosophy that extends beyond WCAG compliance,
+          exploring how designing for the full spectrum of human diversity benefits all users; learners
+          use it to shift their perspective from checkbox accessibility toward proactive, human-centered
+          design thinking.
+        </p>
+      </article>
+
+      <!-- Card 7: Accessibility Auditing -->
+      <article class="card" role="listitem">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="Accessibility_Standards_and_interactive_topics_t6.html">Accessibility Auditing</a>
+        </div>
+        <p class="card-desc">
+          This reading describes the process of conducting an accessibility audit against WCAG standards,
+          covering evaluation methods, tools, and how to systematically identify barriers in a digital
+          interface; instructors and learners use it to understand how to assess real products for
+          accessibility compliance and usability gaps.
+        </p>
+      </article>
+
+      <!-- Card 8: Applying Corrective Design Patterns (Topic Detail) -->
+      <article class="card" role="listitem">
+        <div class="card-meta">
+          <span class="badge badge-type">Topic Detail</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="Accessibility_Standards_and_interactive_topics_t7.html">Applying Corrective Design Patterns</a>
+        </div>
+        <p class="card-desc">
+          This reading details corrective design patterns used to remediate accessibility barriers
+          identified in audits, emphasizing structural and behavioral component-level fixes rather than
+          superficial patches; learners use it to learn how to redesign components correctly after an
+          audit reveals problems.
+        </p>
+      </article>
+
+      <!-- Card 9: Applying Corrective Design Patterns (Text Content) -->
+      <article class="card" role="listitem">
+        <div class="card-meta">
+          <span class="badge badge-type">Text Content</span>
+          <span class="badge badge-filetype">.html</span>
+        </div>
+        <div class="card-name">
+          <a href="Accessibility_Standards_and_interactive.html">Applying Corrective Design Patterns</a>
+        </div>
+        <p class="card-desc">
+          This reading details corrective design patterns used to remediate accessibility barriers
+          identified in audits, emphasizing structural and behavioral component-level fixes rather than
+          superficial patches; learners use it to learn how to redesign components correctly after an
+          audit reveals problems.
+        </p>
+      </article>
+
+    </div><!-- /.card-grid -->
   </main>
 
-  <!-- ── Footer ── -->
-  <footer role="contentinfo">
-    <span>CEN3722</span> &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp;
-    Accessibility Standards and Inclusive Interface Design
+  <!-- ═══ FOOTER ═══ -->
+  <footer class="site-footer" role="contentinfo">
+    <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Accessibility Standards and Inclusive Interface Design</p>
   </footer>
 
 

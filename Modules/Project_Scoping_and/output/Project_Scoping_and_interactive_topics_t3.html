@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Android Platform: Characteristics and Constraints</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Android Platform: Characteristics and Constraints</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Android Platform: Characteristics and Constraints</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Android is the world's most widely deployed mobile operating system, powering well over 70% of all smartphones globally. For designers and developers, this dominance makes it an essential platform to understand deeply — not just in terms of how it works technically, but in terms of the unique design challenges, conventions, and constraints it introduces. Unlike a closed platform with tightly controlled hardware and software, Android operates as an open ecosystem, which brings both enormous reach and considerable complexity. To design well for Android means understanding who uses it, on what kinds of devices, under what conditions, and according to what visual and interaction conventions users have come to expect.</p>
+
+<p>Android's reach extends well beyond smartphones. The same operating system core powers tablets, foldable devices, Chromebooks running Android applications, smart TVs via Android TV, automotive infotainment systems via Android Auto, and a wide range of embedded and IoT devices. This breadth means that a well-considered Android application can reach users across an extraordinary variety of contexts and form factors. However, it also means that assumptions about screen size, input method, or processing capability that might be safe on a controlled platform like iOS are frequently unreliable on Android. A design that works elegantly on a flagship Samsung Galaxy device may behave very differently on a budget-tier device running a two-year-old version of Android in a market like India or Brazil — markets where Android's open, affordable ecosystem has seen its strongest growth.</p>
+
+<p>Google's response to the challenge of visual and interaction consistency across this fragmented landscape is <strong>Material Design</strong>, a comprehensive design system first introduced in 2014 and substantially updated with Material You (Material Design 3) in 2021. Material Design provides Android's standard UI language: a systematic set of guidelines covering components, layout, typography, color, motion, and interaction patterns. When designers follow Material Design, they produce interfaces that feel native to Android — familiar to users and aligned with system-level behaviors. Deviating significantly from Material Design without good reason risks confusing users and creating friction.</p>
+
+<p><strong>Material Design's use of elevation and shadow</strong> is one of its most distinctive characteristics. The system is built around the metaphor of physical surfaces stacked in a three-dimensional space. Components at higher elevation — such as floating action buttons, dialogs, and bottom sheets — cast shadows onto the surfaces beneath them, giving users an immediate visual cue about hierarchy and layering. A card sitting on a page has a subtle shadow indicating it is above the background surface. A modal dialog sits at a much higher elevation, with a stronger shadow and often a scrim (a semi-transparent overlay) that dims the content behind it, communicating that interaction is temporarily constrained to the dialog. In Material Design 3, this shadow-based elevation is complemented by <strong>tonal color elevation</strong>, where surfaces at higher elevations receive a tint of the primary brand color, making hierarchy legible even in flat or low-shadow rendering contexts such as OLED displays optimized for dark mode.</p>
+
+<p>Understanding this elevation model is critical because it governs not just aesthetics but behavior. Users on Android have internalized expectations about how overlapping surfaces interact. A bottom sheet, for example, emerges from the bottom of the screen at high elevation and can be dragged and dismissed — a gesture-driven interaction that Material Design specifies precisely. Designing a custom overlay that doesn't follow these conventions risks users not knowing how to dismiss it or misunderstanding its role in the interface hierarchy.</p>
+
+<p><strong>Navigation patterns</strong> on Android have evolved considerably. The platform has moved from hardware and on-screen navigation buttons toward gesture-based navigation, where users swipe from the edge of the screen to go back and swipe up from the bottom to return home or access the app switcher. This has important design implications: content near the left and right screen edges can conflict with back-gesture zones, so interactive elements should not be placed where they will be mistaken for or obscured by navigation gestures. Material Design provides several primary navigation components suited to different scales of application:</p>
+
+<ul>
+  <li><strong>Bottom navigation bars</strong> are used for applications with three to five top-level destinations. They appear at the bottom of the screen, within easy thumb reach, and display icons with optional labels. Bottom navigation is ideal for apps where users switch frequently between peer-level sections, such as a social media app with Home, Search, Notifications, and Profile sections.</li>
+  <li><strong>Navigation drawers</strong> (side drawers) surface a larger set of destinations — typically more than five — in a panel that slides in from the left. Modal drawers overlay the content, while permanent drawers are used on larger screens where space permits. Navigation drawers are common in content-rich applications with deep, hierarchical navigation structures.</li>
+  <li><strong>Navigation rails</strong>, introduced in Material Design 3, are a middle-ground option suited to medium-sized screens such as tablets and foldables. They appear as a vertical strip of icons along the left side of the screen, providing persistent access to top-level destinations without consuming as much space as a full drawer.</li>
+  <li><strong>Back gestures and the back stack</strong> remain a fundamental Android navigation concept. Unlike iOS, where the back action is primarily a left-edge swipe or a button in the navigation bar, Android's back gesture is available from both left and right edges by default. Designers must account for this when placing interactive elements and when designing multi-screen flows, ensuring that the back destination is always intuitive and that users are never unexpectedly returned to a confusing state.</li>
+</ul>
+
+<p>Material Design's approach to <strong>typography, color, and spacing</strong> is systematic and token-based, meaning that visual properties are defined as named values in a design system rather than as arbitrary one-off choices. The type scale in Material Design 3 defines roles such as <code>displayLarge</code>, <code>headlineMedium</code>, <code>bodySmall</code>, and <code>labelLarge</code>, each with specified size, weight, and line height. Rather than choosing a font size in isolation, a designer assigns a type role to an element, and that role determines its visual treatment. This approach ensures consistency and makes it straightforward to adapt the entire typographic system to different brand typefaces while maintaining correct hierarchy.</p>
+
+<p>Color in Material Design 3 is driven by a <strong>dynamic color system</strong> built around a palette derived from a seed color — typically the application's primary brand color. From this seed, the system algorithmically generates a full set of tonal palettes (primary, secondary, tertiary, neutral, and neutral variant), each with thirteen tones from 0 (black) to 100 (white). These tones are then assigned to semantic color roles: <code>primary</code>, <code>onPrimary</code>, <code>primaryContainer</code>, <code>onPrimaryContainer</code>, <code>surface</code>, <code>onSurface</code>, and so on. On Android 12 and later, this system can even extract a seed color from the user's current wallpaper, allowing apps that adopt dynamic color to automatically harmonize with each user's personal aesthetic. Designers working in tools like Figma with the Material Design 3 kit can prototype this system directly, but must also consider fallback palettes for older OS versions that don't support dynamic color.</p>
+
+<p>Spacing in Material Design follows a base-8 grid (with a base-4 unit also available for fine-grained adjustments), meaning that margins, padding, and component dimensions are multiples of 8dp (density-independent pixels). The <strong>dp unit</strong> is central to Android design: because Android devices vary enormously in physical pixel density — from around 120dpi on low-end devices to over 600dpi on high-end flagships — all layout measurements are specified in dp rather than pixels. One dp is defined as one pixel on a 160dpi baseline screen, and the Android system scales all dp measurements to the correct physical size on any given display. Designers working in screen design tools should set up their artboards at a density of 2x (360×800dp for a typical phone canvas) and export assets at 1x, 1.5x, 2x, 3x, and 4x to cover the full range of Android screen densities (mdpi, hdpi, xhdpi, xxhdpi, xxxhdpi).</p>
+
+<p><strong>Adaptive layouts</strong> are essential precisely because Android's screen size range is so dramatic. A phone might have a screen width of 360dp, a tablet 600dp to 900dp, and a large tablet or desktop window over 1200dp. Material Design 3 defines three canonical window size classes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Size Class</th>
+      <th>Width Range</th>
+      <th>Typical Device</th>
+      <th>Navigation Pattern</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Compact</td>
+      <td>0 – 599dp</td>
+      <td>Phone (portrait)</td>
+      <td>Bottom navigation bar</td>
+    </tr>
+    <tr>
+      <td>Medium</td>
+      <td>600 – 839dp</td>
+      <td>Tablet (portrait), large phone (landscape)</td>
+      <td>Navigation rail</td>
+    </tr>
+    <tr>
+      <td>Expanded</td>
+      <td>840dp and above</td>
+      <td>Tablet (landscape), desktop window</td>
+      <td>Navigation drawer (permanent)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Designing adaptive layouts means not simply scaling up a phone design, but reconsidering the layout structure at each breakpoint. A list view on a compact screen might become a list-detail layout on an expanded screen, where the list occupies the left panel and the selected item's detail view appears simultaneously on the right. Foldable devices add an additional layer of complexity: when a foldable is unfolded, the inner screen may present a large, near-square canvas that requires its own layout treatment, and the fold itself may divide the screen into two distinct panes that should ideally be used intentionally rather than ignored.</p>
+
+<p>Moving to the <strong>constraints and considerations</strong> that Android designers must navigate: the diversity of hardware is arguably the most pervasive challenge. Android devices span an enormous range of quality tiers. A flagship device from Google, Samsung, or OnePlus may have a 120Hz AMOLED display, a multi-lens camera system, and a processor with gigabytes of RAM. A budget device sold in an emerging market may have a 60Hz LCD display, a modest single-camera system, and very limited RAM and processing power. The same application must perform acceptably — and ideally excellently — across both. This has design implications: heavy animations, blur effects, and complex real-time processing may need to be reduced or disabled on lower-end hardware. Designs that rely on features like high-quality camera input or always-on background processing should include graceful degradation paths for devices where those capabilities are limited.</p>
+
+<p><strong>OS version fragmentation</strong> is a related and significant constraint. Unlike iOS, where a very high percentage of active devices run the latest or second-latest OS version within months of a new release, Android's update landscape is fragmented across device manufacturers, carriers, and geographic markets. As of the mid-2020s, it is not unusual for a substantial portion of an app's user base to be running Android versions that are two to four years behind the current release. Developers and designers must therefore carefully consider which Android APIs and UI components they depend on. Newer Material Design 3 components, dynamic color, and certain gesture navigation behaviors may not be available on older OS versions. The <strong>minimum SDK version</strong> a team targets is a product decision that directly affects which features can be used and how much complexity the codebase must carry to support older behavior. Designers should be aware of these version constraints when specifying interactions and components, and should not design features that rely on APIs unavailable to the team's target minimum SDK without understanding the implications.</p>
+
+<p>The <strong>user permission model</strong> on Android deserves careful design attention. Android requires applications to explicitly request user permission to access sensitive device capabilities — camera, microphone, location, contacts, notifications, storage, and more. Since Android 6.0 (Marshmallow, API level 23), these permissions are requested at runtime rather than at install time, meaning that users encounter permission dialogs in context, when the feature is first needed. This is actually an opportunity for good design: rather than overwhelming users with a wall of permission requests at app launch, a well-designed Android app requests permissions <em>in the moment of need</em>, with clear contextual explanation of why the permission is required and what the user will gain by granting it. A camera permission request, for example, should appear exactly when the user taps a button to take a photo, paired with a brief, plain-language explanation such as "This app needs camera access to let you scan documents." Android also allows users to grant permissions only while the app is in use (for location, for example) or only once, increasing user control. Design flows must account for the case where users deny permissions, providing graceful fallbacks and, where appropriate, a non-blocking path to manually granting the permission later through device settings.</p>
+
+<p>Notification design is another area where Android's permission model intersects with user experience. Since Android 13 (API level 33), apps must explicitly request permission to post notifications — previously this was granted automatically. This change reflects a broader trend toward increasing user control and reducing notification fatigue. Designers should consider when and how to present the notification permission request, ideally deferring it until users have experienced enough of the app's value to understand why notifications would be useful, rather than requesting it immediately at first launch when the user has no context for why the permission matters.</p>
+
+<p>Finally, it is worth noting that Android's user base is highly geographically and demographically diverse. In many of its largest markets — India, Indonesia, Brazil, Nigeria — users are primarily accessing the internet via mobile devices, often on slower networks and with more modest hardware. Designs that assume fast network connectivity, unlimited data, or powerful processing may perform poorly for a large segment of the actual user population. Considerations such as data-efficient image loading, offline-capable features, low-memory footprints, and efficient battery usage are not edge cases for Android — they are mainstream concerns that reflect the reality of who actually uses the platform at global scale.</p>
+        <div class="notes"><strong>Notes</strong>Consider pairing this topic with hands-on exercises where learners audit an existing Android app against Material Design 3 guidelines, identifying navigation patterns, elevation usage, and adaptive layout behavior across screen sizes. The window size class table is a useful reference to keep visible throughout the module. Emphasize that dp vs. px understanding is fundamental before learners begin any Android-specific design or asset-export work.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Process Execution and Team Collaboration</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Process Execution and Team Collaboration</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Process Execution and Team Collaboration</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Executing a design project well is never purely a matter of individual talent or technical skill. The most polished prototype and the sharpest research findings can be undermined by poor planning, unclear role boundaries, communication breakdowns, or inconsistent documentation. Conversely, teams that invest early in structuring how they will work together — not just what they will produce — consistently deliver stronger outcomes and maintain healthier dynamics throughout a project's life. This topic examines the four interconnected pillars of effective process execution and team collaboration: design process planning and execution, role distribution and contribution, communication and conflict resolution, and collaboration tools and documentation practices.</p>
+
+<p><strong>Design Process Planning and Execution</strong></p>
+
+<p>A design process plan is the team's shared roadmap. It translates a broad project goal — say, redesigning an onboarding flow for a mobile application — into a sequence of concrete phases, each with defined outputs and target dates. Without this structure, effort disperses, deadlines arrive unexpectedly, and the team spends cognitive energy wondering what comes next rather than doing the work itself.</p>
+
+<p><strong>Milestones and deliverables</strong> are the backbone of accountable planning. A milestone marks a meaningful checkpoint — the completion of user research, the sign-off on a low-fidelity prototype, the handoff of final assets. A deliverable is the tangible artifact that proves the milestone has been reached: a research synthesis document, a Figma file, a usability testing report. When milestones are tied to specific deliverables, every team member can see at a glance whether the project is on track. More importantly, milestones enable <em>early detection of schedule risk</em>. If the team realizes during week three that the research synthesis will not be ready until week five, and it was originally due in week two, that signal arrives early enough to adjust scope, redistribute work, or renegotiate the timeline — rather than discovering the problem on the day of a client presentation.</p>
+
+<p>Consider a ten-week project structured with five milestones:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Week</th>
+      <th>Milestone</th>
+      <th>Deliverable</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2</td>
+      <td>Research complete</td>
+      <td>Interview transcripts + affinity diagram</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Problem defined</td>
+      <td>Personas + How Might We statements</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Concepts explored</td>
+      <td>Low-fidelity wireframes (3 concepts)</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>Prototype tested</td>
+      <td>Usability testing report</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Final design delivered</td>
+      <td>High-fidelity prototype + design specification</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Each row creates a moment of collective accountability. The team either has the artifact or it does not. There is no ambiguity, and that clarity is motivating rather than punitive — it simply makes the work legible.</p>
+
+<p>However, rigid adherence to a plan can become counterproductive. Design is an inherently iterative, discovery-driven discipline. User research frequently surfaces insights that reframe the problem entirely. A team studying a checkout flow might discover mid-project that users' primary frustration is not with the checkout page itself but with how products are compared earlier in the purchase journey. Forcing that team to deliver checkout wireframes because they appear on a Gantt chart is a category error — it prioritizes the plan over the purpose of the plan, which was always to serve users effectively.</p>
+
+<p>The most effective teams therefore <strong>balance structured planning with adaptive flexibility</strong>. This does not mean abandoning plans whenever something interesting emerges — that path leads to scope creep and perpetual pivots. It means building <em>review points</em> into the plan at which the team explicitly asks: "Do our findings so far change what we should do next?" These moments of structured reflection — sometimes called design critiques, synthesis sessions, or retrospectives — give teams permission to adapt based on evidence rather than reacting impulsively or, conversely, marching blindly forward. A useful framing is to hold project <em>goals</em> constant (improve user retention, reduce onboarding drop-off) while remaining flexible about the specific <em>approach</em> used to achieve those goals.</p>
+
+<p><strong>Role Distribution and Contribution</strong></p>
+
+<p>On small design teams, the temptation is to let roles emerge organically — whoever is most comfortable with a tool or task naturally gravitates toward it. This works briefly, but over a multi-week project it tends to calcify into rigid informal specializations: one person always does the visual design, another always conducts interviews, a third always writes documentation. The result is a team of specialists who, paradoxically, understand their own project less holistically than they should.</p>
+
+<p><strong>Rotating roles across project phases</strong> is a deliberate antidote to this calcification. When the person who usually runs interviews is also asked to translate their own notes into a visual affinity diagram, they develop a deeper appreciation for synthesis challenges. When the person who usually builds prototypes is asked to facilitate a usability test, they observe user confusion firsthand rather than reading about it secondhand. This cross-functional experience broadens individual skill sets, but its more important organizational benefit is that it builds <em>empathy within the team</em>. People who have done each other's work are far less likely to dismiss it as easy or unimportant.</p>
+
+<p>A practical approach is to define role clusters for each project phase and rotate assignments across phases:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Phase</th>
+      <th>Lead Role</th>
+      <th>Support Role</th>
+      <th>Documentation Role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Research</td>
+      <td>Team Member A</td>
+      <td>Team Member B</td>
+      <td>Team Member C</td>
+    </tr>
+    <tr>
+      <td>Synthesis</td>
+      <td>Team Member B</td>
+      <td>Team Member C</td>
+      <td>Team Member A</td>
+    </tr>
+    <tr>
+      <td>Ideation</td>
+      <td>Team Member C</td>
+      <td>Team Member A</td>
+      <td>Team Member B</td>
+    </tr>
+    <tr>
+      <td>Prototyping</td>
+      <td>Team Member A</td>
+      <td>Team Member C</td>
+      <td>Team Member B</td>
+    </tr>
+    <tr>
+      <td>Testing</td>
+      <td>Team Member B</td>
+      <td>Team Member A</td>
+      <td>Team Member C</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This kind of structured rotation does not prevent people from contributing in their areas of strength — it simply ensures that no single person is locked out of meaningful participation in any phase.</p>
+
+<p><strong>Uneven contribution</strong> is one of the most corrosive forces in team dynamics, and it tends to operate quietly until it doesn't. When one or two team members consistently carry disproportionate workloads, the overcontributors accumulate fatigue and resentment while undercontributors lose both skill development opportunities and the sense of ownership that makes people care about outcomes. Research on group dynamics consistently shows that perceived inequity — even when the objective imbalance is modest — damages team cohesion more than almost any other factor. Once resentment takes root, it colors every subsequent interaction, from design critiques to status updates.</p>
+
+<p>The most reliable prevention is <strong>explicit role agreements at project outset</strong>. Before the first task is executed, the team documents who is responsible for what, how workload will be monitored, and what the process will be if someone falls behind or is consistently overloaded. This kind of early transparency feels formal and perhaps unnecessary when a project begins and everyone is enthusiastic, but its value becomes apparent precisely during the moments of stress when enthusiasm is lower and stakes are higher. A written role agreement transforms a potential interpersonal confrontation ("you never do your share") into a reference to a shared commitment ("our agreement says we rotate synthesis leads — it's your turn this phase").</p>
+
+<p><strong>Communication and Conflict Resolution</strong></p>
+
+<p>Information silos — where one team member knows something critical that others do not — are among the most avoidable sources of project failure. They arise not from malice but from the natural tendency to work in parallel without adequate touchpoints. A researcher finishes a round of interviews and begins synthesis; meanwhile, the designer has been iterating on wireframes based on assumptions the research has just invalidated. Neither person did anything wrong in isolation, but the absence of communication between them means the team will now do redundant or contradictory work.</p>
+
+<p><strong>Regular check-ins and progress updates</strong> — whether daily standups, twice-weekly syncs, or end-of-phase reviews — create structured moments for information exchange that prevent silo formation. The key is not frequency alone but <em>consistency</em>. A brief fifteen-minute sync that happens reliably every Tuesday and Thursday is far more effective than an irregular two-hour meeting that happens whenever someone remembers to schedule it. In asynchronous or remote contexts, written updates in a shared channel serve the same function: they make the state of the work visible to everyone simultaneously, reducing the cognitive overhead of bilateral status-checking.</p>
+
+<p>Design teams inevitably encounter <strong>disagreements about design direction</strong>. These are healthy — divergent perspectives are one of the primary reasons teams outperform individuals on complex creative problems. The danger arises when disagreements are resolved through social dynamics rather than evidence. When the loudest voice, or the most senior person, or whoever is most emotionally invested in a particular direction wins by default, the team loses the epistemic benefits of its own diversity. Worse, the people whose views were dismissed often disengage, knowing their input does not actually influence outcomes.</p>
+
+<p>The principled alternative is to resolve design disagreements through <strong>user data and heuristic reasoning</strong>. If two team members disagree about whether a navigation pattern should be a bottom tab bar or a hamburger menu, the resolution should not come from arguing about aesthetic preference. It should come from asking: what do our user research findings say about how this audience navigates? What does established usability research say about the discoverability of hamburger menus versus bottom tab bars? Are there analogous products in this domain whose patterns we can reference? This reframes the disagreement from a competition between personal preferences into a collaborative inquiry with an evidence-based answer.</p>
+
+<p>When evidence is genuinely ambiguous, a structured decision-making process prevents the disagreement from escalating. Techniques include:</p>
+
+<ul>
+  <li><strong>Dot voting:</strong> Each team member places a limited number of votes on competing options, surfacing aggregate preference without endless debate.</li>
+  <li><strong>Decision matrix:</strong> Options are scored against weighted criteria (usability, feasibility, alignment with user goals), making trade-offs explicit and comparable.</li>
+  <li><strong>Timeboxed prototyping:</strong> Rather than debating which direction is better in the abstract, both are rapidly prototyped and evaluated — letting the artifact, not the argument, carry the evidence.</li>
+  <li><strong>Designated decision-maker:</strong> For specific domains (visual design direction, research methodology), a single team member is pre-authorized to make the final call, reducing the need for consensus on every decision.</li>
+</ul>
+
+<p>Agreeing on which of these processes the team will use — ideally at project kickoff, before any specific disagreement arises — is what makes conflict resolution feel legitimate rather than arbitrary. A decision made through a process everyone agreed to in advance carries authority that a decision made under pressure in the moment of conflict simply does not.</p>
+
+<p><strong>Collaboration Tools and Documentation Practices</strong></p>
+
+<p>The artifacts a design team produces — research notes, wireframes, prototypes, testing recordings, decision logs — are not merely outputs. They are also the team's shared memory, its communication infrastructure, and its institutional knowledge. How those artifacts are managed determines whether the team can learn from its own history, recover from setbacks, and bring new members up to speed efficiently.</p>
+
+<p><strong>Version-controlled design files</strong> address one of the most painful failure modes in collaborative design work: the accidental or irrecoverable loss of a prior state. In the absence of version control, it is common for a team to iterate toward a high-fidelity prototype, realize during user testing that an earlier concept was stronger, and find that no usable record of that earlier concept remains — it was overwritten in the process of moving forward. Version control, whether through a platform's built-in history (Figma's version history, for example), a naming convention system (<em>checkout-flow-v1.fig</em>, <em>checkout-flow-v2.fig</em>), or a Git-based workflow for design assets, prevents this loss. More than preventing loss, it enables <em>meaningful comparison</em> of design iterations. When a team can place version 2 and version 5 side by side, they can articulate precisely what changed, why, and whether the changes improved the experience — a capacity that is essential for learning from the design process itself.</p>
+
+<p><strong>Shared documentation platforms</strong> — tools like Confluence, Notion, Google Docs, or even a well-maintained shared folder — ensure that decisions, their rationale, and resulting action items are not locked inside any individual's memory or local hard drive. The most useful design documentation captures not just <em>what</em> was decided but <em>why</em>: what alternatives were considered, what evidence informed the choice, and what conditions might lead the team to revisit it. This kind of reasoning-rich documentation is especially valuable during handoffs — when a new team member joins, when a project is paused and resumed months later, or when a stakeholder asks why a particular direction was chosen over an obvious alternative.</p>
+
+<p>A lightweight but effective documentation practice is maintaining a <strong>decision log</strong>: a running record of significant design decisions, structured consistently enough to be scannable:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Decision</th>
+      <th>Rationale</th>
+      <th>Alternatives Considered</th>
+      <th>Owner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Week 3</td>
+      <td>Use bottom tab bar instead of hamburger menu</td>
+      <td>Research showed 3 of 5 users missed hidden navigation in testing</td>
+      <td>Hamburger menu, side drawer</td>
+      <td>Team Member B</td>
+    </tr>
+    <tr>
+      <td>Week 5</td>
+      <td>Reduce onboarding steps from 6 to 3</td>
+      <td>Drop-off observed at step 4 in usability tests; user feedback cited length as friction</td>
+      <td>Progressive disclosure, optional steps</td>
+      <td>Team Member A</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Inconsistent documentation practices</strong> are worth examining specifically because their costs are delayed and therefore easy to underestimate. During a project, skipping documentation feels like a productivity gain — there is always something more immediately urgent than writing up a meeting. But the debt accumulates. New team members spend hours reconstructing context that was never captured. The team cannot answer a stakeholder's question about why a direction was abandoned because no one remembers and nothing was written down. Post-project retrospectives become exercises in reconstruction rather than reflection. The cumulative cost of these gaps typically far exceeds the time that documentation would have required.</p>
+
+<p>The practical implication is that documentation should be treated as a deliverable, not an optional add-on. Assigning a rotating documentation role — one person per phase or per meeting is responsible for capturing decisions and action items — distributes the burden, prevents it from falling to the same person repeatedly, and ensures it is treated with the same seriousness as the design work itself. When documentation is everyone's responsibility in principle but no one's responsibility in practice, it simply does not happen.</p>
+
+<p>Taken together, these four pillars — thoughtful process planning, equitable and flexible role distribution, evidence-grounded communication and conflict resolution, and rigorous but practical documentation — form the operational infrastructure that allows a design team's creativity and expertise to flourish rather than be consumed by preventable organizational friction.</p>
+        <div class="notes"><strong>Notes</strong>Instructors may wish to prompt students to audit their own team&#39;s practices against each of the four pillars, identifying one specific strength and one specific gap in each area. The decision log table format can be offered as a downloadable template to encourage immediate adoption.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interpreting Results and Communicating Findings</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Interpreting Results and Communicating Findings</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Interpreting Results and Communicating Findings</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The cognitive walkthrough process generates a detailed record of step-by-step evaluative judgments, but those raw judgments are only the raw material of a usability evaluation — not the evaluation itself. The real analytical work begins after the walkthrough is complete, when you must transform a collection of individual pass/fail decisions into a coherent, prioritized, and actionable account of how the interface serves — or fails — its intended users. This final stage involves three interconnected activities: synthesizing findings into meaningful patterns, translating those patterns into recommendations that designers can actually use, and presenting everything in a form that earns trust and drives action. Understanding the inherent limitations of the method is also essential, both for honest communication with stakeholders and for deciding when additional research is warranted.</p>
+
+<p><strong>Synthesizing Findings into Patterns</strong></p>
+
+<p>A cognitive walkthrough of even a moderately complex interface can produce dozens of individual failure notes. Handing a designer a raw list of fifty isolated observations — "Step 3, Q2 failed; Step 7, Q1 failed; Step 12, Q2 failed" — is technically complete but practically unhelpful. The designer cannot easily see which problems are symptoms of the same underlying cause, which areas of the interface are most troubled, or where to begin. Synthesis is the process of grouping and interpreting those raw findings so that their collective meaning becomes visible.</p>
+
+<p>The most productive first move is to group failures by the evaluative question they violate. The cognitive walkthrough framework uses a small set of evaluative questions — typically concerning whether users will know what to do, whether they will notice the correct action, whether they will understand the system's response, and so on. When you sort every failure into these buckets, you immediately see whether your interface has a pervasive <em>discoverability</em> problem (most failures on the question about knowing what to do), a <em>feedback</em> problem (most failures on the question about interpreting system responses), or some other dominant weakness. This categorical grouping reveals design weaknesses that are invisible when failures are listed in the order they were encountered.</p>
+
+<p>A second dimension of synthesis is to look for patterns across the steps of a single task. If a user attempting to attach a file to an email fails the evaluative questions at the step where they open the attachment panel, again at the step where they navigate to the file, and again at the step where they confirm the attachment, all three failures share a spatial and functional context — they all occur within the same interface region and workflow segment. This concentration of failures within one task strongly suggests a <em>structural interface problem</em>: the design of that particular feature or screen is fundamentally misaligned with the novice user's mental model. The recommendation that follows will need to address the architecture of that feature, not just polish individual labels or icons.</p>
+
+<p>A third and higher-level pattern emerges when you look across multiple, otherwise unrelated tasks. Suppose users fail Q2 (noticing the correct action) repeatedly in the attachment workflow, the calendar workflow, and the search workflow — three completely different functional areas. This recurrence across tasks is a signal of a <em>design philosophy issue</em>: the product may rely on a visual language or interaction paradigm that systematically hides affordances from novice users. The root cause is not a bad button in one screen; it is a pervasive convention about how the product surfaces its capabilities. This kind of finding is the most valuable output of a thorough synthesis because it reveals leverage points — fix the underlying philosophy and multiple independent problems improve simultaneously.</p>
+
+<p>The practical difference between a synthesized report and a raw list is significant. Consider the following comparison:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Raw finding list</th>
+      <th>Synthesized finding</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Step 3, Q2 fail: user may not notice the "More" overflow menu.</td>
+      <td rowspan="3">Five of seven Q2 failures across tasks 1, 2, and 4 occur at steps where key actions are hidden in overflow menus or secondary panels. Novice users systematically overlook actions that are not persistently visible in the primary interface layer, suggesting an over-reliance on progressive disclosure that exceeds the tolerance of first-time users.</td>
+    </tr>
+    <tr>
+      <td>Step 9, Q2 fail: user may not notice the settings icon is in the top-right corner.</td>
+    </tr>
+    <tr>
+      <td>Step 14, Q2 fail: user may not notice the "Advanced" link below the form.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The synthesized version is not simply more compact — it is more <em>useful</em> because it identifies the class of design decision causing the failures, which points directly toward the class of design change that would fix them. Designers can act on a synthesized finding immediately; they must do additional interpretive work before they can act on an unsynthesized list.</p>
+
+<p><strong>Writing Actionable Recommendations</strong></p>
+
+<p>A finding without a recommendation is a diagnosis without a prescription. Designers need to know not only what is broken but what direction to move in to fix it. Effective recommendations have several distinguishing characteristics.</p>
+
+<p>First, every recommendation must be <em>directly tied to a specific failure type and its identified root cause</em>. Vague recommendations — "improve the navigation" or "make the interface more intuitive" — are nearly useless because they do not tell the designer <em>what specifically</em> to change or <em>why</em> the current state is problematic. A well-formed recommendation names the failure pattern, identifies the root cause, and proposes a concrete direction: "Because novice users failed to discover actions located in overflow menus (Q2 failures across tasks 1, 2, and 4), consider surfacing the three most frequently needed actions as persistent, labeled buttons in the primary toolbar rather than nesting them under a 'More' control."</p>
+
+<p>Second, recommendations should be <em>proportionate to the severity and scope of the failure</em>. A common and costly mistake is recommending a complete redesign when a targeted change would resolve the problem. If failures cluster around a single mislabeled button, the recommendation is to relabel the button — not to redesign the entire settings panel. Recommending sweeping redesigns in response to isolated issues undermines the evaluator's credibility, because it signals either a failure to diagnose the problem correctly or an unwillingness to think carefully about cost-effective solutions. Reserve large-scale recommendations for findings that genuinely warrant them: structural problems and design philosophy issues identified through cross-task pattern analysis.</p>
+
+<p>Third, recommendations should be <em>prioritized by the severity of the failures they address</em>. Severity in a cognitive walkthrough context combines two factors: how likely the failure is to block task completion (a failure at the first step of a task is more severe than a failure at a minor confirmatory step), and how frequently the affected task is performed. A practical severity framework might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Severity level</th>
+      <th>Criteria</th>
+      <th>Recommendation priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Critical</td>
+      <td>Failure blocks task completion; occurs on a frequently performed task; no recoverable path</td>
+      <td>Must address before release</td>
+    </tr>
+    <tr>
+      <td>Serious</td>
+      <td>Failure significantly impedes progress; user may eventually recover but with difficulty or confusion</td>
+      <td>Address in next design iteration</td>
+    </tr>
+    <tr>
+      <td>Moderate</td>
+      <td>Failure causes minor friction or confusion; user recovers quickly; infrequent task</td>
+      <td>Address when resources allow</td>
+    </tr>
+    <tr>
+      <td>Minor</td>
+      <td>Failure represents a small inconsistency or inefficiency with negligible impact on task success</td>
+      <td>Consider in future polish pass</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Fourth, wherever possible, recommendations should <em>reference established design conventions or guidelines</em> that support the proposed direction. Pointing to a relevant heuristic — such as Nielsen's principle of visibility of system status, or Fitts's Law as a basis for recommending larger touch targets — accomplishes two things. It demonstrates that the recommendation is grounded in evidence beyond the evaluator's personal preference, and it gives the designer a framework for understanding <em>why</em> the proposed change is likely to work. Citing a well-known platform guideline (for example, Apple's Human Interface Guidelines or Google's Material Design specification) is especially persuasive in organizational contexts where designers may otherwise treat evaluator feedback as subjective opinion.</p>
+
+<p><strong>Presenting Findings to Designers</strong></p>
+
+<p>Even a rigorous, well-synthesized evaluation can fail to produce change if its findings are communicated poorly. Presentation is not a cosmetic concern — it is a strategic one, because the goal of the entire evaluation is to improve the design, and that improvement only happens if the people with the power to change the design understand, trust, and act on the findings.</p>
+
+<p>The single most important structural decision in a usability report or presentation is to <em>lead with the most critical findings</em>. This is a deliberate inversion of the chronological order in which findings were discovered. In real project contexts, designers and product managers face time pressure; a presentation that buries critical findings on page fourteen will likely result in those findings being missed. Front-loading the most severe, highest-priority issues ensures that even a stakeholder who leaves the meeting early or skims the report receives the information they most need to act on.</p>
+
+<p>The language of the report matters enormously. Findings should be written in <em>user-centered language</em> that keeps the novice user's experience at the center of every statement, rather than foregrounding the evaluator's personal judgment. Compare these two formulations:</p>
+
+<ul>
+  <li><em>Evaluator-centered (less effective):</em> "I found the 'Save' button placement confusing and thought it was poorly designed."</li>
+  <li><em>User-centered (more effective):</em> "A novice user who has just completed the form is unlikely to locate the 'Save' button, which appears below the fold and uses no color differentiation to distinguish it from secondary actions. This creates a high risk that users will close the window believing their work has been saved when it has not."</li>
+</ul>
+
+<p>The user-centered version is more persuasive because it describes a consequence for a real person, grounds the claim in observable interface properties, and implies a direction for correction. It also depersonalizes the critique, making it easier for designers to receive without feeling attacked.</p>
+
+<p>Every finding must be supported by <em>specific evidence</em>: the task name, the step number, and the evaluative question that failed. This specificity serves two purposes. It allows the designer to independently verify the finding by reviewing the relevant part of the interface, and it demonstrates analytical rigor — the finding is not a vague impression but a traceable conclusion derived from a systematic process. A well-evidenced finding might read: "In Task 2 (creating a new contact), Step 4 (saving the contact), the evaluative question 'Will the user know that the correct action has been performed?' received a failure judgment because the interface displays no confirmation message, toast notification, or other system feedback after the save action is triggered."</p>
+
+<p>Finally, effective communication requires <em>acknowledging successful design decisions alongside failures</em>. An evaluation report that contains only problems reads as an attack on the design team's competence and is likely to provoke defensiveness rather than receptive engagement. Identifying and naming what the design does well — "The step-by-step progress indicator in the onboarding flow consistently passed Q3 judgments across all tasks, providing novice users with reliable feedback about where they are in the process" — accomplishes several things: it demonstrates that the evaluator applied the method impartially rather than hunting for failures, it gives the design team positive reinforcement for choices worth preserving in future iterations, and it establishes the evaluator as a credible, balanced analyst whose critical findings can therefore be trusted.</p>
+
+<p><strong>Limitations of the Cognitive Walkthrough Method</strong></p>
+
+<p>No evaluation method is universal or infallible, and honest communication of findings requires acknowledging the cognitive walkthrough's specific constraints. Stakeholders who understand these limitations can make better decisions about how much weight to give the findings and when to invest in complementary research.</p>
+
+<p>The most fundamental limitation is that <em>findings reflect an evaluator's simulation of a novice user's cognition, not the actual behavior of novice users</em>. The walkthrough is an expert analysis, not an empirical observation. The evaluator uses their knowledge of design principles, cognitive psychology, and domain conventions to predict what a first-time user would think and do — but predictions are not measurements. Real novice users bring idiosyncratic backgrounds, expectations, and strategies that no evaluator can fully anticipate. They may fail at steps the evaluator judged as passing, and succeed at steps the evaluator judged as failing, for reasons that only emerge in direct observation.</p>
+
+<p>The method also has a <em>temporal blindspot</em>: it captures the experience of first-time use but does not address how easily users can develop competence over repeated interactions, nor does it evaluate the efficiency ceiling available to experienced users. Questions like "How quickly will users become proficient?" or "Does this design support expert-level shortcuts?" require longitudinal study or task-timing analyses that go beyond what a walkthrough can provide.</p>
+
+<p><em>Evaluator bias</em> is a third and practically significant limitation. The judgments made during a cognitive walkthrough are only as reliable as the evaluator's knowledge, assumptions, and self-awareness. An evaluator with deep expertise in a particular domain may unconsciously apply domain knowledge that a genuine novice would not have, leading them to pass steps that real novices would fail. Conversely, an evaluator unfamiliar with a particular interface paradigm might fail steps that users in the actual target population would find natural. Using multiple evaluators and discussing disagreements openly can reduce but cannot eliminate this source of bias.</p>
+
+<p>For these reasons, <em>cognitive walkthrough findings should ideally be validated through subsequent user testing</em>. The walkthrough is most accurately characterized as a hypothesis-generating method: it produces a structured, theoretically grounded set of predictions about where novice users will struggle. Those predictions are valuable — they direct attention efficiently and often identify real problems at low cost — but they gain their full evidential force only when confirmed by observation of actual users performing actual tasks. A formative usability test with even five to eight participants from the target population can confirm which walkthrough-identified failures materialize in practice, reveal issues the walkthrough missed, and provide the kind of behavioral evidence that is often more persuasive to skeptical stakeholders than expert judgment alone.</p>
+
+<p>Understanding these limitations does not diminish the value of the cognitive walkthrough — it places that value in its proper context. The method is fast, inexpensive, theoretically grounded, and capable of identifying a substantial proportion of critical usability problems before a single user is recruited. Used honestly, with its limitations clearly communicated, it is an indispensable tool in a well-rounded usability evaluation program.</p>
+        <div class="notes"><strong>Notes</strong>Tabular data rendered as HTML tables: failure pattern comparison (raw vs. synthesized) and severity framework. User-centered vs. evaluator-centered language contrast rendered as a list with inline emphasis for clarity. No headings used; topic flow maintained through strong paragraph leads and bold subtopic labels.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

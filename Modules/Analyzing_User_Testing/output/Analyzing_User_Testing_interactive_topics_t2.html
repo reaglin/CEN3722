@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collecting and Organizing Test Data</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Collecting and Organizing Test Data</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Collecting and Organizing Test Data</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Once usability test sessions have been conducted, the real analytical work begins: turning raw observations, recordings, and notes into structured, actionable insights. This process — collecting and organizing test data — is where the difference between a productive usability study and a pile of disconnected observations is made. Without a deliberate system for capturing what happens during sessions and then consolidating those observations across participants, even the most carefully designed test will yield little more than anecdotes. The methods described below form a complete pipeline: from capturing data in the moment, to structuring it for collaborative analysis, to logging and prioritizing issues, to synthesizing patterns across every participant who took part in the study.</p>
+
+<p><strong>Data Collection Methods</strong></p>
+
+<p>The foundation of any usability study is the quality and completeness of the data collected during each session. Observers and facilitators have several tools at their disposal, and the best studies use more than one in combination to ensure nothing important is missed.</p>
+
+<p><strong>Screen and audio recordings</strong> are among the most valuable data sources available. A screen recording captures exactly what a participant sees and does — every click, hesitation, wrong turn, and correction — while a synchronized audio track preserves the participant's think-aloud commentary and any dialogue with the facilitator. Together these create a permanent, reviewable record of the session that can be revisited during analysis. If a note-taker misses a critical moment, the recording provides a safety net. Recordings are particularly useful for capturing the precise wording a participant uses when expressing confusion, which is often more revealing than an observer's paraphrase. The main limitation is time: reviewing full recordings for every participant in a large study is labor-intensive, so recordings are best used selectively — for moments flagged during live observation, or for clips that will be shared with stakeholders as evidence.</p>
+
+<p><strong>Structured note-taking templates</strong> address a common problem: when multiple observers take notes in their own individual styles, the resulting data is inconsistent and hard to compare across sessions. A structured template pre-defines what observers should be watching for and how they should record it. A well-designed template might include columns or fields for the task being observed, a description of what the participant did or said, a severity rating, and a timestamp or screen location. By giving every observer the same framework, teams ensure that equivalent events are recorded in equivalent ways, making cross-participant comparison far more straightforward. Templates also help less experienced observers know what to pay attention to, reducing the chance that important moments slip by unrecorded.</p>
+
+<p><strong>Automated analytics tools</strong> offer a complementary perspective that is completely free of observer interpretation. Tools that log clicks, navigation paths, error messages triggered, time-on-task, and drop-off points produce objective, timestamped behavioral data at scale. Unlike human observers who must choose where to direct their attention, automated systems capture everything within their scope simultaneously and without fatigue. This makes them especially powerful for identifying <em>where</em> in an interface people struggle, even if they cannot explain <em>why</em>. The limitation is that analytics data tells you what happened but rarely why — it shows that users abandoned a form on step three, but not whether they were confused by the instructions, distracted, or simply changed their mind. Pairing automated logs with qualitative observation closes this gap.</p>
+
+<p><strong>Multiple observers</strong> increase data reliability by reducing the chance that a single person's attention lapses or biases color what gets recorded. When two observers independently watch the same session, areas of agreement reinforce confidence in the finding, while disagreements signal ambiguity that deserves closer scrutiny. However, multiple observers only improve reliability if they share a common coding scheme — a set of agreed definitions for the categories, labels, and severity scales they will use. Without this shared framework, two observers watching identical behavior may record it in incompatible ways, creating noise rather than signal. Establishing and rehearsing a coding scheme before sessions begin, ideally with a pilot session, is essential to realizing the benefit of having multiple observers.</p>
+
+<p><strong>Affinity Diagramming</strong></p>
+
+<p>Once raw observations have been collected, affinity diagramming provides a structured, visual method for organizing them into meaningful patterns. The technique originates in qualitative research and is widely used in UX and design thinking precisely because it is collaborative and emergent — it lets the data reveal its own structure rather than imposing a framework in advance.</p>
+
+<p>The process begins with <strong>atomizing observations</strong>: each discrete piece of data — a quote, a behavior, an error, a comment — is recorded as a single unit on a sticky note, index card, or digital equivalent. The single-unit rule is critical. If an observer bundles multiple observations into one note ("the user was confused by the navigation and couldn't find checkout"), separating cause from symptom later becomes difficult. Each note should capture one thing: "user clicked the logo expecting to return to homepage" is one note; "user said 'I don't know where to go from here'" is a separate note. This granularity gives the team maximum flexibility during the grouping phase.</p>
+
+<p>In the <strong>grouping phase</strong>, the team moves notes around — physically on a wall or digitally in a tool — placing items that seem related near each other. Crucially, this is done without predetermined categories. Groups emerge from the data itself. A cluster of notes all describing confusion at the same navigation menu reveals a theme; a cluster of notes about error messages that don't explain what went wrong reveals another. Once clusters stabilize, the team writes a short label for each group that captures what its members share. These labels become the vocabulary of the analysis.</p>
+
+<p>Affinity diagramming is <strong>most effective when the full design team participates</strong>, rather than being delegated to one analyst. When researchers, designers, and product managers all contribute to the grouping process, the resulting themes reflect multiple perspectives and carry broader buy-in. Designers who personally handled the notes are far more likely to act on the findings than those who received a second-hand report. The collaborative process also surfaces disagreements — if two team members want to place the same note in different groups, the resulting discussion often yields a richer understanding of what the note actually means.</p>
+
+<p>The output of an affinity diagram — its clusters and labels — <strong>directly informs prioritization</strong>. A cluster containing fifteen notes from multiple participants describes a widespread, systematic problem; a cluster with two notes from a single participant may represent an individual quirk or edge case. This visual, spatial representation makes it immediately clear which themes dominate the data and which are peripheral, guiding the team toward the issues most deserving of redesign effort.</p>
+
+<p><strong>Usability Issue Logs</strong></p>
+
+<p>While affinity diagrams are excellent for exploratory synthesis, a usability issue log provides a more formal, structured record that can be shared, tracked, and updated over time. An issue log is essentially a table where each row represents one identified usability problem, documented in a consistent format.</p>
+
+<p>The most important discipline in maintaining an issue log is <strong>describing the problem, not the solution</strong>. An entry that reads "the checkout button is too small" has already jumped to a solution. An entry that reads "participants did not notice the checkout call-to-action on the payment confirmation screen, with three out of five participants scrolling past it and expressing uncertainty about whether their order had been placed" describes the observable problem objectively. This distinction matters because the solution space for a visibility problem is wide: the button might be enlarged, repositioned, given a different color, accompanied by supporting text, or replaced with an entirely different interaction pattern. Logging the problem keeps the team's options open and preserves the authentic voice of the data.</p>
+
+<p>Each log entry should capture <strong>frequency and severity</strong>. Frequency records how many participants encountered the issue — a problem seen by five out of five participants is categorically different from one seen by one out of five. Severity reflects the impact on the user's experience: did the issue cause a task failure, a significant delay, mild confusion, or merely a raised eyebrow? Severity scales vary, but a common approach uses four levels:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Severity Level</th>
+      <th>Label</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Critical</td>
+      <td>Prevents task completion; user cannot proceed without assistance</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Serious</td>
+      <td>Causes significant difficulty or delay; task completed only with effort</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Minor</td>
+      <td>Causes slight confusion or hesitation; task completed without major impact</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Cosmetic</td>
+      <td>User notices an imperfection but is not meaningfully impeded</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Combining frequency and severity into a single prioritization score — for example, by multiplying or weighting them — gives teams a defensible, data-driven basis for deciding which issues to address first. This is especially valuable when resources are limited and every redesign decision requires justification.</p>
+
+<p>Issue logs also function as an <strong>audit trail</strong>. Because each entry is tied to specific observations (and ideally to a session recording timestamp), any future design decision can be traced back to the user behavior that motivated it. This matters during design reviews, when a stakeholder asks "why did we change this?" — the answer is documented in the log. It also matters when a fix is later evaluated: the original problem statement provides the success criterion against which the redesign can be measured.</p>
+
+<p>Finally, <strong>sharing the issue log with stakeholders</strong> transforms usability findings from internal team knowledge into organizational evidence. A well-maintained log makes a compelling case for redesign investment because it grounds abstract recommendations in specific, documented user behavior. Stakeholders who might resist change based on intuition or opinion find it harder to dismiss a log showing that four out of six participants failed a core task due to the same interface element.</p>
+
+<p><strong>Synthesizing Across Participants</strong></p>
+
+<p>Individual session observations are the raw material; synthesis across all participants is where meaning is made. Cross-participant synthesis is the process of comparing what happened in each session to identify patterns, separate systematic design problems from individual variation, and build a picture of the interface's overall usability.</p>
+
+<p>The central principle is that <strong>issues observed by multiple participants carry more redesign weight than those seen only once</strong>. When a single participant struggles with something, it could reflect their personal background, an unusual mental model, or simple momentary distraction. When four out of five participants make the same error at the same point in a task, the interface — not the individual — is almost certainly the cause. Synthesis makes this distinction visible and defensible.</p>
+
+<p>The goal of synthesis is to <strong>separate systematic design flaws from individual user differences</strong>. A systematic flaw is one rooted in the design itself: an ambiguous label, a navigation structure that doesn't match users' mental models, an error message that provides no recovery path. These are issues the design team can and should address. Individual differences — a participant who happens to be unfamiliar with e-commerce, or one who uses an assistive technology that creates unique interaction patterns — may not indicate a design flaw at all, or may point to accessibility issues that require a different kind of response. Cross-participant synthesis helps the team make this distinction with evidence rather than assumption.</p>
+
+<p><strong>Frequency tables and heat maps</strong> are powerful visualization tools for this phase. A frequency table lists each identified issue as a row, with each participant as a column, and marks which participants encountered each issue. This immediately reveals which issues are widespread (marks across most columns) and which are isolated (marks in only one or two columns). A heat map applied to a screenshot or prototype can show where across the interface errors and hesitations concentrate — visually dense red areas identify locations in the UI that are generating the most friction, regardless of the specific nature of each incident.</p>
+
+<p>An example frequency table for a five-participant study might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Usability Issue</th>
+      <th>P1</th>
+      <th>P2</th>
+      <th>P3</th>
+      <th>P4</th>
+      <th>P5</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Could not locate search bar</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td></td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>Confused by "My Account" label</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>Did not notice confirmation email message</td>
+      <td></td>
+      <td>✓</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Incorrectly used filter as sort</td>
+      <td>✓</td>
+      <td></td>
+      <td>✓</td>
+      <td>✓</td>
+      <td></td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>From this table, a team can immediately see that the "My Account" label issue is universal and demands priority attention, while the confirmation email issue may be less critical or specific to one participant's context.</p>
+
+<p>Timing is an often-overlooked but critical factor in synthesis quality: <strong>synthesis should begin promptly after sessions conclude</strong>, while memories are still fresh. Notes capture words and actions, but they rarely capture everything — the tone of a participant's voice when they expressed frustration, the specific gesture they made before giving up, the slight hesitation that preceded a wrong click. These nuances live in observers' memories and are lost within days if synthesis is delayed. Best practice is to conduct a brief debrief immediately after each session to capture top-of-mind observations, then complete full cross-participant synthesis within a day or two of the final session. Teams that wait weeks to synthesize routinely find that their notes feel incomplete and that critical context has faded beyond recovery.</p>
+        <div class="notes"><strong>Notes</strong>Consider supplementing with a visual example of a completed affinity diagram layout (even as a described diagram) when adapting this content for a visual learning environment. The frequency table example can be expanded with actual severity scores if the audience is practitioners rather than students.</div>
+      </div>
+    </details>
+  </main>
+</body></html>

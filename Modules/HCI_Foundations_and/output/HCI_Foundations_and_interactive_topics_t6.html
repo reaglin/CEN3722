@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Collaboration and Project Kickoff</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+  <header>
+    <h1>Team Collaboration and Project Kickoff</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Team Collaboration and Project Kickoff</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Launching a collaborative software project successfully depends far less on raw technical skill than most beginners expect. The teams that consistently produce strong outcomes are the ones that invest deliberate effort at the very beginning — clarifying who does what, agreeing on how they will work together, and anchoring every subsequent decision to a clear, shared understanding of the problem they are solving. This module addresses exactly that foundational layer. By the time your team finishes these activities, you will have operational infrastructure (shared code repository, design workspace, working local environments), a written team charter, and a scoped project statement — artifacts that will guide your collaboration throughout the entire course.</p>
+
+<p>Think of this module as building the scaffolding before construction begins. Scaffolding is never the final product, but without it the building cannot go up safely. Every hour spent here pays compound interest later, because the most expensive problems in any project — missed deliverables, duplicated work, interpersonal conflict, scope creep — are overwhelmingly caused by unclear expectations established (or not established) right at the start.</p>
+
+<p><strong>Forming Effective Project Teams</strong></p>
+
+<p>Research in organizational psychology and software engineering has consistently shown that <em>cross-functional teams</em> — groups whose members bring meaningfully different skill sets and perspectives — produce better outcomes than homogeneous groups of specialists. The reason is straightforward: building a user-facing application requires at least four distinct types of thinking happening simultaneously. Someone needs to consider how the interface looks and feels. Someone needs to reason about code architecture and implementation. Someone needs to communicate with stakeholders, write documentation, and keep the team organized. And someone needs to think critically about the users themselves — their goals, mental models, and pain points. When all of those perspectives live inside the same small team, decisions get challenged from multiple angles before they harden into expensive mistakes.</p>
+
+<p>In a course setting your team is typically assigned rather than self-selected, which means your first task is an honest skills inventory. This is not a performance review — it is a practical map of who is well-positioned to lead which kinds of work. A useful skills inventory covers at minimum:</p>
+
+<ul>
+  <li><strong>Design:</strong> Comfort with visual hierarchy, layout, color, and tools like Figma. Has the person built wireframes or mockups before? Do they have an eye for what makes an interface feel intuitive versus cluttered?</li>
+  <li><strong>Coding:</strong> Familiarity with the languages and frameworks the project will use. Distinguish between "I have written this kind of code before" and "I have read about this." Both are useful data points, but they imply very different levels of support needed.</li>
+  <li><strong>Communication and organization:</strong> Skill at writing clearly, facilitating meetings, tracking tasks, and translating between technical and non-technical stakeholders. Teams routinely undervalue this skill until a miscommunication derails a sprint.</li>
+  <li><strong>Research and analysis:</strong> Ability to gather user data, synthesize findings, evaluate competing solutions, and make evidence-based recommendations. This skill is critical during problem scoping and user testing.</li>
+</ul>
+
+<p>The point of the inventory is not to lock people into boxes. It is to ensure that every capability the project needs is explicitly claimed by at least one person, and to surface gaps early enough to plan around them. If nobody on your team has touched CSS in their life, that is important to know in week one, not week eight.</p>
+
+<p>Establishing shared expectations early is equally important. Teams that skip this step often discover their assumptions mid-project, at the worst possible moment. Common hidden assumptions include: how much time each person expects to spend per week, whether it is acceptable to push incomplete code to the main branch, what "done" means for a task, and how the team will make decisions when members disagree. Surface these assumptions explicitly and agree on answers before any technical work begins.</p>
+
+<p><strong>Defining Team Roles and Responsibilities</strong></p>
+
+<p>Once you understand what each person brings to the team, the next step is translating that into named roles with documented responsibilities. Named roles matter for a specific practical reason: when something is blocked, everyone on the team should immediately know whose job it is to unblock it. Without named ownership, blockers linger because each person assumes someone else will handle it.</p>
+
+<p>Common roles in a course project team include:</p>
+
+<ul>
+  <li><strong>Project Lead / Scrum Master:</strong> Facilitates team meetings, maintains the task board, tracks progress against deadlines, and escalates issues to the instructor when the team is stuck. This person is not necessarily the best coder — they are the best organizer and communicator.</li>
+  <li><strong>Lead Developer:</strong> Owns the technical architecture decisions, reviews pull requests, and serves as the go-to resource when teammates encounter implementation blockers. Sets coding standards for the team.</li>
+  <li><strong>UI/UX Designer:</strong> Owns the Figma workspace, produces wireframes and high-fidelity mockups, and advocates for the user during design reviews. Works closely with the lead developer to ensure designs are feasible to implement.</li>
+  <li><strong>Research and QA Lead:</strong> Conducts and synthesizes user research, writes and executes test cases, and documents bugs. Keeps the team honest about whether the product actually solves the user's problem.</li>
+</ul>
+
+<p>These roles should be <em>documented in the repository</em> — specifically in a <code>TEAM.md</code> or equivalent file at the root level — so that every team member, and your instructor, can find them instantly. A roles document is also a forcing function: writing it down reveals ambiguities ("wait, who owns the database schema?") that verbal agreements tend to gloss over.</p>
+
+<p>An important nuance for course projects: roles should be understood as primary ownership, not exclusive ownership. Responsibilities can and should be shared or rotated across the project lifecycle so that every student gains experience in areas outside their comfort zone. If the lead developer always writes all the code and the designer never touches a file, the developer has learned a lot and the designer has learned less than they should. Intentional rotation — even if it temporarily slows velocity — produces better learning outcomes. Document planned rotations in your charter so everyone has agreed to them in advance.</p>
+
+<p><strong>Creating the Team Charter</strong></p>
+
+<p>A team charter is a short written agreement that makes implicit working assumptions explicit and gets every member's sign-off before work begins. Its value is not bureaucratic — it is psychological. When a conflict arises at 11pm before a deadline (and one will), the charter gives the team a neutral reference point that everyone already agreed to, which dramatically reduces the emotional charge of the conversation.</p>
+
+<p>A well-constructed team charter typically covers the following sections:</p>
+
+<ul>
+  <li><strong>Working styles and availability:</strong> When is each person generally available? Are there hard constraints (job, family, time zone) that affect scheduling? What is each person's preferred communication style — synchronous video calls, asynchronous messages, or something else?</li>
+  <li><strong>Communication channels:</strong> Specify which tool is used for which purpose. For example: Slack for daily async communication, GitHub Issues for task tracking and technical discussion, and a weekly 60-minute video call for planning. The danger of leaving this unspecified is that critical information ends up scattered across text messages, emails, and DMs where not everyone sees it. Documenting the channels ensures no team member is excluded from key decisions.</li>
+  <li><strong>Deadlines and accountability:</strong> What is the team's norm for internal deadlines versus the instructor's deadlines? A common approach is to set internal deadlines 48 hours before the official deadline so there is buffer for integration and review. What happens when someone misses an internal deadline? Agree on this in advance — for example: notify the team as soon as you know you are at risk, not after you have already missed it.</li>
+  <li><strong>Decision-making:</strong> How will the team make decisions when members disagree? Options include consensus, majority vote, or deferring to the role owner for decisions within their domain (e.g., the designer has final say on visual design choices unless there is a strong technical constraint).</li>
+  <li><strong>Conflict resolution:</strong> What is the escalation path if a disagreement cannot be resolved internally? Usually this means bringing the issue to the instructor, but naming this explicitly removes the stigma of doing so.</li>
+</ul>
+
+<p>The charter should be stored in the repository alongside the roles document, and every team member should commit to it — literally, by adding their name or GitHub handle to a sign-off section. This small act of explicit agreement carries surprising social weight.</p>
+
+<p><strong>Scoping the Course Project</strong></p>
+
+<p>With team structure and norms in place, the team turns to defining <em>what</em> it is actually building and <em>for whom</em>. This is the project scope, and it is arguably the highest-leverage activity of the entire module. A vague or poorly considered scope will generate confusion that compounds with every subsequent decision.</p>
+
+<p>Effective project scoping begins with a <strong>problem statement</strong>: a concise, specific description of a real problem that real people experience. The problem statement is not a description of the solution. It does not mention technology, features, or interfaces. It describes a situation in which people currently struggle, and why that struggle matters. A strong problem statement passes this test: you could hand it to ten different teams and they might build ten meaningfully different solutions, all of which are valid answers to the problem.</p>
+
+<p>For example, compare these two problem statements:</p>
+
+<ul>
+  <li><em>Weak:</em> "We will build a web app that lets students track their assignments using a dashboard with a calendar view and notification system."</li>
+  <li><em>Strong:</em> "Students at our university frequently miss assignment deadlines because course requirements are spread across multiple platforms (the LMS, course syllabi PDFs, and instructor emails) with no single place to see everything in one view. This leads to preventable late penalties and increased stress."</li>
+</ul>
+
+<p>The weak version describes a solution. The strong version describes a problem, names the affected population, explains the mechanism of the problem, and articulates why it matters. Everything that follows — user research, design decisions, feature prioritization — should be traceable back to this statement.</p>
+
+<p>Alongside the problem statement, the scope document should include <strong>user goals</strong>: descriptions of what real people need to accomplish, written from the user's perspective rather than the system's perspective. User goals are distinct from system features. "The system shall send email notifications" is a feature. "A student needs to know about a deadline far enough in advance to plan their work around it" is a user goal. The distinction matters because user goals keep the team focused on outcomes (does the user actually succeed?) rather than outputs (did we ship the feature?).</p>
+
+<p>Finally — and this cannot be overstated — <strong>the scope should be reviewed with the instructor before the team invests heavily in design work</strong>. Instructors have seen many projects and can quickly identify scopes that are too broad to execute in the available time, too narrow to be interesting, technically beyond the team's current reach, or likely to encounter ethical or data privacy complications. A 20-minute scope review early in the project can save weeks of misdirected effort. Treat instructor feedback at this stage as high-value input, not criticism.</p>
+
+<p><strong>End-of-Module Readiness Checklist</strong></p>
+
+<p>Before moving forward, every team should verify that the following infrastructure and documentation are fully in place. These are not optional niceties — they are the operational foundation the rest of the project depends on.</p>
+
+<ul>
+  <li><strong>GitHub accounts and repository access:</strong> Every team member must have a verified GitHub account and must have accepted an invitation to the shared team repository. Verify this by having each member make a trivial commit (e.g., adding their name to a <code>CONTRIBUTORS.md</code> file). Do not assume someone has access until they have demonstrated it. Discovering a teammate cannot push to the repository during a deadline crunch is an entirely avoidable problem.</li>
+  <li><strong>Figma Education workspace:</strong> The team should have a Figma Education team workspace created (which provides free access to paid features for verified students) with every member invited and able to create and edit files. Confirm that members can open the shared workspace and that design files are stored there rather than in personal accounts, which are inaccessible to teammates.</li>
+  <li><strong>Local development environments:</strong> Every team member must have the required runtime, package manager, framework, and any other dependencies installed, configured, and <em>smoke-tested</em> on their own machine. A smoke test means running the project (or a minimal placeholder) end-to-end and confirming it works. "It should work, I installed Node" is not a smoke test. The goal is to confirm that no team member will discover an environment problem on the day a deliverable is due.</li>
+  <li><strong>Team charter and project scope in the repository:</strong> Both documents must be written, reviewed by the full team, and committed to the repository in a location the instructor can easily find. A <code>/docs</code> folder at the root with <code>charter.md</code> and <code>scope.md</code> is a common and sensible convention.</li>
+</ul>
+
+<p>The checklist below summarizes these readiness criteria in a scannable format your team can use to verify completion:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Checklist Item</th>
+      <th>How to Verify</th>
+      <th>Owner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Every member has a verified GitHub account</td>
+      <td>Each member makes a commit to the shared repo</td>
+      <td>Project Lead confirms</td>
+    </tr>
+    <tr>
+      <td>All members have repo access (push rights)</td>
+      <td>Each member pushes a test branch successfully</td>
+      <td>Project Lead confirms</td>
+    </tr>
+    <tr>
+      <td>Figma Education workspace created</td>
+      <td>Workspace visible to all members; test file created</td>
+      <td>UI/UX Designer creates</td>
+    </tr>
+    <tr>
+      <td>All members invited to Figma workspace</td>
+      <td>Each member opens workspace and edits a test frame</td>
+      <td>UI/UX Designer confirms</td>
+    </tr>
+    <tr>
+      <td>Local dev environment installed on every machine</td>
+      <td>Each member runs the project locally without errors</td>
+      <td>Each member self-certifies</td>
+    </tr>
+    <tr>
+      <td>Team charter written and committed to repo</td>
+      <td>File exists at agreed path; all members signed off</td>
+      <td>Project Lead owns</td>
+    </tr>
+    <tr>
+      <td>Project scope statement written and committed</td>
+      <td>File exists at agreed path; instructor review scheduled</td>
+      <td>Full team collaborates</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Completing this checklist as a team — not as individuals checking off their own items in isolation — is itself a valuable exercise in coordination. The act of gathering to confirm that everything works together surfaces integration issues that individual checks miss. It also means the team has already practiced the basic mechanics of collaboration before any real pressure arrives.</p>
+        <div class="notes"><strong>Notes</strong>Establishes team norms, assigns roles, and produces the initial project artifacts that will guide collaborative work throughout the course. Students leave this module with a shared project vision and operational infrastructure.</div>
+      </div>
+    </details>
+  </main>
+</body></html>
