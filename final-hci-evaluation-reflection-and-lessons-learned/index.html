@@ -1,397 +1,179 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Final HCI Evaluation, Reflection, and Lessons Learned — CEN3722</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: #f4f6f9;
-      color: #1e2633;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header / Hero ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2b6196 100%);
-      color: #fff;
-      padding: 3rem 2rem 2.5rem;
-      text-align: center;
-    }
-
-    header .course-label {
-      display: inline-block;
-      background: rgba(255,255,255,0.18);
-      border: 1px solid rgba(255,255,255,0.35);
-      border-radius: 20px;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.28rem 0.85rem;
-      margin-bottom: 1rem;
-      color: #d6e9ff;
-    }
-
-    header h1 {
-      font-size: clamp(1.5rem, 4vw, 2.4rem);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      margin-bottom: 1rem;
-      line-height: 1.25;
-    }
-
-    header p {
-      max-width: 680px;
-      margin: 0 auto;
-      font-size: 1rem;
-      color: #cde2f7;
-      line-height: 1.7;
-    }
-
-    /* ── Main content ── */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem 4rem;
-    }
-
-    .section-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #5a7fa8;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #d8e4ef;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .card {
-      background: #ffffff;
-      border: 1px solid #dce6f0;
-      border-radius: 10px;
-      padding: 1.35rem 1.4rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 24px rgba(30, 70, 120, 0.11);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card Header Row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .card-name {
-      font-size: 1rem;
-      font-weight: 650;
-      color: #1a3a5c;
-      line-height: 1.35;
-    }
-
-    .card-name a {
-      color: #1a5fa8;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s, color 0.15s;
-    }
-
-    .card-name a:hover,
-    .card-name a:focus {
-      color: #0d3d73;
-      border-bottom-color: #0d3d73;
-      outline: none;
-    }
-
-    .source-link {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #5a7fa8;
-      text-decoration: none;
-      background: #eaf2fb;
-      border: 1px solid #b8d4ee;
-      border-radius: 4px;
-      padding: 0.15rem 0.45rem;
-      white-space: nowrap;
-      transition: background 0.15s, color 0.15s;
-      flex-shrink: 0;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #cce0f5;
-      color: #0d3d73;
-      outline: none;
-    }
-
-    /* ── Badge row ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.2rem 0.5rem;
-    }
-
-    .badge-type {
-      background: #edf2ff;
-      color: #3b5bdb;
-      border: 1px solid #c5d0f5;
-    }
-
-    .badge-filetype {
-      background: #f0faf4;
-      color: #2d7a4f;
-      border: 1px solid #b2dfc5;
-      font-family: 'Courier New', monospace;
-      text-transform: lowercase;
-      letter-spacing: 0;
-    }
-
-    /* ── Description ── */
-    .card-description {
-      font-size: 0.875rem;
-      color: #3d5166;
-      line-height: 1.65;
-      flex-grow: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      padding: 1.5rem 1rem;
-      font-size: 0.78rem;
-      color: #8fa8c0;
-      border-top: 1px solid #dce6f0;
-      background: #fff;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 480px) {
-      header { padding: 2rem 1.25rem 2rem; }
-      .card-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Final HCI Evaluation, Reflection, and Lessons Learned — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</div>
-    <h1>Final HCI Evaluation, Reflection, and Lessons Learned</h1>
-    <p>
-      This module brings together the full arc of the HCI design process—from theory and analysis
-      through prototyping and evaluation—and guides learners in reflecting on what worked, what
-      didn't, and which lessons can be carried forward to strengthen future interface design practice.
-    </p>
-  </header>
-
-  <main>
-    <p class="section-label">Module Artifacts &mdash; 9 items</p>
-
-    <div class="card-grid">
-
-      <!-- 1: Module Topics -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <p class="card-description">
-          A structured outline of the module's core topics covering HCI theory application, review of
-          analysis and prototyping phases, evaluation methods, and lessons learned, used by instructors
-          to organize content delivery and by learners to navigate what will be covered.
-        </p>
-      </div>
-
-      <!-- 2: Connecting HCI Theory -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Final_HCI_Evaluation_interactive_topics_t1.html">Connecting HCI Theory to Design Outcomes</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Explains how HCI theories (such as mental models, affordances, and feedback principles) directly
-          influence concrete design decisions, helping learners connect academic concepts to real interface outcomes.
-        </p>
-      </div>
-
-      <!-- 3: Review of the Analysis Phase -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Final_HCI_Evaluation_interactive_topics_t2.html">Review of the Analysis Phase</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Reviews the user analysis phase of the HCI design process—covering user research, needs
-          identification, and task analysis—to help learners understand why thorough upfront analysis
-          drives all later design decisions.
-        </p>
-      </div>
-
-      <!-- 4: Review of the Prototyping Phase -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Final_HCI_Evaluation_interactive_topics_t3.html">Review of the Prototyping Phase</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Reviews the prototyping phase of user-centered design, covering types of prototypes, their
-          purpose as testable and disposable representations, and how they enable early assumption-testing
-          and iterative course correction.
-        </p>
-      </div>
-
-      <!-- 5: Review of the Evaluation Phase -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Final_HCI_Evaluation_interactive_topics_t4.html">Review of the Evaluation Phase</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Reviews the evaluation phase of user-centered design, covering usability testing methods,
-          expert review techniques, and how evaluation reveals gaps between designer intent and actual
-          user experience.
-        </p>
-      </div>
-
-      <!-- 6: Structured Feedback -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Final_HCI_Evaluation_interactive_topics_t5.html">Structured Feedback on Design Quality</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Covers how to give, receive, and act on structured design feedback from peers, stakeholders,
-          and usability experts, helping learners interpret critique and use it to improve interface quality.
-        </p>
-      </div>
-
-      <!-- 7: Process Execution -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Final_HCI_Evaluation_interactive_topics_t6.html">Process Execution and Team Collaboration</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Addresses the practical execution of HCI design projects, covering team roles, communication,
-          planning, and documentation practices that determine whether a project succeeds beyond individual
-          technical skill.
-        </p>
-      </div>
-
-      <!-- 8: Reflection — Topic Detail -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Final_HCI_Evaluation_interactive_topics_t7.html">Reflection and Lessons Learned</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Guides learners through post-project reflection in HCI, explaining how to identify what worked,
-          what failed, and what lessons can be carried forward to improve future design practice.
-        </p>
-      </div>
-
-      <!-- 9: Reflection — Text Content -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/Final_HCI_Evaluation_interactive.html">Reflection and Lessons Learned</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Guides learners through post-project reflection in HCI, explaining how to identify what worked,
-          what failed, and what lessons can be carried forward to improve future design practice.
-        </p>
-      </div>
-
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">Final HCI Evaluation, Reflection, and Lessons Learned</span>
+  </nav>
+      <div class="hero-label">Module 15</div>
+      <h1>Final HCI Evaluation, Reflection, and Lessons Learned</h1>
+      <p class="hero-desc">Synthesizes all course concepts by reviewing how analysis, prototyping, and evaluation methods contributed to the quality of each team&#39;s final product, with emphasis on connecting HCI theory to real design outcomes. Teams receive structured feedback on design quality, process execution, and collaboration.</p>
     </div>
+  </header>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 7 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Connecting HCI Theory to Design Outcomes</span><span class="topic-meta">3 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Review of the Analysis Phase</span><span class="topic-meta">3 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Review of the Prototyping Phase</span><span class="topic-meta">3 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Review of the Evaluation Phase</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Structured Feedback on Design Quality</span><span class="topic-meta">3 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Process Execution and Team Collaboration</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Reflection and Lessons Learned</span><span class="topic-meta">4 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">16 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_interactive_topics_t1.html">Connecting HCI Theory to Design Outcomes</a></div>
+    <p class="content-desc">Explains how HCI theories (such as mental models, affordances, and feedback principles) directly influence concrete design decisions, helping learners connect academic concepts to real interface outcomes.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_interactive_topics_t2.html">Review of the Analysis Phase</a></div>
+    <p class="content-desc">Reviews the user analysis phase of the HCI design process—covering user research, needs identification, and task analysis—to help learners understand why thorough upfront analysis drives all later design decisions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_interactive_topics_t3.html">Review of the Prototyping Phase</a></div>
+    <p class="content-desc">Reviews the prototyping phase of user-centered design, covering types of prototypes, their purpose as testable and disposable representations, and how they enable early assumption-testing and iterative course correction.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_interactive_topics_t4.html">Review of the Evaluation Phase</a></div>
+    <p class="content-desc">Reviews the evaluation phase of user-centered design, covering usability testing methods, expert review techniques, and how evaluation reveals gaps between designer intent and actual user experience.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_interactive_topics_t5.html">Structured Feedback on Design Quality</a></div>
+    <p class="content-desc">Covers how to give, receive, and act on structured design feedback from peers, stakeholders, and usability experts, helping learners interpret critique and use it to improve interface quality.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_interactive_topics_t6.html">Process Execution and Team Collaboration</a></div>
+    <p class="content-desc">Addresses the practical execution of HCI design projects, covering team roles, communication, planning, and documentation practices that determine whether a project succeeds beyond individual technical skill.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_interactive_topics_t7.html">Reflection and Lessons Learned</a></div>
+    <p class="content-desc">Guides learners through post-project reflection in HCI, explaining how to identify what worked, what failed, and what lessons can be carried forward to improve future design practice.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_interactive.html">Reflection and Lessons Learned</a></div>
+    <p class="content-desc">Guides learners through post-project reflection in HCI, explaining how to identify what worked, what failed, and what lessons can be carried forward to improve future design practice.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_t1_videos.html">Connecting HCI Theory to Design Outcomes — Videos</a></div>
+    <p class="content-desc">A reading that asks learners to trace their project&#39;s design decisions back to core HCI concepts such as affordances, the human-computer interaction cycle, and direct manipulation, used to practice justifying interface choices in theoretical terms.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_t2_videos.html">Review of the Analysis Phase — Videos</a></div>
+    <p class="content-desc">A review topic revisiting the pre-design analysis phase — user interviews, observation, task analysis, and turning findings into scoped requirements — so learners can assess how well their project&#39;s foundation supported the final interface.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_t3_videos.html">Review of the Prototyping Phase — Videos</a></div>
+    <p class="content-desc">A review topic covering the prototyping phase, contrasting low-fidelity sketches and wireframes for rapid exploration of alternatives with high-fidelity prototypes that add visual detail and realistic interaction, for learners evaluating their own prototyping choices.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_t4_videos.html">Review of the Evaluation Phase — Videos</a></div>
+    <p class="content-desc">A review topic on the evaluation phase that examines what usability testing and other evaluation activities actually revealed, how trustworthy that evidence was, and whether the resulting design changes were justified.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_t5_videos.html">Structured Feedback on Design Quality — Videos</a></div>
+    <p class="content-desc">A reading on giving and receiving structured design critique organized around dimensions like usability, learnability, consistency, visual hierarchy, accessibility, and task fit, used to frame specific, actionable feedback instead of personal preference.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_t6_videos.html">Process Execution and Team Collaboration — Videos</a></div>
+    <p class="content-desc">A reflective topic on project management and teamwork, prompting learners to assess how they planned and sequenced design activities, divided work, communicated, and resolved disagreements over the semester.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_t7_videos.html">Reflection and Lessons Learned — Videos</a></div>
+    <p class="content-desc">A capstone reflection topic guiding learners to analyze which design decisions survived user testing, which user assumptions proved wrong, and where ergonomic, psychological, cultural, or accessibility factors were overlooked, in order to extract transferable lessons.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Final_HCI_Evaluation_videos_merged.html">Final HCI Evaluation, Reflection, and Lessons Learned — 7 topics (merged)</a></div>
+    <p class="content-desc">The consolidated module page compiling all topics — theory-to-design connections, analysis, prototyping, and evaluation reviews, structured feedback, team process, and final reflection — for reading or review in a single document.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../hci-design-documentation-and-development-reporting/index.html">← HCI Design Documentation and Development Reporting</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../video-lectures/index.html">Video Lectures →</a>
+</nav>
   </main>
-
-  <footer>
-    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;|&nbsp;
-    Final HCI Evaluation, Reflection, and Lessons Learned
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

@@ -1,437 +1,236 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 2 – Project Scoping and App Platform Selection | CEN3722</title>
-  <style>
-    /* ── Reset & base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: #f4f6f9;
-      color: #1e2533;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Top bar ── */
-    .top-bar {
-      background: #1a3557;
-      color: #c9d9ec;
-      font-size: 0.8rem;
-      letter-spacing: 0.04em;
-      padding: 0.45rem 2rem;
-    }
-    .top-bar span + span::before {
-      content: ' › ';
-      margin: 0 0.35em;
-      opacity: 0.6;
-    }
-
-    /* ── Page header ── */
-    .page-header {
-      background: linear-gradient(135deg, #1a3557 0%, #1f5096 100%);
-      color: #fff;
-      padding: 2.8rem 2rem 2.4rem;
-    }
-    .page-header__inner {
-      max-width: 1060px;
-      margin: 0 auto;
-    }
-    .page-header__eyebrow {
-      font-size: 0.78rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #9ec4f0;
-      margin-bottom: 0.55rem;
-    }
-    .page-header h1 {
-      font-size: clamp(1.45rem, 3vw, 2rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 1rem;
-    }
-    .page-header__intro {
-      font-size: 0.97rem;
-      color: #c6daf5;
-      max-width: 720px;
-      line-height: 1.7;
-    }
-
-    /* ── Main content ── */
-    main {
-      max-width: 1060px;
-      margin: 2.5rem auto 4rem;
-      padding: 0 1.25rem;
-    }
-
-    /* ── Section heading ── */
-    .section-heading {
-      font-size: 0.72rem;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #5a6a82;
-      font-weight: 600;
-      margin-bottom: 1.1rem;
-      padding-bottom: 0.45rem;
-      border-bottom: 2px solid #dce3ed;
-    }
-
-    /* ── Card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.1rem;
-      margin-bottom: 2.8rem;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #fff;
-      border: 1px solid #dce3ed;
-      border-radius: 8px;
-      padding: 1.2rem 1.3rem 1.15rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
-    }
-    .card:hover {
-      box-shadow: 0 4px 16px rgba(26, 53, 87, 0.1);
-      border-color: #a8c0dc;
-    }
-
-    /* ── Card – meta row ── */
-    .card__meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-    .badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.18em 0.55em;
-      white-space: nowrap;
-    }
-    /* Badge colour by type */
-    .badge--module-topics   { background: #e8f0fb; color: #1f5096; }
-    .badge--presentation    { background: #fff3e0; color: #b45309; }
-    .badge--topic-detail    { background: #e6f4ea; color: #1b6c3b; }
-    .badge--text-content    { background: #f0eaff; color: #5b21b6; }
-    .badge--assignment      { background: #fce8e8; color: #9b1c1c; }
-
-    .filetype-tag {
-      font-size: 0.68rem;
-      color: #6b7a92;
-      background: #f1f4f8;
-      border-radius: 4px;
-      padding: 0.18em 0.5em;
-      font-family: 'Consolas', 'Courier New', monospace;
-    }
-
-    /* ── Card – title row ── */
-    .card__title {
-      font-size: 0.97rem;
-      font-weight: 600;
-      color: #1e2533;
-      line-height: 1.35;
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-    .card__title a {
-      color: #1a5296;
-      text-decoration: none;
-    }
-    .card__title a:hover {
-      text-decoration: underline;
-      color: #0d3872;
-    }
-    .card__title--plain {
-      color: #1e2533;
-    }
-
-    /* ── Source link ── */
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.71rem;
-      font-weight: 500;
-      color: #5a7a9f;
-      text-decoration: none;
-      border: 1px solid #b8cfe6;
-      border-radius: 4px;
-      padding: 0.15em 0.5em;
-      white-space: nowrap;
-      transition: background 0.15s, color 0.15s;
-    }
-    .source-link:hover {
-      background: #e4eff9;
-      color: #1a3557;
-      border-color: #7aaad4;
-    }
-    .source-link::before {
-      content: '⬇';
-      font-size: 0.65rem;
-    }
-
-    /* ── Card – description ── */
-    .card__desc {
-      font-size: 0.865rem;
-      color: #4a5568;
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    /* ── Responsive tweaks ── */
-    @media (max-width: 520px) {
-      .page-header { padding: 2rem 1.1rem 1.8rem; }
-      .card-grid { grid-template-columns: 1fr; }
-    }
-
-    /* ── Footer ── */
-    footer {
-      background: #1a3557;
-      color: #7fa3c7;
-      text-align: center;
-      font-size: 0.78rem;
-      padding: 1.1rem 1rem;
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 - Project Scoping and App Platform Selection — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <!-- Top breadcrumb bar -->
-  <div class="top-bar" aria-label="Breadcrumb">
-    <span>CEN3722 – Introduction to Human Computer Interfaces</span>
-    <span>Module 2</span>
-  </div>
-
-  <!-- Page header -->
-  <header class="page-header">
-    <div class="page-header__inner">
-      <p class="page-header__eyebrow">CEN3722 &mdash; Module 2</p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">2 - Project Scoping and App Platform Selection</span>
+  </nav>
+      <div class="hero-label">Module 2</div>
       <h1>Project Scoping and App Platform Selection</h1>
-      <p class="page-header__intro">
-        This module introduces the foundational practices of defining project scope within an HCI context and evaluating major application platforms&mdash;Android, iOS, Windows, and the web&mdash;to guide informed design and development decisions. Explore the readings, review the lecture deck, and complete the assignments to build a solid basis for your semester-long group project.
-      </p>
+      <p class="hero-desc">Covers how to define the scope of an HCI design project and how to evaluate the four target platforms — Android, iOS, Windows, and Web — to select the most appropriate one. Students produce a formal project description outlining goals, constraints, and chosen tools.</p>
     </div>
   </header>
-
-  <!-- Main content -->
-  <main>
-
-    <!-- ── Module Reference ── -->
-    <h2 class="section-heading">Module Reference</h2>
-    <div class="card-grid">
-
-      <!-- Module Topics -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--module-topics">Module Topics</span>
-          <span class="filetype-tag">.json</span>
-        </div>
-        <div class="card__title">
-          <a href="content/module_topics.html">Module Topics</a>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card__desc">A structured outline of the module's topics and subtopics, covering project scoping, target platform categories, and platform-specific characteristics for Android, iOS, and others, used as a navigational reference for the module's content.</p>
-      </div>
-
-    </div>
-
-    <!-- ── Lecture Materials ── -->
-    <h2 class="section-heading">Lecture Materials</h2>
-    <div class="card-grid">
-
-      <!-- Presentation -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--presentation">Presentation</span>
-          <span class="filetype-tag">.pptx</span>
-        </div>
-        <div class="card__title">
-          <a href="presentation/Project_Scoping_and_generated.pptx">Project_Scoping_and_generated.pptx</a>
-        </div>
-        <p class="card__desc">A slide deck covering the full module on project scoping and app platform selection, introducing concepts such as defining scope, platform overviews, and tool selection; used by instructors as a lecture presentation or by learners as a study reference.</p>
-      </div>
-
-    </div>
-
-    <!-- ── Topic Readings ── -->
-    <h2 class="section-heading">Topic Readings</h2>
-    <div class="card-grid">
-
-      <!-- T1 -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--topic-detail">Topic Detail</span>
-          <span class="filetype-tag">.html</span>
-        </div>
-        <div class="card__title">
-          <a href="content/Project_Scoping_and_interactive_topics_t1.html">Defining Project Scope in HCI Design</a>
-        </div>
-        <p class="card__desc">A reading that explains how to establish project scope in HCI design by defining goals, boundaries, constraints, and target users before any design work begins; used by learners to understand why and how scope shapes all subsequent design decisions.</p>
-      </div>
-
-      <!-- T2 -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--topic-detail">Topic Detail</span>
-          <span class="filetype-tag">.html</span>
-        </div>
-        <div class="card__title">
-          <a href="content/Project_Scoping_and_interactive_topics_t2.html">Overview of Target Application Platforms</a>
-        </div>
-        <p class="card__desc">A reading surveying the four major application platforms (Android, iOS, Windows, and web), explaining how platform choice fundamentally influences design and development decisions; used by learners to orient themselves to the platform landscape before diving into platform-specific details.</p>
-      </div>
-
-      <!-- T3 -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--topic-detail">Topic Detail</span>
-          <span class="filetype-tag">.html</span>
-        </div>
-        <div class="card__title">
-          <a href="content/Project_Scoping_and_interactive_topics_t3.html">Android Platform: Characteristics and Constraints</a>
-        </div>
-        <p class="card__desc">A reading detailing Android's design characteristics, constraints, device fragmentation, and UI conventions that designers and developers must account for; used by learners to understand the unique challenges and considerations when targeting the Android platform.</p>
-      </div>
-
-      <!-- T4 -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--topic-detail">Topic Detail</span>
-          <span class="filetype-tag">.html</span>
-        </div>
-        <div class="card__title">
-          <a href="content/Project_Scoping_and_interactive_topics_t4.html">iOS Platform: Characteristics and Constraints</a>
-        </div>
-        <p class="card__desc">A reading detailing iOS's tightly controlled hardware-software ecosystem, Apple's design conventions, App Store constraints, and expectations designers must meet; used by learners to understand the specific requirements and conventions governing iOS app design.</p>
-      </div>
-
-      <!-- T5 -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--topic-detail">Topic Detail</span>
-          <span class="filetype-tag">.html</span>
-        </div>
-        <div class="card__title">
-          <a href="content/Project_Scoping_and_interactive_topics_t5.html">Windows Platform: Characteristics and Constraints</a>
-        </div>
-        <p class="card__desc">A reading covering Windows as a desktop platform, including its dominant installed base, UI conventions, input models, and constraints relevant to software designers and developers; used by learners to understand what targeting Windows entails for HCI design.</p>
-      </div>
-
-      <!-- T6 -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--topic-detail">Topic Detail</span>
-          <span class="filetype-tag">.html</span>
-        </div>
-        <div class="card__title">
-          <a href="content/Project_Scoping_and_interactive_topics_t6.html">Web Platform: Characteristics and Constraints</a>
-        </div>
-        <p class="card__desc">A reading explaining the web as an application platform, covering browser-based delivery, cross-platform reach, accessibility considerations, and the technical and design constraints unique to web applications; used by learners to understand web-specific HCI design challenges.</p>
-      </div>
-
-      <!-- T7 -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--topic-detail">Topic Detail</span>
-          <span class="filetype-tag">.html</span>
-        </div>
-        <div class="card__title">
-          <a href="content/Project_Scoping_and_interactive_topics_t7.html">Platform Selection: Criteria and Decision-Making</a>
-        </div>
-        <p class="card__desc">A reading presenting the criteria and decision-making framework for selecting an application platform, covering factors such as audience, technical feasibility, cost, and team capability; used by learners to evaluate and justify platform choices in their own projects.</p>
-      </div>
-
-      <!-- T8 -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--topic-detail">Topic Detail</span>
-          <span class="filetype-tag">.html</span>
-        </div>
-        <div class="card__title">
-          <a href="content/Project_Scoping_and_interactive_topics_t8.html">Design and Development Tools by Platform</a>
-        </div>
-        <p class="card__desc">A reading cataloguing the wireframing, prototyping, visual design, coding, and debugging tools available for each major platform, explaining how toolchain choices affect workflow and platform alignment; used by learners to identify appropriate tools for their chosen platform.</p>
-      </div>
-
-      <!-- Text Content duplicate -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--text-content">Text Content</span>
-          <span class="filetype-tag">.html</span>
-        </div>
-        <div class="card__title">
-          <a href="content/Project_Scoping_and_interactive.html">Design and Development Tools by Platform</a>
-        </div>
-        <p class="card__desc">A duplicate reading identical to the topic detail above, cataloguing design and development tools by platform including wireframing, prototyping, and coding tools; used by learners to identify and compare appropriate toolchains for their target platform.</p>
-      </div>
-
-    </div>
-
-    <!-- ── Assignments ── -->
-    <h2 class="section-heading">Assignments</h2>
-    <div class="card-grid">
-
-      <!-- Assignment 1.1 -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--assignment">Assignment</span>
-          <span class="filetype-tag">.md</span>
-        </div>
-        <div class="card__title">
-          <a href="content/module_assignment_A001_Group_Project_Assignment_1_1_Project.html">Assignment 1.1: Project Scope Definition and Formal Project Description</a>
-          <a class="source-link" href="source/A001_Group_Project_Assignment_1_1_Project.md">source file</a>
-        </div>
-        <p class="card__desc">A detailed markdown assignment sheet guiding student groups through creating a formal project scope document that defines measurable goals, target users, platform justification, and design constraints, serving as the first installment of a semester-long group project series.</p>
-      </div>
-
-      <!-- Assignment Group Project 1 -->
-      <div class="card">
-        <div class="card__meta">
-          <span class="badge badge--assignment">Assignment</span>
-          <span class="filetype-tag">.html</span>
-        </div>
-        <div class="card__title">
-          <a href="assignments/index.html">Group Project Assignment 1: Project Scoping and Platform Selection</a>
-        </div>
-        <p class="card__desc">An HTML assignment brief directing student teams to collaboratively define their app project scope and select a target platform, outlining submission requirements, estimated effort, and group coordination expectations as the first entry in the ongoing group project series.</p>
-      </div>
-
-    </div>
-
-  </main>
-
-  <footer>
-    <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp; Module 2: Project Scoping and App Platform Selection</p>
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p><h2>Source Materials</h2><ul class="artifact-list">  <li class="artifact-item">
-    <div class="artifact-icon">⬇</div>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 8 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Defining Project Scope in HCI Design</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Overview of Target Application Platforms</span><span class="topic-meta">3 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Android Platform: Characteristics and Constraints</span><span class="topic-meta">3 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">iOS Platform: Characteristics and Constraints</span><span class="topic-meta">3 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Windows Platform: Characteristics and Constraints</span><span class="topic-meta">3 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Web Platform: Characteristics and Constraints</span><span class="topic-meta">3 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Platform Selection: Criteria and Decision-Making</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-8"><span class="topic-num" aria-hidden="true">8</span><span class="topic-text"><span class="topic-title">Design and Development Tools by Platform</span><span class="topic-meta">6 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">21 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📊</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Presentation</span><span class="pill pill-format"><span aria-hidden="true">📽️ </span>PowerPoint</span></div>
+    <div class="content-title"><a href="presentation/Project_Scoping_and_generated.pptx" download>Project_Scoping_and_generated.pptx</a></div>
+    <p class="content-desc">A slide deck covering the full module on project scoping and app platform selection, introducing concepts such as defining scope, platform overviews, and tool selection; used by instructors as a lecture presentation or by learners as a study reference.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_generated_t1_videos.html">Defining Project Scope in HCI Design — Videos</a></div>
+    <p class="content-desc">A reading that explains what project scope means in HCI work — defining goals, users, constraints such as time, budget, team skills and device capabilities, and the boundaries of what will and will not be built — which learners use to frame their own course project before design begins.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_generated_t2_videos.html">Overview of Target Application Platforms — Videos</a></div>
+    <p class="content-desc">An overview reading surveying the four primary target platforms used in the course (Android, iOS, Windows, and Web) plus additional contexts like macOS, Linux, wearables, smart TVs, automotive displays, and kiosk systems, used by learners to understand the range of environments an interface might live in.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_generated_t3_videos.html">Android Platform: Characteristics and Constraints — Videos</a></div>
+    <p class="content-desc">A platform profile describing Android&#39;s defining design realities — fragmentation across thousands of devices, varied screen sizes and densities, OS version spread, manufacturer skins, and broad user demographics — that learners consult when assessing Android as a target for their project.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_generated_t4_videos.html">iOS Platform: Characteristics and Constraints — Videos</a></div>
+    <p class="content-desc">A platform profile covering iOS design philosophy and rules, including Apple&#39;s Human Interface Guidelines, consistent system controls, typography, and navigation patterns, and the App Store review process, used by learners to weigh the trade-offs of designing for iOS.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_generated_t5_videos.html">Windows Platform: Characteristics and Constraints — Videos</a></div>
+    <p class="content-desc">A platform profile on the Windows desktop, explaining how large screens, mouse and keyboard input, overlapping windows, and long working sessions shape interface decisions for business, education, and engineering applications.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_generated_t6_videos.html">Web Platform: Characteristics and Constraints — Videos</a></div>
+    <p class="content-desc">A platform profile on web applications, describing browser-based reach across laptops, tablets, phones and kiosks with no installation, alongside trade-offs such as inherited browser capabilities and limits, used by learners evaluating the web as a delivery platform.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_generated_t7_videos.html">Platform Selection: Criteria and Decision-Making — Videos</a></div>
+    <p class="content-desc">A decision-making reading that lays out criteria for choosing a platform — screen size, input method, interaction patterns, offline behavior, accessibility, and distribution — and walks learners through a structured approach to justifying their own platform choice.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_generated_t8_videos.html">Design and Development Tools by Platform — Videos</a></div>
+    <p class="content-desc">A practical guide to the expected toolchain for each platform, spanning design and prototyping software, IDEs, UI frameworks, and testing tools, which learners use to select what they will actually build their project with.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_generated_videos_merged.html">2 - Project Scoping and App Platform Selection — 8 topics (merged)</a></div>
+    <p class="content-desc">A compiled single-page version of the full module, concatenating all topic readings from project scoping through platform profiles, selection criteria, and tooling, useful for reading or reviewing the entire module&#39;s content in one place.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_interactive_topics_t1.html">Defining Project Scope in HCI Design</a></div>
+    <p class="content-desc">A reading that explains how to establish project scope in HCI design by defining goals, boundaries, constraints, and target users before any design work begins; used by learners to understand why and how scope shapes all subsequent design decisions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_interactive_topics_t2.html">Overview of Target Application Platforms</a></div>
+    <p class="content-desc">A reading surveying the four major application platforms (Android, iOS, Windows, and web), explaining how platform choice fundamentally influences design and development decisions; used by learners to orient themselves to the platform landscape before diving into platform-specific details.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_interactive_topics_t3.html">Android Platform: Characteristics and Constraints</a></div>
+    <p class="content-desc">A reading detailing Android&#39;s design characteristics, constraints, device fragmentation, and UI conventions that designers and developers must account for; used by learners to understand the unique challenges and considerations when targeting the Android platform.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_interactive_topics_t4.html">iOS Platform: Characteristics and Constraints</a></div>
+    <p class="content-desc">A reading detailing iOS&#39;s tightly controlled hardware-software ecosystem, Apple&#39;s design conventions, App Store constraints, and expectations designers must meet; used by learners to understand the specific requirements and conventions governing iOS app design.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_interactive_topics_t5.html">Windows Platform: Characteristics and Constraints</a></div>
+    <p class="content-desc">A reading covering Windows as a desktop platform, including its dominant installed base, UI conventions, input models, and constraints relevant to software designers and developers; used by learners to understand what targeting Windows entails for HCI design.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_interactive_topics_t6.html">Web Platform: Characteristics and Constraints</a></div>
+    <p class="content-desc">A reading explaining the web as an application platform, covering browser-based delivery, cross-platform reach, accessibility considerations, and the technical and design constraints unique to web applications; used by learners to understand web-specific HCI design challenges.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_interactive_topics_t7.html">Platform Selection: Criteria and Decision-Making</a></div>
+    <p class="content-desc">A reading presenting the criteria and decision-making framework for selecting an application platform, covering factors such as audience, technical feasibility, cost, and team capability; used by learners to evaluate and justify platform choices in their own projects.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_interactive_topics_t8.html">Design and Development Tools by Platform</a></div>
+    <p class="content-desc">A reading cataloguing the wireframing, prototyping, visual design, coding, and debugging tools available for each major platform, explaining how toolchain choices affect workflow and platform alignment; used by learners to identify appropriate tools for their chosen platform.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Project_Scoping_and_interactive.html">Design and Development Tools by Platform</a></div>
+    <p class="content-desc">A duplicate reading identical to artifact 9, cataloguing design and development tools by platform including wireframing, prototyping, and coding tools; used by learners to identify and compare appropriate toolchains for their target platform.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📝</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Assignment</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/module_assignment_A001_Group_Project_Assignment_1_1_Project.html">Assignment 1.1: Project Scope Definition and Formal Project Description</a></div>
+    <p class="content-desc">A detailed markdown assignment sheet guiding student groups through creating a formal project scope document that defines measurable goals, target users, platform justification, and design constraints, serving as the first installment of a semester-long group project series.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📝</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Assignment</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="assignments/index.html">Assignments</a></div>
+    <p class="content-desc">An HTML assignment brief directing student teams to collaboratively define their app project scope and select a target platform, outlining submission requirements, estimated effort, and group coordination expectations as the first entry in the ongoing group project series.</p>
+  </div>
+</li>
+</ul>
+</section>
+<section aria-labelledby="sources-h">
+<h2 id="sources-h">Source Materials</h2>
+<ul class="artifact-list">
+  <li class="artifact-item">
+    <div class="artifact-icon" aria-hidden="true">⬇</div>
     <div class="artifact-body">
-      <a class="artifact-link" href="source-materials/source-1.html" download>Topic Prompt</a>
+      <a class="artifact-link" href="source-materials/source-1.html">Topic Prompt</a>
     </div>
   </li>
   <li class="artifact-item">
-    <div class="artifact-icon">⬇</div>
+    <div class="artifact-icon" aria-hidden="true">⬇</div>
     <div class="artifact-body">
-      <a class="artifact-link" href="source-materials/source-2.html" download>Topic Prompt</a>
+      <a class="artifact-link" href="source-materials/source-2.html">Topic Prompt</a>
     </div>
-  </li></ul></section><script src="embed-inject.js" defer></script></body>
+  </li></ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../1-hci-foundations-and-course-project-setup/index.html">← 1 - HCI Foundations and Course Project Setup</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../3-use-case-scenarios-and-requirements-gathering/index.html">3 - Use Case Scenarios and Requirements Gathering →</a>
+</nav>
+  </main>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

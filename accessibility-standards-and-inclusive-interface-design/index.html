@@ -1,431 +1,171 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Accessibility Standards and Inclusive Interface Design – CEN3722</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --clr-bg:          #f4f6f9;
-      --clr-surface:     #ffffff;
-      --clr-border:      #dde2ea;
-      --clr-primary:     #1a4f8a;
-      --clr-primary-dk:  #133a68;
-      --clr-accent:      #2e7d32;
-      --clr-accent-lt:   #e8f5e9;
-      --clr-text:        #1e2530;
-      --clr-muted:       #5a6475;
-      --clr-badge-bg:    #eef2f8;
-      --clr-badge-text:  #2b4779;
-      --clr-tag-bg:      #fdf3e3;
-      --clr-tag-text:    #7a4a00;
-      --radius:          8px;
-      --shadow:          0 2px 8px rgba(0,0,0,.08);
-      --transition:      0.18s ease;
-    }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background: var(--clr-bg);
-      color: var(--clr-text);
-      line-height: 1.6;
-      padding-bottom: 3rem;
-    }
-
-    /* ── Header Banner ── */
-    .site-header {
-      background: linear-gradient(135deg, var(--clr-primary) 0%, var(--clr-primary-dk) 100%);
-      color: #fff;
-      padding: 2.75rem 1.5rem 2.25rem;
-    }
-
-    .header-inner {
-      max-width: 1060px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.18);
-      color: #d8e8ff;
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 0.85rem;
-    }
-
-    .site-header h1 {
-      font-size: clamp(1.45rem, 3.5vw, 2.1rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 0.75rem;
-      letter-spacing: -0.01em;
-    }
-
-    .site-header p {
-      font-size: 0.97rem;
-      color: #c5d9f5;
-      max-width: 680px;
-      line-height: 1.65;
-    }
-
-    /* ── Main Content ── */
-    main {
-      max-width: 1060px;
-      margin: 2.25rem auto 0;
-      padding: 0 1.25rem;
-    }
-
-    .section-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--clr-muted);
-      margin-bottom: 1.1rem;
-      border-bottom: 2px solid var(--clr-border);
-      padding-bottom: 0.5rem;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .card {
-      background: var(--clr-surface);
-      border: 1px solid var(--clr-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1.35rem 1.4rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow var(--transition), transform var(--transition);
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 20px rgba(0,0,0,.12);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card Badges Row ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.45rem;
-      align-items: center;
-    }
-
-    .badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.2rem 0.55rem;
-    }
-
-    .badge-type {
-      background: var(--clr-badge-bg);
-      color: var(--clr-badge-text);
-      border: 1px solid #c5d3e8;
-    }
-
-    .badge-filetype {
-      background: var(--clr-tag-bg);
-      color: var(--clr-tag-text);
-      border: 1px solid #e8d5aa;
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    }
-
-    /* ── Card Name ── */
-    .card-name {
-      font-size: 1.02rem;
-      font-weight: 700;
-      line-height: 1.35;
-      color: var(--clr-text);
-    }
-
-    .card-name a {
-      color: var(--clr-primary);
-      text-decoration: none;
-      border-bottom: 2px solid transparent;
-      transition: border-color var(--transition), color var(--transition);
-    }
-
-    .card-name a:hover,
-    .card-name a:focus {
-      color: var(--clr-primary-dk);
-      border-bottom-color: var(--clr-primary-dk);
-      outline: none;
-    }
-
-    .card-name a:focus-visible {
-      outline: 3px solid #5b9bd5;
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    /* ── Source Link ── */
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.74rem;
-      font-weight: 600;
-      color: var(--clr-accent);
-      text-decoration: none;
-      background: var(--clr-accent-lt);
-      border: 1px solid #b8dfba;
-      border-radius: 4px;
-      padding: 0.18rem 0.5rem;
-      margin-left: 0.5rem;
-      vertical-align: middle;
-      white-space: nowrap;
-      transition: background var(--transition), color var(--transition);
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #c8e6c9;
-      color: var(--clr-accent);
-      outline: none;
-    }
-
-    .source-link:focus-visible {
-      outline: 3px solid #5b9bd5;
-      outline-offset: 2px;
-    }
-
-    .source-link svg {
-      flex-shrink: 0;
-    }
-
-    /* ── Card Description ── */
-    .card-desc {
-      font-size: 0.875rem;
-      color: var(--clr-muted);
-      line-height: 1.65;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    .site-footer {
-      text-align: center;
-      margin-top: 3rem;
-      font-size: 0.78rem;
-      color: var(--clr-muted);
-    }
-
-    /* ── Responsive tweaks ── */
-    @media (max-width: 480px) {
-      .card-grid { grid-template-columns: 1fr; }
-      .site-header { padding: 2rem 1.1rem 1.75rem; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Accessibility Standards and Inclusive Interface Design — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <!-- ═══ HEADER ═══ -->
-  <header class="site-header" role="banner">
-    <div class="header-inner">
-      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">Accessibility Standards and Inclusive Interface Design</span>
+  </nav>
+      <div class="hero-label">Module 12</div>
       <h1>Accessibility Standards and Inclusive Interface Design</h1>
-      <p>
-        This module explores the principles, guidelines, and practical techniques that underpin
-        accessible and inclusive digital design. Topics span WCAG guidelines, accessible visual
-        design, keyboard navigation, screen reader compatibility, inclusive design philosophy,
-        accessibility auditing, and corrective design patterns.
-      </p>
+      <p class="hero-desc">Introduces WCAG guidelines, accessible color contrast, keyboard navigation, screen reader compatibility, and other inclusive design principles essential for modern interfaces. Students audit their own prototypes for accessibility gaps and apply corrective design patterns.</p>
     </div>
   </header>
-
-  <!-- ═══ MAIN CONTENT ═══ -->
-  <main>
-    <h2 class="section-label">Module Artifacts</h2>
-
-    <div class="card-grid" role="list">
-
-      <!-- Card 1: Module Topics -->
-      <article class="card" role="listitem">
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-name">
-          <a href="content/module_topics.html">Module Topics</a>
-          <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">
-            <svg aria-hidden="true" focusable="false" width="11" height="11" viewBox="0 0 16 16" fill="currentColor">
-              <path d="M12.5 2h-9A1.5 1.5 0 002 3.5v9A1.5 1.5 0 003.5 14h9a1.5 1.5 0 001.5-1.5v-3a.5.5 0 00-1 0v3a.5.5 0 01-.5.5h-9a.5.5 0 01-.5-.5v-9a.5.5 0 01.5-.5h3a.5.5 0 000-1h-3z"/>
-              <path d="M16 1.5A1.5 1.5 0 0014.5 0h-5a.5.5 0 000 1h5a.5.5 0 01.5.5v5a.5.5 0 001 0v-5z"/>
-              <path d="M6.354 10.354l8-8a.5.5 0 00-.708-.708l-8 8a.5.5 0 00.708.708z"/>
-            </svg>
-            source file
-          </a>
-        </div>
-        <p class="card-desc">
-          A structured outline of the module's learning topics—covering WCAG guidelines and POUR principles,
-          accessible color and visual design, keyboard navigation, and screen reader compatibility—used by
-          learners to preview what the module covers and by instructors to verify curriculum scope.
-        </p>
-      </article>
-
-      <!-- Card 2: Foundations of WCAG Guidelines -->
-      <article class="card" role="listitem">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-name">
-          <a href="content/Accessibility_Standards_and_interactive_topics_t1.html">Foundations of WCAG Guidelines</a>
-        </div>
-        <p class="card-desc">
-          This reading introduces the Web Content Accessibility Guidelines (WCAG) as the foundational
-          framework for digital accessibility, covering its structure, principles, and role in shaping
-          design decisions from the start of a project; learners use it to build conceptual grounding
-          before studying specific accessibility requirements.
-        </p>
-      </article>
-
-      <!-- Card 3: Accessible Color and Visual Design -->
-      <article class="card" role="listitem">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-name">
-          <a href="content/Accessibility_Standards_and_interactive_topics_t2.html">Accessible Color and Visual Design</a>
-        </div>
-        <p class="card-desc">
-          This reading explains how to apply color and visual design choices accessibly, covering contrast
-          ratios, color blindness considerations, low vision accommodations, and cognitive accessibility;
-          learners and instructors use it to understand how visual presentation can either barrier or
-          support diverse users.
-        </p>
-      </article>
-
-      <!-- Card 4: Keyboard Navigation and Motor Accessibility -->
-      <article class="card" role="listitem">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-name">
-          <a href="content/Accessibility_Standards_and_interactive_topics_t3.html">Keyboard Navigation and Motor Accessibility</a>
-        </div>
-        <p class="card-desc">
-          This reading covers keyboard navigation as a core accessibility requirement, explaining how users
-          with motor disabilities rely on keyboard-only interaction and what designers must do to ensure
-          full keyboard operability; learners use it to understand focus management, tab order, and
-          motor-accessible interface patterns.
-        </p>
-      </article>
-
-      <!-- Card 5: Screen Reader Compatibility -->
-      <article class="card" role="listitem">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-name">
-          <a href="content/Accessibility_Standards_and_interactive_topics_t4.html">Screen Reader Compatibility</a>
-        </div>
-        <p class="card-desc">
-          This reading explains how screen readers work and how web content must be structured—using
-          semantic HTML, ARIA roles, and proper labeling—to be interpreted correctly by assistive
-          technologies; learners use it to design and evaluate interfaces that are operable for blind
-          and low-vision users.
-        </p>
-      </article>
-
-      <!-- Card 6: Inclusive Design Principles Beyond WCAG -->
-      <article class="card" role="listitem">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-name">
-          <a href="content/Accessibility_Standards_and_interactive_topics_t5.html">Inclusive Design Principles Beyond WCAG</a>
-        </div>
-        <p class="card-desc">
-          This reading presents inclusive design as a philosophy that extends beyond WCAG compliance,
-          exploring how designing for the full spectrum of human diversity benefits all users; learners
-          use it to shift their perspective from checkbox accessibility toward proactive, human-centered
-          design thinking.
-        </p>
-      </article>
-
-      <!-- Card 7: Accessibility Auditing -->
-      <article class="card" role="listitem">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-name">
-          <a href="content/Accessibility_Standards_and_interactive_topics_t6.html">Accessibility Auditing</a>
-        </div>
-        <p class="card-desc">
-          This reading describes the process of conducting an accessibility audit against WCAG standards,
-          covering evaluation methods, tools, and how to systematically identify barriers in a digital
-          interface; instructors and learners use it to understand how to assess real products for
-          accessibility compliance and usability gaps.
-        </p>
-      </article>
-
-      <!-- Card 8: Applying Corrective Design Patterns (Topic Detail) -->
-      <article class="card" role="listitem">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-name">
-          <a href="content/Accessibility_Standards_and_interactive_topics_t7.html">Applying Corrective Design Patterns</a>
-        </div>
-        <p class="card-desc">
-          This reading details corrective design patterns used to remediate accessibility barriers
-          identified in audits, emphasizing structural and behavioral component-level fixes rather than
-          superficial patches; learners use it to learn how to redesign components correctly after an
-          audit reveals problems.
-        </p>
-      </article>
-
-      <!-- Card 9: Applying Corrective Design Patterns (Text Content) -->
-      <article class="card" role="listitem">
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-name">
-          <a href="content/Accessibility_Standards_and_interactive.html">Applying Corrective Design Patterns</a>
-        </div>
-        <p class="card-desc">
-          This reading details corrective design patterns used to remediate accessibility barriers
-          identified in audits, emphasizing structural and behavioral component-level fixes rather than
-          superficial patches; learners use it to learn how to redesign components correctly after an
-          audit reveals problems.
-        </p>
-      </article>
-
-    </div><!-- /.card-grid -->
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 7 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Foundations of WCAG Guidelines</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Accessible Color and Visual Design</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Keyboard Navigation and Motor Accessibility</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Screen Reader Compatibility</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Inclusive Design Principles Beyond WCAG</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Accessibility Auditing</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Applying Corrective Design Patterns</span><span class="topic-meta">5 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">15 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_interactive_topics_t1.html">Foundations of WCAG Guidelines</a></div>
+    <p class="content-desc">This reading introduces the Web Content Accessibility Guidelines (WCAG) as the foundational framework for digital accessibility, covering its structure, principles, and role in shaping design decisions from the start of a project; learners use it to build conceptual grounding before studying specific accessibility requirements.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_interactive_topics_t2.html">Accessible Color and Visual Design</a></div>
+    <p class="content-desc">This reading explains how to apply color and visual design choices accessibly, covering contrast ratios, color blindness considerations, low vision accommodations, and cognitive accessibility; learners and instructors use it to understand how visual presentation can either barrier or support diverse users.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_interactive_topics_t3.html">Keyboard Navigation and Motor Accessibility</a></div>
+    <p class="content-desc">This reading covers keyboard navigation as a core accessibility requirement, explaining how users with motor disabilities rely on keyboard-only interaction and what designers must do to ensure full keyboard operability; learners use it to understand focus management, tab order, and motor-accessible interface patterns.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_interactive_topics_t4.html">Screen Reader Compatibility</a></div>
+    <p class="content-desc">This reading explains how screen readers work and how web content must be structured—using semantic HTML, ARIA roles, and proper labeling—to be interpreted correctly by assistive technologies; learners use it to design and evaluate interfaces that are operable for blind and low-vision users.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_interactive_topics_t5.html">Inclusive Design Principles Beyond WCAG</a></div>
+    <p class="content-desc">This reading presents inclusive design as a philosophy that extends beyond WCAG compliance, exploring how designing for the full spectrum of human diversity benefits all users; learners use it to shift their perspective from checkbox accessibility toward proactive, human-centered design thinking.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_interactive_topics_t6.html">Accessibility Auditing</a></div>
+    <p class="content-desc">This reading describes the process of conducting an accessibility audit against WCAG standards, covering evaluation methods, tools, and how to systematically identify barriers in a digital interface; instructors and learners use it to understand how to assess real products for accessibility compliance and usability gaps.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_interactive_topics_t7.html">Applying Corrective Design Patterns</a></div>
+    <p class="content-desc">This reading details corrective design patterns used to remediate accessibility barriers identified in audits, emphasizing structural and behavioral component-level fixes rather than superficial patches; learners use it to learn how to redesign components correctly after an audit reveals problems.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_interactive.html">Applying Corrective Design Patterns</a></div>
+    <p class="content-desc">This reading details corrective design patterns used to remediate accessibility barriers identified in audits, emphasizing structural and behavioral component-level fixes rather than superficial patches; learners use it to learn how to redesign components correctly after an audit reveals problems.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_t1_videos.html">Foundations of WCAG Guidelines — Videos</a></div>
+    <p class="content-desc">A reading that introduces the W3C&#39;s Web Content Accessibility Guidelines, explaining the four POUR principles (Perceivable, Operable, Understandable, Robust) and how they break down into guidelines and conformance-level success criteria, giving learners the shared vocabulary needed for the rest of the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_t2_videos.html">Accessible Color and Visual Design — Videos</a></div>
+    <p class="content-desc">A reading on the visual layer of accessibility — contrast ratios for text and UI components, color vision deficiency, typography and text sizing, and visible focus indicators — that learners use to evaluate whether aesthetic design choices unintentionally exclude users with low vision.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_t4_videos.html">Screen Reader Compatibility — Videos</a></div>
+    <p class="content-desc">A reading on how screen readers interpret code rather than visual appearance, covering semantic HTML elements, headings as navigable structure, alternative text, and ARIA usage, so learners can mark up interfaces that are navigable by speech and braille output.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_t5_videos.html">Inclusive Design Principles Beyond WCAG — Videos</a></div>
+    <p class="content-desc">A reading that extends beyond WCAG compliance to inclusive design thinking, introducing the social model of disability and the idea of designing for the full range of human abilities, contexts, and temporary or situational limitations.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_t6_videos.html">Accessibility Auditing — Videos</a></div>
+    <p class="content-desc">A reading on conducting a systematic accessibility audit against WCAG 2.1, covering how to evaluate an interface, document and prioritize barriers, and translate abstract success criteria into concrete findings that development teams can act on.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_t7_videos.html">Applying Corrective Design Patterns — Videos</a></div>
+    <p class="content-desc">A reading on remediation that shows learners how to convert audit findings into design fixes and then standardize them as a reusable pattern library of accessible components such as form fields, navigation, and modal dialogs.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Accessibility_Standards_and_videos_merged.html">Accessibility Standards and Inclusive Interface Design — 6 topics (merged)</a></div>
+    <p class="content-desc">A consolidated single-page compilation of all six module topics, from WCAG foundations through auditing and corrective patterns, useful for review, printing, or offline reference before an assessment.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../analyzing-user-testing-results-and-iterative-redesign/index.html">← Analyzing User Testing Results and Iterative Redesign</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../app-publication-strategies-and-store-requirements/index.html">App Publication Strategies and Store Requirements →</a>
+</nav>
   </main>
-
-  <!-- ═══ FOOTER ═══ -->
-  <footer class="site-footer" role="contentinfo">
-    <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Accessibility Standards and Inclusive Interface Design</p>
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

@@ -1,405 +1,179 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HCI Design Documentation and Development Reporting – CEN3722</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      background-color: #f4f6f9;
-      color: #1e2530;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header / Hero ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #25567e 60%, #1e7aa0 100%);
-      color: #ffffff;
-      padding: 3rem 2rem 2.5rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 1rem;
-      color: #d0eaf8;
-    }
-
-    header h1 {
-      font-size: clamp(1.55rem, 3.5vw, 2.4rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 0.9rem;
-      color: #ffffff;
-    }
-
-    header p {
-      font-size: 1rem;
-      max-width: 680px;
-      color: #c8e2f5;
-      line-height: 1.7;
-    }
-
-    /* ── Main Content ── */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2.5rem 2rem 4rem;
-    }
-
-    .section-heading {
-      font-size: 1.05rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      color: #4a6380;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #dde3ec;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .card {
-      background: #ffffff;
-      border: 1px solid #dde3ec;
-      border-radius: 10px;
-      padding: 1.4rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 22px rgba(30, 80, 130, 0.11);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card Header Row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.5rem 0.75rem;
-    }
-
-    .card-name {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      line-height: 1.35;
-    }
-
-    .card-name a {
-      color: #1a5d8f;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s, color 0.15s;
-    }
-
-    .card-name a:hover,
-    .card-name a:focus {
-      color: #0f3f68;
-      border-bottom-color: #1a5d8f;
-      outline: none;
-    }
-
-    .source-link {
-      font-size: 0.72rem;
-      font-weight: 500;
-      color: #ffffff;
-      background-color: #4a7fa5;
-      border-radius: 3px;
-      padding: 0.18rem 0.5rem;
-      text-decoration: none;
-      white-space: nowrap;
-      flex-shrink: 0;
-      transition: background-color 0.15s;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background-color: #1a3a5c;
-      outline: none;
-    }
-
-    /* ── Meta Badges ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      border-radius: 4px;
-      padding: 0.2rem 0.55rem;
-    }
-
-    .badge-type {
-      background-color: #e8f0f8;
-      color: #2a527a;
-      border: 1px solid #c2d6ec;
-    }
-
-    .badge-filetype {
-      background-color: #eef6ee;
-      color: #2e6b35;
-      border: 1px solid #b8ddb8;
-      font-family: "Courier New", Courier, monospace;
-    }
-
-    /* ── Description ── */
-    .card-description {
-      font-size: 0.875rem;
-      color: #4a5568;
-      line-height: 1.65;
-      flex-grow: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      background: #1a2e45;
-      color: #7a9ab8;
-      text-align: center;
-      font-size: 0.8rem;
-      padding: 1.25rem 1rem;
-    }
-
-    footer span {
-      color: #9ab8d4;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 520px) {
-      header { padding: 2rem 1.25rem 2rem; }
-      main { padding: 2rem 1.25rem 3rem; }
-      .card { padding: 1.1rem 1.2rem; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HCI Design Documentation and Development Reporting — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="header-inner">
-      <span class="course-label">CEN3722 &ndash; Introduction to Human Computer Interfaces</span>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">HCI Design Documentation and Development Reporting</span>
+  </nav>
+      <div class="hero-label">Module 14</div>
       <h1>HCI Design Documentation and Development Reporting</h1>
-      <p>
-        This module develops the skills required to produce formal, structured documentation
-        across every stage of an HCI design project &mdash; from initial requirements gathering
-        through iterative design and evaluation to final implementation reporting. Browse the
-        learning artifacts below to access topics, readings, and supporting materials.
-      </p>
+      <p class="hero-desc">Explains how to write a professional HCI development report that traces design decisions from requirements through evaluation to final implementation, linking evidence to outcomes. Students produce a comprehensive group development report documenting their full design process.</p>
     </div>
   </header>
-
-  <main>
-    <h2 class="section-heading">Module Artifacts</h2>
-
-    <div class="card-grid">
-
-      <!-- Artifact 1: Module Topics -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <p class="card-description">
-          Outlines the module's core topics&mdash;covering HCI development reporting,
-          requirements documentation, design process documentation, and evaluation
-          documentation&mdash;giving learners and instructors a structured overview of
-          what will be taught and in what order.
-        </p>
-      </div>
-
-      <!-- Artifact 2: Introduction to HCI Development Reporting -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Design_Documentation_interactive_topics_t1.html">Introduction to HCI Development Reporting</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Introduces what an HCI Development Report is, why it differs from informal
-          documentation, and how learners should approach creating a formal structured
-          record of their design project from user needs through to prototype evaluation.
-        </p>
-      </div>
-
-      <!-- Artifact 3: Requirements Documentation -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Design_Documentation_interactive_topics_t2.html">Requirements Documentation</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Explains how to capture and document user needs, functional and non-functional
-          requirements, and design constraints, giving learners a guide to building the
-          research and planning foundation that underpins all subsequent design decisions.
-        </p>
-      </div>
-
-      <!-- Artifact 4: Design Process Documentation -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Design_Documentation_interactive_topics_t3.html">Design Process Documentation</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Covers how to record design decisions, experiments, and iterative changes
-          throughout a project, helping learners create a transparent, evidence-based
-          account of how and why their design evolved over time.
-        </p>
-      </div>
-
-      <!-- Artifact 5: Evaluation Documentation -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Design_Documentation_interactive_topics_t4.html">Evaluation Documentation</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Describes how to formally document usability evaluations, including methods used,
-          findings gathered, and how results influenced design revisions, enabling learners
-          to demonstrate that their design choices were grounded in observed user behaviour.
-        </p>
-      </div>
-
-      <!-- Artifact 6: Final Implementation Documentation -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Design_Documentation_interactive_topics_t5.html">Final Implementation Documentation</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Explains how to write the closing section of an HCI project report by documenting
-          what was built, how faithfully it reflects earlier design intentions, and honestly
-          accounting for any gaps between planned and delivered outcomes.
-        </p>
-      </div>
-
-      <!-- Artifact 7: Group Collaboration and Contribution Documentation -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Design_Documentation_interactive_topics_t6.html">Group Collaboration and Contribution Documentation</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Covers how to record team members' individual contributions, collaborative
-          processes, decision-making, and reflections in group projects, helping learners
-          and instructors assess both collective output and each person's role.
-        </p>
-      </div>
-
-      <!-- Artifact 8: Report Structure, Referencing, and Presentation (Topic Detail) -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Design_Documentation_interactive_topics_t7.html">Report Structure, Referencing, and Presentation</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Guides learners on how to organise a professional HCI report with a coherent
-          structure, apply correct academic referencing, and present the document to
-          communicate a clear, evidence-backed design narrative to evaluators.
-        </p>
-      </div>
-
-      <!-- Artifact 9: Report Structure, Referencing, and Presentation (Text Content) -->
-      <div class="card">
-        <div class="card-title-row">
-          <span class="card-name">
-            <a href="content/HCI_Design_Documentation_interactive.html">Report Structure, Referencing, and Presentation</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-description">
-          Guides learners on how to organise a professional HCI report with a coherent
-          structure, apply correct academic referencing, and present the document to
-          communicate a clear, evidence-backed design narrative to evaluators.
-        </p>
-      </div>
-
-    </div><!-- /.card-grid -->
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 7 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to HCI Development Reporting</span><span class="topic-meta">3 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Requirements Documentation</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Design Process Documentation</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Evaluation Documentation</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Final Implementation Documentation</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Group Collaboration and Contribution Documentation</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Report Structure, Referencing, and Presentation</span><span class="topic-meta">5 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">16 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_interactive_topics_t1.html">Introduction to HCI Development Reporting</a></div>
+    <p class="content-desc">Introduces what an HCI Development Report is, why it differs from informal documentation, and how learners should approach creating a formal structured record of their design project from user needs through to prototype evaluation.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_interactive_topics_t2.html">Requirements Documentation</a></div>
+    <p class="content-desc">Explains how to capture and document user needs, functional and non-functional requirements, and design constraints, giving learners a guide to building the research and planning foundation that underpins all subsequent design decisions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_interactive_topics_t3.html">Design Process Documentation</a></div>
+    <p class="content-desc">Covers how to record design decisions, experiments, and iterative changes throughout a project, helping learners create a transparent, evidence-based account of how and why their design evolved over time.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_interactive_topics_t4.html">Evaluation Documentation</a></div>
+    <p class="content-desc">Describes how to formally document usability evaluations, including methods used, findings gathered, and how results influenced design revisions, enabling learners to demonstrate that their design choices were grounded in observed user behaviour.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_interactive_topics_t5.html">Final Implementation Documentation</a></div>
+    <p class="content-desc">Explains how to write the closing section of an HCI project report by documenting what was built, how faithfully it reflects earlier design intentions, and honestly accounting for any gaps between planned and delivered outcomes.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_interactive_topics_t6.html">Group Collaboration and Contribution Documentation</a></div>
+    <p class="content-desc">Covers how to record team members&#39; individual contributions, collaborative processes, decision-making, and reflections in group projects, helping learners and instructors assess both collective output and each person&#39;s role.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_interactive_topics_t7.html">Report Structure, Referencing, and Presentation</a></div>
+    <p class="content-desc">Guides learners on how to organise a professional HCI report with a coherent structure, apply correct academic referencing, and present the document to communicate a clear, evidence-backed design narrative to evaluators.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_interactive.html">Report Structure, Referencing, and Presentation</a></div>
+    <p class="content-desc">Guides learners on how to organise a professional HCI report with a coherent structure, apply correct academic referencing, and present the document to communicate a clear, evidence-backed design narrative to evaluators.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_t1_videos.html">Introduction to HCI Development Reporting — Videos</a></div>
+    <p class="content-desc">A reading that defines the HCI development report as a structured, selective record spanning requirements through evaluation, explaining its purpose, audience, and the kinds of evidence and design rationale it must contain, used by learners as the conceptual foundation before drafting their own project report.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_t2_videos.html">Requirements Documentation — Videos</a></div>
+    <p class="content-desc">A reading on requirements documentation that covers deriving functional and non-functional requirements from user research — who the users are, their goals, and current problems — and recording the rationale behind each, used by learners as a guide when writing the requirements section of their project report.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_t3_videos.html">Design Process Documentation — Videos</a></div>
+    <p class="content-desc">A reading on documenting the design process, covering idea generation, sketches and low-fidelity prototypes, design rationale, higher-fidelity versions, and how designs changed across iterations, used by learners to assemble a design section that explains reasoning rather than just displaying screens.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_t4_videos.html">Evaluation Documentation — Videos</a></div>
+    <p class="content-desc">A reading on evaluation documentation explaining how to record usability methods, participants or evaluators, tasks and setting, findings with supporting evidence and severity ratings, and the design iterations those findings triggered, used by learners to make their evaluation work verifiable in the report.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_t5_videos.html">Final Implementation Documentation — Videos</a></div>
+    <p class="content-desc">A reading on final implementation documentation covering how to describe the delivered interface — screens, components, navigation, and key interactions — along with implementation decisions, trade-offs, and known limitations, used by learners when writing the section that accounts for what was actually built.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_t6_videos.html">Group Collaboration and Contribution Documentation — Videos</a></div>
+    <p class="content-desc">A reading on documenting group collaboration that addresses recording individual contributions, how decisions were made collectively, and how the team managed the project, used by student teams to demonstrate process quality alongside design quality in a group report.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_t7_videos.html">Report Structure, Referencing, and Presentation — Videos</a></div>
+    <p class="content-desc">A reading on report structure, referencing, and presentation covering the standard section sequence (introduction, method, findings, discussion), citation practices, and visual presentation conventions that make a report readable to an outside audience, used by learners when organizing and polishing their final submission.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Design_Documentation_videos_merged.html">HCI Design Documentation and Development Reporting — 7 topics (merged)</a></div>
+    <p class="content-desc">A consolidated single-page compilation of all topics in the module, from the introduction to development reporting through requirements, design process, evaluation, implementation, collaboration, and report presentation, useful for review or as a printable reference while drafting a full project report.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../app-publication-strategies-and-store-requirements/index.html">← App Publication Strategies and Store Requirements</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../final-hci-evaluation-reflection-and-lessons-learned/index.html">Final HCI Evaluation, Reflection, and Lessons Learned →</a>
+</nav>
   </main>
-
-  <footer>
-    <span>CEN3722 &ndash; Introduction to Human Computer Interfaces</span>
-    &nbsp;&middot;&nbsp; HCI Design Documentation and Development Reporting
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

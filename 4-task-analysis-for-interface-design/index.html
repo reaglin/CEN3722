@@ -1,432 +1,205 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 4 – Task Analysis for Interface Design | CEN3722</title>
-  <style>
-    /* ── Reset & base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-      font-size: 1rem;
-      line-height: 1.6;
-      color: #1e2a38;
-      background: #f4f6f9;
-    }
-
-    /* ── Page shell ── */
-    .page-wrapper {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem 4rem;
-    }
-
-    /* ── Header ── */
-    .page-header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
-      color: #fff;
-      border-radius: 10px;
-      padding: 2.25rem 2.5rem;
-      margin-bottom: 2.25rem;
-    }
-
-    .page-header .course-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      opacity: 0.8;
-      margin-bottom: 0.4rem;
-    }
-
-    .page-header h1 {
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 0.85rem;
-    }
-
-    .page-header p {
-      font-size: 0.975rem;
-      opacity: 0.9;
-      max-width: 72ch;
-    }
-
-    /* ── Section title ── */
-    .section-title {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: #5a6a7e;
-      margin-bottom: 1rem;
-      padding-bottom: 0.4rem;
-      border-bottom: 2px solid #dde3ec;
-    }
-
-    /* ── Card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
-      gap: 1.1rem;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #ffffff;
-      border: 1px solid #dde3ec;
-      border-radius: 8px;
-      padding: 1.25rem 1.35rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 18px rgba(30, 60, 110, 0.1);
-      border-color: #b0bdce;
-    }
-
-    /* ── Card header row ── */
-    .card-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-
-    .card-name {
-      font-size: 0.975rem;
-      font-weight: 700;
-      color: #1e2a38;
-      line-height: 1.3;
-      flex: 1;
-    }
-
-    .card-name a {
-      color: #1a56a8;
-      text-decoration: none;
-    }
-
-    .card-name a:hover {
-      text-decoration: underline;
-      color: #0f3d80;
-    }
-
-    .source-link {
-      font-size: 0.72rem;
-      font-weight: 600;
-      white-space: nowrap;
-      color: #5a6a7e;
-      text-decoration: none;
-      border: 1px solid #c5cdd8;
-      border-radius: 4px;
-      padding: 0.18rem 0.5rem;
-      line-height: 1.6;
-      transition: background 0.15s, border-color 0.15s, color 0.15s;
-    }
-
-    .source-link:hover {
-      background: #eef2f8;
-      border-color: #8fa4bf;
-      color: #1a3a5c;
-    }
-
-    /* ── Badges row ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.03em;
-      border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-      line-height: 1.5;
-    }
-
-    .badge-type {
-      background: #e8edf5;
-      color: #2c4a6e;
-    }
-
-    .badge-filetype {
-      background: #e6f4ea;
-      color: #2a6b3c;
-      font-family: "Courier New", monospace;
-    }
-
-    /* ── Description ── */
-    .card-description {
-      font-size: 0.865rem;
-      color: #4a5568;
-      line-height: 1.55;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    .page-footer {
-      margin-top: 3rem;
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8a96a3;
-    }
-
-    /* ── Responsive tweaks ── */
-    @media (max-width: 540px) {
-      .page-header { padding: 1.5rem 1.25rem; }
-      .card-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4 - Task Analysis for Interface Design — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-  <div class="page-wrapper">
-
-    <!-- ── Page header ── -->
-    <header class="page-header">
-      <p class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
-      <h1>Module 4 &mdash; Task Analysis for Interface Design</h1>
-      <p>
-        This module explores the theory and practice of task analysis as a foundational method in
-        user-centred interface design. Topics include Hierarchical Task Analysis (HTA), Cognitive
-        Task Analysis (CTA), data-collection strategies, documentation techniques, and the
-        application of these methods within a collaborative group project. Use the resources below
-        to navigate readings, outcomes, and assignments for this module.
-      </p>
-    </header>
-
-    <!-- ── Artifact grid ── -->
-    <section aria-label="Module artifacts">
-      <h2 class="section-title">Module Artifacts</h2>
-      <div class="card-grid">
-
-        <!-- Card: Module Topics -->
-        <article class="card">
-          <div class="card-header">
-            <span class="card-name">
-              <a href="content/module_topics.html">Module Topics</a>
-            </span>
-            <a class="source-link" href="source/hierarchy.json">source file</a>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Module Topics</span>
-            <span class="badge badge-filetype">.json</span>
-          </div>
-          <p class="card-description">
-            A structured outline of the module's subject matter, covering task analysis fundamentals,
-            Hierarchical Task Analysis (HTA), Cognitive Task Analysis (CTA), and method selection;
-            used as the authoritative content map for building other module materials.
-          </p>
-        </article>
-
-        <!-- Card: Module Outcomes -->
-        <article class="card">
-          <div class="card-header">
-            <span class="card-name">
-              <a href="content/module_outcomes.html">Module Outcomes</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Module Outcomes</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            A list of five measurable module outcomes spanning remembering HTA and CTA steps through
-            applying, analyzing, and evaluating task analysis in interface design contexts, mapped to
-            Bloom's levels and course objectives; used by instructors to align assessments and by
-            learners to understand expected competencies.
-          </p>
-        </article>
-
-        <!-- Card: Assignment 4 -->
-        <article class="card">
-          <div class="card-header">
-            <span class="card-name">
-              <a href="content/Assignment_4.html">Assignment 4</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Text Content</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            A group project assignment (Phase 3 of a semester-long sequence) in which student teams
-            conduct a task analysis of an AI-assisted software design workflow, producing HTA diagrams
-            and CTA findings that build on prior use-case work; used by student teams as the primary
-            instructions for completing and submitting this phase.
-          </p>
-        </article>
-
-        <!-- Card: Foundations of Task Analysis -->
-        <article class="card">
-          <div class="card-header">
-            <span class="card-name">
-              <a href="content/Task_Analysis_for_interactive_topics_t1.html">Foundations of Task Analysis</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            A reading that introduces task analysis as a core UX and interface design practice,
-            explaining what it is, why it matters, and how breaking down human activity into
-            constituent parts helps designers build systems that support real-world user behavior.
-          </p>
-        </article>
-
-        <!-- Card: Hierarchical Task Analysis -->
-        <article class="card">
-          <div class="card-header">
-            <span class="card-name">
-              <a href="content/Task_Analysis_for_interactive_topics_t2.html">Hierarchical Task Analysis (HTA)</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            A reading covering Hierarchical Task Analysis (HTA), tracing its origins in industrial
-            and military psychology and explaining how the method decomposes complex user goals into
-            progressively smaller sub-tasks, which learners use to understand and document observable
-            task structures.
-          </p>
-        </article>
-
-        <!-- Card: Cognitive Task Analysis -->
-        <article class="card">
-          <div class="card-header">
-            <span class="card-name">
-              <a href="content/Task_Analysis_for_interactive_topics_t3.html">Cognitive Task Analysis (CTA)</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            A reading on Cognitive Task Analysis (CTA) that addresses the mental processes underlying
-            user actions — such as expert decision-making and knowledge application — filling the gap
-            that HTA leaves by going beyond observable steps to capture what users think and know
-            during task execution.
-          </p>
-        </article>
-
-        <!-- Card: Comparing and Selecting Analysis Methods -->
-        <article class="card">
-          <div class="card-header">
-            <span class="card-name">
-              <a href="content/Task_Analysis_for_interactive_topics_t4.html">Comparing and Selecting Analysis Methods</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            A reading that compares HTA and CTA as complementary rather than competing methods,
-            guiding learners and instructors in selecting the appropriate analysis technique based on
-            project context, task complexity, and the type of information needed.
-          </p>
-        </article>
-
-        <!-- Card: Data Collection for Task Analysis -->
-        <article class="card">
-          <div class="card-header">
-            <span class="card-name">
-              <a href="content/Task_Analysis_for_interactive_topics_t5.html">Data Collection for Task Analysis</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            A reading on empirical data-collection techniques used to feed task analysis, covering
-            methods such as observation and interviews, and explaining how to gather reliable,
-            real-world evidence about how users actually perform tasks before analysis begins.
-          </p>
-        </article>
-
-        <!-- Card: Producing Task Analysis Documentation -->
-        <article class="card">
-          <div class="card-header">
-            <span class="card-name">
-              <a href="content/Task_Analysis_for_interactive_topics_t6.html">Producing Task Analysis Documentation</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            A reading explaining how to translate raw observational and interview data into structured,
-            team-readable task analysis documents, covering documentation formats, verification
-            practices, and how to produce artefacts that are ready to inform design decisions.
-          </p>
-        </article>
-
-        <!-- Card: Applying Task Analysis to the Group Project (Topic Detail) -->
-        <article class="card">
-          <div class="card-header">
-            <span class="card-name">
-              <a href="content/Task_Analysis_for_interactive_topics_t7.html">Applying Task Analysis to the Group Project</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            A reading that guides student project teams through applying task analysis collaboratively,
-            addressing the practical challenges of coordinating multiple observers, aligning findings,
-            and converting team-gathered evidence into structured, evidence-based design understanding.
-          </p>
-        </article>
-
-        <!-- Card: Applying Task Analysis to the Group Project (Text Content) -->
-        <article class="card">
-          <div class="card-header">
-            <span class="card-name">
-              <a href="content/Task_Analysis_for_interactive.html">Applying Task Analysis to the Group Project</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Text Content</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            A reading that guides student project teams through applying task analysis collaboratively,
-            addressing the practical challenges of coordinating multiple observers, aligning findings,
-            and converting team-gathered evidence into structured, evidence-based design understanding.
-          </p>
-        </article>
-
-      </div><!-- /.card-grid -->
-    </section>
-
-    <footer class="page-footer">
-      <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Module 4</p>
-    </footer>
-
-  </div><!-- /.page-wrapper -->
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p><h2>Source Materials</h2><ul class="artifact-list">  <li class="artifact-item">
-    <div class="artifact-icon">⬇</div>
-    <div class="artifact-body">
-      <a class="artifact-link" href="source-materials/source-1.html" download>Topic Prompt</a>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">4 - Task Analysis for Interface Design</span>
+  </nav>
+      <div class="hero-label">Module 4</div>
+      <h1>Task Analysis for Interface Design</h1>
+      <p class="hero-desc">Introduces hierarchical and cognitive task analysis methods used to decompose user goals into discrete, observable steps that inform interface structure. Students apply these methods to produce full task analysis documentation for their group project.</p>
     </div>
-  </li></ul></section><script src="embed-inject.js" defer></script></body>
+  </header>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 7 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Foundations of Task Analysis</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Hierarchical Task Analysis (HTA)</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Cognitive Task Analysis (CTA)</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Comparing and Selecting Analysis Methods</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Data Collection for Task Analysis</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Producing Task Analysis Documentation</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Applying Task Analysis to the Group Project</span><span class="topic-meta">5 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">18 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎯</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Learning Outcomes</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/module_outcomes.html">Module Outcomes</a></div>
+    <p class="content-desc">A list of five measurable module outcomes spanning remembering HTA and CTA steps through applying, analyzing, and evaluating task analysis in interface design contexts, mapped to Bloom&#39;s levels and course objectives; used by instructors to align assessments and by learners to understand expected competencies.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Assignment_4.html">Assignment 4</a></div>
+    <p class="content-desc">A group project assignment (Phase 3 of a semester-long sequence) in which student teams conduct a task analysis of an AI-assisted software design workflow, producing HTA diagrams and CTA findings that build on prior use-case work; used by student teams as the primary instructions for completing and submitting this phase.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_interactive_topics_t1.html">Foundations of Task Analysis</a></div>
+    <p class="content-desc">A reading that introduces task analysis as a core UX and interface design practice, explaining what it is, why it matters, and how breaking down human activity into constituent parts helps designers build systems that support real-world user behavior.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_interactive_topics_t2.html">Hierarchical Task Analysis (HTA)</a></div>
+    <p class="content-desc">A reading covering Hierarchical Task Analysis (HTA), tracing its origins in industrial and military psychology and explaining how the method decomposes complex user goals into progressively smaller sub-tasks, which learners use to understand and document observable task structures.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_interactive_topics_t3.html">Cognitive Task Analysis (CTA)</a></div>
+    <p class="content-desc">A reading on Cognitive Task Analysis (CTA) that addresses the mental processes underlying user actions — such as expert decision-making and knowledge application — filling the gap that HTA leaves by going beyond observable steps to capture what users think and know during task execution.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_interactive_topics_t4.html">Comparing and Selecting Analysis Methods</a></div>
+    <p class="content-desc">A reading that compares HTA and CTA as complementary rather than competing methods, guiding learners and instructors in selecting the appropriate analysis technique based on project context, task complexity, and the type of information needed.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_interactive_topics_t5.html">Data Collection for Task Analysis</a></div>
+    <p class="content-desc">A reading on empirical data-collection techniques used to feed task analysis, covering methods such as observation and interviews, and explaining how to gather reliable, real-world evidence about how users actually perform tasks before analysis begins.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_interactive_topics_t6.html">Producing Task Analysis Documentation</a></div>
+    <p class="content-desc">A reading explaining how to translate raw observational and interview data into structured, team-readable task analysis documents, covering documentation formats, verification practices, and how to produce artefacts that are ready to inform design decisions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_interactive_topics_t7.html">Applying Task Analysis to the Group Project</a></div>
+    <p class="content-desc">A reading that guides student project teams through applying task analysis collaboratively, addressing the practical challenges of coordinating multiple observers, aligning findings, and converting team-gathered evidence into structured, evidence-based design understanding.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_interactive.html">Applying Task Analysis to the Group Project</a></div>
+    <p class="content-desc">A reading that guides student project teams through applying task analysis collaboratively, addressing the practical challenges of coordinating multiple observers, aligning findings, and converting team-gathered evidence into structured, evidence-based design understanding.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_t1_videos.html">Foundations of Task Analysis — Videos</a></div>
+    <p class="content-desc">A reading that introduces task analysis as the practice of decomposing user goals into the actions, decisions, and judgments that lead to them, establishing why designers should map what users do before sketching screens or layouts.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_t2_videos.html">Hierarchical Task Analysis (HTA) — Videos</a></div>
+    <p class="content-desc">A reading on Hierarchical Task Analysis that explains how to decompose a high-level goal into subgoals, operations, and plans, and how to represent the result as a numbered tree or indented outline for use in design work.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_t3_videos.html">Cognitive Task Analysis (CTA) — Videos</a></div>
+    <p class="content-desc">A reading on Cognitive Task Analysis covering methods for surfacing the knowledge, cues, judgments, and decisions experts rely on but rarely articulate, extending beyond the observable steps captured by HTA.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_t4_videos.html">Comparing and Selecting Analysis Methods — Videos</a></div>
+    <p class="content-desc">A comparative reading that weighs HTA against CTA, helping learners judge which method fits a given problem, user population, and project constraint, or when to combine both.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_t5_videos.html">Data Collection for Task Analysis — Videos</a></div>
+    <p class="content-desc">A reading on gathering the raw data behind a task analysis, covering observation in real contexts, interviews, think-aloud protocols, and related techniques for recording what users do and think.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_t6_videos.html">Producing Task Analysis Documentation — Videos</a></div>
+    <p class="content-desc">A practical reading on writing up a task analysis deliverable, detailing the expected sections: scope and user statement, data sources, hierarchical diagrams with numbered plans, narrative task descriptions, and design implications.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_t7_videos.html">Applying Task Analysis to the Group Project — Videos</a></div>
+    <p class="content-desc">An applied topic that guides student teams in using HTA and CTA on their group design project, prompting them to identify a primary user goal, assign analysis roles, and translate findings into design decisions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Task_Analysis_for_videos_merged.html">4 - Task Analysis for Interface Design — 7 topics (merged)</a></div>
+    <p class="content-desc">The consolidated single-page version of the full Module 4 content, compiling all topics from foundations through project application for review or offline reading.</p>
+  </div>
+</li>
+</ul>
+</section>
+<section aria-labelledby="sources-h">
+<h2 id="sources-h">Source Materials</h2>
+<ul class="artifact-list">
+  <li class="artifact-item">
+    <div class="artifact-icon" aria-hidden="true">⬇</div>
+    <div class="artifact-body">
+      <a class="artifact-link" href="source-materials/source-1.html">Topic Prompt</a>
+    </div>
+  </li></ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../3-use-case-scenarios-and-requirements-gathering/index.html">← 3 - Use Case Scenarios and Requirements Gathering</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../5-ai-assisted-design-and-development-workflows/index.html">5 - AI-Assisted Design and Development Workflows →</a>
+</nav>
+  </main>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

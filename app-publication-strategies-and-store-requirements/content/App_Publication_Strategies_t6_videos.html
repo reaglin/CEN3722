@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Build Finalization and Submission Readiness</title>
+<style>
+body{font-family:'Segoe UI',Arial,sans-serif;max-width:820px;margin:2rem auto;padding:0 1.25rem;color:#222;line-height:1.55}
+h1{font-size:1.9rem;border-bottom:2px solid #ddd;padding-bottom:.4rem}
+h2{font-size:1.3rem;color:#1f3864;margin-top:1.6rem}
+body{padding-left:1.1rem;padding-right:1.1rem}
+ul,ol{margin:.4rem 0 1rem 1.4rem}
+li{margin:.25rem 0}
+nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}
+nav.toc strong{display:block;margin-bottom:.3rem}
+nav.toc a{display:block;text-decoration:none;padding:.12rem 0}
+section.item{border-top:1px solid rgba(128,128,128,.22);padding-top:.3rem}
+table{border-collapse:collapse;width:100%;margin:.8rem 0}
+th,td{border:1px solid rgba(128,128,128,.45);padding:.4rem .6rem;text-align:left;vertical-align:top}
+thead th{background:rgba(128,128,128,.18);font-weight:600}
+tbody tr:nth-child(even){background:rgba(128,128,128,.08)}
+</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ App Publication Strategies and Store Requirements</a></div>
+<h1>Build Finalization and Submission Readiness</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#sec1">Introduction</a>
+<a href="#sec2">Video 1: Gradle and AGP Build APIs: Configure your build - MAD Skills</a>
+<a href="#sec3">Video 2: How to configure a development build | EAS Tutorial</a>
+<a href="#sec4">Video 3: Developer experience updates for Amazon Appstore | devDay 2023</a>
+<a href="#sec5">How These Videos Support the Learning Outcomes</a>
+<a href="#sec6">About These Videos</a>
+</nav>
+<section class="item" id="sec1">
+<h2>Introduction</h2>
+<p>Getting an app from &quot;it works on my machine&quot; to &quot;it is live in a store&quot; involves a set of concrete, checkable steps. A release build is not simply a debug build with a different name: it typically uses different signing credentials, different configuration values, optimization and shrinking settings, and often a different distribution format (for example an Android App Bundle rather than a plain APK). Before that build goes anywhere, it needs to be exercised against a pre-submission checklist — does it install cleanly on a fresh device, do permissions and accounts behave, do crash reports and analytics point at production endpoints, and does the interface still meet the usability and accessibility standards you have been applying all term?</p>
+<p>Alongside the binary itself, stores expect a package of deliverables: a correctly incremented version number and build number, release notes that describe what changed, store listing metadata, screenshots, and any declarations the platform requires. Sloppy version numbering is one of the most common reasons an upload is rejected outright, and vague release notes slow down human review. Treating these artifacts as part of the deliverable — not as paperwork added at the last minute — is what separates a submission that moves through review from one that bounces back.</p>
+<p>The three videos below approach this from different angles: build configuration on native Android, build configuration in a cross-platform workflow, and the tooling a store itself offers for testing and submission. While watching, pay attention to the distinction between debug and release configuration, to where version and build identifiers are declared, and to what each platform asks you to supply before it will accept an upload. Note also how much of this work can be automated once, then repeated for every release.</p>
+</section>
+<section class="item" id="sec2">
+<h2>Video 1: Gradle and AGP Build APIs: Configure your build - MAD Skills</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/GjPS4xDMmQY?cc_load_policy=1&amp;rel=0" title="Video: Gradle and AGP Build APIs: Configure your build - MAD Skills (Android Developers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Android Developers</strong> · 7:12 · 17,478 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=GjPS4xDMmQY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This is the first episode of Google&#39;s Modern Android Development (MAD) Skills series on Gradle and the Android Gradle Plugin, and it introduces how an Android project&#39;s build is configured. Based on its title and description, it covers the Build APIs used to declare and customize build settings, which is where build types, variants, and related release configuration live in an Android project. Expect a developer-oriented walkthrough rather than a conceptual overview.</p>
+<h3>Why this video</h3>
+<p>It comes directly from the Android Developers channel, so the configuration practices shown reflect the platform&#39;s own guidance, and it maps straight onto the Release Build Configuration subtopic for anyone targeting Google Play.</p>
+</section>
+<section class="item" id="sec3">
+<h2>Video 2: How to configure a development build | EAS Tutorial</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/uQCE9zl3dXU?cc_load_policy=1&amp;rel=0" title="Video: How to configure a development build | EAS Tutorial (Expo)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Expo</strong> · 7:19 · 107,776 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=uQCE9zl3dXU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This Expo tutorial shows how to configure and produce a build using EAS (Expo Application Services), the hosted build service for Expo and React Native projects. It walks through the configuration steps needed to get a build generated by the service rather than on your own machine, which is the same pipeline teams typically use to produce store-ready binaries. The focus is on the configuration file and the practical setup sequence.</p>
+<h3>Why this video</h3>
+<p>It covers build configuration from a cross-platform perspective, which is useful if your interface project is not a native Android app, and it illustrates how a managed build service handles the credentials and settings that submission depends on.</p>
+</section>
+<section class="item" id="sec4">
+<h2>Video 3: Developer experience updates for Amazon Appstore | devDay 2023</h2>
+<div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/0LRFwH_rTY0?cc_load_policy=1&amp;rel=0" title="Video: Developer experience updates for Amazon Appstore | devDay 2023 (Amazon Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen></iframe></div>
+<p class="video-meta"><strong>Amazon Developer</strong> · 13:13 · 230,983 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=0LRFwH_rTY0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This devDay 2023 session from Amazon walks through developer-facing tools for the Amazon Appstore, with an emphasis on testing applications, submitting them, and the surrounding developer workflow. It is a vendor session, so expect a tour of console features, submission flows, and recently added capabilities rather than a tutorial you code along with. It gives a view of what a store expects to receive from a developer at submission time.</p>
+<h3>Why this video</h3>
+<p>It is a store operator describing its own testing and submission process, which makes it a useful point of comparison for the Pre-Submission Testing Checklist and Submission Packages subtopics and shows that the pattern of deliverables repeats across platforms.</p>
+</section>
+<section class="item" id="sec5">
+<h2>How These Videos Support the Learning Outcomes</h2>
+<p>Together these videos move students from configuring a production build to handing it over to a store. The Android and Expo videos support MO2 by showing where release settings, credentials, and version identifiers are declared, so students can inspect their own projects and judge whether a build is genuinely release-ready rather than a renamed debug build. The Amazon Appstore session supports MO1 and MO3 by demonstrating, from the store&#39;s side, what testing and submission involve and what a developer is expected to upload — a concrete model students can carry over when assembling metadata, screenshots, release notes, and accessibility descriptions for the Apple App Store or Google Play.</p>
+</section>
+<section class="item" id="sec6">
+<h2>About These Videos</h2>
+<p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

@@ -1,629 +1,292 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Video Lectures – CEN3722 Human Computer Interfaces</title>
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    :root {
-      --color-bg: #f4f6f9;
-      --color-surface: #ffffff;
-      --color-primary: #1a3a5c;
-      --color-primary-light: #2456884d;
-      --color-accent: #2c6fad;
-      --color-accent-hover: #1a4d7a;
-      --color-secondary-link: #5a7fa8;
-      --color-secondary-link-hover: #2c5f8a;
-      --color-text: #1e2a38;
-      --color-text-muted: #5a6676;
-      --color-border: #d4dce8;
-      --color-badge-video-bg: #e8f0fb;
-      --color-badge-video-text: #1a4d8f;
-      --color-badge-topics-bg: #e9f5ee;
-      --color-badge-topics-text: #1a5c35;
-      --color-filetype-bg: #f0f2f5;
-      --color-filetype-text: #4a5568;
-      --radius: 8px;
-      --shadow: 0 2px 8px rgba(0,0,0,0.07);
-      --shadow-hover: 0 6px 20px rgba(0,0,0,0.12);
-      --transition: 0.2s ease;
-    }
-
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background-color: var(--color-bg);
-      color: var(--color-text);
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, var(--color-primary) 0%, #24527a 100%);
-      color: #ffffff;
-      padding: 2.5rem 1.5rem 2rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 4px;
-      padding: 0.2rem 0.6rem;
-      margin-bottom: 0.75rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      margin-bottom: 0.6rem;
-      line-height: 1.2;
-    }
-
-    header p {
-      font-size: 0.97rem;
-      color: rgba(255,255,255,0.82);
-      max-width: 700px;
-      line-height: 1.65;
-    }
-
-    /* ── Main layout ── */
-    main {
-      max-width: 1100px;
-      margin: 2rem auto;
-      padding: 0 1.25rem 3rem;
-    }
-
-    .results-bar {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-bottom: 1.25rem;
-      font-size: 0.875rem;
-      color: var(--color-text-muted);
-    }
-
-    .results-bar strong {
-      color: var(--color-text);
-    }
-
-    /* ── Card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1.35rem 1.4rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow var(--transition), transform var(--transition);
-    }
-
-    .card:hover {
-      box-shadow: var(--shadow-hover);
-      transform: translateY(-2px);
-    }
-
-    /* Card top row: badges */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.18rem 0.55rem;
-    }
-
-    .badge-type-video {
-      background: var(--color-badge-video-bg);
-      color: var(--color-badge-video-text);
-    }
-
-    .badge-type-topics {
-      background: var(--color-badge-topics-bg);
-      color: var(--color-badge-topics-text);
-    }
-
-    .badge-filetype {
-      background: var(--color-filetype-bg);
-      color: var(--color-filetype-text);
-      font-family: 'Consolas', 'Courier New', monospace;
-    }
-
-    /* Card title row */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--color-text);
-      line-height: 1.35;
-    }
-
-    .card-title a {
-      color: var(--color-accent);
-      text-decoration: none;
-      transition: color var(--transition);
-    }
-
-    .card-title a:hover,
-    .card-title a:focus {
-      color: var(--color-accent-hover);
-      text-decoration: underline;
-    }
-
-    .card-title a:focus {
-      outline: 2px solid var(--color-accent);
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    /* Source file link */
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.25rem;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--color-secondary-link);
-      text-decoration: none;
-      border: 1px solid currentColor;
-      border-radius: 4px;
-      padding: 0.12rem 0.45rem;
-      white-space: nowrap;
-      transition: color var(--transition), background var(--transition);
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      color: var(--color-secondary-link-hover);
-      background: rgba(44, 111, 173, 0.07);
-      text-decoration: none;
-      outline: none;
-    }
-
-    .source-link:focus {
-      outline: 2px solid var(--color-accent);
-      outline-offset: 2px;
-    }
-
-    .source-link::before {
-      content: '⬡';
-      font-size: 0.65rem;
-    }
-
-    /* Card description */
-    .card-description {
-      font-size: 0.875rem;
-      color: var(--color-text-muted);
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    /* Divider accent */
-    .card-divider {
-      height: 3px;
-      border-radius: 2px;
-      background: linear-gradient(90deg, var(--color-accent) 0%, transparent 100%);
-      margin-bottom: 0.2rem;
-    }
-
-    .card.type-topics .card-divider {
-      background: linear-gradient(90deg, #27a85a 0%, transparent 100%);
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.8rem;
-      color: var(--color-text-muted);
-      padding: 1.5rem 1rem;
-      border-top: 1px solid var(--color-border);
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 600px) {
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-
-      header {
-        padding: 2rem 1.25rem 1.75rem;
-      }
-    }
-
-    @media (min-width: 900px) {
-      .card-grid {
-        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Lectures — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="header-inner">
-      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">Video Lectures</span>
+  </nav>
+      <div class="hero-label">Module 16</div>
       <h1>Video Lectures</h1>
-      <p>
-        This module provides a curated collection of video lectures covering the foundational and
-        applied topics of Human-Computer Interaction, including cognition, perception, mental models,
-        interaction design, usability evaluation, ergonomics, and advanced interfaces. Use the cards
-        below to navigate to individual lecture recordings and supporting resources.
-      </p>
+      <p class="hero-desc">This module contains added video lectures covering Cognition and Perception, Attention and Memory, Knowledge and Mental Models, Interface Metaphors and Conceptual Models, Human Errors, Learning, Understanding Users (2 videos), Task Anlaysis, Interaction design, Mobile Interaction design, Prototyping, Usability Evaluation, User testing, Human Factors, Ergonomics, Automation, Displays, Computer Supported Cooperative Work, Advanced Interfaces.</p>
     </div>
   </header>
-
-  <main>
-    <div class="results-bar">
-      <strong>22</strong>&nbsp;artifacts in this module
-    </div>
-
-    <div class="card-grid" role="list">
-
-      <!-- 1: Module Topics -->
-      <article class="card type-topics" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-topics">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/module_topics.html">Module Topics</a>
-          </h2>
-          <a class="source-link" href="source/hierarchy.json" aria-label="Source file for Module Topics">source file</a>
-        </div>
-        <p class="card-description">A structured topic outline for the Video Lectures module covering human cognition and perception, mental models, human error, and related HCI concepts, which instructors use to organise lecture content and learners use to preview and navigate the module's subject areas.</p>
-      </article>
-
-      <!-- 2: CEN 3722 Overview -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_1e9c842a.html">CEN 3722 Overview</a>
-          </h2>
-        </div>
-        <p class="card-description">This video provides an overview lecture for CEN 3722, a Human-Computer Interaction course at Daytona State College. It likely introduces the scope and structure of the course, covering foundational HCI topics such as cognition, perception, interface design, and usability. The video serves as an orienting resource for students beginning their study of human factors and interactive system design.</p>
-      </article>
-
-      <!-- 3: CEN3722 Cognition -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_51a6d7b2.html">CEN3722 Cognition</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers the topic of Cognition as part of a Human-Computer Interaction course (CEN3722). It likely addresses foundational cognitive concepts relevant to interface design, including how users perceive, process, and remember information. The lecture provides course-aligned instructional content on cognition and its implications for interactive system design.</p>
-      </article>
-
-      <!-- 4: CEN 3722 Attention and Memory (1) -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_78f561eb.html">CEN 3722 Attention and Memory</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers the topics of attention and memory as they relate to human-computer interaction, likely exploring how human cognitive capacities and limitations affect the design of interactive systems. It is part of a series for the CEN 3722 course, addressing foundational concepts in human factors and interface design. The lecture connects psychological principles of attention and memory to practical considerations in usability and interface design.</p>
-      </article>
-
-      <!-- 5: CEN 3722 Attention and Memory (2) -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_cee984fd.html">CEN 3722 Attention and Memory</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers the topics of attention and memory as they relate to human-computer interaction, likely addressing how cognitive limitations in these areas influence interface design. It appears to be part of a structured HCI or human factors course series (CEN 3722). The lecture explores foundational cognitive concepts that underpin user-centered design decisions.</p>
-      </article>
-
-      <!-- 6: CEN3722 Interface Metaphors (1) -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_9d526218.html">CEN3722 Interface Metaphors and Conceptual Models</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers the concepts of interface metaphors and conceptual models as they apply to human-computer interaction and interface design. It explores how designers use familiar real-world analogies to help users understand and interact with digital systems, and how conceptual models shape a user's expectations of system behavior.</p>
-      </article>
-
-      <!-- 7: CEN3722 Interface Metaphors (2) -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_f2fc24f4.html">CEN3722 Interface Metaphors and Conceptual Models</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers the concepts of interface metaphors and conceptual models as they relate to human-computer interaction and interface design. It explores how designers use familiar real-world analogies to help users build accurate mental representations of how a system works. The lecture is part of a broader HCI course series (CEN3722) addressing foundational principles of interaction design.</p>
-      </article>
-
-      <!-- 8: CEN3722 Learning -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_b884595d.html">CEN3722 Learning</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers the topic of Learning as part of the CEN3722 Human-Computer Interaction course series at Daytona State College. It explores how users acquire knowledge and skills when interacting with systems, including principles relevant to interface design. The lecture is part of a broader curriculum addressing cognitive and perceptual aspects of HCI.</p>
-      </article>
-
-      <!-- 9: CEN3722 Understand Users Part 1 -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_c7d2d166.html">CEN3722 Understand Users Part 1</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture is the first of two parts focused on understanding users in the context of human-computer interaction. It likely covers foundational concepts related to user characteristics, cognition, and behavior as they inform interface design. The content is part of a structured course series (CEN3722) on human-computer interaction or UI/UX design.</p>
-      </article>
-
-      <!-- 10: CEN3722 Understanding User II -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_f6329652.html">CEN3722 Understanding User II Standard CEN</a>
-          </h2>
-        </div>
-        <p class="card-description">This video is the second in a two-part lecture series on Understanding Users, produced as part of the CEN3722 Human-Computer Interaction course at Daytona State College. It continues the exploration of user-centered concepts relevant to interface design, likely covering deeper aspects of user behavior, cognition, or needs analysis. The lecture is presented in a standard academic format aligned with HCI course content.</p>
-      </article>
-
-      <!-- 11: CEN3722 Task Analysis -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_e0036141.html">CEN3722 Task Analysis Standard CEN</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers Task Analysis as part of a Human-Computer Interaction or interface design course (CEN3722) at Daytona State College. It addresses standard methods and frameworks used to analyze user tasks in the context of interactive system design. The content is intended to support students in understanding how to systematically break down user goals and actions.</p>
-      </article>
-
-      <!-- 12: CEN 3722 Interaction Design -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_c45e6d1d.html">CEN 3722 Interaction Design Standard CEN</a>
-          </h2>
-        </div>
-        <p class="card-description">This video is a lecture on Interaction Design produced for the CEN 3722 course at Daytona State College. It covers foundational and applied concepts in interaction design as part of a structured Human-Computer Interaction curriculum. The specific content addresses principles and standards relevant to designing effective interactive systems.</p>
-      </article>
-
-      <!-- 13: CEN3722 Mobile Interaction Design -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_c6761f58.html">CEN3722 Mobile Interaction Design</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers the principles and considerations specific to mobile interaction design, likely addressing touch-based interfaces, screen constraints, mobile usability, and design patterns unique to handheld devices. It is part of a structured lecture series for a Human-Computer Interaction course. The content is tailored to students learning foundational and applied concepts in interface and interaction design.</p>
-      </article>
-
-      <!-- 14: CEN3722 Prototyping -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_943747cd.html">CEN3722 Prototyping</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers the topic of prototyping within the context of human-computer interaction and interface design. It is part of a course series (CEN3722) that addresses core HCI concepts, and focuses on how prototypes are constructed and used to explore and communicate design ideas. The lecture likely addresses different levels of prototype fidelity and their role in the design process.</p>
-      </article>
-
-      <!-- 15: CEN3722 Usability Evaluation -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_ce9495fd.html">CEN3722 Usability Evaluation</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers usability evaluation as part of a Human-Computer Interaction course (CEN3722) at Daytona State College. It introduces concepts and methods related to assessing the usability of interactive systems. The lecture is designed to support students in understanding how usability is measured and evaluated in design contexts.</p>
-      </article>
-
-      <!-- 16: CEN3722 User Testing -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_5aeaaa0e.html">CEN3722 User Testing</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers the topic of user testing as part of a Human-Computer Interaction course (CEN3722). It addresses foundational concepts and methods related to conducting user testing as a form of usability evaluation. The content is designed to support students in understanding how real users are involved in assessing the effectiveness and usability of interactive systems.</p>
-      </article>
-
-      <!-- 17: CEN3722 Human Factors -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_b3209004.html">CEN3722 Human Factors Standard CEN</a>
-          </h2>
-        </div>
-        <p class="card-description">This video is a lecture resource from Daytona State College's CEN3722 course covering Human Factors standards. Based on the course context, it likely addresses foundational Human Factors principles as they apply to interactive system design, including ergonomic and cognitive considerations relevant to user interface development.</p>
-      </article>
-
-      <!-- 18: CEN3722 Ergonomics -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_14d750b8.html">CEN3722 Ergonomics Standard CEN</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture, produced for the CEN3722 course at Daytona State College, covers ergonomics standards as they apply to human-computer interaction. It likely addresses principles of physical and cognitive ergonomics relevant to the design of interactive systems. The content is framed within an academic instructional context aligned with HCI coursework.</p>
-      </article>
-
-      <!-- 19: CEN3722 Automation -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_dd431bab.html">CEN3722 Automation Standard CEN</a>
-          </h2>
-        </div>
-        <p class="card-description">This video is a lecture resource associated with the CEN3722 Human-Computer Interaction course at Daytona State College, covering the topic of Automation as it relates to human factors and interface design standards. It likely addresses foundational concepts of automation in interactive systems, including the role of human oversight and the implications of automated processes on user interaction. The lecture appears to align with established standards and principles governing automation in HCI contexts.</p>
-      </article>
-
-      <!-- 20: CEN3722 Displays (1) -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_346f6a3b.html">CEN3722 Displays Standard CEN</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers the topic of Displays as part of the CEN3722 Human-Computer Interaction course at Daytona State College. It addresses standard concepts and principles related to how information is visually presented to users through display systems. The lecture is part of a broader series spanning key HCI topics including human factors, ergonomics, and interface design.</p>
-      </article>
-
-      <!-- 21: CEN3722 Displays (2) -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_6d344337.html">CEN3722 Displays Standard CEN</a>
-          </h2>
-        </div>
-        <p class="card-description">This video lecture covers the topic of Displays as part of the CEN3722 Human-Computer Interaction course series at Daytona State College. It addresses standards and principles related to how information is presented visually to users through interface displays. The lecture is part of a broader set of supplemental video content spanning key HCI topics.</p>
-      </article>
-
-      <!-- 22: CEN3722 Advanced Interfaces -->
-      <article class="card type-video" role="listitem">
-        <div class="card-divider"></div>
-        <div class="card-meta">
-          <span class="badge badge-type-video">Video</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/ext_2bc72944.html">CEN
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 8 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Human Cognition and Perception</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Knowledge, Mental Models, and Conceptual Frameworks</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Human Error and Learning</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Understanding Users and Task Analysis</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Interaction Design and Prototyping</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Usability Evaluation and User Testing</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Human Factors, Ergonomics, and Automation</span><span class="topic-meta">7 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-8"><span class="topic-num" aria-hidden="true">8</span><span class="topic-text"><span class="topic-title">Collaborative and Advanced Interface Technologies</span><span class="topic-meta">7 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">30 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Video_Lectures_t1_videos.html">Human Cognition and Perception — Videos</a></div>
+    <p class="content-desc">A lecture page on human information processing that covers perception, attention, working memory limits, and long-term memory, helping learners understand the cognitive constraints that interface designs must accommodate.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Video_Lectures_t2_videos.html">Knowledge, Mental Models, and Conceptual Frameworks — Videos</a></div>
+    <p class="content-desc">A lecture page explaining how prior knowledge, mental models, and conceptual frameworks shape user expectations, so learners can design interfaces whose conceptual models match the ones users already hold.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Video_Lectures_t3_videos.html">Human Error and Learning — Videos</a></div>
+    <p class="content-desc">A lecture page on human error that distinguishes slips from mistakes, examines the conditions that make errors likely, and reviews design choices that prevent or support recovery from them.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Video_Lectures_t4_videos.html">Understanding Users and Task Analysis — Videos</a></div>
+    <p class="content-desc">A lecture page covering the front end of user-centered design — identifying real users, conducting interviews, observations, and surveys, and performing task analysis — as preparation for requirements gathering and design work.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Video_Lectures_t5_videos.html">Interaction Design and Prototyping — Videos</a></div>
+    <p class="content-desc">A lecture page on interaction design and iterative prototyping that walks through moving from conceptual design to sketches, low- and high-fidelity prototypes, and refinement cycles.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Video_Lectures_t6_videos.html">Usability Evaluation and User Testing — Videos</a></div>
+    <p class="content-desc">A lecture page on usability evaluation methods, including expert inspections, heuristic reviews, and testing with real users, used to learn how to plan studies and interpret where users hesitate, err, or abandon tasks.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Video_Lectures_t7_videos.html">Human Factors, Ergonomics, and Automation — Videos</a></div>
+    <p class="content-desc">A lecture page introducing human factors and ergonomics across physical, perceptual, and cognitive dimensions, including workplace and display design plus the challenges of automation and operator trust.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Video_Lectures_t8_videos.html">Collaborative and Advanced Interface Technologies — Videos</a></div>
+    <p class="content-desc">A lecture page surveying CSCW, groupware frameworks, and emerging interface technologies, extending the course beyond single-user interaction to group coordination and advanced interaction modalities.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Video_Lectures_videos_merged.html">Video Lectures — 8 topics (merged)</a></div>
+    <p class="content-desc">The module&#39;s landing page that compiles all video lecture topics in sequence, giving learners a single entry point for navigating the full set of course lectures.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_1e9c842a.html">CEN 3722 Overview</a></div>
+    <p class="content-desc">This video provides an overview lecture for CEN 3722, a Human-Computer Interaction course at Daytona State College. It likely introduces the scope and structure of the course, covering foundational HCI topics such as cognition, perception, interface design, and usability. The video serves as an orienting resource for students beginning their study of human factors and interactive system design.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_51a6d7b2.html">CEN3722 Cognition</a></div>
+    <p class="content-desc">This video lecture covers the topic of Cognition as part of a Human-Computer Interaction course (CEN3722). It likely addresses foundational cognitive concepts relevant to interface design, including how users perceive, process, and remember information. The lecture provides course-aligned instructional content on cognition and its implications for interactive system design.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_78f561eb.html">CEN 3722 Attention and Memory</a></div>
+    <p class="content-desc">This video lecture covers the topics of attention and memory as they relate to human-computer interaction, likely exploring how human cognitive capacities and limitations affect the design of interactive systems. It is part of a series for the CEN 3722 course, addressing foundational concepts in human factors and interface design. The lecture connects psychological principles of attention and memory to practical considerations in usability and interface design.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_cee984fd.html">CEN 3722 Attention and Memory</a></div>
+    <p class="content-desc">This video lecture covers the topics of attention and memory as they relate to human-computer interaction, likely addressing how cognitive limitations in these areas influence interface design. It appears to be part of a structured HCI or human factors course series (CEN 3722). The lecture explores foundational cognitive concepts that underpin user-centered design decisions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_9d526218.html">CEN3722 Interface Metaphors and Conceptual Models</a></div>
+    <p class="content-desc">This video lecture covers the concepts of interface metaphors and conceptual models as they apply to human-computer interaction and interface design. It explores how designers use familiar real-world analogies to help users understand and interact with digital systems, and how conceptual models shape a user&#39;s expectations of system behavior.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_f2fc24f4.html">CEN3722 Interface Metaphors and Conceptual Models</a></div>
+    <p class="content-desc">This video lecture covers the concepts of interface metaphors and conceptual models as they relate to human-computer interaction and interface design. It explores how designers use familiar real-world analogies to help users build accurate mental representations of how a system works. The lecture is part of a broader HCI course series (CEN3722) addressing foundational principles of interaction design.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_b884595d.html">CEN3722 Learning</a></div>
+    <p class="content-desc">This video lecture covers the topic of Learning as part of the CEN3722 Human-Computer Interaction course series at Daytona State College. It explores how users acquire knowledge and skills when interacting with systems, including principles relevant to interface design. The lecture is part of a broader curriculum addressing cognitive and perceptual aspects of HCI.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_c7d2d166.html">CEN3722 Understand Users Part 1</a></div>
+    <p class="content-desc">This video lecture is the first of two parts focused on understanding users in the context of human-computer interaction. It likely covers foundational concepts related to user characteristics, cognition, and behavior as they inform interface design. The content is part of a structured course series (CEN3722) on human-computer interaction or UI/UX design.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_f6329652.html">CEN3722 Understanding User II Standard CEN</a></div>
+    <p class="content-desc">This video is the second in a two-part lecture series on Understanding Users, produced as part of the CEN3722 Human-Computer Interaction course at Daytona State College. It continues the exploration of user-centered concepts relevant to interface design, likely covering deeper aspects of user behavior, cognition, or needs analysis. The lecture is presented in a standard academic format aligned with HCI course content.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_e0036141.html">CEN3722 Task Analysis Standard CEN</a></div>
+    <p class="content-desc">This video lecture covers Task Analysis as part of a Human-Computer Interaction or interface design course (CEN3722) at Daytona State College. It addresses standard methods and frameworks used to analyze user tasks in the context of interactive system design. The content is intended to support students in understanding how to systematically break down user goals and actions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_c45e6d1d.html">CEN 3722 Interaction Design Standard CEN</a></div>
+    <p class="content-desc">This video is a lecture on Interaction Design produced for the CEN 3722 course at Daytona State College. It covers foundational and applied concepts in interaction design as part of a structured Human-Computer Interaction curriculum. The specific content addresses principles and standards relevant to designing effective interactive systems.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_c6761f58.html">CEN3722 Mobile Interaction Design</a></div>
+    <p class="content-desc">This video lecture covers the principles and considerations specific to mobile interaction design, likely addressing touch-based interfaces, screen constraints, mobile usability, and design patterns unique to handheld devices. It is part of a structured lecture series for a Human-Computer Interaction course. The content is tailored to students learning foundational and applied concepts in interface and interaction design.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_943747cd.html">CEN3722 Prototyping</a></div>
+    <p class="content-desc">This video lecture covers the topic of prototyping within the context of human-computer interaction and interface design. It is part of a course series (CEN3722) that addresses core HCI concepts, and focuses on how prototypes are constructed and used to explore and communicate design ideas. The lecture likely addresses different levels of prototype fidelity and their role in the design process.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_ce9495fd.html">CEN3722 Usability Evaluation</a></div>
+    <p class="content-desc">This video lecture covers usability evaluation as part of a Human-Computer Interaction course (CEN3722) at Daytona State College. It introduces concepts and methods related to assessing the usability of interactive systems. The lecture is designed to support students in understanding how usability is measured and evaluated in design contexts.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_5aeaaa0e.html">CEN3722 User Testing</a></div>
+    <p class="content-desc">This video lecture covers the topic of user testing as part of a Human-Computer Interaction course (CEN3722). It addresses foundational concepts and methods related to conducting user testing as a form of usability evaluation. The content is designed to support students in understanding how real users are involved in assessing the effectiveness and usability of interactive systems.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_b3209004.html">CEN3722 Human Factors Standard CEN</a></div>
+    <p class="content-desc">This video is a lecture resource from Daytona State College&#39;s CEN3722 course covering Human Factors standards. Based on the course context, it likely addresses foundational Human Factors principles as they apply to interactive system design, including ergonomic and cognitive considerations relevant to user interface development.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_14d750b8.html">CEN3722 Ergonomics Standard CEN</a></div>
+    <p class="content-desc">This video lecture, produced for the CEN3722 course at Daytona State College, covers ergonomics standards as they apply to human-computer interaction. It likely addresses principles of physical and cognitive ergonomics relevant to the design of interactive systems. The content is framed within an academic instructional context aligned with HCI coursework.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_dd431bab.html">CEN3722 Automation Standard CEN</a></div>
+    <p class="content-desc">This video is a lecture resource associated with the CEN3722 Human-Computer Interaction course at Daytona State College, covering the topic of Automation as it relates to human factors and interface design standards. It likely addresses foundational concepts of automation in interactive systems, including the role of human oversight and the implications of automated processes on user interaction. The lecture appears to align with established standards and principles governing automation in HCI contexts.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_346f6a3b.html">CEN3722 Displays Standard CEN</a></div>
+    <p class="content-desc">This video lecture covers the topic of Displays as part of the CEN3722 Human-Computer Interaction course at Daytona State College. It addresses standard concepts and principles related to how information is visually presented to users through display systems. The lecture is part of a broader series spanning key HCI topics including human factors, ergonomics, and interface design.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_6d344337.html">CEN3722 Displays Standard CEN</a></div>
+    <p class="content-desc">This video lecture covers the topic of Displays as part of the CEN3722 Human-Computer Interaction course series at Daytona State College. It addresses standards and principles related to how information is presented visually to users through interface displays. The lecture is part of a broader set of supplemental video content spanning key HCI topics.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_2bc72944.html">CEN3722 Advanced Interfaces Standard CEN</a></div>
+    <p class="content-desc">This video lecture covers the topic of Advanced Interfaces as part of the CEN3722 course series produced by Daytona State College. It is designed to introduce or expand on cutting-edge interface concepts beyond foundational HCI principles. The lecture likely addresses emerging or specialized interaction paradigms relevant to modern interface design.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../final-hci-evaluation-reflection-and-lessons-learned/index.html">← Final HCI Evaluation, Reflection, and Lessons Learned</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <span></span>
+</nav>
+  </main>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

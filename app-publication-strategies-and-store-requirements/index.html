@@ -1,388 +1,162 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>App Publication Strategies and Store Requirements – CEN3722</title>
-  <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background-color: #f4f6f9;
-      color: #2c3e50;
-      line-height: 1.65;
-      min-height: 100vh;
-    }
-
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
-      color: #fff;
-      padding: 2.5rem 1.5rem 2rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #a8c8f0;
-      margin-bottom: 0.5rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.25rem);
-      font-weight: 700;
-      margin-bottom: 1rem;
-      line-height: 1.25;
-    }
-
-    header p {
-      font-size: 1rem;
-      color: #d0e4f7;
-      max-width: 720px;
-      line-height: 1.7;
-    }
-
-    /* ── Main ── */
-    main {
-      max-width: 1100px;
-      margin: 2.5rem auto;
-      padding: 0 1.25rem 3rem;
-    }
-
-    .section-heading {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #6b7a8d;
-      margin-bottom: 1.25rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #dce3ed;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .card {
-      background: #ffffff;
-      border: 1px solid #dce3ed;
-      border-radius: 8px;
-      padding: 1.4rem 1.5rem 1.35rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 20px rgba(37, 99, 168, 0.12);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card top row: badges ── */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.45rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      border-radius: 4px;
-      padding: 0.18em 0.6em;
-    }
-
-    .badge-type {
-      background-color: #e8f0fb;
-      color: #2563a8;
-    }
-
-    .badge-filetype {
-      background-color: #eef2f7;
-      color: #4a5568;
-      font-family: 'Courier New', monospace;
-    }
-
-    /* ── Card title row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      line-height: 1.35;
-    }
-
-    .card-title a {
-      color: #1a3a5c;
-      text-decoration: none;
-      border-bottom: 2px solid #2563a8;
-      padding-bottom: 1px;
-      transition: color 0.15s ease, border-color 0.15s ease;
-    }
-
-    .card-title a:hover,
-    .card-title a:focus {
-      color: #2563a8;
-      border-color: #a8c8f0;
-      outline: none;
-    }
-
-    .source-link {
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #5a7fa6;
-      text-decoration: none;
-      white-space: nowrap;
-      border: 1px solid #b8d0e8;
-      border-radius: 4px;
-      padding: 0.15em 0.55em;
-      transition: background-color 0.15s ease, color 0.15s ease;
-      flex-shrink: 0;
-      align-self: center;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background-color: #2563a8;
-      color: #fff;
-      border-color: #2563a8;
-      outline: none;
-    }
-
-    /* ── Card description ── */
-    .card-description {
-      font-size: 0.875rem;
-      color: #4a5568;
-      line-height: 1.65;
-      flex-grow: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8a97a8;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dce3ed;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 500px) {
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-
-      header {
-        padding: 2rem 1.25rem 1.75rem;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>App Publication Strategies and Store Requirements — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="header-inner">
-      <p class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">App Publication Strategies and Store Requirements</span>
+  </nav>
+      <div class="hero-label">Module 13</div>
       <h1>App Publication Strategies and Store Requirements</h1>
-      <p>
-        This module guides learners through the end-to-end process of preparing and publishing
-        applications across major platforms — Google Play, the Apple App Store, and the Microsoft
-        Store — as well as web deployment. Topics cover developer account setup, build preparation,
-        code signing, asset requirements, store listing optimisation, and policy compliance,
-        providing a comprehensive foundation for real-world app release workflows.
-      </p>
+      <p class="hero-desc">Covers the submission processes, asset requirements, review guidelines, and compliance considerations for the Google Play Store, Apple App Store, Microsoft Store, and web deployment. Students finalize their application builds and prepare publication-ready deliverables.</p>
     </div>
   </header>
-
-  <main>
-    <p class="section-heading">Module Artifacts &mdash; 7 items</p>
-
-    <div class="card-grid">
-
-      <!-- Card 1: Module Topics -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/module_topics.html">Module Topics</a>
-          </h2>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card-description">
-          Outlines the module's core topics covering app submission processes for Google Play,
-          Apple App Store, and Microsoft Store, including developer account setup, code signing,
-          build preparation, and store listing configuration, serving as a navigational overview
-          for learners and instructors to understand the module's scope.
-        </p>
-      </article>
-
-      <!-- Card 2: Google Play Store Submission Process -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/App_Publication_Strategies_interactive_topics_t1.html">Google Play Store Submission Process</a>
-          </h2>
-        </div>
-        <p class="card-description">
-          Covers the end-to-end process of publishing an Android app on Google Play, including
-          account registration, build preparation, metadata creation, staged testing, and policy
-          compliance, serving as a reference guide for learners walking through each required stage.
-        </p>
-      </article>
-
-      <!-- Card 3: Apple App Store Submission Process -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/App_Publication_Strategies_interactive_topics_t2.html">Apple App Store Submission Process</a>
-          </h2>
-        </div>
-        <p class="card-description">
-          Explains Apple's multi-layered App Store submission workflow, including developer account
-          enrollment, code signing, metadata and visual asset preparation, and the human review
-          process, giving learners a step-by-step reference for releasing iOS applications.
-        </p>
-      </article>
-
-      <!-- Card 4: Microsoft Store Submission Process -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/App_Publication_Strategies_interactive_topics_t3.html">Microsoft Store Submission Process</a>
-          </h2>
-        </div>
-        <p class="card-description">
-          Describes how to publish a Windows application to the Microsoft Store, walking learners
-          through Partner Center account setup, MSIX packaging, store listing asset assembly, and
-          Microsoft's certification requirements.
-        </p>
-      </article>
-
-      <!-- Card 5: Web Deployment Strategies -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/App_Publication_Strategies_interactive_topics_t4.html">Web Deployment Strategies</a>
-          </h2>
-        </div>
-        <p class="card-description">
-          Covers production web deployment strategies including selecting hosting infrastructure,
-          automating build and release pipelines, configuring SSL certificates, implementing
-          Progressive Web App features, and performance optimisation, serving as a practical guide
-          for learners deploying web applications.
-        </p>
-      </article>
-
-      <!-- Card 6: Asset Requirements and Store Listing Optimization -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/App_Publication_Strategies_interactive_topics_t5.html">Asset Requirements and Store Listing Optimization</a>
-          </h2>
-        </div>
-        <p class="card-description">
-          Explains the graphical asset specifications and store listing copywriting requirements
-          across Google Play, the Apple App Store, and the Microsoft Store, helping learners
-          optimise screenshots, icons, descriptions, and metadata to maximise discoverability
-          and conversion.
-        </p>
-      </article>
-
-      <!-- Card 7: Build Finalization – Topic Detail -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/App_Publication_Strategies_interactive_topics_t6.html">Build Finalization and Submission Readiness</a>
-          </h2>
-        </div>
-        <p class="card-description">
-          Details the pre-submission engineering and product management steps required to finalise
-          an app build for public store release, covering quality checks, versioning, signing, and
-          readiness criteria that learners must complete before submitting to any major platform.
-        </p>
-      </article>
-
-      <!-- Card 8: Build Finalization – Text Content -->
-      <article class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <h2 class="card-title">
-            <a href="content/App_Publication_Strategies_interactive.html">Build Finalization and Submission Readiness</a>
-          </h2>
-        </div>
-        <p class="card-description">
-          Details the pre-submission engineering and product management steps required to finalise
-          an app build for public store release, covering quality checks, versioning, signing, and
-          readiness criteria that learners must complete before submitting to any major platform.
-        </p>
-      </article>
-
-    </div>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 6 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Google Play Store Submission Process</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Apple App Store Submission Process</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Microsoft Store Submission Process</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Web Deployment Strategies</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Asset Requirements and Store Listing Optimization</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Build Finalization and Submission Readiness</span><span class="topic-meta">4 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">14 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_interactive_topics_t1.html">Google Play Store Submission Process</a></div>
+    <p class="content-desc">Covers the end-to-end process of publishing an Android app on Google Play, including account registration, build preparation, metadata creation, staged testing, and policy compliance, serving as a reference guide for learners walking through each required stage.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_interactive_topics_t2.html">Apple App Store Submission Process</a></div>
+    <p class="content-desc">Explains Apple&#39;s multi-layered App Store submission workflow, including developer account enrollment, code signing, metadata and visual asset preparation, and the human review process, giving learners a step-by-step reference for releasing iOS applications.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_interactive_topics_t3.html">Microsoft Store Submission Process</a></div>
+    <p class="content-desc">Describes how to publish a Windows application to the Microsoft Store, walking learners through Partner Center account setup, MSIX packaging, store listing asset assembly, and Microsoft&#39;s certification requirements.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_interactive_topics_t4.html">Web Deployment Strategies</a></div>
+    <p class="content-desc">Covers production web deployment strategies including selecting hosting infrastructure, automating build and release pipelines, configuring SSL certificates, implementing Progressive Web App features, and performance optimisation, serving as a practical guide for learners deploying web applications.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_interactive_topics_t5.html">Asset Requirements and Store Listing Optimization</a></div>
+    <p class="content-desc">Explains the graphical asset specifications and store listing copywriting requirements across Google Play, the Apple App Store, and the Microsoft Store, helping learners optimise screenshots, icons, descriptions, and metadata to maximise discoverability and conversion.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_interactive_topics_t6.html">Build Finalization and Submission Readiness</a></div>
+    <p class="content-desc">Details the pre-submission engineering and product management steps required to finalise an app build for public store release, covering quality checks, versioning, signing, and readiness criteria that learners must complete before submitting to any major platform.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_interactive.html">Build Finalization and Submission Readiness</a></div>
+    <p class="content-desc">Details the pre-submission engineering and product management steps required to finalise an app build for public store release, covering quality checks, versioning, signing, and readiness criteria that learners must complete before submitting to any major platform.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_t1_videos.html">Google Play Store Submission Process — Videos</a></div>
+    <p class="content-desc">A reading that walks through publishing an Android app on Google Play, covering developer account registration, signed Android App Bundles, store listing text and graphics, data safety declarations, and staged release tracks, which learners use as a step-by-step reference before preparing their own Android submission.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_t2_videos.html">Apple App Store Submission Process — Videos</a></div>
+    <p class="content-desc">A reading on Apple App Store publication that explains enrolling in the Apple Developer Program, generating certificates and provisioning profiles for signed builds, creating an app record in App Store Connect, and moving through review, used by learners to understand the administrative and technical sequence iOS releases require.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_t3_videos.html">Microsoft Store Submission Process — Videos</a></div>
+    <p class="content-desc">A reading outlining the four stages of Microsoft Store publication — registering in Partner Center, packaging the app as MSIX, assembling listing metadata and visual assets, and passing certification against store policies — serving as a guide for students deploying Windows applications.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_t4_videos.html">Web Deployment Strategies — Videos</a></div>
+    <p class="content-desc">A reading on deploying web applications outside of app stores, addressing hosting choices (managed platforms versus self-managed servers), domain name setup, HTTPS/TLS security, and ongoing update practices, used by learners publishing browser-based interfaces.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_t5_videos.html">Asset Requirements and Store Listing Optimization — Videos</a></div>
+    <p class="content-desc">A reading on the graphical and textual assets required by Apple and Google — icon sizes, device-specific screenshots, preview videos, titles, subtitles, short and long descriptions, and keywords — plus store listing optimization tactics learners apply when preparing their submission materials.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_t6_videos.html">Build Finalization and Submission Readiness — Videos</a></div>
+    <p class="content-desc">A reading explaining how to turn a working development build into a shippable release, covering release versus debug signing credentials, configuration values, optimization and code shrinking, and a pre-submission readiness checklist students can follow before uploading a build.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/App_Publication_Strategies_videos_merged.html">App Publication Strategies and Store Requirements — 6 topics (merged)</a></div>
+    <p class="content-desc">A combined single-page compilation of all the module&#39;s readings on Google Play, Apple App Store, and Microsoft Store submission, web deployment, asset requirements, and build finalization, useful for reviewing or printing the entire module&#39;s content in one place.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../accessibility-standards-and-inclusive-interface-design/index.html">← Accessibility Standards and Inclusive Interface Design</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../hci-design-documentation-and-development-reporting/index.html">HCI Design Documentation and Development Reporting →</a>
+</nav>
   </main>
-
-  <footer>
-    <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;|&nbsp; App Publication Strategies and Store Requirements</p>
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

@@ -1,431 +1,196 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Controlled User Testing and Data Collection — CEN3722</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
-      background: #f4f6f9;
-      color: #1e2532;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header Banner ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #22527a 60%, #1e6e8c 100%);
-      color: #ffffff;
-      padding: 2.8rem 2rem 2.4rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,0.15);
-      border: 1px solid rgba(255,255,255,0.25);
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 0.85rem;
-      color: #c8e6f5;
-    }
-
-    header h1 {
-      font-size: clamp(1.55rem, 3.5vw, 2.25rem);
-      font-weight: 700;
-      letter-spacing: -0.01em;
-      line-height: 1.25;
-      margin-bottom: 1rem;
-    }
-
-    header p {
-      font-size: 1rem;
-      color: #cde6f5;
-      max-width: 720px;
-      line-height: 1.7;
-    }
-
-    /* ── Main Content ── */
-    main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2.5rem 1.25rem 3.5rem;
-    }
-
-    .section-label {
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #5a7a9a;
-      margin-bottom: 1.2rem;
-      padding-bottom: 0.5rem;
-      border-bottom: 2px solid #d8e4ee;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .card {
-      background: #ffffff;
-      border: 1px solid #dce6ef;
-      border-radius: 10px;
-      padding: 1.4rem 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 22px rgba(26, 58, 92, 0.12);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card Top Row: badges ── */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      font-size: 0.68rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.2rem 0.55rem;
-      border-radius: 4px;
-      line-height: 1.4;
-    }
-
-    .badge-type {
-      background: #e8f0f9;
-      color: #2a5f8f;
-      border: 1px solid #c4d8ee;
-    }
-
-    .badge-filetype {
-      background: #f0f4f0;
-      color: #3a6b3a;
-      border: 1px solid #c5dac5;
-      font-family: 'Courier New', monospace;
-    }
-
-    /* ── Card Title Row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-    }
-
-    .card-title {
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      line-height: 1.35;
-    }
-
-    .card-title a {
-      color: #1558a0;
-      text-decoration: none;
-      border-bottom: 1.5px solid transparent;
-      transition: border-color 0.15s ease, color 0.15s ease;
-    }
-
-    .card-title a:hover {
-      color: #0d3d7a;
-      border-bottom-color: #0d3d7a;
-    }
-
-    .card-title span {
-      color: #1a3a5c;
-    }
-
-    /* ── Source Link ── */
-    .source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.28rem;
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #5a7a9a;
-      text-decoration: none;
-      background: #f0f5fa;
-      border: 1px solid #c8daeb;
-      border-radius: 4px;
-      padding: 0.18rem 0.5rem;
-      white-space: nowrap;
-      transition: background 0.15s, color 0.15s;
-    }
-
-    .source-link:hover {
-      background: #ddeaf6;
-      color: #1a3a5c;
-    }
-
-    .source-link::before {
-      content: "⬡";
-      font-size: 0.65rem;
-    }
-
-    /* ── Card Description ── */
-    .card-description {
-      font-size: 0.875rem;
-      color: #44576c;
-      line-height: 1.65;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8aa3bb;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dce6ef;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 600px) {
-      .card-grid { grid-template-columns: 1fr; }
-      header { padding: 2rem 1.2rem 1.8rem; }
-      main { padding: 1.8rem 1rem 2.5rem; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Controlled User Testing and Data Collection — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="header-inner">
-      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">Controlled User Testing and Data Collection</span>
+  </nav>
+      <div class="hero-label">Module 10</div>
       <h1>Controlled User Testing and Data Collection</h1>
-      <p>
-        This module explores the end-to-end process of planning and running controlled usability studies.
-        Topics range from experimental design fundamentals and participant recruitment to task scenario writing,
-        data collection methods, and structuring results for analysis. Use the artifacts below to navigate
-        readings, references, and supporting materials for this module.
-      </p>
+      <p class="hero-desc">Covers experimental design for usability testing, including participant selection, task scenario scripting, think-aloud protocols, and quantitative and qualitative data capture. Student teams conduct live user testing sessions and compile structured results for analysis.</p>
     </div>
   </header>
-
-  <main>
-    <p class="section-label">Module Artifacts &mdash; 10 items</p>
-
-    <div class="card-grid">
-
-      <!-- Artifact 1: Module Topics -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card-description">
-          A structured outline of the module's core topics—covering experimental design fundamentals,
-          participant recruitment, task scenario writing, data collection methods, and usability
-          metrics—that guides both instructors in planning lessons and learners in understanding what
-          concepts and skills the module will address.
-        </p>
-      </div>
-
-      <!-- Artifact 2: Foundations of Experimental Design -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Controlled_User_Testing_interactive_topics_t1.html">Foundations of Experimental Design for Usability Testing</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading introduces core experimental design concepts for usability studies, covering how
-          to define research questions, select variables, choose study structures, and make the key
-          decisions needed before testing begins, serving as foundational theory for the module.
-        </p>
-      </div>
-
-      <!-- Artifact 3: Participant Selection and Recruitment -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Controlled_User_Testing_interactive_topics_t2.html">Participant Selection and Recruitment</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading explains how to identify, screen, and recruit appropriate test participants,
-          covering sampling strategies, screener design, and why participant representativeness is
-          critical to the validity of usability study findings.
-        </p>
-      </div>
-
-      <!-- Artifact 4: Task Scenario Scripting -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Controlled_User_Testing_interactive_topics_t3.html">Task Scenario Scripting</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading covers how to write effective task scenarios for usability tests, explaining
-          what makes a scenario realistic and motivating, common scripting pitfalls to avoid, and how
-          scenario quality directly affects the behavioral data collected.
-        </p>
-      </div>
-
-      <!-- Artifact 5: Think-Aloud Protocol -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Controlled_User_Testing_interactive_topics_t4.html">Think-Aloud Protocol</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading describes the think-aloud protocol method, explaining how to instruct
-          participants to verbalize their thoughts during tasks, the difference between concurrent
-          and retrospective approaches, and how facilitators use it to capture real-time user reasoning.
-        </p>
-      </div>
-
-      <!-- Artifact 6: Quantitative Data Collection -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Controlled_User_Testing_interactive_topics_t5.html">Quantitative Data Collection</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading covers quantitative data collection in usability testing, explaining what
-          numerical metrics such as task completion rates, time-on-task, and error counts measure,
-          how to record them consistently, and how they are used to compare and benchmark interface
-          performance.
-        </p>
-      </div>
-
-      <!-- Artifact 7: Qualitative Data Collection -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Controlled_User_Testing_interactive_topics_t6.html">Qualitative Data Collection</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading explains qualitative data collection methods in usability testing, covering
-          observational note-taking, verbal data capture, and how these techniques reveal the reasons
-          behind user behavior to complement numerical metrics.
-        </p>
-      </div>
-
-      <!-- Artifact 8: Conducting Live User Testing Sessions -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Controlled_User_Testing_interactive_topics_t7.html">Conducting Live User Testing Sessions</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading guides facilitators through running live usability test sessions, covering
-          session structure, facilitator conduct, how to manage participants without biasing results,
-          and practical considerations for both in-person and remote testing contexts.
-        </p>
-      </div>
-
-      <!-- Artifact 9: Compiling Structured Results (Topic Detail) -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Controlled_User_Testing_interactive_topics_t8.html">Compiling Structured Results for Analysis</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading explains how to organize and structure raw usability test data — including
-          notes, metrics, transcripts, and questionnaire scores — into formats suitable for systematic
-          analysis, covering data cleaning, categorization, and preparation techniques.
-        </p>
-      </div>
-
-      <!-- Artifact 10: Compiling Structured Results (Text Content) -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Controlled_User_Testing_interactive.html">Compiling Structured Results for Analysis</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading explains how to organize and structure raw usability test data — including
-          notes, metrics, transcripts, and questionnaire scores — into formats suitable for systematic
-          analysis, covering data cleaning, categorization, and preparation techniques.
-        </p>
-      </div>
-
-    </div><!-- /.card-grid -->
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 8 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Foundations of Experimental Design for Usability Testing</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Participant Selection and Recruitment</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Task Scenario Scripting</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Think-Aloud Protocol</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Quantitative Data Collection</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Qualitative Data Collection</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Conducting Live User Testing Sessions</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-8"><span class="topic-num" aria-hidden="true">8</span><span class="topic-text"><span class="topic-title">Compiling Structured Results for Analysis</span><span class="topic-meta">5 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">18 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_interactive_topics_t1.html">Foundations of Experimental Design for Usability Testing</a></div>
+    <p class="content-desc">This reading introduces core experimental design concepts for usability studies, covering how to define research questions, select variables, choose study structures, and make the key decisions needed before testing begins, serving as foundational theory for the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_interactive_topics_t2.html">Participant Selection and Recruitment</a></div>
+    <p class="content-desc">This reading explains how to identify, screen, and recruit appropriate test participants, covering sampling strategies, screener design, and why participant representativeness is critical to the validity of usability study findings.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_interactive_topics_t3.html">Task Scenario Scripting</a></div>
+    <p class="content-desc">This reading covers how to write effective task scenarios for usability tests, explaining what makes a scenario realistic and motivating, common scripting pitfalls to avoid, and how scenario quality directly affects the behavioral data collected.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_interactive_topics_t4.html">Think-Aloud Protocol</a></div>
+    <p class="content-desc">This reading describes the think-aloud protocol method, explaining how to instruct participants to verbalize their thoughts during tasks, the difference between concurrent and retrospective approaches, and how facilitators use it to capture real-time user reasoning.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_interactive_topics_t5.html">Quantitative Data Collection</a></div>
+    <p class="content-desc">This reading covers quantitative data collection in usability testing, explaining what numerical metrics such as task completion rates, time-on-task, and error counts measure, how to record them consistently, and how they are used to compare and benchmark interface performance.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_interactive_topics_t6.html">Qualitative Data Collection</a></div>
+    <p class="content-desc">This reading explains qualitative data collection methods in usability testing, covering observational note-taking, verbal data capture, and how these techniques reveal the reasons behind user behavior to complement numerical metrics.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_interactive_topics_t7.html">Conducting Live User Testing Sessions</a></div>
+    <p class="content-desc">This reading guides facilitators through running live usability test sessions, covering session structure, facilitator conduct, how to manage participants without biasing results, and practical considerations for both in-person and remote testing contexts.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_interactive_topics_t8.html">Compiling Structured Results for Analysis</a></div>
+    <p class="content-desc">This reading explains how to organize and structure raw usability test data — including notes, metrics, transcripts, and questionnaire scores — into formats suitable for systematic analysis, covering data cleaning, categorization, and preparation techniques.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_interactive.html">Compiling Structured Results for Analysis</a></div>
+    <p class="content-desc">This reading explains how to organize and structure raw usability test data — including notes, metrics, transcripts, and questionnaire scores — into formats suitable for systematic analysis, covering data cleaning, categorization, and preparation techniques.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_t1_videos.html">Foundations of Experimental Design for Usability Testing — Videos</a></div>
+    <p class="content-desc">A reading that introduces experimental design principles for usability testing — independent and dependent variables, controls, and between- versus within-subjects comparisons — so learners can plan a study that supports valid claims about which interface performs better.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_t2_videos.html">Participant Selection and Recruitment — Videos</a></div>
+    <p class="content-desc">A lesson on defining target users, writing screening criteria, recruiting and screening participants, and obtaining consent, used by learners to assemble a sample whose results actually represent the intended audience.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_t3_videos.html">Task Scenario Scripting — Videos</a></div>
+    <p class="content-desc">A guide to writing realistic, non-leading task scenarios with clear success criteria, which learners use to draft the tasks participants will attempt during a usability session.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_t4_videos.html">Think-Aloud Protocol — Videos</a></div>
+    <p class="content-desc">An explanation of the think-aloud protocol, including how to instruct participants to verbalize their reasoning, when to prompt, and the method&#39;s strengths and limits, for learners facilitating sessions that reveal why users struggle.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_t5_videos.html">Quantitative Data Collection — Videos</a></div>
+    <p class="content-desc">A reading on capturing numeric usability measures — task completion, time on task, error counts, subjective difficulty ratings, and standardized instruments like SUS — so learners can collect comparable, reportable metrics.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_t6_videos.html">Qualitative Data Collection — Videos</a></div>
+    <p class="content-desc">A lesson on gathering non-numeric evidence such as think-aloud comments, hesitations, workarounds, observed reactions, and post-test interview responses, helping learners explain the reasons behind quantitative results.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_t7_videos.html">Conducting Live User Testing Sessions — Videos</a></div>
+    <p class="content-desc">A practical guide to running live test sessions, covering facilitator and note-taker roles, room or video setup, recording and timing logistics, the opening script, and how to handle problems mid-session.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_t8_videos.html">Compiling Structured Results for Analysis — Videos</a></div>
+    <p class="content-desc">A reading on turning raw session notes, tallies, recordings, quotes, and timings into organized results by participant and task, preparing learners to produce findings a design team can act on.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Controlled_User_Testing_videos_merged.html">Controlled User Testing and Data Collection — 8 topics (merged)</a></div>
+    <p class="content-desc">The combined module page compiling all lesson readings on controlled user testing — from experimental design and recruitment through task scripting, think-aloud, data collection, session facilitation, and results compilation — for continuous review or printing.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../functional-prototype-development-and-testing-preparation/index.html">← Functional Prototype Development and Testing Preparation</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../analyzing-user-testing-results-and-iterative-redesign/index.html">Analyzing User Testing Results and Iterative Redesign →</a>
+</nav>
   </main>
-
-  <footer>
-    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;|&nbsp;
-    Module: Controlled User Testing and Data Collection
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

@@ -1,402 +1,179 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Analyzing User Testing Results and Iterative Redesign — CEN3722</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: #f4f6f9;
-      color: #2c3340;
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Page Shell ── */
-    .page-wrapper {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 2.5rem 1.25rem 4rem;
-    }
-
-    /* ── Course Label ── */
-    .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #5a6a85;
-      background: #e2e8f2;
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 0.75rem;
-    }
-
-    /* ── Header ── */
-    .page-header {
-      border-bottom: 3px solid #2f62c0;
-      padding-bottom: 1.5rem;
-      margin-bottom: 2.25rem;
-    }
-
-    .page-header h1 {
-      font-size: clamp(1.4rem, 3vw, 2rem);
-      font-weight: 700;
-      color: #1a2540;
-      line-height: 1.25;
-      margin-bottom: 0.75rem;
-    }
-
-    .page-header p {
-      font-size: 0.97rem;
-      color: #4a5568;
-      max-width: 72ch;
-    }
-
-    /* ── Section Label ── */
-    .section-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #7a8aaa;
-      margin-bottom: 1rem;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #ffffff;
-      border: 1px solid #dde3ee;
-      border-radius: 8px;
-      padding: 1.25rem 1.35rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 18px rgba(47, 98, 192, 0.1);
-      border-color: #b3c2e0;
-    }
-
-    /* ── Card Top Row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.5rem 0.6rem;
-    }
-
-    .card-name {
-      font-size: 1rem;
-      font-weight: 600;
-      color: #1a2540;
-      line-height: 1.3;
-    }
-
-    .card-name a {
-      color: #2f62c0;
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.15s ease, color 0.15s ease;
-    }
-
-    .card-name a:hover,
-    .card-name a:focus {
-      color: #1a3f8f;
-      border-bottom-color: #1a3f8f;
-      outline: none;
-    }
-
-    .source-link {
-      font-size: 0.73rem;
-      font-weight: 500;
-      color: #5a78b8;
-      text-decoration: none;
-      background: #edf1fb;
-      border: 1px solid #c5d1ed;
-      border-radius: 4px;
-      padding: 0.15rem 0.45rem;
-      white-space: nowrap;
-      transition: background 0.15s ease, color 0.15s ease;
-      flex-shrink: 0;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #2f62c0;
-      color: #ffffff;
-      border-color: #2f62c0;
-      outline: none;
-    }
-
-    /* ── Meta Badges ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .badge {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      border-radius: 4px;
-      padding: 0.2rem 0.5rem;
-      white-space: nowrap;
-    }
-
-    .badge-type {
-      background: #e8f0fd;
-      color: #2f62c0;
-      border: 1px solid #c5d3f5;
-    }
-
-    .badge-filetype {
-      background: #f0f4f8;
-      color: #5a6a85;
-      border: 1px solid #d5dce8;
-      font-family: 'Courier New', monospace;
-    }
-
-    /* ── Card Description ── */
-    .card-description {
-      font-size: 0.875rem;
-      color: #4a5568;
-      line-height: 1.6;
-      flex-grow: 1;
-    }
-
-    /* ── Footer ── */
-    .page-footer {
-      margin-top: 3rem;
-      padding-top: 1.25rem;
-      border-top: 1px solid #dde3ee;
-      font-size: 0.78rem;
-      color: #8a96aa;
-      text-align: center;
-    }
-
-    /* ── Responsive tweaks ── */
-    @media (max-width: 480px) {
-      .card-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Analyzing User Testing Results and Iterative Redesign — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-  <div class="page-wrapper">
-
-    <!-- ── Header ── -->
-    <header class="page-header">
-      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">Analyzing User Testing Results and Iterative Redesign</span>
+  </nav>
+      <div class="hero-label">Module 11</div>
       <h1>Analyzing User Testing Results and Iterative Redesign</h1>
-      <p>
-        This module guides learners through the full lifecycle of usability analysis and design improvement:
-        from interpreting quantitative and qualitative test data and diagnosing error patterns, to prioritizing
-        fixes, implementing prototype changes, and communicating redesign outcomes to stakeholders.
-        Use the artifacts below to navigate lessons, activities, and reference materials.
-      </p>
-    </header>
-
-    <!-- ── Artifact Grid ── -->
-    <main>
-      <p class="section-label">Module Artifacts</p>
-      <div class="card-grid">
-
-        <!-- Card 1: Module Topics -->
-        <article class="card">
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/module_topics.html">Module Topics</a>
-            </span>
-            <a class="source-link" href="source/hierarchy.json">source file</a>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Module Topics</span>
-            <span class="badge badge-filetype">.json</span>
-          </div>
-          <p class="card-description">
-            A structured topic outline covering the full workflow of usability testing analysis—from
-            distinguishing quantitative and qualitative data, collecting and organizing findings via
-            affinity diagrams and issue logs, classifying and root-causing errors, and prioritizing
-            fixes using severity and impact frameworks—which instructors use to sequence lessons and
-            learners use to navigate the module's core concepts.
-          </p>
-        </article>
-
-        <!-- Card 2: Foundations of Usability Test Data -->
-        <article class="card">
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/Analyzing_User_Testing_interactive_topics_t1.html">Foundations of Usability Test Data</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            Covers the types of data generated by usability testing — including quantitative and qualitative
-            categories, how each is measured, and what each can and cannot reveal — giving learners a
-            foundation for interpreting test results accurately.
-          </p>
-        </article>
-
-        <!-- Card 3: Collecting and Organizing Test Data -->
-        <article class="card">
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/Analyzing_User_Testing_interactive_topics_t2.html">Collecting and Organizing Test Data</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            Explains how to transform raw observations, recordings, and notes from usability sessions into
-            structured, actionable insights, guiding learners and instructors through systematic data
-            collection and organization methods.
-          </p>
-        </article>
-
-        <!-- Card 4: Interpreting Error Analysis -->
-        <article class="card">
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/Analyzing_User_Testing_interactive_topics_t3.html">Interpreting Error Analysis</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            Teaches learners how to move beyond surface-level error observations to diagnose what user
-            mistakes reveal about underlying interface problems, covering classification, interpretation,
-            and the analytical process of error analysis.
-          </p>
-        </article>
-
-        <!-- Card 5: Prioritizing Usability Improvements -->
-        <article class="card">
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/Analyzing_User_Testing_interactive_topics_t4.html">Prioritizing Usability Improvements</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            Addresses how to evaluate and rank usability problems when resources are limited, helping
-            learners apply frameworks for weighing severity, frequency, and impact to decide which issues
-            to fix first in a realistic project context.
-          </p>
-        </article>
-
-        <!-- Card 6: Principles of Iterative Redesign -->
-        <article class="card">
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/Analyzing_User_Testing_interactive_topics_t5.html">Principles of Iterative Redesign</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            Introduces the iterative redesign process — covering its core principles of hypothesis, change,
-            testing, and evaluation in repeated cycles — and explains why multiple design passes based on
-            real user feedback outperform single-pass design attempts.
-          </p>
-        </article>
-
-        <!-- Card 7: Implementing Redesign Changes in Prototypes -->
-        <article class="card">
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/Analyzing_User_Testing_interactive_topics_t6.html">Implementing Redesign Changes in Prototypes</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            Guides learners through translating usability test findings into deliberate, concrete prototype
-            changes, covering how to implement redesign decisions in a way that produces a measurably
-            improved next version of the design.
-          </p>
-        </article>
-
-        <!-- Card 8: Documenting and Communicating Redesign Outcomes (Topic Detail) -->
-        <article class="card">
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/Analyzing_User_Testing_interactive_topics_t7.html">Documenting and Communicating Redesign Outcomes</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            Explains how to document the outcomes of a usability-driven redesign and communicate changes
-            and rationale to stakeholders, emphasizing the role of clear reporting in building organizational
-            memory and demonstrating evidence-based design value.
-          </p>
-        </article>
-
-        <!-- Card 9: Documenting and Communicating Redesign Outcomes (Text Content) -->
-        <article class="card">
-          <div class="card-title-row">
-            <span class="card-name">
-              <a href="content/Analyzing_User_Testing_interactive.html">Documenting and Communicating Redesign Outcomes</a>
-            </span>
-          </div>
-          <div class="card-meta">
-            <span class="badge badge-type">Text Content</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <p class="card-description">
-            Explains how to document the outcomes of a usability-driven redesign and communicate changes
-            and rationale to stakeholders, emphasizing the role of clear reporting in building organizational
-            memory and demonstrating evidence-based design value.
-          </p>
-        </article>
-
-      </div>
-    </main>
-
-    <!-- ── Footer ── -->
-    <footer class="page-footer">
-      CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp;
-      Analyzing User Testing Results and Iterative Redesign
-    </footer>
-
+      <p class="hero-desc">Teaches methods for interpreting usability test data — including error analysis, task completion rates, and satisfaction scores — to prioritize and implement interface improvements. Students apply findings from their user testing to refine and update their prototypes.</p>
+    </div>
+  </header>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 7 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Foundations of Usability Test Data</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Collecting and Organizing Test Data</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Interpreting Error Analysis</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Prioritizing Usability Improvements</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Principles of Iterative Redesign</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Implementing Redesign Changes in Prototypes</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Documenting and Communicating Redesign Outcomes</span><span class="topic-meta">5 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">16 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_interactive_topics_t1.html">Foundations of Usability Test Data</a></div>
+    <p class="content-desc">Covers the types of data generated by usability testing — including quantitative and qualitative categories, how each is measured, and what each can and cannot reveal — giving learners a foundation for interpreting test results accurately.</p>
   </div>
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_interactive_topics_t2.html">Collecting and Organizing Test Data</a></div>
+    <p class="content-desc">Explains how to transform raw observations, recordings, and notes from usability sessions into structured, actionable insights, guiding learners and instructors through systematic data collection and organization methods.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_interactive_topics_t3.html">Interpreting Error Analysis</a></div>
+    <p class="content-desc">Teaches learners how to move beyond surface-level error observations to diagnose what user mistakes reveal about underlying interface problems, covering classification, interpretation, and the analytical process of error analysis.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_interactive_topics_t4.html">Prioritizing Usability Improvements</a></div>
+    <p class="content-desc">Addresses how to evaluate and rank usability problems when resources are limited, helping learners apply frameworks for weighing severity, frequency, and impact to decide which issues to fix first in a realistic project context.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_interactive_topics_t5.html">Principles of Iterative Redesign</a></div>
+    <p class="content-desc">Introduces the iterative redesign process — covering its core principles of hypothesis, change, testing, and evaluation in repeated cycles — and explains why multiple design passes based on real user feedback outperform single-pass design attempts.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_interactive_topics_t6.html">Implementing Redesign Changes in Prototypes</a></div>
+    <p class="content-desc">Guides learners through translating usability test findings into deliberate, concrete prototype changes, covering how to implement redesign decisions in a way that produces a measurably improved next version of the design.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_interactive_topics_t7.html">Documenting and Communicating Redesign Outcomes</a></div>
+    <p class="content-desc">Explains how to document the outcomes of a usability-driven redesign and communicate changes and rationale to stakeholders, emphasizing the role of clear reporting in building organizational memory and demonstrating evidence-based design value.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_interactive.html">Documenting and Communicating Redesign Outcomes</a></div>
+    <p class="content-desc">Explains how to document the outcomes of a usability-driven redesign and communicate changes and rationale to stakeholders, emphasizing the role of clear reporting in building organizational memory and demonstrating evidence-based design value.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_t1_videos.html">Foundations of Usability Test Data — Videos</a></div>
+    <p class="content-desc">A reading that distinguishes quantitative usability measures (task completion rates, time on task, error counts, satisfaction ratings) from qualitative observational evidence such as participant comments and hesitations, giving learners the vocabulary and mental model needed to interpret test results before analysis begins.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_t2_videos.html">Collecting and Organizing Test Data — Videos</a></div>
+    <p class="content-desc">A reading on capturing and structuring raw session material — observation notes, recordings, success/failure records, timing data, and quotes — into consistent formats so patterns can be compared across participants; learners use it as a practical guide for setting up their own data logs.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_t3_videos.html">Interpreting Error Analysis — Videos</a></div>
+    <p class="content-desc">A reading that teaches learners to classify observed user mistakes (wrong clicks, backtracking, format errors, abandonment) into error types and diagnose their underlying interface causes rather than simply reporting that a user was confused.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_t4_videos.html">Prioritizing Usability Improvements — Videos</a></div>
+    <p class="content-desc">A reading on converting a raw list of usability findings into a defensible, ordered fix list by weighing severity, frequency, and cost of repair; instructors can use it to frame exercises in triaging issues under realistic time and budget limits.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_t5_videos.html">Principles of Iterative Redesign — Videos</a></div>
+    <p class="content-desc">A reading presenting iterative redesign as the core cycle of user-centered design — treating each design version as a testable hypothesis to build, test, revise, and retest — with guidance on making each cycle more focused than the last.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_t6_videos.html">Implementing Redesign Changes in Prototypes — Videos</a></div>
+    <p class="content-desc">A reading covering the practical mechanics of revising a prototype after testing, including choosing the appropriate fidelity for each change, translating an observed problem into a specific design fix, and preparing the revision for another round of testing.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_t7_videos.html">Documenting and Communicating Redesign Outcomes — Videos</a></div>
+    <p class="content-desc">A reading on writing usability test reports and redesign documentation that link claims to evidence and explain what was found, what was changed, and why, so that teammates, stakeholders, and future designers can act on the work.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Analyzing_User_Testing_videos_merged.html">Analyzing User Testing Results and Iterative Redesign — 7 topics (merged)</a></div>
+    <p class="content-desc">A consolidated single-page compilation of all module topics — from usability data foundations and data organization through error analysis, prioritization, iterative redesign principles, prototype revision, and documentation — useful for review or as a printable reference for the whole module.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../controlled-user-testing-and-data-collection/index.html">← Controlled User Testing and Data Collection</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../accessibility-standards-and-inclusive-interface-design/index.html">Accessibility Standards and Inclusive Interface Design →</a>
+</nav>
+  </main>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

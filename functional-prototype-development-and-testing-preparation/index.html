@@ -1,389 +1,162 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Functional Prototype Development and Testing Preparation — CEN3722</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: "Segoe UI", Arial, sans-serif;
-      background: #f4f6f9;
-      color: #1e2a38;
-      line-height: 1.65;
-      min-height: 100vh;
-    }
-
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, #1a3a5c 0%, #2563a8 100%);
-      color: #fff;
-      padding: 2.5rem 1.5rem 2rem;
-      border-bottom: 4px solid #f0a500;
-    }
-
-    .header-inner {
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #b8d4f5;
-      margin-bottom: 0.45rem;
-    }
-
-    header h1 {
-      font-size: clamp(1.45rem, 3vw, 2rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: 0.85rem;
-    }
-
-    header p {
-      font-size: 0.97rem;
-      color: #d6e8ff;
-      max-width: 720px;
-      line-height: 1.7;
-    }
-
-    /* ── Main Container ── */
-    main {
-      max-width: 960px;
-      margin: 2.2rem auto 3rem;
-      padding: 0 1.25rem;
-    }
-
-    .section-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #5a7499;
-      margin-bottom: 1.1rem;
-      padding-bottom: 0.35rem;
-      border-bottom: 2px solid #dde4ee;
-    }
-
-    /* ── Card Grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.2rem;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #ffffff;
-      border: 1px solid #dde4ee;
-      border-radius: 8px;
-      padding: 1.35rem 1.4rem 1.25rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.55rem;
-      transition: box-shadow 0.18s ease, transform 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 22px rgba(30, 60, 100, 0.11);
-      transform: translateY(-2px);
-    }
-
-    /* ── Card Meta Row ── */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.68rem;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 0.18em 0.55em;
-      border-radius: 4px;
-      line-height: 1.5;
-    }
-
-    .badge-type {
-      background: #e8f0fb;
-      color: #2563a8;
-    }
-
-    .badge-filetype {
-      background: #eef7f0;
-      color: #27744a;
-      font-family: "Courier New", Courier, monospace;
-    }
-
-    /* ── Card Title Row ── */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: 0.55rem;
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1a3a5c;
-      line-height: 1.3;
-    }
-
-    .card-title a {
-      color: #1a3a5c;
-      text-decoration: none;
-      border-bottom: 2px solid #2563a8;
-      padding-bottom: 1px;
-      transition: color 0.15s, border-color 0.15s;
-    }
-
-    .card-title a:hover,
-    .card-title a:focus {
-      color: #2563a8;
-      border-color: #f0a500;
-      outline: none;
-    }
-
-    .source-link {
-      font-size: 0.73rem;
-      font-weight: 600;
-      color: #5a7499;
-      text-decoration: none;
-      border: 1px solid #beccde;
-      border-radius: 4px;
-      padding: 0.15em 0.5em;
-      white-space: nowrap;
-      transition: background 0.15s, color 0.15s, border-color 0.15s;
-    }
-
-    .source-link:hover,
-    .source-link:focus {
-      background: #2563a8;
-      color: #fff;
-      border-color: #2563a8;
-      outline: none;
-    }
-
-    /* ── Card Description ── */
-    .card-description {
-      font-size: 0.875rem;
-      color: #3d5268;
-      line-height: 1.65;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    footer {
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8a9bb0;
-      padding: 1.5rem 1rem 2rem;
-      border-top: 1px solid #dde4ee;
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 520px) {
-      header { padding: 1.75rem 1rem 1.5rem; }
-      .card { padding: 1.1rem 1.1rem 1rem; }
-      .card-title { font-size: 0.95rem; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Functional Prototype Development and Testing Preparation — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <header>
-    <div class="header-inner">
-      <p class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">Functional Prototype Development and Testing Preparation</span>
+  </nav>
+      <div class="hero-label">Module 9</div>
       <h1>Functional Prototype Development and Testing Preparation</h1>
-      <p>
-        This module guides learners through the transition from static design mockups to working,
-        interactive prototypes and prepares them for structured usability testing. Topics span
-        development environment setup, design-to-code handoff strategies, user proficiency surveying,
-        and the creation of rigorous testing protocols — ensuring that prototype builds and test plans
-        are fully aligned before studies begin.
-      </p>
+      <p class="hero-desc">Guides students from high-fidelity mockups to coded, deployable prototypes suitable for controlled usability testing, covering transition strategies and development environment use. Students also design user proficiency surveys and testing protocols for the upcoming user studies.</p>
     </div>
   </header>
-
-  <main>
-    <p class="section-label">Module Artifacts &mdash; 7 items</p>
-
-    <div class="card-grid">
-
-      <!-- 1 · Module Topics -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <p class="card-description">
-          Covers the key topics in the module — including transitioning from mockups to functional
-          prototypes, design handoff, development environment setup, and testing preparation —
-          serving as a topic outline to help learners and instructors navigate the scope and
-          structure of the module.
-        </p>
-      </div>
-
-      <!-- 2 · From Mockup to Functional Prototype -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Functional_Prototype_Develop_interactive_topics_t1.html">From Mockup to Functional Prototype</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading explains why static mockups are insufficient for serious design validation
-          and introduces the concept of functional prototypes, covering what makes a prototype
-          'functional,' the trade-offs involved, and how teams decide when to make the transition
-          from static screens to working, interactive builds.
-        </p>
-      </div>
-
-      <!-- 3 · Transition Strategies from Design to Code -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Functional_Prototype_Develop_interactive_topics_t2.html">Transition Strategies from Design to Code</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading covers strategies for translating polished design mockups into coded
-          prototypes, addressing common pitfalls in the handoff process and providing guidance
-          on how designers and developers can collaborate to maintain consistency between visual
-          intent and functional behavior.
-        </p>
-      </div>
-
-      <!-- 4 · Development Environment Setup and Use -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Functional_Prototype_Develop_interactive_topics_t3.html">Development Environment Setup and Use</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading walks through the decisions and steps involved in setting up a development
-          environment for prototype building, including tool selection, collaboration practices,
-          and workflow considerations that teams must address before writing any prototype code.
-        </p>
-      </div>
-
-      <!-- 5 · Designing User Proficiency Surveys -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Functional_Prototype_Develop_interactive_topics_t4.html">Designing User Proficiency Surveys</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading explains how to design user proficiency surveys administered before
-          usability sessions, covering why participant background — such as technology experience,
-          domain familiarity, and prior product exposure — matters and how to craft survey
-          questions that accurately capture it.
-        </p>
-      </div>
-
-      <!-- 6 · Designing Usability Testing Protocols -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Functional_Prototype_Develop_interactive_topics_t5.html">Designing Usability Testing Protocols</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading describes how to design a usability testing protocol, covering the key
-          components of the governing document that structures a user study, why standardization
-          matters, and how to prevent facilitator drift and inconsistency across testing sessions.
-        </p>
-      </div>
-
-      <!-- 7 · Integrating Prototype and Testing Preparation (Topic Detail) -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Functional_Prototype_Develop_interactive_topics_t6.html">Integrating Prototype and Testing Preparation</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading addresses the challenge of aligning parallel workstreams — prototype
-          development and test protocol design — so they are fully compatible when testing begins,
-          offering guidance on coordination strategies to prevent mismatches between what the
-          prototype does and what the test expects.
-        </p>
-      </div>
-
-      <!-- 8 · Integrating Prototype and Testing Preparation (Text Content) -->
-      <div class="card">
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <div class="card-title-row">
-          <span class="card-title">
-            <a href="content/Functional_Prototype_Develop_interactive.html">Integrating Prototype and Testing Preparation</a>
-          </span>
-        </div>
-        <p class="card-description">
-          This reading addresses the challenge of aligning parallel workstreams — prototype
-          development and test protocol design — so they are fully compatible when testing begins,
-          offering guidance on coordination strategies to prevent mismatches between what the
-          prototype does and what the test expects.
-        </p>
-      </div>
-
-    </div><!-- /.card-grid -->
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 6 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">From Mockup to Functional Prototype</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Transition Strategies from Design to Code</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Development Environment Setup and Use</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Designing User Proficiency Surveys</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Designing Usability Testing Protocols</span><span class="topic-meta">6 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Integrating Prototype and Testing Preparation</span><span class="topic-meta">3 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">14 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_interactive_topics_t1.html">From Mockup to Functional Prototype</a></div>
+    <p class="content-desc">This reading explains why static mockups are insufficient for serious design validation and introduces the concept of functional prototypes, covering what makes a prototype &#39;functional,&#39; the trade-offs involved, and how teams decide when to make the transition from static screens to working, interactive builds.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_interactive_topics_t2.html">Transition Strategies from Design to Code</a></div>
+    <p class="content-desc">This reading covers strategies for translating polished design mockups into coded prototypes, addressing common pitfalls in the handoff process and providing guidance on how designers and developers can collaborate to maintain consistency between visual intent and functional behavior.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_interactive_topics_t3.html">Development Environment Setup and Use</a></div>
+    <p class="content-desc">This reading walks through the decisions and steps involved in setting up a development environment for prototype building, including tool selection, collaboration practices, and workflow considerations that teams must address before writing any prototype code.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_interactive_topics_t4.html">Designing User Proficiency Surveys</a></div>
+    <p class="content-desc">This reading explains how to design user proficiency surveys administered before usability sessions, covering why participant background—such as technology experience, domain familiarity, and prior product exposure—matters and how to craft survey questions that accurately capture it.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_interactive_topics_t5.html">Designing Usability Testing Protocols</a></div>
+    <p class="content-desc">This reading describes how to design a usability testing protocol, covering the key components of the governing document that structures a user study, why standardization matters, and how to prevent facilitator drift and inconsistency across testing sessions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_interactive_topics_t6.html">Integrating Prototype and Testing Preparation</a></div>
+    <p class="content-desc">This reading addresses the challenge of aligning parallel workstreams—prototype development and test protocol design—so they are fully compatible when testing begins, offering guidance on coordination strategies to prevent mismatches between what the prototype does and what the test expects.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_interactive.html">Integrating Prototype and Testing Preparation</a></div>
+    <p class="content-desc">This reading addresses the challenge of aligning parallel workstreams—prototype development and test protocol design—so they are fully compatible when testing begins, offering guidance on coordination strategies to prevent mismatches between what the prototype does and what the test expects.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_t1_videos.html">From Mockup to Functional Prototype — Videos</a></div>
+    <p class="content-desc">A reading that distinguishes high-fidelity mockups from functional prototypes, explaining what makes a prototype truly &#39;functional,&#39; why static screens fall short in real user sessions, and how to judge when a team is ready to leave visual design tools behind for working code.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_t2_videos.html">Transition Strategies from Design to Code — Videos</a></div>
+    <p class="content-desc">A lesson on bridging the design-to-code gap, covering the ambiguities mockups leave behind (empty states, exact spacing, screen-to-screen flow after errors) and strategies such as design specs, component inventories, and developer-designer handoff practices for translating visuals into implementation.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_t3_videos.html">Development Environment Setup and Use — Videos</a></div>
+    <p class="content-desc">A practical guide to assembling a development environment for prototype work, walking through language runtime, framework, editor, package manager, version control, and live-preview setup so students can configure a reliable workspace before coding begins.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_t4_videos.html">Designing User Proficiency Surveys — Videos</a></div>
+    <p class="content-desc">A reading on building pre-test user proficiency surveys that capture participant background, technology familiarity, and domain knowledge, showing learners how to write and use these instruments so usability results can be interpreted against participant experience.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_t5_videos.html">Designing Usability Testing Protocols — Videos</a></div>
+    <p class="content-desc">A lesson on writing repeatable usability testing protocols, covering participant recruitment, task selection, facilitator scripts, data to capture (time on task, errors, completion, think-aloud, satisfaction), and logistical setup details for running a study.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_t6_videos.html">Integrating Prototype and Testing Preparation — Videos</a></div>
+    <p class="content-desc">A synthesis reading that treats the functional prototype and the user testing plan as one system, showing learners how to verify that every planned test task is supported by working prototype features and realistic preloaded data before testing begins.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Functional_Prototype_Develop_videos_merged.html">Functional Prototype Development and Testing Preparation — 6 topics (merged)</a></div>
+    <p class="content-desc">A combined full-module reading that compiles all six topics — mockup-to-prototype transition, design-to-code strategies, environment setup, proficiency surveys, testing protocols, and integration — into a single document for continuous review or offline study.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../heuristic-evaluation-and-nielsens-10-principles/index.html">← Heuristic Evaluation and Nielsen&#39;s 10 Principles</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../controlled-user-testing-and-data-collection/index.html">Controlled User Testing and Data Collection →</a>
+</nav>
   </main>
-
-  <footer>
-    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&nbsp;
-    Functional Prototype Development and Testing Preparation
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

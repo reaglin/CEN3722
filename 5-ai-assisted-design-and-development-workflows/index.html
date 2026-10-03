@@ -1,430 +1,177 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 5 – AI-Assisted Design and Development Workflows | CEN3722</title>
-  <style>
-    /* ── Reset & base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
-      font-size: 1rem;
-      line-height: 1.6;
-      background: #f4f6f9;
-      color: #1e2535;
-    }
-
-    /* ── Page shell ── */
-    .page-wrapper {
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 2rem 1.25rem 4rem;
-    }
-
-    /* ── Course label ── */
-    .course-label {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #4f6b8f;
-      background: #dde6f2;
-      border-radius: 4px;
-      padding: 0.25rem 0.65rem;
-      margin-bottom: 0.75rem;
-    }
-
-    /* ── Header block ── */
-    .module-header {
-      border-left: 5px solid #2d6be4;
-      padding: 1.25rem 1.5rem;
-      background: #ffffff;
-      border-radius: 0 8px 8px 0;
-      margin-bottom: 2.5rem;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    .module-header h1 {
-      font-size: 1.65rem;
-      font-weight: 700;
-      color: #12203a;
-      margin-bottom: 0.5rem;
-    }
-
-    .module-header p {
-      font-size: 0.97rem;
-      color: #3d4f6a;
-      max-width: 76ch;
-    }
-
-    /* ── Section heading ── */
-    .artifacts-heading {
-      font-size: 0.8rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #6b7d9a;
-      margin-bottom: 1rem;
-    }
-
-    /* ── Card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.1rem;
-    }
-
-    /* ── Card ── */
-    .card {
-      background: #ffffff;
-      border: 1px solid #dde3ed;
-      border-radius: 8px;
-      padding: 1.2rem 1.3rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.05);
-      transition: box-shadow 0.18s ease, border-color 0.18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 14px rgba(45,107,228,0.1);
-      border-color: #b3c5e8;
-    }
-
-    /* ── Card: name row ── */
-    .card-name-row {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: baseline;
-      gap: 0.55rem;
-    }
-
-    .card-name {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #12203a;
-      line-height: 1.3;
-    }
-
-    .card-name a {
-      color: #2d6be4;
-      text-decoration: none;
-    }
-
-    .card-name a:hover {
-      text-decoration: underline;
-      color: #1a4fb0;
-    }
-
-    .source-link {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #5a7ab5;
-      text-decoration: none;
-      background: #eaf0fc;
-      border: 1px solid #c2d3f0;
-      border-radius: 4px;
-      padding: 0.15rem 0.45rem;
-      white-space: nowrap;
-      transition: background 0.15s ease;
-    }
-
-    .source-link:hover {
-      background: #d3e3f8;
-      color: #1a4fb0;
-    }
-
-    /* ── Card: meta badges ── */
-    .card-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      border-radius: 4px;
-      padding: 0.2rem 0.5rem;
-    }
-
-    /* type badge colours */
-    .badge-type {
-      background: #e8edf7;
-      color: #3a5280;
-    }
-
-    .badge-filetype {
-      background: #f0f4e8;
-      color: #3c5a1a;
-      font-family: "Courier New", Courier, monospace;
-      text-transform: lowercase;
-    }
-
-    /* ── Card: description ── */
-    .card-desc {
-      font-size: 0.875rem;
-      color: #455570;
-      line-height: 1.55;
-      flex-grow: 1;
-    }
-
-    /* ── Footer ── */
-    .page-footer {
-      margin-top: 3rem;
-      text-align: center;
-      font-size: 0.78rem;
-      color: #8c9ab5;
-    }
-
-    /* ── Responsive: tighten on small screens ── */
-    @media (max-width: 480px) {
-      .module-header h1 { font-size: 1.3rem; }
-      .card-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 - AI-Assisted Design and Development Workflows — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-  <div class="page-wrapper">
-
-    <!-- Header -->
-    <div class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</div>
-    <div class="module-header">
-      <h1>Module 5 &mdash; AI-Assisted Design and Development Workflows</h1>
-      <p>
-        This module explores how artificial intelligence tools are reshaping design and development
-        workflows in HCI. Topics span AI coding assistants, effective prompting strategies,
-        AI-accelerated prototyping, design quality assurance, and the ethical responsibilities that
-        accompany the use of generative tools in professional practice.
-      </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">5 - AI-Assisted Design and Development Workflows</span>
+  </nav>
+      <div class="hero-label">Module 5</div>
+      <h1>AI-Assisted Design and Development Workflows</h1>
+      <p class="hero-desc">Explores how AI coding assistants such as Claude Code, GitHub Copilot, and Codex integrate into modern HCI design and development pipelines. Students learn practical workflows for using AI to accelerate prototyping while maintaining design quality.</p>
     </div>
-
-    <!-- Artifact grid -->
-    <p class="artifacts-heading">Module Artifacts &mdash; 11 items</p>
-    <div class="card-grid">
-
-      <!-- 1 -->
-      <div class="card">
-        <div class="card-name-row">
-          <span class="card-name">
-            <a href="content/module_topics.html">Module Topics</a>
-          </span>
-          <a class="source-link" href="source/hierarchy.json">source file</a>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Module Topics</span>
-          <span class="badge badge-filetype">.json</span>
-        </div>
-        <p class="card-desc">
-          A structured outline of the module's five main topic areas — AI coding assistants,
-          prompting strategies, prototyping workflows, evaluation, and ethical considerations —
-          with subtopics listed under each, serving as a navigational blueprint for the module's
-          content.
-        </p>
-      </div>
-
-      <!-- 2 -->
-      <div class="card">
-        <div class="card-name-row">
-          <span class="card-name">
-            <a href="content/_printable.html">AI Coding Assistants</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">
-          A printable HTML document covering AI-accelerated prototyping workflows, detailing key
-          practices for moving from wireframes to interactive prototypes using AI tools, intended
-          for learners to read, study, or print as a standalone reference on that topic.
-        </p>
-      </div>
-
-      <!-- 3 -->
-      <div class="card">
-        <div class="card-name-row">
-          <span class="card-name">
-            <a href="content/AI_Assisted_Design_interactive_topics_t1.html">Introduction to AI Coding Assistants in HCI</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">
-          This reading introduces AI coding assistants in the HCI context, explaining what they
-          are, how they bridge the gap between design concepts and working prototypes, and why
-          learners should understand them as part of modern interface development practice.
-        </p>
-      </div>
-
-      <!-- 4 -->
-      <div class="card">
-        <div class="card-name-row">
-          <span class="card-name">
-            <a href="content/AI_Assisted_Design_interactive_topics_t2.html">Effective Prompting Strategies for Design Tasks</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">
-          This reading teaches learners how to write effective prompts when using AI assistants
-          for design and development tasks, covering how prompt quality affects output and
-          strategies for crafting specific, well-structured requests that yield usable results.
-        </p>
-      </div>
-
-      <!-- 5 -->
-      <div class="card">
-        <div class="card-name-row">
-          <span class="card-name">
-            <a href="content/AI_Assisted_Design_interactive_topics_t3.html">AI-Accelerated Prototyping Workflows</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">
-          This reading describes how AI tools can accelerate the prototyping workflow in HCI,
-          walking learners through how to move from early concepts to interactive, testable
-          prototypes more efficiently by integrating AI assistance into iterative design stages.
-        </p>
-      </div>
-
-      <!-- 6 -->
-      <div class="card">
-        <div class="card-name-row">
-          <span class="card-name">
-            <a href="content/AI_Assisted_Design_interactive_topics_t4.html">Maintaining Design Quality in AI-Assisted Projects</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">
-          This reading addresses how to maintain design quality when using AI-assisted workflows,
-          examining the risks of uncritical AI output acceptance and covering strategies learners
-          and practitioners can use to review, validate, and uphold professional design standards.
-        </p>
-      </div>
-
-      <!-- 7 -->
-      <div class="card">
-        <div class="card-name-row">
-          <span class="card-name">
-            <a href="content/AI_Assisted_Design_interactive_topics_t5.html">Ethical Considerations and Professional Responsibility</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">
-          This reading covers the ethical responsibilities and professional obligations that arise
-          when using AI coding assistants and generative tools in HCI work, including issues
-          related to training data, transparency, bias, and accountability in AI-assisted design
-          decisions.
-        </p>
-      </div>
-
-      <!-- 8 -->
-      <div class="card">
-        <div class="card-name-row">
-          <span class="card-name">
-            <a href="content/AI_Assisted_Design_interactive.html">Ethical Considerations and Professional Responsibility</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">
-          This reading covers the ethical responsibilities and professional obligations that arise
-          when using AI coding assistants and generative tools in HCI work, including issues
-          related to training data, transparency, bias, and accountability in AI-assisted design
-          decisions.
-        </p>
-      </div>
-
-      <!-- 9 -->
-      <div class="card">
-        <div class="card-name-row">
-          <span class="card-name">
-            <a href="content/AI_Assisted_Design_printable_topics_t1.html">AI_Assisted_Design</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">
-          A printable HTML document introducing AI coding assistants in HCI contexts — covering
-          what they are, key tools such as Claude Code and GitHub Copilot, and their role in the
-          design pipeline — serving as a self-contained reading on the foundational concepts of
-          the module.
-        </p>
-      </div>
-
-      <!-- 10 -->
-      <div class="card">
-        <div class="card-name-row">
-          <span class="card-name">
-            <a href="content/AI_Assisted_Design_printable_topics_t2.html">Effective Prompting Strategies</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Topic Detail</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">
-          A printable HTML document on effective prompting strategies for design tasks, explaining
-          how to write precise prompts, refine them iteratively, and target accessibility and
-          usability goals, intended as a study reference for learners developing their AI
-          interaction skills.
-        </p>
-      </div>
-
-      <!-- 11 -->
-      <div class="card">
-        <div class="card-name-row">
-          <span class="card-name">
-            <a href="content/AI_Assisted_Design_printable_topics_t3-5.html">AI Accelerated Workflows</a>
-          </span>
-        </div>
-        <div class="card-meta">
-          <span class="badge badge-type">Text Content</span>
-          <span class="badge badge-filetype">.html</span>
-        </div>
-        <p class="card-desc">
-          A duplicate or alternate version of the printable HTML document on AI-accelerated
-          prototyping workflows, covering the same key practices for scaffolding and generating
-          interface components with AI assistance, usable as a student reading or print handout.
-        </p>
-      </div>
-
-    </div><!-- /card-grid -->
-
-    <footer class="page-footer">
-      <p>CEN3722 &mdash; Introduction to Human Computer Interfaces &bull; Module 5</p>
-    </footer>
-
-  </div><!-- /page-wrapper -->
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script></body>
+  </header>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 5 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to AI Coding Assistants in HCI</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Effective Prompting Strategies for Design Tasks</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">AI-Accelerated Prototyping Workflows</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Maintaining Design Quality in AI-Assisted Projects</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Ethical Considerations and Professional Responsibility</span><span class="topic-meta">5 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">16 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/_printable.html">AI Coding Assistants</a></div>
+    <p class="content-desc">A printable HTML document covering AI-accelerated prototyping workflows, detailing key practices for moving from wireframes to interactive prototypes using AI tools, intended for learners to read, study, or print as a standalone reference on that topic.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_interactive_topics_t1.html">Introduction to AI Coding Assistants in HCI</a></div>
+    <p class="content-desc">This reading introduces AI coding assistants in the HCI context, explaining what they are, how they bridge the gap between design concepts and working prototypes, and why learners should understand them as part of modern interface development practice.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_interactive_topics_t2.html">Effective Prompting Strategies for Design Tasks</a></div>
+    <p class="content-desc">This reading teaches learners how to write effective prompts when using AI assistants for design and development tasks, covering how prompt quality affects output and strategies for crafting specific, well-structured requests that yield usable results.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_interactive_topics_t3.html">AI-Accelerated Prototyping Workflows</a></div>
+    <p class="content-desc">This reading describes how AI tools can accelerate the prototyping workflow in HCI, walking learners through how to move from early concepts to interactive, testable prototypes more efficiently by integrating AI assistance into iterative design stages.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_interactive_topics_t4.html">Maintaining Design Quality in AI-Assisted Projects</a></div>
+    <p class="content-desc">This reading addresses how to maintain design quality when using AI-assisted workflows, examining the risks of uncritical AI output acceptance and covering strategies learners and practitioners can use to review, validate, and uphold professional design standards.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_interactive_topics_t5.html">Ethical Considerations and Professional Responsibility</a></div>
+    <p class="content-desc">This reading covers the ethical responsibilities and professional obligations that arise when using AI coding assistants and generative tools in HCI work, including issues related to training data, transparency, bias, and accountability in AI-assisted design decisions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_interactive.html">Ethical Considerations and Professional Responsibility</a></div>
+    <p class="content-desc">This reading covers the ethical responsibilities and professional obligations that arise when using AI coding assistants and generative tools in HCI work, including issues related to training data, transparency, bias, and accountability in AI-assisted design decisions.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_printable_topics_t1.html">AI_Assisted_Design</a></div>
+    <p class="content-desc">A printable HTML document introducing AI coding assistants in HCI contexts — covering what they are, key tools such as Claude Code and GitHub Copilot, and their role in the design pipeline — serving as a self-contained reading on the foundational concepts of the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_printable_topics_t2.html">Effective Prompting Strategies</a></div>
+    <p class="content-desc">A printable HTML document on effective prompting strategies for design tasks, explaining how to write precise prompts, refine them iteratively, and target accessibility and usability goals, intended as a study reference for learners developing their AI interaction skills.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_printable_topics_t3-5.html">AI Accelerated Workflows</a></div>
+    <p class="content-desc">A duplicate or alternate version of the printable HTML document on AI-accelerated prototyping workflows, covering the same key practices for scaffolding and generating interface components with AI assistance, usable as a student reading or print handout.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_t1_videos.html">Introduction to AI Coding Assistants in HCI — Videos</a></div>
+    <p class="content-desc">A reading that introduces AI coding assistants such as GitHub Copilot, Claude Code, and Codex-family tools, explaining how inline autocomplete, chat, and agentic modes work inside editors and where they fit into HCI development work.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_t2_videos.html">Effective Prompting Strategies for Design Tasks — Videos</a></div>
+    <p class="content-desc">A reading that treats prompting as a structured skill for design tasks, showing how to supply role and context, state constraints, and specify desired output so an assistant produces usable rather than generic design results.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_t3_videos.html">AI-Accelerated Prototyping Workflows — Videos</a></div>
+    <p class="content-desc">A reading on using AI assistants and design-tool integrations to move quickly from sketches, screenshots, or written descriptions to clickable prototypes, and how this lowered cost changes iterative prototyping and user testing practice.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_t4_videos.html">Maintaining Design Quality in AI-Assisted Projects — Videos</a></div>
+    <p class="content-desc">A reading on evaluating AI-generated layouts, copy, and code against established usability and design principles, giving learners criteria and review habits for judging quality rather than accepting speed as a proxy for it.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_t5_videos.html">Ethical Considerations and Professional Responsibility — Videos</a></div>
+    <p class="content-desc">A reading covering the ethics of AI-assisted interface work — attribution and credit, bias embedded in training data and generated personas or images, and the professional responsibilities designers retain when using these tools.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/AI_Assisted_Design_videos_merged.html">5 - AI-Assisted Design and Development Workflows — 5 topics (merged)</a></div>
+    <p class="content-desc">The consolidated module page compiling all five topic readings on AI-assisted design and development workflows into a single document for sequential reading or review.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../4-task-analysis-for-interface-design/index.html">← 4 - Task Analysis for Interface Design</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../interface-prototyping-with-figma/index.html">Interface Prototyping with Figma →</a>
+</nav>
+  </main>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>

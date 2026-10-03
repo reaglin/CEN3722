@@ -1,572 +1,203 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Heuristic Evaluation and Nielsen's 10 Principles — CEN3722</title>
-  <style>
-    /* ── Reset & base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --color-bg:          #f4f6f9;
-      --color-surface:     #ffffff;
-      --color-border:      #dde2ea;
-      --color-primary:     #1a4f8a;
-      --color-primary-dk:  #143d6e;
-      --color-accent:      #2e7fd4;
-      --color-accent-lt:   #e8f1fb;
-      --color-text:        #1e2733;
-      --color-muted:       #5a6474;
-      --color-badge-bg:    #eef2f7;
-      --color-badge-text:  #3b4d63;
-      --color-source-bg:   #f0f7ee;
-      --color-source-text: #2a6b24;
-      --color-source-bdr:  #a8d5a2;
-      --radius:            8px;
-      --shadow:            0 1px 4px rgba(0,0,0,.08), 0 2px 10px rgba(0,0,0,.06);
-      --font-sans:         'Segoe UI', system-ui, -apple-system, Arial, sans-serif;
-    }
-
-    html { font-size: 16px; }
-
-    body {
-      font-family: var(--font-sans);
-      background: var(--color-bg);
-      color: var(--color-text);
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Page shell ── */
-    .page-header {
-      background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
-      color: #fff;
-      padding: 3rem 1.5rem 2.5rem;
-    }
-
-    .page-header__inner {
-      max-width: 960px;
-      margin: 0 auto;
-    }
-
-    .page-header__course {
-      font-size: .8rem;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      opacity: .82;
-      margin-bottom: .5rem;
-    }
-
-    .page-header__title {
-      font-size: clamp(1.5rem, 3vw + 1rem, 2.4rem);
-      font-weight: 700;
-      line-height: 1.2;
-      margin-bottom: 1rem;
-    }
-
-    .page-header__intro {
-      max-width: 680px;
-      font-size: 1rem;
-      opacity: .92;
-      line-height: 1.7;
-    }
-
-    /* ── Main content ── */
-    .page-main {
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem 4rem;
-    }
-
-    .section-label {
-      font-size: .75rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--color-muted);
-      margin-bottom: 1.25rem;
-      padding-bottom: .5rem;
-      border-bottom: 2px solid var(--color-border);
-    }
-
-    /* ── Card grid ── */
-    .card-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .card {
-      background: var(--color-surface);
-      border: 1px solid var(--color-border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      transition: box-shadow .18s ease, transform .18s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 4px 16px rgba(0,0,0,.12);
-      transform: translateY(-2px);
-    }
-
-    .card__top {
-      padding: 1.1rem 1.2rem .75rem;
-      border-bottom: 1px solid var(--color-border);
-      display: flex;
-      align-items: flex-start;
-      gap: .75rem;
-    }
-
-    .card__icon {
-      flex-shrink: 0;
-      width: 38px;
-      height: 38px;
-      border-radius: 6px;
-      background: var(--color-accent-lt);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .card__icon svg {
-      width: 20px;
-      height: 20px;
-      fill: var(--color-accent);
-    }
-
-    .card__title-area {
-      flex: 1;
-      min-width: 0;
-    }
-
-    .card__name {
-      font-size: .97rem;
-      font-weight: 600;
-      line-height: 1.3;
-      color: var(--color-text);
-      word-break: break-word;
-    }
-
-    .card__name a {
-      color: var(--color-accent);
-      text-decoration: none;
-    }
-
-    .card__name a:hover {
-      text-decoration: underline;
-      color: var(--color-primary-dk);
-    }
-
-    .card__source-link {
-      display: inline-flex;
-      align-items: center;
-      gap: .25rem;
-      margin-top: .35rem;
-      font-size: .73rem;
-      font-weight: 600;
-      color: var(--color-source-text);
-      background: var(--color-source-bg);
-      border: 1px solid var(--color-source-bdr);
-      border-radius: 4px;
-      padding: .15rem .45rem;
-      text-decoration: none;
-      line-height: 1.4;
-      white-space: nowrap;
-    }
-
-    .card__source-link:hover {
-      background: #d6edce;
-      text-decoration: underline;
-    }
-
-    .card__source-link svg {
-      width: 11px;
-      height: 11px;
-      fill: currentColor;
-      flex-shrink: 0;
-    }
-
-    .card__body {
-      padding: .85rem 1.2rem 1rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: .65rem;
-    }
-
-    .card__meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .4rem;
-    }
-
-    .badge {
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .04em;
-      padding: .2rem .55rem;
-      border-radius: 20px;
-      background: var(--color-badge-bg);
-      color: var(--color-badge-text);
-      border: 1px solid var(--color-border);
-      white-space: nowrap;
-    }
-
-    .badge--filetype {
-      background: #fdf3e3;
-      color: #8a5a00;
-      border-color: #f5d89a;
-      font-family: 'Courier New', Courier, monospace;
-    }
-
-    .card__desc {
-      font-size: .875rem;
-      color: var(--color-muted);
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    .page-footer {
-      text-align: center;
-      padding: 1.5rem;
-      font-size: .78rem;
-      color: var(--color-muted);
-      border-top: 1px solid var(--color-border);
-      background: var(--color-surface);
-    }
-
-    /* ── Responsive tweaks ── */
-    @media (max-width: 480px) {
-      .page-header { padding: 2rem 1rem 1.75rem; }
-      .page-main   { padding: 1.75rem 1rem 3rem; }
-      .card-grid   { grid-template-columns: 1fr; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Heuristic Evaluation and Nielsen&#39;s 10 Principles — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <!-- ═══════════════════════════════════════════
-       PAGE HEADER
-  ═══════════════════════════════════════════ -->
-  <header class="page-header" role="banner">
-    <div class="page-header__inner">
-      <p class="page-header__course">CEN3722 &mdash; Introduction to Human Computer Interfaces</p>
-      <h1 class="page-header__title">Heuristic Evaluation and Nielsen's 10 Principles</h1>
-      <p class="page-header__intro">
-        This module covers the theory and practice of heuristic evaluation as a structured usability
-        inspection technique. You will learn all ten of Nielsen and Molich's usability heuristics,
-        how to apply them to real interface designs, how to rate and document findings, and how to
-        aggregate results across multiple evaluators into a formal report. Use the resources below
-        to read, practice, and reference the module's core content.
-      </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">Heuristic Evaluation and Nielsen&#39;s 10 Principles</span>
+  </nav>
+      <div class="hero-label">Module 8</div>
+      <h1>Heuristic Evaluation and Nielsen&#39;s 10 Principles</h1>
+      <p class="hero-desc">Presents Nielsen&#39;s ten usability heuristics and the structured process for conducting a Heuristic Evaluation, including severity rating and aggregating findings across evaluators. Students independently evaluate three peer prototypes and produce formal HE reports.</p>
     </div>
   </header>
-
-  <!-- ═══════════════════════════════════════════
-       MAIN CONTENT
-  ═══════════════════════════════════════════ -->
-  <main class="page-main" role="main">
-    <p class="section-label">Module Artifacts &mdash; 12 items</p>
-
-    <div class="card-grid">
-
-      <!-- ── Card 1: Module Topics ── -->
-      <article class="card">
-        <div class="card__top">
-          <div class="card__icon" aria-hidden="true">
-            <!-- List / outline icon -->
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 5h2v2H3V5zm4 0h14v2H7V5zm-4 6h2v2H3v-2zm4 0h14v2H7v-2zm-4 6h2v2H3v-2zm4 0h14v2H7v-2z"/>
-            </svg>
-          </div>
-          <div class="card__title-area">
-            <p class="card__name">
-              <a href="content/module_topics.html">Module Topics</a>
-            </p>
-            <a class="card__source-link" href="source/hierarchy.json">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6z"/>
-              </svg>
-              source file
-            </a>
-          </div>
-        </div>
-        <div class="card__body">
-          <div class="card__meta">
-            <span class="badge">Module Topics</span>
-            <span class="badge badge--filetype">.json</span>
-          </div>
-          <p class="card__desc">A structured outline of the module's topics and subtopics, covering the definition and origins of heuristic evaluation, all ten of Nielsen's usability heuristics, and the evaluation process; used by learners and instructors to navigate or plan the module's content.</p>
-        </div>
-      </article>
-
-      <!-- ── Card 2: Heuristic_Evaluation_and ── -->
-      <article class="card">
-        <div class="card__top">
-          <div class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6zm2-5h8v2H8v-2zm0-4h5v2H8v-2z"/>
-            </svg>
-          </div>
-          <div class="card__title-area">
-            <p class="card__name">
-              <a href="content/_printable.html">Heuristic_Evaluation_and</a>
-            </p>
-          </div>
-        </div>
-        <div class="card__body">
-          <div class="card__meta">
-            <span class="badge">Text Content</span>
-            <span class="badge badge--filetype">.html</span>
-          </div>
-          <p class="card__desc">A printable HTML document providing comprehensive reading material on heuristic evaluation, including its definition, Nielsen's ten heuristics, and the evaluation process; used by learners as a self-contained reference for studying the full module content.</p>
-        </div>
-      </article>
-
-      <!-- ── Card 3: List Explain Nielsen's ── -->
-      <article class="card">
-        <div class="card__top">
-          <div class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-            </svg>
-          </div>
-          <div class="card__title-area">
-            <p class="card__name">
-              <a href="content/Heuristic_Evaluation_and_example-problems.html">List Explain Nielsen's</a>
-            </p>
-          </div>
-        </div>
-        <div class="card__body">
-          <div class="card__meta">
-            <span class="badge">Text Content</span>
-            <span class="badge badge--filetype">.html</span>
-          </div>
-          <p class="card__desc">This activity presents a scenario involving a banking app login screen with three specific usability problems and asks learners to identify which of Nielsen's 10 heuristics are violated, helping them practice applying the principles to real-world interface issues.</p>
-        </div>
-      </article>
-
-      <!-- ── Card 4: Introduction to Heuristic Evaluation ── -->
-      <article class="card">
-        <div class="card__top">
-          <div class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
-            </svg>
-          </div>
-          <div class="card__title-area">
-            <p class="card__name">
-              <a href="content/Heuristic_Evaluation_and_interactive_topics_t1.html">Introduction to Heuristic Evaluation</a>
-            </p>
-          </div>
-        </div>
-        <div class="card__body">
-          <div class="card__meta">
-            <span class="badge">Topic Detail</span>
-            <span class="badge badge--filetype">.html</span>
-          </div>
-          <p class="card__desc">This reading introduces heuristic evaluation as a structured usability inspection technique, explaining what it is, why it is widely used, and how evaluators assess a user interface against recognized usability principles — serving as a conceptual foundation before learners engage with the method hands-on.</p>
-        </div>
-      </article>
-
-      <!-- ── Card 5: Nielsen's Ten Usability Heuristics ── -->
-      <article class="card">
-        <div class="card__top">
-          <div class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 5h2v2H3V5zm4 0h14v2H7V5zm-4 6h2v2H3v-2zm4 0h14v2H7v-2zm-4 6h2v2H3v-2zm4 0h14v2H7v-2z"/>
-            </svg>
-          </div>
-          <div class="card__title-area">
-            <p class="card__name">
-              <a href="content/Heuristic_Evaluation_and_interactive_topics_t2.html">Nielsen's Ten Usability Heuristics</a>
-            </p>
-          </div>
-        </div>
-        <div class="card__body">
-          <div class="card__meta">
-            <span class="badge">Topic Detail</span>
-            <span class="badge badge--filetype">.html</span>
-          </div>
-          <p class="card__desc">This reading presents all ten of Nielsen and Molich's usability heuristics, explaining each principle and its application to interaction design so that learners can use them as a reference framework when conducting their own heuristic evaluations.</p>
-        </div>
-      </article>
-
-      <!-- ── Card 6: The Heuristic Evaluation Process ── -->
-      <article class="card">
-        <div class="card__top">
-          <div class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.93V17a1 1 0 0 1-2 0v-.07A8 8 0 0 1 4.07 9H5a1 1 0 0 1 0 2 6 6 0 0 0 5 5.93zm6.93-6H19a1 1 0 0 1 0-2 6 6 0 0 0-5-5.93V3a1 1 0 0 1 2 0v.07A8 8 0 0 1 19.93 11zM11 6.07V7a1 1 0 0 1 2 0v-.93A8 8 0 0 1 19.93 13H19a1 1 0 0 1 0-2 6 6 0 0 0-5-5.93zM9 17.93V17a1 1 0 0 1-2 0v.07A8 8 0 0 1 4.07 11H5a1 1 0 0 1 0 2 6 6 0 0 0 5 5.93z"/>
-            </svg>
-          </div>
-          <div class="card__title-area">
-            <p class="card__name">
-              <a href="content/Heuristic_Evaluation_and_interactive_topics_t3.html">The Heuristic Evaluation Process</a>
-            </p>
-          </div>
-        </div>
-        <div class="card__body">
-          <div class="card__meta">
-            <span class="badge">Topic Detail</span>
-            <span class="badge badge--filetype">.html</span>
-          </div>
-          <p class="card__desc">This reading walks through the step-by-step process for conducting a rigorous heuristic evaluation, distinguishing a valid structured inspection from an informal review and guiding both learners and instructors on correct methodology.</p>
-        </div>
-      </article>
-
-      <!-- ── Card 7: Severity Rating ── -->
-      <article class="card">
-        <div class="card__top">
-          <div class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L1 21h22L12 2zm0 3.5L20.5 19h-17L12 5.5zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/>
-            </svg>
-          </div>
-          <div class="card__title-area">
-            <p class="card__name">
-              <a href="content/Heuristic_Evaluation_and_interactive_topics_t4.html">Severity Rating</a>
-            </p>
-          </div>
-        </div>
-        <div class="card__body">
-          <div class="card__meta">
-            <span class="badge">Topic Detail</span>
-            <span class="badge badge--filetype">.html</span>
-          </div>
-          <p class="card__desc">This reading explains how to assign severity ratings to identified usability problems, covering the criteria that separate critical barriers from minor cosmetic issues so that learners can prioritize findings and help development teams allocate resources effectively.</p>
-        </div>
-      </article>
-
-      <!-- ── Card 8: Aggregating Findings Across Evaluators ── -->
-      <article class="card">
-        <div class="card__top">
-          <div class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-            </svg>
-          </div>
-          <div class="card__title-area">
-            <p class="card__name">
-              <a href="content/Heuristic_Evaluation_and_interactive_topics_t5.html">Aggregating Findings Across Evaluators</a>
-            </p>
-          </div>
-        </div>
-        <div class="card__body">
-          <div class="card__meta">
-            <span class="badge">Topic Detail</span>
-            <span class="badge badge--filetype">.html</span>
-          </div>
-          <p class="card__desc">This reading covers how to consolidate usability findings from multiple independent evaluators into a single unified list, explaining why no single evaluator catches every problem and how to merge, deduplicate, and reconcile separate reports.</p>
-        </div>
-      </article>
-
-      <!-- ── Card 9: Writing Formal Heuristic Evaluation Reports ── -->
-      <article class="card">
-        <div class="card__top">
-          <div class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zm2.92 1.83H5v-.75l9.06-9.06.75.75-9.06 9.06H5.92zM20.71 5.63l-2.34-2.34a1 1 0 0 0-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83a1 1 0 0 0 0-1.41z"/>
-            </svg>
-          </div>
-          <div class="card__title-area">
-            <p class="card__name">
-              <a href="content/Heuristic_Evaluation_and_interactive_topics_t6.html">Writing Formal Heuristic Evaluation Reports</a>
-            </p>
-          </div>
-        </div>
-        <div class="card__body">
-          <div class="card__meta">
-            <span class="badge">Topic Detail</span>
-            <span class="badge badge--filetype">.html</span>
-          </div>
-          <p class="card__desc">This reading describes how to structure and write a formal heuristic evaluation report — including the components, language, and level of detail needed to communicate findings credibly to stakeholders such as project managers who were not present during the evaluation.</p>
-        </div>
-      </article>
-
-      <!-- ── Card 10: Evaluating Peer Prototypes (Topic Detail) ── -->
-      <article class="card">
-        <div class="card__top">
-          <div class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
-            </svg>
-          </div>
-          <div class="card__title-area">
-            <p class="card__name">
-              <a href="content/Heuristic_Evaluation_and_interactive_topics_t7.html">Evaluating Peer Prototypes</a>
-            </p>
-          </div>
-        </div>
-        <div class="card__body">
-          <div class="card__meta">
-            <span class="badge">Topic Detail</span>
-            <span class="badge badge--filetype">.html</span>
-          </div>
-          <p class="card__desc">This reading introduces a peer-evaluation assignment in which learners independently apply the full heuristic evaluation process to three prototypes created by classmates, moving beyond controlled practice examples to real, unvetted interface designs.</p>
-        </div>
-      </article>
-
-      <!-- ── Card 11: Evaluating Peer Prototypes (Text Content) ── -->
-      <article class="card">
-        <div class="card__top">
-          <div class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-8a3 3 0 1 0 0 6 3 3 0 0 0 0-6z"/>
-            </svg>
-          </div>
-          <div class="card__title-area">
-            <p class="card__name">
-              <a href="content/Heuristic_Evaluation_and_interactive.html">Evaluating Peer Prototypes</a>
-            </p>
-          </div>
-        </div>
-        <div class="card__body">
-          <div class="card__meta">
-            <span class="badge">Text Content</span>
-            <span class="badge badge--filetype">.html</span>
-          </div>
-          <p class="card__desc">This reading introduces a peer-evaluation assignment in which learners independently apply the full heuristic evaluation process to three prototypes created by classmates, moving beyond controlled practice examples to real, unvetted interface designs.</p>
-        </div>
-      </article>
-
-      <!-- ── Card 12: Hueristic Evaluation Overview ── -->
-      <article class="card">
-        <div class="card__top">
-          <div class="card__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8l-6-6zm-1 1.5L18.5 9H13V3.5zM6 20V4h5v7h7v9H6zm2-3h8v2H8v-2zm0-4h8v2H8v-2zm0-4h4v2H8V9z"/>
-            </svg>
-          </div>
-          <div class="card__title-area">
-            <p class="card__name">
-              <a href="content/Heuristic_Evaluation_and_printable_topics.html">Hueristic Evaluation Overview</a>
-            </p>
-          </div>
-        </div>
-        <div class="card__body">
-          <div class="card__meta">
-            <span class="badge">Topic Overview</span>
-            <span class="badge badge--filetype">.html</span>
-          </div>
-          <p class="card__desc">A printable HTML overview document summarising all module topics at a high level with brief introductions and key points for each; used by learners seeking a concise orientation to the module or by instructors as a topic survey handout.</p>
-        </div>
-      </article>
-
-    </div><!-- /.card-grid -->
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 7 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to Heuristic Evaluation</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Nielsen&#39;s Ten Usability Heuristics</span><span class="topic-meta">10 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">The Heuristic Evaluation Process</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">Severity Rating</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Aggregating Findings Across Evaluators</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Writing Formal Heuristic Evaluation Reports</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-7"><span class="topic-num" aria-hidden="true">7</span><span class="topic-text"><span class="topic-title">Evaluating Peer Prototypes</span><span class="topic-meta">4 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">19 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/_printable.html">Heuristic_Evaluation_and</a></div>
+    <p class="content-desc">A printable HTML document providing comprehensive reading material on heuristic evaluation, including its definition, Nielsen&#39;s ten heuristics, and the evaluation process; used by learners as a self-contained reference for studying the full module content.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_example-problems.html">List Explain Nielsen&#39;s</a></div>
+    <p class="content-desc">This activity presents a scenario involving a banking app login screen with three specific usability problems and asks learners to identify which of Nielsen&#39;s 10 heuristics are violated, helping them practice applying the principles to real-world interface issues.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_interactive_topics_t1.html">Introduction to Heuristic Evaluation</a></div>
+    <p class="content-desc">This reading introduces heuristic evaluation as a structured usability inspection technique, explaining what it is, why it is widely used, and how evaluators assess a user interface against recognized usability principles — serving as a conceptual foundation before learners engage with the method hands-on.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_interactive_topics_t2.html">Nielsen&#39;s Ten Usability Heuristics</a></div>
+    <p class="content-desc">This reading presents all ten of Nielsen and Molich&#39;s usability heuristics, explaining each principle and its application to interaction design so that learners can use them as a reference framework when conducting their own heuristic evaluations.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_interactive_topics_t3.html">The Heuristic Evaluation Process</a></div>
+    <p class="content-desc">This reading walks through the step-by-step process for conducting a rigorous heuristic evaluation, distinguishing a valid structured inspection from an informal review and guiding both learners and instructors on correct methodology.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_interactive_topics_t4.html">Severity Rating</a></div>
+    <p class="content-desc">This reading explains how to assign severity ratings to identified usability problems, covering the criteria that separate critical barriers from minor cosmetic issues so that learners can prioritize findings and help development teams allocate resources effectively.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_interactive_topics_t5.html">Aggregating Findings Across Evaluators</a></div>
+    <p class="content-desc">This reading covers how to consolidate usability findings from multiple independent evaluators into a single unified list, explaining why no single evaluator catches every problem and how to merge, deduplicate, and reconcile separate reports.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_interactive_topics_t6.html">Writing Formal Heuristic Evaluation Reports</a></div>
+    <p class="content-desc">This reading describes how to structure and write a formal heuristic evaluation report — including the components, language, and level of detail needed to communicate findings credibly to stakeholders such as project managers who were not present during the evaluation.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_interactive_topics_t7.html">Evaluating Peer Prototypes</a></div>
+    <p class="content-desc">This reading introduces a peer-evaluation assignment in which learners independently apply the full heuristic evaluation process to three prototypes created by classmates, moving beyond controlled practice examples to real, unvetted interface designs.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_interactive.html">Evaluating Peer Prototypes</a></div>
+    <p class="content-desc">This reading introduces a peer-evaluation assignment in which learners independently apply the full heuristic evaluation process to three prototypes created by classmates, moving beyond controlled practice examples to real, unvetted interface designs.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Overview</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_printable_topics.html">Hueristic Evaluation Overview</a></div>
+    <p class="content-desc">A printable HTML overview document summarising all module topics at a high level with brief introductions and key points for each; used by learners seeking a concise orientation to the module or by instructors as a topic survey handout.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_t1_videos.html">Introduction to Heuristic Evaluation — Videos</a></div>
+    <p class="content-desc">A foundational reading that defines heuristic evaluation as a usability inspection method, traces its origins to Nielsen and Molich, and explains why evaluators inspect interfaces against recognized principles instead of testing with end users — read first to establish the vocabulary for the rest of the module.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_t2_videos.html">Nielsen&#39;s Ten Usability Heuristics — Videos</a></div>
+    <p class="content-desc">A reference-style lesson walking through each of Jakob Nielsen&#39;s ten usability heuristics in turn, explaining how these broad rules of thumb apply across websites, mobile apps, desktop software, and physical devices; learners use it as the core checklist for all evaluation work.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_t3_videos.html">The Heuristic Evaluation Process — Videos</a></div>
+    <p class="content-desc">A procedural guide to actually running a heuristic evaluation as a discount usability method, covering how multiple evaluators inspect independently and how their separate findings are pooled into a single problem list — used to plan and execute an evaluation session.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_t4_videos.html">Severity Rating — Videos</a></div>
+    <p class="content-desc">A lesson on assigning severity ratings to identified heuristic violations, explaining the rating scale and how prioritization turns a flat list of problems into an actionable fix order for development teams with limited time.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_t5_videos.html">Aggregating Findings Across Evaluators — Videos</a></div>
+    <p class="content-desc">A topic explaining why heuristic evaluation uses several independent evaluators and how to merge their overlapping and unique findings into one clean, de-duplicated master list of usability problems.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_t6_videos.html">Writing Formal Heuristic Evaluation Reports — Videos</a></div>
+    <p class="content-desc">A writing guide for producing formal heuristic evaluation reports, covering the executive summary, documented violations tied to Nielsen&#39;s principles, severity ratings, and recommendations so the findings are actionable for designers, product managers, or clients.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_t7_videos.html">Evaluating Peer Prototypes — Videos</a></div>
+    <p class="content-desc">An applied topic that frames the module assignment, instructing learners to independently evaluate three classmate prototypes by inspecting each interface, identifying problems, mapping them to Nielsen&#39;s 10 heuristics, and assigning severity ratings.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/Heuristic_Evaluation_and_videos_merged.html">Heuristic Evaluation and Nielsen&#39;s 10 Principles — 7 topics (merged)</a></div>
+    <p class="content-desc">A consolidated single-page compilation of all module topics — from the introduction to heuristic evaluation through the ten heuristics, process, severity ratings, aggregation, reporting, and peer evaluation — useful for review or printing as a complete module reference.</p>
+  </div>
+</li>
+</ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <a href="../cognitive-walkthrough-evaluation-method/index.html">← Cognitive Walkthrough Evaluation Method</a>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../functional-prototype-development-and-testing-preparation/index.html">Functional Prototype Development and Testing Preparation →</a>
+</nav>
   </main>
-
-  <!-- ═══════════════════════════════════════════
-       PAGE FOOTER
-  ═══════════════════════════════════════════ -->
-  <footer class="page-footer" role="contentinfo">
-    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&bull;&
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p></section><script src="embed-inject.js" defer></script>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

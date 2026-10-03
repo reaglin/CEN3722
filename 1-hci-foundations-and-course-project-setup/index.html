@@ -1,566 +1,214 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Module 1 – HCI Foundations and Course Project Setup | CEN3722</title>
-  <style>
-    /* ── Reset & Base ── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --brand-dark:   #1a2b45;
-      --brand-mid:    #2c4a7c;
-      --brand-accent: #3a7bd5;
-      --brand-light:  #e8f0fb;
-      --surface:      #ffffff;
-      --surface-alt:  #f5f7fa;
-      --border:       #d1d9e6;
-      --text-primary: #1a2b45;
-      --text-secondary: #4a5568;
-      --text-muted:   #718096;
-      --tag-bg:       #edf2fb;
-      --tag-color:    #2c4a7c;
-      --radius:       8px;
-      --shadow-sm:    0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
-      --shadow-md:    0 4px 12px rgba(0,0,0,.10), 0 2px 4px rgba(0,0,0,.06);
-    }
-
-    html { font-size: 16px; }
-
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-                   "Helvetica Neue", Arial, sans-serif;
-      background: var(--surface-alt);
-      color: var(--text-primary);
-      line-height: 1.6;
-      min-height: 100vh;
-    }
-
-    /* ── Header Banner ── */
-    .page-header {
-      background: linear-gradient(135deg, var(--brand-dark) 0%, var(--brand-mid) 100%);
-      color: #fff;
-      padding: 3rem 1.5rem 2.5rem;
-    }
-
-    .header-inner {
-      max-width: 1100px;
-      margin: 0 auto;
-    }
-
-    .course-label {
-      display: inline-block;
-      font-size: .78rem;
-      font-weight: 600;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      background: rgba(255,255,255,.15);
-      border: 1px solid rgba(255,255,255,.25);
-      border-radius: 4px;
-      padding: .25rem .65rem;
-      margin-bottom: 1rem;
-      color: #c9d9f5;
-    }
-
-    .page-header h1 {
-      font-size: clamp(1.5rem, 3vw, 2.2rem);
-      font-weight: 700;
-      line-height: 1.25;
-      margin-bottom: .9rem;
-      color: #fff;
-    }
-
-    .page-header p {
-      font-size: 1rem;
-      color: #c5d5ed;
-      max-width: 740px;
-      line-height: 1.7;
-    }
-
-    /* ── Main Content ── */
-    .page-main {
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem 4rem;
-    }
-
-    .section-title {
-      font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--text-muted);
-      margin-bottom: 1.25rem;
-      padding-bottom: .5rem;
-      border-bottom: 2px solid var(--border);
-    }
-
-    /* ── Card Grid ── */
-    .artifact-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .artifact-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow-sm);
-      display: flex;
-      flex-direction: column;
-      transition: box-shadow .2s ease, transform .2s ease;
-      overflow: hidden;
-    }
-
-    .artifact-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
-    /* coloured top stripe by type */
-    .artifact-card::before {
-      content: "";
-      display: block;
-      height: 4px;
-      background: var(--stripe-color, var(--brand-accent));
-    }
-
-    .artifact-card[data-type="Module Topics"]::before    { --stripe-color: #6c63ff; }
-    .artifact-card[data-type="Presentation"]::before     { --stripe-color: #e67e22; }
-    .artifact-card[data-type="Topic Detail"]::before     { --stripe-color: var(--brand-accent); }
-    .artifact-card[data-type="Text Content"]::before     { --stripe-color: #27ae60; }
-    .artifact-card[data-type="Video"]::before            { --stripe-color: #e74c3c; }
-    .artifact-card[data-type="Assignment"]::before       { --stripe-color: #8e44ad; }
-
-    .card-body {
-      padding: 1.2rem 1.3rem 1.4rem;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      gap: .65rem;
-    }
-
-    /* Type + filetype badges */
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: .45rem;
-      flex-wrap: wrap;
-    }
-
-    .badge {
-      display: inline-block;
-      font-size: .7rem;
-      font-weight: 600;
-      letter-spacing: .04em;
-      border-radius: 4px;
-      padding: .18rem .5rem;
-    }
-
-    .badge-type {
-      background: var(--tag-bg);
-      color: var(--tag-color);
-      border: 1px solid #c5d4f0;
-    }
-
-    .badge-filetype {
-      background: #f0f4f0;
-      color: #3a6644;
-      border: 1px solid #c3dac5;
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
-    }
-
-    /* Card title row */
-    .card-title-row {
-      display: flex;
-      align-items: baseline;
-      flex-wrap: wrap;
-      gap: .45rem;
-    }
-
-    .card-title {
-      font-size: 1rem;
-      font-weight: 700;
-      line-height: 1.35;
-      color: var(--text-primary);
-      flex: 1 1 auto;
-    }
-
-    .card-title a {
-      color: var(--brand-accent);
-      text-decoration: none;
-      border-bottom: 1px solid transparent;
-      transition: border-color .15s ease, color .15s ease;
-    }
-
-    .card-title a:hover,
-    .card-title a:focus {
-      color: var(--brand-mid);
-      border-bottom-color: var(--brand-mid);
-      outline: none;
-    }
-
-    .card-title a:focus-visible {
-      outline: 2px solid var(--brand-accent);
-      outline-offset: 2px;
-      border-radius: 2px;
-    }
-
-    /* Source file link */
-    .link-source {
-      display: inline-flex;
-      align-items: center;
-      gap: .25rem;
-      font-size: .72rem;
-      font-weight: 600;
-      color: var(--text-muted);
-      text-decoration: none;
-      white-space: nowrap;
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: .15rem .45rem;
-      transition: background .15s ease, color .15s ease;
-      flex-shrink: 0;
-    }
-
-    .link-source:hover,
-    .link-source:focus {
-      background: var(--brand-light);
-      color: var(--brand-mid);
-      border-color: #b0c8ef;
-      outline: none;
-    }
-
-    .link-source:focus-visible {
-      outline: 2px solid var(--brand-accent);
-      outline-offset: 2px;
-    }
-
-    .link-source svg {
-      flex-shrink: 0;
-    }
-
-    /* Description */
-    .card-description {
-      font-size: .875rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-      flex: 1;
-    }
-
-    /* ── Footer ── */
-    .page-footer {
-      text-align: center;
-      padding: 1.5rem;
-      font-size: .8rem;
-      color: var(--text-muted);
-      border-top: 1px solid var(--border);
-      background: var(--surface);
-    }
-
-    /* ── Responsive ── */
-    @media (max-width: 480px) {
-      .page-header { padding: 2rem 1rem 1.75rem; }
-      .page-main   { padding: 1.75rem 1rem 3rem; }
-      .artifact-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1 - HCI Foundations and Course Project Setup — CEN3722 - Introduction to Human Computer Interfaces</title>
+  <link rel="stylesheet" href="../assets/site.css">
 </head>
 <body>
-<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ CEN3722 - Introduction to Human Computer Interfaces</a></div>
-<div style="border:1px solid #c9d4e3;background:#f5f8fc;border-radius:8px;padding:10px 16px;margin:0 0 18px;display:flex;gap:16px;flex-wrap:wrap;align-items:center;font-family:'Segoe UI',Arial,sans-serif"><strong style="color:#1a3c6e">Module outline:</strong><a href="topics-outcomes.html#topics" style="color:#1a3c6e;font-weight:600;text-decoration:none">📋 Module Topics</a><a href="topics-outcomes.html#outcomes" style="color:#137333;font-weight:600;text-decoration:none">🎯 Student Learning Outcomes</a></div>
-
-  <!-- ══ Page Header ══ -->
-  <header class="page-header" role="banner">
-    <div class="header-inner">
-      <span class="course-label">CEN3722 &mdash; Introduction to Human Computer Interfaces</span>
-      <h1>Module 1 &mdash; HCI Foundations and Course Project Setup</h1>
-      <p>
-        This module introduces the theoretical and practical foundations of Human-Computer
-        Interaction, including core HCI principles, version control with GitHub, design
-        collaboration in Figma, AI-assisted development tools, and environment setup.
-        By the end of the module, learners will have the knowledge and tools needed to
-        launch their team course project.
-      </p>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="hero">
+    <div class="hero-inner">
+  <nav class="breadcrumb" aria-label="Breadcrumb">
+    <a href="../index.html">CEN3722 - Introduction to Human Computer Interfaces</a><span class="sep" aria-hidden="true">›</span><span class="current">1 - HCI Foundations and Course Project Setup</span>
+  </nav>
+      <div class="hero-label">Module 1</div>
+      <h1>HCI Foundations and Course Project Setup</h1>
+      <p class="hero-desc">Introduces core Human-Computer Interaction concepts and establishes team-based project infrastructure including GitHub, Figma, AI tools, and development environments. Students leave ready to begin collaborative design and development in week two.</p>
     </div>
   </header>
-
-  <!-- ══ Main ══ -->
-  <main class="page-main" id="main-content">
-    <h2 class="section-title">Module Artifacts &mdash; 11 items</h2>
-
-    <div class="artifact-grid" role="list">
-
-      <!-- 1 · Module Topics -->
-      <article class="artifact-card" data-type="Module Topics" role="listitem">
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="badge badge-type">Module Topics</span>
-            <span class="badge badge-filetype">.json</span>
-          </div>
-          <div class="card-title-row">
-            <h3 class="card-title">
-              <a href="content/module_topics.html">Module Topics</a>
-            </h3>
-            <a class="link-source" href="source/hierarchy.json" title="View raw source file">
-              <svg width="11" height="11" viewBox="0 0 16 16" fill="none" aria-hidden="true"
-                   xmlns="http://www.w3.org/2000/svg">
-                <path d="M4.5 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5"
-                      stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                <path d="M9 1h6v6M15 1l-7 7" stroke="currentColor" stroke-width="1.5"
-                      stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-              source file
-            </a>
-          </div>
-          <p class="card-description">
-            A structured JSON outline listing the module's four main topic areas — HCI
-            fundamentals, GitHub version control, Figma collaboration, and AI tools — and
-            their sub-topics, serving as a machine-readable table of contents for the module.
-          </p>
-        </div>
-      </article>
-
-      <!-- 2 · Presentation -->
-      <article class="artifact-card" data-type="Presentation" role="listitem">
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="badge badge-type">Presentation</span>
-            <span class="badge badge-filetype">.pptx</span>
-          </div>
-          <div class="card-title-row">
-            <h3 class="card-title">
-              <a href="presentation/HCI_Foundations_and_generated.pptx">HCI_Foundations_and_generated.pptx</a>
-            </h3>
-          </div>
-          <p class="card-description">
-            A slide deck covering the foundational topics of the module — HCI principles,
-            GitHub version control, Figma, AI tools, development environment setup, and team
-            collaboration — used by instructors to deliver or structure lecture content.
-          </p>
-        </div>
-      </article>
-
-      <!-- 3 · Topic Detail: Introduction to HCI -->
-      <article class="artifact-card" data-type="Topic Detail" role="listitem">
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <h3 class="card-title">
-              <a href="content/HCI_Foundations_and_interactive_topics_t1.html">Introduction to Human-Computer Interaction</a>
-            </h3>
-          </div>
-          <p class="card-description">
-            A reading that introduces the field of HCI, explaining its interdisciplinary nature
-            and core concepts such as usability, accessibility, feedback, and User-Centered
-            Design, for learners to build foundational theoretical knowledge.
-          </p>
-        </div>
-      </article>
-
-      <!-- 4 · Topic Detail: Version Control -->
-      <article class="artifact-card" data-type="Topic Detail" role="listitem">
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <h3 class="card-title">
-              <a href="content/HCI_Foundations_and_interactive_topics_t2.html">Version Control with GitHub</a>
-            </h3>
-          </div>
-          <p class="card-description">
-            A reading that explains version control concepts and practical use of GitHub —
-            including branching, committing, and collaboration workflows — enabling learners to
-            manage project code safely as a team.
-          </p>
-        </div>
-      </article>
-
-      <!-- 5 · Topic Detail: Figma -->
-      <article class="artifact-card" data-type="Topic Detail" role="listitem">
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <h3 class="card-title">
-              <a href="content/HCI_Foundations_and_interactive_topics_t3.html">Design Collaboration with Figma</a>
-            </h3>
-          </div>
-          <p class="card-description">
-            A reading that introduces Figma as a collaborative design tool, covering its
-            interface, real-time collaboration features, and how designers and developers can
-            use it together during the UI/UX design process.
-          </p>
-        </div>
-      </article>
-
-      <!-- 6 · Topic Detail: AI Tools -->
-      <article class="artifact-card" data-type="Topic Detail" role="listitem">
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <h3 class="card-title">
-              <a href="content/HCI_Foundations_and_interactive_topics_t4.html">AI Tools in HCI and Development</a>
-            </h3>
-          </div>
-          <p class="card-description">
-            A reading that surveys AI-powered tools used in HCI and software development —
-            such as code assistants and design aids — helping learners understand how to
-            integrate AI into their design and development workflows.
-          </p>
-        </div>
-      </article>
-
-      <!-- 7 · Topic Detail: Dev Environment -->
-      <article class="artifact-card" data-type="Topic Detail" role="listitem">
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <h3 class="card-title">
-              <a href="content/HCI_Foundations_and_interactive_topics_t5.html">Development Environment Setup</a>
-            </h3>
-          </div>
-          <p class="card-description">
-            A reading that guides learners through setting up a consistent local development
-            environment, covering editors, configurations, and conventions needed before
-            beginning collaborative project work.
-          </p>
-        </div>
-      </article>
-
-      <!-- 8 · Topic Detail: Team Collaboration -->
-      <article class="artifact-card" data-type="Topic Detail" role="listitem">
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="badge badge-type">Topic Detail</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <h3 class="card-title">
-              <a href="content/HCI_Foundations_and_interactive_topics_t6.html">Team Collaboration and Project Kickoff</a>
-            </h3>
-          </div>
-          <p class="card-description">
-            A reading focused on launching a team software project successfully, covering role
-            assignment, working agreements, communication practices, and aligning the team
-            around shared project goals at kickoff.
-          </p>
-        </div>
-      </article>
-
-      <!-- 9 · Text Content: Team Collaboration (duplicate) -->
-      <article class="artifact-card" data-type="Text Content" role="listitem">
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="badge badge-type">Text Content</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <h3 class="card-title">
-              <a href="content/HCI_Foundations_and_interactive.html">Team Collaboration and Project Kickoff</a>
-            </h3>
-          </div>
-          <p class="card-description">
-            A duplicate of the Team Collaboration and Project Kickoff reading, covering the same
-            content on establishing roles, working agreements, and project kickoff practices for
-            collaborative software development.
-          </p>
-        </div>
-      </article>
-
-      <!-- 10 · Video: CEN 3722 Overview -->
-      <article class="artifact-card" data-type="Video" role="listitem">
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="badge badge-type">Video</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <h3 class="card-title">
-              <a href="content/ext_d18208d2.html">CEN 3722 Overview</a>
-            </h3>
-          </div>
-          <p class="card-description">
-            This video provides an overview of the CEN 3722 course, likely covering course
-            expectations, structure, and key topics related to Human-Computer Interaction. It
-            serves as an orientation resource to help students understand what the course
-            entails and how it is organized. The video is produced by Daytona State College's
-            instructional resources team.
-          </p>
-        </div>
-      </article>
-
-      <!-- 11 · Assignment -->
-      <article class="artifact-card" data-type="Assignment" role="listitem">
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="badge badge-type">Assignment</span>
-            <span class="badge badge-filetype">.html</span>
-          </div>
-          <div class="card-title-row">
-            <h3 class="card-title">
-              <a href="assignments/index.html">
-                HCI Foundations &mdash; Module 1 Group Project: Team Formation &amp; Project Kickoff
-              </a>
-            </h3>
-          </div>
-          <p class="card-description">
-            A group project kickoff assignment where student teams form, set up their shared
-            tools (GitHub repository, Figma workspace, and a collaborative document), and
-            submit initial project planning materials to establish their working environment
-            for the course project.
-          </p>
-        </div>
-      </article>
-
-    </div><!-- /.artifact-grid -->
-  </main>
-
-  <!-- ══ Footer ══ -->
-  <footer class="page-footer" role="contentinfo">
-    CEN3722 &mdash; Introduction to Human Computer Interfaces &nbsp;&middot;&nbsp;
-    Module 1: HCI Foundations and Course Project Setup
-  </footer>
-
-
-<footer class="presemaker-credit" style="margin-top:2rem;padding:14px 0;border-top:1px solid #ddd;text-align:center;font:13px/1.4 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#777;">Created with <a href="https://apps.microsoft.com/detail/9mt854nv3fgf?hl=en-US&amp;gl=US" target="_blank" rel="noopener" style="color:#3b6ea5;text-decoration:none;">PreseMaker</a></footer>
-<section class="presemaker-extras" style="max-width:1000px;margin:2rem auto;padding:0 1rem;"><h2>Topics &amp; Learning Outcomes</h2><p><a href="topics-outcomes.html">View Topics &amp; Learning Outcomes</a></p><h2>Source Materials</h2><ul class="artifact-list">  <li class="artifact-item">
-    <div class="artifact-icon">⬇</div>
+  <main class="page-wrap" id="main">
+<section aria-labelledby="topics-h">
+<h2 id="topics-h">Topics</h2>
+<p class="section-intro">This module covers 6 topics. Open a topic to see its subtopics.</p>
+<ol class="topic-list">
+<li><a class="topic-card" href="topics-outcomes.html#topic-1"><span class="topic-num" aria-hidden="true">1</span><span class="topic-text"><span class="topic-title">Introduction to Human-Computer Interaction</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-2"><span class="topic-num" aria-hidden="true">2</span><span class="topic-text"><span class="topic-title">Version Control with GitHub</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-3"><span class="topic-num" aria-hidden="true">3</span><span class="topic-text"><span class="topic-title">Design Collaboration with Figma</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-4"><span class="topic-num" aria-hidden="true">4</span><span class="topic-text"><span class="topic-title">AI Tools in HCI and Development</span><span class="topic-meta">4 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-5"><span class="topic-num" aria-hidden="true">5</span><span class="topic-text"><span class="topic-title">Development Environment Setup</span><span class="topic-meta">5 subtopics</span></span></a></li>
+<li><a class="topic-card" href="topics-outcomes.html#topic-6"><span class="topic-num" aria-hidden="true">6</span><span class="topic-text"><span class="topic-title">Team Collaboration and Project Kickoff</span><span class="topic-meta">5 subtopics</span></span></a></li>
+</ol>
+<p class="more-links"><a href="topics-outcomes.html#topics">All topics and subtopics</a><a href="topics-outcomes.html#outcomes">Student learning outcomes</a></p>
+</section>
+<section aria-labelledby="content-h">
+<h2 id="content-h">Module Content</h2>
+<p class="section-intro">17 items.</p>
+<ul class="content-grid">
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📊</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Presentation</span><span class="pill pill-format"><span aria-hidden="true">📽️ </span>PowerPoint</span></div>
+    <div class="content-title"><a href="presentation/HCI_Foundations_and_generated.pptx" download>HCI_Foundations_and_generated.pptx</a></div>
+    <p class="content-desc">A slide deck covering the foundational topics of the module — HCI principles, GitHub version control, Figma, AI tools, development environment setup, and team collaboration — used by instructors to deliver or structure lecture content.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_generated_t1_videos.html">Introduction to Human-Computer Interaction — Videos</a></div>
+    <p class="content-desc">A foundational reading that defines Human-Computer Interaction, introduces core design principles, and establishes the field&#39;s shared vocabulary around users, goals, limits, and context, which learners study first to frame all later topics in the course.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_generated_t2_videos.html">Version Control with GitHub — Videos</a></div>
+    <p class="content-desc">A tutorial explaining version control concepts and the distinction between Git and GitHub, covering repositories, change tracking, rollbacks, and collaboration features like issues, pull requests, and code review, used by learners to set up and manage their project repository.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_generated_t3_videos.html">Design Collaboration with Figma — Videos</a></div>
+    <p class="content-desc">A guide to Figma as the course&#39;s primary design tool, walking through creating an education team workspace, sketching UI screens, linking them into clickable prototypes, and handing off specifications to developers for the semester project.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_generated_t4_videos.html">AI Tools in HCI and Development — Videos</a></div>
+    <p class="content-desc">A survey of where generative AI tools fit into design and development workflows — brainstorming interface concepts, drafting wireframes and copy, generating code and tests, and summarizing user research — used by learners to apply AI responsibly in their project work.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_generated_t5_videos.html">Development Environment Setup — Videos</a></div>
+    <p class="content-desc">A step-by-step setup guide for the semester toolchain, including installing a code editor, configuring Git, creating a GitHub repository, and using GitHub Codespaces as a cloud alternative, which learners follow before beginning any build work.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_generated_t6_videos.html">Team Collaboration and Project Kickoff — Videos</a></div>
+    <p class="content-desc">A practical guide to deliberate team formation covering role assignment, writing a team charter, and bounding the course project to a realistic scope, used by student teams during project kickoff.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topics and Embedded Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_generated_videos_merged.html">1 - HCI Foundations and Course Project Setup — 6 topics (merged)</a></div>
+    <p class="content-desc">A consolidated module overview that compiles all Module 1 topics — HCI fundamentals, GitHub version control, Figma, AI tools, environment setup, and team kickoff — into a single reference document for review or printing.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_interactive_topics_t1.html">Introduction to Human-Computer Interaction</a></div>
+    <p class="content-desc">A reading that introduces the field of HCI, explaining its interdisciplinary nature and core concepts such as usability, accessibility, feedback, and User-Centered Design, for learners to build foundational theoretical knowledge.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_interactive_topics_t2.html">Version Control with GitHub</a></div>
+    <p class="content-desc">A reading that explains version control concepts and practical use of GitHub — including branching, committing, and collaboration workflows — enabling learners to manage project code safely as a team.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_interactive_topics_t3.html">Design Collaboration with Figma</a></div>
+    <p class="content-desc">A reading that introduces Figma as a collaborative design tool, covering its interface, real-time collaboration features, and how designers and developers can use it together during the UI/UX design process.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_interactive_topics_t4.html">AI Tools in HCI and Development</a></div>
+    <p class="content-desc">A reading that surveys AI-powered tools used in HCI and software development — such as code assistants and design aids — helping learners understand how to integrate AI into their design and development workflows.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_interactive_topics_t5.html">Development Environment Setup</a></div>
+    <p class="content-desc">A reading that guides learners through setting up a consistent local development environment, covering editors, configurations, and conventions needed before beginning collaborative project work.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Topic Detail</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_interactive_topics_t6.html">Team Collaboration and Project Kickoff</a></div>
+    <p class="content-desc">A reading focused on launching a team software project successfully, covering role assignment, working agreements, communication practices, and aligning the team around shared project goals at kickoff.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📄</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Reading</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/HCI_Foundations_and_interactive.html">Team Collaboration and Project Kickoff</a></div>
+    <p class="content-desc">A duplicate of the Team Collaboration and Project Kickoff reading, covering the same content on establishing roles, working agreements, and project kickoff practices for collaborative software development.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">🎬</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Video</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="content/ext_d18208d2.html">CEN 3722 Overview</a></div>
+    <p class="content-desc">This video provides an overview of the CEN 3722 course, likely covering course expectations, structure, and key topics related to Human-Computer Interaction. It serves as an orientation resource to help students understand what the course entails and how it is organized. The video is produced by Daytona State College&#39;s instructional resources team.</p>
+  </div>
+</li>
+<li class="content-card">
+  <div class="content-icon" aria-hidden="true">📝</div>
+  <div class="content-body">
+    <div class="content-meta"><span class="pill">Assignment</span><span class="pill pill-format"><span aria-hidden="true">🌐 </span>Web page</span></div>
+    <div class="content-title"><a href="assignments/index.html">Assignments</a></div>
+    <p class="content-desc">A group project kickoff assignment where student teams form, set up their shared tools (GitHub repository, Figma workspace, and a collaborative document), and submit initial project planning materials to establish their working environment for the course project.</p>
+  </div>
+</li>
+</ul>
+</section>
+<section aria-labelledby="sources-h">
+<h2 id="sources-h">Source Materials</h2>
+<ul class="artifact-list">
+  <li class="artifact-item">
+    <div class="artifact-icon" aria-hidden="true">⬇</div>
     <div class="artifact-body">
-      <a class="artifact-link" href="source-materials/source-1.html" download>Topic Prompt</a>
+      <a class="artifact-link" href="source-materials/source-1.html">Topic Prompt</a>
     </div>
   </li>
   <li class="artifact-item">
-    <div class="artifact-icon">🔗</div>
+    <div class="artifact-icon" aria-hidden="true">🔗</div>
     <div class="artifact-body">
       <a class="artifact-link" href="https://www.figma.com/education/" target="_blank" rel="noopener">Web Page — https://www.figma.com/education/  (external link)</a>
     </div>
   </li>
   <li class="artifact-item">
-    <div class="artifact-icon">🔗</div>
+    <div class="artifact-icon" aria-hidden="true">🔗</div>
     <div class="artifact-body">
       <a class="artifact-link" href="https://github.com/" target="_blank" rel="noopener">Web Page — https://github.com/  (external link)</a>
     </div>
   </li>
   <li class="artifact-item">
-    <div class="artifact-icon">🔗</div>
+    <div class="artifact-icon" aria-hidden="true">🔗</div>
     <div class="artifact-body">
       <a class="artifact-link" href="https://github.com/resources/articles/ai-in-software-development" target="_blank" rel="noopener">Web Page — https://github.com/resources/articles/ai-in-software-development  (external link)</a>
     </div>
-  </li></ul></section><script src="embed-inject.js" defer></script></body>
+  </li></ul>
+</section>
+<nav class="module-nav" aria-label="Modules">
+  <span></span>
+  <a class="center-link" href="../index.html">↑ All modules</a>
+  <a href="../2-project-scoping-and-app-platform-selection/index.html">2 - Project Scoping and App Platform Selection →</a>
+</nav>
+  </main>
+<script src="embed-inject.js" defer></script>
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
 </html>
