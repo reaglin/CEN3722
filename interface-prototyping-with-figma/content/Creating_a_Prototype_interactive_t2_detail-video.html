@@ -1,0 +1,265 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frames, Grids, and Screen Layout</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Interface Prototyping with Figma</a></div>
+  <header>
+    <h1>Frames, Grids, and Screen Layout</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Frames, Grids, and Screen Layout</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every screen you design in Figma begins life as a <strong>frame</strong>. Before a single button, icon, or paragraph of body copy is placed, the frame establishes the canvas on which the interface lives: its width and height, its clipping behaviour, its grid, and its role in the prototype. Understanding frames — and the layout systems that sit inside them — is the difference between a file that scales gracefully from a 320&nbsp;px phone to a 1440&nbsp;px desktop and a file that collapses the moment someone resizes it. This topic walks through the frame as a structural container, the layout grids that bring order to its contents, the constraint system that makes those contents responsive, the device presets and safe areas that ground the design in real hardware, and finally the flows that turn a scattered collection of screens into a coherent, navigable user journey.</p>
+
+<p><strong>What Is a Frame?</strong></p>
+
+<p>A frame in Figma is a container node that behaves like a viewport. Conceptually it is closest to a <code>&lt;div&gt;</code> in HTML or a <code>UIView</code> in iOS: it has its own coordinate space, its own fill, stroke, corner radius, and effects, and anything placed inside it is positioned relative to its top-left corner rather than to the canvas. This relative positioning is what makes frames so powerful — move the frame and everything inside travels with it, preserving internal offsets exactly.</p>
+
+<p>When you press <code>F</code> (or <code>A</code> in newer builds) and draw a frame, the properties panel offers a list of device presets. Selecting one gives the frame <strong>fixed dimensions</strong> that match real hardware: an iPhone 14 preset produces a 390&nbsp;×&nbsp;844 frame, an iPhone 14 Pro Max produces 430&nbsp;×&nbsp;932, an Android "Pixel 7" produces 412&nbsp;×&nbsp;915, an iPad Pro 11" produces 834&nbsp;×&nbsp;1194, and a Desktop preset produces 1440&nbsp;×&nbsp;1024. These numbers are expressed in <em>points</em> or <em>logical pixels</em>, not physical device pixels — a distinction that matters enormously when you reach the export stage, and which is discussed later in this topic. Designing inside a correctly sized frame means that a 44&nbsp;px tall button really is a 44&nbsp;pt tap target on the device, not an abstraction you have to mentally rescale.</p>
+
+<p>Frames <strong>clip their contents by default</strong> when the "Clip content" checkbox is ticked in the properties panel. Anything that extends past the frame boundary is simply not drawn. This mirrors the behaviour of a real screen: a horizontally scrolling carousel of product cards may contain twelve cards, but the device only ever renders the three that fall within the visible viewport. Clipping lets you build that illusion honestly — you lay out all twelve cards in a row that is 2,000&nbsp;px wide, drop it inside a 390&nbsp;px frame, and the frame hides the overflow exactly as the device would. If you untick "Clip content", the overflow becomes visible on the canvas, which is useful during construction (you can see and drag the off-screen cards) but misleading in a presentation. A common workflow is to untick clipping while building, then re-tick it before the prototype review.</p>
+
+<p><strong>Nested frames</strong> are the real structural workhorse of a Figma file. A screen frame contains a header frame, a content frame, and a tab bar frame; the header frame in turn contains a back-button frame and a title. Each level of nesting creates an independent coordinate space and an independent set of layout rules. This matters because both of Figma's two most important features — <em>components</em> and <em>auto-layout</em> — require frames. A component must be a frame (or a shape promoted to one) to accept auto-layout, padding, and resizing behaviour; an auto-layout stack <em>is</em> a frame with a direction, a gap, and a padding value attached. Building a card as a nested frame rather than a group means you can later give it <code>padding: 16</code>, a vertical gap of 8, and "Hug contents" sizing so it grows automatically when the description text gets longer.</p>
+
+<p>The distinction between frames and <strong>groups</strong> is frequently misunderstood, and it has direct consequences for prototyping. A group is merely a selection convenience: its bounding box is computed from the union of its children, it has no independent fill or clipping, and it cannot hold auto-layout or layout grids. Critically, <strong>frames appear as distinct nodes in the prototype flow whereas groups do not</strong> — you can set a frame as a flow starting point, scroll within it, apply "Fix position when scrolling", or navigate to it with an interaction, but none of these are available to a group. Groups also resize their children proportionally when you drag their edges, which is rarely what you want for interface layout.</p>
+
+<table>
+  <thead>
+    <tr><th>Capability</th><th>Frame</th><th>Group</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Independent fill, stroke, corner radius, effects</td><td>Yes</td><td>No</td></tr>
+    <tr><td>Clips overflowing content</td><td>Yes (optional)</td><td>No</td></tr>
+    <tr><td>Supports layout grids</td><td>Yes</td><td>No</td></tr>
+    <tr><td>Supports auto-layout</td><td>Yes</td><td>No</td></tr>
+    <tr><td>Can be a prototype destination or flow start</td><td>Yes</td><td>No</td></tr>
+    <tr><td>Children use constraints to parent</td><td>Yes</td><td>Children scale proportionally</td></tr>
+    <tr><td>Can be scrolled or fixed on scroll</td><td>Yes</td><td>No</td></tr>
+    <tr><td>Bounding box</td><td>Explicit, author-defined</td><td>Derived from children</td></tr>
+  </tbody>
+</table>
+
+<p>A practical rule of thumb: use a frame unless you have a specific reason not to. Reserve groups for temporary, throwaway selections — for example, grouping six decorative dots so you can nudge them together once — and convert anything structural into a frame with <code>Ctrl/Cmd + Alt + G</code>.</p>
+
+<p><strong>Applying Layout Grids</strong></p>
+
+<p>A layout grid is a non-printing scaffold attached to a frame that gives you repeatable alignment decisions. Instead of eyeballing where a card should start, you snap it to a column. Figma offers three grid types — <em>Grid</em> (a uniform square mesh, usually 8&nbsp;px, for baseline spacing), <em>Columns</em>, and <em>Rows</em> — and you add them from the Layout Grid section of the properties panel with the <code>+</code> button.</p>
+
+<p><strong>Column grids define the horizontal divisions</strong> against which text blocks, images, and interactive elements are aligned. The industry convention for desktop web is a 12-column grid, because 12 divides evenly by 2, 3, 4, and 6, allowing halves, thirds, quarters, and sixths without fractional columns. Mobile layouts typically use 4 columns (iOS/Material convention) or 6; tablets commonly use 8. A product grid that spans three columns on desktop can collapse to spanning two of four columns on mobile, and because both layouts are expressed in the same column language, the translation is systematic rather than improvised.</p>
+
+<p><strong>Gutter and margin settings</strong> control the breathing room. The <em>gutter</em> is the gap between adjacent columns; the <em>margin</em> is the inset from the frame edge to the first and last column. Figma offers three column behaviours that interact with these values:</p>
+
+<ul>
+  <li><strong>Stretch</strong> — you specify the count, gutter, and margin, and Figma computes the column width so the grid always fills the frame. This is the correct choice for responsive web frames, because the grid adapts when you resize the frame.</li>
+  <li><strong>Center</strong> — you specify the count, gutter, and a fixed column width; the resulting block is centred in the frame. Useful for a fixed-width content well inside a full-bleed page.</li>
+  <li><strong>Left / Right</strong> — the grid is anchored to one edge with a fixed column width, leaving the remaining space free. Useful for asymmetric layouts such as a documentation page with a sidebar.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr><th>Frame type</th><th>Typical width</th><th>Columns</th><th>Gutter</th><th>Margin</th><th>Behaviour</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Mobile (iPhone 14)</td><td>390 px</td><td>4</td><td>16 px</td><td>16 px</td><td>Stretch</td></tr>
+    <tr><td>Tablet (iPad Pro 11")</td><td>834 px</td><td>8</td><td>20 px</td><td>32 px</td><td>Stretch</td></tr>
+    <tr><td>Desktop</td><td>1440 px</td><td>12</td><td>24 px</td><td>80 px</td><td>Stretch</td></tr>
+    <tr><td>Wide desktop content well</td><td>1920 px</td><td>12</td><td>24 px</td><td>n/a</td><td>Center, 80 px columns</td></tr>
+  </tbody>
+</table>
+
+<p>You can verify the arithmetic: on a 1440&nbsp;px desktop frame with 80&nbsp;px margins and 24&nbsp;px gutters, the usable width is <code>1440 - (80 × 2) = 1280</code>. With 12 columns there are 11 gutters, consuming <code>11 × 24 = 264</code>, leaving <code>1280 - 264 = 1016</code> for the columns themselves, or roughly <code>84.67</code> px per column. If those fractional values produce blurry half-pixel edges, adjust the margin to 84&nbsp;px so the columns resolve to a whole number.</p>
+
+<p><strong>Multiple grids can be stacked on a single frame.</strong> A professional desktop frame often carries three simultaneously: an 8&nbsp;px square grid to enforce consistent vertical rhythm and spacing increments, a 12-column stretch grid for horizontal composition, and sometimes a row grid to mark a fixed header band and footer band. Each grid has its own colour and opacity swatch, so you can make the 8&nbsp;px mesh a faint 3% red while the columns are a 10% blue — otherwise the overlays become visual noise. Toggle all grids on and off with <code>Ctrl/Cmd + Shift + 4</code> (or <code>Ctrl/Cmd + G</code> in some versions) while you work, and save grid definitions as <em>grid styles</em> so every mobile frame in the project inherits identical settings with one click. Shared grid styles are the single most effective guard against drift across a large file.</p>
+
+<p><strong>Grids are visible only in the editor.</strong> They are an authoring aid, not content: they do not appear in exported PNG, JPG, SVG, or PDF assets, and they do not render in Presentation mode or in a shared prototype link by default. Developers inspecting the file in Dev Mode can read the grid definition as a specification, which is exactly the right place for it. If you deliberately want a visible grid in a presentation — to explain your layout logic in a design critique, for instance — you must draw it as real geometry (rectangles or lines) on a separate layer, because the layout grid itself will never be exported.</p>
+
+<p><strong>Constraints and Responsive Anchoring</strong></p>
+
+<p>A grid tells you where to place something once; constraints tell Figma what should happen to that element when its parent frame changes size. Every direct child of a frame carries a pair of constraints — one horizontal, one vertical — set in the Constraints widget at the top right of the properties panel. Constraints are evaluated relative to the <em>immediate parent frame</em>, which is why nesting matters: a button constrained "Right" inside a card frame pins to the card's right edge, not the screen's.</p>
+
+<p><strong>Horizontal constraints</strong> offer five options:</p>
+
+<ul>
+  <li><strong>Left</strong> — the distance from the element's left edge to the parent's left edge is preserved; the element keeps its width and drifts away from the right edge as the frame widens. The default, and correct for most left-aligned content such as back arrows and headings.</li>
+  <li><strong>Right</strong> — the distance to the parent's right edge is preserved. Correct for trailing icons, "Done" buttons, and close affordances.</li>
+  <li><strong>Left and Right</strong> — both distances are preserved, so the element's <em>width stretches</em> to absorb the change. This is the responsive workhorse: a search field with 16&nbsp;px of inset on each side will remain 16&nbsp;px from both edges on a 320&nbsp;px frame and a 430&nbsp;px frame, growing from 288&nbsp;px to 398&nbsp;px automatically.</li>
+  <li><strong>Center</strong> — the element's centre stays at the same proportional midpoint; the offset from the parent's centre is preserved and the width is unchanged. Correct for a centred navigation-bar title or a modal dialog.</li>
+  <li><strong>Scale</strong> — the element's position <em>and</em> size change proportionally with the frame, as a percentage. Appropriate for full-bleed hero imagery and decorative background art, but dangerous for text and controls, because it produces non-standard font sizes and tap targets.</li>
+</ul>
+
+<p><strong>Vertical constraints mirror these exactly</strong>: Top, Bottom, Top and Bottom (stretch), Center, and Scale. Top pins an element a fixed distance below the frame's top edge; Bottom pins it above the bottom edge; Top and Bottom stretches its height; Center holds it at the vertical midpoint; Scale resizes proportionally. A scrollable content area between a fixed header and a fixed tab bar is the classic "Top and Bottom" case — as the frame grows from an iPhone SE's 667&nbsp;px height to an iPhone 14 Pro Max's 932&nbsp;px, the content region absorbs all 265&nbsp;px of the difference while the chrome stays put.</p>
+
+<table>
+  <thead>
+    <tr><th>Interface element</th><th>Horizontal constraint</th><th>Vertical constraint</th><th>Resulting behaviour</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Status bar / navigation bar</td><td>Left and Right</td><td>Top</td><td>Full-width band pinned to the top of every screen size</td></tr>
+    <tr><td>Bottom tab bar</td><td>Left and Right</td><td>Bottom</td><td>Full-width band pinned to the bottom, above the home indicator</td></tr>
+    <tr><td>Back arrow in nav bar</td><td>Left</td><td>Center</td><td>Stays 16 px from the left, vertically centred in the bar</td></tr>
+    <tr><td>Screen title in nav bar</td><td>Center</td><td>Center</td><td>Remains optically centred at any width</td></tr>
+    <tr><td>Floating action button</td><td>Right</td><td>Bottom</td><td>Stays 16 px in from the bottom-right corner</td></tr>
+    <tr><td>Primary CTA button</td><td>Left and Right</td><td>Bottom</td><td>Stretches to full width minus margins, anchored above the fold</td></tr>
+    <tr><td>Scrolling content list</td><td>Left and Right</td><td>Top and Bottom</td><td>Fills all space left between header and tab bar</td></tr>
+    <tr><td>Full-bleed hero photograph</td><td>Scale</td><td>Scale</td><td>Grows proportionally; crop may need checking</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Combining constraints with fixed dimensions</strong> is how you pin chrome reliably. Consider a navigation bar built as a nested frame 390&nbsp;×&nbsp;56 placed at <code>y = 0</code> inside the screen frame. Give the bar a vertical constraint of <strong>Top</strong> and a horizontal constraint of <strong>Left and Right</strong>, and leave its height fixed at 56. Now, whichever device preset you resize the parent to, the bar remains exactly 56&nbsp;px tall, flush to the top, and spanning the full width. Its children — the back arrow, the title, the overflow menu — carry their own constraints relative to the bar, so the whole assembly behaves as a single responsive unit. To test it, select the parent frame and drag a side handle while watching the result; if something behaves unexpectedly, the fault is almost always a constraint set on the wrong nesting level.</p>
+
+<p>Finally, an important precedence rule: <strong>constraints are superseded by auto-layout when both are applied to the same element.</strong> Once a parent frame has auto-layout turned on, its children are positioned by the auto-layout algorithm — direction, gap, padding, alignment, and distribution — and their individual X/Y constraints are ignored. What remains available is the <em>resizing</em> behaviour of each child: "Fixed width/height", "Hug contents", and "Fill container". "Fill container" is the auto-layout analogue of a Left-and-Right stretch; "Hug contents" shrinks the frame to its children. Constraints do not disappear entirely, though — a child that is marked as <em>absolute position</em> inside an auto-layout frame (the little pin icon in the properties panel) steps outside the flow and once again honours its constraints, which is exactly how you overlay a notification badge on the corner of an auto-layout icon button. Understanding this hierarchy prevents the common frustration of setting a constraint and seeing nothing happen.</p>
+
+<p><strong>Working with Device Presets and Safe Areas</strong></p>
+
+<p>Figma ships an extensive list of <strong>frame presets</strong> in the properties panel, grouped by platform: Phone, Tablet, Desktop, Presentation, Watch, TV, Paper, and Social Media. Choosing from this list rather than typing arbitrary numbers has several benefits — the dimensions are correct, the frame is named after the device, and your reviewers immediately understand the target context. Representative values:</p>
+
+<table>
+  <thead>
+    <tr><th>Preset</th><th>Logical size (pt/dp)</th><th>Scale factor</th><th>Physical pixels</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>iPhone SE</td><td>375 × 667</td><td>2×</td><td>750 × 1334</td></tr>
+    <tr><td>iPhone 14 / 15</td><td>390 × 844</td><td>3×</td><td>1170 × 2532</td></tr>
+    <tr><td>iPhone 14 Pro Max</td><td>430 × 932</td><td>3×</td><td>1290 × 2796</td></tr>
+    <tr><td>Android Compact (Pixel)</td><td>412 × 915</td><td>2.625×</td><td>1080 × 2400</td></tr>
+    <tr><td>iPad Pro 11"</td><td>834 × 1194</td><td>2×</td><td>1668 × 2388</td></tr>
+    <tr><td>Desktop</td><td>1440 × 1024</td><td>1×</td><td>1440 × 1024</td></tr>
+    <tr><td>MacBook Pro 16"</td><td>1728 × 1117</td><td>2×</td><td>3456 × 2234</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Safe areas</strong> are the regions of the screen that the operating system reserves for its own chrome, or that hardware intrudes upon. On modern iPhones these include the 44–59&nbsp;px status bar and notch/Dynamic Island at the top, the 34&nbsp;px home-indicator band at the bottom, and small corner radii that clip rectangular content. On Android there is the status bar, the navigation bar or gesture pill, and on some devices a punch-hole camera. In landscape orientation, additional horizontal insets appear on notched devices. Interactive content must not be placed in these regions: a "Continue" button positioned flush to the bottom of an iPhone frame will sit underneath the home indicator, where a swipe-up gesture will dismiss the app rather than tap the button. The practical convention is to keep tappable content at least 34&nbsp;px above the bottom edge and below the top status bar, and to treat 16&nbsp;px as a minimum horizontal margin. A useful technique is to place a semi-transparent "safe area" rectangle or an outlined guide layer on a locked layer at the top of your frame stack while composing, then hide it for presentation — or to build it into a reusable screen template component so every new screen starts correctly.</p>
+
+<p>For presentations and portfolio work, a <strong>device frame plugin or mockup overlay</strong> markedly improves perceived realism. Figma's own prototype settings include a "Device" dropdown that wraps the preview in a phone bezel; plugins such as <em>Mockuuups Studio</em>, <em>Angle</em>, <em>Artboard Studio Mockups</em>, or <em>Clay Mockups 3D</em> go further, placing your screen into a photographic or 3D device render. During a peer review, a screen shown inside a realistic bezel invites feedback about the <em>experience</em>; the same screen shown as a naked rectangle tends to invite feedback about the rectangle. The caveat is that mockups are presentation assets — never design inside them, and never let a glossy render disguise a layout that has not been tested at real size on a real device.</p>
+
+<p><strong>Designing at 1× and exporting at 2× or 3×</strong> is the rule that keeps assets crisp on high-density displays. Because a phone's physical pixel density is two or three times its logical point grid, a 24&nbsp;×&nbsp;24 icon drawn at 1× must be delivered as a 48&nbsp;×&nbsp;48 bitmap for a 2× screen and 72&nbsp;×&nbsp;72 for a 3× screen, or it will appear soft. In Figma's Export panel you add multiple export settings to a single layer:</p>
+
+<pre><code>Export settings for layer "icon-search"
+  1x   PNG   suffix:        icon-search.png        (24 x 24)
+  2x   PNG   suffix: @2x    icon-search@2x.png     (48 x 48)
+  3x   PNG   suffix: @3x    icon-search@3x.png     (72 x 72)
+  SVG        (vector, resolution independent)</code></pre>
+
+<p>Two refinements are worth internalising. First, prefer <strong>SVG or PDF</strong> for flat vector artwork — icons, logos, simple illustrations — because a vector asset is resolution-independent and needs no multiplier at all; reserve the 1×/2×/3× PNG ladder for raster imagery and for anything with gradients, blurs, or complex masks that rasterise unpredictably. Second, keep your source artwork on whole-pixel coordinates at 1×. A rectangle placed at <code>x = 12.5</code> with a 1&nbsp;px stroke will land on a half-pixel boundary and render with a soft grey edge; at 3× export the softness is multiplied rather than resolved. Figma's "Pixel grid" view (<code>Ctrl/Cmd + '</code>) and the "Snap to pixel grid" preference exist precisely to prevent this, and the <code>Round to pixel</code> action in the alignment menu will clean up an entire selection at once.</p>
+
+<p>A related habit is to name layers for export before you export them. Figma builds the filename from the layer name, so a layer called <code>Frame 427</code> becomes <code>Frame 427@2x.png</code>, which tells a developer nothing. Adopting a slug convention such as <code>ic-search</code>, <code>img-hero-onboarding</code>, or <code>illus-empty-cart</code> turns the export panel into a usable asset-delivery pipeline. Slashes in layer names create folders inside the exported ZIP, so naming a layer <code>icons/search</code> produces <code>icons/search@2x.png</code> — a small trick that saves considerable tidying.</p>
+
+<p><strong>Organising Screens with Flows</strong></p>
+
+<p>Once you have a dozen correctly built frames on the canvas, the remaining problem is narrative: which screen comes first, what leads to what, and how does a reviewer experience the design without you standing beside them explaining it. Figma's answer is the <strong>flow</strong>.</p>
+
+<p>A <strong>flow represents one complete user journey</strong> — a self-contained task with a beginning and an end. Typical flows in a consumer app include <em>Onboarding</em> (splash → value propositions → permissions → account creation), <em>Authentication</em> (login → forgotten password → reset → success), <em>Browse and Search</em>, <em>Checkout</em> (cart → delivery → payment → confirmation), and <em>Settings</em>. Separating journeys this way does real cognitive work. It makes the file legible to collaborators, it allows you to share a link that opens on exactly the journey a stakeholder needs to review rather than dumping them at screen one of ninety, and it forces you to think in terms of tasks and goals rather than isolated pretty screens. A flow is also the natural unit for usability testing: you give a participant a task ("buy the blue jacket in size M"), and the flow is the path you expect them to take.
+
+</p>
+
+<p>In Figma, a flow is created in the <strong>Prototype</strong> tab of the right-hand panel. Select the frame that should begin the journey and click the <code>+</code> next to "Flow starting point". Figma attaches a labelled badge to the top-left of that frame on the canvas and adds an entry to the Flows list, which you can rename (<code>Checkout</code>, <code>Onboarding — new user</code>) and annotate with a description. <strong>Starting frames become entry points during preview</strong>: when you press Present, the prototype opens on the selected flow, and the flow list appears in the viewer's sidebar so the audience can jump between journeys without you re-sharing links. You can also copy a direct link to an individual flow. A frame can only be the starting point of one flow, but a single file can contain as many flows as the product has journeys.</p>
+
+<p>Good flows depend on disciplined <strong>naming</strong>. Sequential names such as <code>Login-01 Empty</code>, <code>Login-02 Typing</code>, <code>Login-03 Error</code>, <code>Login-04 Success</code> encode both the journey and the order, which keeps the layers panel sorted sensibly and makes the canvas self-documenting. Because Figma's layer list sorts frames by their stacking order rather than alphabetically, the numeric prefix is what gives you reliable, scannable order. Combine the naming with physical arrangement: lay each flow out as a left-to-right row on the canvas, one row per journey, with branches stacked vertically beneath the screen they branch from. The spatial map then mirrors the logical map, and anyone opening the file can read the product's structure at a glance. A Figma <em>section</em> (<code>Shift + S</code>) drawn around each row reinforces this, since sections can be named, collapsed, and marked "Ready for development".</p>
+
+<table>
+  <thead>
+    <tr><th>Flow</th><th>Frame naming pattern</th><th>Example frames</th><th>Starting point</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Onboarding</td><td><code>Onboard-NN Description</code></td><td>Onboard-01 Splash, Onboard-02 Benefits, Onboard-03 Permissions</td><td>Onboard-01 Splash</td></tr>
+    <tr><td>Authentication</td><td><code>Login-NN Description</code></td><td>Login-01 Empty, Login-02 Error, Login-03 Success</td><td>Login-01 Empty</td></tr>
+    <tr><td>Checkout</td><td><code>Checkout-NN Description</code></td><td>Checkout-01 Cart, Checkout-02 Address, Checkout-03 Payment, Checkout-04 Confirmation</td><td>Checkout-01 Cart</td></tr>
+    <tr><td>Settings</td><td><code>Settings-NN Description</code></td><td>Settings-01 Index, Settings-02 Notifications, Settings-03 Account</td><td>Settings-01 Index</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Colour-coded frame backgrounds</strong> add a second, instantly readable layer of organisation. Because a frame has its own fill, you can tint the canvas area behind a journey — or more commonly, place each flow inside a coloured section, or set the frames of a flow to a subtly different background. A common scheme assigns a hue per state of completion or per journey: blue for onboarding, green for the happy-path checkout, amber for error and edge-case screens, grey for screens that are parked or deprecated. During a design review, the reviewer can see at once that the three amber frames are the error states and that the grey cluster is out of scope for this sprint. Keep the saturation low — a 5–10% tint is enough to read as a grouping without competing with the interface colours inside the frame. If you tint the screen frames themselves rather than the sections, remember to reset them to the intended background colour before the prototype is presented, or build the tint into a locked backing rectangle behind each row instead.</p>
+
+<p>Finally, flows and the structural concepts above reinforce one another. A flow is only trustworthy if its frames are genuine frames rather than groups, because groups cannot be flow starting points or navigation destinations. The journey only looks credible on a phone if each frame uses an accurate device preset and respects safe areas. And the whole set only survives a change of device size if constraints — or, where appropriate, auto-layout — have been set deliberately on every child. Frames, grids, constraints, presets, and flows are not five separate techniques; they are one layered system for making a design file that behaves like a product.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+
+<ul>
+  <li><strong>MO1</strong> — This topic supplies the structural foundation for building an interactive prototype: frames are the screens, flow starting points define the prototype's entry points, and correct naming and canvas organisation make a multi-screen journey navigable in Present mode. Students who master frames and flows can assemble screens into a coherent low-to-high fidelity prototype in Figma.</li>
+  <li><strong>MO2</strong> — Layout grids, gutters, margins, and safe areas are the mechanisms through which visual hierarchy and consistency are enforced: shared grid styles keep spacing uniform across screens, column alignment establishes dominance and grouping, and safe-area discipline protects the affordance of tap targets by keeping interactive controls reachable and unobstructed.</li>
+  <li><strong>MO3</strong> — The topic directly addresses two of the named prototyping features. It explains that frames (not groups) are the prerequisite container for components and auto-layout, and it sets out the precedence rule by which auto-layout supersedes constraints, including the absolute-position exception. The flows section covers the organisation of interactive journeys, while the detailed construction of individual interactions and transitions is developed in later topics.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Suggested in-class activity: give students one 1440 × 1024 desktop frame and one 390 × 844 mobile frame containing the same content, and have them set constraints so both resize correctly when dragged ±200 px. Figma preset dimensions and plugin names were current at time of writing and should be spot-checked against the current Figma release before delivery, as preset lists and keyboard shortcuts (notably the grid-toggle shortcut) change between versions.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Every screen you design in Figma lives inside a frame. A frame is a container with its own boundaries, background, and layout rules, and it is what Figma treats as a "screen" when you move into prototyping. Learning to create, size, and nest frames well is the first practical step toward a prototype that behaves predictably rather than one that falls apart the moment you resize something.</p>
+<p>On top of frames sit two tools that give your layouts structure: layout grids (columns, rows, and uniform grids that keep spacing and alignment consistent across screens) and constraints (rules that tell child objects how to anchor and stretch when their parent frame changes size). Device presets and safe areas connect these ideas to real hardware, so your mobile screen is actually the size of a phone and your important content is not hidden behind a notch or a home indicator. Finally, arranging frames on the canvas in a readable order turns a pile of screens into a flow that a reviewer or teammate can follow.</p>
+<p>As you watch, pay attention to three things: where the presenter clicks to create or select a frame versus a group, how constraints are set in the right-hand panel and what changes when the frame is resized, and how grids are used to justify spacing decisions instead of eyeballing them. Try pausing and reproducing each step in your own file — these skills are muscle memory, and they are much faster to learn by doing than by watching.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: Resizing frames in Figma Design</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/PwcT8g4gNKs?cc_load_policy=1&amp;rel=0" title="Video: Resizing frames in Figma Design (Figma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Figma</strong> · 3:47 · 220,772 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=PwcT8g4gNKs" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short official tutorial on resizing frames in Figma Design, focused on what happens to the contents of a frame when its dimensions change. It demonstrates how constraints control the anchoring and stretching of child elements, and how to temporarily ignore constraints when you want contents to stay put. Expect a quick, demonstration-driven walkthrough rather than a conceptual lecture.</p>
+<h3>Why this video</h3>
+<p>It targets the Constraints and Responsive Anchoring subtopic directly and comes from Figma itself, so the interface steps and terminology match the tool you are using.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: Figma Design for K-12: Using frames</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dXZB0bI6uis?cc_load_policy=1&amp;rel=0" title="Video: Figma Design for K-12: Using frames (Figma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Figma</strong> · 13:20 · 38,068 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=dXZB0bI6uis" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A longer, follow-along session from Figma's education channel covering frames as the basic building block of a design file. Over roughly thirteen minutes it is likely to walk through creating frames, using device presets, nesting frames inside one another, and organising them on the canvas, with a community template provided so you can work alongside the presenter.</p>
+<h3>Why this video</h3>
+<p>Its pace and beginner orientation make it the best fit for the What Is a Frame?, device presets, and screen-organisation subtopics, and the accompanying template lets you practise rather than just watch.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: Hall Pass: Making flexible "bento box" grids in Figma</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Mcs7h4m-Fhc?cc_load_policy=1&amp;rel=0" title="Video: Hall Pass: Making flexible &quot;bento box&quot; grids in Figma (Figma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Figma</strong> · 5:32 · 21,631 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=Mcs7h4m-Fhc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A compact tutorial on building flexible "bento box" grid layouts — the modular, tiled arrangements common in modern dashboards and landing pages. It shows how to construct the grid and then apply constraints so the tiles respond sensibly when the containing frame is resized.</p>
+<h3>Why this video</h3>
+<p>It connects grids and constraints in a single concrete example, showing why layout structure and responsive anchoring are two halves of the same skill rather than separate features.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These three videos build the structural foundation that the rest of the module depends on. Reliable frames, grids, and constraints are what make a Figma file resize cleanly and stay consistent as you add screens, supporting MO1's goal of a working low-to-high fidelity prototype. Grids and consistent spacing are the practical mechanism behind visual hierarchy and consistency in MO2, giving you a defensible reason for every alignment decision. And because frames are the units that prototyping links connect, organising them into a readable flow prepares you for the components, auto-layout, and interactive flows required in MO3.</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

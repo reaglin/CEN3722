@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Usability Evaluation and User Testing</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Video Lectures</a></div>
+  <header>
+    <h1>Usability Evaluation and User Testing</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Usability Evaluation and User Testing</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Usability evaluation is the disciplined practice of judging how well an interactive system supports the people who must use it to achieve real goals. It sits at the heart of human–computer interaction because design intuition, however experienced, is an unreliable predictor of behaviour: designers know their own system too well, hold a complete and accurate mental model of its structure, and have already internalised its vocabulary. Users arrive with none of that. Evaluation is the mechanism that converts assumptions about users into evidence about users. A system may be technically flawless — fast, secure, bug-free — and still fail commercially or operationally because people cannot find the function they need, misinterpret a label, or abandon a checkout flow at the final step. Usability evaluation exists precisely to surface those failures while they are still cheap to fix.</p>
+
+<p>The economics of early evaluation are well established. A usability problem discovered during sketching costs little more than a new sketch. The same problem discovered after a public launch may require re-engineering, retraining of support staff, documentation rewrites, migration of user data, and reputational repair. Barry Boehm's long-standing observation that the cost of fixing a defect rises by roughly an order of magnitude at each successive stage of development applies to interaction defects as much as to code defects. Consider a hospital medication-ordering system in which the dosage units field defaults to milligrams while the clinical convention on that ward is micrograms. Caught in a paper prototype walkthrough, it is a one-line change to a mock-up. Caught after deployment, it is a patient-safety incident with regulatory consequences.</p>
+
+<p><strong>The core dimensions of usability.</strong> Usability is not a single property but a cluster of measurable attributes. The classic decomposition identifies five:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Question it answers</th>
+      <th>Typical measure</th>
+      <th>Illustrative example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Learnability</strong></td>
+      <td>How quickly can a first-time user accomplish basic tasks?</td>
+      <td>Time to first successful task completion; success rate on first attempt without help</td>
+      <td>A new volunteer completes their first shift sign-up on a rota app within two minutes without assistance.</td>
+    </tr>
+    <tr>
+      <td><strong>Efficiency</strong></td>
+      <td>Once learned, how fast can experienced users perform tasks?</td>
+      <td>Time on task for proficient users; keystrokes or clicks per transaction</td>
+      <td>A warehouse picker scans and confirms an item in three keystrokes rather than seven.</td>
+    </tr>
+    <tr>
+      <td><strong>Memorability</strong></td>
+      <td>After a period away, how easily is competence re-established?</td>
+      <td>Performance on return after a defined interval (e.g. four weeks)</td>
+      <td>An employee who files expenses quarterly still remembers how to attach a receipt.</td>
+    </tr>
+    <tr>
+      <td><strong>Errors</strong></td>
+      <td>How many errors occur, how severe are they, and how easily are they recovered from?</td>
+      <td>Error count per task; proportion of errors that are unrecoverable</td>
+      <td>Users select the wrong account in a transfer screen because account names are truncated.</td>
+    </tr>
+    <tr>
+      <td><strong>Satisfaction</strong></td>
+      <td>How pleasant and acceptable is the system to use?</td>
+      <td>Standardised questionnaires; preference ratings; voluntary adoption rates</td>
+      <td>Staff rate a redesigned intranet 78 on the System Usability Scale, up from 51.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These dimensions frequently trade off against one another, and recognising the trade-off is part of competent evaluation. An interface optimised for learnability — large labelled buttons, step-by-step wizards, generous confirmation dialogues — is often inefficient for experts, who would prefer keyboard shortcuts and dense command palettes. Professional tools such as photo editors or code editors deliberately sacrifice learnability for efficiency and provide training to bridge the gap; a public-facing tax self-assessment site makes the opposite choice, because most users touch it once a year and learnability and memorability dominate. Evaluation must therefore begin by asking <em>which</em> dimensions matter for <em>which</em> user population, because a test designed around the wrong dimension will produce confident but irrelevant results.</p>
+
+<p><strong>Formative versus summative evaluation.</strong> Evaluations differ not only in method but in purpose. A <em>formative</em> evaluation is conducted while the design is still malleable, and its goal is diagnostic: to find out what is wrong and why, so that the next version is better. Formative studies tolerate small samples, unfinished prototypes, messy qualitative data, and evaluator intervention, because their output is a prioritised list of problems rather than a statistic. A <em>summative</em> evaluation is conducted on a stable or completed design, and its goal is to measure: to produce a defensible quantitative statement about how the system performs, often against a benchmark, a competitor, a contractual requirement, or a previous release. Summative studies need larger samples, tightly controlled protocols, and non-interfering observers, because their output is a number that someone will act on.</p>
+
+<ul>
+  <li><strong>Formative example:</strong> Five participants attempt to book a repeat prescription on a paper prototype. Four of them look for the "repeat" option under <em>My Records</em> rather than <em>Services</em>. The finding triggers an immediate information-architecture change; nobody computes a confidence interval.</li>
+  <li><strong>Summative example:</strong> Thirty participants attempt the same task on the released product. 87% complete it unaided, median time 94 seconds, mean SUS score 74. These figures are reported to a commissioning body as evidence that an accessibility and usability requirement has been met.</li>
+</ul>
+
+<p>A useful rule of thumb: formative evaluation asks "what should we change?"; summative evaluation asks "how good is it?" Most real projects need far more of the former than the latter, yet organisations frequently over-invest in summative measurement because numbers are easier to report upward than narratives about confused users.</p>
+
+<p><strong>Structured evaluation techniques: inspection without users.</strong> Inspection methods, also called discount or expert methods, have evaluators analyse an interface against explicit criteria rather than observing real users. They are indispensable when recruiting users is slow, expensive, legally constrained (clinical or military settings), or simply premature because the artefact is a set of wireframes. They are not a substitute for user testing — experts systematically over-predict some problems and miss others, particularly domain-specific misunderstandings — but they clear out the obvious defects so that scarce user sessions are spent on subtle ones.</p>
+
+<p><em>Heuristic evaluation</em> is the best-known inspection method. Three to five evaluators independently walk through the interface, examining each screen and dialogue against a short list of recognised usability principles, and record every violation they find along with the heuristic it breaches and a severity judgement. Independence matters: individual evaluators typically find only a minority of the problems present, but because different evaluators notice different things, the union of several evaluators' findings is far larger than any one list. Findings are merged in a debriefing session, duplicates collapsed, and severity ratings aggregated.</p>
+
+<p>Nielsen's ten heuristics remain the canonical set:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Heuristic</th>
+      <th>What it requires</th>
+      <th>Example violation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Visibility of system status</td><td>Keep users informed through timely feedback</td><td>A file upload shows no progress indicator, so users click "upload" repeatedly</td></tr>
+    <tr><td>Match between system and the real world</td><td>Use users' language and familiar concepts</td><td>An error reads "Exception: null constraint on FK_CUST_ORD"</td></tr>
+    <tr><td>User control and freedom</td><td>Provide clearly marked exits, undo and redo</td><td>A multi-step form has no "back" and losing a step discards all data</td></tr>
+    <tr><td>Consistency and standards</td><td>Follow platform conventions and internal consistency</td><td>"Save" is top-right on one screen and bottom-left on the next</td></tr>
+    <tr><td>Error prevention</td><td>Design out error-prone conditions</td><td>Delete and Archive are adjacent, identically styled, with no confirmation</td></tr>
+    <tr><td>Recognition rather than recall</td><td>Make options visible rather than memorised</td><td>Users must remember a 12-digit reference number from a previous screen</td></tr>
+    <tr><td>Flexibility and efficiency of use</td><td>Offer accelerators for experienced users</td><td>No keyboard shortcuts in a data-entry tool used eight hours a day</td></tr>
+    <tr><td>Aesthetic and minimalist design</td><td>Avoid irrelevant or rarely needed information</td><td>A dashboard displays 40 metrics, burying the three that drive decisions</td></tr>
+    <tr><td>Help users recognise, diagnose and recover from errors</td><td>Plain-language messages with constructive remedies</td><td>"Invalid input" with no indication of which field or why</td></tr>
+    <tr><td>Help and documentation</td><td>Searchable, task-focused, concrete help</td><td>Help links to a 200-page PDF manual with no index</td></tr>
+  </tbody>
+</table>
+
+<p>A well-formed heuristic finding is specific and actionable. Compare a weak finding — "the navigation is confusing" — with a strong one: "On the <em>Order History</em> screen, the back-arrow in the application header returns the user to the dashboard rather than the previous filter state, discarding the applied date range (violates <em>User control and freedom</em>; severity: major; affects every user who filters then inspects an order)."</p>
+
+<p><em>Cognitive walkthrough</em> takes a narrower and deeper approach, focusing specifically on learnability for users who explore rather than read instructions. Evaluators define a task, enumerate the correct sequence of actions, and then step through each action asking a fixed set of questions:</p>
+
+<ul>
+  <li>Will the user be trying to achieve the right effect at this point? (Does the goal structure make this sub-goal obvious?)</li>
+  <li>Will the user notice that the correct action is available?</li>
+  <li>Will the user associate the correct action with the effect they are trying to achieve?</li>
+  <li>After the action is performed, will the user see that progress has been made toward the goal?</li>
+</ul>
+
+<p>Consider a university student attempting to drop a module in a student records portal. Step 3 is "click <em>Amend Enrolment</em>". Question 2: is the control visible? It is, but it sits in a collapsed accordion labelled <em>Administration</em>. Question 3: will the student associate "Amend Enrolment" with dropping a module? Plausibly not — several would look for "Withdraw" or "Remove module". The walkthrough has produced a precise, step-located failure with a clear remedy (rename the control, surface it, or add a synonym-aware search), and it has done so before a single student was recruited. The method's strength is that it localises failure to a specific decision point; its weakness is that it is slow and says nothing about efficiency, satisfaction, or expert use.</p>
+
+<p><em>Expert reviews and guidelines-based inspections</em> occupy the broader end of the spectrum. An expert review is a holistic critique by an experienced practitioner, drawing on domain knowledge as well as usability principles. A guidelines-based inspection is more mechanical: the evaluator works through a formal checklist derived from a design standard — a platform's human interface guidelines, an organisation's design system, WCAG accessibility success criteria, or ISO 9241 ergonomic requirements — and records compliance item by item. Checklists give coverage and auditability, which matters in regulated or procurement contexts where someone must sign a conformance statement. Their limitation is that compliance is not usability: an interface can satisfy every item on a checklist and still confound users, because checklists test properties of the artefact rather than the fit between artefact and task.</p>
+
+<p>The collective virtue of inspection methods is their cost profile. A heuristic evaluation with four evaluators might consume two days of effort and no participant recruitment, scheduling, incentives, consent administration, or facility booking. This makes them feasible at points in the project — concept sketches, weekly sprint reviews, pre-release regression checks — where a full user study is simply not affordable. The corresponding risk is <em>evaluator effect</em>: findings vary substantially between evaluators, and inexperienced evaluators generate large numbers of false positives (problems that never trouble real users). Mitigations include using several evaluators, pairing a usability specialist with a domain specialist (the "double expert" effect), grounding the inspection in realistic task scenarios rather than free browsing, and treating inspection output as hypotheses to be confirmed in later user testing.</p>
+
+<p><strong>User testing methods: evidence from real behaviour.</strong> Inspection predicts problems; user testing observes them. The defining characteristic of user testing is that representative participants attempt representative tasks while the team watches what actually happens, rather than asking people what they think they would do. The distinction matters because self-report is unreliable: users rationalise, forget, and are reluctant to criticise. Observed behaviour is not.</p>
+
+<p><em>Think-aloud testing</em> asks the participant to verbalise their thoughts continuously while working: what they are looking at, what they expect, what they are trying to do, what surprises them. The resulting commentary exposes the reasoning behind behaviour, which pure observation cannot. A participant who pauses for eleven seconds on a settings screen tells you something is wrong; a participant who says "I'm looking for something about privacy, but these are all called 'Account', 'Profile', and 'Preferences' — I'd guess 'Account'?" tells you exactly what is wrong and suggests the fix.</p>
+
+<ul>
+  <li><strong>Concurrent think-aloud</strong> captures reasoning in the moment but can slow performance and alter behaviour, making timing data unreliable; verbalising also nudges some participants into more reflective, careful problem-solving than they would normally apply.</li>
+  <li><strong>Retrospective think-aloud</strong> has the participant narrate while reviewing a screen recording afterwards. Timing data stays clean, but recollection is reconstructive and some in-the-moment confusion is lost or rationalised.</li>
+  <li><strong>Facilitation discipline</strong> is essential. The facilitator's prompts should be neutral and content-free: "What are you thinking?", "Keep talking", "What did you expect to happen?" Never "Did you see the button at the top?" — which hands the participant the answer and destroys the finding. When a participant asks "Am I doing this right?", the standard reply is "What do you think?" or "I'd like to see what you would do if I weren't here."</li>
+</ul>
+
+<p><em>Task-based testing</em> structures the session around a set of realistic tasks with defined success criteria, and records performance measures against each. Task design is where most studies succeed or fail. Good tasks are expressed as goals in the user's own terms, embedded in a plausible scenario, and free of interface vocabulary that would give away the solution.</p>
+
+<pre><code>Weak task:  "Use the Advanced Filter panel to filter the transaction list by date."
+            (Names the control; tests button-finding, not task performance.)
+
+Strong task: "You think you were charged twice for a hotel booking last March.
+             Find out whether that happened and how much you were charged."
+            (States a goal, supplies motivation, leaves the route open.)
+
+Success criterion: participant locates both March hotel transactions and
+                   states the amounts, unaided, within 5 minutes.</code></pre>
+
+<p>Typical measures captured per task include completion (binary, or graded as unaided / aided / failed), time on task, error count, number of help requests or hints given, and a post-task ease rating. Collecting a short subjective rating immediately after each task — a single seven-point "how easy or difficult was that?" item — is valuable because it anchors the judgement to a specific experience rather than a vague overall impression.</p>
+
+<p><em>Remote user testing</em> moves the session out of the lab and into the participant's own environment. In <strong>moderated remote</strong> testing, the facilitator joins by video conference while the participant shares their screen; the protocol is essentially the lab protocol conducted at a distance. In <strong>unmoderated remote</strong> testing, participants work through scripted tasks on their own time using a platform that records screen, cursor, audio and sometimes webcam. The advantages are substantial: a far wider geographic and demographic reach, access to participants who cannot travel (shift workers, carers, people with mobility impairments, rural users), lower cost per participant, faster turnaround, and ecological validity — the participant is using their own device, their own browser with its extensions, their own network speed, in their own noisy kitchen. That last point often surfaces problems a lab would never reveal, such as a layout that collapses at a non-standard zoom level the participant has set for comfort. The trade-offs are reduced control over the environment, inability to probe deeply or recover a derailed session (in unmoderated studies), technical failures, difficulty testing hardware-dependent or confidential systems, and weaker observation of body language and physical context.</p>
+
+<p><em>Controlled laboratory testing</em> sits at the opposite pole. A dedicated facility provides a standardised machine and network, a quiet room, calibrated recording of screen and face, sometimes eye-tracking, and an observation area where stakeholders can watch without intruding. Standardisation reduces variance, which matters enormously for summative comparisons: if you want to claim that version B is faster than version A, environmental noise must be controlled or the difference will drown in it. Labs also permit instrumented measurement (eye fixations, physiological measures) and rich, uninterrupted observation of hesitation, re-reading, and non-verbal frustration. The costs are expense, slow recruitment, geographic restriction of the participant pool, and the artificiality of the setting — participants in a lab are being watched, know it, and typically persevere with tasks far longer than they would at home, which can mask abandonment problems.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Best suited to</th>
+      <th>Main strength</th>
+      <th>Main limitation</th>
+      <th>Typical participants</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Heuristic evaluation</td><td>Early and mid design; pre-release sweeps</td><td>Fast, cheap, broad coverage of known problem types</td><td>Evaluator effect; false positives; misses domain misunderstandings</td><td>3–5 evaluators</td></tr>
+    <tr><td>Cognitive walkthrough</td><td>Walk-up-and-use systems; learnability of a key task</td><td>Pinpoints the exact step where exploration fails</td><td>Slow; narrow task focus; ignores efficiency and satisfaction</td><td>2–4 evaluators</td></tr>
+    <tr><td>Guidelines inspection</td><td>Standards compliance, accessibility audit, procurement</td><td>Auditable, repeatable, comprehensive coverage</td><td>Compliance ≠ usability; can be mechanical</td><td>1–2 evaluators</td></tr>
+    <tr><td>Think-aloud (lab)</td><td>Formative diagnosis of <em>why</em> problems occur</td><td>Exposes reasoning, expectations and mental models</td><td>Distorts timing; reactive; small samples</td><td>5–8 per user group</td></tr>
+    <tr><td>Task-based testing</td><td>Benchmarking and measuring performance</td><td>Comparable quantitative metrics</td><td>Task wording heavily influences results</td><td>5–8 formative, 20+ summative</td></tr>
+    <tr><td>Remote unmoderated</td><td>Large samples, geographic spread, quick checks</td><td>Scale, speed, real environments and devices</td><td>No probing; data quality varies; technical failures</td><td>20–100+</td></tr>
+    <tr><td>Controlled lab</td><td>Comparative studies; instrumented measurement</td><td>Low environmental variance; rich observation</td><td>Costly; artificial; restricted pool</td><td>8–30</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Identifying and documenting usability issues.</strong> Observation produces raw material; documentation turns it into something a development team can act on. The discipline here is separating <em>observation</em> from <em>interpretation</em> from <em>recommendation</em>, because conflating them lets arguments about the fix contaminate agreement about the fact. A well-formed issue record contains, at minimum: a short descriptive title; the context (which task, which screen, which participant, what they had just done); the observed behaviour in neutral language; the inferred cause; the impact on the user; the frequency across participants; a severity rating; and, separately, a proposed remedy.</p>
+
+<pre><code>ID:          UI-014
+Title:       Users interpret "Clear" as "clear the search box", not "clear all filters"
+Task:        T3 — Find a two-bedroom flat under £900 within 2 miles
+Context:     Results screen, after applying three filters
+Observed:    P2, P4, P5 and P7 clicked "Clear" intending to reset only the
+             keyword field; all seven applied filters were removed. P4 said,
+             "Oh — no, I only wanted to change the word, not start again."
+Frequency:   4 of 6 participants (67%)
+Impact:      Loss of 60–90 s of filter-setting work; P5 abandoned the task
+Cause:       Ambiguous label; control positioned adjacent to the search input
+             rather than to the filter panel; no undo
+Severity:    Major
+Heuristics:  User control and freedom; Error prevention
+Recommend:   Relabel to "Reset all filters", relocate to the filter panel header,
+             and offer an "Undo" toast for 10 seconds after reset</code></pre>
+
+<p><em>Severity rating</em> exists because teams never have the capacity to fix everything before a deadline, and triage by severity prevents the loudest stakeholder's pet complaint from displacing a genuine blocker. Severity is conventionally a composite of three factors: <strong>frequency</strong> (how many users hit it, and how often), <strong>impact</strong> (how hard it is to overcome when it occurs), and <strong>persistence</strong> (whether users learn around it or are defeated repeatedly). A fourth consideration, market or organisational impact, is sometimes added for problems that are mild for individuals but damaging in aggregate.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rating</th>
+      <th>Definition</th>
+      <th>Action</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Catastrophic</strong></td>
+      <td>Prevents task completion, causes data loss, or creates a safety or financial hazard; users cannot recover unaided</td>
+      <td>Must be fixed before release; blocks sign-off</td>
+      <td>A booking confirmation is issued but the payment reference is silently dropped, so refunds cannot be traced</td>
+    </tr>
+    <tr>
+      <td><strong>Major</strong></td>
+      <td>Causes significant difficulty, long delays or frequent errors; users eventually succeed but with frustration or workarounds</td>
+      <td>High priority; fix in the current cycle</td>
+      <td>The "Clear" control described above, which discards all filter work</td>
+    </tr>
+    <tr>
+      <td><strong>Minor</strong></td>
+      <td>Causes brief hesitation or a recoverable slip; users resolve it quickly without lasting cost</td>
+      <td>Fix when convenient; batch with related work</td>
+      <td>A date field accepts <code>01/06/2025</code> but rejects <code>1/6/25</code> with a clear message</td>
+    </tr>
+    <tr>
+      <td><strong>Cosmetic</strong></td>
+      <td>Does not impede performance; an inconsistency or aesthetic flaw that erodes polish and trust</td>
+      <td>Fix only if spare capacity exists</td>
+      <td>Inconsistent capitalisation of button labels ("Save Changes" vs "Submit form")</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Two cautions apply. First, severity is a judgement, and judgements made by a single analyst are noisy; having two or three people rate independently and reconcile differences produces markedly more stable priorities. Second, severity must not be confused with <em>fix cost</em>. A catastrophic problem that is expensive to fix is still catastrophic; the cost belongs in a separate column so that the product owner can make an explicit trade-off rather than an implicit one disguised as a severity downgrade.</p>
+
+<p><em>Frequency of occurrence</em> deserves particular attention because it is the clearest signal distinguishing a systematic design defect from an individual quirk. If one participant out of eight misreads an icon, the team may reasonably wonder whether that person was tired or unrepresentative. If six out of eight misread it, the icon is wrong — the probability that six independent, representative users are all idiosyncratic in the same direction is negligible. This is the statistical intuition behind small-sample formative testing: the well-known estimate that roughly five users reveal around 80% of usability problems derives from the assumption that any given problem affects about 31% of users on average, so the chance that at least one of five participants encounters it is high. The estimate is a rule of thumb, not a law — it degrades badly when the user population is heterogeneous (novices and experts, different clinical specialties, different accessibility needs), in which case five users <em>per distinct group</em> is the appropriate reading. Frequency should always be reported as a raw ratio ("4 of 6") rather than a bare percentage, so that readers can see how thin the evidence actually is.</p>
+
+<p><em>Affinity diagramming</em> is the standard technique for synthesising findings across participants or evaluators. Each observation is written on a separate card or digital sticky note — one observation per card, phrased concretely and tagged with the participant ID. The team then clusters the cards by similarity without pre-defined categories, letting groupings emerge bottom-up, and only afterwards names each cluster with a statement of the underlying problem. The method's value is that it resists premature theorising: three observations that looked like three unrelated bugs ("P1 couldn't find pricing", "P3 scrolled past the pricing panel twice", "P6 asked whether VAT was included") may cluster into a single structural finding — <em>pricing information is fragmented and visually de-emphasised across the purchase flow</em> — which is a far more useful unit of work than three isolated tickets.</p>
+
+<p>An <em>issue log</em> is the persistent, structured counterpart to the affinity wall: typically a spreadsheet or tracker in which each row is one consolidated issue with the fields listed earlier, plus a status (open, accepted, deferred, fixed, verified) and a link to the round of testing in which it was found and the round in which it was verified as resolved. The log is what makes iteration auditable — without it, teams repeatedly rediscover the same problems and have no record of whether a redesign actually worked.</p>
+
+<p><strong>Metrics and measures.</strong> Measurement serves three distinct purposes: diagnosing where a design fails, comparing alternatives, and tracking change over time. Different purposes need different instruments, and a common mistake is to collect precise numbers from five participants and then treat them as if they settled a question.</p>
+
+<p><em>Quantitative performance metrics</em> are the backbone of task-based testing:</p>
+
+<ul>
+  <li><strong>Task completion rate</strong> — the proportion of attempts that reach the defined success criterion. Report unaided and aided completion separately; a task completed only after a hint from the facilitator is not a success. Completion rate is the single most informative usability metric because failure to complete is the outcome users and stakeholders both care about most.</li>
+  <li><strong>Time on task</strong> — elapsed time from the start of the task to success or abandonment. Report the <em>median</em> rather than the mean, because time distributions are strongly right-skewed: one lost participant who flounders for nine minutes will drag a mean of six observations into meaninglessness. Time data from concurrent think-aloud sessions is compromised and should be flagged as such.</li>
+  <li><strong>Error count</strong> — deviations from the optimal path that have a cost. Distinguish <em>slips</em> (the intention was right, the execution wrong — clicking the adjacent menu item) from <em>mistakes</em> (the intention itself was wrong, arising from a faulty mental model), because the remedies differ: slips are addressed by target size, spacing, confirmation and undo; mistakes by labelling, information architecture, feedback and conceptual clarity.</li>
+  <li><strong>Help requests and hints given</strong> — each occasion on which the participant consults documentation, searches for help, or receives a facilitator prompt. The point at which a hint was needed localises the breakdown precisely.</li>
+  <li><strong>Derived measures</strong> — lostness (actual page visits against the minimum necessary), efficiency as completion rate divided by mean time, and click or keystroke counts against an optimal path.</li>
+</ul>
+
+<p><em>Qualitative data</em> supplies the explanation that numbers cannot. Knowing that only 40% of participants completed a task tells you there is a problem; the verbatim comment "I assumed 'Submit' would save a draft, not send it to my manager" tells you what the problem is and roughly how to fix it. The useful qualitative signals include verbalisations and spontaneous exclamations; facial expression and posture (frowning, leaning in, pushing back from the desk); hesitation, repeated scanning and backtracking; workarounds improvised by the participant, which are often direct evidence of a missing feature; and emotional responses such as audible relief or irritation. Qualitative evidence should be recorded with timestamps and quoted verbatim, since a direct quotation from a user carries more persuasive force in a design review than any paraphrase, and it keeps the team honest about what was actually said.</p>
+
+<p><em>Standardised questionnaires</em> provide validated, comparable measures of subjective experience. Their key advantage over ad-hoc questions is that they have been tested for reliability and have published norms, so a score means something beyond the local study.</p>
+
+<ul>
+  <li><strong>System Usability Scale (SUS)</strong> — ten alternating positive and negative statements rated 1–5, scored to yield 0–100. It is quick (about a minute), robust with small samples, and heavily normed: the mean across hundreds of published studies is roughly 68, so 68 is approximately the 50th percentile, around 80 sits near the top decile, and below about 50 is poor. The score is <em>not</em> a percentage and should never be reported as one. SUS measures perceived usability globally; it will not tell you which screen is at fault.</li>
+  <li><strong>NASA-TLX</strong> — measures perceived workload across six dimensions (mental demand, physical demand, temporal demand, performance, effort and frustration), optionally weighted by pairwise comparisons. It is the appropriate instrument when the design question concerns cognitive load rather than satisfaction: air-traffic consoles, clinical monitoring, complex configuration tools. Two interfaces may both achieve 100% completion while one imposes far higher mental demand, and TLX exposes that difference.</li>
+  <li><strong>Others in common use</strong> — the Single Ease Question (one post-task item), SEQ-style task ratings, UMUX-Lite (a very short SUS alternative), and QUIS or the Post-Study System Usability Questionnaire for more granular subscale diagnosis.</li>
+</ul>
+
+<p>Questionnaires must be administered consistently to be comparable: same wording, same point at which they are given (immediately after the session, before any debrief discussion that might colour the rating), and no facilitator commentary in between. Mixing an altered SUS with standard SUS data invalidates the comparison against published norms.</p>
+
+<p><em>Baselines and comparison.</em> A single usability score in isolation is nearly uninterpretable; measurement becomes powerful when something is compared with something else. A <strong>baseline</strong> is a set of metrics captured on the current system (or a competitor, or the first prototype) under a defined protocol, which subsequent rounds are measured against. To be valid, the comparison must hold the protocol constant: identical tasks, identical wording, equivalent participant profiles, same instrument, same success criteria. Changing a task's wording between rounds and then celebrating a drop in time on task is self-deception.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Baseline (v1, n=12)</th>
+      <th>Post-redesign (v2, n=12)</th>
+      <th>Interpretation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Unaided completion, "add a dependant to policy"</td><td>58%</td><td>92%</td><td>Primary target of the redesign; substantial improvement</td></tr>
+    <tr><td>Median time on task</td><td>4 min 20 s</td><td>2 min 05 s</td><td>Shorter path and clearer entry point</td></tr>
+    <tr><td>Mean errors per participant</td><td>3.1</td><td>0.8</td><td>Field validation and clearer labels reduced slips</td></tr>
+    <tr><td>Help requests</td><td>9 across 12 participants</td><td>2 across 12 participants</td><td>Task now largely self-explanatory</td></tr>
+    <tr><td>Mean SUS</td><td>54</td><td>79</td><td>Moved from below-average to the upper range of published scores</td></tr>
+    <tr><td>Mean NASA-TLX (mental demand)</td><td>68/100</td><td>41/100</td><td>Workload reduced, consistent with the behavioural data</td></tr>
+  </tbody>
+</table>
+
+<p>Note how the measures corroborate one another: completion, time, errors, help-seeking, satisfaction and workload all move in the same direction, which is far more convincing than any one of them alone. When measures diverge — completion rises but satisfaction falls — that divergence is itself a finding worth investigating, often indicating that the new design is effective but tedious.</p>
+
+<p><strong>Iterative testing and design refinement.</strong> Usability evaluation delivers value only when its findings re-enter the design. The iterative cycle — <em>design → prototype → evaluate → analyse → redesign</em> — is the operational heart of user-centred design, and it rests on a simple premise: no one gets an interface right first time, so the question is not whether the design will need revision but how cheaply and how often revision can happen.</p>
+
+<p>A worked example makes the rhythm concrete. A team is designing a mobile application for reporting street faults to a local council.</p>
+
+<ul>
+  <li><strong>Round 1 (paper prototype, 5 participants).</strong> Four of five cannot decide between the categories "Highways" and "Street Scene" — council vocabulary, not citizen vocabulary. Three expect to start by taking a photograph, but the flow begins with category selection. Two abandon at the address entry because they do not know the street number.</li>
+  <li><strong>Redesign.</strong> Categories are relabelled in plain terms ("Pothole", "Broken streetlight", "Fly-tipping", "Something else"), the camera becomes the first step, and location defaults to GPS with a map pin the user can drag.</li>
+  <li><strong>Round 2 (clickable prototype, 6 participants, including 2 from round 1 and 4 new).</strong> All six complete the report. The category problem is resolved. But a new issue appears: three participants drag the map pin and then tap the back arrow to check the photo, which silently resets the pin to the GPS position — a regression introduced by the new flow.</li>
+  <li><strong>Redesign.</strong> Pin position is persisted; a thumbnail of the photo is shown inline so that going back is unnecessary.</li>
+  <li><strong>Round 3 (functional beta, 10 participants, remote, on their own phones).</strong> Completion 100%, median time 72 seconds, mean SUS 82. One residual minor issue: the confirmation screen does not state when the fault will be inspected, and four participants ask about it aloud. A line of expected-response text is added.</li>
+</ul>
+
+<p>Three principles are visible in that sequence. First, <strong>each round has a dual agenda</strong>: verify that previously identified issues are genuinely resolved, and scan for problems newly introduced by the fixes. Redesigns routinely create regressions, because changing a flow shifts where attention falls; a team that only re-tests old problems will ship new ones. The issue log supports this by carrying each issue's status forward until it is marked <em>verified</em> in a later round, not merely <em>fixed</em> in a commit. Second, <strong>retesting with a mixture of returning and fresh participants</strong> balances two needs: returning participants can confirm whether a specific pain point has eased, while fresh participants preserve the ability to judge learnability, since anyone who has seen the previous version is no longer a first-time user. Third, <strong>fidelity should rise with confidence</strong> — paper early, clickable in the middle, functional late — so that the cheapest artefact is used to answer the most fundamental questions.</p>
+
+<p><em>Rapid prototyping with quick usability checks</em> is what makes frequent iteration affordable. A paper or wireframe prototype can be produced in hours and tested the same afternoon with three or four people; a Wizard-of-Oz setup, in which a human quietly supplies responses the system cannot yet generate, allows conversational or AI-driven interactions to be evaluated before any model is integrated. Guerrilla or hallway testing — approaching five people in a café or an office corridor with a tablet and a single task — can answer a narrowly scoped question such as "do people understand this icon?" in ninety minutes. These lightweight checks are deliberately imprecise; their purpose is to catch catastrophic misconceptions early, not to produce publishable statistics. The governing trade-off is clear: <em>many small, rough evaluations detect more problems in total than one large, rigorous evaluation conducted too late to act on.</em></p>
+
+<p><em>Risk reduction</em> is the ultimate justification for iteration. Usability failures discovered at launch are expensive in ways that extend well beyond engineering: support-call volume, training costs, abandoned transactions, workarounds that corrupt data, regulatory exposure, staff resistance to a mandated internal system, and public criticism. Iterative evaluation converts a small number of large, unpredictable, late risks into a large number of small, manageable, early ones. It also changes the character of design argument inside a team, replacing contests of opinion between senior stakeholders with shared evidence about what users actually did — which is often the most valuable organisational effect of all.</p>
+
+<p>Finally, iteration must know when to stop. Diminishing returns set in when successive rounds surface only cosmetic issues, when completion rates plateau near ceiling, and when the remaining findings concern preference rather than performance. At that point further formative testing adds little, and the appropriate next step is either a summative benchmark to document the achieved level of usability or a shift to monitoring real-world use through analytics, support tickets and field studies — which is, in effect, evaluation continuing after release.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+<ul>
+  <li><strong>MO1</strong> — Not directly addressed. This topic concerns evaluation methodology rather than memory types and capacities, although the use of NASA-TLX to measure cognitive workload and the <em>recognition rather than recall</em> heuristic touch indirectly on memory-related design constraints.</li>
+  <li><strong>MO2</strong> — Supported indirectly but meaningfully. The distinction between slips and mistakes, think-aloud evidence of user expectations, and cognitive walkthrough questions about whether users associate an action with their intended effect all expose mismatches between a user's mental model and actual system behaviour as a source of systematic error.</li>
+  <li><strong>MO3</strong> — Partially supported. Task-based testing and cognitive walkthrough both require a user goal to be decomposed into an enumerated sequence of correct actions and sub-goals, which draws on the same task-decomposition logic as Hierarchical Task Analysis, even though the technique itself is not taught here.</li>
+  <li><strong>MO4</strong> — Directly and primarily supported. The topic compares structured expert-driven inspection methods (heuristic evaluation, cognitive walkthrough, guidelines-based inspection) with user testing approaches (think-aloud, task-based, remote and laboratory testing), setting out the cost, validity and context factors that determine which method suits a given design situation.</li>
+  <li><strong>MO5</strong> — Supported. The sections on rapid prototyping and iterative testing explain how low- and mid-fidelity prototypes (paper, wireframe, clickable, Wizard-of-Oz) are built and evaluated across rounds in both desktop and mobile contexts, providing the evaluation rationale that shapes prototype construction.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Key figures used: Nielsen's ten heuristics; the four cognitive walkthrough questions; the ~68 mean SUS benchmark; the five-user/31%-problem-probability rule of thumb (presented with its caveats about heterogeneous populations); Boehm's escalating defect-cost observation. The worked examples (hospital dosage units, prescription booking, student records portal, property filters, council fault-reporting app, insurance dependant task) are illustrative constructions, not citations of published studies. The baseline-versus-redesign metric table uses plausible but invented figures for teaching purposes and should be described as such if reused in assessment material.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Usability evaluation is the part of the design process where you stop guessing and start checking. Instead of assuming an interface works, you apply structured methods — expert inspections, heuristic reviews, and tests with real users — to find out where people hesitate, make errors, or give up. The goal is not to prove a design is good, but to surface problems early enough and cheaply enough that you can fix them.</p>
+<p>In this course, this topic ties together everything that comes before it. You have studied memory limits, mental models, and task structure; evaluation is how you verify that your design actually respects those constraints. You will also see two broad families of methods: expert-driven inspection (such as heuristic evaluation), which is fast and cheap but filtered through a reviewer's judgment, and user testing, which is slower but reveals behavior you could not have predicted. Knowing when to use each is a core professional skill.</p>
+<p>As you watch, pay attention to three things: how usability is defined and broken into measurable components, how evaluators move from scattered observations to a consolidated, documented list of issues, and how qualitative findings get paired with quantitative metrics. Also notice that evaluation is described as something you repeat — each round feeds a design revision, which then gets tested again.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: Usability 101</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/st9AEPOjGpU?cc_load_policy=1&amp;rel=0" title="Video: Usability 101 (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:46 · 24,243 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=st9AEPOjGpU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short foundational explainer from Nielsen Norman Group that defines usability and breaks it into five quality components: learnability, efficiency, memorability, errors, and satisfaction. It frames usability as a property of the interface that can be assessed rather than a vague judgment of quality, and likely distinguishes usability from related ideas such as utility and overall user experience.</p>
+<h3>Why this video</h3>
+<p>This is the natural starting point for the topic, giving you the vocabulary and the component framework that every later evaluation method measures against; NN/g is the field's most widely cited practitioner source.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: How to Conduct a Heuristic Evaluation</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/sqi0-Lz_ZTY?cc_load_policy=1&amp;rel=0" title="Video: How to Conduct a Heuristic Evaluation (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 4:50 · 45,581 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=sqi0-Lz_ZTY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A step-by-step walkthrough of how to run a heuristic evaluation, the best-known structured expert inspection method. Based on its chapter markers, it covers having evaluators review the interface independently, works through an example of applying heuristics to a real interface, and then shows how multiple evaluators' findings are consolidated into a single issue list before summarizing the process.</p>
+<h3>Why this video</h3>
+<p>It directly addresses the structured evaluation and issue-documentation subtopics, and the consolidation step shows concretely how expert-driven methods differ in workflow and output from user testing.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: The System Usability Scale (SUS)</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/UMv_OW9__qY?cc_load_policy=1&amp;rel=0" title="Video: The System Usability Scale (SUS) (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 6:34 · 24,776 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=UMv_OW9__qY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An introduction to the System Usability Scale, a standardized ten-question survey given to participants at the end of a user test. The video explains what the instrument measures — perceived usability — and, based on its framing, how to administer it and interpret the resulting score in context rather than as an absolute verdict.</p>
+<h3>Why this video</h3>
+<p>It covers the metrics and measures subtopic with a specific, widely used instrument, and demonstrates how a quantitative score can complement the qualitative issues you observe during user testing.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These three videos support MO4 most directly: together they let you compare a structured, expert-driven method (heuristic evaluation) with user-testing approaches and their associated measures (SUS), so you can reason about which fits a given design context, budget, and stage of development. The usability components video supplies the criteria — learnability, efficiency, memorability, errors, satisfaction — that connect evaluation back to the cognitive constraints and mental-model mismatches studied earlier in the module (MO1, MO2), since errors and learnability problems are often symptoms of those mismatches. The consolidation and scoring practices shown here also feed forward into prototyping work (MO5), where findings from one round of evaluation become the justification for the next revision of your low- to mid-fidelity prototype.</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

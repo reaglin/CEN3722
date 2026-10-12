@@ -1,0 +1,334 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Tools in HCI and Development</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 1 - HCI Foundations and Course Project Setup</a></div>
+  <header>
+    <h1>AI Tools in HCI and Development</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>AI Tools in HCI and Development</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Artificial intelligence has moved from being a research curiosity to an everyday presence in the toolchains of designers and software engineers. In the context of Human–Computer Interaction (HCI) and software development, AI tools now participate in nearly every stage of work: sketching interface layouts, generating boilerplate code, writing test cases, reviewing pull requests, and watching production systems for signs of failure. Understanding what these tools do well — and, just as importantly, where they fail — is now part of basic professional competence. This topic surveys how AI is used across the design and development workflow, and then establishes a clear set of expectations for how you may use AI assistance in this course.</p>
+
+<p>A useful mental model throughout: <strong>AI tools are probabilistic pattern-matchers, not reasoning engines with accountability</strong>. They produce output that <em>looks like</em> what a competent practitioner would produce, because they were trained on enormous quantities of such output. That makes them excellent at generating plausible starting material and terrible at guaranteeing correctness. The human in the loop supplies judgement, context, and responsibility.</p>
+
+<p><strong>How AI Supports the Design Process</strong></p>
+
+<p>Interface design has historically relied on a mix of designer intuition, design systems, usability heuristics, and user testing. AI inserts itself into this process mainly as an accelerator for the early, divergent phases of design — the moment when you need many options quickly and none of them have to be perfect.</p>
+
+<p><em>Suggesting layouts and colour schemes from behavioural data.</em> Modern design tools can propose UI arrangements informed by aggregated data about how users actually behave. Several well-established behavioural findings are baked into these recommendations:</p>
+
+<ul>
+  <li><strong>Scanning patterns</strong> — eye-tracking research shows users scan text-heavy pages in an F-shaped pattern and image-rich pages in a Z-pattern. An AI layout suggester trained on high-performing pages will tend to place primary calls-to-action along those paths.</li>
+  <li><strong>Fitts's Law</strong> — the time to acquire a target is a function of its distance and size. Tools will flag a 24&nbsp;px tap target on a mobile layout and suggest enlarging it toward the 44–48&nbsp;px recommended minimum.</li>
+  <li><strong>Contrast and accessibility</strong> — a colour-palette generator can be constrained to produce only combinations meeting WCAG AA (4.5:1 for body text) or AAA (7:1) contrast ratios, and can simulate deuteranopia or protanopia to check that information is not conveyed by hue alone.</li>
+  <li><strong>Hick's Law</strong> — decision time grows with the number of choices, so AI tools often recommend collapsing a 12-item navigation bar into grouped categories.</li>
+</ul>
+
+<p>A concrete example: a designer gives a prompt such as <em>"checkout screen for a mobile grocery app, trustworthy and calm, high accessibility"</em>. The tool returns four variants — one with a single-column form and a persistent sticky "Pay" button, one with a progress stepper, and so on — each with a generated palette (e.g. a desaturated blue-green primary at <code>#2E7D6B</code> with <code>#FFFFFF</code> text, contrast ratio 4.9:1). The designer has in thirty seconds what might have taken an hour of manual mock-up work.</p>
+
+<p><em>Automated visual testing.</em> This is one of the most mature and least controversial uses of AI in the design/development boundary. Visual regression tools (Applitools, Percy, Chromatic and similar) capture screenshots of your UI across a matrix of browsers, operating systems, and viewport widths, then compare them against an approved baseline. Naïve pixel-by-pixel comparison is almost useless in practice — a one-pixel font-rendering difference between Chrome on macOS and Chrome on Windows would flag thousands of false positives. AI-based visual comparison instead uses computer vision to classify differences the way a human would:</p>
+
+<table>
+  <thead>
+    <tr><th>Difference detected</th><th>Pixel diff verdict</th><th>AI visual verdict</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Anti-aliasing variation on text edges</td><td>Fail (thousands of pixels differ)</td><td>Pass — perceptually identical</td></tr>
+    <tr><td>Button shifted 2&nbsp;px due to font metrics</td><td>Fail</td><td>Pass — within tolerance</td></tr>
+    <tr><td>Footer overlapping content at 375&nbsp;px width</td><td>Fail</td><td>Fail — layout break, flagged as high severity</td></tr>
+    <tr><td>Submit button missing entirely on Safari</td><td>Fail</td><td>Fail — missing element, flagged critical</td></tr>
+    <tr><td>Legitimate new feature banner added</td><td>Fail</td><td>Flagged for human approval, then becomes new baseline</td></tr>
+  </tbody>
+</table>
+
+<p>These checks run in continuous integration, so a developer who accidentally breaks the responsive layout at tablet width learns about it from a failed build within minutes rather than from a user complaint weeks later. The same infrastructure can automatically run accessibility audits (axe-core, Lighthouse) on every commit, catching missing <code>alt</code> attributes, unlabelled form controls, and insufficient contrast.</p>
+
+<p><em>Recommendations are starting points, not decisions.</em> This caveat deserves genuine weight rather than lip service. AI design suggestions are derived from what was common and popular in the training data, which creates three systematic problems:</p>
+
+<ul>
+  <li><strong>Homogenisation.</strong> If every tool recommends the statistically average pattern, every product starts to look identical. Distinctiveness, brand identity, and delight are precisely the qualities that averaging destroys.</li>
+  <li><strong>Context blindness.</strong> The model does not know that your users are warehouse staff wearing gloves in cold storage, or elderly patients with tremor, or air-traffic controllers who must never be shown a modal dialogue. A statistically optimal consumer-app pattern can be actively dangerous in a safety-critical domain.</li>
+  <li><strong>Bias inheritance.</strong> Training data over-represents Western, young, able-bodied, high-bandwidth users. Suggestions may assume left-to-right reading order, fast connections, large screens, and familiarity with conventions (such as the hamburger menu) that are not universal.</li>
+</ul>
+
+<p>The professional workflow therefore remains: generate candidates with AI → critique them against heuristics (Nielsen's ten usability heuristics, your design system, accessibility standards) → test with <em>real users</em> → iterate. AI compresses the first step; it cannot replace the third. A dark pattern is still a dark pattern even if an AI suggested it, and the designer who shipped it is the one accountable.</p>
+
+<p><strong>AI Coding Assistants</strong></p>
+
+<p>AI coding assistants — GitHub Copilot, Amazon Q Developer, Cursor, Codeium, JetBrains AI, Claude Code and others — have become the most visible application of AI in software engineering. They operate in several distinct modes.</p>
+
+<p><em>Inline completion.</em> As you type, the assistant predicts the rest of the line, the rest of the function, or the next several lines, using the surrounding file, open tabs, and sometimes the whole repository as context. The productivity gain is largest on repetitive, low-novelty code. For example, after writing a function signature and docstring:</p>
+
+<pre><code>def celsius_to_fahrenheit(temps: list[float]) -> list[float]:
+    """Convert a list of Celsius temperatures to Fahrenheit."""
+    # assistant proposes the entire body:
+    return [(t * 9 / 5) + 32 for t in temps]</code></pre>
+
+<p>Here the assistant saves keystrokes and a context switch. The same applies to writing data classes, mapping JSON fields onto model objects, generating CRUD methods, or recalling the exact argument order of an unfamiliar library call. Empirical studies (including GitHub's own controlled experiments and subsequent independent replications) report task-completion speedups in the range of roughly 20–55% on well-defined, self-contained tasks — with the gains shrinking sharply on tasks requiring architectural decisions or domain knowledge.</p>
+
+<p><em>Natural-language generation of code, tests, and documentation.</em> Chat-style and prompt-driven interfaces let you describe intent in prose. A prompt such as:</p>
+
+<pre><code>Write an Express.js middleware that rate-limits requests to 100 per
+IP per 15 minutes, returns HTTP 429 with a Retry-After header, and
+uses Redis so it works across multiple server instances.</code></pre>
+
+<p>will produce a credible implementation in seconds. Equally valuable — and often more reliable — is using the assistant in the reverse direction, on code that already exists:</p>
+
+<ul>
+  <li><strong>Test generation:</strong> "Generate pytest unit tests for this function, including edge cases for empty input, negative numbers, and non-numeric types." The assistant is good at enumerating boundary conditions a tired human skips.</li>
+  <li><strong>Documentation:</strong> generating docstrings, README sections, API reference tables, and inline comments explaining <em>why</em> rather than <em>what</em>.</li>
+  <li><strong>Explanation:</strong> "Explain what this regular expression does, step by step" — invaluable when inheriting unfamiliar code.</li>
+  <li><strong>Translation and refactoring:</strong> converting a callback-based function to <code>async/await</code>, migrating a class component to hooks, or porting a script from Python 2 idioms to Python 3.</li>
+</ul>
+
+<p><em>AI-assisted code review.</em> Tools such as CodeRabbit, Codacy, SonarQube's AI features, Amazon CodeGuru and GitHub's own review suggestions attach comments to pull requests before a human reviewer looks at them. They are effective at the mechanical layer of review:</p>
+
+<table>
+  <thead>
+    <tr><th>Review concern</th><th>AI reviewer effectiveness</th><th>Why</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Style and formatting inconsistency</td><td>Very high</td><td>Deterministic, rule-expressible</td></tr>
+    <tr><td>Unused variables, dead code, missing null checks</td><td>High</td><td>Detectable by static analysis patterns</td></tr>
+    <tr><td>Common vulnerability patterns (SQL injection, hardcoded secrets)</td><td>High</td><td>Well-represented signatures</td></tr>
+    <tr><td>Missing test coverage for new branches</td><td>High</td><td>Measurable</td></tr>
+    <tr><td>Race conditions, subtle concurrency bugs</td><td>Low–medium</td><td>Requires reasoning about execution interleaving</td></tr>
+    <tr><td>"Is this the right architecture for our roadmap?"</td><td>Very low</td><td>Requires organisational and business context</td></tr>
+    <tr><td>"Does this match what the customer actually asked for?"</td><td>Very low</td><td>Requires requirements knowledge and human intent</td></tr>
+  </tbody>
+</table>
+
+<p>The practical benefit is that human reviewers stop spending their limited attention on comma placement and can concentrate on design and correctness.</p>
+
+<p><em>Why critical review is non-negotiable.</em> AI-generated code fails in characteristic ways, and knowing the failure modes is what separates safe use from dangerous use:</p>
+
+<ul>
+  <li><strong>Hallucinated APIs.</strong> The model invents a method that sounds right but does not exist — <code>array.removeDuplicates()</code> in JavaScript, for instance. Worse is <em>slopsquatting</em>: attackers register package names that AI models commonly hallucinate, so a developer who blindly runs <code>pip install</code> on a suggested dependency installs malware.</li>
+  <li><strong>Insecure patterns.</strong> Research has repeatedly found that a meaningful fraction of AI-generated code contains security weaknesses — string-concatenated SQL queries, <code>eval()</code> on user input, missing output encoding leading to XSS, weak hashing such as MD5 for passwords, disabled TLS certificate verification, or secrets written directly into source.</li>
+  <li><strong>Plausible but wrong logic.</strong> Off-by-one errors, inverted boundary conditions, incorrect handling of empty collections, or silently swallowing exceptions. The code runs; it simply produces the wrong answer on inputs nobody tested.</li>
+  <li><strong>Outdated practice.</strong> Training cutoffs mean suggestions may use deprecated libraries or superseded idioms.</li>
+  <li><strong>Context mismatch.</strong> The suggestion may be technically fine but inconsistent with your project's architecture, error-handling conventions, or logging standards.</li>
+  <li><strong>Automation bias.</strong> Humans systematically under-scrutinise machine output. Studies have found developers with AI assistance sometimes write <em>less</em> secure code while being <em>more</em> confident it is secure — a dangerous combination.</li>
+</ul>
+
+<p>A worked example of a plausible-but-dangerous suggestion:</p>
+
+<pre><code># AI suggestion — looks fine, is not
+def get_user(conn, username):
+    query = "SELECT * FROM users WHERE username = '" + username + "'"
+    return conn.execute(query).fetchone()
+
+# Correct version — parameterised, injection-safe
+def get_user(conn, username):
+    return conn.execute(
+        "SELECT id, username, email FROM users WHERE username = ?",
+        (username,)
+    ).fetchone()</code></pre>
+
+<p>The practical discipline: <strong>never accept code you could not have written yourself and cannot explain line by line</strong>. Run it. Test it. Read the documentation for any unfamiliar API it uses. Treat every AI suggestion the way you would treat a code snippet from an anonymous forum post of unknown vintage — potentially helpful, definitely unverified.</p>
+
+<p><strong>AI Across the Software Development Lifecycle</strong></p>
+
+<p>Coding assistants get the attention, but AI now touches every phase of the SDLC. The pattern is consistent: AI is applied where there is a large volume of historical data and a need to spot patterns humans would miss or find tedious.</p>
+
+<table>
+  <thead>
+    <tr><th>Phase</th><th>Typical AI application</th><th>Human responsibility retained</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Requirements &amp; planning</td><td>Gap and ambiguity detection, user-story generation, effort estimation, risk prediction</td><td>Deciding what to build and for whom; stakeholder negotiation</td></tr>
+    <tr><td>Design</td><td>Layout and palette suggestion, accessibility checking, architecture option sketching</td><td>Design judgement, brand, user research, ethics</td></tr>
+    <tr><td>Implementation</td><td>Code completion, refactoring, translation, documentation</td><td>Correctness, architecture, maintainability</td></tr>
+    <tr><td>Testing</td><td>Test-case generation, fuzzing, visual regression, SAST/DAST security scanning, flaky-test detection</td><td>Defining acceptance criteria; exploratory and usability testing</td></tr>
+    <tr><td>Deployment</td><td>Release-risk scoring, intelligent canary analysis, automated rollback triggers</td><td>Go/no-go decisions; communication</td></tr>
+    <tr><td>Operations</td><td>Anomaly detection, alert correlation, root-cause suggestion, capacity forecasting</td><td>Incident command, post-mortems, remediation</td></tr>
+  </tbody>
+</table>
+
+<p><em>Planning: requirement gaps and timeline risk.</em> Natural-language processing can be pointed at a requirements document or backlog and asked to find problems. Typical findings include:</p>
+
+<ul>
+  <li><strong>Ambiguity:</strong> "the system should respond quickly" — quickly compared to what, under what load, at which percentile?</li>
+  <li><strong>Missing non-functional requirements:</strong> a specification that describes twenty features but never mentions authentication, data retention, localisation, or accessibility.</li>
+  <li><strong>Contradictions:</strong> one section says sessions expire after 30 minutes, another says users stay logged in for 7 days.</li>
+  <li><strong>Untestable statements:</strong> "the interface shall be intuitive" cannot be verified; "90% of new users shall complete first checkout within 3 minutes without assistance" can.</li>
+  <li><strong>Unhandled paths:</strong> the happy path is specified but nothing says what happens when payment fails, the network drops mid-upload, or two users edit the same record.</li>
+</ul>
+
+<p>On the estimation side, models trained on an organisation's historical issue tracker can flag risk signals: tickets whose descriptions resemble past tickets that overran, sprints where too much work depends on a single person, dependencies on an external team with a history of late delivery, or a steadily rising defect-reopen rate. The output is a <em>probability</em>, not a prophecy — "this epic has a 70% chance of slipping past the sprint boundary" is a prompt for a conversation, not a substitute for one.</p>
+
+<p><em>Testing: generation and security scanning.</em> AI test generation operates at several levels:</p>
+
+<ul>
+  <li><strong>Unit tests</strong> derived from function signatures and bodies, often with better edge-case coverage than hand-written tests because the model is not bored.</li>
+  <li><strong>Property-based and fuzz testing</strong>, where the AI generates thousands of structurally valid but adversarial inputs — enormous strings, Unicode edge cases, nulls, deeply nested JSON — to find crashes.</li>
+  <li><strong>End-to-end UI tests</strong> that are "self-healing": when a developer changes a button's CSS selector, a brittle Selenium test breaks, whereas an AI-driven locator recognises the same button by its text, role, and position and repairs the selector automatically — dramatically reducing test-suite maintenance cost.</li>
+  <li><strong>Security scanning</strong>, where static analysis augmented with ML triages findings. Traditional SAST tools are notorious for false positives; ML layers learn which findings your team historically dismissed and rank accordingly. Tools also scan dependencies against vulnerability databases and detect committed secrets.</li>
+</ul>
+
+<p>A caution specific to AI-generated tests: a test generated <em>from</em> the implementation will faithfully encode whatever the implementation does, bugs included. If <code>calculate_discount()</code> wrongly applies the discount twice, the generated test will assert the doubled value and turn the bug into a permanent requirement. Tests should be derived from the <em>specification</em>, with AI used to expand coverage rather than to define correctness.</p>
+
+<p><em>Post-deployment: monitoring and predictive maintenance (AIOps).</em> A modern distributed system emits millions of metrics, log lines, and traces per minute. No human can watch that. AI here does three things:</p>
+
+<ul>
+  <li><strong>Anomaly detection.</strong> Rather than static thresholds ("alert if CPU &gt; 80%"), models learn the normal seasonal shape of each metric — weekday peaks, Sunday troughs, end-of-month batch spikes — and alert on deviation from the learned baseline. This catches the 40% error rate at 3 a.m. that a static threshold tuned for daytime traffic would miss.</li>
+  <li><strong>Alert correlation and noise reduction.</strong> When a database fails, 200 downstream services alarm simultaneously. Correlation engines group these into a single incident and point at the probable root cause, reducing alert fatigue and mean time to resolution.</li>
+  <li><strong>Failure prediction.</strong> Leading indicators — a memory-usage curve climbing 2% per hour indicating a leak, disk filling on a trajectory to hit 100% in 36 hours, p99 latency creeping upward, a thread pool nearing exhaustion — allow automated or human intervention <em>before</em> users notice. A system can restart a leaking pod during low-traffic hours or auto-provision storage, turning a would-be outage into a non-event.</li>
+</ul>
+
+<p>Real-user monitoring closes the loop back to HCI: session replay and interaction analytics can surface "rage clicks" (repeated rapid clicking on an unresponsive element), dead clicks, and form-abandonment hot spots, feeding concrete usability defects straight back into the design backlog.</p>
+
+<p><strong>Responsible Use of AI in This Course</strong></p>
+
+<p>The purpose of this course is to develop <em>your</em> capability. AI tools are permitted and in many cases encouraged, because learning to work with them is part of contemporary practice — but they are permitted under conditions designed to make sure the learning actually happens. The following four principles govern their use.</p>
+
+<p><em>1. Read, understand, and verify everything.</em> You are responsible for every line you submit, regardless of its origin. Before any AI-generated code enters your project, you should be able to answer, unprompted:</p>
+
+<ul>
+  <li>What does each line do, and why is it necessary?</li>
+  <li>What are the inputs, outputs, and failure modes? What happens with empty, null, or malformed input?</li>
+  <li>What external libraries does it use — do they exist, are they maintained, what licence do they carry?</li>
+  <li>Does it handle errors, or does it silently swallow them?</li>
+  <li>Does it introduce a security weakness (injection, unvalidated input, exposed secrets)?</li>
+  <li>Is it consistent with the rest of my codebase's style and architecture?</li>
+</ul>
+
+<p>A useful self-test: <strong>close the AI tool and re-implement the solution from memory.</strong> If you cannot, you have not learned it — you have transcribed it. A second test: can you explain the code to a classmate and answer their follow-up questions? Viva-style questioning on submitted work is a legitimate assessment method, and "the AI wrote that part" is not an acceptable answer.</p>
+
+<p><em>2. Over-reliance masks skill gaps that surface in assessment.</em> The risk is subtle because AI assistance feels like learning. You produce working output, the project progresses, and the feedback loop is positive — but the cognitive work of structuring a problem, recalling syntax, forming a hypothesis about a bug, and reasoning through control flow is exactly the effortful practice that builds durable skill. Psychologists call this <em>desirable difficulty</em>; removing it produces fluency illusions. The gap becomes visible under exam conditions, in whiteboard interviews, in live debugging sessions, and in any situation where the tool is absent or the problem is novel enough that the tool is wrong.</p>
+
+<p>A practical compromise is to stage your use of AI according to where you are in the learning curve for a given skill:</p>
+
+<table>
+  <thead>
+    <tr><th>Stage</th><th>Recommended AI use</th><th>Use to avoid</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Learning a concept for the first time</td><td>Ask for explanations, analogies, and worked examples; ask it to quiz you</td><td>Asking it to produce the solution you were set to write</td></tr>
+    <tr><td>Practising a newly learned skill</td><td>Use it as a reviewer <em>after</em> your own attempt</td><td>Autocomplete-driven writing that bypasses recall</td></tr>
+    <tr><td>Applying a skill you already have</td><td>Generate boilerplate, tests, docs; refactor; translate</td><td>Accepting output without reading it</td></tr>
+    <tr><td>Debugging</td><td>Form your own hypothesis first, then ask for alternatives</td><td>Pasting the error and applying the first fix blindly</td></tr>
+    <tr><td>Design work</td><td>Generate option sets to critique</td><td>Shipping a generated design without user validation</td></tr>
+  </tbody>
+</table>
+
+<p><em>3. Intellectual property and licensing.</em> AI-generated content raises genuine legal and ethical questions that you should be aware of as an emerging professional:</p>
+
+<ul>
+  <li><strong>Training data provenance.</strong> Code models were trained on public repositories carrying a range of licences, including copyleft licences such as GPL. A model can occasionally reproduce a substantial, recognisable chunk of licensed source. Some assistants offer a "filter suggestions matching public code" setting — enable it, and treat any suspiciously complete or idiosyncratic block (an unusual algorithm, a distinctive comment style) as worth checking.</li>
+  <li><strong>Copyright status of output.</strong> In several jurisdictions, including the United States, works produced without human authorship are not eligible for copyright protection. That means purely machine-generated material may not be protectable, which matters if you ever want to own or licence what you build.</li>
+  <li><strong>Confidentiality.</strong> Never paste credentials, API keys, personal data about real users, unpublished assessment material, or an employer's proprietary code into a consumer AI service. Some providers retain prompts for training unless you opt out or use an enterprise tier. Treat the prompt box as a public forum.</li>
+  <li><strong>Third-party assets.</strong> AI-generated images, icons, and copy may resemble existing trademarked or copyrighted work. Check before you put a generated logo on a submitted prototype.</li>
+  <li><strong>Terms of service.</strong> Different tools impose different conditions on commercial use and attribution. Read them for anything that leaves the classroom.</li>
+</ul>
+
+<p><em>4. Document your use.</em> Transparency is the simplest protection for both you and your marker, and it mirrors the disclosure norms emerging in industry and in academic publishing. For this course, maintain an <strong>AI usage log</strong> alongside your project and include it in your submission. A short, honest entry is sufficient:</p>
+
+<pre><code>## AI Usage Log — Sprint 2
+
+| Date  | Tool            | Purpose                              | What I did with the output                      |
+|-------|-----------------|--------------------------------------|-------------------------------------------------|
+| 04/03 | ChatGPT         | Explain CSS grid vs flexbox          | Used for understanding only; wrote layout myself |
+| 06/03 | Copilot         | Autocomplete form-validation helpers | Reviewed line by line; rewrote regex, which was
+|       |                 |                                      | too permissive (allowed "a@b"); added 4 tests    |
+| 08/03 | Claude          | Generate pytest cases for cart logic | Kept 6 of 9 tests; 3 asserted wrong totals, so I
+|       |                 |                                      | corrected them against the spec                  |
+| 09/03 | Midjourney      | Placeholder hero imagery for mockup  | Prototype only; flagged for replacement with
+|       |                 |                                      | licensed stock before any public release         |
+</code></pre>
+
+<p>In addition, mark generated code at the point of use where it is substantial, for example:</p>
+
+<pre><code>// Initial implementation generated with GitHub Copilot (2024-03-06).
+// Reviewed and modified: replaced naive email regex with RFC-5322-
+// compliant pattern, added null guard, added unit tests in
+// tests/test_validation.py.
+function validateEmail(value) { ... }</code></pre>
+
+<p>Note what the good entries have in common: they record not just <em>that</em> AI was used but <em>what you did to verify it</em>. That verification record is the evidence of your learning, and it is what distinguishes legitimate tool use from academic misconduct. Undisclosed wholesale submission of generated work — particularly where you cannot explain it — falls under the institution's academic integrity policy in the same way that submitting a classmate's work would.</p>
+
+<p><strong>Putting it together</strong></p>
+
+<p>A reasonable way to summarise the whole topic is a division of labour. AI is strong at breadth, speed, recall, and tireless repetition: enumerating options, remembering API signatures, generating the ninth edge-case test, watching ten thousand metrics overnight. Humans remain responsible for depth, context, judgement, and accountability: deciding what problem is worth solving, knowing who the users really are, recognising when a plausible answer is wrong, and standing behind what ships.</p>
+
+<ul>
+  <li><strong>Use AI to go faster on things you already understand.</strong></li>
+  <li><strong>Use AI to learn things you don't — by asking for explanations, not answers.</strong></li>
+  <li><strong>Never use AI to produce things you cannot evaluate.</strong></li>
+  <li><strong>Always disclose, always verify, always own the result.</strong></li>
+</ul>
+
+<p>Applied to your course project, this means AI may legitimately help you scaffold a component, draft tests, explain an unfamiliar error, or generate three layout variants to critique. It may not substitute for your understanding of the HCI principles you are being assessed on, for your own usability testing with real participants, or for your ability to explain and defend every artefact you submit.</p>
+        <div class="notes"><strong>Notes</strong>Suggested in-class activities and assessment hooks for this topic:
+• &quot;Spot the flaw&quot; exercise — give students three AI-generated code snippets (one with SQL injection, one with an off-by-one error, one calling a hallucinated API) and have them identify and fix the problems in 15 minutes. Debrief on how plausible each looked.
+• Design critique lab — have teams prompt a UI-generation tool for the same brief, then evaluate the outputs against Nielsen&#39;s ten heuristics and WCAG AA contrast requirements, documenting what the tool got right and what it missed about the target users.
+• Require the AI Usage Log as a mandatory submission artefact for every sprint; allocate a small percentage of marks to its quality (specificity and evidence of verification), not to the quantity of AI used.
+• Consider a short individual viva or code walkthrough on submitted project code — announce it in advance, since the deterrent effect on uncritical AI use is the main benefit.
+Key terminology to reinforce: hallucination, slopsquatting, automation bias, desirable difficulty, visual regression testing, SAST/DAST, AIOps, WCAG AA/AAA, Fitts&#39;s Law, Hick&#39;s Law.
+Useful references to point students at: NIST AI Risk Management Framework; OWASP Top 10 for LLM Applications; GitHub Copilot Trust Center documentation; WCAG 2.2 quick reference; the institution&#39;s own academic integrity and generative-AI policy (students should be directed to read the authoritative local version, as it supersedes anything stated here).</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

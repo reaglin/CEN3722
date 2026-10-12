@@ -1,0 +1,1026 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>5 - AI-Assisted Design and Development Workflows</title>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 5 - AI-Assisted Design and Development Workflows</a></div>
+<h1>5 - AI-Assisted Design and Development Workflows</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Introduction to AI Coding Assistants in HCI</a>
+<a href="#part2">Effective Prompting Strategies for Design Tasks</a>
+<a href="#part3">AI-Accelerated Prototyping Workflows</a>
+<a href="#part4">Maintaining Design Quality in AI-Assisted Projects</a>
+<a href="#part5">Ethical Considerations and Professional Responsibility</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Introduction to AI Coding Assistants in HCI</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Introduction to AI Coding Assistants in HCI</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The emergence of AI coding assistants has fundamentally reshaped how designers and developers approach the construction of interactive systems. In the context of Human-Computer Interaction (HCI), where the gap between a conceptual design and a working prototype has historically required significant engineering effort, these tools introduce the possibility of compressing that gap dramatically. Understanding what these assistants are, how they work, and where they fit within the HCI pipeline is the essential foundation for using them thoughtfully and effectively.</p>
+
+<p><strong>What Are AI Coding Assistants?</strong></p>
+
+<p>AI coding assistants are software tools that use <strong>large language models (LLMs)</strong> — deep neural networks trained on enormous corpora of text, code, documentation, and online discussions — to understand and generate programming code. Unlike traditional autocomplete tools, which rely on pattern matching within a fixed syntax dictionary, LLM-based assistants can reason about intent, infer context from surrounding code, and produce semantically coherent outputs that span multiple lines or even entire files.</p>
+
+<p>These models are trained on billions of lines of source code drawn from public repositories (such as GitHub), technical documentation, Stack Overflow threads, API references, and programming tutorials. This breadth of training data allows them to generalize across many programming languages, frameworks, and problem domains. When you ask a coding assistant to "create a responsive navigation bar with keyboard accessibility," it draws on patterns it has encountered across thousands of similar implementations.</p>
+
+<p>AI coding assistants accept a variety of input forms:</p>
+<ul>
+  <li><strong>Natural language descriptions:</strong> A plain-English prompt like "write a function that filters a list of users by their subscription status" is sufficient to generate working code.</li>
+  <li><strong>Existing code as context:</strong> The assistant reads the surrounding file or project and tailors its output to match the conventions, variable names, and architectural patterns already in use.</li>
+  <li><strong>Combined input:</strong> A partial function signature, an inline comment describing intent, or a block of pseudocode can all serve as prompts that guide generation.</li>
+</ul>
+
+<p>The outputs these tools produce are equally varied. They can generate:</p>
+<ul>
+  <li><strong>Full functions or methods</strong> based on a described behavior</li>
+  <li><strong>Boilerplate UI components</strong> such as modals, form fields, cards, or navigation elements</li>
+  <li><strong>Test cases</strong> that verify the behavior of existing functions</li>
+  <li><strong>Explanatory comments and documentation</strong> that annotate code for future readers</li>
+  <li><strong>Refactored versions</strong> of existing code with improved readability or performance</li>
+</ul>
+
+<p>These tools are not confined to a single environment. They are integrated across a wide range of development surfaces:</p>
+<ul>
+  <li><strong>IDEs (Integrated Development Environments)</strong> such as VS Code, JetBrains IntelliJ, and Neovim, where suggestions appear inline as the developer types</li>
+  <li><strong>Terminal environments</strong> where a developer can describe a shell task in natural language and receive a corresponding command</li>
+  <li><strong>Browser-based coding environments</strong> such as CodeSandbox, Replit, or Vercel's v0, which allow prototyping without a local development setup</li>
+  <li><strong>API access</strong>, allowing developers to build their own custom tooling on top of the underlying model</li>
+</ul>
+
+<p><strong>Key Tools: Claude Code, GitHub Copilot, and Codex</strong></p>
+
+<p>While many AI coding assistants exist, three tools have been especially influential and represent meaningfully different approaches to AI-assisted development. Understanding their distinctions helps practitioners choose the right tool for different stages of an HCI project.</p>
+
+<p><strong>GitHub Copilot</strong> is perhaps the most widely adopted AI coding assistant in professional development environments. Built on OpenAI's Codex model (and more recently updated with newer GPT-based models), Copilot integrates directly into popular IDEs — most notably VS Code — as an extension. Its primary interaction mode is <em>inline suggestion</em>: as a developer writes code, Copilot continuously predicts what the next line, block, or function should be and displays it as a ghost-text suggestion that can be accepted with a single keystroke. This low-friction integration means that Copilot feels less like a separate tool and more like an extension of the editor itself. For HCI work, Copilot excels at quickly scaffolding repetitive UI patterns: form layouts, event handler stubs, conditional rendering logic, and similar structures that appear constantly across interface codebases.</p>
+
+<p><strong>OpenAI Codex</strong> is the underlying model that originally powered Copilot, but it is also accessible independently via API, which makes it especially valuable for building <em>custom developer tooling</em>. A team might use the Codex API to build an internal design-system generator that takes a component description and outputs code pre-configured to their organization's specific CSS tokens and component library. Codex's API accessibility means it can be embedded in design tools, content management systems, or internal dashboards — anywhere that a natural-language-to-code capability would reduce manual effort.</p>
+
+<p><strong>Claude Code</strong> (developed by Anthropic) occupies a distinctly different position. Rather than focusing primarily on inline single-line suggestions, Claude Code is designed for <em>agentic, multi-step tasks</em> — meaning it can sustain coherent reasoning across long, complex interactions with an entire codebase. It can read multiple files, understand how they relate to one another, execute commands, and iteratively refine its outputs based on feedback. For HCI practitioners working on large projects — such as a design system with dozens of interconnected components, or an accessibility audit that requires touching hundreds of files — Claude Code's ability to maintain context and pursue multi-step goals makes it particularly powerful. Its comparatively large context window allows it to hold more of a project's codebase in "working memory" at once, reducing the need to re-explain structure and conventions at each step.</p>
+
+<p>The following table summarizes key differences across these three tools:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Primary Integration</th>
+      <th>Interaction Style</th>
+      <th>Context Window</th>
+      <th>Best For in HCI</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>GitHub Copilot</td>
+      <td>IDE extension (VS Code, JetBrains)</td>
+      <td>Inline real-time suggestions</td>
+      <td>Moderate (file/function level)</td>
+      <td>Rapid scaffolding of UI components and patterns</td>
+    </tr>
+    <tr>
+      <td>OpenAI Codex</td>
+      <td>API access; powers custom tooling</td>
+      <td>Prompt-based generation</td>
+      <td>Moderate</td>
+      <td>Custom design-system generators and embedded tools</td>
+    </tr>
+    <tr>
+      <td>Claude Code</td>
+      <td>Terminal / agentic environment</td>
+      <td>Multi-step reasoning and task execution</td>
+      <td>Large (multi-file / codebase level)</td>
+      <td>Complex refactoring, accessibility audits, large-scale design system work</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>The Role of AI in the HCI Pipeline</strong></p>
+
+<p>The HCI design and development pipeline typically moves through several phases: research, ideation, wireframing, prototyping, user testing, and iterative refinement. AI coding assistants are not uniformly useful across all of these stages — their impact is most pronounced at specific points where the translation from concept to working code is the primary bottleneck.</p>
+
+<p><strong>Prototyping</strong> is the stage where AI assistants provide the most immediate value. Traditionally, moving from a static wireframe to an interactive prototype required a developer to manually build component scaffolding, wire up state management, and write event handlers — work that might take hours or days. An AI assistant can generate the structural skeleton of a prototype from a brief description, allowing a designer to interact with a working version far earlier in the process. For example, a designer might describe: <em>"Create a multi-step form with three panels — personal info, preferences, and confirmation — with validation and a progress indicator."</em> The assistant can produce a functional React component that a designer can immediately deploy to a testing environment and share with users.</p>
+
+<p>During <strong>iterative refinement</strong>, AI assistants support the rapid cycle of change-and-test that HCI work demands. When user testing reveals that a navigation pattern is confusing, or that a modal's focus management traps keyboard users, the designer can describe the needed adjustment in natural language and receive revised code immediately — rather than waiting for engineering bandwidth or manually hunting through the DOM.</p>
+
+<p>AI tools also contribute meaningfully to <strong>accessibility markup</strong>. Generating semantically correct HTML with proper ARIA roles, labels, and live regions is detail-oriented work that is easy to omit under time pressure. An AI assistant, prompted explicitly to include accessibility considerations, will often produce output that includes <code>aria-label</code>, <code>aria-describedby</code>, <code>role</code> attributes, and focus management logic. For example, asking Copilot or Claude to "generate a dialog component that traps focus and announces its presence to screen readers" typically produces code that respects ARIA authoring practice guidelines, which would otherwise require a developer to consult the W3C documentation and implement manually.</p>
+
+<p>It is critical to note, however, that AI tools are not a substitute for genuine user research or design judgment. They do not conduct usability studies, synthesize qualitative feedback, or make value-laden decisions about whose needs a design should prioritize. <strong>Human judgment remains irreplaceable</strong> for interpreting what research participants are communicating, deciding which trade-offs are acceptable, and ensuring that design decisions reflect the values and constraints of the specific community being served.</p>
+
+<p><strong>Opportunities and Limitations of AI-Assisted Design</strong></p>
+
+<p>The opportunities introduced by AI coding assistants are substantial, but so are the risks if these tools are used uncritically.</p>
+
+<p>On the opportunity side, the most significant benefit is the <strong>reduction of repetitive, low-level coding tasks</strong>. Experienced HCI practitioners know that a large fraction of interface development involves writing structurally similar code over and over: setting up event listeners, writing CRUD operations for form data, structuring responsive grid layouts, or generating test cases for interaction states. When AI handles these tasks, designers and developers can redirect their cognitive energy toward the decisions that actually require human expertise — the nuanced trade-offs in information architecture, the ethical dimensions of a notification system, or the subtleties of how a microinteraction communicates system status.</p>
+
+<p>AI assistants also function as effective <strong>on-demand tutors and documentation lookup tools</strong>. A designer learning React who cannot remember the syntax for <code>useEffect</code> cleanup functions, or a developer unfamiliar with the WCAG criterion for color contrast, can ask the assistant and receive an immediate, contextualized answer. This lowers the barrier to entry for HCI practitioners who may have strong design skills but less formal programming training.</p>
+
+<p>Despite these advantages, several limitations demand careful attention:</p>
+
+<ul>
+  <li><strong>Misalignment with project-specific systems:</strong> AI assistants are trained on general code patterns from across the internet. They do not know your organization's design system, your brand's color tokens, your component naming conventions, or your team's accessibility standards. A generated button component may be structurally correct but use the wrong class names, hard-coded color values, or a different prop API than your design system specifies. Every piece of generated code must be reviewed for alignment with project-specific requirements.</li>
+  <li><strong>Training data biases favoring dominant design patterns:</strong> Because AI models are trained predominantly on code written by and for the dominant mainstream of web development, they tend to reproduce the design patterns that appear most frequently in that corpus. This can mean that less common but entirely valid UI patterns — or patterns designed with non-mainstream users, languages, or interaction modalities in mind — are underrepresented or absent from generated outputs. An AI asked to generate a date picker will almost certainly produce a calendar-grid widget — the dominant Western convention — rather than exploring alternative interaction models that might serve different users better.</li>
+  <li><strong>Subtle errors in accessibility and semantics:</strong> While AI tools can generate accessibility markup, they can also generate it incorrectly. An <code>aria-live</code> region set to the wrong politeness value, a <code>role="dialog"</code> without a corresponding <code>aria-labelledby</code>, or focus management that works in Chrome but fails in Safari with VoiceOver — these kinds of subtle errors appear in AI-generated code and can cause real harm to users who depend on assistive technology. Generated accessibility code always requires expert review.</li>
+  <li><strong>Risk to foundational skill development:</strong> For students and early-career practitioners, over-reliance on AI suggestions can short-circuit the learning process. Understanding <em>why</em> a piece of code works — understanding the DOM model, the event loop, the CSS cascade, or the principles of semantic HTML — requires engaging with those concepts directly. If an AI generates all the code without the learner working to understand it, the practitioner may develop a fragile dependency: able to use AI-generated code in familiar contexts but unable to debug, adapt, or reason about it when the assistant's output is wrong or incomplete.</li>
+</ul>
+
+<p>A productive mental model is to treat AI coding assistants as a <strong>highly capable but imperfect collaborator</strong> — one with broad knowledge, impressive speed, and no sense of your specific project's values, constraints, or users. The HCI practitioner's role is not to simply accept what the assistant produces, but to direct, evaluate, and refine its outputs with the same critical lens applied to any other design artifact.</p>
+        <div class="notes"><strong>Notes</strong>This topic establishes foundational vocabulary and framing for the entire module. Emphasize to learners that the tool comparison table is a starting point — capabilities evolve rapidly and should be verified against current documentation. The accessibility limitations section is especially important to stress: generated ARIA markup should always be tested with actual screen readers, not assumed to be correct because an AI produced it.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p1-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>AI coding assistants are tools that use large language models to suggest, generate, explain, and refactor code directly inside a developer's editor or terminal. Current examples include GitHub Copilot, Claude Code, and OpenAI's Codex-family tools. They range from inline autocomplete that finishes the line you are typing, to chat interfaces that answer questions about your project, to agent modes that can plan and carry out multi-step tasks across several files.</p>
+<p>In this course these tools matter because interface work is iterative: you sketch a layout, build a prototype, test it with users, and revise. An assistant that can scaffold a component, draft placeholder content, or convert a design description into working markup shortens the distance between an idea and something you can actually put in front of a user. That speed is only useful if you can judge what comes back — AI output can be plausible but wrong, inaccessible, inconsistent with your design system, or built on assumptions you never stated.</p>
+<p>The videos below introduce the practical shape of these tools. As you watch, pay attention to three things: where in the workflow the assistant is invoked (inline, chat, or agent), how much context the human has to supply for the output to be useful, and what the presenter does to check the result before accepting it. Those three habits — invoke, specify, verify — are what you will carry into the rest of the module.</p></div></details><details class="slide-card" id="p1-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Get to know GitHub Copilot in VS Code and be productive IMMEDIATELY</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/jXp5D5ZnxGM?cc_load_policy=1&amp;rel=0" title="Video: Get to know GitHub Copilot in VS Code and be productive IMMEDIATELY (Visual Studio Code)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Visual Studio Code</strong> · 4:45 · 840,532 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=jXp5D5ZnxGM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short tour of GitHub Copilot inside Visual Studio Code, showing the different surfaces where the assistant appears: inline suggestions as you type, the chat panel, and editor commands. It is framed as an orientation for someone who has just turned Copilot on and wants to start using it right away, including tips on how to interact with it effectively. Expect practical demonstration rather than conceptual discussion.</p>
+<h4>Why this video</h4>
+<p>Produced by the Visual Studio Code team itself, so the interface details and interaction patterns are authoritative and current for the tool it covers. It gives you a concrete answer to the subtopic "What Are AI Coding Assistants?" by showing one in actual use.</p></div></details><details class="slide-card" id="p1-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Spec-Driven Development: AI Assisted Coding Explained</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/mViFYTwWvcM?cc_load_policy=1&amp;rel=0" title="Video: Spec-Driven Development: AI Assisted Coding Explained (IBM Technology)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>IBM Technology</strong> · 9:00 · 483,142 views · 7mo ago · captions — <a href="https://www.youtube.com/watch?v=mViFYTwWvcM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An IBM Technology explainer on spec-driven development, the practice of writing a clear specification first and letting the AI assistant generate implementation from it rather than prompting ad hoc. The video discusses how AI-assisted coding fits into a development process and what changes when the specification, not the code, becomes the primary artifact you author and review.</p>
+<h4>Why this video</h4>
+<p>It moves beyond tool mechanics to the workflow question at the center of this topic — where AI sits in the pipeline and what the human is responsible for. The spec-first framing also sets up the module's later emphasis on evaluating output against stated requirements.</p></div></details><details class="slide-card" id="p1-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Use GitHub Copilot agent mode to create an application from scratch</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/sYepbevm8TY?cc_load_policy=1&amp;rel=0" title="Video: Use GitHub Copilot agent mode to create an application from scratch (Visual Studio Code)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Visual Studio Code</strong> · 5:36 · 184,522 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=sYepbevm8TY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A walkthrough of GitHub Copilot's agent mode, in which the assistant acts more autonomously: taking a high-level request, planning the steps, creating and editing multiple files, and iterating toward a working application. The demonstration starts from scratch, so you see how much scaffolding an agent can produce from a prompt and how the developer supervises the process.</p>
+<h4>Why this video</h4>
+<p>Agent mode is the clearest illustration of both the opportunity and the limitation of AI-assisted design — large amounts of code quickly, with the human responsible for reviewing decisions they did not make. Again from the Visual Studio Code channel, so the demonstration reflects how the feature actually behaves.</p></div></details><details class="slide-card" id="p1-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos build the descriptive foundation MO1 asks for: the first shows what an assistant is and where it lives in the editor, the IBM explainer places it within a development process, and the agent-mode walkthrough shows how far that role can extend. The hands-on demonstrations model the scaffolding and drafting workflows you will practice for MO2, including how to phrase requests so the generated code matches your project requirements. The spec-driven framing and the supervision shown in agent mode set up MO3 by making clear that AI output is a draft to be checked — in this course, against HCI principles, accessibility expectations, and usability standards, which no assistant evaluates for you.</p></div></details><details class="slide-card" id="p1-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part2">
+<h2>Effective Prompting Strategies for Design Tasks</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Effective Prompting Strategies for Design Tasks</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Working with AI assistants on design and development tasks is not simply a matter of typing a request and accepting whatever comes back. The quality, relevance, and usability of AI-generated output is almost entirely a function of how well the prompt is constructed. A vague, underspecified prompt produces a generic response that may look plausible on the surface but fails to fit the actual project context — the wrong component library, missing accessibility attributes, hardcoded colors instead of design tokens, or markup that simply does not scale. Mastering effective prompting is therefore a core professional skill for anyone integrating AI tools into a design or front-end development workflow. This topic covers the foundational principles of prompt construction, how to refine prompts iteratively, how to embed accessibility and usability requirements directly into prompts, how to keep AI output aligned with an existing design system, and how to recognize and sidestep the most common prompting mistakes.</p>
+
+<p><strong>Principles of Effective Prompting</strong></p>
+
+<p>The single most important habit to develop is treating a prompt as a specification, not a casual question. When you ask a colleague to build a component, you naturally tell them which framework the project uses, what the component is supposed to do, who will use it, and how the output should be structured. The same level of context is required when prompting an AI assistant, because the model has no implicit knowledge of your project.</p>
+
+<p><strong>Specify the technology stack, component type, and design system constraints.</strong> An AI assistant that does not know your stack will default to whatever is most common in its training data. If your project uses React with TypeScript and Tailwind CSS, say so explicitly. If the component should follow Material Design conventions, name that. Consider the difference between these two prompts:</p>
+
+<pre><code>// Underspecified
+"Write me a button component."
+
+// Well-specified
+"Write a primary button component in React with TypeScript. 
+ The project uses Tailwind CSS v3 and follows our internal 
+ design system. The button should accept a label prop, a 
+ disabled state, and an onClick handler. Use the design 
+ token class names `btn-primary` and `btn-disabled` rather 
+ than inline Tailwind utilities."</code></pre>
+
+<p>The second prompt will produce output that is immediately useful. The first will produce a generic HTML button or a React component with inline styles, requiring significant rework before it fits the project.</p>
+
+<p><strong>Include the intended user context or task scenario.</strong> Describing who will use the component and what they are trying to accomplish helps the AI make appropriate decisions about interaction patterns, label text, and information hierarchy. For example, stating that a form is used by warehouse workers on a mobile device while wearing gloves implies large touch targets, high contrast, and minimal text input — context that meaningfully shapes a good design response. Without this framing, the AI may produce an interface optimized for a desktop power user.</p>
+
+<p><strong>Request a specific output format.</strong> If you need a React component, ask for a React component. If you need a standalone HTML/CSS snippet for a static prototype, say that. If you want the CSS delivered as a separate block rather than inline, specify it. Reducing format ambiguity means less post-processing. You can also request that the AI annotate the output with comments explaining non-obvious decisions, which makes the generated code easier to review and adapt.</p>
+
+<p><strong>Break complex design tasks into smaller, sequential prompts.</strong> Asking an AI to produce a fully functional, accessible, design-system-aligned, responsive data table with sorting, filtering, and pagination in a single prompt is likely to produce something that partially satisfies each requirement while fully satisfying none. Instead, build the output in stages:</p>
+
+<ul>
+  <li>Prompt 1: Generate the basic table structure in React with the correct column definitions and sample data.</li>
+  <li>Prompt 2: Add sorting behavior to each column header, using the <code>aria-sort</code> attribute correctly.</li>
+  <li>Prompt 3: Introduce a search filter input above the table and connect it to the displayed rows.</li>
+  <li>Prompt 4: Add pagination controls that follow WCAG 2.1 AA keyboard navigation requirements.</li>
+  <li>Prompt 5: Replace any hardcoded color values with design token variables from the project's token file.</li>
+</ul>
+
+<p>Each stage produces a reviewable, testable artifact. Errors caught at stage 2 do not propagate into stages 3 through 5. This approach also creates a natural audit trail of how the component evolved, which is valuable for team communication and future maintenance.</p>
+
+<p><strong>Iterative Prompt Refinement</strong></p>
+
+<p>Generating a first draft is rarely the end of the prompting process. Skilled practitioners treat AI output as a starting point for a structured refinement loop, not a finished deliverable. This mindset shift — from "the AI wrote it so it must be fine" to "the AI drafted it and I will now direct revisions" — is what separates effective use from careless use.</p>
+
+<p><strong>Review AI-generated outputs critically before accepting them.</strong> When you receive a generated component, read through it as you would a colleague's pull request. Check whether the component actually does what was requested. Look for hardcoded magic numbers, missing edge cases, incorrect semantic HTML, and accessibility gaps. If the AI generated a modal dialog without a focus trap, that is not a minor style issue — it is a functional failure that will break keyboard navigation for all users.</p>
+
+<p><strong>Follow-up prompts can request targeted adjustments.</strong> Once you have identified a specific gap, describe it precisely in a follow-up prompt. Vague corrections ("make it look better") produce vague results. Specific corrections produce specific improvements:</p>
+
+<pre><code>// Vague correction
+"The modal doesn't look right."
+
+// Specific correction
+"The modal is missing a focus trap. When the modal opens, 
+ keyboard focus should move to the first focusable element 
+ inside the dialog. Tab and Shift+Tab should cycle through 
+ only the interactive elements within the modal. Pressing 
+ Escape should close the modal and return focus to the 
+ trigger button. Please update the component to implement 
+ this behavior."</code></pre>
+
+<p>This level of specificity gives the AI exactly enough information to make the right change without introducing regressions elsewhere in the component. You can similarly request targeted adjustments to layout (reorder these two columns on mobile), color contrast (increase the contrast ratio of the placeholder text to at least 4.5:1), semantic structure (replace the <code>&lt;div&gt;</code> used as a list with a <code>&lt;ul&gt;</code> and <code>&lt;li&gt;</code> elements), or responsiveness (add a breakpoint at 768px where the two-column grid collapses to a single column).</p>
+
+<p><strong>Few-shot prompting improves alignment.</strong> When you provide one or more examples of the desired output directly inside your prompt, the AI can infer the expected code style, naming conventions, and structural patterns from those examples rather than falling back on statistical defaults. This technique is called few-shot prompting. For instance, if your project follows a particular component file structure, paste a short representative example into the prompt:</p>
+
+<pre><code>"Here is an example of a component in this codebase:
+
+import React from 'react';
+import styles from './Badge.module.css';
+
+interface BadgeProps {
+  label: string;
+  variant: 'success' | 'warning' | 'error';
+}
+
+export const Badge: React.FC&lt;BadgeProps&gt; = ({ label, variant }) =&gt; (
+  &lt;span className={`${styles.badge} ${styles[variant]}`}&gt;{label}&lt;/span&gt;
+);
+
+Following the same pattern, create a Tooltip component that 
+accepts a `content` prop and a `children` prop, and positions 
+itself above the child element using CSS."</code></pre>
+
+<p>The AI now has a concrete template for file structure, TypeScript interface definition, className convention, and export style. The resulting output will require far less reformatting to match the rest of the codebase.</p>
+
+<p><strong>Document the prompting sequence.</strong> Keeping a log of the prompts that produced useful outputs — along with the model version and any relevant context — creates a reusable asset for the team. When a future task requires a similar component, a team member can start from a proven prompt sequence rather than rebuilding from scratch. This also supports reproducibility: if the output of a specific prompt needs to be revisited or audited, the prompt itself serves as the specification of intent.</p>
+
+<p><strong>Prompting for Accessibility and Usability</strong></p>
+
+<p>Accessibility is one of the areas where AI-generated code is most likely to fall short without explicit instruction. Models trained on large corpora of web code have been exposed to enormous quantities of inaccessible markup — missing alt attributes, click handlers on non-interactive elements, modals without focus management, forms without associated labels. Without a specific prompt requiring accessible output, the AI will often reproduce the statistical norm, which in this domain is unfortunately not the accessible implementation.</p>
+
+<p><strong>Always specify the accessibility level and relevant interaction patterns in the prompt.</strong> Do not assume the AI will produce WCAG 2.1 AA compliant output by default. Name the standard explicitly, and name the specific patterns you expect. For example:</p>
+
+<pre><code>"Generate a dropdown menu component in React that conforms 
+ to WCAG 2.1 AA. It should implement the ARIA Authoring 
+ Practices Guide (APG) Menu Button pattern. The trigger 
+ button should have `aria-haspopup='menu'` and 
+ `aria-expanded` toggled on open/close. Each menu item 
+ should be a `&lt;li role='menuitem'&gt;` and should be keyboard 
+ navigable with Arrow Up, Arrow Down, Home, End, and Escape 
+ keys. Focus should return to the trigger button when the 
+ menu closes."</code></pre>
+
+<p>This level of specification leaves little room for the AI to produce a dropdown that is only mouse-operable or that uses incorrect ARIA roles.</p>
+
+<p><strong>Request ARIA labels, roles, and live region attributes explicitly.</strong> For interactive components — dialogs, alerts, loading spinners, inline form validation messages — the presence or absence of specific ARIA attributes determines whether the component is usable by people relying on screen readers. Do not rely on the AI to infer these needs. Ask for them:</p>
+
+<ul>
+  <li>For a loading spinner: <em>"Include a visually hidden <code>&lt;span&gt;</code> with <code>role='status'</code> and <code>aria-live='polite'</code> that announces 'Loading, please wait' when the spinner is active."</em></li>
+  <li>For inline form validation: <em>"When the field contains an error, set <code>aria-invalid='true'</code> on the input and associate the error message element with the input using <code>aria-describedby</code>."</em></li>
+  <li>For an icon-only button: <em>"Since the button contains only an icon with no visible text, provide an <code>aria-label</code> that describes its action, and set <code>aria-hidden='true'</code> on the icon element."</em></li>
+</ul>
+
+<p><strong>Ask the AI to explain its accessibility choices.</strong> Adding an instruction such as "After the code, provide a brief explanation of the accessibility implementation decisions you made" surfaces the AI's reasoning. This makes it easy to spot gaps. If the explanation mentions keyboard navigation but does not mention screen reader announcements, you know to probe that area in a follow-up. If the explanation is confident but incorrect — for instance, claiming that <code>role='button'</code> on a <code>&lt;div&gt;</code> gives it full button semantics without also noting the need for <code>tabindex='0'</code> and keyboard event handlers — you can catch and correct the error before the code is integrated.</p>
+
+<p><strong>Validate AI-generated accessible code with automated tools.</strong> No amount of careful prompting eliminates the need for automated accessibility testing. Tools such as axe-core, Lighthouse, or WAVE can identify a significant proportion of WCAG violations automatically. After integrating an AI-generated component, run it through at least one automated checker, and supplement that with manual keyboard navigation testing. Automated tools typically catch contrast failures, missing labels, incorrect ARIA usage, and focus order issues — exactly the class of errors most likely to appear in AI-generated code.</p>
+
+<p><strong>Design System Integration Through Prompting</strong></p>
+
+<p>One of the highest-value applications of AI in a design and development workflow is accelerating the production of components that conform to an established design system. However, AI models have no innate knowledge of your organization's specific tokens, component library, or documentation conventions. This knowledge must be supplied through the prompt.</p>
+
+<p><strong>Include design token names, color variables, and typography scales in prompts.</strong> If your design system defines a color palette as CSS custom properties — for example, <code>--color-brand-primary</code>, <code>--color-text-default</code>, <code>--color-surface-raised</code> — paste the relevant subset into your prompt and instruct the AI to use only those variables rather than raw hex values or Tailwind color utilities. Similarly, if your type scale defines named steps such as <code>--text-body-md</code> or <code>--text-heading-lg</code>, name them explicitly. This prevents the AI from introducing hardcoded values that will break when the design system is updated.</p>
+
+<pre><code>"Use only the following design tokens from our system. 
+ Do not use raw color values or Tailwind color utilities.
+
+ Colors:
+ --color-brand-primary: #0052CC
+ --color-brand-primary-hover: #0747A6
+ --color-text-on-brand: #FFFFFF
+ --color-surface-raised: #FFFFFF
+ --color-text-default: #172B4D
+
+ Typography:
+ --text-body-md: 1rem / 1.5 (Inter, system-ui)
+ --text-label-sm: 0.875rem / 1.4 (Inter, system-ui, 500 weight)
+
+ Generate a Card component in React that uses these tokens 
+ for all color and typography styling."</code></pre>
+
+<p><strong>Provide a reference component to teach the expected code style.</strong> Alongside token definitions, pasting an existing, approved component from the design system gives the AI a concrete model to follow for structural patterns, prop naming conventions, CSS module usage, or styled-component syntax. This is a form of few-shot prompting applied specifically to design system alignment. The closer the reference component is to the component you are requesting, the more useful the analogy will be.</p>
+
+<p><strong>Request that the AI use only named design system components.</strong> If your design system includes a component library — for example, a Button, a TextInput, or a Select — ask the AI to compose new components from those primitives rather than building equivalent functionality from scratch with raw HTML and CSS. This keeps the output consistent with the rest of the product and avoids duplication that creates maintenance debt.</p>
+
+<pre><code>"The project uses our internal Polaris-based component 
+ library. Compose the new FilterBar component using only 
+ components from that library: &lt;TextField&gt;, &lt;Select&gt;, 
+ &lt;Button&gt;, and &lt;Stack&gt;. Do not write custom CSS or use 
+ raw HTML form elements."</code></pre>
+
+<p><strong>Review outputs against design system documentation to catch deviations.</strong> Even with detailed prompts, AI output may introduce small deviations — a slightly wrong spacing value, a missing border radius token, or a state (hover, focus, disabled) that is not styled according to the design system specification. Establish a review step where generated output is compared against the relevant design system documentation before it is integrated. Catching a deviation at this stage costs minutes. Catching it after it has propagated across ten components costs significantly more.</p>
+
+<p><strong>Avoiding Common Prompting Pitfalls</strong></p>
+
+<p>Even practitioners who understand prompting principles can fall into patterns that undermine the quality of AI-generated output. Recognizing these pitfalls is as important as knowing the positive techniques.</p>
+
+<p><strong>Underspecified prompts produce generic outputs.</strong> This is the most pervasive pitfall. Generic outputs are not always obviously wrong — they may compile, they may render, they may even look approximately correct on first glance. The problem becomes apparent when the component is integrated into the actual project: the colors are hardcoded, the component is not keyboard accessible, the prop interface does not match the rest of the codebase, and the HTML semantics are incorrect. All of this rework could have been avoided with a more complete initial prompt. Before submitting any prompt, ask yourself: if a contractor with no knowledge of this project received this prompt, would they be able to produce something I could use? If the answer is no, add more context.</p>
+
+<p><strong>Accepting AI outputs without code review introduces risk.</strong> AI-generated code can contain security vulnerabilities — for example, unsanitized user input rendered as HTML, leading to cross-site scripting exposure — and accessibility failures that are invisible to the naked eye but significant in impact. It can also include deprecated API usage, incorrect dependency assumptions, or subtle logic errors. Every piece of AI-generated code should go through the same review process as human-written code. The existence of an AI in the pipeline does not change the responsibility for the quality of what ships.</p>
+
+<p><strong>Vague correction prompts shift rather than resolve problems.</strong> When a follow-up prompt says something like "fix the bug" or "make it more accessible" without describing the specific problem and the desired outcome, the AI is likely to make changes that appear responsive but do not actually address the root issue. It may add an ARIA attribute that is not the correct one, or refactor a section of code in a way that eliminates one bug while introducing another. Effective correction prompts name the problem, explain why it is a problem, and describe the specific outcome expected.</p>
+
+<p><strong>Prompts should be versioned or logged.</strong> A prompt that produced excellent output for a card component today may be exactly what is needed for a similar component in three months. Without a log, that prompt is lost. More importantly, the team cannot learn from it, adapt it, or share it. A simple approach is to maintain a shared document or repository of prompts organized by component type or task, annotated with the model version used and any known limitations of the output. This transforms individual prompting knowledge into a team asset and accelerates future work.</p>
+
+<p>The following table summarizes the key dimensions of an effective design-task prompt and the consequences of omitting each one:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Prompt Dimension</th>
+      <th>Example of Inclusion</th>
+      <th>Consequence of Omission</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Technology stack</td>
+      <td>"React 18 with TypeScript, using CSS Modules"</td>
+      <td>Output may use wrong framework, plain JS, or inline styles</td>
+    </tr>
+    <tr>
+      <td>Component type and purpose</td>
+      <td>"A dismissible alert banner for error messages"</td>
+      <td>Generic component that does not fit the interaction context</td>
+    </tr>
+    <tr>
+      <td>User context</td>
+      <td>"Used by screen reader users on mobile devices"</td>
+      <td>Accessibility and touch considerations may be absent</td>
+    </tr>
+    <tr>
+      <td>Output format</td>
+      <td>"Return a single .tsx file with no external dependencies"</td>
+      <td>Output may be split awkwardly or include unexpected imports</td>
+    </tr>
+    <tr>
+      <td>Accessibility requirements</td>
+      <td>"Conforms to WCAG 2.1 AA; use APG Alert pattern"</td>
+      <td>Missing ARIA roles, no focus management, poor screen reader support</td>
+    </tr>
+    <tr>
+      <td>Design tokens</td>
+      <td>Paste token names and values; instruct use of variables only</td>
+      <td>Hardcoded hex values that break on design system updates</td>
+    </tr>
+    <tr>
+      <td>Reference example</td>
+      <td>Paste an existing approved component as a style model</td>
+      <td>Inconsistent naming, structure, or CSS approach</td>
+    </tr>
+    <tr>
+      <td>Specificity of correction</td>
+      <td>"Add aria-live='polite' to the status message container"</td>
+      <td>AI makes unrelated or counterproductive changes</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Effective prompting is ultimately a discipline of precision, context-setting, and critical evaluation. The AI assistant is a powerful collaborator that will follow your direction as closely as the specificity of your prompt allows. The more clearly you define the constraints, the context, the format, and the quality criteria, the more useful the output will be — and the less time you will spend correcting it. Over time, the prompts themselves become a form of institutional knowledge: a record of how the team thinks about components, accessibility, and design system compliance, expressed in a form that any team member can build on.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full lifecycle of prompting for design tasks: initial prompt construction, iterative refinement, accessibility-specific techniques, design system alignment, and common failure modes. The included code examples and summary table support practical application in workshop or lab settings.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p2-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Working with an AI assistant on a design task is itself an interface problem. The prompt is the control surface: what you type determines what the system can do for you, and vague input produces generic, unusable output. In this topic we treat prompting as a skill with structure — giving the model role and context, stating the task and constraints, specifying the output format, and supplying examples when the format matters.</p>
+<p>For interface work, prompts also need domain content. A prompt that asks for "a login screen" gets you a cliche; a prompt that names the target users, the platform, the design system tokens, the WCAG contrast and focus requirements, and the error states you must handle gets you something you can actually critique and refine. Refinement is the normal case, not a failure: you read the output, find where it drifted from your intent, and change one thing in the prompt to close that gap.</p>
+<p>The three videos below move from practical technique to a research view of why prompting is harder than it looks. While watching, collect concrete patterns you can reuse — ways to supply context, to constrain output format, to ask the model to reason or to critique its own work — and note the failure modes: over-trusting a confident answer, changing many things at once between attempts, and assuming the model shares background knowledge you never stated.</p></div></details><details class="slide-card" id="p2-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Prompt engineering essentials: Getting better results from LLMs | Tutorial</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/LAF-lACf2QY?cc_load_policy=1&amp;rel=0" title="Video: Prompt engineering essentials: Getting better results from LLMs | Tutorial (GitHub)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>GitHub</strong> · 9:02 · 187,147 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=LAF-lACf2QY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>GitHub's tutorial introduction to prompt engineering for developers, aimed at people who are getting vague or unusable answers from large language models. Based on its title and description, it covers the essentials of how LLMs interpret input and the components of a prompt that reliably improve results, such as supplying context, being specific about the task, and shaping the output.</p>
+<h4>Why this video</h4>
+<p>It comes from GitHub, a producer of widely used AI developer tooling, and it maps directly onto the Principles of Effective Prompting subtopic with a developer-facing vocabulary you will reuse when prompting for code scaffolding.</p></div></details><details class="slide-card" id="p2-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Essential AI prompts for developers</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/H3M95i4iS5c?cc_load_policy=1&amp;rel=0" title="Video: Essential AI prompts for developers (Visual Studio Code)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Visual Studio Code</strong> · 8:31 · 379,161 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=H3M95i4iS5c" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A Visual Studio Code video presenting four prompting techniques that generalize across AI tools and tasks, not just coding. Expect concrete, reusable prompt patterns demonstrated on practical examples, with attention to how rephrasing or adding structure changes the quality of the response.</p>
+<h4>Why this video</h4>
+<p>The focus on a small set of transferable techniques gives you a starting toolkit for iterative prompt refinement and for embedding design system or requirement details into prompts, and it comes from the team behind a mainstream AI-assisted editor.</p></div></details><details class="slide-card" id="p2-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Why Johnny Can’t Prompt: How Non-AI Experts Try (and Fail) to Design LLM Prompts</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/_LYk05LbQcQ?cc_load_policy=1&amp;rel=0" title="Video: Why Johnny Can’t Prompt: How Non-AI Experts Try (and Fail) to Design LLM Prompts (ACM SIGCHI)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>ACM SIGCHI</strong> · 8:37 · 2,022 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=_LYk05LbQcQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A conference talk video from ACM SIGCHI presenting the research paper "Why Johnny Can't Prompt," a study of how people without AI expertise attempt to design prompts. It reports where non-experts go wrong — such as over-generalizing from a single success, treating the model like a person who shares their assumptions, and refining prompts opportunistically rather than systematically.</p>
+<h4>Why this video</h4>
+<p>This is peer-reviewed HCI research presented by its authors, and it directly addresses Avoiding Common Prompting Pitfalls and Iterative Prompt Refinement by naming the specific habits that make prompting fail.</p></div></details><details class="slide-card" id="p2-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos build the prompting competence the module outcomes depend on. The GitHub and VS Code tutorials give you the structural patterns needed to apply AI tools to generate layouts, content drafts, or code scaffolding that actually reflect your project requirements, which supports MO2, while also clarifying what these assistants can and cannot do in a design workflow (MO1). The SIGCHI research talk supports MO3 by showing that prompt outputs and prompting strategies both need deliberate evaluation: recognizing common failure patterns is what lets you judge AI-generated design output against HCI principles and usability standards rather than accepting the first plausible result.</p></div></details><details class="slide-card" id="p2-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part3">
+<h2>AI-Accelerated Prototyping Workflows</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>AI-Accelerated Prototyping Workflows</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>AI-accelerated prototyping represents a fundamental shift in how designers and developers move from early-stage concepts to interactive, testable artifacts. Traditionally, the journey from a rough wireframe sketch to a working prototype demanded hours of manual coding, repeated context-switching between design tools and development environments, and significant cognitive overhead spent on boilerplate. AI coding assistants compress that timeline dramatically — not by replacing the designer's judgment, but by absorbing the mechanical work of scaffolding, generating component code, and applying iterative changes rapidly. Understanding how to direct these tools purposefully, and where to maintain rigorous human oversight, is the defining skill of modern HCI prototyping practice.</p>
+
+<p>The sections that follow move through the full arc of an AI-assisted prototyping workflow: translating wireframes into working code, generating reusable components, iterating with AI toward better usability, managing the inherent tension between speed and quality, and embedding these practices sustainably inside team processes.</p>
+
+<p><strong>From Wireframe to Code with AI</strong></p>
+
+<p>A wireframe is a spatial and behavioral specification — it communicates which elements exist on a screen, how they relate to one another structurally, and what interactions users can perform. The gap between that specification and runnable code has historically been bridged entirely by a developer's manual effort. AI coding assistants can now close much of that gap, but only when the designer provides prompts that are precise enough to encode the wireframe's intent faithfully.</p>
+
+<p>The first discipline to develop is <strong>describing wireframe layouts in terms of component hierarchy, spatial relationships, and interactive behaviors</strong>. Vague prompts like "generate a dashboard page" produce generic outputs that bear little resemblance to the actual wireframe. Precise prompts describe the tree of components, how they are arranged relative to one another, and what happens when a user acts on them. Consider the difference between these two prompts:</p>
+
+<pre><code>// Vague prompt
+"Create a dashboard page with a sidebar and some cards."
+
+// Precise prompt
+"Create a React component for a dashboard layout with the following structure:
+- A fixed left sidebar (width: 240px) containing a vertical navigation list with five items:
+  Overview, Analytics, Users, Settings, and Help. The active item should be highlighted.
+- A main content area to the right of the sidebar that fills remaining viewport width.
+- Inside the main area, a top header bar with a page title (h1) on the left and a
+  user avatar button on the right.
+- Below the header, a responsive grid of metric cards (minimum 3 columns on desktop,
+  1 column on mobile). Each card displays a label, a numeric value, and a trend indicator
+  (up or down arrow with percentage). Cards are clickable and emit an onCardClick event
+  with the card's id."
+</code></pre>
+
+<p>This level of detail gives the AI the component hierarchy (sidebar, main area, header, card grid), spatial relationships (fixed left, fills remaining width, responsive columns), and interactive behaviors (active state highlighting, clickable cards with events). The resulting scaffold is far closer to the wireframe and requires substantially less manual correction.</p>
+
+<p><strong>AI-generated scaffolds provide a starting structure that designers refine rather than building from scratch.</strong> This is a conceptually important reframe. The goal is not to prompt the AI once and accept its output as final. The scaffold is raw material — it establishes the structure, file organization, and basic logic, freeing the designer to focus cognitive effort on the aspects that genuinely require human judgment: visual polish, interaction nuance, and alignment with the broader design system. Treating AI output as a first draft rather than a finished product sets realistic expectations and leads to better outcomes.</p>
+
+<p>A productive structural pattern is <strong>separating layout generation from styling prompts</strong>. When a single prompt asks for both the component structure and its visual appearance simultaneously, the AI tends to embed styles as inline values or ad-hoc class names that are difficult to maintain. Instead, generate the layout in one pass — establishing the HTML/JSX structure, accessibility roles, and event wiring — and then in a subsequent prompt ask the AI to apply styles using the project's design system tokens, a CSS module approach, or a utility class library like Tailwind. This two-phase approach produces output that is architecturally cleaner and easier to update independently. For example:</p>
+
+<pre><code>// Phase 1 prompt: structure only
+"Generate the JSX structure for a MetricCard component. It should accept props:
+label (string), value (number), trend ('up' | 'down'), percentage (number),
+and onClick (function). Include appropriate ARIA roles and a button element
+for keyboard accessibility. Do not add any styles yet."
+
+// Phase 2 prompt: styling
+"Now add Tailwind CSS utility classes to the MetricCard component we just created.
+Use the following design system conventions:
+- Card container: white background, rounded-lg, shadow-md, padding p-6
+- Label: text-sm, text-gray-500, font-medium
+- Value: text-3xl, font-bold, text-gray-900
+- Trend up: text-green-600 with an upward arrow icon
+- Trend down: text-red-600 with a downward arrow icon"
+</code></pre>
+
+<p>Finally, before investing further iteration effort in the generated prototype, <strong>validate the output against the original wireframe</strong>. This validation step is cheap and prevents compounding errors. Place the wireframe and the rendered prototype side by side and systematically check: Is every element present? Are spatial relationships correct? Do interactive behaviors fire as specified? Are there elements in the generated code that have no counterpart in the wireframe, suggesting the AI invented structure? Catching mismatches early, while the prompt context is fresh and the code is minimal, saves significant rework downstream.</p>
+
+<p><strong>Rapid Component Generation</strong></p>
+
+<p>One of the highest-leverage applications of AI in prototyping is on-demand generation of framework-specific UI components. A designer working in a React codebase can request a complete, functional component — props interface, state logic, event handling, and JSX — in the time it would previously take to locate and read relevant documentation. The same capability applies equally to Vue single-file components, Svelte components, or native Web Components.</p>
+
+<p><strong>AI can generate framework-specific components on demand</strong>, but the quality of that generation depends heavily on the specificity of the framework context provided. Always state the framework, the version if relevant, and any architectural conventions the project follows. Compare:</p>
+
+<pre><code>// Underspecified
+"Make a dropdown component."
+
+// Well-specified
+"Generate a Vue 3 Composition API single-file component for an accessible dropdown
+menu. Requirements:
+- Uses script setup syntax
+- Accepts a 'options' prop (array of { id: string, label: string })
+- Accepts a 'modelValue' prop and emits 'update:modelValue' for v-model support
+- Opens/closes on button click and closes on outside click (use onClickOutside from
+  @vueuse/core)
+- Keyboard navigable: arrow keys move focus between options, Enter selects, Escape closes
+- Uses a </code><ul role="listbox"><code> with </code><li role="option"><code> elements
+- Applies aria-expanded and aria-activedescendant correctly"
+</code></li></ul></pre>
+
+<p>After receiving a generated component, always <strong>review it for prop structure, event handling, and state management correctness</strong> before using it. Common failure modes in AI-generated components include: props declared but never consumed, event emitters that use incorrect event name conventions for the framework, local state that duplicates what should be derived from props (breaking the single source of truth principle), and missing cleanup in lifecycle hooks (such as forgetting to remove event listeners added in onMounted). A structured review checklist applied to every generated component catches these issues systematically rather than discovering them as bugs during integration.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Review Dimension</th>
+      <th>What to Check</th>
+      <th>Common AI Failure Mode</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Prop structure</td>
+      <td>All declared props are consumed; types are correct; required vs. optional is appropriate</td>
+      <td>Declares props that are never referenced in the template or logic</td>
+    </tr>
+    <tr>
+      <td>Event handling</td>
+      <td>Events follow framework conventions (emit vs. callback prop); event payloads are typed</td>
+      <td>Mixes React callback prop pattern into a Vue component</td>
+    </tr>
+    <tr>
+      <td>State management</td>
+      <td>Local state is minimal; derived values use computed/memos; no prop mutation</td>
+      <td>Copies props into local state unnecessarily, creating sync bugs</td>
+    </tr>
+    <tr>
+      <td>Lifecycle correctness</td>
+      <td>Side effects are cleaned up; subscriptions are unsubscribed</td>
+      <td>Adds document event listeners without corresponding removal</td>
+    </tr>
+    <tr>
+      <td>Accessibility</td>
+      <td>ARIA roles, labels, and keyboard interactions are present and correct</td>
+      <td>Adds role="button" to a div but omits tabIndex and keyboard handlers</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Requesting unit test stubs alongside component generation</strong> is a practice that pays dividends far beyond the immediate prototyping phase. When you ask the AI to generate a component, append a second instruction asking for a corresponding test file with stubs for the key behaviors. Even if those tests are skeletal — asserting that the component renders without errors, that a click fires the expected event, that keyboard navigation moves focus correctly — they establish a testing scaffold that makes quality assurance tractable from the beginning rather than an afterthought. For example:</p>
+
+<pre><code>// Add to any component generation prompt:
+"Also generate a Jest + React Testing Library test file for this component with test
+stubs for:
+1. Renders without crashing with required props
+2. Displays the correct label and value from props
+3. Calls onClick with the correct id when the card is clicked
+4. Keyboard: pressing Enter when the card is focused triggers onClick
+5. Snapshot test for visual regression baseline"
+</code></pre>
+
+<p>Over the course of a project, effective prompts accumulate into a valuable asset. <strong>Saving and annotating effective component prompts creates a reusable prompt library</strong>. A prompt library is not simply a collection of raw prompt text — it is annotated with the context in which the prompt worked well, the framework and version it targets, any post-generation edits that were consistently necessary, and the resulting component's role in the design system. This library becomes a team resource that reduces redundant prompt-engineering effort and improves the consistency of AI-generated outputs across a project.</p>
+
+<p><strong>Iterating on Prototypes with AI Assistance</strong></p>
+
+<p>Prototyping is inherently iterative. Usability evaluations, stakeholder reviews, and design critiques generate observations that must be translated into concrete changes. AI tools are exceptionally well-suited to this translation work — provided that the feedback is framed in a way the AI can act on precisely.</p>
+
+<p>The key discipline is to <strong>frame iteration prompts around observed usability issues and desired interaction outcomes</strong> rather than around abstract design preferences. "Make the form better" is not actionable. "During usability testing, three participants failed to notice the form submission error message because it appeared below the fold. Revise the form component so that on validation failure, the page scrolls to the first error, the error message appears inline directly below the offending field, and the field border changes to red with an aria-invalid attribute set to true" is immediately actionable. The more precisely the usability observation is translated into a behavioral specification, the more useful the AI's response will be.</p>
+
+<p><strong>AI can generate multiple design variations for the same component</strong>, which is a powerful capability for supporting design comparison and A/B testing decisions. Rather than the designer manually coding three or four layout alternatives for a navigation pattern, they can prompt the AI to produce those variations explicitly, then present them to stakeholders or test participants to gather comparative feedback. This shifts the designer's role from hand-coding alternatives to curating and evaluating them — a much higher-leverage use of their expertise. A prompt for variation generation might look like:</p>
+
+<pre><code>"Generate three distinct variations of the checkout progress indicator component:
+
+Variation A: A horizontal stepper with numbered circles connected by lines.
+Active step has a filled circle; completed steps show a checkmark; future steps
+are gray outlines.
+
+Variation B: A compact breadcrumb-style indicator showing only the current step
+label and 'Step X of Y' text. Previous steps are linked for navigation.
+
+Variation C: A vertical sidebar progress list visible only on desktop (hidden on
+mobile). Each step shows its label and a brief description. The active step is
+highlighted with a left border accent.
+
+All three should accept the same props: steps (array of {id, label, description}),
+currentStep (number), and onStepClick (function)."
+</code></pre>
+
+<p>Accessibility improvements identified during usability evaluations represent another area where AI iteration is highly productive. <strong>Using AI to quickly implement accessibility improvements</strong> — adding missing ARIA attributes, correcting focus management, improving color contrast by replacing hard-coded values with accessible alternatives, or adding skip-navigation links — compresses what would otherwise be a time-consuming manual remediation process. The key is to be specific: cite the WCAG success criterion being addressed, describe the current behavior, and specify the required behavior.</p>
+
+<p><strong>Tracking prompt-driven changes in version control</strong> is an underappreciated practice that pays significant dividends. When a prototype evolves through a sequence of AI-assisted changes, it can become difficult to reconstruct why a particular design decision was made, especially if team members rotate or if the project returns to an earlier direction. Establishing a convention of including the driving prompt (or a concise summary of it) in the commit message, alongside the standard description of what changed, creates a navigable record of design evolution. A commit message might read: "Refactor MetricCard to use trend percentage text instead of icon — prompted by usability test finding that icon meaning was ambiguous to 4/6 participants."</p>
+
+<p><strong>Balancing Speed and Design Quality</strong></p>
+
+<p>The efficiency gains from AI-assisted prototyping create a characteristic risk: the temptation to treat generation speed as a proxy for output quality. Because AI can produce a plausible-looking component in seconds, it is easy to move forward with outputs that have subtle structural, accessibility, or design system alignment problems that compound over time. Establishing deliberate quality practices counteracts this tendency without sacrificing the speed advantage.</p>
+
+<p><strong>Establishing a review checklist for AI-generated prototype components</strong> provides a consistent, low-friction quality gate. The checklist does not need to be exhaustive — it should target the failure modes that AI generation most reliably introduces. A well-designed checklist covers at minimum: accessibility (ARIA roles, keyboard navigability, color contrast), design system alignment (correct tokens, typography scale, spacing units), code clarity (no unexplained magic values, consistent naming conventions), and structural correctness (no prop mutations, appropriate component boundaries). The checklist is applied by a human reviewer, not left to the AI to self-assess.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Checklist Category</th>
+      <th>Key Questions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Accessibility</td>
+      <td>Are interactive elements keyboard reachable? Are ARIA labels present and meaningful? Is color contrast sufficient? Are form fields associated with labels?</td>
+    </tr>
+    <tr>
+      <td>Design System Alignment</td>
+      <td>Are spacing, typography, and color values drawn from system tokens? Do component names and variants match the design system vocabulary?</td>
+    </tr>
+    <tr>
+      <td>Code Clarity</td>
+      <td>Are prop and variable names descriptive? Are there unexplained hard-coded values? Is logic organized predictably?</td>
+    </tr>
+    <tr>
+      <td>Structural Correctness</td>
+      <td>Are component responsibilities appropriately bounded? Is state colocated correctly? Are there no prop mutation anti-patterns?</td>
+    </tr>
+    <tr>
+      <td>Test Coverage</td>
+      <td>Are test stubs present for key behaviors? Do tests exercise realistic user interactions?</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Prioritizing quality reviews at prototype milestones rather than reviewing every incremental AI-generated change</strong> is a practical acknowledgment that continuous review of every small iteration would eliminate the speed benefit. A workable model is to designate milestone checkpoints — for example, after completing the first working version of a major flow, after incorporating a round of usability feedback, and before any stakeholder presentation — as mandatory full-checklist review moments. Incremental changes between milestones are reviewed more lightly, with the expectation that issues will be caught at the next milestone gate.</p>
+
+<p>AI-generated code also tends to accumulate redundancies over iterative sessions. Each prompt adds to what was previously generated without necessarily cleaning up what is no longer needed. <strong>Refactoring AI-generated code periodically</strong> — removing duplicate logic, consolidating styles, renaming components and props to align with evolved design system vocabulary, and eliminating dead code — keeps the prototype maintainable. A monthly or per-milestone refactor pass, guided by a developer with design system expertise, is a reasonable cadence for most projects.</p>
+
+<p>Perhaps the most important stakeholder communication responsibility in AI-assisted prototyping is <strong>clearly framing prototypes as exploratory artifacts, not production-ready deliverables</strong>. AI-generated prototypes can look remarkably polished on the surface, which creates a systematic risk that stakeholders mistake them for production code and begin making commitments based on assumptions about their completeness, performance, or security. Establishing this expectation explicitly — in kickoff meetings, in the prototypes themselves (for example, with a visible "Prototype — Not for Production" banner), and in handoff documentation — prevents costly misunderstandings.</p>
+
+<p><strong>Integrating AI Tools into Team Workflows</strong></p>
+
+<p>The benefits of AI-assisted prototyping are most fully realized when the tools are integrated into team processes thoughtfully, rather than adopted ad hoc by individual contributors in isolation. This requires deliberate decisions about conventions, knowledge sharing, governance, and skill development.</p>
+
+<p><strong>Defining team conventions for documenting AI-assisted contributions</strong> in commit messages and design notes establishes transparency and accountability. When AI generates a component, that fact should be recorded — not because AI-generated code is inherently suspect, but because it provides context for future maintainers about the origin of design decisions and the level of manual review the code received. A simple convention might be a commit tag like <code>[ai-assisted]</code> with a brief note describing the prompt intent and what post-generation review was performed.</p>
+
+<p><strong>Maintaining a shared prompt library</strong> is one of the highest-return investments a team can make in AI tooling. Individual contributors naturally develop effective prompts through trial and error, but without a mechanism to share those learnings, each team member re-derives them independently. A shared library — stored in the project repository or a team wiki, organized by component type and framework — means that a prompt that took one designer an hour to refine into reliable output is immediately available to every team member. The library should be treated as a living document: prompts should be updated when they are found to produce poor results and annotated when a particular post-generation edit is consistently required.</p>
+
+<p><strong>Assigning human reviewers for all AI-generated outputs before they are merged into shared project branches</strong> is a non-negotiable governance practice. This is not a bureaucratic formality — it is the primary mechanism by which the team maintains collective ownership over the codebase and catches the quality issues that AI generation reliably introduces. The review process for AI-generated code should follow the same pull-request workflow used for hand-written code, with the reviewer applying the component checklist and verifying that the output meets the team's standards. The speed advantage of AI generation is not negated by code review; it is preserved, because the reviewer is evaluating existing code rather than writing it.</p>
+
+<p>Finally, <strong>rotating AI-assisted tasks across team members</strong> ensures that the entire team develops proficiency with the tools rather than concentrating that expertise in one or two individuals. When AI tool knowledge is siloed, the team becomes dependent on those individuals and loses the compounding benefit of diverse perspectives on prompt strategies. Rotating tasks also builds a more resilient team that can maintain AI-assisted workflows through personnel changes, and it surfaces diverse use cases that improve the shared prompt library over time.</p>
+
+<p>Taken together, these practices — precise wireframe-to-prompt translation, disciplined component generation and review, usability-driven iteration, quality milestone gates, and team-level conventions — constitute a mature AI-accelerated prototyping workflow. The workflow does not automate design judgment; it amplifies it, freeing designers and developers to focus their expertise on the decisions that genuinely require human understanding of users, contexts, and consequences.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full arc of AI-assisted prototyping from wireframe translation through team-level workflow integration. Prompt examples are illustrative and framework-agnostic enough to be adapted to any project context. The review checklists and tables can be extracted and used as standalone team reference documents.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p3-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Prototyping has always been the heart of HCI practice: you sketch an idea, build something just real enough to test, and learn from how people react to it. What has changed is the cost of getting from a wireframe to something clickable. AI coding assistants and design-tool integrations can now take a rough layout, a screenshot, or a written description and produce working component code in minutes, which shifts the bottleneck from "can we build it?" to "should we build it this way?"</p>
+<p>This topic walks through the practical side of that shift. You will look at how a low-fidelity scaffold becomes code, how to generate and reuse components rather than one-off screens, how to iterate on a prototype through conversation with an assistant, and how to fold these tools into a team's existing workflow without creating chaos. Throughout, keep the trade-off in view: speed is only valuable if the artifact you produce is still testable, accessible, and consistent with your design system.</p>
+<p>As you watch, pay attention to three things. First, what the human provides as input — the prompt, the frame, the existing design tokens — because output quality tracks input specificity closely. Second, where the demonstrator stops and corrects the AI, since those moments show you the judgment the tool cannot supply. Third, what is missing from the generated result: states, error handling, keyboard focus, responsive behavior. Those gaps are exactly where your HCI training earns its keep.</p></div></details><details class="slide-card" id="p3-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Figma &amp; Claude Just Changed UI Design Forever</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Xcgr-7LpzDM?cc_load_policy=1&amp;rel=0" title="Video: Figma &amp; Claude Just Changed UI Design Forever (Sergei Chyrkov)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Sergei Chyrkov</strong> · 17:43 · 98,479 views · 6mo ago · captions — <a href="https://www.youtube.com/watch?v=Xcgr-7LpzDM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This walkthrough covers Figma's integration with AI agents such as Claude and Cursor, showing how UI can be generated directly on the canvas rather than being hand-drawn frame by frame. Expect a demonstration of the setup, the prompting process, and the handoff between design surface and code. It is a good illustration of the wireframe-to-code path in a tool students are likely already using.</p>
+<h4>Why this video</h4>
+<p>It directly addresses the "From Wireframe to Code with AI" subtopic using current, widely adopted tools, and the presenter works through a real design task rather than a toy example.</p></div></details><details class="slide-card" id="p3-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Claude + Figma = Design System Components</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/V2Bjb6VtHeA?cc_load_policy=1&amp;rel=0" title="Video: Claude + Figma = Design System Components (Sergei Chyrkov)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Sergei Chyrkov</strong> · 14:34 · 56,330 views · 6mo ago · captions — <a href="https://www.youtube.com/watch?v=V2Bjb6VtHeA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A follow-up video focused on generating design system components with Claude, and on the distinction between running an AI assistant in the terminal versus working inside the design tool. It should cover how existing component libraries and conventions shape what the AI produces. The emphasis on systems rather than single screens is the key takeaway.</p>
+<h4>Why this video</h4>
+<p>Component generation and design-system consistency are central to balancing speed with quality, so this video extends the previous one from one-off screens to reusable, maintainable building blocks.</p></div></details><details class="slide-card" id="p3-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Cursor Tutorial for Beginners (AI Code Editor)</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ocMOZpuAMw4?cc_load_policy=1&amp;rel=0" title="Video: Cursor Tutorial for Beginners (AI Code Editor) (Tech With Tim)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Tech With Tim</strong> · 15:20 · 1,154,325 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=ocMOZpuAMw4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A beginner-oriented tutorial on Cursor, the AI-native code editor, covering installation, the core interface, and the main ways of asking the assistant for code. Expect coverage of inline edits, chat-based requests, and giving the model context from your project files. This is the practical foundation for iterating on a prototype once code exists.</p>
+<h4>Why this video</h4>
+<p>Tech With Tim is a well-established programming channel, and this widely viewed tutorial gives students the baseline editor skills needed to iterate on AI-generated prototypes and to work alongside teammates using the same tooling.</p></div></details><details class="slide-card" id="p3-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos move from concept to practice across the module outcomes. The Figma and Claude demonstrations show where AI tools sit in a contemporary design and development pipeline, supporting MO1, while the component-generation and Cursor tutorials give you concrete procedures for producing layout suggestions and code scaffolding from project requirements, which is MO2. For MO3, treat every generated artifact in these videos as a draft to be critiqued: as you watch, note the accessibility, consistency, and usability gaps that the demonstrations gloss over, and practice articulating what you would change before such a prototype reached a user test.</p></div></details><details class="slide-card" id="p3-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part4">
+<h2>Maintaining Design Quality in AI-Assisted Projects</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Maintaining Design Quality in AI-Assisted Projects</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>As AI-assisted design and development workflows become standard practice, one of the most pressing professional challenges is ensuring that what AI tools produce actually meets the quality bar that users, stakeholders, and ethical obligations demand. AI tools are powerful accelerators, but acceleration without direction produces mediocre or harmful outputs at scale. Maintaining design quality in AI-assisted projects is therefore not a passive activity — it requires deliberate, structured effort at every stage of the project lifecycle, from the initial brief through to deployment and iteration.</p>
+
+<p>This topic examines the full landscape of quality maintenance in AI-assisted projects: what design quality means in this context, how to evaluate AI-generated interfaces against established heuristics, how to audit generated code for accessibility, how to review code for correctness and security, and how to ensure that the designer's original intent and user research findings are not gradually eroded by AI-generated suggestions that optimize for averages rather than for the specific needs of real users.</p>
+
+<p><strong>Defining Design Quality in the AI Context</strong></p>
+
+<p>Design quality is not a single measurable property — it is a composite of several distinct but interrelated criteria. Before any AI-assisted generation begins, the team needs a shared, documented understanding of what quality means for the specific project. Without this foundation, evaluation becomes subjective and inconsistent, making it impossible to give the AI meaningful corrective direction.</p>
+
+<p>The five core criteria that define design quality in most human-centered projects are:</p>
+
+<ul>
+  <li><strong>Usability:</strong> Can users accomplish their goals efficiently, effectively, and with satisfaction? Usability encompasses learnability, efficiency, memorability, error tolerance, and subjective satisfaction — the classic dimensions articulated by Jakob Nielsen and expanded by subsequent HCI research.</li>
+  <li><strong>Accessibility:</strong> Can users with disabilities perceive, understand, navigate, and interact with the interface? Accessibility is not a feature; it is a baseline requirement that affects a substantial portion of every user population and is often mandated by law.</li>
+  <li><strong>Visual consistency:</strong> Do all components, typography, color usage, spacing, and interaction patterns align with the design system and communicate a coherent brand experience? Inconsistency erodes trust and increases cognitive load.</li>
+  <li><strong>Performance:</strong> Does the interface load quickly, respond immediately to input, and remain stable under realistic conditions? Performance is a design quality dimension because slow or unstable interfaces directly damage usability and user trust.</li>
+  <li><strong>User need alignment:</strong> Does the design solve the problems that user research identified, for the people the research described? An interface can be usable, accessible, consistent, and fast but still fail because it solves the wrong problem.</li>
+</ul>
+
+<p>The critical insight about AI tools is that they do not inherently optimize for any of these criteria. A large language model or generative design tool optimizes for <em>pattern-matching to training data</em>. It produces outputs that statistically resemble successful examples in its training set. This means AI will reliably produce outputs that look plausible — they will have familiar layouts, conventional interaction patterns, and syntactically correct code — without any guarantee that those outputs are usable for a specific audience, accessible to people with disabilities, consistent with a particular design system, performant in a specific technical environment, or aligned with the insights from a specific round of user research.</p>
+
+<p>This distinction is not a criticism of AI tools; it is a structural fact about how they work. The practical consequence is that quality criteria must be externalized and documented <em>before</em> AI generation begins, so that human evaluators have explicit standards against which to measure AI output. A project design brief should capture these criteria concretely: usability goals tied to specific user tasks and success metrics, accessibility conformance targets (typically WCAG 2.1 Level AA at minimum), the active design system tokens and component library, performance budgets for key metrics such as Largest Contentful Paint and Time to Interactive, and a summary of user research findings that constrain the solution space.</p>
+
+<p>Beyond the initial documentation, quality criteria must be revisited regularly throughout the project. AI-assisted iteration is fast, which means design drift — the gradual departure from original intent — can accumulate quickly. A component revised through five rapid AI-assisted iterations may end up visually and functionally quite different from the original brief without any single revision looking like a dramatic departure. Scheduling explicit quality checkpoints at each major milestone, where the current state of the design is compared against the documented brief, counteracts this drift.</p>
+
+<p><strong>Heuristic Evaluation of AI-Generated Interfaces</strong></p>
+
+<p>Heuristic evaluation is a usability inspection method in which evaluators examine an interface against a set of established usability principles (heuristics) and identify violations. It was formalized by Jakob Nielsen and Rolf Molich in the early 1990s, and Nielsen's ten heuristics remain the most widely applied framework. In the context of AI-assisted design, heuristic evaluation serves a specific and important function: it provides a structured, repeatable method for identifying exactly where AI-generated prototypes fall short, and it produces findings that can be directly translated into corrective prompts for the next AI-assisted revision cycle.</p>
+
+<p>Heuristic evaluation should be applied systematically at each major iteration checkpoint — not only at the end of the project, and not only informally. Every time the AI generates a substantially revised prototype, evaluators should walk through the interface with the heuristics as an explicit checklist.</p>
+
+<p>Nielsen's ten heuristics provide the standard framework, but three categories of heuristics deserve particular attention in AI-generated interfaces because they are areas where AI tools consistently underperform:</p>
+
+<ul>
+  <li><strong>Error handling (Heuristic 5: Help users recognize, diagnose, and recover from errors; Heuristic 9: Help and documentation):</strong> AI-generated interfaces frequently produce error messages that are technically correct but unhelpfully generic ("An error occurred. Please try again.") or that use internal system language rather than plain user-oriented language. AI trained on large codebases has seen many such messages and reproduces them. Evaluators should specifically probe every error state in the prototype and assess whether the message explains what went wrong in plain language, suggests a concrete recovery action, and preserves user-entered data where possible.</li>
+  <li><strong>Feedback mechanisms (Heuristic 1: Visibility of system status):</strong> AI-generated interfaces often omit or underspecify loading states, progress indicators, confirmation messages, and transition animations. These feedback mechanisms are often implemented as brief conditional snippets that AI either leaves as placeholders or generates too minimally. Evaluators should test every action that takes non-trivial time and every action whose completion is not visually self-evident.</li>
+  <li><strong>Consistency (Heuristic 4: Consistency and standards; Heuristic 8: Aesthetic and minimalist design):</strong> Because AI generates component code and content somewhat independently, it frequently produces subtle inconsistencies: a button labeled "Submit" in one context and "Save" in another for the same action, slightly different spacing in similar components, or icons that do not align with the established design system. Evaluators should cross-reference the generated interface against the design system documentation and apply consistency checks across all instances of repeating elements.</li>
+</ul>
+
+<p>When heuristic violations are found, the evaluation output should not be a vague note like "error messages need improvement." Instead, document each violation with enough specificity to drive a targeted AI revision prompt. A well-documented heuristic violation includes: the specific location in the interface, the specific heuristic being violated, a description of the observed problem, and a proposed direction for correction. For example:</p>
+
+<pre><code>Location: Checkout flow, Step 3 — Payment form
+Heuristic: H5 – Error recognition and recovery
+Observed problem: When the credit card number field receives an invalid input,
+the error message reads "Invalid input." The message does not specify what
+is invalid, does not indicate the expected format, and clears the field
+contents on blur, requiring re-entry.
+Proposed direction: Display an inline message specifying the issue
+("Card number must be 16 digits, no spaces") and retain field content
+on error so the user can correct rather than re-enter.</code></pre>
+
+<p>This specificity serves two purposes. First, it gives a human developer or designer precise guidance. Second, and equally important, it gives the AI a well-constrained revision prompt that is much more likely to produce a useful correction than a vague instruction.</p>
+
+<p>Multiple evaluators should be involved in heuristic evaluation of AI-generated interfaces. Individual evaluators, on average, find only about 35% of usability problems in an interface; a group of three to five evaluators typically identifies 75% or more. This finding, established in Nielsen's original research, applies with equal force to AI-generated interfaces. Furthermore, designers and developers who have been closely involved in the AI-assisted generation process may develop a form of familiarity bias — they know how the interface is <em>supposed</em> to work and may mentally compensate for gaps without noticing them. Independent evaluators who approach the prototype fresh are more likely to surface genuine usability failures.</p>
+
+<p><strong>Accessibility Auditing of AI-Generated Code</strong></p>
+
+<p>Accessibility is one of the most reliably underserved quality dimensions in AI-generated code. The reason is structural: much of the code in AI training sets was written before modern accessibility standards were widely adopted, and even recently written code frequently contains accessibility errors. AI models that learn from this data reproduce these patterns. Studies of AI coding assistants have found that a substantial proportion of generated UI code contains detectable WCAG violations, particularly in areas like keyboard navigation, focus management, color contrast, and ARIA attribute usage.</p>
+
+<p>A rigorous accessibility audit of AI-generated code has two complementary components: automated checking and manual testing. Neither alone is sufficient.</p>
+
+<p><strong>Automated accessibility checking</strong> with tools like axe (available as a browser extension, a CLI tool, and a JavaScript library for integration into CI/CD pipelines) or Google Lighthouse can catch a specific class of accessibility violations: those that are deterministically detectable from the DOM structure and applied styles. These include missing alternative text on images, form fields without associated labels, insufficient color contrast ratios, missing document language declarations, and certain ARIA misuses. Automated tools should be run on every AI-generated prototype before it proceeds to user testing. Running the check earlier — during code generation — is even better; the axe-core library can be integrated into component test suites so that accessibility violations surface in the same workflow as functional bugs.</p>
+
+<p>However, automated tools detect only about 30–40% of real-world WCAG failures. The remaining violations require <strong>manual testing</strong>, which should focus on three areas that AI-generated code consistently handles poorly:</p>
+
+<ul>
+  <li><strong>Keyboard navigation:</strong> Every interactive element in the interface must be reachable and operable using only the keyboard. Tab through the entire interface and verify that all buttons, links, form controls, and custom interactive components receive focus, that the focus order follows a logical reading sequence, and that no keyboard traps exist (situations where a user can tab into a component but cannot tab out). AI-generated custom components — dropdowns, modal dialogs, date pickers, carousels — frequently omit correct keyboard interaction patterns. For example, a custom dropdown that opens on click but does not respond to Enter/Space to activate, arrow keys to navigate options, or Escape to close is a keyboard accessibility failure even if it works perfectly with a mouse.</li>
+  <li><strong>Focus management:</strong> When dynamic content changes — a modal opens, an error message appears, a page section is replaced — focus must be programmatically managed so that keyboard and screen reader users are directed to the newly relevant content. AI-generated code for dynamic interfaces frequently neglects this, leaving focus stranded in a now-irrelevant location after a state change. Manual testing requires triggering every dynamic state change and verifying that focus moves to a logical location and that the user's position in the interface makes sense in the new state.</li>
+  <li><strong>Screen reader announcements:</strong> Use a screen reader (NVDA or JAWS on Windows, VoiceOver on macOS and iOS, TalkBack on Android) to verify that interactive components are correctly announced with their role, name, and state, and that status messages and dynamic content updates are announced via live regions. AI-generated ARIA is frequently either missing (components with no semantic role), incorrect (ARIA attributes applied to elements that do not support them), or excessive (redundant ARIA that double-announces content).</li>
+</ul>
+
+<p>When accessibility issues are found, they should be documented with reference to specific WCAG 2.1 success criteria. This serves both the human quality record and the AI revision prompt. A vague note like "fix accessibility" gives an AI tool nothing actionable. A specific note like "This custom select component fails WCAG 2.1 SC 4.1.2 (Name, Role, Value) because it uses a <code>&lt;div&gt;</code> element without a role attribute, and fails SC 2.1.1 (Keyboard) because it cannot be operated with arrow keys. Revise to use the ARIA Listbox pattern per the ARIA Authoring Practices Guide" gives the AI a well-scoped, testable target.</p>
+
+<p>Accessibility remediation must be treated as a non-negotiable quality gate. It is tempting to defer accessibility fixes to a final polish phase, particularly when the pace of AI-assisted iteration is high. This is a mistake for several reasons. First, retrofitting accessibility into a complex interface is significantly more expensive than building it in correctly from the start — an AI-generated component with broken keyboard semantics may need to be substantially restructured, not just annotated. Second, accessibility failures expose the organization to legal liability in many jurisdictions. Third, and most fundamentally, treating accessibility as optional communicates to the team that some users' needs are considered less important, which contradicts the basic commitment of human-centered design.</p>
+
+<p><strong>Code Review Practices for AI-Generated Output</strong></p>
+
+<p>AI-generated code requires code review, just as human-written code does — arguably more so, because AI-generated code can appear superficially correct while containing subtle errors that a human reviewer would not make in the same way. AI tools have no understanding of the security context of the application, no awareness of the project's existing dependencies and their known vulnerabilities, and no ability to reason about performance at the system level. Code review fills these gaps.</p>
+
+<p>A thorough code review of AI-generated output addresses four distinct dimensions:</p>
+
+<ul>
+  <li><strong>Security vulnerabilities:</strong> AI-generated code is particularly prone to a class of security errors related to trust boundaries. The most common are: failing to sanitize user-supplied input before using it in DOM manipulation (creating XSS vulnerabilities), constructing database queries or API calls by string concatenation rather than parameterization (creating injection vulnerabilities), importing third-party dependencies without version pinning or security audit, and generating authentication or session management logic that follows outdated patterns. Reviewers should specifically look for any location where external input (from users, from APIs, from URL parameters) flows into the DOM, into a query, or into a privileged operation, and verify that appropriate sanitization, parameterization, or validation is applied. Tools like ESLint with security plugins, Snyk, or Semgrep can automate some of this detection, but they do not replace human judgment about trust boundaries in the specific application context.</li>
+  <li><strong>Semantic HTML correctness:</strong> HTML elements carry inherent semantic meaning that serves both accessibility and SEO. AI-generated HTML frequently violates semantic conventions in subtle ways: using <code>&lt;div&gt;</code> and <code>&lt;span&gt;</code> for everything because they are the most common elements in training data, placing block-level elements inside inline elements, nesting interactive elements inside other interactive elements (a button inside a link, for example), using heading levels out of sequence, or using <code>&lt;table&gt;</code> elements for non-tabular layout. Reviewers should assess whether each element in AI-generated HTML is the semantically correct element for its content and role, not just whether it renders correctly in the browser. Rendering correctly and being semantically correct are not the same thing, and the difference matters enormously for screen readers, search engines, and the long-term maintainability of the codebase.</li>
+  <li><strong>Performance implications:</strong> AI-generated code in component-based frameworks often introduces performance problems that are individually minor but collectively significant. Common patterns include: generating components that trigger full re-renders on every state change rather than using memoization or granular state updates, importing large libraries for single utility functions that could be implemented with a few lines of native code, generating large inline style objects that defeat CSS class caching, and producing deeply nested component trees that increase reconciliation cost. Reviewers should evaluate the performance implications of AI-generated code at the component level (does this component re-render more than necessary?) and at the bundle level (does this import contribute disproportionate weight to the bundle?). Performance profiling tools in browser DevTools and bundle analysis tools like webpack-bundle-analyzer make these patterns visible.</li>
+  <li><strong>Prompt traceability:</strong> A practice that is not standard in human-authored codebases but becomes important in AI-assisted ones is requiring that each AI-generated contribution be traceable to a documented prompt. This serves accountability (who asked for this and why?), reproducibility (can this output be regenerated or revised from a known starting point?), and quality auditing (was this generated in response to a well-scoped, quality-conscious prompt, or an imprecise one?). One practical implementation is to maintain a prompt log in the project repository — a file or linked document that records each major AI-generation step with the prompt used and the commit or version of the output it produced. This does not need to be exhaustive for every minor autocompletion, but it should cover every AI-generated component or significant code block that becomes part of the production codebase.</li>
+</ul>
+
+<p>The following table summarizes common AI-generated code quality failures by category, with indicative examples and review checks:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Common AI-Generated Failure Pattern</th>
+      <th>Review Check</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Security</td>
+      <td>Inserting user input into innerHTML without sanitization</td>
+      <td>Trace all paths from external input to DOM; verify sanitization library is applied</td>
+    </tr>
+    <tr>
+      <td>Security</td>
+      <td>Unpinned or unaudited third-party dependency imports</td>
+      <td>Run dependency audit (npm audit / Snyk); verify version pinning in package.json</td>
+    </tr>
+    <tr>
+      <td>Semantic HTML</td>
+      <td>Using &lt;div onClick&gt; instead of &lt;button&gt; for interactive controls</td>
+      <td>Verify every interactive element uses a natively interactive element or has correct ARIA role + keyboard handler</td>
+    </tr>
+    <tr>
+      <td>Semantic HTML</td>
+      <td>Heading levels skipped or used for styling rather than structure</td>
+      <td>Check heading hierarchy reflects document outline, not visual design preferences</td>
+    </tr>
+    <tr>
+      <td>Performance</td>
+      <td>Entire parent component re-renders on child state changes</td>
+      <td>Profile with React DevTools / equivalent; apply memoization where component renders are expensive</td>
+    </tr>
+    <tr>
+      <td>Performance</td>
+      <td>Full library imported for a single utility function</td>
+      <td>Check bundle impact with bundle analyzer; replace with native implementation or targeted import</td>
+    </tr>
+    <tr>
+      <td>Traceability</td>
+      <td>Undocumented AI-generated code block with no associated prompt</td>
+      <td>Require prompt log entry for all significant AI-generated contributions before merge</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Preserving the Designer's Voice and Intent</strong></p>
+
+<p>Perhaps the most philosophically important quality challenge in AI-assisted design is maintaining the designer's voice — the set of deliberate, user-research-grounded choices that differentiate a design from a generic, pattern-matched solution. AI tools are, by their nature, convergent: they produce outputs that resemble the most common successful examples in their training data. In many situations this is useful; common patterns are common because they work. But differentiated design — design that is specifically calibrated to the needs, mental models, and contexts of a particular user group — often requires departing from common patterns, and AI will not make that departure unless explicitly directed to do so.</p>
+
+<p>Four practices preserve design intent throughout an AI-assisted project:</p>
+
+<ul>
+  <li><strong>Maintain a living design rationale document:</strong> A design rationale document records not just what decisions were made, but <em>why</em> they were made. For each major design decision — the information architecture, the primary navigation model, the onboarding flow, the error recovery approach — the document should record the user research finding or design principle that motivated the choice, the alternatives that were considered and rejected, and the criteria that will signal if the decision needs to be revisited. This document serves as a check against AI-generated suggestions: if an AI-generated revision changes a navigation pattern, the designer can consult the rationale to determine whether the change is an improvement or a regression toward a generic solution that the original research argued against.</li>
+  <li><strong>Actively compare AI suggestions against user research:</strong> AI-generated interfaces should be evaluated not only against abstract usability heuristics but against the specific insights, behaviors, preferences, and pain points documented in the project's user research. If the user research found that the target audience has low digital literacy and relies heavily on contextual help, an AI-generated interface that eliminates in-context guidance in favor of a clean, minimal aesthetic is a quality failure even if it scores well on visual consistency and heuristic evaluation. The user research is the primary quality criterion; heuristics are useful but secondary.</li>
+  <li><strong>Reject or revise AI outputs that produce conventional solutions where differentiation is required:</strong> This requires the designer to make an active judgment call. When an AI-generated solution is technically acceptable but produces a generic outcome in an area where the user research calls for something distinctive, the appropriate response is not to accept the output because it is "good enough." The designer should reject the output and produce a more constrained prompt, a reference design, or a manual revision that brings the output into alignment with the research-grounded design intent. This is the core professional skill of AI-assisted design: not prompt writing per se, but the evaluative judgment to know when an AI output meets the actual quality standard and when it merely meets a superficial standard of plausibility.</li>
+  <li><strong>Regularly revisit original user personas and scenarios:</strong> User personas and usage scenarios are the most concrete representations of user needs in most design projects. As AI-assisted iteration accelerates, it is easy for these artifacts to recede from active use and become reference documents that nobody consults. Scheduling regular design reviews where the current prototype is walked through against each persona's primary scenarios — asking "Can this persona accomplish this scenario efficiently with this interface, given their described context, goals, and constraints?" — keeps the design anchored to the human reality it is meant to serve, rather than drifting toward whatever the AI finds most familiar.</li>
+</ul>
+
+<p>Taken together, these practices constitute an active quality stewardship role for the designer in AI-assisted projects. The designer is not merely a prompt engineer or a reviewer of AI output — the designer is the holder of the project's understanding of its users, and that understanding must continuously inform, constrain, and when necessary override the AI's pattern-matched suggestions. AI tools accelerate production; the designer's critical judgment is what ensures that what is produced actually serves the people it was made for.</p>
+        <div class="notes"><strong>Notes</strong>This topic covers the full quality maintenance lifecycle for AI-assisted design projects. The accessibility section references WCAG 2.1 AA as the standard minimum conformance target. The heuristic evaluation section references Nielsen's ten heuristics. The code review section includes a summary table rendered as a proper HTML table. All subtopics from the brief are covered with in-depth explanation and concrete examples including illustrative code blocks for documentation patterns.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p4-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>AI tools can produce interface layouts, copy, and working code in seconds, but speed is not the same as quality. This topic asks a harder question: once an AI has generated something, how do you decide whether it is actually good? Design quality in an AI-assisted project still rests on the same foundations you have used all semester — usability heuristics, accessibility standards, consistency, and fitness for the intended users and context — but the review process changes because the output arrives faster, in larger volumes, and without a human author who can explain their reasoning.</p>
+<p>The subtopics walk through a practical review pipeline. You first define what "quality" means for your project, then apply heuristic evaluation to AI-generated screens, audit generated markup and code for accessibility problems (missing labels, poor contrast, broken focus order, non-semantic elements), and establish code review habits that treat AI output as a draft from an unfamiliar collaborator rather than a finished deliverable. Finally, you consider how to keep your own design intent intact, so that the product reflects deliberate decisions rather than whatever the model happened to produce.</p>
+<p>The three videos below approach this from complementary angles: using language models to critique UI mockups, simulating users to surface usability feedback, and the broader practice of using an AI model as an evaluator. While watching, note what each approach can reliably catch, what it misses, and where a human designer's judgment is still required. Pay particular attention to how evaluation criteria are specified — vague prompts produce vague critiques, while criteria grounded in heuristics or guidelines produce feedback you can act on.</p></div></details><details class="slide-card" id="p4-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Generating Automatic Feedback on UI Mockups with Large Language Models</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/V010KeVqP7A?cc_load_policy=1&amp;rel=0" title="Video: Generating Automatic Feedback on UI Mockups with Large Language Models (ACM SIGCHI)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>ACM SIGCHI</strong> · 13:40 · 553 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=V010KeVqP7A" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A conference talk from the ACM CHI research community presenting a system that uses large language models to generate automatic design feedback on UI mockups. Based on the title and authorship, it likely explains how a mockup is represented for a model, how feedback is grounded in design guidelines, and how the generated critiques compare to feedback from human designers or experts. Expect discussion of both the quality of the automated feedback and its limitations.</p>
+<h4>Why this video</h4>
+<p>It directly addresses heuristic-style evaluation of interface designs with AI assistance, and as peer-reviewed CHI research presented by ACM SIGCHI it models the kind of evidence-based, criteria-driven critique this topic asks you to adopt.</p></div></details><details class="slide-card" id="p4-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: SimUser: Generating Usability Feedback by Simulating Various Users Interacting with Mobile Applic...</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/VAJZSk3l070?cc_load_policy=1&amp;rel=0" title="Video: SimUser: Generating Usability Feedback by Simulating Various Users Interacting with Mobile Applic... (ACM SIGCHI)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>ACM SIGCHI</strong> · 9:30 · 189 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=VAJZSk3l070" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Another ACM SIGCHI research presentation, this one on SimUser, an approach that generates usability feedback by simulating different kinds of users interacting with a mobile application. The talk likely covers how user personas or characteristics are modeled, how simulated interaction traces are turned into usability observations, and how the results were validated. It should also surface where simulated feedback diverges from real user testing.</p>
+<h4>Why this video</h4>
+<p>It extends evaluation beyond static screen critique to simulated use, which is useful when reviewing AI-generated interfaces quickly, and it prompts you to think carefully about which user differences a simulation can and cannot represent.</p></div></details><details class="slide-card" id="p4-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: LLM as a Judge: Scaling AI Evaluation Strategies</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/trfUBIDeI1Y?cc_load_policy=1&amp;rel=0" title="Video: LLM as a Judge: Scaling AI Evaluation Strategies (IBM Technology)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>IBM Technology</strong> · 6:09 · 52,743 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=trfUBIDeI1Y" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, accessible explainer from IBM Technology on the "LLM as a judge" pattern — using a language model to evaluate the outputs of another model. It is likely to cover why automated evaluation is needed at scale, how evaluation criteria and rubrics are defined, and common pitfalls such as bias in the judging model and the need for human verification. The framing is general rather than design-specific.</p>
+<h4>Why this video</h4>
+<p>It gives you the conceptual vocabulary behind automated review and its reliability limits, which is exactly the caution you need when building code review and quality-check practices around AI-generated output.</p></div></details><details class="slide-card" id="p4-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos move you from understanding AI's role in the workflow toward critically judging what it produces. The two CHI talks show research-grade methods for evaluating interface designs and usability with AI support, giving you concrete models for applying heuristic and user-centered criteria to AI-generated layouts and code (MO3), while also illustrating how AI tools fit into real design and development pipelines (MO1). The IBM explainer supplies the underlying evaluation framework — defining rubrics, scaling review, and recognizing when automated judgment must be checked by a person — which supports disciplined review of the outputs you generate in your own project work (MO2, MO3).</p></div></details><details class="slide-card" id="p4-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part5">
+<h2>Ethical Considerations and Professional Responsibility</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Ethical Considerations and Professional Responsibility</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The integration of AI coding assistants and generative tools into HCI and interface design work introduces a set of ethical responsibilities that professionals must actively navigate. Unlike conventional software tools, AI assistants generate outputs derived from massive training datasets, operate with varying degrees of opacity, and blur the lines between human authorship and machine synthesis. This creates genuine obligations around honesty, fairness, legal compliance, and professional integrity that cannot be satisfied simply by producing functional or aesthetically pleasing results. Ethical practice in this context requires deliberate reflection at every stage of the design and development process — not as a bureaucratic formality, but as a core professional commitment.</p>
+
+<p>The sections below examine five interconnected dimensions of this ethical landscape: how designers should communicate about their use of AI tools, how they should detect and correct bias in AI-generated interfaces, what intellectual property risks they must manage, how they can preserve genuine professional competence, and what responsibilities they carry when deploying AI-assisted work in products that real users will encounter.</p>
+
+<p><strong>Attribution and Transparency in AI-Assisted Work</strong></p>
+
+<p>Transparency about the role AI tools play in a project is not a courtesy — it is a professional obligation rooted in honesty and the integrity of collaborative work. When a designer or developer uses an AI assistant to generate interface layouts, write interaction logic, produce copy, or suggest accessibility fixes, that assistance is a material fact about how the work was produced. Concealing it misrepresents the nature of the contribution and can undermine trust within teams, with clients, and in academic or institutional contexts.</p>
+
+<p>In practice, attribution can take several forms depending on the context:</p>
+
+<ul>
+  <li><strong>Project documentation and design handoffs:</strong> Design specification documents, Figma handoff notes, or README files should include a section that identifies which components or content were generated with AI assistance and which tools were used. For example: <em>"The onboarding flow copy in screens 3–7 was drafted using an AI language model and subsequently edited by the design team. Component scaffolding for the card grid was generated using an AI coding assistant and reviewed for accessibility compliance."</em> This level of specificity allows reviewers, developers, and clients to calibrate their evaluation appropriately.</li>
+  <li><strong>Version control commit messages:</strong> When committing AI-generated or AI-assisted code, commit messages should reflect this. A message such as <code>feat: add modal component (AI-scaffolded, reviewed and modified for a11y)</code> is far more informative than a generic <code>feat: add modal component</code>. This practice creates an honest audit trail and helps future contributors understand the provenance of specific code sections.</li>
+  <li><strong>Academic submissions:</strong> Educational institutions are developing increasingly specific policies on AI use. Submitting AI-assisted work without disclosure where disclosure is required constitutes academic dishonesty regardless of whether the final output was substantially edited. Students should familiarise themselves with the specific requirements of their program and err on the side of transparency.</li>
+</ul>
+
+<p>Beyond compliance, transparency serves a deeper function: it allows teams to accurately assess contributions, surface dependencies on specific tools, and make informed decisions about what happens if those tools become unavailable or change their behavior. A team that openly discusses its use of AI assistants is better positioned to evaluate quality critically than one in which AI use is an unspoken, unexamined practice.</p>
+
+<p>Developing <em>personal norms</em> for disclosure is valuable precisely because institutional policies vary and may lag behind the pace of technology adoption. A useful personal standard is to ask: <em>Would a colleague, client, or instructor make a different judgment about this work if they knew an AI tool contributed to it?</em> If the answer is yes, disclosure is warranted. This heuristic keeps attribution anchored to the goal of honest communication rather than to minimal policy compliance.</p>
+
+<p><strong>Bias and Representation in AI-Generated Interfaces</strong></p>
+
+<p>AI models are trained on datasets that reflect the world as it has been documented — which means they inherit the representation gaps, cultural assumptions, and demographic skews present in that documentation. When a generative AI tool produces interface copy, selects stock imagery, recommends icon sets, or suggests interaction patterns, it draws on these biased distributions. The outputs may appear neutral or professional while encoding assumptions that exclude, stereotype, or disadvantage certain user groups.</p>
+
+<p>The consequences of unexamined bias in interfaces can be significant. Consider the following examples:</p>
+
+<ul>
+  <li>An AI-generated persona or user illustration that consistently depicts users as young, able-bodied, and from a narrow demographic range, implicitly communicating to other users that the product is not designed for them.</li>
+  <li>Interface copy generated in a cultural register that assumes Western norms — idioms, date formats, name field structures, or examples — that do not translate accurately or respectfully to other cultural contexts.</li>
+  <li>An AI-suggested form design that includes a binary gender field as a default, failing to accommodate non-binary users, because binary gender fields were statistically overrepresented in the training data.</li>
+  <li>Automated alt-text generation for interface images that misidentifies or poorly describes people of certain ethnicities, reflecting documented disparities in the accuracy of computer vision models across demographic groups.</li>
+</ul>
+
+<p>Critically evaluating AI-generated outputs for these issues requires that designers bring active, informed scrutiny rather than passive acceptance. The practical steps for doing so include:</p>
+
+<ul>
+  <li><strong>Apply inclusive design checklists alongside AI outputs.</strong> Frameworks such as Microsoft's Inclusive Design methodology or the Web Content Accessibility Guidelines (WCAG) provide structured prompts that surface dimensions the AI tool may have overlooked. Running an AI-generated interface through such a checklist is not redundant — it is precisely the kind of human oversight that responsible use requires.</li>
+  <li><strong>Test with diverse user groups.</strong> Usability testing with participants from varied demographic, cultural, linguistic, and ability backgrounds will surface bias that a homogenous design team reviewing AI outputs will not detect. This is not a new principle in HCI — it is the same inclusive research practice that good design has always required — but it becomes more urgent when AI generation accelerates the production of potentially biased outputs.</li>
+  <li><strong>Interrogate defaults critically.</strong> AI tools often reflect majority patterns from their training data in their defaults. When a tool generates a "standard" layout, "neutral" copy, or a "typical" user flow, asking <em>standard for whom?</em> and <em>neutral from whose perspective?</em> is a necessary act of professional reflection.</li>
+</ul>
+
+<p>The underlying principle is that AI tools require active human correction, not passive oversight. Designers who use these tools are responsible for the outputs they ship, regardless of their origin.</p>
+
+<p><strong>Intellectual Property and Licensing Concerns</strong></p>
+
+<p>The legal landscape surrounding AI-generated code and content is genuinely unsettled, and professionals using AI tools in commercial or client work must navigate it carefully rather than assuming that AI-generated outputs are automatically free of encumbrance.</p>
+
+<p>The core concern is that large language models and code generation tools are trained on existing codebases, design assets, and written content, much of which is licensed. When a model produces a code suggestion, there is a possibility — particularly for less common or highly specific patterns — that the output closely mirrors a training example. Some AI coding tools now include features that flag when a suggestion exceeds a similarity threshold to known training sources, providing a form of provenance information that designers and developers should take seriously.</p>
+
+<p>The following table summarises the key intellectual property considerations that professionals should evaluate when using AI tools:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Consideration</th>
+      <th>What to Investigate</th>
+      <th>Why It Matters</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Terms of service and output ownership</td>
+      <td>Does the tool's ToS grant you ownership of generated outputs? Does it claim a license to your inputs?</td>
+      <td>Without clear ownership, incorporating outputs into client work may create contractual or IP conflicts.</td>
+    </tr>
+    <tr>
+      <td>Training data provenance</td>
+      <td>Was the model trained on licensed, public domain, or mixed-license data? Does the vendor document this?</td>
+      <td>Outputs derived from copyrighted training data may carry unresolved IP risk.</td>
+    </tr>
+    <tr>
+      <td>Similarity flagging</td>
+      <td>Does the tool flag suggestions that closely match known training sources?</td>
+      <td>Flagged suggestions may require independent review or replacement to avoid reproducing licensed material.</td>
+    </tr>
+    <tr>
+      <td>Commercial vs. personal use</td>
+      <td>Do the tool's terms distinguish between personal, educational, and commercial use?</td>
+      <td>Some tools permit personal experimentation but restrict commercial deployment of outputs.</td>
+    </tr>
+    <tr>
+      <td>Client or employer requirements</td>
+      <td>Does the client or employer have policies on AI tool use or IP chain-of-title requirements?</td>
+      <td>Even if a tool's ToS permits commercial use, clients may require clean IP provenance that AI use complicates.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Because this landscape is evolving rapidly — with ongoing litigation and legislative activity in multiple jurisdictions — the appropriate professional response is not to assume safety but to conduct or commission legal review when AI-generated material will be incorporated into commercial deliverables. Establishing team or organisational policies for acceptable use, categorised by project type (for example: internal tooling, open-source, client commercial work, regulated industries), provides a practical framework that reduces case-by-case uncertainty.</p>
+
+<p><strong>Maintaining Professional Competence</strong></p>
+
+<p>One of the most subtle but consequential ethical risks of AI-assisted work is the erosion of the foundational competence that professionals need to evaluate, correct, and take responsibility for what they produce. AI tools can give the appearance of capability without the underlying knowledge — a developer can generate a working React component with accessibility attributes without understanding how the ARIA role hierarchy functions, and this gap will be invisible until it causes a real problem.</p>
+
+<p>This matters ethically, not just practically, because professionals in HCI and software development operate in contexts where their outputs affect real users. A designer who cannot critically evaluate whether an AI-generated interaction pattern meets accessibility requirements is not simply at risk of poor design — they are at risk of deploying something harmful while believing it to be acceptable.</p>
+
+<p>The principle at stake is that AI tools should <em>extend and accelerate competence</em>, not substitute for developing it. The following practices support this:</p>
+
+<ul>
+  <li><strong>Deliberate practice without AI assistance.</strong> Regularly completing tasks — writing a component from scratch, conducting a heuristic evaluation without AI prompts, sketching an interaction flow by hand — maintains the cognitive fluency needed to evaluate AI outputs critically. This is analogous to mental arithmetic in an age of calculators: the goal is not to reject the tool but to retain the judgment to know when its output is wrong.</li>
+  <li><strong>Using AI explanations as learning material, not just solutions.</strong> Most AI coding assistants can explain the code they generate. Treating those explanations as learning content — questioning them, testing them, comparing them to authoritative sources — transforms AI use from a shortcut into a learning accelerator.</li>
+  <li><strong>Seeking feedback from experienced practitioners.</strong> Peer review and mentorship from practitioners who can identify where AI assistance may be masking skill gaps is invaluable. An experienced reviewer who knows that a particular solution was AI-generated can probe whether the submitter understands it, in a way that a reviewer who assumes human authorship cannot.</li>
+  <li><strong>Treating fluency with the domain as non-negotiable.</strong> HCI as a discipline rests on knowledge of human cognition, interaction principles, accessibility standards, and research methods. AI tools do not possess or replace this knowledge — they pattern-match on its textual traces. A practitioner who holds this knowledge can use AI as a powerful assistant; one who does not is poorly positioned to catch the tool's errors or omissions.</li>
+</ul>
+
+<p><strong>Responsible AI Use in User-Facing Products</strong></p>
+
+<p>The final and in some respects most consequential dimension of ethical AI use in HCI concerns the products that users actually encounter. When AI-generated content, copy, interaction patterns, or data collection interfaces are deployed in a live product, they carry the same ethical weight as any other design decision. The fact that a dark pattern, a misleading consent flow, or a manipulative nudge was generated by an AI tool does not reduce the designer's responsibility for having deployed it.</p>
+
+<p>Several specific responsibilities deserve emphasis:</p>
+
+<ul>
+  <li><strong>Apply the same ethical scrutiny to AI-generated outputs as to human-authored work.</strong> Interface copy that a designer would not write themselves — because it is misleading, dismissive, or pressuring — should not be shipped because an AI generated it. The standard is the output's effect on users, not its origin.</li>
+  <li><strong>Do not use AI to scale the production of dark patterns.</strong> AI tools can generate interface variations rapidly, and this capability can be misused to A/B test manipulative designs at scale, generate deceptive confirmshaming copy, or create confusing opt-out flows. The capacity to do something efficiently does not make it ethical to do it at all. Professionals who use AI to accelerate the production of user-hostile design are not absolved by the tool's involvement — they bear direct responsibility.</li>
+  <li><strong>Ensure AI-generated data collection interfaces are accurate and honest.</strong> Forms, consent screens, permissions dialogs, and privacy notices generated or drafted with AI assistance must be reviewed with particular care. These interfaces directly determine whether users can make informed decisions about their data. An AI model that produces a generic consent screen may omit material details about specific data uses, produce language that is technically accurate but functionally opaque, or mirror patterns from training data that do not comply with current regulatory requirements.</li>
+  <li><strong>Centre user wellbeing and autonomy as primary criteria.</strong> When evaluating an AI-generated output, the first question should not be <em>does this work?</em> or <em>is this efficient?</em> but <em>does this serve the user's genuine interests?</em> and <em>does this respect the user's ability to make informed, autonomous choices?</em> These questions are the foundation of ethical HCI practice, and they apply with equal force regardless of whether a human or an AI produced the design in question.</li>
+</ul>
+
+<p>Responsible use also means remaining alert to emergent harms that may not be immediately obvious. An AI-generated onboarding flow might be engaging and effective by conventional metrics while subtly encouraging dependency, over-sharing, or compulsive engagement patterns. Evaluating these second-order effects requires the kind of reflective, values-grounded judgment that no AI tool can supply — and that the professional using the tool must therefore provide.</p>
+
+<p>Ultimately, the ethical use of AI in HCI work is not a set of rules to be checked off but a stance of reflective, critical engagement with powerful tools whose outputs require human accountability. Transparency, vigilance against bias, legal prudence, sustained competence, and user-centred values are not constraints on effective AI use — they are the conditions under which AI use can be genuinely professional.</p>
+        <div class="notes"><strong>Notes</strong>This topic covers all five subtopic clusters from the module: attribution and transparency, bias and representation, IP and licensing, maintaining competence, and responsible use in user-facing products. A summary comparison table is included under the IP section to make the multi-dimensional licensing considerations easier to parse. Examples throughout are grounded in realistic HCI and front-end development scenarios to maximise relevance for the intended audience.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p5-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Using AI tools to generate layouts, copy, or code is now a normal part of interface work, but it raises questions that a tool cannot answer for you. Who gets credit for a design that an assistant largely produced? What happens when training data encodes stereotypes that surface in generated images, personas, or default settings? Can you legally ship code or assets that a model reproduced from someone else's work? This topic looks at those questions and at the professional obligations that come with them: being transparent about how work was produced, checking outputs for bias and misrepresentation, respecting licensing, keeping your own skills sharp, and deploying AI responsibly in products real people will use.</p>
+<p>These concerns are not abstract for HCI practitioners. The designer is usually the last human checkpoint between a model's output and a user's screen, so judgments about attribution, fairness, and appropriateness land on you. Professional codes in computing treat this as a duty of competence, not a matter of taste: you are responsible for what you ship, regardless of which tool produced the first draft.</p>
+<p>The three talks below approach the problem from different angles — present-day harms and bias, the data behind generative models and the creators it draws from, and the effect of heavy AI use on your own thinking. While watching, keep notes on concrete practices you could adopt: what you would disclose on a project, what you would check before accepting a generated interface element, and where you would deliberately do the work yourself.</p></div></details><details class="slide-card" id="p5-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: AI Is Dangerous, but Not for the Reasons You Think | Sasha Luccioni | TED</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/eXdVDhOGqoE?cc_load_policy=1&amp;rel=0" title="Video: AI Is Dangerous, but Not for the Reasons You Think | Sasha Luccioni | TED (TED)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>TED</strong> · 10:19 · 2,082,627 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=eXdVDhOGqoE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>AI ethics researcher Sasha Luccioni argues that speculative existential risk distracts from harms AI systems are causing right now, and points to issues such as bias in model outputs, environmental cost, and the use of copyrighted material in training data. The talk describes work on tools that let people examine and measure these problems rather than take vendor claims on faith.</p>
+<h4>Why this video</h4>
+<p>It directly supports the bias and representation subtopic and gives students a vocabulary for discussing present-day, measurable harms; the TED platform and the speaker's research background make it a credible, accessible starting point.</p></div></details><details class="slide-card" id="p5-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: How AI Models Steal Creative Work — and What to Do About It | Ed Newton-Rex | TED</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/U9d0p96N1iw?cc_load_policy=1&amp;rel=0" title="Video: How AI Models Steal Creative Work — and What to Do About It | Ed Newton-Rex | TED (TED)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>TED</strong> · 15:08 · 212,777 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=U9d0p96N1iw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Ed Newton-Rex, who worked in generative AI before resigning over training-data practices, examines how models are built from people, compute, and data, and why the creative work in that third category is often used without consent, credit, or compensation. The talk lays out the argument over whether training on copyrighted material is fair and discusses what could be done differently.</p>
+<h4>Why this video</h4>
+<p>This is the clearest fit for the intellectual property and licensing subtopic, and the speaker's insider perspective helps students see why attribution and provenance matter in professional practice rather than only in legal filings.</p></div></details><details class="slide-card" id="p5-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: How to Stop AI from Killing Your Critical Thinking | Advait Sarkar | TED</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/3lPnN8omdPA?cc_load_policy=1&amp;rel=0" title="Video: How to Stop AI from Killing Your Critical Thinking | Advait Sarkar | TED (TED)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>TED</strong> · 14:55 · 748,471 views · 9mo ago · captions — <a href="https://www.youtube.com/watch?v=3lPnN8omdPA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Advait Sarkar looks at what happens to human reasoning when we routinely hand tasks to chatbots, and the trade-off between working faster and thinking less. The talk suggests ways to use AI that preserve rather than erode judgment and critical engagement with the work.</p>
+<h4>Why this video</h4>
+<p>It speaks squarely to maintaining professional competence, and it gives students a practical frame for deciding when to use an assistant and when deferring to one undermines the evaluation skills this course is building.</p></div></details><details class="slide-card" id="p5-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these talks round out the module's picture of AI in HCI workflows. The first two deepen MO1 by showing what these tools actually are — systems built on specific data, with specific costs and biases — which is context students need before describing their role in design work. All three feed MO3 most directly: Luccioni gives students bias and representation criteria to test generated interfaces against, Newton-Rex supplies the provenance and licensing questions to ask about generated assets, and Sarkar argues for the kind of active critical review that keeps evaluation meaningful. The result is that when students apply AI tools under MO2, they do so with disclosure habits, checking routines, and a clear sense of where their own professional responsibility begins.</p></div></details><details class="slide-card" id="p5-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

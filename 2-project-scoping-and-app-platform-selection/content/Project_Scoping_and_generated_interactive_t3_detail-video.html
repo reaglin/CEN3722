@@ -1,0 +1,493 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Android Platform: Characteristics and Constraints</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Project Scoping and App Platform Selection</a></div>
+  <header>
+    <h1>Android Platform: Characteristics and Constraints</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Android Platform: Characteristics and Constraints</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Android is not a single device, a single screen size, or a single version of an operating system — it is an entire ecosystem of hardware, software layers, manufacturer customisations and user expectations that a designer inherits the moment they commit to the platform. Understanding Android as a design target therefore means understanding three interlocking things: <strong>what the platform is and who uses it</strong>, <strong>what visual and interaction conventions users have been trained to expect</strong>, and <strong>what technical and human constraints will shape, limit, or occasionally rescue a design decision</strong>. This topic works through each of those in turn, with concrete examples of how the abstract characteristics translate into real interface choices.</p>
+
+<p>A useful framing is that Android trades <em>consistency</em> for <em>reach</em>. Where a closed ecosystem can guarantee that every device runs a recent OS on one of a handful of screen sizes, Android guarantees almost nothing except the presence of the core framework and, usually, Google's services. In exchange, it offers access to the largest installed base of computing devices on the planet. Every characteristic discussed below is, in some way, a consequence of that trade.</p>
+
+<p><strong>The platform in outline: scale, reach, and audience</strong></p>
+
+<p>Android consistently holds the largest share of the global mobile operating system market — broadly in the region of 70% of smartphones worldwide, with the balance held mainly by iOS. That headline figure hides a far more interesting story for designers, because the share is distributed very unevenly by geography and by income. Android's dominance is overwhelming in India, Brazil, Indonesia, Nigeria, and most of Africa, Latin America and South-East Asia, strong across most of Europe, and comparatively weaker in markets such as the United States, Japan and Australia where iOS holds roughly half or more of the user base.</p>
+
+<p>The practical implications of this distribution are substantial:</p>
+
+<ul>
+  <li><strong>If your product needs broad or global reach, Android is effectively compulsory.</strong> A health service, government portal, or financial-inclusion product aimed at an emerging market that ships iOS-only has excluded the majority of its intended users before the first screen is drawn.</li>
+  <li><strong>If your product targets high-ARPU users in a Western market, the picture is more balanced.</strong> Historically, iOS users have spent more per head in app stores, which is why some commercial products still launch iOS-first even though Android has more users.</li>
+  <li><strong>Device tier correlates with user context.</strong> A large portion of Android's user base is on entry-level and mid-range hardware, often on metered or intermittent mobile data, frequently with limited storage. Design decisions such as image weight, offline tolerance, and APK/bundle size are not engineering trivia on Android — they are usability decisions.</li>
+</ul>
+
+<p>Android also runs far beyond the phone. The same core platform, with different UI layers and interaction models, appears across a wide family of form factors:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Form factor</th>
+      <th>Typical input</th>
+      <th>Design implications</th>
+      <th>Example use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Smartphone (4.7"–6.9")</td>
+      <td>Touch, one-handed</td>
+      <td>Thumb-reach zones, bottom-anchored primary actions, vertical scrolling</td>
+      <td>Consumer apps, messaging, banking</td>
+    </tr>
+    <tr>
+      <td>Tablet / foldable (7"–13")</td>
+      <td>Touch, sometimes stylus or keyboard</td>
+      <td>Two-pane list-detail layouts, drag and drop, multi-window support, fold/unfold continuity</td>
+      <td>Productivity, reading, point-of-sale</td>
+    </tr>
+    <tr>
+      <td>Wear OS (smartwatch)</td>
+      <td>Touch, rotary bezel/crown, voice</td>
+      <td>Glanceable content, very short task sessions, large tap targets, high-contrast dark UI</td>
+      <td>Fitness tracking, notifications, payments</td>
+    </tr>
+    <tr>
+      <td>Android TV / Google TV</td>
+      <td>D-pad remote, voice</td>
+      <td>Focus-based navigation (no cursor), 10-foot UI with oversized type, strict focus order</td>
+      <td>Streaming, media browsing</td>
+    </tr>
+    <tr>
+      <td>Android Automotive / Auto</td>
+      <td>Touch, voice, steering controls</td>
+      <td>Driver-distraction rules, limited task depth, large targets, restricted text</td>
+      <td>Navigation, media, EV charging</td>
+    </tr>
+    <tr>
+      <td>Embedded / kiosk (AOSP)</td>
+      <td>Touch, barcode scanner, hardware buttons</td>
+      <td>Single-app lock task mode, no system navigation, durable high-contrast UI</td>
+      <td>Self-service kiosks, logistics handhelds, medical devices</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Because Android's source is open (AOSP), manufacturers and system integrators can strip it down and rebuild it for these embedded contexts without Google's involvement at all. This is why Android appears inside airline seat-back entertainment systems, supermarket self-checkouts, warehouse scanners and in-car dashboards. For a designer, the lesson is that "designing for Android" requires a prior question: <em>which Android, on what hardware, held how, by whom?</em></p>
+
+<p><strong>Material Design as the platform's design language</strong></p>
+
+<p>Google's <strong>Material Design</strong> is the official design system for Android. It began in 2014 as a metaphor-driven system built around "digital paper" — surfaces that occupy space, cast shadows, and move in physically plausible ways. Material 2 (2018) added heavy theming capability, and <strong>Material 3</strong> (also called Material You, from Android 12 onward) added dynamic colour extracted from the user's wallpaper, larger corner radii, revised typography, and a stronger emphasis on personalisation and accessibility.</p>
+
+<p>Material is not a legal requirement — an app can ship any visual language it likes — but it functions as a shared vocabulary. Deviating from it costs users learning effort, so deviation should be a deliberate, justified decision (strong brand identity, a game, a cross-platform product with a unified design system) rather than an accident.</p>
+
+<p><strong>Elevation, shadow and surface hierarchy.</strong> The central metaphor is that components sit on a z-axis above the background. Elevation is expressed in density-independent pixels and is communicated through shadow (and, in Material 3, through tonal colour shifts where higher surfaces take on more of the primary colour tint). Elevation is a <em>semantic</em> tool, not decoration: it tells the user what is in front, what is temporary, and what can be dismissed.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Elevation</th>
+      <th>Typical components</th>
+      <th>What it signals to the user</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0 dp</td>
+      <td>Background, flat cards on a surface, text buttons</td>
+      <td>Base content plane; part of the page</td>
+    </tr>
+    <tr>
+      <td>1–3 dp</td>
+      <td>Cards, raised buttons, search bars, bottom navigation</td>
+      <td>Discrete, tappable objects grouped above the page</td>
+    </tr>
+    <tr>
+      <td>6–8 dp</td>
+      <td>Floating action button (FAB), snackbar, bottom sheet</td>
+      <td>Persistent but floating; primary or transient action layer</td>
+    </tr>
+    <tr>
+      <td>16–24 dp</td>
+      <td>Navigation drawer, modal dialog, menus</td>
+      <td>Temporary layer that blocks or overlays everything beneath; dismissible</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A worked example: in a food-delivery app, the restaurant list items are cards at 1 dp — they feel like objects you can pick up. The "Reorder last meal" FAB sits at 6 dp and casts a visible shadow, so it reads as hovering above the scrolling list and never scrolls away. When the user taps "Filters", a bottom sheet rises to 8 dp with a scrim darkening the content behind, signalling "this is a side task; dismiss it to return". When the app needs confirmation to delete a saved address, a dialog appears at 24 dp with a stronger scrim — the highest layer, demanding resolution before anything else can happen. A designer who puts the delete confirmation in a 1 dp inline card has broken the hierarchy: the user is not told that the decision is blocking.</p>
+
+<p><strong>Navigation patterns.</strong> Android has a distinctive navigation model, and the single biggest cause of "this app feels wrong on Android" is importing another platform's model wholesale.</p>
+
+<ul>
+  <li><strong>Bottom navigation bar</strong> — for three to five top-level, equally important destinations that users switch between frequently. It sits within thumb reach, is always visible, and each destination maintains its own back stack. Use it when the destinations are peers (Home, Search, Orders, Account). Do not use it for actions — a bottom bar item is a <em>place</em>, not a verb.</li>
+  <li><strong>Navigation drawer</strong> — a panel sliding in from the leading edge, for five or more destinations, or for secondary destinations that don't deserve permanent screen space (Settings, Help, Archived items). Its weakness is discoverability: content hidden behind a "hamburger" is demonstrably used less than content on a visible tab bar. Modern Android practice is to pair a bottom bar for the top three to five destinations with a drawer or an overflow for the long tail.</li>
+  <li><strong>Navigation rail</strong> — the tablet/foldable/desktop-sized equivalent of a bottom bar, running vertically down the leading edge. Material 3's adaptive guidance expects an app to switch from bottom bar to rail to permanent drawer as the window width increases.</li>
+  <li><strong>Top app bar</strong> — holds the screen title, an up arrow for hierarchical ascent, and contextual actions plus an overflow menu. Note the crucial distinction between <em>Up</em> (the arrow in the app bar: moves one level up the app's information hierarchy) and <em>Back</em> (the system gesture/button: moves one step backwards through the user's actual history, which may include other apps).</li>
+  <li><strong>Back navigation</strong> — the defining Android convention. Originally a hardware key, then an on-screen button in the system navigation bar, and since Android 10 a <strong>gesture</strong>: an inward swipe from the left or right screen edge. Android 13+ adds <em>predictive back</em>, which animates a preview of the destination as the user drags, so they can see where back will take them and cancel if it is wrong. Apps must declare support for this and handle back correctly. The cardinal rule is: <strong>back must always work, and it must never be surprising.</strong> Back should dismiss a dialog or bottom sheet, collapse an expanded search field, close the drawer, step back through the navigation history, and ultimately exit the app. An app that swallows the back gesture, or that uses it to delete data, violates the most deeply learned habit Android users have.</li>
+</ul>
+
+<p>The edge-swipe back gesture also imposes a layout constraint: horizontally draggable content placed hard against the screen edge (a carousel, a swipeable map, a slider) will compete with the system gesture. The remedy is either inset the component from the edge or explicitly declare a gesture exclusion zone.</p>
+
+<p><strong>Design tokens: typography, colour, spacing.</strong> Material 3 is token-based. Rather than specifying "18 sp bold, #1A73E8, 16 px padding" on each component, the designer assigns a <em>semantic role</em>, and the theme resolves that role to a value. This is what makes dark mode, dynamic colour, and brand re-theming tractable rather than a per-screen rewrite.</p>
+
+<p>The colour system is built from a small number of source colours expanded into tonal palettes of 13 steps (0 = black, 100 = white), from which role pairs are derived:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Token role</th>
+      <th>Purpose</th>
+      <th>Paired "on" token</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>primary</code></td>
+      <td>Highest-emphasis actions: filled buttons, active states, FAB</td>
+      <td><code>onPrimary</code> — guaranteed-contrast content colour</td>
+    </tr>
+    <tr>
+      <td><code>secondary</code> / <code>tertiary</code></td>
+      <td>Less prominent components; accent and contrast balance</td>
+      <td><code>onSecondary</code> / <code>onTertiary</code></td>
+    </tr>
+    <tr>
+      <td><code>surface</code>, <code>surfaceVariant</code></td>
+      <td>Backgrounds for cards, sheets, menus, app bars</td>
+      <td><code>onSurface</code>, <code>onSurfaceVariant</code></td>
+    </tr>
+    <tr>
+      <td><code>error</code></td>
+      <td>Validation failures, destructive confirmation</td>
+      <td><code>onError</code></td>
+    </tr>
+    <tr>
+      <td><code>outline</code></td>
+      <td>Borders, dividers, text-field strokes</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The "on" pairing is an accessibility device: because each pair is generated from tonal steps a fixed distance apart, text placed on its paired surface meets contrast requirements automatically in both light and dark themes. A designer who hand-picks a hex value for body text instead of using <code>onSurface</code> has quietly opted out of that guarantee, and will usually discover the failure only when a user with low vision enables dark mode.</p>
+
+<p>Typography works the same way, with a role scale rather than ad-hoc sizes:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type role</th>
+      <th>Typical size (Material 3 defaults)</th>
+      <th>Used for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Display large / medium / small</td><td>57 / 45 / 36 sp</td><td>Short, high-impact hero text; rarely used in dense apps</td></tr>
+    <tr><td>Headline large / medium / small</td><td>32 / 28 / 24 sp</td><td>Screen or section titles</td></tr>
+    <tr><td>Title large / medium / small</td><td>22 / 16 / 14 sp</td><td>App bar titles, card headers, list item primary text</td></tr>
+    <tr><td>Body large / medium / small</td><td>16 / 14 / 12 sp</td><td>Running text, descriptions, supporting copy</td></tr>
+    <tr><td>Label large / medium / small</td><td>14 / 12 / 11 sp</td><td>Buttons, tabs, chips, captions</td></tr>
+  </tbody>
+</table>
+
+<p>Note the unit: <strong>sp</strong> (scale-independent pixels) for text, <strong>dp</strong> (density-independent pixels) for everything else. The difference matters enormously. 1 dp equals one physical pixel on a 160 dpi baseline screen and is scaled by the device's density bucket, so a 48 dp button is roughly 9 mm physically on any device. An sp value does the same <em>and</em> is multiplied by the user's font-size preference, which can reach 200% on modern Android. Hard-coding text in dp is a common and serious accessibility bug: it silently ignores a user's explicit request for bigger type.</p>
+
+<p>Spacing uses a <strong>4 dp base grid</strong>, with 8 dp as the common working increment: 4, 8, 12, 16, 24, 32, 48. Screen margins are typically 16 dp on compact phones and 24 dp on larger windows. Two other spacing rules carry direct usability weight: minimum touch target size is <strong>48 × 48 dp</strong> (about 9 mm, derived from average fingertip contact area), and adjacent targets should be separated by at least 8 dp to reduce mis-taps.</p>
+
+<p>Expressed as tokens, a card in a theme file might look like this — the point being that nothing in the component itself names a colour or a font:</p>
+
+<pre><code>// Material 3 theme tokens (conceptual)
+md.sys.color.surface-container  = palette.neutral-94    // light theme
+md.sys.color.on-surface         = palette.neutral-10
+md.sys.color.primary            = palette.primary-40
+md.sys.shape.corner.medium      = 12dp
+md.sys.typescale.title-medium   = Roboto Medium 16sp / 24sp line-height
+md.sys.spacing.card-padding     = 16dp
+
+&lt;Card
+    surface   = md.sys.color.surface-container
+    corner    = md.sys.shape.corner.medium
+    elevation = 1dp
+    padding   = md.sys.spacing.card-padding &gt;
+  &lt;Text style = md.sys.typescale.title-medium
+        color = md.sys.color.on-surface /&gt;
+&lt;/Card&gt;</code></pre>
+
+<p>Switching to dark theme, or letting Material You extract <code>primary</code> from the user's wallpaper, re-resolves every token at once. This is why token discipline is a <em>design</em> responsibility and not just an engineering convenience.</p>
+
+<p><strong>Adaptive layout.</strong> Because Android window sizes range from a 1" watch face to a 13" tablet in split-screen with a keyboard attached, Material defines <strong>window size classes</strong> based on available window width (not physical screen width — a phone app in multi-window mode may be "compact" on a tablet):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Window size class</th>
+      <th>Width (dp)</th>
+      <th>Typical device state</th>
+      <th>Recommended layout &amp; navigation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Compact</td>
+      <td>&lt; 600</td>
+      <td>Phone portrait; folded foldable</td>
+      <td>Single pane, vertical scroll, bottom navigation bar</td>
+    </tr>
+    <tr>
+      <td>Medium</td>
+      <td>600–839</td>
+      <td>Phone landscape, small tablet portrait, unfolded inner screen</td>
+      <td>Single or two-pane, navigation rail, wider margins</td>
+    </tr>
+    <tr>
+      <td>Expanded</td>
+      <td>≥ 840</td>
+      <td>Tablet landscape, ChromeOS/desktop window, large foldable</td>
+      <td>Two- or three-pane list-detail, permanent navigation drawer, supporting pane</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The canonical adaptive example is the <strong>list-detail</strong> pattern. An email client in compact width shows the inbox list; tapping a message navigates to a full-screen reading view, and back returns to the list. The same app in expanded width shows list and message side by side, so tapping an item swaps the detail pane and back now exits the screen rather than returning to the list. Both behaviours are correct for their context, and a design that fails to adapt produces either a cramped tablet experience (a single column of list items stretched to 1000 dp wide, with 20-word line lengths that are painful to read) or an unusable phone experience.</p>
+
+<p>Foldables add continuity requirements: when a user unfolds a device mid-task, the app is destroyed and recreated at a new size by default, so state must be preserved and the layout must reflow without losing scroll position, typed text, or video playback point. Table-top postures (half-folded, hinge horizontal) suggest splitting content above the fold and controls below — a video player putting the picture on the upper half and transport controls on the lower half is the standard illustration.</p>
+
+<p><strong>Constraints the designer must plan around</strong></p>
+
+<p><strong>1. Screen size, density and aspect ratio fragmentation.</strong> Android devices span roughly 320 dp to 1280 dp of width, densities from ldpi through to xxxhdpi (roughly 120–640 dpi), and aspect ratios from 4:3 tablets to 21:9 "cinema" phones. On top of that sit cut-outs (notches, punch-holes), curved edges, rounded corners, and system bars that may be gesture pills or three-button bars of different heights.</p>
+
+<ul>
+  <li><strong>Design in dp, never in pixels.</strong> Supply vector drawables where possible so icons scale cleanly; provide raster assets in density buckets (mdpi/hdpi/xhdpi/xxhdpi/xxxhdpi) when raster is unavoidable.</li>
+  <li><strong>Use constraint- or flex-based layouts rather than fixed positions.</strong> A design that pins a button "240 dp from the top" will float oddly on a tall device and overlap content on a short one.</li>
+  <li><strong>Respect insets.</strong> Modern Android apps draw edge-to-edge behind translucent system bars, then apply window insets as padding so nothing important sits under a notch, the status bar, the navigation pill, or the on-screen keyboard. Forgetting keyboard (IME) insets is the classic bug where the "Submit" button is hidden behind the keyboard the moment the user types.</li>
+  <li><strong>Test the extremes, not the average.</strong> A sensible test matrix is one small low-density phone (around 320–360 dp wide), one mainstream phone, one tall 20:9 device, one tablet in landscape, and one device at 200% font scale with display size enlarged.</li>
+</ul>
+
+<p><strong>2. OS version fragmentation and API availability.</strong> Unlike a closed ecosystem where a new OS reaches most devices within months, Android updates depend on the chipset vendor, the manufacturer, and sometimes the carrier. Although Project Treble, Mainline modules and longer vendor support commitments have improved matters significantly, a large installed base typically sits several versions behind the latest release, and budget devices may never receive a major upgrade.</p>
+
+<p>Two numbers govern this in practice: <strong>minSdk</strong> (the oldest OS the app will install on, which defines your reachable audience) and <strong>targetSdk</strong> (the version whose behaviours the app opts into, which Google Play forces upward over time). Lowering minSdk widens reach but increases the cost of testing, back-porting and conditional code.</p>
+
+<p>The design consequences are concrete, because many of the features designers reach for are version-gated:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Feature</th>
+      <th>Introduced in</th>
+      <th>Design consequence on older devices</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Runtime (in-context) permission prompts</td>
+      <td>Android 6 (API 23)</td>
+      <td>Earlier devices granted everything at install; onboarding copy must not assume a prompt appears</td>
+    </tr>
+    <tr>
+      <td>System-wide dark theme</td>
+      <td>Android 10 (API 29)</td>
+      <td>App must ship its own in-app dark toggle if dark mode is a selling point</td>
+    </tr>
+    <tr>
+      <td>Gesture navigation</td>
+      <td>Android 10 (API 29)</td>
+      <td>Older devices still show a three-button bar; layouts must tolerate both bar heights</td>
+    </tr>
+    <tr>
+      <td>Dynamic colour (Material You)</td>
+      <td>Android 12 (API 31)</td>
+      <td>Needs a designed static fallback palette, so the brand still reads correctly</td>
+    </tr>
+    <tr>
+      <td>Per-app language preference</td>
+      <td>Android 13 (API 33)</td>
+      <td>An in-app language picker is required for earlier versions</td>
+    </tr>
+    <tr>
+      <td>Granular media permissions (photos/video/audio)</td>
+      <td>Android 13 (API 33)</td>
+      <td>Older devices ask for broad storage access; the request rationale wording must differ</td>
+    </tr>
+    <tr>
+      <td>Notification runtime permission</td>
+      <td>Android 13 (API 33)</td>
+      <td>On older versions notifications are on by default; on newer ones the user may simply never see them</td>
+    </tr>
+    <tr>
+      <td>Predictive back animations</td>
+      <td>Android 13–14 (API 33+)</td>
+      <td>Back must still be correct and instantaneous without the preview animation</td>
+    </tr>
+    <tr>
+      <td>Partial photo access ("Select photos")</td>
+      <td>Android 14 (API 34)</td>
+      <td>Flows must cope with a user granting access to three images rather than the whole library</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The disciplined response is <strong>progressive enhancement with graceful degradation</strong>: design a baseline experience that works on your minSdk, then layer enhancements that are capability-checked at runtime. Jetpack libraries (AppCompat, Material Components, Compose) back-port much of the visual language, so a Material 3 button looks correct on Android 7; but genuine OS capabilities — biometric classes, exact alarms, background location behaviour, photo picker — cannot be conjured and must have designed fallbacks. A worked example: a banking app wants face unlock. On a device with Class 3 biometrics it shows "Sign in with face". On a device with only a fingerprint sensor it shows "Sign in with fingerprint". On a device with neither, it shows a PIN pad — and crucially, the designer has specified all three states rather than leaving the engineer to improvise an error message.</p>
+
+<p>Manufacturer customisation is a second-order version problem. Samsung One UI, Xiaomi HyperOS/MIUI, Oppo ColorOS and others re-skin system components, alter default fonts, change notification behaviour, and — most disruptively — apply aggressive battery optimisation that can kill background work, delay notifications, or cancel scheduled jobs. A design that depends on a reliable daily reminder at 08:00 must therefore include a path that tells the user how to exempt the app, and should degrade to a visible in-app cue rather than silently failing.</p>
+
+<p><strong>3. Hardware capability spread.</strong> Android spans a device price range of roughly US$60 to US$2,000, and the gap is not cosmetic. Entry-level devices may have 2–4 GB RAM, slow eMMC storage, a low-end GPU, a 60 Hz LCD, and a modest camera; flagships have 12–16 GB RAM, 120 Hz OLED displays, hardware ML accelerators and multi-lens camera arrays. The same APK must behave acceptably on both.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Capability</th>
+      <th>Entry tier</th>
+      <th>Flagship tier</th>
+      <th>Design response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Memory &amp; CPU</td>
+      <td>2–4 GB, low-core-count</td>
+      <td>12 GB+, high-performance cores</td>
+      <td>Avoid heavy blur/parallax; cap animation complexity; paginate long lists; expect the app to be killed in the background and restore state</td>
+    </tr>
+    <tr>
+      <td>Display</td>
+      <td>720p LCD, 60 Hz, poor outdoor contrast</td>
+      <td>1440p OLED, 120 Hz, HDR</td>
+      <td>Don't rely on subtle shadow or low-contrast greys; honour contrast tokens; keep motion comfortable at 60 Hz</td>
+    </tr>
+    <tr>
+      <td>Camera</td>
+      <td>Fixed focus, noisy in low light</td>
+      <td>OIS, multi-lens, computational photography</td>
+      <td>If the app scans documents or QR codes, provide guidance overlays, torch control, manual capture and a file-upload fallback</td>
+    </tr>
+    <tr>
+      <td>Sensors</td>
+      <td>May lack gyroscope, NFC, barometer, Class 3 biometrics</td>
+      <td>Full sensor suite, UWB, LiDAR-like depth</td>
+      <td>Feature-detect; never make a sensor-dependent feature the only route to a goal</td>
+    </tr>
+    <tr>
+      <td>Storage &amp; network</td>
+      <td>32–64 GB, metered or 3G data</td>
+      <td>256 GB+, 5G/Wi-Fi 6</td>
+      <td>Keep download size small, compress images (WebP/AVIF), cache aggressively, design explicit offline and "data saver" states</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Two design habits follow. First, <strong>design the slow path, not just the happy path</strong>: specify skeleton/loading states, empty states, offline states, failed-image placeholders and retry affordances, because on a mid-tier device on a congested network those states are what the user actually sees most often. Second, <strong>treat performance as part of the interface</strong>. Research on responsiveness is consistent: under about 100 ms feels instantaneous, up to about 1 second keeps the user's flow of thought, and beyond about 10 seconds attention is lost. A visually immaculate screen that takes four seconds to appear on a budget phone is a worse design than a plainer screen that appears in 400 ms.</p>
+
+<p><strong>4. The permission model and access-request flows.</strong> Since Android 6, dangerous permissions are requested at runtime, and the model has tightened steadily: one-time grants ("Only this time"), auto-revocation of permissions for unused apps, "while using the app" versus "all the time" location, approximate versus precise location, granular media permissions, a notification permission, and a system photo picker that lets a user share specific images without granting any storage permission at all.</p>
+
+<p>This is fundamentally a design problem, not an engineering one, because the system dialog is terse, non-negotiable, and easily dismissed. The established pattern has four stages:</p>
+
+<ul>
+  <li><strong>Ask in context, not at launch.</strong> A permission wall on first open is the single most common Android onboarding mistake. Request camera access at the moment the user taps "Scan receipt", when the benefit is self-evident.</li>
+  <li><strong>Provide a pre-permission rationale screen</strong> when the reason is not obvious. This is a screen you control, so it can explain the value in plain language and offer a "Not now" exit that costs the user nothing. Crucially, it preserves the system prompt for a moment when the user is likely to accept — once they deny twice, Android treats it as a permanent denial and the system dialog will not appear again.</li>
+  <li><strong>Design the denied state as a first-class screen.</strong> If location is denied, a delivery app should still allow manual address entry; a weather app should offer city search. "This app requires location to continue" with a dead end is a design failure.</li>
+  <li><strong>Offer a recovery route.</strong> For permanently denied permissions the only path is system Settings, so provide an inline explanation plus a button that deep-links to the app's settings page, and re-check the state on resume.</li>
+</ul>
+
+<p>A concrete flow for a photo-sharing feature illustrates the difference. The naive version launches, immediately requests storage, and is denied by a cautious user who now cannot upload anything. The considered version shows an "Add photo" button; on tap, it offers "Choose from library" (which uses the system photo picker and needs <em>no</em> permission at all) and "Take a photo" (which requests camera in context, with a one-line rationale if the user previously declined). If the user grants access to only three photos under Android 14's partial access, the UI displays those three plus a visible "Manage selected photos" affordance rather than pretending the library is empty. Each branch has been designed, so no branch produces a dead end.</p>
+
+<p>Permissions also interact with trust. Android surfaces privacy indicators (the camera/microphone dot), a Privacy Dashboard, and Play Store Data Safety declarations, so over-requesting is now visible to users and penalised in reviews. The design rule is to request the <em>minimum</em> permission that achieves the goal: approximate rather than precise location for a store locator; the photo picker rather than full media access; a foreground-only location grant unless background tracking is genuinely the product.</p>
+
+<p><strong>Pulling the constraints together</strong></p>
+
+<p>None of these constraints is independently fatal, but together they define a design posture. A well-designed Android product is <em>adaptive</em> (window size classes rather than fixed screens), <em>tolerant</em> (feature detection with designed fallbacks rather than assumed capabilities), <em>economical</em> (modest assets, fast first paint, offline-aware), <em>conventional where convention is cheap</em> (back behaviour, navigation patterns, touch targets, type scale) and <em>distinctive where distinction earns its keep</em> (brand colour, illustration, signature interactions). A useful pre-build checklist is: what is our minSdk and what percentage of the target market does it exclude; which three device profiles define our test matrix; which permissions do we request, in what order, and what does each denied state look like; how does every screen behave at 600 dp and 840 dp; and what does this look like at 200% font scale in dark mode on a 720p LCD in sunlight?</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+
+<ul>
+  <li><strong>MO1</strong> — The topic supplies the Android half of a platform comparison, detailing the HCI design constraints that distinguish it (device and OS fragmentation, dp/sp density independence, runtime permissions, back-gesture conventions, hardware-tier spread) and the audience characteristics (global reach, emerging-market dominance, mid- and entry-tier hardware) that must be weighed against web and desktop alternatives.</li>
+  <li><strong>MO2</strong> — By setting out concrete, evidence-based criteria such as market reach by region, minSdk versus audience coverage, capability availability by API level, and performance expectations on budget hardware, the topic gives students the factual basis needed to argue for or against Android as the platform for a given set of project requirements.</li>
+  <li><strong>MO3</strong> — The constraints discussed translate directly into scope-document content: Android-specific constraints (supported OS versions, window size classes, permission handling, offline tolerance) and measurable success criteria (touch-target compliance, contrast and font-scaling support, time-to-first-paint on a defined reference device) that can be stated as objectives and acceptance thresholds.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Market-share, API-level and device-tier figures are indicative and shift over time; verify against current Google Play distribution data, StatCounter, and the Material 3 guidelines before teaching. Material 3 "Expressive" guidance and newer Android releases may update token names, type scale defaults and adaptive-layout recommendations, so treat specific dp/sp values as representative defaults rather than fixed standards. Suggested classroom activities: audit a popular app against the back/Up distinction and the 48 dp touch-target rule; redesign a permission-wall onboarding flow into a contextual request with designed denied states; and reflow a single phone screen into medium and expanded window size classes.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Android is the most widely deployed mobile platform in the world, and that reach comes with a particular set of design realities. Unlike a single tightly controlled device family, Android spans thousands of hardware models, screen sizes and densities, OS versions, and manufacturer skins, and it reaches users across a very broad range of regions, budgets and network conditions. Designing for Android therefore means designing for variability rather than for one idealized device.</p>
+<p>This topic looks at three things: what the Android platform offers (its component model, system UI patterns, and the Material Design language that sets user expectations), the conventions Android users have learned to rely on (navigation structures, standard components, back behavior, theming and typography), and the constraints you must plan around (fragmentation, performance and memory limits, permissions and privacy, accessibility, and store quality expectations). These constraints are not technical trivia — they shape what your interface can reasonably promise.</p>
+<p>The videos below come from the official Android Developers channel. As you watch, listen for the distinction between what the platform gives you for free and what you must decide deliberately. Note how often the answer to a design question on Android is "use the standard component unless you have a strong reason not to," and ask yourself what that implies for the scope and effort estimates in your own project.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: Why use Material Design Components? - MAD Skills</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/e__A7ORf5WY?cc_load_policy=1&amp;rel=0" title="Video: Why use Material Design Components? - MAD Skills (Android Developers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Android Developers</strong> · 5:48 · 39,553 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=e__A7ORf5WY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short episode from the MAD Skills series explaining why Google recommends building Android apps with the Material Design Components library rather than hand-rolling UI elements. It is likely to cover what the library provides — themed, consistent, accessible components that follow platform conventions — and the practical benefits of adopting it over custom widgets. Expect discussion of theming, consistency with user expectations, and reduced implementation effort.</p>
+<h3>Why this video</h3>
+<p>This maps directly to the Android Design Conventions subtopic: Material Design is the convention Android users expect, and this video explains it from the platform owner's own developer channel.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: Introduction to Android app quality</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/QxyvS1oZOUs?cc_load_policy=1&amp;rel=0" title="Video: Introduction to Android app quality (Android Developers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Android Developers</strong> · 4:36 · 16,291 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=QxyvS1oZOUs" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An overview of what Google means by Android app quality as user expectations on the platform have risen, spanning areas such as privacy, user experience, performance and compatibility. It likely introduces the quality framework that apps are measured against on the Play Store and why meeting it matters for adoption and ratings. Treat it as a checklist of the non-negotiables a designer should account for early.</p>
+<h3>Why this video</h3>
+<p>It frames the Android Constraints and Considerations subtopic well, showing that constraints come not only from hardware but from platform-level quality and privacy expectations that must be scoped from the start.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: Android app quality: Visual experience</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/uUWqUp_HeNs?cc_load_policy=1&amp;rel=0" title="Video: Android app quality: Visual experience (Android Developers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Android Developers</strong> · 3:28 · 9,918 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=uUWqUp_HeNs" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A focused look at the visual side of Android app quality — how layout, visual polish and adherence to platform visual norms shape users' first impression of an app. Expect attention to issues like rendering across different screen sizes and densities, respecting system UI such as status and navigation bars, and avoiding visual defects. It is a brief, concrete companion to the broader quality overview.</p>
+<h3>Why this video</h3>
+<p>It connects the Android Platform Overview and design conventions subtopics by showing how device variability translates into specific visual design obligations, in a concise and authoritative format.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos give you the Android half of the platform comparison required by MO1: they make explicit the design constraints — device fragmentation, visual and quality expectations, privacy requirements, and a prescribed design language — that distinguish Android from web and desktop targets. For MO2, the quality overview and Material Design rationale supply concrete, citable reasons you can use to justify choosing or rejecting Android against your project requirements. For MO3, the quality and visual-experience videos function as a source of realistic constraints and success criteria to write into your scope document, rather than discovering them late in development.</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

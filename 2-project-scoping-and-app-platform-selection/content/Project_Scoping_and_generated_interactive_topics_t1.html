@@ -1,0 +1,442 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Defining Project Scope in HCI Design</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Project Scoping and App Platform Selection</a></div>
+  <header>
+    <h1>Defining Project Scope in HCI Design</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Defining Project Scope in HCI Design</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every interface project begins long before the first wireframe is sketched or the first line of code is written. It begins with a decision about <strong>what the project is</strong> — and, just as importantly, what it is not. In Human-Computer Interaction (HCI), where the object of design is the relationship between a person and a system, that decision carries extra weight: a vague scope does not merely produce a late project, it produces an interface that serves nobody in particular. Defining project scope is the discipline of converting an enthusiastic, fuzzy idea ("let's build an app that helps people eat better") into a bounded, testable, buildable commitment ("a mobile application that lets users with diagnosed food allergies scan packaged-food barcodes and receive a safe/unsafe verdict in under three seconds").</p>
+
+<p>This topic examines scope from five angles: what scope actually is and why it protects a team; how to articulate goals that are evaluable rather than aspirational; how to document the constraints of time, technology, and team capability; how to describe the target audience with enough precision that it drives design decisions; and finally how to consolidate all of this into a formal project description that functions as the team's shared contract and reference point.</p>
+
+<p><strong>What Is Project Scope?</strong></p>
+
+<p>Project scope is the agreed boundary around a project: the set of goals it will pursue, the deliverables it will produce, and the work that will be performed to produce them. In practice scope answers four questions simultaneously — <em>what problem are we solving</em>, <em>for whom</em>, <em>what artefacts will exist when we are finished</em>, and <em>what are we deliberately not doing</em>. The fourth question is the one teams most often skip, and it is the one that does the most work.</p>
+
+<p>It is useful to distinguish two related concepts. <em>Product scope</em> describes the features and characteristics of the thing being built — the screens, the interactions, the capabilities. <em>Project scope</em> describes the work required to deliver that product — the research, the prototyping, the usability testing, the documentation, the handover. A team that defines only product scope frequently forgets to allocate time for evaluation, and so ships an untested interface. In an HCI project, usability testing, persona development and iteration cycles are themselves scope items and must be named as such.</p>
+
+<p>A central reason to define scope is to defend against <strong>scope creep</strong> — the gradual, often well-intentioned accumulation of features that were never budgeted for. Scope creep rarely arrives as a single dramatic demand; it arrives as a succession of small, reasonable-sounding additions. "While we're in the settings screen, could we add dark mode?" "It would only take a day to let people share results to social media." Each addition consumes design time, adds interface complexity, introduces new states to test, and quietly pushes the original goals further away. The following table distinguishes creep from legitimate change:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>Scope Creep</th>
+      <th>Managed Scope Change</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Origin</td>
+      <td>Informal conversation, chat message, hallway request</td>
+      <td>Formal request raised against the project description</td>
+    </tr>
+    <tr>
+      <td>Assessment</td>
+      <td>None — assumed to be "small"</td>
+      <td>Impact on schedule, effort and other features is estimated</td>
+    </tr>
+    <tr>
+      <td>Trade-off</td>
+      <td>Nothing is removed; the team simply absorbs it</td>
+      <td>Something is removed, deferred, or the deadline moves</td>
+    </tr>
+    <tr>
+      <td>Record</td>
+      <td>Undocumented; team members disagree later on what was agreed</td>
+      <td>Project description updated and re-circulated with a version date</td>
+    </tr>
+    <tr>
+      <td>Typical outcome</td>
+      <td>Late delivery, unpolished interface, untested edge cases</td>
+      <td>Deliberate re-prioritisation with eyes open</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Scope also serves a communication function. Stakeholders — a client, a course tutor, a product owner, an external partner, the end users themselves — each arrive with a private mental model of the project. If those models are never surfaced and reconciled, they collide at the worst possible moment: the demonstration. A written scope statement forces the reconciliation to happen early, when disagreement is cheap. Consider a student team building a campus wayfinding app: the tutor expects a usability-tested prototype, one team member expects a polished production release on the app store, and the facilities manager expects integration with the live room-booking database. Those three expectations cannot all be satisfied in eight weeks; naming them in week one lets the team negotiate rather than fail.</p>
+
+<p>Finally, scope must be <strong>realistic</strong> against the team's actual capacity. Realism is not pessimism — it is arithmetic. A four-person student team working ten hours each per week for ten weeks has roughly 400 person-hours, of which a substantial fraction will disappear into meetings, coordination, learning new tools, and rework. Scoping to 390 hours of "productive" design and build work guarantees failure. Experienced teams scope to around 60–70% of nominal capacity and treat the remainder as buffer. Ambition belongs in the goals; realism belongs in the deliverables list.</p>
+
+<p><strong>Identifying Project Goals</strong></p>
+
+<p>A goal is not a feature. "Add a barcode scanner" is a feature; "allow an allergy sufferer to determine in a supermarket aisle, within seconds and without reading dense ingredient text, whether a product is safe for them" is a goal. The distinction matters because goals describe <em>the problem and the value</em>, while features describe one possible solution. Teams that write their scope as a feature list lock themselves into the first solution they thought of; teams that write goals leave room for the design process to discover a better one.</p>
+
+<p>A well-formed HCI goal has three components: the <strong>user</strong> it serves, the <strong>problem or task</strong> it addresses, and the <strong>value or outcome</strong> it delivers. A simple sentence frame makes this explicit:</p>
+
+<pre><code>Enable [specific user group]
+to [accomplish a concrete task]
+so that [measurable value or outcome],
+verified by [evaluation method].</code></pre>
+
+<p>Applied: "Enable part-time mature students to locate and book a free study room on campus in under 60 seconds from a mobile device, so that they stop wasting time walking between buildings, verified by a timed task in moderated usability testing with six participants." Note what this version gives the team that "make a room booking app" does not: a user group to recruit for testing, a task to script, a numeric threshold to pass or fail against, and an evaluation method that itself must be scheduled into the plan.</p>
+
+<p>Goals must be <strong>specific enough to evaluate</strong>. The classic SMART criteria (Specific, Measurable, Achievable, Relevant, Time-bound) apply, but HCI projects benefit from attaching explicit <em>usability metrics</em> to goals. Common measures include task completion rate, time on task, error rate, number of assists required, and post-task satisfaction scores (for example, a System Usability Scale score). The table below contrasts weak and strong goal statements:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Weak goal</th>
+      <th>Why it fails</th>
+      <th>Stronger restatement</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Make the app user-friendly</td>
+      <td>No user, no task, no threshold — can never be shown to be achieved or missed</td>
+      <td>Achieve a mean SUS score of at least 72 among eight first-time users after a 10-minute unaided session</td>
+    </tr>
+    <tr>
+      <td>Use modern technology</td>
+      <td>Technology-centred, not user-centred; delivers no stated value to anyone</td>
+      <td>Reduce sign-in friction by supporting device biometric authentication, cutting mean sign-in time from 22s to under 5s</td>
+    </tr>
+    <tr>
+      <td>Include a dashboard</td>
+      <td>A solution stated as a goal; forecloses alternatives</td>
+      <td>Allow a ward nurse to see at a glance which patients are overdue for observations, with zero navigation steps from app launch</td>
+    </tr>
+    <tr>
+      <td>Support everyone</td>
+      <td>Unbounded audience; impossible to design or test against</td>
+      <td>Support screen-reader users on iOS VoiceOver for all primary task flows, meeting WCAG 2.2 AA for contrast and focus order</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Goals also function as a <strong>decision-making instrument</strong>. Design is a continuous sequence of trade-offs — speed versus discoverability, density versus clarity, automation versus user control — and in the absence of ranked goals those trade-offs are resolved by whoever argues most forcefully. With ranked goals, the argument becomes evidence-based. If the primary goal of the supermarket scanner is "a verdict within three seconds in a noisy, one-handed, time-pressured context," then an onboarding tutorial that must be dismissed on every launch is objectively wrong, and a large single-colour verdict panel objectively beats an elegant nutritional breakdown. Teams often formalise this with a <em>MoSCoW</em> ranking (Must have, Should have, Could have, Won't have this time) applied to features, each traced back to the goal it serves. A feature that traces to no goal is a candidate for removal.</p>
+
+<p>Finally, goals should be <strong>user-centred rather than technology-centred</strong>. A recurring failure pattern in student and hobby projects is that the technology is chosen first — "we want to use augmented reality" or "we want to try a large language model" — and a user problem is reverse-engineered to justify it. The result is almost always an interface that performs a trick rather than solving a need. Grounding goals in observed human behaviour (interviews, contextual inquiry, surveys, analysis of how the task is performed today) protects against this. A useful test: for each goal, ask "whose day gets better, and how would they describe the improvement in their own words?" If the answer can only be phrased in technical terms, the goal is not yet user-centred.</p>
+
+<p><strong>Defining Constraints</strong></p>
+
+<p>Constraints are the fixed walls of the design space. Far from being obstacles to creativity, documented constraints are what make design tractable: an unconstrained problem has infinite solutions and therefore no basis for choosing among them. Constraints should be written down at the start, dated, and revisited, because an undocumented constraint invariably resurfaces later as an unpleasant surprise.</p>
+
+<p><em>Time constraints</em> define the overall delivery window and the milestones inside it. A single end date is insufficient; it provides no early warning. Instead the timeline should be decomposed into checkpoints with associated artefacts, so that slippage is visible weeks before the deadline. In HCI projects the schedule must explicitly reserve time for evaluation and iteration, because these are the first activities sacrificed under pressure and the ones whose loss most damages the final product. A workable ten-week structure might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Weeks</th>
+      <th>Milestone</th>
+      <th>Artefact produced</th>
+      <th>Risk if compressed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1–2</td>
+      <td>Scoping and user research</td>
+      <td>Project description, personas, task scenarios</td>
+      <td>Team builds for an imagined user; rework later</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Information architecture and low-fidelity design</td>
+      <td>Sitemap, paper or wireframe sketches</td>
+      <td>Navigation problems discovered only after coding</td>
+    </tr>
+    <tr>
+      <td>4–5</td>
+      <td>Interactive prototype</td>
+      <td>Clickable prototype of primary task flows</td>
+      <td>No testable artefact; evaluation delayed</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Formative usability testing</td>
+      <td>Findings log, prioritised fix list</td>
+      <td>Known defects ship to users</td>
+    </tr>
+    <tr>
+      <td>7–8</td>
+      <td>Build / high-fidelity implementation</td>
+      <td>Working application of Must-have features</td>
+      <td>Features half-finished across the board</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>Summative evaluation and accessibility check</td>
+      <td>Test report, metrics against goals</td>
+      <td>No evidence that goals were met</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>Polish, documentation, handover</td>
+      <td>Final build, README, presentation</td>
+      <td>Chaotic demonstration; undocumented system</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Technical constraints</em> arise from the chosen platform, the available APIs, the devices in users' hands, and the environment in which the system runs. These are deeply intertwined with HCI because platform capability determines what interactions are even possible. A mobile application can access the camera, GPS, accelerometer, haptics and push notifications, and can function offline — but it must work on a small screen, under one-handed use, with touch targets of at least roughly 44×44 points, and subject to app-store review. A web application reaches any device with a browser and updates instantly without user action, but historically has weaker access to device sensors, depends on connectivity, and must be responsive across an enormous range of viewport sizes. A desktop application offers generous screen area, precise pointer input, rich keyboard shortcuts and heavy local processing, but requires installation, platform-specific builds, and update distribution. Other technical constraints include browser or OS version floors, data-protection obligations that forbid storing certain information on device, bandwidth limits in the user's context, and integration with legacy systems whose APIs cannot be changed.</p>
+
+<p><em>Team constraints</em> concern the skills, availability and composition of the people doing the work. A team with strong front-end web skills and no native mobile experience faces a real cost if it commits to a Swift application: the learning curve consumes weeks that were budgeted for design. Bandwidth matters as much as skill — a team member with a part-time job and two other modules may realistically contribute six hours a week, not twenty. Other team constraints include the distribution of the team across time zones, access to licensed software or test devices, the presence (or absence) of someone able to moderate a usability session, and the "bus factor" risk when only one person understands a critical component. Honest documentation of these constraints is not an admission of weakness; it is the basis of a plan that will actually survive contact with reality.</p>
+
+<p>A compact constraints register keeps all of this visible:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Constraint</th>
+      <th>Consequence for design</th>
+      <th>Mitigation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Time</td>
+      <td>Hard demonstration date in week 10; no extension</td>
+      <td>Only three primary task flows can be built to high fidelity</td>
+      <td>Rank flows; cut "Could have" items at the week-6 review</td>
+    </tr>
+    <tr>
+      <td>Technical</td>
+      <td>Target users are on older Android devices with intermittent data</td>
+      <td>Interface must degrade gracefully and cache content offline</td>
+      <td>Design offline states explicitly; test on a low-end device</td>
+    </tr>
+    <tr>
+      <td>Technical</td>
+      <td>University timetable API is read-only and rate-limited</td>
+      <td>No in-app booking; viewing only</td>
+      <td>Reframe goal as "find", not "book"; state in out-of-scope list</td>
+    </tr>
+    <tr>
+      <td>Team</td>
+      <td>No team member has native iOS experience</td>
+      <td>Native Swift build would consume ~3 weeks of learning</td>
+      <td>Choose responsive web or cross-platform framework; justify in description</td>
+    </tr>
+    <tr>
+      <td>Team</td>
+      <td>Only one member available for in-person testing sessions</td>
+      <td>Limited number of moderated sessions possible</td>
+      <td>Schedule six sessions early; supplement with unmoderated tasks</td>
+    </tr>
+    <tr>
+      <td>Legal/ethical</td>
+      <td>Health-related data is collected</td>
+      <td>Consent flow and data-minimisation required in the interface</td>
+      <td>Design consent screen in week 3; obtain ethics sign-off</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Documenting constraints early also performs an expectation-management function with stakeholders. A client who is told in week one that the booking API is read-only will accept a "find a room" product; the same client told in week nine will perceive a failure. The constraint did not change — only the moment of disclosure did.</p>
+
+<p><strong>Scoping the Target User Audience</strong></p>
+
+<p>"Everyone" is not an audience. An interface designed for everyone optimises for no one, because the needs of a 19-year-old computer science student and an 82-year-old first-time tablet user genuinely conflict in matters of information density, text size, terminology, error tolerance and pacing. Scoping the audience means choosing, explicitly and defensibly, whose needs will be prioritised — and, by implication, whose will not be the primary driver of design decisions this time around.</p>
+
+<p>A usable audience definition covers at least three dimensions:</p>
+
+<ul>
+  <li><strong>Demographics and situation:</strong> age range, occupation or role, language, location, relevant physical or sensory characteristics, and any accessibility requirements. These shape typography, colour contrast, language register and localisation needs.</li>
+  <li><strong>Technical proficiency:</strong> familiarity with the platform's conventions, frequency of use (one-off visitor versus daily expert), tolerance for abstraction, and existing mental models drawn from tools they already use. Novices need visible affordances, generous labelling, forgiving defaults and undo; frequent experts need speed, keyboard shortcuts, batch actions and the ability to suppress hand-holding. Many real systems must serve both, which is why progressive disclosure and accelerators exist.</li>
+  <li><strong>Context of use:</strong> the physical and social environment in which the task is performed. Is the user seated at a desk for an hour, or standing on a cold warehouse floor wearing gloves for fifteen seconds? Is the screen viewed in bright sunlight? Are hands free? Is the user interrupted constantly? Is the task performed under emotional stress, as with a patient portal or a bereavement service? Context of use frequently constrains design more sharply than demographics do.</li>
+</ul>
+
+<p>These dimensions are usually captured in <em>personas</em> — evidence-based composite characters — paired with <em>scenarios</em> that place the persona in a situation with a goal. For example: "Marcus, 34, a delivery driver, uses a cracked mid-range Android phone with 2GB of data a month. He checks the app one-handed while the engine runs, in bright daylight, and needs to confirm the next drop in under ten seconds." Nearly every consequential design decision for that product — contrast ratio, touch target size, payload weight, offline caching, the decision not to put critical actions at the top of the screen — follows directly from that paragraph. A persona that produces no design consequences is decoration; a persona that constrains choices is doing its job.</p>
+
+<p>Audience definition also determines <strong>which features belong in scope</strong>. If research shows that the primary users of a community-garden app are volunteers who visit twice a month, then a sophisticated analytics dashboard serves nobody, while a simple "what needs doing today" list serves everyone. Features should be traceable to a documented user need; those that cannot be traced are candidates for the out-of-scope list. It is worth distinguishing primary users (whose goals drive the design), secondary users (who use the system occasionally and must not be blocked), and stakeholders who are affected but never touch the interface — a parent paying for a child's learning app, for instance, has interests that shape requirements without making them the primary user.</p>
+
+<p>Crucially, the audience's <strong>device access and platform habits directly determine platform selection</strong>. This is where audience scoping and technical scoping meet. The table below illustrates how audience facts translate into platform consequences:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Audience characteristic</th>
+      <th>Platform implication</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Users are mobile during the task and need sensors (camera, GPS)</td>
+      <td>Favours a mobile app or a capable progressive web app</td>
+      <td>Field surveyors photographing and geotagging site damage</td>
+    </tr>
+    <tr>
+      <td>Users are occasional, arrive via a shared link, and will not install anything</td>
+      <td>Favours web; an install requirement would destroy adoption</td>
+      <td>One-off event feedback form or public information service</td>
+    </tr>
+    <tr>
+      <td>Users work long sessions with large data sets and precise manipulation</td>
+      <td>Favours desktop or a desktop-class web application</td>
+      <td>Video editing, CAD, financial modelling, code authoring</td>
+    </tr>
+    <tr>
+      <td>Users are on locked-down managed corporate machines</td>
+      <td>Web avoids installation permissions and deployment friction</td>
+      <td>Internal HR or expense-claim tool</td>
+    </tr>
+    <tr>
+      <td>Users have limited or expensive data and older hardware</td>
+      <td>Constrains payload size, animation, and framework choice</td>
+      <td>Services for low-income or rural populations</td>
+    </tr>
+    <tr>
+      <td>Users rely on assistive technology</td>
+      <td>Platform must have mature accessibility APIs and be tested with them</td>
+      <td>Screen-reader users on a public-sector service subject to accessibility regulation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Defining the audience early also has an organisational benefit: it gives the team a shared referent. When a designer and a developer disagree about whether a confirmation dialogue is necessary, "would Marcus, one-handed with the engine running, thank us for this?" resolves the argument faster than opinion exchange. Over a project, this shared vision reduces the number of decisions that must be escalated and keeps the interface internally coherent rather than a patchwork of individual preferences.</p>
+
+<p><strong>Writing a Formal Project Description</strong></p>
+
+<p>The formal project description — variously called a project brief, scope statement, or design brief — is the artefact in which everything above is consolidated. Its purpose is not bureaucratic. It exists because human memory of verbal agreements is unreliable and self-serving: three weeks after a meeting, four team members will sincerely recall four different versions of what was decided. A written, dated, circulated document converts a cloud of individual assumptions into a single shared reference that can be pointed at.</p>
+
+<p>A good project description is short enough to be read in one sitting — typically two to four pages for a student or small-team project — and structured so that any section can be located quickly. A dependable structure is:</p>
+
+<ul>
+  <li><strong>Title, version and date:</strong> version control matters, because the document will change. "v1.3, 14 March" prevents arguments conducted against different copies.</li>
+  <li><strong>Problem statement:</strong> two or three sentences describing the human problem that exists today, with evidence. What do people currently do, and why is it unsatisfactory?</li>
+  <li><strong>Project goals:</strong> the ranked, evaluable goal statements, each with its success criterion and evaluation method.</li>
+  <li><strong>Target audience:</strong> primary and secondary users, with a summary of demographics, proficiency and context of use, and a pointer to the personas.</li>
+  <li><strong>Platform decision and rationale:</strong> the chosen platform, the alternatives considered, and the reasons — tied to audience and constraints — for the choice.</li>
+  <li><strong>In scope:</strong> the deliverables and features the team commits to, ideally ranked (Must / Should).</li>
+  <li><strong>Out of scope:</strong> explicitly named exclusions, with a one-line reason for each.</li>
+  <li><strong>Constraints and assumptions:</strong> the constraints register, plus any assumptions being made that, if false, would change the plan.</li>
+  <li><strong>Success criteria:</strong> how the team and stakeholders will jointly judge the finished work.</li>
+  <li><strong>Milestones and responsibilities:</strong> who is doing what, by when.</li>
+  <li><strong>Change process:</strong> one short paragraph stating how scope changes will be requested, assessed and recorded.</li>
+</ul>
+
+<p>The <strong>out-of-scope list is the highest-value section of the document</strong> and the one most often omitted. Stating what will not be built removes ambiguity that silence leaves open. "User accounts and login" is either in or out; if the document says nothing, the developer assumes out and the client assumes in. Exclusions should be specific and reasoned, for example:</p>
+
+<pre><code>OUT OF SCOPE (v1.0)
+- Native iOS build .............. no team iOS experience; web reaches all target users
+- Payment / checkout ............ no merchant account available within the timeline
+- Admin content-management UI ... content edited directly in the data file for v1
+- Multi-language support ........ target audience surveyed are English-speaking; defer to v2
+- Real-time chat support ........ no capacity to staff it; FAQ page instead
+- Offline editing ............... read-only offline cache only; sync conflicts out of scope</code></pre>
+
+<p>Equally important is recording the <strong>rationale behind key decisions</strong>, particularly platform choice. A decision recorded without its reasoning cannot be revisited intelligently: six weeks later nobody remembers whether "we chose a responsive web app" was a considered judgement or a coin toss, so the question gets reopened and re-argued. A short decision record solves this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Entry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Decision</td>
+      <td>Build as a responsive progressive web application</td>
+    </tr>
+    <tr>
+      <td>Alternatives considered</td>
+      <td>Native Android app; cross-platform framework; desktop application</td>
+    </tr>
+    <tr>
+      <td>Audience evidence</td>
+      <td>Survey of 42 target users: 86% access campus services on mobile; 61% report reluctance to install another app for occasional use</td>
+    </tr>
+    <tr>
+      <td>Constraints applied</td>
+      <td>Ten-week timeline; no native mobile skills in team; read-only timetable API; no app-store account</td>
+    </tr>
+    <tr>
+      <td>Trade-off accepted</td>
+      <td>No push notifications and no background location; offline support limited to cached timetable data</td>
+    </tr>
+    <tr>
+      <td>Revisit if</td>
+      <td>Push notification becomes a Must-have, or the API gains write access</td>
+    </tr>
+    <tr>
+      <td>Decided by / date</td>
+      <td>Full team, week 2, v1.0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The description should also be <em>used</em>, not filed. In practice this means three habits. First, every new feature proposal is tested against the document: which goal does it serve, which constraint does it strain, and what comes out to make room for it? Second, the document is reviewed at each milestone and updated with a new version number when scope legitimately changes, so that the latest copy is always authoritative. Third, the success criteria in the document become the script for the final evaluation — if a goal said "task completion in under 60 seconds for six of eight participants," then that is precisely the test that gets run, and the result is reported honestly whether it passes or fails.</p>
+
+<p>A brief worked illustration ties the whole chain together. A team identifies a problem: mature part-time students waste time hunting for free study space. The goal becomes "enable a part-time student to identify a free, bookable study room within 60 seconds on a phone." Audience research shows these students are between classes, on mobile, often with poor indoor signal, and strongly resistant to installing single-purpose apps. Constraints are a ten-week timeline, a read-only timetable API, and no native mobile skills. The platform decision therefore falls to a responsive progressive web app with offline caching. In scope: room search, availability display, filtering by building and facilities, cached last-known data. Out of scope: booking (API is read-only), accounts, notifications, multi-campus support. Success criterion: six of eight test participants complete the find-a-room task unaided in under 60 seconds, with a mean SUS score of at least 72. Every element of that chain is traceable to the one before it — which is precisely what a well-scoped project looks like.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+
+<ul>
+  <li><strong>MO1:</strong> The treatment of technical constraints and of audience device access sets out the differing capabilities of mobile, web and desktop platforms — sensors, screen real estate, input precision, installation and connectivity — and shows how each is weighed against the needs and context of a defined user group, supporting direct comparison on HCI design grounds.</li>
+  <li><strong>MO2:</strong> The platform-decision record, the audience-to-platform mapping table and the constraints register provide the evidence base and documentation format needed to select a platform and justify that selection against stated project requirements, constraints and user research.</li>
+  <li><strong>MO3:</strong> The topic as a whole is the direct preparation for this outcome: it defines evaluable goals, documents time, technical and team constraints, scopes the audience, and specifies the structure, in-scope/out-of-scope content and success criteria of a formal project description.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Suggested activities: (1) have teams rewrite three weak goal statements into evaluable form using the &quot;Enable / to / so that / verified by&quot; frame; (2) issue a short constraints-register template for completion in week 1 and review it at the week-6 milestone; (3) run a peer review in which each team critiques another&#39;s out-of-scope list for missing exclusions. The ten-week milestone table and the SUS threshold of 72 (roughly the boundary of &quot;good&quot; on common SUS interpretation scales) can be adjusted to match the actual assessment calendar and local standards.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

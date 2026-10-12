@@ -1,0 +1,424 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collaborative and Advanced Interface Technologies</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Video Lectures</a></div>
+  <header>
+    <h1>Collaborative and Advanced Interface Technologies</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Collaborative and Advanced Interface Technologies</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Traditional human–computer interaction research grew up around a convenient fiction: one person, one screen, one keyboard, one task. That model was always an approximation, and today it is an increasingly poor one. People write documents that four colleagues are editing at the same moment, dictate reminders to a speaker in the kitchen, follow turn-by-turn navigation projected onto a windscreen, hand off a half-finished message from a phone to a laptop, and supervise automated systems that make thousands of decisions per second on their behalf. This topic examines the interface technologies and design concerns that arise once we abandon the single-user, single-device assumption: cooperative work, groupware architecture, post-WIMP interaction paradigms, automation and oversight, novel display forms, mobile interaction in demanding contexts, and the emerging frontier of brain-computer interfaces, ubiquitous computing, and AI-mediated interaction.</p>
+
+<p>A unifying thread runs through all of these areas. Every advance that removes friction — automating a step, embedding a sensor, predicting an intent, sharing a workspace — simultaneously removes a source of <em>feedback</em> and <em>control</em>. The design work consists largely of putting the right amount of friction, visibility, and authority back in. Keep that tension in mind as each section unfolds.</p>
+
+<p><strong>Computer-Supported Cooperative Work (CSCW)</strong></p>
+
+<p>Computer-Supported Cooperative Work is the study of how people work together using technology, and of how technology should be designed to support that work. The term was coined in 1984 by Irene Greif and Paul Cashman, and the field is deliberately interdisciplinary: it draws on computer science, sociology, organisational psychology, and anthropology, because the hard problems in cooperative systems are rarely purely technical. A shared calendar that works flawlessly at the protocol level can still fail completely if it exposes information that colleagues consider private, or if it assumes everyone's time is equally interruptible.</p>
+
+<p>The classic organising device for CSCW is the <em>time–space matrix</em> proposed by Johansen, which classifies cooperative systems by whether participants are co-located or distributed, and whether their interaction is synchronous or asynchronous.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Same time (synchronous)</th>
+      <th>Different time (asynchronous)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Same place (co-located)</th>
+      <td>Interactive meeting-room displays, shared tabletop surfaces, electronic voting and brainstorming tools, pair-programming at one workstation</td>
+      <td>Shift-handover boards in hospitals, team information radiators, physical–digital kanban walls, kiosk-based team notes</td>
+    </tr>
+    <tr>
+      <th>Different place (remote)</th>
+      <td>Video conferencing, live collaborative editors, shared whiteboards, screen sharing, multiplayer simulation environments</td>
+      <td>Email, discussion forums, version control systems, shared document repositories, issue trackers, recorded video messages</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The matrix is a starting point rather than a taxonomy of products — most real platforms straddle several cells. A modern collaborative editor supports synchronous co-editing, asynchronous commenting, and a version history that functions as a different-time, different-place record. What the matrix does usefully is force the designer to ask: <em>which cells does my system claim to support, and have I designed for each of them deliberately?</em> A tool that is excellent synchronously but leaves no legible trace for the colleague who logs on tomorrow morning has only solved half the problem.</p>
+
+<p>Three design challenges dominate CSCW practice.</p>
+
+<ul>
+  <li><strong>Awareness.</strong> In a shared physical office, you absorb an enormous amount of information for free: who is present, who is busy, what someone is working on, whether a conversation is happening that concerns you. Distributed systems must reconstruct this deliberately. Mechanisms include <em>presence indicators</em> (online/away/in a meeting), <em>telepointers</em> and coloured cursors showing where each collaborator is working, activity feeds, read receipts, and "who else is viewing this" badges. Dourish and Bellotti's influential definition — awareness is "an understanding of the activities of others, which provides a context for your own activity" — makes the point that awareness is not an end in itself; it exists so that individuals can make sensible decisions about their own next action.</li>
+  <li><strong>Coordination.</strong> Groups must divide labour, sequence dependent tasks, and avoid duplicated or conflicting effort. Coordination can be <em>explicit</em> (assigning a ticket, @-mentioning someone, setting a deadline) or <em>implicit</em> (seeing that a colleague's cursor is in section 3, so you start on section 5). Good systems support both, because explicit coordination carries overhead and groups naturally minimise it where awareness information makes it unnecessary.</li>
+  <li><strong>Communication.</strong> Cooperative work requires conversation about the work as well as the work itself. Interfaces must provide channels for this meta-conversation — inline comments, suggestion mode, chat panes anchored to artefacts — and must make clear what is <em>in</em> the document versus what is <em>about</em> the document. A frequent failure is forcing all discussion into a separate chat tool, severing it from the artefact it refers to, so that six months later nobody can reconstruct why a decision was made.</li>
+</ul>
+
+<p>Beneath these lies the social layer, which is where many technically sound groupware systems have historically failed. Grudin's well-known critique identified a recurring pattern: the people who do the extra work of maintaining a groupware system are often not the people who benefit from it. A shared corporate calendar benefits managers who want to schedule meetings, but the cost of diligent calendar maintenance falls on everyone else — so the data decays and the system becomes useless. Designers must ask who pays and who gains.</p>
+
+<p>Other social dynamics that interfaces must accommodate include:</p>
+
+<ul>
+  <li><strong>Turn-taking and floor control.</strong> Face-to-face conversation is regulated by gaze, posture, and subtle vocal cues that video conferencing degrades badly, which is why remote meetings produce more collisions and longer silences. Interfaces can compensate with explicit floor-control mechanisms — raise-hand queues, mute-by-default policies, speaking-order rotation, or a shared whiteboard "token" that must be requested. The trade-off is that explicit protocols are fairer but slower and more formal than natural conversation.</li>
+  <li><strong>Role hierarchies and permissions.</strong> Groups are rarely flat. Owner/editor/commenter/viewer models encode authority in the interface, and the way they are exposed matters: a junior team member may hesitate to edit a document directly but will readily leave a suggestion. Suggestion mode is therefore not merely a technical feature but a <em>social affordance</em> that lowers the cost of contribution for people with less positional power.</li>
+  <li><strong>Conflict resolution.</strong> Conflicts arise at the data level (two simultaneous edits to the same sentence) and at the human level (two people disagreeing about the content). Technical mechanisms such as merge conflict markers in version control solve the first; the second requires interfaces that make disagreement visible, attributable, and resolvable — threaded comments with an explicit "resolve" action, change proposals that require review, or audit trails showing who changed what and when. Attribution is double-edged: it supports accountability but can feel like surveillance, so systems often let users control the granularity at which their activity is recorded.</li>
+</ul>
+
+<p>Common CSCW tools illustrate these ideas concretely. A <strong>collaborative document editor</strong> combines real-time awareness (named cursors), conflict handling (operational transformation or CRDTs, discussed below), communication (comments and suggestions), and history (version timeline). A <strong>shared whiteboard</strong> trades structure for expressive freedom, supporting the rough, spatially organised thinking that precedes formal documents; its design problems centre on viewport management — if collaborators can pan independently, they lose shared reference, so whiteboards offer "follow" modes and spatial minimaps. A <strong>project management platform</strong> such as a kanban board externalises coordination itself: the board <em>is</em> the shared mental model of who is doing what, and its value comes from being a single, visible, continuously updated representation of group state.</p>
+
+<p><strong>Groupware and Collaboration Frameworks</strong></p>
+
+<p>Groupware is the software layer that realises CSCW ideas. Returning to the time–space matrix, each quadrant carries distinct design obligations.</p>
+
+<p><em>Same-time, same-place</em> systems support people who share a room. Interactive meeting-room displays, digital whiteboards, and multi-touch tabletops must handle problems that remote tools never face: multiple simultaneous touch inputs from different people, orientation (text readable from one side of a table is upside down from the other), reach (a 2-metre wall display has regions some users physically cannot touch), and territoriality — research on tabletop interaction shows that groups spontaneously partition the surface into personal, group, and storage territories, and interfaces that ignore this feel intrusive. Co-located tools also must not duplicate what the room already provides: speech, gesture, and gaze are already available, so the software should support the work rather than mediating the conversation.</p>
+
+<p><em>Different-time, different-place</em> systems support asynchronous remote collaboration and are, in practice, the workhorses of distributed work. Email, discussion threads, shared repositories, and documentation wikis all share a core requirement: because recipients arrive at unpredictable times and without shared context, the system must preserve <em>context with the content</em>. A good asynchronous tool makes it possible to reconstruct the state of a discussion without having been present. Practical features include threading, quoting, change summaries and diffs, persistent links to specific revisions, and clear markers of what is new since the reader's last visit. Asynchronous tools must also respect the fact that latency is a feature, not a bug — it allows participants in different time zones to contribute thoughtfully rather than reactively.</p>
+
+<p>A persistent design tension in all groupware is the balance between <strong>individual needs and group workflow</strong>. Individuals want a workspace tuned to their own preferences — their own filters, sort order, zoom level, notification settings, drafts that nobody else sees. The group needs consistency, shared reference, and visibility. Systems resolve this with layered views: a shared canonical artefact plus per-user view state. In a collaborative spreadsheet, for example, filters are commonly made per-user precisely because one person's filter silently changing everyone else's view is disorienting. The same logic produces private drafts that are published explicitly, personal "my tasks" views over a shared backlog, and WYSIWIS ("what you see is what I see") modes that can be relaxed into independent scrolling when tight coupling becomes a burden.</p>
+
+<p>Coordination mechanisms are the technical machinery that prevents shared state from becoming incoherent. The main families are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mechanism</th>
+      <th>How it works</th>
+      <th>Strengths</th>
+      <th>Weaknesses</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Pessimistic locking (check-out/check-in)</td>
+      <td>A user acquires an exclusive lock on a file or region; others are blocked until it is released</td>
+      <td>Conflicts are impossible; simple to reason about; suits binary assets like CAD or image files that cannot be merged</td>
+      <td>Blocks parallel work; forgotten locks stall the team; poor fit for fast-moving text</td>
+    </tr>
+    <tr>
+      <td>Optimistic concurrency with merge</td>
+      <td>Everyone edits freely; divergence is detected and reconciled on commit (e.g. Git)</td>
+      <td>Maximum parallelism; full history; branching supports experimentation</td>
+      <td>Merge conflicts require human judgement and can be intimidating for non-technical users</td>
+    </tr>
+    <tr>
+      <td>Operational transformation (OT)</td>
+      <td>Concurrent operations are transformed against one another so that all replicas converge, typically via a central server</td>
+      <td>Enables fine-grained, character-level real-time editing with no visible conflicts</td>
+      <td>Algorithmically intricate; usually requires a central authority to order operations</td>
+    </tr>
+    <tr>
+      <td>CRDTs (conflict-free replicated data types)</td>
+      <td>Data structures mathematically designed so concurrent updates commute and always converge</td>
+      <td>Works peer-to-peer and offline-first; no central server required</td>
+      <td>Metadata overhead; convergence is guaranteed but the merged result may still need human review</td>
+    </tr>
+    <tr>
+      <td>Versioning and history</td>
+      <td>Every change is recorded with author and timestamp; prior states are restorable</td>
+      <td>Supports accountability, undo, and asynchronous catch-up</td>
+      <td>Storage cost; history itself needs an interface or it is unusable</td>
+    </tr>
+    <tr>
+      <td>Notifications and subscriptions</td>
+      <td>Changes of interest are pushed to relevant users</td>
+      <td>Closes the awareness gap in asynchronous work</td>
+      <td>Over-notification causes alert fatigue and desensitisation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The intuition behind operational transformation is worth seeing concretely. Suppose a shared document contains the string <code>"HAT"</code> and two users act at the same instant.</p>
+
+<pre><code>Initial state:  "HAT"
+
+User A (local):  Insert("C", pos 0)   ->  "CHAT"
+User B (local):  Delete(pos 2)        ->  "HA"     (removes "T")
+
+Naive application of B's raw operation on A's replica:
+  "CHAT" with Delete(pos 2)  ->  "CHT"     WRONG - deletes "A"
+
+Transformation of B's operation against A's insert:
+  because A inserted one character at a position <= B's index,
+  B's index must shift right by 1:  Delete(pos 2) -> Delete(pos 3)
+
+  "CHAT" with Delete(pos 3)  ->  "CHA"     CORRECT
+
+Symmetrically, A's insert at pos 0 is unaffected by B's delete at pos 2:
+  "HA" with Insert("C", pos 0)  ->  "CHA"  CORRECT
+
+Both replicas converge on "CHA".</code></pre>
+
+<p>From an interface perspective, the crucial consequence is that the user should never be asked to think about any of this. The design goal of real-time groupware is that the concurrency control is invisible, while the <em>social</em> information it implies — someone else is typing here, this paragraph just changed, this section is being rewritten — is highly visible. Compare this with version control, where conflicts are deliberately surfaced because the merge decision genuinely requires human judgement about meaning.</p>
+
+<p>Notification design deserves separate emphasis because it is where most groupware is actually judged. A reasonable framework is to classify events by urgency and relevance, and map them to channels accordingly: immediate interruptive alerts reserved for direct mentions and blocking requests; batched digests for ambient activity; and purely passive indicators (badges, change highlights) for everything else. Giving users per-project and per-event-type control, plus a "mute this thread" escape hatch, is not a luxury — without it, people disable notifications wholesale and the awareness channel collapses.</p>
+
+<p><strong>Advanced Interface Paradigms</strong></p>
+
+<p>Beyond the desktop lies a family of interaction paradigms often grouped under the heading "post-WIMP" (beyond windows, icons, menus, and pointers). They share a common ambition: to exploit human perceptual and motor skills that the keyboard and mouse leave idle.</p>
+
+<p><strong>Tangible user interfaces (TUIs)</strong> give digital information a physical form that can be grasped and manipulated. Ishii and Ullmer's canonical example, the <em>metaDESK</em>, let users move a small physical model of a building across a map-projected table to pan and rotate the map. Later examples include Siftables and Sifteo cubes, the Reactable music instrument (where placing and rotating pucks on a table configures a synthesiser), and physical tokens used in planning or education. The appeal of TUIs is that they inherit the affordances of the physical world for free: a block can be picked up, weighed, passed to a colleague, and arranged spatially with a precision and speed that no mouse can match, and the constraints of physics prevent many invalid states. They are also inherently multi-user — several hands can act on a tabletop simultaneously — which makes them attractive for co-located CSCW. Their limitations are equally physical: tangibles cannot change shape to reflect state, they can be lost, and they do not scale to large or abstract data sets.</p>
+
+<p><strong>Augmented and virtual reality.</strong> These sit on Milgram's reality–virtuality continuum, from unmediated reality, through augmented reality (digital content registered to the physical world), mixed reality (digital and physical content that interact), to fully virtual environments. AR's defining technical requirement is <em>registration</em>: virtual content must be correctly aligned with the physical scene and remain aligned as the user moves. A surgical AR overlay that is three millimetres off is worse than no overlay. Representative uses include a warehouse picker seeing the next bin highlighted through smart glasses, a maintenance technician seeing exploded-view instructions anchored to the actual machine, and a shopper previewing furniture in their own room. VR, by contrast, replaces the environment entirely, which makes it powerful for training (flight simulation, emergency drills, surgical rehearsal), spatial design review, and empathy-building experiences. VR design has its own hard constraints: motion-to-photon latency must stay low (typically under about 20 ms) and visual motion must agree with vestibular sensation, or users experience simulator sickness; text input is awkward; and physical safety in the real room must be managed via guardian boundaries. Both AR and VR raise collaboration questions — shared virtual workspaces need avatars with enough expressiveness to carry gaze and gesture cues, and asymmetric setups (one user in a headset, three on laptops) require careful design so that the non-immersed participants are not second-class.</p>
+
+<p><strong>Natural user interfaces (NUIs)</strong> use gesture, voice, touch, gaze, and body movement as primary inputs. The word "natural" is somewhat aspirational: these interfaces aim to feel natural, but almost all gestures beyond the simplest are learned conventions, not innate behaviours. Key design problems are:</p>
+
+<ul>
+  <li><strong>Discoverability.</strong> Gestures and voice commands are invisible. There is no menu to browse. Systems must teach their vocabulary through onboarding, contextual hints, suggestion chips ("Try saying…"), or redundant visible controls that provide the same function.</li>
+  <li><strong>The live-mic / Midas-touch problem.</strong> If every movement is interpreted as input, users cannot scratch their nose without triggering something. Hence wake words, push-to-talk, explicit engagement gestures, and dwell thresholds for gaze input.</li>
+  <li><strong>Feedback and error recovery.</strong> Recognition-based input is probabilistic. The interface must show what it understood (a live transcript, a highlighted recognised gesture), make the confidence legible when it is low, and make correction cheap — "did you mean…?", easy undo, or a fallback to typing.</li>
+  <li><strong>Fatigue and ergonomics.</strong> Mid-air gesturing produces "gorilla arm"; sustained voice interaction is socially awkward in shared spaces and unusable in noisy ones. Modality choice must fit the physical and social context.</li>
+</ul>
+
+<p><strong>Context-aware interfaces</strong> adapt their behaviour based on sensed circumstances: location, time, motion state, ambient light and noise, nearby devices, calendar entries, and interaction history. Examples range from the trivially useful (a phone brightening in sunlight, a watch raising the volume of an alarm when the user has been still) to the sophisticated (a navigation app proposing a departure time based on live traffic and a calendar event, or a car interface simplifying its display at high speed). Dey's standard definition of context — "any information that can be used to characterise the situation of an entity" — is deliberately broad, and the practical difficulty is inference: sensors report that the phone is moving at 25 km/h, but the system must infer <em>cycling</em> versus <em>riding a bus</em>, and the correct adaptation differs. Because such inferences are fallible, context-aware designs should favour <em>suggestion over substitution</em>: proposing a shortcut that the user can accept is far safer than silently reconfiguring the interface. Adaptation also conflicts with learnability — if the interface rearranges itself, users cannot build stable spatial memory of where things are, so adaptive elements are usually confined to a dedicated region (a suggestions row, a smart reply bar) while the core layout stays fixed.</p>
+
+<p><strong>Automation and Human Oversight in Interfaces</strong></p>
+
+<p>Automation is not binary. Sheridan and Verplank's influential scale describes ten levels running from fully manual to fully autonomous; a simplified version is more useful for design discussion.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Description</th>
+      <th>Example</th>
+      <th>Primary interface obligation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1 — Manual</td>
+      <td>The human performs the task; the computer offers no assistance</td>
+      <td>Typing a document unaided</td>
+      <td>Efficient direct controls and clear feedback</td>
+    </tr>
+    <tr>
+      <td>2–3 — Decision support</td>
+      <td>The system offers options or narrows alternatives; the human chooses</td>
+      <td>Spell-check suggestions, route alternatives</td>
+      <td>Show why each option is suggested; make ranking honest</td>
+    </tr>
+    <tr>
+      <td>4–5 — Consent-based automation</td>
+      <td>The system proposes one action and executes it only on approval</td>
+      <td>Autocomplete, suggested replies, "install update now?"</td>
+      <td>Make the proposed action and its consequences inspectable before acceptance</td>
+    </tr>
+    <tr>
+      <td>6–7 — Management byexception</td>
+      <td>The system acts automatically but allows a window for the human to veto, or acts and reports immediately</td>
+      <td>Automatic braking with an override, scheduled send with a brief "undo" window, autosave</td>
+      <td>Announce the action clearly and keep the veto path obvious and reachable in time</td>
+    </tr>
+    <tr>
+      <td>8–9 — Supervisory control</td>
+      <td>The system acts and informs the human only if asked, or only on exception</td>
+      <td>Autopilot holding altitude, cloud backup running nightly, spam filtering</td>
+      <td>Provide a legible status display and an accessible log of what was done</td>
+    </tr>
+    <tr>
+      <td>10 — Full autonomy</td>
+      <td>The system decides and acts; the human is out of the loop</td>
+      <td>Airbag deployment, automated circuit protection, high-frequency trading guards</td>
+      <td>Post-hoc explanation and the ability to audit, tune, or disable the system entirely</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Crucially, the level of automation need not be fixed across a system or across time. Parasuraman, Sheridan, and Wickens proposed decomposing automation across four stages of human information processing — information acquisition, information analysis, decision selection, and action implementation — and choosing a level independently for each. A clinical decision support tool might be highly automated at the acquisition and analysis stages (gathering and summarising the patient record, flagging abnormal values) while remaining deliberately low at the decision and action stages, so that the prescribing decision stays with the clinician. This decomposition is one of the most practical design tools in the area: instead of asking "should this be automated?", ask "which stage should be automated, and how far?"</p>
+
+<p><em>Situational awareness.</em> Endsley's three-level model is the standard reference: Level 1 is perceiving the elements of the current situation, Level 2 is comprehending what they mean, and Level 3 is projecting what will happen next. Automation tends to attack all three. It removes the small manual actions through which operators used to perceive system state, it summarises data so comprehension is pre-chewed, and it makes future behaviour depend on internal logic the operator cannot see. Interfaces therefore need to answer four questions continuously: <em>What is the system doing now? Why is it doing that? What will it do next? And what would make it stop?</em> A cruise-control display that shows only "ON" answers none of these; one that shows the target speed, the detected lead vehicle, the following gap, and a clear indication that it will not react to stationary obstacles answers most of them.</p>
+
+<p><em>Automation surprises</em> occur when the system does something the operator did not expect and cannot explain. They almost always arise from mode confusion — the operator believes the system is in one mode while it is in another — combined with an interface that does not make the active mode salient. The aviation literature supplies the textbook cases: the 1992 Mont Sainte-Odile crash, in which a flight path angle of −3.3 degrees was plausibly confused with a descent rate of 3,300 feet per minute because the same display field served both modes; or incidents in which an autothrottle silently disengaged and the crew only noticed when the airspeed had decayed dangerously. The same pattern appears in consumer software at lower stakes: a user types for a minute before realising the document is in "suggesting" rather than "editing" mode, or discovers that a smart thermostat has been running an energy-saving schedule they never knowingly enabled. Mitigations include making modes visually unmistakable rather than indicated by a small icon, requiring a deliberate action to enter a consequential mode, announcing uncommanded transitions explicitly ("autopilot disconnected" as both an aural and visual alert), and avoiding overloaded display fields where identical numbers mean different things in different modes.</p>
+
+<p><em>The costs of automation.</em> Bainbridge's "ironies of automation" remain the sharpest statement of the problem: automation is introduced because designers consider humans unreliable, yet it leaves the human responsible for exactly the situations the designer could not anticipate — the hardest ones — while simultaneously degrading the skills and the situational awareness needed to handle them. Related effects include:</p>
+
+<ul>
+  <li><strong>Skill decay.</strong> Rarely exercised manual skills atrophy. Airlines now mandate periodic hand-flying; the same logic argues for occasionally letting users perform a step manually rather than always automating it away.</li>
+  <li><strong>Complacency and automation bias.</strong> When automation is usually right, people stop checking. Automation bias produces both errors of commission (following a wrong recommendation) and omission (failing to act because no alert fired). Studies of diagnostic aids repeatedly show that an incorrect computer suggestion can pull expert judgement away from a correct unaided decision.</li>
+  <li><strong>Clumsy automation.</strong> Automation often reduces workload when it is already low and increases it at peak moments, because reprogramming the automation under time pressure costs more than doing the task by hand.</li>
+  <li><strong>Out-of-the-loop performance decrement.</strong> A passive monitor takes significantly longer to detect and diagnose a fault than an active controller, and needs time to rebuild a mental picture before intervening — which is precisely why abrupt hand-backs in partially automated driving are so dangerous.</li>
+</ul>
+
+<p>Practical design responses include keeping the human in a meaningful control loop rather than as a pure monitor, degrading gracefully with staged warnings rather than sudden hand-offs, designing for <em>calibrated trust</em> by communicating the system's competence envelope and confidence honestly, logging automated actions in a reviewable timeline, and providing a universally understood, always-available disengagement control. Confidence communication matters: a system that says "lane keeping unavailable: lane markings unclear" trains far better trust calibration than one that simply stops working.</p>
+
+<p><strong>Display Technologies and Information Presentation</strong></p>
+
+<p>Display choice is a task-and-context decision, not a technology-fashion decision. The relevant question is what the user must perceive, how quickly, while doing what else, and in what physical environment.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Display type</th>
+      <th>Best-suited tasks</th>
+      <th>Key limitations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Conventional 2D screens</td>
+      <td>Reading, writing, precise selection, dense data work, most productivity tasks</td>
+      <td>Requires attention to be directed at the screen; limited screen real estate; poor for truly volumetric data</td>
+    </tr>
+    <tr>
+      <td>Stereoscopic / 3D and volumetric displays</td>
+      <td>Spatial data where depth relationships matter — medical imaging, molecular structures, seismic or fluid-flow analysis, terrain</td>
+      <td>Occlusion and depth ambiguity, fatigue from vergence–accommodation conflict, difficulty with precise selection, poor for text</td>
+    </tr>
+    <tr>
+      <td>Heads-up displays (HUDs)</td>
+      <td>Monitoring a few critical values while attention stays on the outside world — flying, driving, surgery</td>
+      <td>Attentional capture and cognitive tunnelling; clutter obscuring the real scene; must be strictly minimal</td>
+    </tr>
+    <tr>
+      <td>Head-mounted AR/VR displays</td>
+      <td>Hands-busy guided procedures, immersive training, spatial design review</td>
+      <td>Weight and comfort, limited field of view, social acceptability, battery and thermal limits</td>
+    </tr>
+    <tr>
+      <td>Large wall displays and tabletops</td>
+      <td>Co-located group work, control rooms, situation awareness for teams</td>
+      <td>Reach and legibility vary with position; text is public; requires physical navigation</td>
+    </tr>
+    <tr>
+      <td>Wearable displays (watches, bands)</td>
+      <td>Glanceable notifications, fitness and health state, quick confirmations</td>
+      <td>Tiny screen, fat-finger targeting, severe information budget per glance</td>
+    </tr>
+    <tr>
+      <td>Ambient and peripheral displays</td>
+      <td>Continuous, non-urgent background information — air quality, build status, energy use, team presence</td>
+      <td>Low bandwidth; meaning must be learned; easily ignored, which is sometimes the point</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><em>Information density, layout, and visual encoding.</em> Tufte's notion of the data–ink ratio — maximise the proportion of display devoted to actual data and remove decoration that carries no information — remains a reliable heuristic, although it must be tempered: some redundancy aids rapid recognition, and gridlines or labels that look like "chartjunk" may be essential for accurate reading. More fundamental is matching the visual channel to the data type. Position along a common scale is the most accurately judged encoding, followed by length, then angle and slope, then area, then colour saturation and volume; this ranking (from Cleveland and McGill's experiments) explains why a bar chart outperforms a pie chart for comparison and why bubble areas mislead. Hue is excellent for nominal categories but poor for ordered magnitude, and should be limited to roughly seven distinguishable categories; luminance and saturation ramps suit ordered data. Colour must never be the sole carrier of meaning, given that around 8% of men have some form of colour vision deficiency and that displays are read in sunlight, through tinted visors, and on failing projectors.</p>
+
+<p>Layout should exploit pre-attentive processing — features such as colour, orientation, size, and motion that the visual system detects in under 200 milliseconds regardless of the number of distractors. A single red cell in a table of black numbers is found instantly; three overlapping highlight colours destroy that advantage. In control-room and dashboard design, this motivates a deliberate <em>visual hierarchy</em>: a calm, low-contrast baseline so that genuine exceptions can be made loud. The "grey background" convention in modern process-control displays follows exactly this logic — if normal operation is rendered in muted greys, an alarm in saturated colour cannot be missed. Supporting principles include grouping related items by proximity and enclosure (Gestalt laws), aligning elements to reduce scanning effort, maintaining consistent position for recurring items so spatial memory can develop, and applying progressive disclosure so that detail is available on demand rather than permanently competing for attention.</p>
+
+<p><em>Multi-display environments.</em> When information spans several screens, the costs are attentional rather than pixel-related. Each visual switch between displays incurs a saccade, a possible head turn, re-accommodation of the eyes, and the risk of losing one's place — and if the user must mentally carry values from one screen to another, that burden lands in working memory, which is exactly where it is most fragile. Design responses include co-locating items that must be compared on the same display, using consistent colour coding and orientation across displays so a mapping does not have to be relearned, providing explicit cross-references or links, minimising the need for transcription, and placing the most frequently monitored information in the primary field of view. In control rooms and trading floors this is formalised as display allocation: overview displays for status, detail displays for diagnosis, and a fixed convention for where each category lives. Multi-monitor desktops present the same problem in miniature, which is why window management across displays, pointer transitions, and a clear notion of which display is "primary" materially affect productivity.</p>
+
+<p><em>Emerging display forms.</em> Wearable displays impose a glanceability budget: the useful interaction may be under two seconds, so the design must convey one thing clearly rather than three things partially. Ambient displays — Weiser and Brown's "calm technology" — move information to the periphery of attention, like the original Dangling String installation that twitched in proportion to network traffic, or a lamp that glows amber when a shared build is broken. Their value is that they inform without interrupting; their risk is habituation. Related forms include e-ink surfaces for persistent low-power information, projection onto walls or desks, shape-changing and haptic displays that convey state through touch, and smart-fabric or skin-worn displays. The common opportunity across all of these is <em>persistent, low-intrusion information delivery</em>: a continuous channel that costs the user almost nothing to sample, which is a genuinely different design target from the attention-grabbing notification.</p>
+
+<p><strong>Mobile Interaction Design in Advanced Contexts</strong></p>
+
+<p>Mobile interaction differs from desktop interaction not primarily because screens are small, but because the context is unstable. The user is walking, cold, in sunlight, holding a bag, sharing attention with traffic, and interruptible at any moment. Designing well for mobility means designing for divided attention and physical variability.</p>
+
+<p><em>Touch, grip, and one-handed use.</em> The fundamental constraint is that the finger is a blunt, occluding pointer. A fingertip contact patch is roughly 10–14 mm wide, which is why platform guidelines specify minimum touch targets around 44×44 points (iOS) or 48×48 dp (Android), with spacing between adjacent targets so that an imprecise tap does not trigger the wrong control. Occlusion means the user's own hand hides the area under and below the touch point, which argues for placing feedback above the contact point and for the convention of showing selection callouts above the finger.</p>
+
+<p>Grip varies more than designers assume. Research by Hoober on thousands of observations found roughly 49% one-handed use, 36% cradling (one hand holding, other hand or same thumb interacting), and 15% two-handed, with users switching grips constantly within a single session. A one-handed thumb sweeps a comfortable arc anchored at the base of the thumb, which makes the lower-centre of the screen easy, the diagonally opposite top corner hard, and the top of large phones effectively unreachable. Practical consequences:</p>
+
+<ul>
+  <li>Place primary actions and navigation within thumb reach — hence bottom tab bars, bottom sheets, floating action buttons in the lower region, and pull-down gestures (such as iOS Reachability) that bring the top of the screen down.</li>
+  <li>Keep destructive or irreversible actions out of the easiest-reach zone, or require confirmation, since accidental thumb contact is common.</li>
+  <li>Support both left- and right-handed grips; a control that is comfortable for a right thumb may be in the worst position for a left.</li>
+  <li>Prefer large, forgiving gestures (swipe, long-press on a sizeable region) over precise targeting when the user is likely to be moving.</li>
+</ul>
+
+<p>Gloved and environmental operation adds further constraints. Capacitive touchscreens may not register thick gloves at all, cold or wet fingers reduce accuracy, and sunlight washes out low-contrast displays. Field applications — logistics, utilities, emergency services, agriculture — therefore favour oversized targets, high-contrast themes, voice input, physical buttons for critical functions, and large simple gestures. The same thinking benefits mainstream users with motor tremor or reduced dexterity, which is a reminder that designing for the extreme case routinely improves the average case.</p>
+
+<p><em>Sensors and context sensitivity.</em> A modern phone carries GPS and other GNSS receivers, Wi-Fi and Bluetooth scanning for indoor positioning, accelerometer, gyroscope, magnetometer, barometer, ambient light and proximity sensors, microphones, multiple cameras, and sometimes depth or ultra-wideband sensors. Fused together, these support activity recognition (walking, driving, cycling, stationary), geofencing, indoor micro-location, and orientation-aware rendering. Applications include a transit app opening directly on the nearest stop's departures, a retail app surfacing a stored loyalty card when the user enters the shop, a field-service app automatically attaching GPS coordinates and a timestamp to a photograph of a fault, and a driving mode that suppresses notifications when vehicle motion is detected. Three cautions apply. First, sensor inference is probabilistic, so the design must degrade gracefully when the guess is wrong, with an easy manual override. Second, continuous sensing costs battery, and users notice. Third — and most importantly — location and activity data are among the most sensitive data categories there are, so permissions should be requested in context with a clear rationale, precision should be minimised to what the task genuinely needs (coarse rather than precise location, "while using the app" rather than "always"), and the interface should show visibly when sensing is active.</p>
+
+<p><em>Cross-device interaction.</em> Users increasingly expect tasks to migrate between devices: start an article on a phone during a commute, continue on a laptop at a desk, get the reminder on a watch, finish by casting to a television. Patterns for this include <em>continuity/handoff</em> (resuming the same task with its state on another device), <em>complementarity</em> (the phone acts as a controller or keyboard for a TV or large display), <em>mirroring</em> (the same content on two screens), and <em>distribution</em> (splitting one interface across devices, as when a map appears on a car display while turn prompts go to the driver's cluster). Making these work requires genuine design attention to synchronisation of state and scroll position, conflict handling when the same item is edited on two devices, consistent information architecture so users are not disoriented by a jump, device discovery and pairing that does not demand network knowledge, and above all clear feedback about which device currently "has" the task. Responsive design that merely reflows layout is not cross-device design; the deeper question is which parts of a task are best suited to which device, given each one's input precision, screen size, attention demands, and typical usage posture.</p>
+
+<p><em>Mobile in collaborative settings.</em> Shared mobile experiences differ from individual ones in ways that are easy to overlook. A phone is a personal, private object: handing it to someone else exposes notifications, open tabs, and photo libraries. Group use therefore benefits from guest or focused modes that constrain what can be reached. Several patterns recur:</p>
+
+<ul>
+  <li><strong>Many phones, one display.</strong> Audience members use their own device to vote, submit questions, or contribute to a shared visualisation (live polling in lectures, second-screen quiz games). Design concerns are low-friction joining — a short code or QR rather than account creation — and fair aggregation of input.</li>
+  <li><strong>Phone as personal controller for a shared space.</strong> Each participant manipulates a shared wall display from their own device, which preserves private workspace alongside the public artefact and neatly avoids the reach problem of large displays.</li>
+  <li><strong>Co-located sharing of one device.</strong> Passing a phone around to show photos, or two people watching a video on one screen, demands orientation handling, readable-at-an-angle layouts, and privacy guards.</li>
+  <li><strong>Mobile members of a distributed meeting.</strong> A participant joining from a phone has a fraction of the screen area, may be walking, and may be unable to type. Inclusive design here means providing lightweight contribution channels (reactions, voice, short text) rather than assuming everyone has a full workstation — otherwise mobile participants become passive observers, an asymmetry that quietly reproduces status differences in the group.</li>
+</ul>
+
+<p><strong>Emerging Trends and Future Directions in Interface Technologies</strong></p>
+
+<p><strong>Brain–computer interfaces.</strong> BCIs create a direct channel between neural activity and a digital system, bypassing muscles entirely. They are usually classified by invasiveness. <em>Non-invasive</em> BCIs — chiefly EEG, plus fNIRS — use scalp electrodes; they are safe and relatively cheap but have low spatial resolution and poor signal-to-noise ratio because the skull smears and attenuates the signal. <em>Partially invasive</em> approaches such as electrocorticography place electrodes on the cortical surface beneath the skull. <em>Invasive</em> BCIs implant microelectrode arrays into cortical tissue, giving single-neuron resolution at the cost of surgery and long-term biocompatibility problems. Established paradigms include the P300 speller (the user attends to a flashing letter and the system detects the characteristic positive deflection about 300 ms later), SSVEP (targets flicker at distinct frequencies and the system identifies which frequency dominates visual cortex activity), and motor imagery (imagining left- or right-hand movement produces distinguishable sensorimotor rhythms). Real achievements include cursor and robotic-arm control by people with tetraplegia and speech decoding research that has restored communication rates of tens of words per minute. Interface design implications are substantial: bandwidth is tiny compared with typing, so vocabularies must be small and predictive; classification is noisy, so confirmation steps and cheap undo are essential; training burdens are real for both user and classifier; and fatigue builds quickly. Perhaps most importantly, BCIs raise acute questions of agency and "mental privacy" — if a system acts on a decoded intention the user did not consciously endorse, who is responsible? For now, the dominant and most defensible applications are assistive, for users for whom conventional input is impossible.</p>
+
+<p><strong>Ubiquitous computing.</strong> Mark Weiser's 1991 vision — "the most profound technologies are those that disappear… they weave themselves into the fabric of everyday life until they are indistinguishable from it" — anticipated an environment of tabs, pads, and boards: many devices per person, embedded in the surroundings, mostly unnoticed. Smart homes, connected buildings, industrial IoT, asset tracking, and the quantified-self ecosystem are partial realisations. The interface problems of ubicomp are distinctive. When computing is embedded in the environment, there may be no screen to look at and no obvious place to go when something breaks; <em>intelligibility</em> and <em>accountability</em> — making the system able to explain what it sensed, what it inferred, and what it did, and letting the user correct it — become primary requirements rather than optional extras. Other recurring issues include seamless versus "seamful" design (deliberately exposing system boundaries such as sensing gaps so users can work with them rather than being confused by them), interoperability across vendor ecosystems, graceful behaviour when a device is offline, and the simple question of who in a shared household has authority to change a setting that affects everyone.</p>
+
+<p><strong>AI-powered interfaces.</strong> Machine learning now shapes interaction at several levels: ranking and recommendation, predictive text and autocompletion, voice and handwriting recognition, anomaly detection, and increasingly conversational and generative interaction where the user expresses an intent in natural language and the system produces an artefact. These systems change the nature of the interface contract. Deterministic software gives the same output for the same input; probabilistic software does not, which undermines learnability and makes error recovery central. Established guidance — for example Amershi and colleagues' guidelines for human–AI interaction — converges on a few durable principles: make clear what the system can and cannot do before the user forms expectations; scope outputs to the current context; show confidence or alternatives rather than a single answer presented with false certainty; support efficient correction and dismissal; learn from user behaviour but allow the user to inspectand adjust what has been learned; and be careful about the social consequences of automated inferences. Personalisation illustrates the trade-offs sharply: a feed tuned to past behaviour reduces friction but can narrow exposure, entrench stereotypes, and make the system's behaviour unpredictable to the very user it is modelling. Mixed-initiative design — Horvitz's framing in which the system and the user each contribute what they are better at, with the system considering the expected cost of interrupting before it acts — remains the most useful stance: let the AI propose, let the human dispose, and make the cost of rejecting a proposal lower than the cost of accepting a wrong one.</p>
+
+<p><strong>Inclusivity and ethics.</strong> Advanced interfaces collect far more personal and behavioural data than a keyboard and mouse ever did: gaze paths, gait, voice timbre, dwell times, room layouts, heart rate, neural signals. Several obligations follow, and they are design obligations rather than legal afterthoughts.</p>
+
+<ul>
+  <li><strong>Data minimisation and purpose limitation.</strong> Collect the least data that supports the task, retain it for the shortest useful period, and process on-device where possible. An AR headset that needs to detect a flat surface does not need to upload a reconstruction of the user's living room.</li>
+  <li><strong>Meaningful consent and legibility.</strong> Consent buried in a licence agreement is not consent for continuous ambient sensing. Visible indicators that a microphone, camera, or sensor is active — and that bystanders can also see — are part of the interface.</li>
+  <li><strong>Bystander rights.</strong> Many advanced interfaces capture people who never agreed to anything: others in the room during a smart-speaker conversation, passers-by recorded by smart glasses, household members profiled by a shared assistant. Design must consider the non-user.</li>
+  <li><strong>Accessibility by default.</strong> Gesture, voice, and gaze interfaces can be liberating for some users and exclusionary for others. Speech recognition trained predominantly on one accent group underperforms for others; mid-air gestures assume arm mobility; VR assumes stereo vision and vestibular tolerance. Multimodal redundancy — more than one way to do everything important — is the most reliable safeguard.</li>
+  <li><strong>Algorithmic fairness and contestability.</strong> When an interface acts on an inference about a person, that person should be able to see the inference, challenge it, and have it corrected. "The system decided" is not an acceptable terminal explanation.</li>
+  <li><strong>Attention and wellbeing.</strong> Interfaces that are persuasive by design — infinite scroll, variable-ratio notification schedules, streak mechanics — optimise engagement rather than user benefit. Calm, respectful defaults are an ethical as well as a usability choice.</li>
+</ul>
+
+<p>Taken together, these areas describe a shift in what interface design is <em>about</em>. The design object is no longer a screen full of controls operated by one person; it is a distributed arrangement of people, devices, sensors, and autonomous processes, in which the designer's central task is to maintain a shared, accurate, and actionable understanding of state — among collaborators, between a user and an automated system, and across devices and displays. Awareness in CSCW, mode visibility in automation, intelligibility in ubicomp, and confidence display in AI interfaces are all the same requirement wearing different clothes.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+
+<ul>
+  <li><strong>MO1</strong> — Supported indirectly. The topic repeatedly invokes memory capacity as a design constraint: working-memory load when transferring values across multi-display environments, glanceability budgets on wearables, the limit of roughly seven distinguishable colour categories, the recognition-over-recall problem created by invisible gesture and voice vocabularies, and the loss of long-term skill memory through automation-induced skill decay.</li>
+  <li><strong>MO2</strong> — Strongly supported. Automation surprises and mode confusion are presented explicitly as mental-model mismatches: the operator's model of what the system is doing diverges from its actual state, producing systematic rather than random errors. The same analysis is applied to context-aware adaptation, probabilistic AI interfaces, and ubicomp systems whose behaviour is unintelligible to users.</li>
+  <li><strong>MO3</strong> — Addressed only lightly. Hierarchical Task Analysis is not taught here, but the topic supplies the task-decomposition thinking HTA formalises — for example, deciding which stage of a task (acquisition, analysis, decision, action) to automate, and which subtasks to allocate to which device in cross-device interaction.</li>
+  <li><strong>MO4</strong> — Supported partially. The topic does not compare evaluation methods directly, but it establishes the contexts in which method choice becomes difficult: group-level collaborative use, safety-critical automation, and immersive or sensor-driven settings where expert inspection and conventional lab-based user testing each have clear limits.</li>
+  <li><strong>MO5</strong> — Supported as design input rather than technique. The interaction principles detailed here — touch target sizing, thumb-reach zones, visual hierarchy, progressive disclosure, feedback for recognition-based input, and cross-device continuity — are directly applicable to the decisions a student makes when building a low-to-mid fidelity desktop or mobile prototype.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Key named sources referenced for accuracy: Greif &amp; Cashman (origin of the term CSCW, 1984); Johansen&#39;s time–space matrix; Dourish &amp; Bellotti (awareness, 1992); Grudin&#39;s groupware failure analysis; Ishii &amp; Ullmer (tangible bits / metaDESK); Milgram&#39;s reality–virtuality continuum; Dey (definition of context); Sheridan &amp; Verplank (10 levels of automation); Parasuraman, Sheridan &amp; Wickens (four-stage automation model); Endsley (three-level situational awareness); Bainbridge (ironies of automation); Tufte (data–ink ratio); Cleveland &amp; McGill (ranking of visual encodings); Weiser (ubiquitous computing, 1991) and Weiser &amp; Brown (calm technology); Hoober (mobile grip observation data); Horvitz (mixed-initiative interaction); Amershi et al. (guidelines for human–AI interaction). Platform figures cited (44&#215;44 pt iOS, 48&#215;48 dp Android, ~20 ms motion-to-photon) reflect current published guidance and should be re-checked against vendor documentation if used in assessment materials. The Mont Sainte-Odile (1992) mode-confusion case is the standard aviation example; instructors may substitute a more recent or domain-relevant incident.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

@@ -1,0 +1,387 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Overview of Target Application Platforms</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Project Scoping and App Platform Selection</a></div>
+  <header>
+    <h1>Overview of Target Application Platforms</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Overview of Target Application Platforms</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every interactive product lives somewhere. Before a designer draws a single screen or a developer writes a line of code, a decision has already been made — explicitly or by default — about <strong>where</strong> the software will run and <strong>what kind of machine and context</strong> the user will bring to it. That decision is the single most consequential constraint in interface design, because it determines the physical input devices available, the screen real estate, the attention the user can spare, the interaction conventions the user already knows, and even the distribution mechanism by which the product reaches them. A brilliant interface designed for a 27-inch desktop monitor with a precision mouse becomes unusable when squeezed onto a 1.7-inch smartwatch face; a conversational flow that feels natural when spoken aloud becomes maddening when transcribed into a form.</p>
+
+<p>This topic surveys the landscape of target application platforms. It begins with the four primary platforms that form the backbone of most professional practice and of this course — <strong>Android</strong>, <strong>iOS</strong>, <strong>Windows desktop</strong>, and the <strong>Web</strong> — examining the audience, device characteristics, and design culture of each. It then looks beyond those four to emerging and specialised platforms: wearables, voice interfaces, and augmented and virtual reality. Finally, it steps back to group these platforms into three broad categories — mobile, desktop, and web — and identifies the human factors considerations that distinguish each category. Throughout, the emphasis is not on implementation detail but on the <em>design consequences</em> of platform choice: what each platform makes easy, what it makes hard, and what it makes impossible.</p>
+
+<p><strong>The Four Primary Platforms</strong></p>
+
+<p>The four primary platforms are not an arbitrary list. Between them they cover the overwhelming majority of consumer and enterprise software delivery today, and they represent four genuinely different philosophies about hardware diversity, distribution control, and user expectation. Understanding the character of each is the foundation of informed platform selection.</p>
+
+<p><strong>Android: breadth, diversity, and global reach.</strong> Android is an open-source operating system licensed to a very large number of hardware manufacturers — Samsung, Xiaomi, Oppo, Google, Motorola, Tecno, Infinix and dozens more. The consequence is extraordinary diversity. An Android application may be installed on a flagship device with a 6.8-inch high-resolution display, 12 GB of RAM, and the latest OS release, and also on an entry-level handset with a 5-inch 720p screen, 2 GB of RAM, and an operating system version three or four years old. This spread is usually described as <em>fragmentation</em>, and it is the defining design constraint of the platform.</p>
+
+<p>Fragmentation operates along several axes at once:</p>
+
+<ul>
+  <li><strong>Screen size and density.</strong> Android devices range from compact phones through phablets, foldables, tablets, Chromebooks running Android apps, and television interfaces. Layouts must be genuinely responsive rather than pixel-positioned, which is why Android expresses dimensions in density-independent pixels (<code>dp</code>) and text in scalable pixels (<code>sp</code>) rather than raw hardware pixels.</li>
+  <li><strong>OS version.</strong> Because updates are mediated by manufacturers and carriers, a significant share of active devices run older releases. A designer who relies on a visual component or permission model introduced in the newest version must plan a graceful fallback.</li>
+  <li><strong>Performance envelope.</strong> Animations, image processing, and background work that are smooth on a flagship may stutter badly on a budget device. Testing on low-end hardware is not optional.</li>
+  <li><strong>Manufacturer skins.</strong> Samsung's One UI, Xiaomi's HyperOS and others alter system fonts, default colours, gesture navigation, and even battery-management behaviour, so an app's visual appearance and background reliability vary by brand.</li>
+</ul>
+
+<p>Android's audience is correspondingly broad and global. It holds dominant market share across South and Southeast Asia, Africa, and Latin America, and substantial share in Europe. For a product aiming at mass-market or emerging-market reach, Android is frequently the <em>only</em> rational first choice. That audience profile brings its own human factors considerations: intermittent or metered connectivity, prepaid data plans, lower-end hardware, and a wide spread of digital literacy. Good Android design therefore tends to emphasise offline tolerance, small download sizes (Android App Bundles and the lightweight <em>Instant Apps</em> mechanism exist for exactly this reason), and clear, forgiving interaction.</p>
+
+<p>Android's design language is <strong>Material Design</strong>, which codifies elevation and shadow, a responsive layout grid, a defined type scale, and motion principles. Material 3 (Material You) added dynamic colour, where the palette is derived algorithmically from the user's wallpaper — a deliberate commitment to personalisation that is almost the opposite of Apple's approach. Distribution is primarily through Google Play, but Android also permits sideloading and alternative stores (Samsung Galaxy Store, Amazon Appstore, F-Droid, Huawei AppGallery), which matters enormously for enterprise deployment and for markets where Google services are unavailable.</p>
+
+<p><em>Illustrative example.</em> A field-data-collection app for agricultural extension officers in rural regions would target Android almost by default: the officers' devices are inexpensive Android handsets, connectivity is unreliable so the app must queue submissions locally, and distribution may be by direct APK install rather than through a store. The interface must use large touch targets usable with work gloves in bright sunlight, high-contrast colour, and minimal reliance on animation.</p>
+
+<p><strong>iOS: control, consistency, and a premium context.</strong> iOS runs only on hardware Apple designs and manufactures. The device matrix is small and well documented, OS adoption of new versions is rapid (typically a large majority of active devices within a year), and the hardware floor is comparatively high. For designers, this means a far more predictable canvas: a known set of screen sizes and aspect ratios, consistent performance characteristics, reliable availability of sensors and capabilities, and dependable support for advanced features such as high-refresh-rate displays, wide-colour (Display P3) imagery, and on-device machine learning.</p>
+
+<p>The flip side of that predictability is <em>constraint of a different kind</em>. Apple exercises tight control over the ecosystem:</p>
+
+<ul>
+  <li>Distribution is through the App Store, subject to a human and automated <strong>review process</strong> against the App Store Review Guidelines. Rejections for interface reasons — misleading UI, poor onboarding, duplicating system functionality badly, inadequate account-deletion flows — are common and must be budgeted for in the project schedule.</li>
+  <li>The <strong>Human Interface Guidelines (HIG)</strong> are treated as near-normative. Deviating from platform conventions (for example, inventing a custom navigation bar that fights the standard back-swipe gesture) produces apps that feel alien to users and risk reviewer objection.</li>
+  <li>Privacy requirements are strict and visible to users: App Tracking Transparency prompts, privacy "nutrition labels" on the store listing, and granular permission dialogues all become part of the user's experience of the product and must be designed for, not bolted on.</li>
+</ul>
+
+<p>The iOS audience skews towards higher-income markets — North America, Western Europe, Japan, Australia — and iOS users are consistently observed to spend more per capita on apps and in-app purchases. For a subscription product, a premium consumer brand, or an app whose monetisation depends on willingness to pay, iOS often delivers better revenue per user even with a smaller installed base. The platform's aesthetic culture reinforces this: deference to content, restrained chrome, fluid and physically plausible animation, careful typography using the San Francisco type family, and generous use of blur and translucency to convey layering.</p>
+
+<p><em>Illustrative example.</em> A meditation and sleep app monetised by annual subscription, aimed at affluent urban professionals, is a natural iOS-first product. The audience is concentrated on the platform, the payment infrastructure is frictionless, the hardware supports the smooth animation and high-fidelity audio the experience depends on, and integration with HealthKit and the Apple Watch extends the product meaningfully.</p>
+
+<p><strong>Windows desktop: productivity, complexity, and the enterprise.</strong> Windows retains roughly three-quarters of the desktop operating system market and is overwhelmingly the dominant platform in corporate, governmental, industrial, and educational institutions. Desktop applications on Windows are built with technologies including Win32, Windows Presentation Foundation (WPF), WinUI 3 / the Windows App SDK, Windows Forms, and increasingly cross-platform frameworks such as Electron, .NET MAUI, Qt, and Avalonia.</p>
+
+<p>What distinguishes Windows desktop as a <em>design</em> target is not the operating system so much as the <em>work</em> done on it. Desktop applications are where people sit for hours, manipulate large and structured data sets, keep many documents open simultaneously, and build genuine expertise in a tool. This permits — and demands — an interaction model that mobile cannot support:</p>
+
+<ul>
+  <li><strong>Dense information display.</strong> A spreadsheet, an IDE, a CAD workspace, a trading terminal, or a hospital administration system may present thousands of data points and dozens of simultaneous controls. Density that would be unusable on a phone is a productivity <em>feature</em> on a 27-inch monitor viewed at 60 cm.</li>
+  <li><strong>Precise pointing and hover.</strong> A mouse cursor can target a 4-pixel window edge. Hover states enable tooltips, previews, and progressive disclosure that have no touch equivalent.</li>
+  <li><strong>Keyboard-first expert interaction.</strong> Shortcuts, mnemonics, type-ahead, modifier-click, and command palettes allow experienced users to work far faster than any pointing device permits. Designing a professional Windows application without a coherent keyboard model is a serious failure.</li>
+  <li><strong>Multi-window and multi-monitor workflows.</strong> Users compare documents side by side, drag content between windows, and snap panes across two or three displays. Applications must tolerate being resized to extremes and must remember window state.</li>
+  <li><strong>Deep OS and file-system integration.</strong> File associations, drag-and-drop from Explorer, printing, the clipboard, shell context menus, scheduled background services, and access to local hardware (scanners, instruments, label printers, barcode readers) are routinely expected.</li>
+</ul>
+
+<p>Enterprise context brings further constraints that are easy to overlook: deployment via MSI/MSIX packages and management tools such as Microsoft Intune or SCCM rather than a consumer store; operation on locked-down machines without administrator rights; compatibility with group policy, single sign-on, and corporate antivirus; and often a requirement to work entirely offline within a secured network. Long support lifetimes are normal — enterprises may run the same version of an application for a decade — which raises the cost of interface churn and makes backward compatibility a design obligation. Microsoft's current design language is <strong>Fluent Design</strong>, characterised by layering, acrylic and mica materials, subtle depth, and rounded geometry, though a great deal of deployed enterprise software still uses much older visual conventions.</p>
+
+<p><em>Illustrative example.</em> A laboratory information management system used by technicians to log specimens, attach instrument output, and generate accredited reports belongs on Windows desktop. It needs to talk directly to USB-connected analysers and barcode scanners, display large sortable grids, support rapid keyboard entry by trained operators, run inside a hospital network with no public internet access, and integrate with local printers for labels.</p>
+
+<p><strong>Web: reach without installation.</strong> A web application runs inside a browser and is therefore, in principle, available on any device with a modern browser — Windows, macOS, Linux, Android, iOS, Chrome OS, and even televisions and games consoles. This platform-agnosticism is the web's defining advantage and the source of its characteristic trade-offs.</p>
+
+<p>The advantages are substantial:</p>
+
+<ul>
+  <li><strong>No installation friction.</strong> A URL is the entire onboarding path. For products that rely on sharing, link-based invitation, or trial before commitment, this is decisive.</li>
+  <li><strong>Instant, universal updates.</strong> Deploying a fix updates every user at once. There is no version fragmentation to support, no store review delay, and no risk of users stranded on an ancient release.</li>
+  <li><strong>Single codebase, broad reach.</strong> One well-built responsive application can serve desktop and mobile users, which dramatically reduces cost compared with maintaining separate native clients.</li>
+  <li><strong>Linkability and discoverability.</strong> Any state can be addressed by a URL, shared, bookmarked, and indexed by search engines — a capability native apps only approximate through deep links.</li>
+  <li><strong>Mature accessibility infrastructure.</strong> HTML's semantic elements, ARIA, and the long-established Web Content Accessibility Guidelines give the web the most developed accessibility tooling of any platform, and public-sector procurement frequently mandates compliance.</li>
+</ul>
+
+<p>The costs are equally real. Web applications have constrained access to device capabilities: although modern browser APIs expose geolocation, camera, microphone, notifications, Bluetooth, and storage, support is uneven and some capabilities (deep background execution, system-level integration, certain sensors) remain unavailable or heavily restricted, especially on iOS Safari. Performance ceilings are lower than native for graphics-intensive or computation-heavy work, even with WebAssembly and WebGL/WebGPU. Offline operation requires deliberate engineering via service workers. And cross-browser inconsistency, while vastly better than a decade ago, still demands testing across engines (Blink, Gecko, WebKit) and across the enormous range of screen sizes the web must serve.</p>
+
+<p><strong>Progressive Web Apps (PWAs)</strong> partially close the gap: a PWA can be installed to the home screen or taskbar, run in its own window without browser chrome, cache assets for offline use, and receive push notifications. They are a genuinely useful middle path, though platform support — particularly Apple's — has historically been inconsistent.</p>
+
+<p><em>Illustrative example.</em> A collaborative document editor used by distributed teams is a web-first product. Documents are shared by link, collaborators must be able to open them on whatever machine they happen to be using without installing anything, and changes to the editor must reach everyone simultaneously so that collaborators are never on incompatible versions.</p>
+
+<p>The following table summarises the comparative character of the four primary platforms.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Android</th>
+      <th>iOS</th>
+      <th>Windows Desktop</th>
+      <th>Web</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Primary audience</td>
+      <td>Broad, global, all price points; strong in emerging markets</td>
+      <td>Apple device owners; higher-income markets</td>
+      <td>Professional, enterprise, institutional users</td>
+      <td>Anyone with a browser; the widest possible reach</td>
+    </tr>
+    <tr>
+      <td>Device diversity</td>
+      <td>Very high (fragmented hardware, OS versions, skins)</td>
+      <td>Low and well documented</td>
+      <td>Moderate (varied screens, but predictable input)</td>
+      <td>Extreme (every screen size and browser engine)</td>
+    </tr>
+    <tr>
+      <td>Primary input</td>
+      <td>Touch, gestures, voice</td>
+      <td>Touch, gestures, voice</td>
+      <td>Keyboard and mouse; sometimes touch/pen</td>
+      <td>Depends on host device — must support both</td>
+    </tr>
+    <tr>
+      <td>Design language</td>
+      <td>Material Design 3</td>
+      <td>Human Interface Guidelines</td>
+      <td>Fluent Design (plus much legacy convention)</td>
+      <td>No single standard; house design systems, WCAG</td>
+    </tr>
+    <tr>
+      <td>Distribution</td>
+      <td>Google Play, alternative stores, sideloading</td>
+      <td>App Store only (with review)</td>
+      <td>Installers, MSIX, enterprise management tools, Microsoft Store</td>
+      <td>A URL; optionally installable as a PWA</td>
+    </tr>
+    <tr>
+      <td>Update control</td>
+      <td>Partly user-controlled; multiple versions live</td>
+      <td>Fast adoption; review delay on release</td>
+      <td>Often IT-controlled; very long support tails</td>
+      <td>Immediate and total — server-side</td>
+    </tr>
+    <tr>
+      <td>Hardware/OS access</td>
+      <td>Extensive</td>
+      <td>Extensive but tightly governed</td>
+      <td>Deepest of all (file system, peripherals, services)</td>
+      <td>Limited and inconsistent across browsers</td>
+    </tr>
+    <tr>
+      <td>Typical session</td>
+      <td>Short, frequent, interrupted, mobile</td>
+      <td>Short, frequent, interrupted, mobile</td>
+      <td>Long, focused, seated, expert</td>
+      <td>Highly variable</td>
+    </tr>
+    <tr>
+      <td>Monetisation profile</td>
+      <td>Volume-driven; ads and freemium common</td>
+      <td>Higher spend per user; subscriptions strong</td>
+      <td>Licences, seats, enterprise contracts</td>
+      <td>Subscription/SaaS, advertising</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Beyond the Four: Additional Platforms</strong></p>
+
+<p>The four primary platforms account for most of the work a graduate will do, but they are not the boundary of the field. Interaction is steadily escaping the rectangular screen, and several adjacent platforms now have real commercial presence. Each demands a design paradigm that cannot be derived by simply shrinking or stretching a phone interface.</p>
+
+<p><strong>Wearables: design under severe constraint.</strong> Smartwatches and fitness bands (watchOS, Wear OS, and proprietary platforms from Garmin, Fitbit, Huawei and others) impose the tightest constraints in mainstream computing. A typical watch display is between 1.2 and 2.0 inches diagonal, viewed at arm's length, often while the user is walking, running, cooking, or driving. The following constraints follow directly:</p>
+
+<ul>
+  <li><strong>Glanceability is the governing principle.</strong> Research and platform guidance converge on an interaction budget of a few seconds — the time a user will hold their wrist up. The design question is therefore not "what can we show?" but "what single thing matters most right now?" Apple's HIG speaks of designing for interactions measured in seconds, not minutes.</li>
+  <li><strong>Severely limited screen real estate.</strong> There is room for perhaps one primary piece of information, a short label, and one or two actions. Multi-step forms, dense tables, and long text are effectively impossible. Information must be filtered and pre-digested on the phone or server.</li>
+  <li><strong>Imprecise, small-target touch.</strong> The "fat finger" problem is at its worst here; a fingertip may occlude a third of the display. Platforms compensate with alternative inputs — the Apple Watch Digital Crown for scrolling, rotating bezels on Samsung devices, wrist gestures, hardware buttons, and heavy reliance on voice dictation and pre-written quick replies.</li>
+  <li><strong>Notification-centred interaction model.</strong> Most wearable usage is reactive: the device taps the wrist, the user glances, and either dismisses or takes a single action. This makes notification design — relevance, frequency, and the quality of the haptic signal — the core design activity. Over-notification is the characteristic failure mode of the platform, because the cost of an irrelevant interruption is physical.</li>
+  <li><strong>Power and sensor context.</strong> Tiny batteries constrain always-on displays, background processing, and animation. Conversely, continuous body contact gives access to heart rate, blood oxygen, skin temperature, motion, and sleep data that no other platform can obtain, which is why health, fitness, and payment are the dominant wearable use cases.</li>
+</ul>
+
+<p><em>Illustrative example.</em> A delivery-logistics company adds a Wear OS companion to its driver app. The phone app shows the full route, manifest, and customer details. The watch app shows only the next stop's street address, a single large "Arrived" button, and a haptic nudge when the vehicle approaches. Attempting to mirror the phone's screens on the wrist would be unusable and unsafe.</p>
+
+<p><strong>Voice interfaces: designing without a screen.</strong> Voice user interfaces (VUIs) — Amazon Alexa, Google Assistant, Siri, in-car assistants, and interactive voice response systems — replace the visual, spatial interaction model with a temporal, linguistic one. Almost every habit of graphical design has to be set aside.</p>
+
+<ul>
+  <li><strong>There is no visible affordance.</strong> A GUI shows the user what is possible; a VUI does not. Users cannot scan a menu, so the system must teach capability through onboarding, contextual prompts, and well-chosen examples ("You can say things like <em>add milk to my shopping list</em>"). Discoverability is the hardest problem in voice design.</li>
+  <li><strong>Speech is linear and transient.</strong> Spoken output cannot be skimmed or re-read; it must be heard in sequence and held in working memory. This imposes a hard limit — long lists are intolerable, so a voice system offers two or three options, not twelve, and paginates conversationally ("Those are the first three. Want to hear more?").</li>
+  <li><strong>Conversational flow design replaces screen flow design.</strong> The design artefacts are dialogue scripts, intents, utterance variations, slots, prompts, re-prompts, confirmations, and error-recovery paths — not wireframes. Designers must enumerate the many ways a person might phrase the same request, and plan for the no-input, no-match, and partial-information cases.</li>
+  <li><strong>Error handling is central, not peripheral.</strong> Automatic speech recognition is imperfect, especially with accents, background noise, children's voices, or domain-specific vocabulary. Good VUIs use <em>implicit confirmation</em> for low-risk actions ("Adding milk — anything else?") and <em>explicit confirmation</em> for consequential ones ("You want to transfer two hundred euro to Maria. Should I go ahead?"), and escalate help progressively after repeated failures.</li>
+  <li><strong>Persona, tone, and prosodyare part of the interface.</strong> The system's wording, pace, and personality carry the same weight that typography and colour carry in a GUI. Contractions, short sentences, and varied acknowledgements ("Got it", "Sure", "Done") make a system feel responsive; stilted or repetitive phrasing makes it feel broken even when it is functioning correctly.</li>
+  <li><strong>Context of use is usually hands-busy and eyes-busy.</strong> People talk to assistants while cooking, driving, or carrying a child. The interaction must tolerate interruption, background noise, and partial attention, and it must never require the user to look at anything.</li>
+</ul>
+
+<p>Many voice platforms are in practice <em>multimodal</em>: a smart display or a car dashboard pairs speech with a screen. The design rule there is that the screen supplements but never replaces the spoken answer — the interaction must still succeed with the eyes closed.</p>
+
+<p><em>Illustrative example.</em> A pharmacy chain builds an Alexa skill for prescription refills. The flow cannot read out a list of fourteen medications; instead it offers "You have three refills ready. The first is your blood pressure tablets — shall I refill that one?" It uses explicit confirmation before submitting the order, never speaks sensitive diagnostic detail aloud by default, and falls back to "I'll send the details to your phone" when the information exceeds what speech can carry.</p>
+
+<p><strong>Augmented and virtual reality: spatial design.</strong> AR and VR platforms — Meta Quest, Apple Vision Pro, SteamVR headsets, Microsoft HoloLens in industry, and phone-based AR through ARKit and ARCore — move the interface off the plane and into three-dimensional space around the user. The shift is more fundamental than any other on this list.</p>
+
+<ul>
+  <li><strong>The interface has depth, scale, and placement.</strong> Content exists at a distance, at a size, and in a location relative to the user's body. Designers work with comfortable viewing zones (typically around 0.5 to 2 metres for interactive content), field-of-view limits, and the distinction between <em>world-locked</em> content that stays fixed in the room, <em>body-locked</em> content that follows the user, and <em>head-locked</em> content that is generally avoided because it induces discomfort.</li>
+  <li><strong>Input is gaze, gesture, voice, and controller.</strong> Apple's Vision Pro uses eye gaze to target and a finger pinch to select; Quest uses hand tracking or six-degree-of-freedom controllers; HoloLens uses air-tap gestures. Targets must be far larger than on a screen, generously spaced, and accompanied by clear hover and selection feedback, because pointing accuracy is low and there is no tactile confirmation.</li>
+  <li><strong>Comfort and safety are design requirements, not refinements.</strong> Mismatch between visual motion and vestibular sensation causes simulator sickness, so artificial locomotion, forced camera movement, and low or unstable frame rates must be handled with great care (teleport locomotion, vignetting during movement, maintaining a stable frame rate of 90 Hz or more). Ergonomic fatigue — "gorilla arm" from sustained raised-hand input — limits session design, as does headset weight and heat.</li>
+  <li><strong>Augmented reality must respect the real world.</strong> AR content has to be anchored to detected planes and surfaces, occluded correctly by real objects, and lit plausibly, or the illusion collapses. It must also not obscure genuine hazards — a critical concern for industrial and automotive head-up applications.</li>
+  <li><strong>New conventions, few habits.</strong> There is no universally learned grammar equivalent to the desktop's menu bar or mobile's back gesture. Onboarding must teach the interaction model explicitly, and designers rely heavily on affordance, spatial audio cues, and physical metaphor to make controls legible.</li>
+</ul>
+
+<p><em>Illustrative example.</em> A turbine manufacturer deploys a HoloLens maintenance application. A technician looking at a real turbine sees step-by-step instructions anchored beside the relevant component, with an arrow pointing at the bolt to be removed and a remote expert's annotations drawn directly onto the machine. A flat checklist on a tablet would force the technician to look away and mentally map each instruction onto the hardware; the spatial interface removes that translation step entirely.</p>
+
+<p><strong>Why awareness of these platforms matters.</strong> It would be easy to treat wearables, voice, and spatial computing as curiosities outside a core HCI module, but there are three strong reasons not to.</p>
+
+<ul>
+  <li><strong>They are already part of multi-platform products.</strong> Banking, fitness, retail, and transport products routinely ship a phone app, a web portal, a watch companion, and a voice skill that must all behave coherently. A designer who understands only screens cannot design that ecosystem.</li>
+  <li><strong>They sharpen understanding of the primary platforms.</strong> Thinking about a two-second glance on a watch clarifies what "primary action" really means on a phone. Designing a dialogue without visuals exposes how much a GUI leans on recognition rather than recall. Spatial design makes explicit the assumptions about depth, scale, and proximity that flat design hides.</li>
+  <li><strong>Professional practice evolves.</strong> The dominant platform of a graduate's mid-career may not yet exist. What transfers is not knowledge of a particular SDK but the analytical habit of asking: what are the input channels, what are the output channels, what is the attention budget, what is the physical context, and what does the user already know?</li>
+</ul>
+
+<p><strong>Platform Categories: Mobile, Desktop, and Web</strong></p>
+
+<p>Beneath the individual platforms lie three broad categories, each with a coherent interaction model. Grouping platforms this way is analytically useful because most human factors reasoning operates at the category level: the differences between Android and iOS are real but comparatively small next to the gulf between <em>any</em> phone and <em>any</em> desktop workstation.</p>
+
+<p><strong>Mobile: touch, portability, and the interrupted context.</strong> Mobile platforms (Android and iOS, plus tablets) are defined by three intertwined characteristics.</p>
+
+<p><em>Touch as the primary input.</em> The finger is a blunt instrument. Human fingertip contact areas lead both Apple and Google to recommend minimum touch targets of roughly 44×44 points and 48×48 dp respectively, with adequate spacing between them — a constraint that immediately limits how many controls can share a screen. Touch also removes the hover state entirely, so tooltips and preview-on-hover must be replaced with explicit affordances, long-press menus, or progressive disclosure. The finger occludes what it touches, so feedback (a selected state, a ripple, a toast) must appear where it remains visible. In compensation, touch enables direct manipulation that no mouse matches: pinch-to-zoom, swipe-to-delete, drag-to-reorder, and pull-to-refresh feel physical because the user's hand is literally on the object. Reachability matters too — the one-handed thumb arc covers only part of a modern large display, which is why primary navigation migrated from top tab bars to bottom bars and why destructive actions are placed away from the thumb's resting zone.</p>
+
+<p><em>Portability and sensor richness.</em> A phone travels with the user, which gives it GPS, accelerometer, gyroscope, compass, camera, microphone, NFC, biometric sensors, and a persistent network connection. This makes genuinely context-aware experiences possible — a transport app that defaults to the nearest stop, a payment app that authenticates with a fingerprint, a camera-based document scanner. It also means the device is used in bright sunlight, in the dark, in motion, in cold weather with gloves, and in public where privacy is limited. Contrast ratios, text sizing, dark mode, and the handling of sensitive on-screen content all follow from this.</p>
+
+<p><em>Fragmented attention and short sessions.</em> Mobile sessions are frequently measured in seconds to a few minutes and are routinely interrupted by calls, notifications, and the world. Interfaces must therefore preserve state aggressively, allow a task to be resumed exactly where it was abandoned, minimise the number of steps to the core action, reduce typing (through autofill, sensible keyboard types, scanning, and platform sign-in), and tolerate sudden connectivity loss. Battery and data consumption are user-visible costs. The design consequence is a strong bias towards one primary task per screen, shallow hierarchies, and ruthless prioritisation of content.</p>
+
+<p><strong>Desktop: precision, density, and sustained expert work.</strong> Desktop platforms invert almost every mobile assumption. Input is precise — a mouse or trackpad can target a few pixels, and hover provides a whole extra interaction state used for tooltips, previews, drag handles, and contextual affordances. The keyboard is a first-class input device, enabling shortcuts, mnemonics, tab-order navigation, and command palettes that let practised users operate an application far faster than any pointing device allows; this is why Fitts's Law reasoning on the desktop concerns itself with screen edges and corners (infinitely wide targets) in a way it cannot on touch.</p>
+
+<p>Screen area is large and often multiplied across monitors, which supports simultaneous display of many panels, toolbars, inspectors, and documents. Multi-window workflows — comparing two files, dragging data from one application into another, keeping reference material visible while writing — are the normal mode of work, so applications must handle arbitrary resizing, remember layout, and participate in the system clipboard and drag-and-drop. Sessions are long and seated: a user may spend six hours in the same tool, which justifies a steeper learning curve, richer feature sets, customisable workspaces, and interface density that would be hostile on a phone. Deep operating-system integration — the file system, peripherals, background services, printing, local networking — is expected and is often the whole reason a desktop application exists.</p>
+
+<p>The human factors profile differs accordingly: the designer worries less about thumb reach and more about visual search in dense layouts, consistency of command structure across hundreds of functions, discoverability of advanced features, repetitive strain and posture over long sessions, and supporting the transition from novice to expert through layered interfaces (menus for discovery, shortcuts for speed).</p>
+
+<p><strong>Web: reach, accessibility, and the unknown client.</strong> The web is a category rather than a device because the same application may be met on a 32-inch monitor with a mouse and on a 5-inch phone with a thumb. Its defining human factors concern is therefore <em>uncertainty about the client</em>: unknown screen size, unknown input modality, unknown browser, unknown connection speed, unknown assistive technology. Responsive design, fluid layouts, breakpoint strategy, and input-agnostic controls (large enough for a finger, keyboard-operable for a screen-reader user, hover-enhanced but not hover-dependent) are the direct answer to that uncertainty.</p>
+
+<p>Accessibility is more mature and more often legally mandated on the web than anywhere else. Semantic HTML, correct heading structure, labelled form controls, visible focus indicators, sufficient colour contrast, and ARIA where native semantics fall short are the baseline, measured against WCAG success criteria. Performance is a usability issue in a way it is not for installed software, because the application must be downloaded before it can be used: perceived latency, page weight, and loading feedback directly determine abandonment. Navigation must respect web conventions that users have internalised for decades — the back button must work, URLs must reflect state, links must look like links, and the browser's own chrome (zoom, find-in-page, reader mode, translation) must not be broken by the application. Finally, the browser sandbox limits hardware access and background work, so capability-sensitive features need progressive enhancement and graceful degradation.</p>
+
+<p>The table below contrasts the three categories on the human factors dimensions that most shape design decisions.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Human factors dimension</th>
+      <th>Mobile</th>
+      <th>Desktop</th>
+      <th>Web</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Primary input and precision</td>
+      <td>Finger touch; low precision; no hover</td>
+      <td>Mouse and keyboard; pixel precision; hover available</td>
+      <td>Unknown — must support both touch and pointer</td>
+    </tr>
+    <tr>
+      <td>Minimum target size</td>
+      <td>~44 pt (iOS) / ~48 dp (Android)</td>
+      <td>Can be very small; edges and corners exploitable</td>
+      <td>Must assume touch sizing unless input is detected</td>
+    </tr>
+    <tr>
+      <td>Screen real estate</td>
+      <td>Small, portrait-dominant, one task per view</td>
+      <td>Large, often multi-monitor, many panes</td>
+      <td>Anything from 320 px to ultra-wide</td>
+    </tr>
+    <tr>
+      <td>Information density</td>
+      <td>Low — prioritise ruthlessly</td>
+      <td>High — density aids expert productivity</td>
+      <td>Adaptive — must reflow across breakpoints</td>
+    </tr>
+    <tr>
+      <td>Typical session length and attention</td>
+      <td>Seconds to minutes; interrupted; mobile context</td>
+      <td>Minutes to hours; focused; seated</td>
+      <td>Highly variable; often task-driven and brief</td>
+    </tr>
+    <tr>
+      <td>Text entry</td>
+      <td>Slow and error-prone; minimise typing</td>
+      <td>Fast; full keyboard; shortcuts expected</td>
+      <td>Depends on client; design for the slower case</td>
+    </tr>
+    <tr>
+      <td>Environmental factors</td>
+      <td>Glare, motion, noise, gloves, public settings</td>
+      <td>Stable lighting, posture, RSI over long use</td>
+      <td>All of the above, plus variable network quality</td>
+    </tr>
+    <tr>
+      <td>Navigation model</td>
+      <td>Bottom tabs, stack-based back, gestures</td>
+      <td>Menus, toolbars, panes, keyboard commands</td>
+      <td>URLs, links, browser back, breadcrumbs</td>
+    </tr>
+    <tr>
+      <td>Capability access</td>
+      <td>Rich sensors; permission-gated</td>
+      <td>Deepest OS and peripheral access</td>
+      <td>Sandboxed and inconsistent across browsers</td>
+    </tr>
+    <tr>
+      <td>Dominant accessibility concern</td>
+      <td>Dynamic type, contrast, screen reader gestures</td>
+      <td>Keyboard operability, focus order, magnification</td>
+      <td>WCAG conformance, semantics, assistive tech support</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These categories are converging at the edges, and a mature designer holds that nuance. Tablets and 2-in-1 convertibles sit between mobile and desktop and may receive touch, pen, keyboard, and mouse input in the same session, so both target sizing and hover behaviour must be handled adaptively. Cross-platform frameworks such as Flutter, React Native, .NET MAUI, and Electron let one codebase address several categories — but a shared codebase is not a shared design; a toolbar that works on Windows will not work on a phone, and failing to adapt produces the familiar "lowest common denominator" application that feels native nowhere. Progressive Web Apps blur the web/native boundary from the other direction. The practical conclusion is that platform categories are a reasoning tool for identifying constraints, not boxes to be obeyed: the designer's job is to identify, for the specific product and audience, which input channels, attention budgets, environmental conditions, and user expectations actually apply, and to let those drive the interface.</p>
+
+<p><em>A worked comparison.</em> Consider a single product idea — an expense-reporting system for a consulting firm — expressed on each category. On <strong>mobile</strong>, the consultant photographs a receipt in a taxi: one screen, camera-first, automatic OCR, a single confirm button, works offline and syncs later. On <strong>desktop</strong>, the finance officer reconciles 400 claims: a dense sortable grid, bulk selection with shift-click, keyboard-driven approval, side-by-side receipt preview, export to the accounting package, multi-monitor friendly. On the <strong>web</strong>, a project manager approves their team's claims from a client's loaner laptop: no installation, link straight from the notification email, responsive layout that works at any window size, fully keyboard and screen-reader operable. Same data, same business process, three fundamentally different interfaces — which is precisely why platform analysis precedes interface design.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+
+<ul>
+  <li><strong>MO1:</strong> Directly supported. The topic sets out the HCI design constraints of Android, iOS, Windows desktop, and the web — input precision, target sizing, screen real estate, attention budget, environmental context, capability access, and accessibility expectations — and the comparison tables provide an explicit framework for contrasting mobile, web, and desktop platforms against target user needs such as global reach, enterprise workflow, or premium consumer experience.</li>
+  <li><strong>MO2:</strong> Strongly supported as groundwork. The platform profiles, trade-off tables, and worked examples supply the evidence base (audience, device diversity, distribution, update control, hardware access, monetisation) that a student needs in order to choose a platform and defend that choice against stated project requirements; the actual selection and justification exercise is carried out in later work.</li>
+  <li><strong>MO3:</strong> Supported indirectly. The topic surfaces the platform-derived constraints — review processes, fragmentation, offline requirements, accessibility mandates, enterprise deployment limits — that must be recorded in a project scope document, but it does not itself teach the structure of scope documents, objectives, or success criteria.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Figures such as market share, OS adoption rates, and desktop share are given as approximate orders of magnitude rather than precise current statistics, since they shift year to year; students should verify current figures from StatCounter, Apple&#39;s developer support page, or Google&#39;s distribution dashboard when citing them in assessed work. Touch target recommendations are quoted from the Apple Human Interface Guidelines (44&#215;44 pt) and Material Design (48&#215;48 dp) and are stable long-standing guidance. The VR frame-rate figure (90 Hz) reflects common comfort guidance; specific headsets vary (72–120 Hz). Suggested teaching activity: give students the expense-reporting scenario at the end and have them sketch the three category-specific interfaces before revealing the worked comparison.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

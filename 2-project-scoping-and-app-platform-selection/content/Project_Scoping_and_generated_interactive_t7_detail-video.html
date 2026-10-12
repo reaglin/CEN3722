@@ -1,0 +1,471 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Platform Selection: Criteria and Decision-Making</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Project Scoping and App Platform Selection</a></div>
+  <header>
+    <h1>Platform Selection: Criteria and Decision-Making</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Platform Selection: Criteria and Decision-Making</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every interactive product begins life as an abstract idea — a set of tasks someone needs to accomplish, a problem someone needs solved. Before a single screen is sketched, however, a decision must be made that will constrain almost everything that follows: <strong>on what platform will this interface live?</strong> Will users reach it through a mobile app installed on a phone, through a browser on any device, through a desktop application that lives in the operating system's taskbar, or through some combination of these? This is not a technical formality to be settled later by developers. It is a design decision of the first order, because the platform determines the screen real estate available, the input modalities at hand, the interaction conventions users will expect, the hardware the interface can reach, and the conditions under which the product will be used.</p>
+
+<p>A poor platform choice is extremely expensive to reverse. Teams that discover six weeks into development that their field-inspection tool cannot function in a basement with no mobile signal, or that their data-heavy analytics dashboard is unusable on a 6-inch screen, face a rewrite rather than a refinement. Conversely, a well-reasoned platform choice makes a great many subsequent design decisions almost automatic: the platform's human interface guidelines supply navigation patterns, control styles, gesture vocabularies, and accessibility hooks that the team can adopt rather than invent.</p>
+
+<p>Platform selection is therefore best treated as a structured evaluation against four broad families of criteria: <strong>the audience and their context</strong>, <strong>the technical capabilities the product requires</strong>, <strong>the team's realistic capacity to deliver</strong>, and <strong>the discipline of documenting and defending the resulting choice</strong>. The sections that follow examine each in depth.</p>
+
+<p><strong>User audience as a primary driver.</strong> The single most common failure in platform selection is choosing the platform the team finds interesting rather than the platform the users already inhabit. A platform that your audience does not own, cannot install, or will not open is a platform that does not exist from the user's point of view. Audience analysis must therefore precede and dominate the decision.</p>
+
+<p>Begin with <em>device ownership and daily usage</em>. It is not enough to know that a user "has a smartphone"; almost everyone does. The question is which device is actually in their hands at the moment the task arises. Consider three contrasting audiences:</p>
+
+<ul>
+  <li><strong>Warehouse pickers in a distribution centre.</strong> They carry ruggedised handheld scanners or company-issued Android devices. They do not sit at desks. A desktop application is literally unreachable during the task. A mobile app, or at minimum a responsive web app optimised for a small touchscreen with large targets usable while wearing gloves, is the only viable option.</li>
+  <li><strong>Secondary school teachers preparing lesson materials.</strong> Their task happens at a desk, often on a school-issued Windows laptop locked down by an IT administrator who forbids software installation. Here a <em>browser-based</em> web application is strongly indicated — not because the web is technically superior, but because installation privileges are the binding constraint.</li>
+  <li><strong>Independent music producers.</strong> They work at a workstation with a large or multi-monitor display, a MIDI keyboard, an audio interface, and expect low-latency processing. A native desktop application is almost mandatory; the browser's audio latency and limited hardware access would make the product feel broken.</li>
+</ul>
+
+<p>Useful evidence for this stage includes analytics from any existing product (what proportion of sessions come from mobile versus desktop, and on which operating systems), market or institutional data about device penetration in the target region or organisation, and direct user research — contextual inquiry, surveys, or interviews that ask not "do you own a tablet?" but "walk me through the last time you did this task; what were you holding?"</p>
+
+<p>Next, examine the <em>context of use</em>. Context determines far more than screen size. A mobile context typically means short, interrupted sessions, one-handed operation, variable lighting, background noise, unreliable connectivity, and divided attention. A desk context typically means long sessions, two hands on a keyboard, a precise pointer, a stable network, and sustained focus. These differences cascade directly into interface design: a form that is perfectly reasonable as twelve fields on a desktop screen must be re-conceived as a multi-step wizard with generous touch targets on a phone.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Context dimension</th>
+      <th>On the go (mobile)</th>
+      <th>At a desk (desktop)</th>
+      <th>Mixed / both</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Typical session length</td>
+      <td>30 seconds to 3 minutes, frequently interrupted</td>
+      <td>15 minutes to several hours, sustained</td>
+      <td>Quick capture on mobile, deep work on desktop</td>
+    </tr>
+    <tr>
+      <td>Primary input</td>
+      <td>Thumb/touch, voice, camera</td>
+      <td>Keyboard and precise pointer, shortcuts</td>
+      <td>Must support both input vocabularies</td>
+    </tr>
+    <tr>
+      <td>Attention available</td>
+      <td>Partial; user may be walking or supervising</td>
+      <td>High; user is seated and focused</td>
+      <td>Varies by session</td>
+    </tr>
+    <tr>
+      <td>Connectivity assumption</td>
+      <td>Intermittent, metered, sometimes absent</td>
+      <td>Stable broadband, usually unmetered</td>
+      <td>Must degrade gracefully</td>
+    </tr>
+    <tr>
+      <td>Information density tolerated</td>
+      <td>Low — one primary task per screen</td>
+      <td>High — tables, side panels, multiple views</td>
+      <td>Responsive or adaptive layouts required</td>
+    </tr>
+    <tr>
+      <td>Typical platform fit</td>
+      <td>Native or hybrid mobile app</td>
+      <td>Desktop app or desktop-class web app</td>
+      <td>Responsive web app, or a mobile companion to a desktop core</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A common and productive resolution to a genuinely mixed context is the <strong>companion model</strong>: a primary platform that carries the full feature set, plus a deliberately reduced secondary experience on another platform. A field-survey product might place full project setup, data analysis, and report generation in a web application, while a mobile app handles only the three things that genuinely must happen in the field — capture a photo, record a GPS-tagged observation, and add a short note. Designing the mobile companion as a <em>subset chosen on purpose</em> is vastly better than attempting to squeeze the whole web interface onto a phone.</p>
+
+<p>Third, consider <em>user technical proficiency</em>. Interaction patterns are learned, and users transfer their learning across applications on a platform they use daily. An audience of older adults who have used Windows for twenty years but have never installed an app from an app store will find a conventional desktop application with menus, dialog boxes, and a visible file system far more legible than a gesture-driven mobile interface with hidden navigation drawers and swipe-to-delete actions. Conversely, an audience of teenagers will find a mobile app with bottom-tab navigation and pull-to-refresh entirely transparent, while a desktop application with a ribbon toolbar may feel archaic and intimidating. The principle at work is <em>consistency with the user's existing mental model</em>: choosing the platform whose conventions the audience has already internalised reduces the learning burden before you have designed anything.</p>
+
+<p>Low proficiency also argues against platforms that impose procedural overhead. Installing a desktop application requires locating an installer, granting administrator permission, and trusting a security prompt — a sequence that defeats many non-technical users. A URL defeats almost nobody. For a one-off public interaction such as a council consultation survey or a museum exhibit guide, the web's zero-install property is frequently decisive on proficiency grounds alone.</p>
+
+<p>Fourth, weigh the <em>accessibility needs</em> of the audience, which can tip the decision outright. Each platform offers a different accessibility infrastructure, and each imposes different risks:</p>
+
+<ul>
+  <li><strong>Mobile platforms</strong> ship with mature, universally available screen readers (VoiceOver on iOS, TalkBack on Android), system-wide dynamic type scaling, high-contrast and reduced-motion settings, switch control, and voice control. If the app uses standard native components and sets accessibility labels correctly, much accessibility support comes for free. The risk is small touch targets and reliance on gestures that are difficult for users with motor impairments or tremor.</li>
+  <li><strong>The web</strong> has the richest formal accessibility standard (WCAG) and the broadest assistive-technology ecosystem, including desktop screen readers such as NVDA and JAWS, browser zoom, and user stylesheets. Semantic HTML is accessible by default. The risk is that heavily customised JavaScript components — custom dropdowns, modal dialogs, drag-and-drop canvases — break keyboard operability and screen-reader semantics unless ARIA is applied with real care.</li>
+  <li><strong>Desktop platforms</strong> offer excellent keyboard access, full-screen magnification, and tight integration with specialised assistive hardware such as braille displays, alternative keyboards, and eye-tracking systems that a browser sandbox may not reach as reliably.</li>
+</ul>
+
+<p>If your audience is, say, visually impaired students using braille displays and desktop screen readers in a university computer lab, a desktop or carefully-built semantic web application is appropriate and a gesture-heavy mobile app is not. If your audience includes users with limited dexterity, large touch targets on a tablet may outperform a mouse-driven desktop interface. The point is that accessibility is not a layer applied after platform selection; it is an input to it.</p>
+
+<p><strong>Platform capability alignment.</strong> Once the audience narrows the field, the product's functional requirements must be tested against what each candidate platform can actually deliver. The disciplined way to do this is to enumerate the required capabilities <em>first</em>, as a checklist, and only then ask which platforms satisfy them — rather than choosing a platform and afterwards discovering what it cannot do.</p>
+
+<p>Start with <em>hardware features</em>. Write down every physical capability the core user tasks depend on: camera (still, video, continuous frame access for scanning or augmented reality), microphone, GPS and background location, accelerometer, gyroscope, magnetometer, barometer, proximity and ambient-light sensors, biometric authentication, NFC, Bluetooth Low Energy, haptic feedback, push notifications, and access to the device file system or peripheral devices such as printers, scanners, and serial instruments.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Required capability</th>
+      <th>Native mobile</th>
+      <th>Web (modern browser)</th>
+      <th>Native desktop</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Camera capture (single photo)</td>
+      <td>Full control over focus, exposure, frame rate</td>
+      <td>Available via getUserMedia / file input; limited low-level control</td>
+      <td>Available, but device may have no camera</td>
+    </tr>
+    <tr>
+      <td>Continuous background GPS tracking</td>
+      <td>Supported with user permission and background modes</td>
+      <td>Not reliable — suspended when tab is backgrounded</td>
+      <td>Rarely applicable; devices usually stationary</td>
+    </tr>
+    <tr>
+      <td>Motion sensors (accelerometer, gyroscope)</td>
+      <td>High-frequency access, low latency</td>
+      <td>Available but rate-limited and permission-gated; inconsistent across browsers</td>
+      <td>Generally absent</td>
+    </tr>
+    <tr>
+      <td>Biometric authentication</td>
+      <td>Face/fingerprint APIs available</td>
+      <td>Via WebAuthn / passkeys, increasingly well supported</td>
+      <td>Platform-dependent (Windows Hello, Touch ID)</td>
+    </tr>
+    <tr>
+      <td>Bluetooth peripherals</td>
+      <td>Full BLE and classic Bluetooth support</td>
+      <td>Web Bluetooth: partial, not supported in all browsers</td>
+      <td>Full support via OS APIs</td>
+    </tr>
+    <tr>
+      <td>Local file system access</td>
+      <td>Sandboxed, limited</td>
+      <td>Sandboxed; File System Access API partial support</td>
+      <td>Unrestricted (subject to OS permissions)</td>
+    </tr>
+    <tr>
+      <td>Push notifications</td>
+      <td>Mature and reliable</td>
+      <td>Supported, with platform-specific caveats</td>
+      <td>Supported via OS notification centre</td>
+    </tr>
+    <tr>
+      <td>Offline operation</td>
+      <td>Native by default; local database available</td>
+      <td>Possible via service workers + IndexedDB; requires deliberate engineering</td>
+      <td>Native by default</td>
+    </tr>
+    <tr>
+      <td>Heavy computation / large datasets</td>
+      <td>Constrained by battery, thermal limits, memory</td>
+      <td>Constrained by browser sandbox; WebAssembly and WebGPU help</td>
+      <td>Strongest — full CPU/GPU, large RAM, multi-threading</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The second question is <em>performance intensity</em>. Some features are not merely "features" but sustained computational demands: real-time video effects, 3D rendering, audio processing with sub-10-millisecond latency, machine-learning inference on-device, CAD modelling, or manipulation of datasets measured in gigabytes. For these, the margin matters. A web-based photo editor handling 2-megapixel images is entirely feasible; the same editor handling 100-megapixel RAW files with non-destructive layer stacks will struggle against browser memory limits and will almost certainly be better served as a native desktop application. Likewise, a mobile app performing continuous on-device object recognition needs native access to the device's neural accelerator; a JavaScript implementation would drain the battery and overheat the phone within minutes. A useful heuristic: if the feature would make a user notice lag, dropped frames, or a hot device, it belongs on a platform with native access to the relevant hardware.</p>
+
+<p>Third, decide explicitly whether <em>web APIs are sufficient or native APIs are necessary</em>. The web platform has advanced enormously — service workers, IndexedDB, WebRTC, WebAssembly, WebGL and WebGPU, Web Bluetooth, Web Serial, WebAuthn, the File System Access API — and the honest answer for many projects today is that the web is sufficient. But three qualifications apply:</p>
+
+<ul>
+  <li><strong>Support is uneven.</strong> Several of these APIs are implemented in Chromium-based browsers but not in Safari or Firefox. If your audience analysis shows a large proportion of iPhone users, iOS browsers all run on the system WebKit engine, so a Chromium-only API is effectively unavailable to them. Capability tables must be read against <em>your audience's actual browsers</em>, not against the best-case browser.</li>
+  <li><strong>Permissions and background execution differ.</strong> A browser tab can be throttled or discarded by the OS; a native app can register background tasks. Anything that must keep running when the user switches away — step counting, geofencing, large uploads, sync — argues for native.</li>
+  <li><strong>Platform integration differs.</strong> Share sheets, widgets, deep links, Siri/Assistant shortcuts, app-store discoverability, and home-screen presence are native strengths. Installable Progressive Web Apps narrow but do not close this gap.</li>
+</ul>
+
+<p>Fourth, treat <em>offline functionality</em> as a first-class requirement rather than an afterthought. Ask precisely what the user must be able to do with no connectivity, and for how long:</p>
+
+<ul>
+  <li><strong>No offline requirement</strong> — e.g. an internal dashboard used only on the office network. The web is unconstrained here.</li>
+  <li><strong>Read-only offline</strong> — e.g. a conference schedule or a field reference manual. A web app with a service worker caching the app shell and content is entirely adequate.</li>
+  <li><strong>Offline capture with later sync</strong> — e.g. an environmental surveyor recording readings in a forest for six hours. This requires a durable local store, a queue of pending writes, conflict-resolution rules, and clear interface feedback about sync state (pending, syncing, synced, failed). Technically possible on the web via IndexedDB, but native mobile platforms provide more robust storage guarantees and are less likely to have their data evicted by the browser under storage pressure.</li>
+  <li><strong>Fully offline operation</strong> — e.g. a clinical tool in a remote facility with no network at all. Native mobile or desktop is the realistic answer.</li>
+</ul>
+
+<p>Note also the interface implications of offline support. An offline-capable design must communicate state honestly: show when data was last synchronised, indicate which records are local-only, never silently discard a user's work, and avoid interface patterns such as infinite scroll or server-side search that simply break when the network disappears.</p>
+
+<p><strong>Team skills and tool availability.</strong> The third criterion is often treated as embarrassing to mention, as though acknowledging a team's limits were an admission of weakness. It is the opposite: an honest capability assessment is a core element of professional judgement. An excellent design that the team cannot build, test, and ship within the available time is worth less to the user than a good design that actually reaches them.</p>
+
+<p>Begin with a frank <em>skills inventory</em>. For each candidate platform, list what the team already knows and what it would have to learn. Distinguish between <em>programming</em> skills (languages, frameworks, build tooling, state management, testing, deployment) and <em>design</em> skills (familiarity with the platform's human interface guidelines, its component libraries, its gesture and navigation conventions, its accessibility APIs, its typography and spacing norms). A team fluent in HTML, CSS, and JavaScript has a far shorter path to a polished responsive web application than to a native iOS app in Swift with SwiftUI, even though the latter might be marginally better suited to the task on capability grounds alone.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Platform route</th>
+      <th>Core skills required</th>
+      <th>Typical learning curve for a web-skilled team</th>
+      <th>Main risk</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Responsive web app</td>
+      <td>HTML, CSS, JavaScript, a UI framework, responsive and accessible design</td>
+      <td>Low — builds directly on existing skills</td>
+      <td>Capability ceiling for hardware-dependent features</td>
+    </tr>
+    <tr>
+      <td>Progressive Web App</td>
+      <td>As above, plus service workers, caching strategies, offline data modelling</td>
+      <td>Low to moderate</td>
+      <td>Inconsistent platform support; cache-invalidation bugs</td>
+    </tr>
+    <tr>
+      <td>Cross-platform mobile (React Native, Flutter)</td>
+      <td>JavaScript/TypeScript or Dart, mobile navigation patterns, native build toolchains</td>
+      <td>Moderate — familiar language, unfamiliar platform conventions and build process</td>
+      <td>Native modules and store submission still require platform knowledge</td>
+    </tr>
+    <tr>
+      <td>Native iOS</td>
+      <td>Swift, SwiftUI or UIKit, Xcode, Apple HIG, App Store review process</td>
+      <td>High</td>
+      <td>Requires macOS hardware and a paid developer account</td>
+    </tr>
+    <tr>
+      <td>Native Android</td>
+      <td>Kotlin, Jetpack Compose, Android Studio, Material Design, device fragmentation</td>
+      <td>High</td>
+      <td>Testing across many screen sizes and OS versions</td>
+    </tr>
+    <tr>
+      <td>Native desktop (Electron / Tauri)</td>
+      <td>Web skills plus packaging, auto-update, OS integration, code signing</td>
+      <td>Moderate</td>
+      <td>Large bundle size; per-OS installers and signing certificates</td>
+    </tr>
+    <tr>
+      <td>Native desktop (WPF, Qt, Cocoa)</td>
+      <td>C#, C++, or Swift; platform-specific UI toolkit</td>
+      <td>High</td>
+      <td>Little reuse across operating systems</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The <em>learning curve</em> must be costed, not just acknowledged. In a twelve-week project, a team that must learn Swift from scratch will realistically spend three to four weeks reaching basic competence — time subtracted directly from user research, prototyping, usability testing, and iteration. Since HCI quality comes overwhelmingly from iteration against real users, spending a third of the schedule on language acquisition usually produces a <em>worse</em> interface than building on familiar ground. A reasonable rule of thumb: adopt at most one significant unfamiliar technology per project, and make sure it is the one that buys the most user value.</p>
+
+<p><em>Tool availability</em> imposes hard constraints that no amount of enthusiasm can overcome. These are worth checking before any decision is announced:</p>
+
+<ul>
+  <li><strong>Operating system requirements.</strong> Building and signing an iOS application requires Xcode, which runs only on macOS. A team working entirely on Windows and Linux machines cannot ship to the App Store without acquiring Mac hardware or a cloud build service.</li>
+  <li><strong>Accounts, licences, and fees.</strong> Apple's developer programme charges an annual fee; Google Play charges a one-off registration fee. Code-signing certificates for Windows desktop distribution cost money. Some design and IDE licences are paid. In a student or small-team context these can be prohibitive.</li>
+  <li><strong>Hardware for testing.</strong> You cannot evaluate a mobile interface honestly on a desktop simulator alone. Touch target sizing, thumb reach, outdoor legibility, and performance on a mid-range device all require physical devices. If the team owns only high-end phones, it will systematically underestimate load times for users on older hardware.</li>
+  <li><strong>Institutional restrictions.</strong> University or workplace machines may block software installation, restrict network ports, or prevent connecting devices for debugging.</li>
+  <li><strong>Distribution gates.</strong> App store review introduces delays measured in days and the possibility of rejection; web deployment is immediate. For a time-boxed academic project, that difference can matter more than any technical consideration.</li>
+</ul>
+
+<p>Taken together, these points support an important and sometimes counter-intuitive principle: <strong>choosing a platform the team can realistically deliver on is itself a valid design decision</strong>, not a compromise of design. Feasibility is a design constraint in exactly the same sense that screen size or colour contrast is a design constraint. The designer's obligation is to produce the best possible user experience <em>within</em> the real envelope of time, skill, budget, and equipment — not to specify an ideal that never reaches a user. A team that chooses a responsive web application because it can build, test, and iterate on it five times before the deadline will almost always deliver a more usable product than a team that chooses native iOS, spends the term fighting the toolchain, and tests with users once, late, on a half-finished build.</p>
+
+<p>What this principle does <em>not</em> licence is using convenience as a substitute for analysis. "We chose the web because we know JavaScript" is a weak justification standing alone. "We chose the web because our audience analysis showed 70% of users access our service from locked-down institutional desktops where they cannot install software; because our feature set requires no hardware beyond file upload; and because our team's existing web skills allow us to run three rounds of usability testing within the schedule" is a strong justification in which skills play an honest supporting role alongside audience and capability evidence.</p>
+
+<p>Where skills and requirements genuinely conflict, mitigation strategies exist: adopt a cross-platform framework that lets existing language skills reach a new platform; narrow the scope so the hardest capability is deferred to a later release; prototype the riskiest technical element in the first week as a spike to test feasibility before committing; or adopt the companion model and build only a thin native layer around a web core.</p>
+
+<p><strong>Documenting and justifying the platform choice.</strong> A decision that lives only in the team's collective memory is not a decision — it is an assumption waiting to be contested. The final element of platform selection is producing a written record that states the choice, grounds it in evidence, and names what was given up. This record belongs in the project description or scope document, near the front, where any reader encounters it before the detailed requirements.</p>
+
+<p>First, <em>state the chosen platform clearly and unambiguously</em>. Vagueness here causes real downstream damage: "a mobile-friendly application" could mean a responsive website, an installable PWA, a React Native app, or two separate native apps, and each implies a different budget, different design conventions, and different testing needs. A precise statement specifies the platform type, the target operating systems and versions, the form factors supported, and the distribution method. Compare:</p>
+
+<ul>
+  <li><strong>Too vague:</strong> "The system will be available on mobile and online."</li>
+  <li><strong>Unambiguous:</strong> "The product will be delivered as a single native Android application, targeting Android 10 (API level 29) and above, designed for handset form factors in portrait orientation, distributed through Google Play. No iOS, tablet, or desktop version is in scope for this release."</li>
+</ul>
+
+<p>Note that the unambiguous version also states what is <em>not</em> included. Explicit exclusions prevent scope disputes later and signal to the reader that the boundary was chosen rather than overlooked.</p>
+
+<p>Second, <em>provide a rationale that references the three evidence streams</em> already gathered: audience analysis, feature requirements, and team constraints. A rationale is an argument, not an assertion, and an argument needs premises the reader can inspect. Each claim should point to something: a survey result, an analytics figure, a user quote from an interview, a capability the feature list demands, a documented tool limitation. A workable structure is:</p>
+
+<ul>
+  <li><strong>Context sentence</strong> — what the product does and for whom, in one or two lines.</li>
+  <li><strong>Decision statement</strong> — the platform, precisely specified.</li>
+  <li><strong>Audience evidence</strong> — what the users own, where and when they work, their proficiency and accessibility needs, and why this points to the chosen platform.</li>
+  <li><strong>Capability evidence</strong> — the hardware, performance, API, and offline requirements, and how the chosen platform satisfies them where rivals do not.</li>
+  <li><strong>Feasibility evidence</strong> — team skills, tooling, hardware, licences, and schedule.</li>
+  <li><strong>Alternatives considered and rejected</strong> — naming at least one serious rival and the specific reason it lost.</li>
+  <li><strong>Trade-offs accepted</strong> — the known costs of the decision and how they will be managed or monitored.</li>
+</ul>
+
+<p>Including rejected alternatives is what separates a justification from a rationalisation. A reader who sees that the web was considered and rejected on a named, checkable ground trusts the conclusion far more than a reader who is simply told the answer. A compact comparison table is an effective way to present this, provided the criteria are weighted according to the project's actual priorities rather than treated as equally important:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Criterion (weight)</th>
+      <th>Native mobile</th>
+      <th>Responsive web</th>
+      <th>Desktop application</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Device match to audience (high)</td>
+      <td>Strong — users are mobile throughout the task</td>
+      <td>Adequate — works on phones but requires connectivity</td>
+      <td>Poor — users are not at desks</td>
+    </tr>
+    <tr>
+      <td>Offline capture for 6+ hours (high)</td>
+      <td>Strong — local database, guaranteed storage</td>
+      <td>Weak — browser storage may be evicted</td>
+      <td>Not applicable in the field</td>
+    </tr>
+    <tr>
+      <td>GPS and camera access (high)</td>
+      <td>Strong — full background and sensor access</td>
+      <td>Partial — no reliable background location</td>
+      <td>Weak — hardware usually absent</td>
+    </tr>
+    <tr>
+      <td>Team skills available (medium)</td>
+      <td>Moderate — cross-platform framework reuses JS skills</td>
+      <td>Strong — directly matches existing expertise</td>
+      <td>Moderate</td>
+    </tr>
+    <tr>
+      <td>Zero-install access (low)</td>
+      <td>Weak — store download required</td>
+      <td>Strong</td>
+      <td>Weak</td>
+    </tr>
+    <tr>
+      <td><strong>Outcome</strong></td>
+      <td><strong>Selected</strong></td>
+      <td>Rejected — fails the offline and background-location requirements</td>
+      <td>Rejected — wrong context of use</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Third, <em>acknowledge trade-offs and limitations openly</em>. Every platform choice forfeits something, and naming the forfeit is a mark of competence rather than weakness. Typical acknowledgements include: choosing native Android excludes iPhone users, who represent an estimated 20% of the audience, and an iOS release is deferred to a second phase; choosing a web application means the product cannot access background location, so time-stamped journey tracking is removed from scope; choosing Electron for desktop means a large download and higher memory use than a fully native application, accepted because it allows one codebase across Windows and macOS within the available schedule; choosing a desktop application means field staff must record observations on paper and transcribe them later, mitigated by a planned CSV import.</p>
+
+<p>Each acknowledgement is strongest when it has three parts: the limitation, the reason it is acceptable, and the mitigation or future plan. "We accept X because Y, and will address it by Z" reassures the reader that the consequence was foreseen and is being managed, rather than discovered by them for the first time.</p>
+
+<p>Fourth, write so that the rationale is <em>persuasive to a stakeholder unfamiliar with the project</em>. The realistic audience for this document includes a client, a module convenor, a funding panel, or a colleague joining the team in month three. Such readers do not share your context and may not share your technical vocabulary. Practical guidance:</p>
+
+<ul>
+  <li><strong>Lead with the decision, then the reasons.</strong> Readers want to know the conclusion before the argument; do not build suspense.</li>
+  <li><strong>Translate technical terms into consequences.</strong> Rather than "IndexedDB storage is subject to eviction under storage pressure", write "the browser may delete locally saved survey data without warning when the device is low on space, which would lose a day's fieldwork."</li>
+  <li><strong>Quantify where you can.</strong> "Most users are on mobile" is weaker than "78% of sessions in the last quarter came from mobile devices."</li>
+  <li><strong>Tie every reason back to a user or business outcome.</strong> A reason that only serves the development team's comfort will not persuade a stakeholder; the same reason framed as "this allows three rounds of usability testing before launch instead of one" will.</li>
+  <li><strong>Keep it short and structured.</strong> Half a page to two pages, with headings or a table, is read; ten pages of prose is skimmed.</li>
+  <li><strong>Date it and record who decided.</strong> Platform decisions are revisited; a dated record with named decision-makers allows future readers to judge whether the premises still hold.</li>
+</ul>
+
+<p>A compact worked example illustrates the whole chain of reasoning in practice. Suppose the brief is a medication-adherence tool for adults aged 65 and over living independently, commissioned by a community health service.</p>
+
+<pre><code>Platform decision: Native mobile application (Android and iOS),
+                   tablet-and-handset layouts, delivered via app stores
+                   with assisted installation by a community health worker.
+Date: 14 March    Decided by: design lead, clinical lead, development lead
+
+Audience evidence
+  - 61% of surveyed participants (n=84) own a smartphone; 34% own a tablet.
+  - Task is time-triggered (medication times) and occurs at home or away.
+  - Self-reported confidence with technology is low; 7 of 12 interviewees
+    had never installed an app themselves.
+  - 4 of 12 interviewees already rely on system-level text enlargement.
+
+Capability evidence
+  - Scheduled local reminders must fire reliably even if the app is closed.
+  - Camera needed to scan medication barcodes.
+  - Must work without connectivity (several participants have no home Wi-Fi).
+
+Feasibility evidence
+  - Team has Flutter experience; one Mac available for iOS builds.
+  - Apple and Google developer accounts already held by the health service.
+
+Alternatives rejected
+  - Responsive web app: cannot deliver reliable scheduled notifications
+    when the browser is closed. This is the product's core function.
+  - Desktop app: users are not at a computer at medication times.
+
+Trade-offs accepted
+  - App-store installation is a barrier for this audience.
+    Mitigation: health workers install and configure the app during the
+    existing home visit, and a printed one-page guide is supplied.
+  - Two platforms doubles device testing effort.
+    Mitigation: Flutter shared codebase; test matrix limited to four
+    representative devices agreed with the client.
+</code></pre>
+
+<p>Notice how each element of the framework appears, how every claim is anchored to evidence a stranger could check, and how the trade-offs are named with mitigations attached. A stakeholder reading this does not have to take the team's word for anything; they can see the reasoning and, if they disagree, point to the specific premise they dispute. That is precisely what a good platform justification should make possible.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+<ul>
+  <li><strong>MO1:</strong> The topic supports this outcome directly by setting mobile, web, and desktop platforms side by side against HCI design constraints — context of use, input modalities, information density, hardware and API access, offline behaviour, and accessibility infrastructure — and by relating each constraint to the needs and proficiency of specific target user groups.</li>
+  <li><strong>MO2:</strong> The topic provides the selection framework and the justification structure required by this outcome, showing how to weigh audience evidence, capability requirements, and team feasibility against defined project requirements, how to compare and reject alternatives, and how to state a clear, evidence-based rationale for the platform chosen.</li>
+  <li><strong>MO3:</strong> The topic contributes partially to this outcome. It addresses the constraints and documentation elements of a scope document — precise platform statements, explicit exclusions, accepted trade-offs and mitigations — but it does not cover the formulation of project objectives or success criteria, which are treated elsewhere in the module.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Suggested teaching activity: give students three contrasting briefs (a warehouse picking tool, a public consultation survey, an audio production suite) and ask them to complete a weighted criteria table and a one-page justification for each, then swap and critique a peer's rationale as an "unfamiliar stakeholder". Capability support details for specific web APIs change frequently — students should be directed to check current browser support data rather than rely on the indicative table, and should read it against their own audience's browser mix.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Choosing a platform is one of the first real design decisions you make in an HCI project, and it constrains almost everything that follows: screen size and input method, interaction patterns, offline behavior, accessibility options, distribution, and even how users discover your app. In this topic we treat platform selection as a structured decision rather than a preference. You weigh who your users are and where they will realistically use the product, what capabilities the interface actually requires (camera, sensors, notifications, large-screen multitasking, keyboard-heavy entry), what your team can actually build with the tools and time available, and then you write the decision down with the reasoning behind it.</p>
+<p>That last step matters more than students expect. A platform choice that is documented with criteria, alternatives considered, and trade-offs accepted can be defended to a client or instructor, revisited when requirements change, and reused as input to your scope document. An undocumented choice usually turns into an argument later in the term.</p>
+<p>The videos below come from software architecture and system design rather than from HCI directly. Watch them for the decision-making method, not for the specific technologies: notice how each one starts from requirements and constraints, lays out options, names the trade-offs, and arrives at a justified choice. Then practice translating that same discipline to your own question — mobile, web, or desktop — where the constraints are users, context of use, and interface capability instead of servers and databases.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: System Design Interview: A Step-By-Step Guide</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/i7twT3x5yv8?cc_load_policy=1&amp;rel=0" title="Video: System Design Interview: A Step-By-Step Guide (ByteByteGo)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>ByteByteGo</strong> · 9:54 · 1,108,601 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=i7twT3x5yv8" target="_blank" rel="noopener">Watch on YouTube</a></p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: How To Choose The Right Database?</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/kkeFE6iRfMM?cc_load_policy=1&amp;rel=0" title="Video: How To Choose The Right Database? (ByteByteGo)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>ByteByteGo</strong> · 6:58 · 445,628 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=kkeFE6iRfMM" target="_blank" rel="noopener">Watch on YouTube</a></p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: Top 5 Most Used Architecture Patterns</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/f6zXyq4VPP8?cc_load_policy=1&amp;rel=0" title="Video: Top 5 Most Used Architecture Patterns (ByteByteGo)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>ByteByteGo</strong> · 5:53 · 415,852 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=f6zXyq4VPP8" target="_blank" rel="noopener">Watch on YouTube</a></p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

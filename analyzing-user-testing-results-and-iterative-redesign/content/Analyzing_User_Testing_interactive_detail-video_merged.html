@@ -1,0 +1,1129 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Analyzing User Testing Results and Iterative Redesign</title>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Analyzing User Testing Results and Iterative Redesign</a></div>
+<h1>Analyzing User Testing Results and Iterative Redesign</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Foundations of Usability Test Data</a>
+<a href="#part2">Collecting and Organizing Test Data</a>
+<a href="#part3">Interpreting Error Analysis</a>
+<a href="#part4">Prioritizing Usability Improvements</a>
+<a href="#part5">Principles of Iterative Redesign</a>
+<a href="#part6">Implementing Redesign Changes in Prototypes</a>
+<a href="#part7">Documenting and Communicating Redesign Outcomes</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Foundations of Usability Test Data</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Foundations of Usability Test Data</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Usability testing generates a rich stream of information about how real people interact with a design. To extract meaningful conclusions from that information, practitioners must first understand <strong>what kinds of data are being collected</strong>, how each type is measured, and what each type can and cannot tell you on its own. The field broadly divides usability test data into two complementary categories — quantitative and qualitative — and then organises specific metrics within those categories. Mastering this vocabulary and the logic behind each measure is the essential first step in becoming a confident, evidence-driven usability practitioner.</p>
+
+<p>A single usability session might produce numbers showing that eight out of ten participants failed a checkout task, timestamps revealing that successful participants took three times as long as an expert, satisfaction ratings that hover around 50 out of 100, and think-aloud comments like <em>"I have no idea where the back button went."</em> Each of those data points is telling a different part of the same story. The craft lies in reading them together.</p>
+
+<p><strong>Quantitative vs. Qualitative Data</strong></p>
+
+<p>Quantitative data in usability testing refers to any information that can be expressed as a number and subjected to arithmetic or statistical operations. Task completion rates, time on task, error counts, and standardised satisfaction scale scores all fall into this category. These numbers allow you to make direct comparisons — between two design versions, between your product and a competitor, or between the same product measured at different points during an iterative design cycle. Because they are expressed numerically, they are less susceptible to the interpretive variation that can creep into subjective judgements. Two analysts examining the same completion rate will reach identical figures; two analysts reading the same session transcript may notice different themes.</p>
+
+<p>Qualitative data, by contrast, captures the texture of the experience: the words a participant uses while thinking aloud, the moment of visible confusion when they scan a navigation menu without finding what they expected, the post-task comment that reveals they completed the task but felt no confidence in their answer. Qualitative data is inherently richer and more contextual, but it requires careful interpretation and is harder to aggregate or compare numerically.</p>
+
+<p>The most important principle in usability data collection is that <strong>neither type is sufficient on its own</strong>. Quantitative data tells you <em>what</em> is happening; qualitative data tells you <em>why</em>. Consider a scenario where error rates on a form's address field are significantly higher in Version B of a design than in Version A. The number identifies the problem and its magnitude, but only the session recordings and think-aloud transcripts will reveal whether users are confused by ambiguous field labels, failing to notice an inline validation error message, or misunderstanding what format is expected. Without that qualitative layer, the redesign team risks fixing the wrong thing.</p>
+
+<p>Conversely, relying on qualitative findings alone — for example, acting on a participant's comment that a button felt "hidden" — without checking whether the error rate or completion rate data supports that observation can lead to over-weighting the opinion of a single vocal user. The combination of both types creates a self-checking system: numbers flag patterns across the participant group, and qualitative observations explain those patterns in human terms.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Characteristic</th>
+      <th>Quantitative Data</th>
+      <th>Qualitative Data</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Form</td>
+      <td>Numbers, rates, scores</td>
+      <td>Words, observations, behaviours</td>
+    </tr>
+    <tr>
+      <td>Examples</td>
+      <td>Completion rate, time on task, error rate, SUS score</td>
+      <td>Think-aloud commentary, observed hesitation, interview responses</td>
+    </tr>
+    <tr>
+      <td>Primary strength</td>
+      <td>Enables comparison and tracking over time</td>
+      <td>Explains causes and reveals mental models</td>
+    </tr>
+    <tr>
+      <td>Primary limitation</td>
+      <td>Does not explain <em>why</em> a problem occurs</td>
+      <td>Difficult to aggregate; susceptible to analyst interpretation</td>
+    </tr>
+    <tr>
+      <td>Best used for</td>
+      <td>Benchmarking, prioritisation, demonstrating ROI</td>
+      <td>Diagnosing root causes, generating redesign hypotheses</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Task Completion Rates</strong></p>
+
+<p>The task completion rate is one of the most widely used and immediately legible metrics in usability testing. Its calculation is straightforward: divide the number of successful task completions by the total number of attempts, then multiply by 100 to express it as a percentage.</p>
+
+<pre><code>Task Completion Rate = (Successful Completions ÷ Total Attempts) × 100</code></pre>
+
+<p>For example, if ten participants each attempt a task and seven complete it successfully, the completion rate is 70%. That single figure immediately communicates that three out of ten users encountered an obstacle significant enough to prevent task success — a meaningful signal that warrants investigation.</p>
+
+<p>What counts as a "successful" completion must be defined before testing begins. This definition should be objective and observable: the participant reaches the order confirmation page, the document is saved in the correct folder, the filter settings produce a narrowed result set. Vague success criteria introduce subjectivity and make cross-session comparisons unreliable. Some teams use a binary success/failure coding scheme; others use a partial-credit scale where a participant who completes the task with significant difficulty or error receives a score between 0 and 1. The binary approach is simpler and more common; partial-credit scoring can be useful when you want to capture meaningful degrees of struggle.</p>
+
+<p>A low completion rate on a specific task is a strong indicator of a <strong>critical usability problem</strong>. When fewer than half of participants can complete a core workflow, that task demands immediate prioritisation in the redesign effort — regardless of how elegant or intentional the design may appear to the team. High failure rates on core tasks can directly translate to user abandonment, lost conversions, and support costs in live products.</p>
+
+<p>However, completion rates must always be interpreted in context. A 60% completion rate on a simple, single-step task like "find the search bar" represents a severe problem. The same rate on a complex, multi-step task — such as configuring advanced network settings in enterprise software — may be acceptable for a first iteration, especially if the target users are beginners unfamiliar with the domain. Task complexity, user familiarity, and the nature of the user population all modulate the meaning of a completion rate figure.</p>
+
+<p>One of the greatest strategic values of tracking completion rates is the ability to <strong>measure progress across design iterations</strong>. If Version A of a checkout flow has a 55% completion rate and Version B achieves 82%, the improvement is quantified and defensible. This kind of before-and-after comparison is invaluable when communicating the impact of UX work to stakeholders who want evidence that design investment produces results.</p>
+
+<p><strong>Error Rate Analysis</strong></p>
+
+<p>Errors occur whenever a user takes an action that does not advance them toward the correct completion of a task. Error rate analysis transforms those individual missteps into a metric that can be tracked, compared, and prioritised. The standard formula expresses error rate as a proportion:</p>
+
+<pre><code>Error Rate = Number of Errors ÷ Total Number of Opportunities for Error</code></pre>
+
+<p>The denominator — "opportunities for error" — is important and often overlooked. Reporting raw error counts without reference to how many chances users had to make those errors can be misleading. If a task involves five distinct interaction steps and each participant attempts all five, the maximum possible errors per participant is five. Normalising against opportunities allows for fair comparison across tasks of different lengths and complexity.</p>
+
+<p>Error cataloguing is the practice of recording not just how many errors occurred but <strong>what type of error each one was</strong>. Three broad categories are especially useful:</p>
+
+<ul>
+  <li><strong>Navigation errors:</strong> The user travels to the wrong section of the interface, follows an incorrect link, or uses the back button repeatedly to reorient themselves. These often indicate unclear information architecture or misleading labelling.</li>
+  <li><strong>Input errors:</strong> The user enters data in the wrong format, omits a required field, or types into the wrong form element. These frequently point to insufficient field-level guidance, unclear validation feedback, or poor label wording.</li>
+  <li><strong>Comprehension errors:</strong> The user misinterprets a label, instruction, or concept — selecting "monthly billing" when they intended annual billing because the pricing table's layout implied the opposite. These reveal gaps between the designer's mental model and the user's.</li>
+</ul>
+
+<p>When the same error occurs repeatedly — multiple participants making the same wrong turn at the same navigation node, or misreading the same label — this is a signal of a <strong>systematic design flaw</strong> rather than an isolated user slip. Individual errors can reflect a participant having a bad day or lacking specific domain knowledge; recurring patterns across participants point to something the design itself is causing. This distinction is critical for prioritisation: fixing a systematic flaw benefits all future users, while addressing a one-time slip may have negligible impact.</p>
+
+<p>Prioritising errors for remediation requires considering both <strong>frequency</strong> (how often the error occurs) and <strong>severity</strong> (how significantly the error disrupts the user's ability to complete the task). A high-frequency, low-severity error — such as users briefly hovering over the wrong menu item before self-correcting — may be lower priority than a low-frequency but catastrophic error, such as a data-deletion action that triggers without a confirmation dialogue. A simple 2×2 prioritisation matrix plotting frequency against severity can help teams make these judgements explicit and defensible.</p>
+
+<p><strong>Time on Task</strong></p>
+
+<p>Time on task measures how long a participant takes to complete a given task, typically recorded from the moment the facilitator presents the task scenario to the moment the participant declares completion or abandons the attempt. It is one of the most direct behavioural indicators of efficiency — a core dimension of usability under frameworks like ISO 9241.</p>
+
+<p>For time on task data to be meaningful, measurement conventions must be consistent. Does the clock start when the facilitator finishes reading the task, or when the participant first touches the interface? Is time still running if the facilitator intervenes? These decisions must be made before testing and applied uniformly across all sessions and all iterations being compared.</p>
+
+<p>A powerful analytical technique is to benchmark participant times against <strong>expert performance</strong>. An expert — typically a member of the design or product team who knows the interface thoroughly — completes the same task under the same conditions, and their time is recorded. The ratio of novice-to-expert time reveals how much friction the design introduces for users who lack prior familiarity. A ratio of 3:1 or higher on a frequently performed task may indicate a significant efficiency problem, even when completion rates are acceptable. Users may eventually succeed, but they are doing so slowly, which in high-frequency workflows translates to real productivity loss or frustration.</p>
+
+<p>Tracking time on task <strong>across design iterations</strong> is an excellent way to quantify the efficiency gains produced by redesign. If a task that averaged four minutes in Version A drops to ninety seconds in Version B, that improvement is concrete, communicable, and meaningful to stakeholders. Over large user bases, reductions in task time can translate to measurable savings in time, support burden, and user frustration.</p>
+
+<p>Analysts should pay close attention to <strong>outlier task times</strong> at both ends of the distribution. Unusually long times may indicate that a participant became truly lost, encountered a technical failure, or was distracted — all of which can skew mean calculations and should be investigated rather than silently excluded. Unusually short times are equally worth examining: did the participant take a shortcut the design team didn't anticipate? Did they misunderstand the task and stop prematurely? Did they already know the interface from prior exposure? Both types of outlier offer diagnostic value when treated as signals rather than noise.</p>
+
+<p><strong>Satisfaction Scores</strong></p>
+
+<p>Behavioural metrics like completion rates and time on task tell you what users <em>do</em>. Satisfaction scores tell you how users <em>feel</em>. This distinction matters because usability is not purely a performance concept — an interface that users can operate successfully but find unpleasant, confusing, or anxiety-inducing will generate poor word of mouth, low adoption, and eventual abandonment even if task completion rates are high.</p>
+
+<p>The most widely used standardised satisfaction instrument in usability testing is the <strong>System Usability Scale (SUS)</strong>, a ten-item questionnaire developed by John Brooke in 1986 and validated across thousands of studies. Each item is rated on a five-point Likert scale (strongly disagree to strongly agree), and the scoring algorithm produces a single composite score between 0 and 100. A score of 68 is considered the industry average; scores above 80 are generally regarded as indicating good usability, and scores below 50 signal serious problems warranting urgent attention. Because the SUS has been administered in such large volumes across diverse products and industries, it enables genuine benchmarking — you can compare your product's score not just to its own previous versions, but to established norms for your product category.</p>
+
+<p>The timing of satisfaction measurement affects what the data captures. <strong>Post-task satisfaction scores</strong> — collected immediately after a participant completes or abandons a specific task — reflect the immediate emotional reaction to that task experience. They are sensitive to localised friction and can pinpoint which specific tasks are generating the most dissatisfaction. <strong>Post-session scores</strong> like the SUS, collected at the end of the entire session, capture the participant's holistic, reflective impression of the interface. Both are valuable, and many research protocols gather both.</p>
+
+<p>One of the most diagnostically important patterns in usability data is the <strong>performance-satisfaction gap</strong> — a situation where behavioural metrics look acceptable but satisfaction scores are low, or vice versa. If participants are completing tasks efficiently and accurately but rating the experience poorly, this may indicate that they are succeeding only through significant cognitive effort, that they feel uncertain about whether they did the right thing even when they did, or that the interface's aesthetic or tonal qualities are creating a negative impression that the task metrics don't capture. This gap is a prompt to dig deeper into qualitative data — the think-aloud comments and post-session interviews that will explain what is causing the emotional disconnect.</p>
+
+<p>Conversely, high satisfaction with low task performance can indicate that participants enjoyed the interaction but were not aware of how poorly they performed, or that the design is pleasant but misleading — a pattern sometimes called "beautiful but broken." Recognising and investigating these gaps is one of the most sophisticated skills a usability analyst can develop, and it is only possible when both behavioural and attitudinal data are collected systematically in the same study.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic clusters for Topic 1. The SUS scoring note (68 as average, 80+ as good, below 50 as severe) reflects well-established published benchmarks (Bangor, Kortum &amp; Miller, 2008; Sauro, 2011) and is appropriate for learner context. Performance-satisfaction gap discussion extends the listed bullet points in a way that enriches practical understanding without introducing contested content.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p1-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Every usability test produces evidence, but not all evidence looks the same. Some of it is numeric — how many participants finished a task, how long they took, how many errors they made, how they rated the system at the end. Some of it is observational — what a participant said while hesitating, where they looked for a button that wasn't there, what assumption led them down the wrong path. This topic builds the shared vocabulary you need to talk about both kinds of data and to know which kind answers which question.</p>
+<p>The distinction matters because the two types of data do different jobs. Quantitative measures such as task completion rate, error rate, time on task, and satisfaction scores let you compare designs, track progress across iterations, and describe the size of a problem. Qualitative findings explain why the numbers look the way they do and point toward a fix. In this module you will need both: numbers to prioritize and justify, observations to diagnose and redesign.</p>
+<p>As you watch the videos below, pay attention to three things. First, notice when a speaker is talking about a small qualitative study versus a larger measurement study, since the sample size changes what a number is allowed to mean. Second, note the exact definition of each metric — what counts as "complete," what counts as an "error" — because sloppy definitions produce misleading results. Third, watch how satisfaction is treated as its own dimension, separate from whether a user actually succeeded.</p></div></details><details class="slide-card" id="p1-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Collecting UX Metrics During Qualitative User Studies</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/aORI0IzMpYo?cc_load_policy=1&amp;rel=0" title="Video: Collecting UX Metrics During Qualitative User Studies (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:05 · 17,989 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=aORI0IzMpYo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This short video from Nielsen Norman Group discusses what happens when you collect numeric measures during a qualitative usability study, where the goal is insight rather than statistical precision. It addresses how metrics gathered from a handful of individual participants can be used to describe how each person performed and to support the narrative of the findings, rather than being reported as reliable averages. Expect guidance on the limits of small-sample numbers and on keeping metrics in service of the story.</p>
+<h4>Why this video</h4>
+<p>It directly addresses the quantitative versus qualitative distinction that anchors this topic, and it comes from a widely cited usability research organization, so the framing matches standard professional practice.</p></div></details><details class="slide-card" id="p1-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Benchmark Usability Testing</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/n5wvJyXTZb8?cc_load_policy=1&amp;rel=0" title="Video: Benchmark Usability Testing (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:01 · 12,880 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=n5wvJyXTZb8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video introduces benchmark usability testing: studies designed to measure key performance indicators of an interface so that performance can be compared over time or against another design. It is likely to cover the kinds of KPIs typically tracked in such studies — including success or completion rates, time on task, errors, and satisfaction — and how a benchmark is structured so results remain comparable across rounds. The emphasis is on measurement with a purpose rather than numbers for their own sake.</p>
+<h4>Why this video</h4>
+<p>Benchmarking is where completion rates, error rates, and time on task are used most rigorously, so this video ties several of the subtopics together and shows why consistent metric definitions matter for iterative redesign.</p></div></details><details class="slide-card" id="p1-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: The System Usability Scale (SUS)</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/UMv_OW9__qY?cc_load_policy=1&amp;rel=0" title="Video: The System Usability Scale (SUS) (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 6:34 · 24,776 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=UMv_OW9__qY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>The longest of the three videos, this one explains the System Usability Scale, a standardized ten-question survey given at the end of a usability session to capture perceived usability. It covers what the instrument is, how it is administered, and how the resulting score is interpreted as a measure of a user's subjective experience. Expect discussion of why a standardized, well-established questionnaire is preferable to ad hoc satisfaction questions.</p>
+<h4>Why this video</h4>
+<p>It gives concrete, widely adopted grounding for the satisfaction scores subtopic and demonstrates how a subjective impression can be turned into a comparable number for use across design iterations.</p></div></details><details class="slide-card" id="p1-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos establish the measurement vocabulary the rest of the module depends on. Understanding which data are qualitative and which are quantitative, and how completion, error, time, and satisfaction measures are defined, is what allows you to read a set of test results and spot recurring patterns and failure points (MO1). The benchmarking and metrics videos show how frequency and magnitude are captured numerically, which is the basis for ranking issues by severity and user impact when deciding what to fix first (MO2). The emphasis on consistent, repeatable measures — especially standardized satisfaction scoring — supports iterative redesign by giving you comparable evidence across rounds and a documented rationale for each change you make (MO3).</p></div></details><details class="slide-card" id="p1-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part2">
+<h2>Collecting and Organizing Test Data</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Collecting and Organizing Test Data</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Once usability test sessions have been conducted, the real analytical work begins: turning raw observations, recordings, and notes into structured, actionable insights. This process — collecting and organizing test data — is where the difference between a productive usability study and a pile of disconnected observations is made. Without a deliberate system for capturing what happens during sessions and then consolidating those observations across participants, even the most carefully designed test will yield little more than anecdotes. The methods described below form a complete pipeline: from capturing data in the moment, to structuring it for collaborative analysis, to logging and prioritizing issues, to synthesizing patterns across every participant who took part in the study.</p>
+
+<p><strong>Data Collection Methods</strong></p>
+
+<p>The foundation of any usability study is the quality and completeness of the data collected during each session. Observers and facilitators have several tools at their disposal, and the best studies use more than one in combination to ensure nothing important is missed.</p>
+
+<p><strong>Screen and audio recordings</strong> are among the most valuable data sources available. A screen recording captures exactly what a participant sees and does — every click, hesitation, wrong turn, and correction — while a synchronized audio track preserves the participant's think-aloud commentary and any dialogue with the facilitator. Together these create a permanent, reviewable record of the session that can be revisited during analysis. If a note-taker misses a critical moment, the recording provides a safety net. Recordings are particularly useful for capturing the precise wording a participant uses when expressing confusion, which is often more revealing than an observer's paraphrase. The main limitation is time: reviewing full recordings for every participant in a large study is labor-intensive, so recordings are best used selectively — for moments flagged during live observation, or for clips that will be shared with stakeholders as evidence.</p>
+
+<p><strong>Structured note-taking templates</strong> address a common problem: when multiple observers take notes in their own individual styles, the resulting data is inconsistent and hard to compare across sessions. A structured template pre-defines what observers should be watching for and how they should record it. A well-designed template might include columns or fields for the task being observed, a description of what the participant did or said, a severity rating, and a timestamp or screen location. By giving every observer the same framework, teams ensure that equivalent events are recorded in equivalent ways, making cross-participant comparison far more straightforward. Templates also help less experienced observers know what to pay attention to, reducing the chance that important moments slip by unrecorded.</p>
+
+<p><strong>Automated analytics tools</strong> offer a complementary perspective that is completely free of observer interpretation. Tools that log clicks, navigation paths, error messages triggered, time-on-task, and drop-off points produce objective, timestamped behavioral data at scale. Unlike human observers who must choose where to direct their attention, automated systems capture everything within their scope simultaneously and without fatigue. This makes them especially powerful for identifying <em>where</em> in an interface people struggle, even if they cannot explain <em>why</em>. The limitation is that analytics data tells you what happened but rarely why — it shows that users abandoned a form on step three, but not whether they were confused by the instructions, distracted, or simply changed their mind. Pairing automated logs with qualitative observation closes this gap.</p>
+
+<p><strong>Multiple observers</strong> increase data reliability by reducing the chance that a single person's attention lapses or biases color what gets recorded. When two observers independently watch the same session, areas of agreement reinforce confidence in the finding, while disagreements signal ambiguity that deserves closer scrutiny. However, multiple observers only improve reliability if they share a common coding scheme — a set of agreed definitions for the categories, labels, and severity scales they will use. Without this shared framework, two observers watching identical behavior may record it in incompatible ways, creating noise rather than signal. Establishing and rehearsing a coding scheme before sessions begin, ideally with a pilot session, is essential to realizing the benefit of having multiple observers.</p>
+
+<p><strong>Affinity Diagramming</strong></p>
+
+<p>Once raw observations have been collected, affinity diagramming provides a structured, visual method for organizing them into meaningful patterns. The technique originates in qualitative research and is widely used in UX and design thinking precisely because it is collaborative and emergent — it lets the data reveal its own structure rather than imposing a framework in advance.</p>
+
+<p>The process begins with <strong>atomizing observations</strong>: each discrete piece of data — a quote, a behavior, an error, a comment — is recorded as a single unit on a sticky note, index card, or digital equivalent. The single-unit rule is critical. If an observer bundles multiple observations into one note ("the user was confused by the navigation and couldn't find checkout"), separating cause from symptom later becomes difficult. Each note should capture one thing: "user clicked the logo expecting to return to homepage" is one note; "user said 'I don't know where to go from here'" is a separate note. This granularity gives the team maximum flexibility during the grouping phase.</p>
+
+<p>In the <strong>grouping phase</strong>, the team moves notes around — physically on a wall or digitally in a tool — placing items that seem related near each other. Crucially, this is done without predetermined categories. Groups emerge from the data itself. A cluster of notes all describing confusion at the same navigation menu reveals a theme; a cluster of notes about error messages that don't explain what went wrong reveals another. Once clusters stabilize, the team writes a short label for each group that captures what its members share. These labels become the vocabulary of the analysis.</p>
+
+<p>Affinity diagramming is <strong>most effective when the full design team participates</strong>, rather than being delegated to one analyst. When researchers, designers, and product managers all contribute to the grouping process, the resulting themes reflect multiple perspectives and carry broader buy-in. Designers who personally handled the notes are far more likely to act on the findings than those who received a second-hand report. The collaborative process also surfaces disagreements — if two team members want to place the same note in different groups, the resulting discussion often yields a richer understanding of what the note actually means.</p>
+
+<p>The output of an affinity diagram — its clusters and labels — <strong>directly informs prioritization</strong>. A cluster containing fifteen notes from multiple participants describes a widespread, systematic problem; a cluster with two notes from a single participant may represent an individual quirk or edge case. This visual, spatial representation makes it immediately clear which themes dominate the data and which are peripheral, guiding the team toward the issues most deserving of redesign effort.</p>
+
+<p><strong>Usability Issue Logs</strong></p>
+
+<p>While affinity diagrams are excellent for exploratory synthesis, a usability issue log provides a more formal, structured record that can be shared, tracked, and updated over time. An issue log is essentially a table where each row represents one identified usability problem, documented in a consistent format.</p>
+
+<p>The most important discipline in maintaining an issue log is <strong>describing the problem, not the solution</strong>. An entry that reads "the checkout button is too small" has already jumped to a solution. An entry that reads "participants did not notice the checkout call-to-action on the payment confirmation screen, with three out of five participants scrolling past it and expressing uncertainty about whether their order had been placed" describes the observable problem objectively. This distinction matters because the solution space for a visibility problem is wide: the button might be enlarged, repositioned, given a different color, accompanied by supporting text, or replaced with an entirely different interaction pattern. Logging the problem keeps the team's options open and preserves the authentic voice of the data.</p>
+
+<p>Each log entry should capture <strong>frequency and severity</strong>. Frequency records how many participants encountered the issue — a problem seen by five out of five participants is categorically different from one seen by one out of five. Severity reflects the impact on the user's experience: did the issue cause a task failure, a significant delay, mild confusion, or merely a raised eyebrow? Severity scales vary, but a common approach uses four levels:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Severity Level</th>
+      <th>Label</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Critical</td>
+      <td>Prevents task completion; user cannot proceed without assistance</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Serious</td>
+      <td>Causes significant difficulty or delay; task completed only with effort</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Minor</td>
+      <td>Causes slight confusion or hesitation; task completed without major impact</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Cosmetic</td>
+      <td>User notices an imperfection but is not meaningfully impeded</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Combining frequency and severity into a single prioritization score — for example, by multiplying or weighting them — gives teams a defensible, data-driven basis for deciding which issues to address first. This is especially valuable when resources are limited and every redesign decision requires justification.</p>
+
+<p>Issue logs also function as an <strong>audit trail</strong>. Because each entry is tied to specific observations (and ideally to a session recording timestamp), any future design decision can be traced back to the user behavior that motivated it. This matters during design reviews, when a stakeholder asks "why did we change this?" — the answer is documented in the log. It also matters when a fix is later evaluated: the original problem statement provides the success criterion against which the redesign can be measured.</p>
+
+<p>Finally, <strong>sharing the issue log with stakeholders</strong> transforms usability findings from internal team knowledge into organizational evidence. A well-maintained log makes a compelling case for redesign investment because it grounds abstract recommendations in specific, documented user behavior. Stakeholders who might resist change based on intuition or opinion find it harder to dismiss a log showing that four out of six participants failed a core task due to the same interface element.</p>
+
+<p><strong>Synthesizing Across Participants</strong></p>
+
+<p>Individual session observations are the raw material; synthesis across all participants is where meaning is made. Cross-participant synthesis is the process of comparing what happened in each session to identify patterns, separate systematic design problems from individual variation, and build a picture of the interface's overall usability.</p>
+
+<p>The central principle is that <strong>issues observed by multiple participants carry more redesign weight than those seen only once</strong>. When a single participant struggles with something, it could reflect their personal background, an unusual mental model, or simple momentary distraction. When four out of five participants make the same error at the same point in a task, the interface — not the individual — is almost certainly the cause. Synthesis makes this distinction visible and defensible.</p>
+
+<p>The goal of synthesis is to <strong>separate systematic design flaws from individual user differences</strong>. A systematic flaw is one rooted in the design itself: an ambiguous label, a navigation structure that doesn't match users' mental models, an error message that provides no recovery path. These are issues the design team can and should address. Individual differences — a participant who happens to be unfamiliar with e-commerce, or one who uses an assistive technology that creates unique interaction patterns — may not indicate a design flaw at all, or may point to accessibility issues that require a different kind of response. Cross-participant synthesis helps the team make this distinction with evidence rather than assumption.</p>
+
+<p><strong>Frequency tables and heat maps</strong> are powerful visualization tools for this phase. A frequency table lists each identified issue as a row, with each participant as a column, and marks which participants encountered each issue. This immediately reveals which issues are widespread (marks across most columns) and which are isolated (marks in only one or two columns). A heat map applied to a screenshot or prototype can show where across the interface errors and hesitations concentrate — visually dense red areas identify locations in the UI that are generating the most friction, regardless of the specific nature of each incident.</p>
+
+<p>An example frequency table for a five-participant study might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Usability Issue</th>
+      <th>P1</th>
+      <th>P2</th>
+      <th>P3</th>
+      <th>P4</th>
+      <th>P5</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Could not locate search bar</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td></td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <td>Confused by "My Account" label</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>✓</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <td>Did not notice confirmation email message</td>
+      <td></td>
+      <td>✓</td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Incorrectly used filter as sort</td>
+      <td>✓</td>
+      <td></td>
+      <td>✓</td>
+      <td>✓</td>
+      <td></td>
+      <td>3</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>From this table, a team can immediately see that the "My Account" label issue is universal and demands priority attention, while the confirmation email issue may be less critical or specific to one participant's context.</p>
+
+<p>Timing is an often-overlooked but critical factor in synthesis quality: <strong>synthesis should begin promptly after sessions conclude</strong>, while memories are still fresh. Notes capture words and actions, but they rarely capture everything — the tone of a participant's voice when they expressed frustration, the specific gesture they made before giving up, the slight hesitation that preceded a wrong click. These nuances live in observers' memories and are lost within days if synthesis is delayed. Best practice is to conduct a brief debrief immediately after each session to capture top-of-mind observations, then complete full cross-participant synthesis within a day or two of the final session. Teams that wait weeks to synthesize routinely find that their notes feel incomplete and that critical context has faded beyond recovery.</p>
+        <div class="notes"><strong>Notes</strong>Consider supplementing with a visual example of a completed affinity diagram layout (even as a described diagram) when adapting this content for a visual learning environment. The frequency table example can be expanded with actual severity scores if the audience is practitioners rather than students.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p2-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Usability testing produces a flood of raw material: observation notes, screen and audio recordings, task success and failure records, time-on-task numbers, quotes, and your own impressions. Collecting and organizing test data is the discipline of capturing that material consistently during sessions and then structuring it so that patterns across participants become visible. Without a plan for recording and organizing, findings tend to collapse into anecdotes about whichever participant was most memorable.</p>
+<p>This topic covers four practical pieces. Data collection methods address what you capture and how (note-taking templates, recordings, observer roles, consistent prompts and session openings). Affinity diagramming is the technique of writing individual observations on separate notes and clustering them until themes emerge from the bottom up. Usability issue logs give each problem a stable identifier, description, location in the interface, affected participants, and a severity rating. Synthesizing across participants is the step where you count how many people hit the same obstacle and decide what the evidence actually supports.</p>
+<p>As you watch the videos below, pay attention to the habits that make later analysis possible: scripting the parts of a session that should be identical for every participant, using a small and explicit set of criteria so severity ratings stay consistent, and describing findings in terms that match the strength of the underlying data. These are the same habits that will let you defend your redesign priorities in this course's project work.</p></div></details><details class="slide-card" id="p2-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Introducing a Participant to a Usability Test: A Demonstration</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/bcfqmx2hnUQ?cc_load_policy=1&amp;rel=0" title="Video: Introducing a Participant to a Usability Test: A Demonstration (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:35 · 64,558 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=bcfqmx2hnUQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short demonstration from Nielsen Norman Group showing how a facilitator introduces a participant at the start of a usability test session, including the use of a facilitator's script. The description points to covering standard opening elements such as explaining the purpose of the session, setting expectations, and working through the script so nothing is forgotten. Expect to see the interaction modeled rather than only described.</p>
+<h4>Why this video</h4>
+<p>Consistent data starts with consistent sessions, and this clip makes the case for scripting the opening so every participant receives the same framing, which is a prerequisite for comparing results across participants.</p></div></details><details class="slide-card" id="p2-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Prioritize UX Findings by Severity</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iyWWe_tZeEY?cc_load_policy=1&amp;rel=0" title="Video: Prioritize UX Findings by Severity (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:04 · 9,970 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=iyWWe_tZeEY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video explains how to assign severity ratings to design issues found through usability studies or heuristic evaluation, using a small set of criteria rather than ad hoc judgment. It is likely to discuss factors such as how many users are affected, how much the problem impedes task completion, and whether the issue is persistent. The focus is on reporting findings in a way that distinguishes major problems from minor ones.</p>
+<h4>Why this video</h4>
+<p>Severity rating is the core of a usable issue log, and a short criteria-based approach from NNgroup gives students a defensible, repeatable way to record and rank issues rather than relying on gut feeling.</p></div></details><details class="slide-card" id="p2-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: How to Present UX Research Results Responsibly</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/BT-AMKSEzvA?cc_load_policy=1&amp;rel=0" title="Video: How to Present UX Research Results Responsibly (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:16 · 5,789 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=BT-AMKSEzvA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A brief treatment of how to present UX research results to stakeholders truthfully and responsibly. Based on its description, it addresses representing data honestly, avoiding overstating what a small study can support, and being careful with how numbers and claims from qualitative work are framed. It connects the analysis stage to the communication stage of a project.</p>
+<h4>Why this video</h4>
+<p>It reinforces the synthesis subtopic by showing how aggregated findings should and should not be characterized once you move from raw notes to claims about users.</p></div></details><details class="slide-card" id="p2-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos trace the path from session to decision that this module asks you to walk. The facilitation demonstration supports MO1 by showing how standardized sessions yield comparable data in which recurring patterns and pain points can actually be detected rather than confused with facilitator variation. The severity prioritization video maps directly onto MO2, supplying explicit criteria for weighing frequency, severity, and user impact when ranking which issues to fix first. The responsible reporting video supports MO3 by modeling how to state findings accurately, which is exactly the kind of evidence-based rationale you are expected to document alongside each iterative design change.</p></div></details><details class="slide-card" id="p2-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part3">
+<h2>Interpreting Error Analysis</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Interpreting Error Analysis</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Error analysis is one of the most diagnostic activities in usability evaluation. When a user makes an error during a test session, the raw observation — "the participant clicked the wrong button" or "the user submitted the form without filling in a required field" — is only the starting point. The real work begins when you ask what that error reveals about the design itself. Interpreting error analysis means moving systematically from a catalogue of observed failures to a clear understanding of <em>why</em> those failures happened and <em>which design decisions</em> caused them. This process involves classifying errors by their type, tracing each error back to its root cause, mapping errors spatially across the interface, and assigning severity ratings so the team knows which problems demand immediate attention and which can wait. Done rigorously, error analysis transforms raw observation notes into an actionable design diagnosis.</p>
+
+<p><strong>Classifying Error Types</strong></p>
+
+<p>Not all errors are alike, and treating them as interchangeable leads to vague, unhelpful recommendations like "make it clearer." Classifying errors by type immediately points the analyst toward the category of design problem most likely responsible. The four major error types relevant to interface evaluation are slips, mistakes, navigation errors, and input errors.</p>
+
+<p><strong>Slips</strong> are execution errors. They occur when a user knows what they intend to do but their physical or automatic behavior diverges from that intention. Classic examples include clicking a button adjacent to the intended target, double-clicking when a single click was required, or dragging a file to the wrong folder because the drop zone was ambiguous. Slips are not failures of understanding — the user's mental model was correct — they are failures of <em>execution</em>, often triggered by poor affordance design. An affordance is the perceived property of an object that signals how it should be used. When affordances are weak or misleading, even experienced users misfire. For example, if two buttons — "Save Draft" and "Delete Entry" — are positioned side by side in the same visual style, a user who intends to save will sometimes delete instead. The slip exposes a design flaw in visual hierarchy and spatial separation, not a knowledge gap in the user. When you observe a high frequency of slips on a particular element, the diagnostic question is: does this element's appearance, size, position, and labeling make its correct interaction unambiguous?</p>
+
+<p><strong>Mistakes</strong> are knowledge-based errors. They occur when a user's mental model of how the system works is incorrect, and the action they take is the logical consequence of that incorrect model. If a user believes that clicking "Archive" will delete a message permanently, they will avoid archiving anything and instead develop workarounds — that is a mistake rooted in misunderstanding. Mistakes are more serious than slips because they are systematic: the user will repeat the same wrong behavior every time they encounter the same situation until their mental model is corrected. The interface bears responsibility for mistakes when it fails to communicate system behavior clearly. Misleading labels, absent confirmation messages, and opaque status indicators all contribute to mistaken mental models. When diagnosing a mistake, the key question is: what does the interface communicate about this interaction, and how does that communication diverge from the system's actual behavior?</p>
+
+<p><strong>Navigation errors</strong> occur when users cannot find their way through the interface — they land on the wrong page, retrace their steps repeatedly, or abandon a path because they cannot determine where it leads. These errors are direct indicators of problems with information architecture, labeling of navigation elements, and wayfinding cues such as breadcrumbs, progress indicators, and visual landmarks. A user who clicks "Settings" looking for notification preferences but instead finds account billing information has encountered a navigation error caused by a mismatch between the label's implied meaning and the content it contains. Navigation errors often appear in sessions as repeated back-button usage, prolonged hesitation at menu items, or explicit expressions of disorientation like "I'm not sure where I am." The analytical task is to identify whether the error stems from poor labeling, a non-intuitive hierarchy, or the absence of contextual cues that orient the user within the overall structure.</p>
+
+<p><strong>Input errors</strong> arise when users enter data incorrectly into forms or fields. These errors indicate that the interface has failed to provide sufficient guidance about what is expected. Common causes include field labels that are ambiguous or overly technical, format requirements that are unstated (for example, a date field that silently requires MM/DD/YYYY but accepts no other format), and validation feedback that is either absent or delivered too late in the process. An input error observed during a test — where a participant types a phone number with spaces and receives a generic "invalid entry" message without explanation — reveals at minimum two design failures: the field gave no format hint upfront, and the error message did not tell the user how to correct the entry. Input errors are particularly costly because they interrupt flow, increase cognitive load, and often result in users abandoning forms entirely. Classifying an error as an input error immediately focuses remediation on label clarity, inline guidance, and real-time or contextual validation feedback.</p>
+
+<p>The practical value of this classification scheme is that each category maps onto a distinct family of design fixes. Slips call for affordance improvements and spatial redesign. Mistakes call for better system feedback and clearer mental-model communication. Navigation errors call for information architecture revision. Input errors call for improved labeling and validation design. Misclassifying an error leads the team toward the wrong category of solution.</p>
+
+<p><strong>Root Cause Analysis</strong></p>
+
+<p>Classification tells you what kind of error occurred. Root cause analysis tells you <em>why</em> it occurred at the level of a specific design decision or missing design element. The distinction matters enormously. Knowing that users made a navigation error on the checkout flow is a symptom. Knowing that the error occurred because the "Continue" button label does not distinguish between saving progress and proceeding to payment — and that this ambiguity arose because the design team never specified secondary button states — is a root cause. Only root causes yield actionable recommendations.</p>
+
+<p>The most effective technique for reaching root causes is iterative questioning, often called the "five whys" method. For each observed error, the analyst asks "Why did this happen?" and then applies the same question to each successive answer until a fundamental design decision or omission is identified. Consider this sequence applied to a navigation error:</p>
+
+<ul>
+  <li><em>Observation:</em> The participant could not find the "Reports" section and spent four minutes navigating before giving up.</li>
+  <li><em>Why?</em> Because the participant looked in "Analytics" but "Reports" was listed under "Insights."</li>
+  <li><em>Why?</em> Because the label "Insights" does not clearly signal that it contains downloadable reports.</li>
+  <li><em>Why?</em> Because the label was chosen for its marketing tone rather than its descriptive accuracy during a rebrand.</li>
+  <li><em>Why?</em> Because there was no usability review of the navigation labels after the rebrand.</li>
+  <li><em>Root cause:</em> The information architecture review process did not include user-centered label testing, and marketing-driven terminology replaced functional descriptors without validation.</li>
+</ul>
+
+<p>This process prevents the common trap of treating symptoms. A symptom-level recommendation would be "rename the Insights section." A root-cause recommendation addresses both the immediate label problem and the process gap that allowed it to arise. The latter prevents the same class of error from appearing elsewhere in the interface or in future redesign cycles.</p>
+
+<p>Root causes in interface design tend to cluster into recurring categories that analysts can learn to recognize quickly. <strong>Unclear labeling</strong> — where words or icons do not match users' vocabulary or expectations — is one of the most frequent. <strong>Hidden affordances</strong> — where interactive elements do not visually signal their interactivity — account for a large proportion of slips and navigation errors. <strong>Missing or delayed feedback</strong> — where the system does not confirm that an action was received or completed — underlies many mistakes and contributes to input errors. <strong>Inconsistent interaction patterns</strong> — where similar tasks require different approaches in different parts of the interface — force users to relearn and create conditions for both slips and mistakes. <strong>Overloaded or ambiguous conceptual models</strong> — where the system's organizational logic does not match how users naturally think about the task domain — produce systematic navigation and mistake errors.</p>
+
+<p>When multiple errors across different sessions and different users trace back to the same root cause, this convergence is strong evidence of a fundamental design problem rather than an isolated incident. Documenting root causes in a structured format — linking each error instance to the specific design element implicated and the category of root cause — enables the team to see these convergence patterns and prioritize fixes that will eliminate entire clusters of errors simultaneously.</p>
+
+<p><strong>Mapping Errors to Interface Elements</strong></p>
+
+<p>Root cause analysis works at the level of individual errors. Error mapping works at the level of the whole interface. By plotting where errors occur — which screens, which components, which steps in a task flow — the analyst can identify hotspots: areas of the interface that concentrate a disproportionate number of failures. This spatial perspective reveals patterns that are invisible when errors are reviewed one at a time in a linear log.</p>
+
+<p>An error map can take several forms depending on the nature of the interface and the data available. For web or application interfaces, a common approach is to overlay error counts or icons on annotated screenshots or wireframes. Each error instance is marked at the specific element that triggered it, and color coding or symbol size can encode the error type and frequency. Heat maps generated from click-tracking tools can complement observational data by showing aggregate interaction patterns across many sessions. For multi-screen flows, a flow diagram annotated with error counts at each transition point reveals where users consistently falter moving from one step to the next.</p>
+
+<p>The analytical value of error maps becomes apparent when you step back and look at the distribution. A sparse, widely distributed pattern of single errors suggests that usability problems are isolated and varied — likely the result of multiple independent design decisions that each need individual attention. A dense cluster of errors around a single screen or component tells a very different story: it suggests that something structurally wrong is located there, something that affects nearly every user regardless of their background or task approach. High error density around a single element is one of the clearest signals that a fundamental design flaw is present — not merely a labeling tweak or visual adjustment is needed, but a reconceptualization of that element's design, placement, or role in the workflow.</p>
+
+<p>Error maps are particularly valuable for communicating findings to team members and stakeholders who did not observe the test sessions. A written list of errors requires readers to hold all the items in memory and construct their own spatial understanding of the problem. An error map makes the concentration of problems immediately visible, even to someone encountering the findings for the first time. This communicative efficiency makes error maps a standard deliverable in usability reports intended for cross-functional audiences including product managers, engineers, and executives.</p>
+
+<p>Critically, error maps should be maintained as living documents updated after each redesign iteration. After a round of design changes is implemented and a follow-up usability test is conducted, the new error map can be compared directly against the previous version. This comparison reveals whether the redesign successfully reduced errors at the targeted hotspots, whether it introduced new errors elsewhere — a phenomenon called regression — and whether the overall error density across the interface is trending in the right direction. Without this iterative tracking, it is impossible to know whether the design is genuinely improving in usability or simply shifting problems from one location to another.</p>
+
+<p><strong>Distinguishing Critical from Minor Errors</strong></p>
+
+<p>Not every error demands the same response. A usability improvement backlog that treats all errors as equally urgent will be impossible to act on rationally, because resources are always limited and some problems genuinely matter more than others. The discipline of distinguishing critical from minor errors — and applying consistent severity ratings across all issues — enables objective, data-driven prioritization rather than decisions based on which problems happen to be most memorable or most recently observed.</p>
+
+<p><strong>Critical errors</strong> are those that prevent task completion. If a user encounters this error, they cannot finish the task — not merely with difficulty, but at all. A form that cannot be submitted because a required field rejects all valid inputs is a critical error. A modal dialog that cannot be dismissed because the close button is outside the visible viewport on certain screen sizes is a critical error. These failures are sometimes called "showstoppers" because, by definition, they make it impossible for the user to accomplish their goal. Critical errors must be addressed before the next usability test iteration, because their presence in subsequent testing will block the collection of meaningful data about downstream interactions and obscure other problems that exist further in the flow.</p>
+
+<p><strong>Minor errors</strong> are those that reduce efficiency or user satisfaction but do not prevent goal achievement. A user who clicks the wrong tab first and then self-corrects has made a minor error. The task was completed, but with extra steps and perhaps some frustration. A user who misreads a label, pauses, and then interprets it correctly through context has made a minor error. These issues still deserve attention because accumulated minor errors degrade the overall user experience and can drive dissatisfaction, abandonment in naturalistic use, and poor perception of product quality — but they do not warrant the same emergency priority as showstoppers.</p>
+
+<p>Severity ratings formalize this distinction and add granularity. Most severity scales used in industry and research combine two dimensions: <strong>frequency</strong> (how often does this error occur across users and sessions?) and <strong>consequence</strong> (when it does occur, how serious is the impact?). An error that occurs rarely and has minor consequences receives a low severity rating. An error that occurs frequently and prevents task completion receives the highest severity rating. An error that occurs rarely but is catastrophic when it does occur — such as an accidental data deletion with no undo — warrants a high severity rating despite its low frequency, because the consequence dimension dominates.</p>
+
+<p>A commonly used framework for severity rating combines these dimensions into a structured scale. The table below illustrates how frequency and consequence interact to produce severity levels:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Severity Level</th>
+      <th>Frequency</th>
+      <th>Consequence</th>
+      <th>Priority for Remediation</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Critical (4)</strong></td>
+      <td>High or Low</td>
+      <td>Blocks task completion</td>
+      <td>Fix before next iteration</td>
+      <td>Form submission fails silently; user cannot proceed</td>
+    </tr>
+    <tr>
+      <td><strong>Serious (3)</strong></td>
+      <td>High</td>
+      <td>Significant difficulty or delay</td>
+      <td>Fix in next design sprint</td>
+      <td>Most users take the wrong path and must backtrack</td>
+    </tr>
+    <tr>
+      <td><strong>Moderate (2)</strong></td>
+      <td>Moderate</td>
+      <td>Noticeable friction or confusion</td>
+      <td>Schedule for near-term fix</td>
+      <td>Some users misread a label but self-correct quickly</td>
+    </tr>
+    <tr>
+      <td><strong>Minor (1)</strong></td>
+      <td>Low</td>
+      <td>Slight inefficiency or annoyance</td>
+      <td>Address when resources allow</td>
+      <td>One user briefly paused at an icon before recognizing it</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Applying a consistent severity scale across all identified issues is essential for objectivity. When each issue is rated by the same criteria, the prioritized backlog reflects the actual distribution of risk in the interface rather than the subjective emphasis placed on particular findings by individual analysts or stakeholders. It also enables meaningful communication across disciplines: a developer who sees "Severity 4" knows immediately that this issue must be resolved before the next test, without requiring extensive context from the usability team. And it creates a comparable baseline across testing rounds — if the proportion of Severity 4 issues declines from one round to the next, that is measurable evidence of usability improvement at the most consequential level of the interface.</p>
+
+<p>Together, error classification, root cause analysis, error mapping, and severity rating form an integrated analytical framework. Each technique builds on the others: you classify to understand the nature of the error, apply root cause analysis to understand its origin, map it to understand its location and prevalence, and rate its severity to understand its priority. The output of this integrated process is not merely a list of problems but a structured, evidence-based diagnosis of the interface — one that tells the design team not only what is broken, but where, why, and in what order to fix it.</p>
+        <div class="notes"><strong>Notes</strong>The five whys example is fully worked through to model the process for students. The severity table is rendered as a proper HTML table per instructions. Emphasis is placed throughout on the distinction between symptom-level and root-cause-level recommendations, which is the central cognitive shift this topic is designed to produce.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p3-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>When a usability test session ends, you are left with a pile of observations: a participant clicked the wrong button, backtracked three screens, typed a date in the wrong format, or quietly gave up. Error analysis is the discipline of turning those raw observations into a diagnosis. Instead of reporting "the user got confused," you classify what kind of error occurred (a slip, a mistake, a mode error, a data-entry error), trace it back to a root cause, and name the specific interface element — a label, an affordance, a layout, a feedback message — that produced it.</p>
+<p>This matters in CEN3722 because redesign decisions are only as good as the diagnosis behind them. Two errors that look identical on a screen recording can have completely different causes: one may be a momentary slip by an otherwise capable user, while the other reveals a fundamental mismatch between the user's mental model and the system's conceptual model. Those two findings call for very different fixes. You also need a defensible way to separate critical errors (data loss, task failure, security or safety consequences) from minor ones (a brief hesitation, an easily recovered misclick), because you will never have time to fix everything.</p>
+<p>The videos below approach this from three angles: the metrics you use to quantify errors and task performance, the research methods that generate error data in the first place, and a research-level look at how touch-based errors are captured and investigated on real devices. As you watch, keep asking three questions: How would I count and record this kind of error? What would I need to observe to infer its cause rather than just its symptom? And how would I decide whether this error is worth a redesign cycle?</p></div></details><details class="slide-card" id="p3-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: 6 Key UX Metrics Explained</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/UTNv6CNv82E?cc_load_policy=1&amp;rel=0" title="Video: 6 Key UX Metrics Explained (Eleken)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Eleken</strong> · 9:51 · 5,725 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=UTNv6CNv82E" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video from the Eleken design agency walks through six commonly used UX metrics and explains what each one measures and when to apply it. Based on its title and description, expect coverage of performance and satisfaction measures such as task success or error rates, time on task, and standardized satisfaction scores, framed around the problem of knowing whether a product actually works for real users rather than just for the team that built it.</p>
+<h4>Why this video</h4>
+<p>Error analysis depends on quantification — you cannot judge severity or frequency without metrics — and this video gives you the vocabulary for counting errors and task failures in a consistent, reportable way. It supports the subtopic of distinguishing critical from minor errors by showing how numbers are used to argue that an issue matters.</p></div></details><details class="slide-card" id="p3-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: User Testing vs Usability Testing</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/r3j_dwMbLo0?cc_load_policy=1&amp;rel=0" title="Video: User Testing vs Usability Testing (Kerev Design)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Kerev Design</strong> · 6:18 · 47,165 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=r3j_dwMbLo0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Kerev Design contrasts user testing with usability testing, two methods that are frequently confused in practice. The video situates both within the broader UX research process and clarifies what question each method is designed to answer — roughly, whether people want the product versus whether people can actually operate it.</p>
+<h4>Why this video</h4>
+<p>Correctly interpreting an error requires knowing what the study was designed to reveal, since an error observed in a usability test points at the interface while a problem surfaced in user testing may point at the concept itself. This distinction directly supports root cause analysis and keeps students from attributing the wrong cause to an observed failure.</p></div></details><details class="slide-card" id="p3-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: New Data Collection Approach to Investigate Touch Based Errors: A Case Study of Smartphone System...</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/3zX6_xUKJks?cc_load_policy=1&amp;rel=0" title="Video: New Data Collection Approach to Investigate Touch Based Errors: A Case Study of Smartphone System... (ACM SIGCHI)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>ACM SIGCHI</strong> · 4:47 · 76 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=3zX6_xUKJks" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This short conference presentation from ACM SIGCHI describes a new data collection approach for investigating touch-based errors, using a smartphone system as its case study. As a research talk it is likely to cover how touch interaction data is instrumented and captured, what kinds of touch errors the method distinguishes, and what the collected data reveals about where and why mistouches occur.</p>
+<h4>Why this video</h4>
+<p>It is a peer-reviewed research source from the premier HCI professional organization, and it demonstrates error analysis at the most granular level — mapping specific errors to specific interface elements and target regions on a screen. The case-study format shows students what rigorous, evidence-based error classification looks like beyond informal note-taking.</p></div></details><details class="slide-card" id="p3-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos move students from observation to diagnosis to prioritization. The metrics video supplies the measurement vocabulary needed to spot recurring patterns and quantify frequency and severity, supporting MO1 and MO2. The user testing versus usability testing comparison helps students match findings to the right level of cause — concept, task flow, or control — which is essential for the accurate pain-point identification required by MO1 and for writing a defensible rationale behind each proposed change under MO3. The SIGCHI case study models fine-grained mapping of errors to specific interface elements, giving students a concrete example of the evidence trail that justifies a targeted redesign rather than a guess, and reinforcing the severity judgments called for in MO2.</p></div></details><details class="slide-card" id="p3-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part4">
+<h2>Prioritizing Usability Improvements</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Prioritizing Usability Improvements</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Once usability testing surfaces a list of problems, the real challenge begins: deciding what to fix first. In any realistic project, time, budget, and engineering capacity are finite. Not every issue can be resolved before the next release, and not every issue deserves the same level of urgency. Prioritizing usability improvements is the disciplined practice of ranking identified problems so that teams invest their limited resources where they will produce the greatest benefit for users and the business. Without a principled approach, teams risk spending weeks on cosmetic edge cases while a critical navigation flaw quietly drives users away. This topic introduces the key frameworks and communication strategies that allow design teams to make transparent, defensible trade-off decisions.</p>
+
+<p><strong>Severity Rating Frameworks</strong></p>
+
+<p>A severity rating is a structured score assigned to each usability issue that signals how urgently it needs to be resolved. The underlying logic is straightforward: not all problems hurt users equally, and a shared numerical scale forces a team to be explicit about why one issue outranks another. Without a framework, prioritization becomes a political negotiation rather than a principled decision.</p>
+
+<p>Severity scores typically combine two independent dimensions: <strong>frequency</strong> and <strong>impact</strong>. Frequency asks how often the issue will be encountered — does it affect every user on the most common path, or only a small subset of users exploring an obscure feature? Impact asks how badly the issue harms the user when it does occur — does it cause a momentary confusion that resolves in two seconds, or does it completely block task completion and force the user to abandon the session? Multiplying or additively combining these two dimensions produces a composite score that captures both how widespread and how damaging a problem is.</p>
+
+<p>A commonly used five-point scale, adapted from Jakob Nielsen's severity ratings, works as follows:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Rating</th>
+      <th>Label</th>
+      <th>Description</th>
+      <th>Required Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>Not a usability problem</td>
+      <td>Evaluators disagree; the issue does not impede users in any observable way.</td>
+      <td>No action required.</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Cosmetic problem</td>
+      <td>Minor annoyance with no measurable effect on task success or satisfaction.</td>
+      <td>Fix only if time allows.</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Minor usability problem</td>
+      <td>Users experience friction or a small delay but recover without assistance.</td>
+      <td>Low priority; schedule for a future iteration.</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Major usability problem</td>
+      <td>Users struggle significantly; some fail the task or require help.</td>
+      <td>High priority; fix before release if possible.</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Usability catastrophe</td>
+      <td>Users cannot complete the task; the issue renders a feature unusable.</td>
+      <td>Must be fixed immediately; blocks release.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Applying a standard scale consistently is crucial. If each team member invents their own interpretation of "major," the resulting list is meaningless because the numbers are no longer comparable. Before a team begins rating, they should agree on the criteria and ideally calibrate by rating two or three sample issues together, discussing discrepancies until a shared understanding is established. This calibration session is particularly important in cross-functional teams where engineers, product managers, and designers may have very different intuitions about what constitutes a serious problem.</p>
+
+<p>A practical example: suppose usability testing of an e-commerce checkout reveals two issues. The first is that the "Place Order" button is grey and looks disabled even when the form is valid, causing most users to pause, second-guess themselves, and some to abandon the checkout entirely. The second is that the postal code field label says "Zip Code" rather than "Postal Code," causing mild confusion for a small number of international users who still complete the task. The first issue combines high frequency (most users on the most critical path) with high impact (abandonment), earning a severity rating of 4. The second combines low frequency with low impact, earning a 1 or 2. A shared framework makes this ranking transparent and removes guesswork.</p>
+
+<p>Critically, severity ratings are not static. After each redesign iteration, the team should revisit the original ratings to confirm whether an intervention was effective. A fix that was intended to reduce a severity-4 issue to a severity-1 issue should be verified through follow-up testing. If testing shows users still struggle, the issue retains its high rating and the team must try a different solution. Treating severity assessment as an ongoing loop rather than a one-time activity keeps the team honest and prevents false confidence that a problem has been resolved.</p>
+
+<p><strong>Impact vs. Effort Mapping</strong></p>
+
+<p>Severity ratings tell you <em>how bad</em> a problem is for users, but they say nothing about <em>how hard</em> it will be to fix. A catastrophic usability failure might require a complete architectural overhaul that will take months, while a moderately annoying issue might be resolved in an afternoon by changing two lines of CSS. Impact versus effort mapping — often visualized as a two-by-two matrix — integrates both dimensions to guide sequencing decisions.</p>
+
+<p>The two axes of the matrix are:</p>
+<ul>
+  <li><strong>Impact</strong> (vertical axis): How much benefit will resolving this issue deliver to users and the business? This draws directly on severity ratings, but can also incorporate business metrics such as estimated improvement to conversion rate, reduction in support ticket volume, or gains in satisfaction scores.</li>
+  <li><strong>Effort</strong> (horizontal axis): How much time, skill, and resource will the fix require? Effort estimates should be provided by the engineers and designers who will do the work, not assumed by researchers. A fix that looks simple from a design perspective may involve significant backend changes.</li>
+</ul>
+
+<p>Plotting each identified issue on this matrix produces four quadrants, each with a clear strategic implication:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Quadrant</th>
+      <th>Impact</th>
+      <th>Effort</th>
+      <th>Strategic Action</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Quick Wins</td>
+      <td>High</td>
+      <td>Low</td>
+      <td>Address immediately; these deliver the greatest return per unit of effort.</td>
+      <td>Changing a button's colour from grey to blue to signal it is active — one line of CSS, significant reduction in abandonment.</td>
+    </tr>
+    <tr>
+      <td>Major Projects</td>
+      <td>High</td>
+      <td>High</td>
+      <td>Plan carefully and schedule for a future iteration; do not ignore them.</td>
+      <td>Redesigning the entire navigation architecture to improve information findability.</td>
+    </tr>
+    <tr>
+      <td>Fill-Ins</td>
+      <td>Low</td>
+      <td>Low</td>
+      <td>Address opportunistically when capacity allows; do not let them block higher-priority work.</td>
+      <td>Correcting a label typo or adjusting minor spacing inconsistencies.</td>
+    </tr>
+    <tr>
+      <td>Thankless Tasks</td>
+      <td>Low</td>
+      <td>High</td>
+      <td>Deprioritize or remove from scope entirely; the cost exceeds the benefit.</td>
+      <td>Rebuilding a legacy data export tool used by fewer than 1% of users.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The most actionable quadrant is the upper-left: high-impact, low-effort quick wins. These issues should be resolved in the immediate development cycle without debate, because they offer the highest return on investment. Teams sometimes overlook quick wins because they seem too simple to be worth discussing — resist this instinct. A two-minute fix that prevents 30% of users from abandoning a task is one of the most valuable things a team can do.</p>
+
+<p>High-impact, high-effort issues — major projects — require genuine planning. They should not be dismissed simply because they are hard. If testing reveals that users fundamentally cannot understand the product's information architecture, that is a severity-4 problem regardless of the engineering cost. These issues belong on the product roadmap with defined timelines, resources, and success criteria. Breaking a major project into smaller, independently deliverable pieces is a common technique for making progress without waiting for a full solution.</p>
+
+<p>Low-impact, high-effort issues are the most dangerous category, not because they are harmful in themselves, but because they can quietly consume resources that should go elsewhere. A team that spends two sprints perfecting an animation on a rarely-used settings screen while a critical onboarding flow remains broken has made a serious prioritization error. Explicitly labeling these issues as deprioritized — and documenting that decision — protects the team from scope creep and misallocated effort.</p>
+
+<p><strong>Aligning Priorities with Design Goals</strong></p>
+
+<p>Severity ratings and impact-effort mapping are powerful tools, but they operate in a vacuum if they are not anchored to the product's defined usability goals and user requirements. Prioritization decisions must be evaluated against what the product is actually trying to achieve and for whom.</p>
+
+<p>Every product should have a set of explicit usability goals derived from user research: goals such as enabling new users to complete their first purchase in under five minutes, or ensuring that power users can access advanced filtering without navigating away from their current context. When a usability issue is identified, the first question should be: does this issue interfere with a primary user task or a secondary one? Issues that block or degrade the experience on the most frequent and most important user tasks must take precedence over those affecting peripheral features, even if the peripheral issue scores slightly higher on a raw severity rating.</p>
+
+<p>Consider a project management application whose primary user task is creating and assigning tasks. If testing reveals both a confusing date-picker in the task creation form (primary task) and a cluttered layout in the rarely-used administrative billing section (secondary feature), the date-picker issue takes clear precedence. The billing layout may have a higher aesthetic severity, but it affects a workflow that most users encounter infrequently and that is not central to the product's core value proposition.</p>
+
+<p>One of the most delicate challenges in prioritization is reconciling stakeholder priorities with user priorities. These can diverge substantially. A business stakeholder may urgently want to redesign the promotional banner on the homepage because a marketing campaign is launching next week, while user testing clearly shows that the account registration flow is so confusing that new users are failing to activate their accounts at all. The registration problem is far more damaging to users and, in the long run, to the business — but it lacks the visibility and urgency that a marketing deadline creates.</p>
+
+<p>Reconciling these tensions requires transparency rather than unilateral decisions. The design team's role is to present the evidence clearly and help stakeholders understand the downstream consequences of deprioritizing high-severity user issues. In some cases, business constraints are real and legitimate — a legal compliance deadline may genuinely outrank a usability improvement. The key is that these trade-offs are made explicitly and documented, not allowed to happen by default.</p>
+
+<p>Documenting the rationale for every prioritization decision is not bureaucratic overhead — it is essential professional practice. A written record of why issue A was ranked above issue B, what evidence supported that decision, and who was involved creates accountability, supports future retrospectives, and allows new team members to understand the reasoning behind past choices. Without documentation, the same arguments are relitigated in every planning meeting, and institutional knowledge about what was tried and why it was deprioritized is lost when team members move on.</p>
+
+<p><strong>Communicating Priorities to Stakeholders</strong></p>
+
+<p>The most rigorous prioritization framework produces no value if its outputs cannot be communicated effectively to the people who control resources and make decisions. Stakeholders — product managers, executives, marketing leads, engineers — often have limited time and varying levels of familiarity with usability concepts. Communicating priorities well is as important as developing them correctly.</p>
+
+<p>The first principle is to present findings visually and concisely. A ranked list with severity scores and brief descriptions is far more accessible than a lengthy written report. Visual formats such as the impact-effort matrix, colour-coded severity tables, or simple dashboards allow stakeholders to grasp the landscape of issues at a glance. Avoid jargon: terms like "cognitive load," "affordance," or "heuristic violation" may be meaningful to designers but alienate business stakeholders who have not been trained in UX. Translate findings into language that describes the user experience in plain terms: "users cannot find the checkout button" is clearer and more alarming than "the primary call-to-action suffers from low discoverability."</p>
+
+<p>The second principle is to connect usability issues to business outcomes. Stakeholders respond to metrics that affect their own goals. A finding that "users struggle to complete the checkout flow" becomes significantly more compelling when it is reframed as "our testing suggests this issue contributes to a checkout abandonment rate that, if reduced by 20%, could increase monthly revenue by approximately $X." Not every issue can be quantified this precisely, but where data exists — from analytics, conversion tracking, or prior A/B tests — it should be brought into the prioritization conversation. Linking usability to conversion rates, customer satisfaction scores (such as Net Promoter Score or CSAT), support ticket volume, or churn rates gives non-design stakeholders concrete reasons to invest in fixes.</p>
+
+<p>A <strong>prioritized issue list</strong> with severity ratings serves as a shared reference document for cross-team planning. Rather than each team member carrying a different mental model of what the most pressing problems are, the list creates a single source of truth that can be referenced in sprint planning, design reviews, and executive updates. This list should be a living document: updated after each testing cycle, with resolved issues marked and new issues added as they are discovered.</p>
+
+<p>Perhaps the most persuasive tool for non-technical audiences is <strong>short video clips of real users struggling</strong>. A thirty-second clip of a user sighing, clicking the wrong button three times, and ultimately saying "I give up, I can't figure out how to pay" communicates something that no severity score or bar chart can replicate. It creates empathy and urgency in a way that abstract data cannot. Most usability testing tools support session recording, and even informal screen-recorded sessions can produce compelling clips. When presenting to stakeholders who are skeptical about the importance of a usability issue, show them a user experiencing it in real time. The reaction is almost universally one of genuine concern and motivation to act.</p>
+
+<p>Effective communication also means being honest about uncertainty and trade-offs. If a high-severity issue is being deprioritized in the current cycle because of resource constraints, say so explicitly and explain when it will be addressed. If the team is uncertain whether a proposed fix will fully resolve an issue — which is common — commit to testing the fix in the next iteration and revisiting the severity rating. This kind of transparency builds trust with stakeholders and positions the design team as credible, principled advisors rather than advocates for an endless list of changes.</p>
+        <div class="notes"><strong>Notes</strong>Introduces frameworks for ranking identified usability issues so that the most impactful problems are addressed first. Helps students make principled trade-offs when resources and time are limited.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p4-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Usability testing almost always produces more problems than you have time or budget to fix. The real skill is deciding what to fix first. Prioritizing usability improvements means taking a raw list of findings and turning it into an ordered, defensible plan: which issues block users outright, which merely annoy them, which are cheap to repair, and which require architectural change.</p>
+<p>This topic introduces four related tools. Severity rating frameworks give you a consistent scale (typically combining how badly the problem hurts the user, how often it occurs, and how persistent it is). Impact versus effort mapping plots findings on a simple grid so quick wins and expensive long shots become visible. Aligning priorities with design goals keeps the ranking honest, so that you fix what matters for the product's purpose and target users rather than what is easiest to argue about. Finally, communicating priorities to stakeholders is what makes the whole exercise useful, since prioritization only pays off if developers, product owners, and clients accept the ordering.</p>
+<p>As you watch the videos, pay attention to the specific criteria each method uses, and notice how a judgment call ("this feels bad") gets converted into something comparable and reportable. Ask yourself how you would apply each framework to the findings from your own test sessions, and what evidence you would cite when someone pushes back on your ranking.</p></div></details><details class="slide-card" id="p4-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Prioritize UX Findings by Severity</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iyWWe_tZeEY?cc_load_policy=1&amp;rel=0" title="Video: Prioritize UX Findings by Severity (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:04 · 9,970 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=iyWWe_tZeEY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short Nielsen Norman Group explainer on assigning severity ratings to problems found in usability studies or heuristic evaluations. It walks through the small set of criteria normally used to judge severity, so that findings can be reported on a consistent scale rather than described subjectively. Expect practical guidance on how to phrase and justify a rating when writing up results.</p>
+<h4>Why this video</h4>
+<p>This is the most direct coverage of the severity rating framework subtopic, from the research group that popularized the approach, and it is short enough to use as a reference while scoring your own findings.</p></div></details><details class="slide-card" id="p4-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: UX Design Prioritization Methods</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/gklsUyD6RPE?cc_load_policy=1&amp;rel=0" title="Video: UX Design Prioritization Methods (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 6:20 · 18,208 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=gklsUyD6RPE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A broader survey of prioritization methods used in UX work, built on the premise that you cannot and should not build everything. It is likely to compare several approaches for ranking work items and explain when each is appropriate. Watch for how different methods weigh user value against cost or effort.</p>
+<h4>Why this video</h4>
+<p>At six minutes it gives the widest view of the topic, covering impact versus effort style trade-offs and the general logic of prioritizing against product and design goals.</p></div></details><details class="slide-card" id="p4-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Focus Your Design Tactics with the Pareto Principle</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ZofRf8n2ebw?cc_load_policy=1&amp;rel=0" title="Video: Focus Your Design Tactics with the Pareto Principle (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:25 · 5,298 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=ZofRf8n2ebw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An introduction to applying the Pareto principle, the idea that a small share of items produces most of the effect, to design decisions. The description points to applications across features, usability problems, customers, and personas. Expect guidance on identifying the vital few issues worth concentrated attention.</p>
+<h4>Why this video</h4>
+<p>It supplies a simple mental model for focusing limited resources, which complements formal severity scoring and supports the argument you will need to make to stakeholders about why some issues are deferred.</p></div></details><details class="slide-card" id="p4-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos move you from raw findings to an ordered plan of action. The severity video supports MO1 and MO2 by giving you consistent criteria for rating the pain points and failure patterns you identified in your test data. The prioritization methods and Pareto videos directly serve MO2, offering impact-versus-effort reasoning and a focusing heuristic for deciding which issues deserve scarce time. Because each method makes its criteria explicit, all three also feed MO3: the rating or ranking you assign becomes the documented rationale you cite when you justify each iterative design change to instructors, teammates, or stakeholders.</p></div></details><details class="slide-card" id="p4-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part5">
+<h2>Principles of Iterative Redesign</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Principles of Iterative Redesign</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Iterative redesign is the disciplined practice of improving a product through repeated cycles of hypothesis, change, testing, and evaluation — rather than attempting to perfect a design in a single pass. The core premise is humbling but empirically well-supported: designers, no matter how skilled or experienced, cannot fully predict how real users will interact with an interface. Every assumption embedded in a design is a hypothesis waiting to be tested. Iterative redesign provides the structured mechanism through which those hypotheses are challenged, refined, and ultimately validated against observable user behavior. It treats design not as an act of creative inspiration completed at a fixed moment, but as an ongoing process of learning — one in which each round of evidence narrows the gap between what designers intended and what users actually experience.</p>
+
+<p>Understanding iterative redesign requires grasping four interlocking principles: how the iterative cycle itself is structured, when to make targeted versus wholesale changes, how to preserve a record of design reasoning, and how to define in advance what success looks like for any given round of changes. Each principle reinforces the others, and neglecting any one of them undermines the reliability of the entire process.</p>
+
+<p><strong>The Iterative Design Cycle</strong></p>
+
+<p>The iterative design cycle is best understood as a loop rather than a line. A linear design process moves from research to design to testing to launch and stops. An iterative cycle moves from testing back into design, and then back into testing again, repeating as many times as necessary until the product meets its usability goals. Each pass through the loop is called an iteration, and each iteration has a distinct internal structure.</p>
+
+<p>Every iteration should begin with a clear set of hypotheses — explicit, falsifiable statements about what changes will address the usability problems identified in the previous round of testing. A hypothesis is not a wish or a preference; it is a prediction grounded in evidence. For example, if testing revealed that users consistently failed to locate the checkout button because it blended visually into the surrounding content, the hypothesis might be: <em>"Increasing the contrast ratio of the checkout button and enlarging it by 20% will reduce the rate at which users abandon the cart at the payment step."</em> That statement identifies the problem, specifies the intervention, and implies a measurable outcome. Starting each iteration with hypotheses of this kind creates accountability — the team knows exactly what it is trying to achieve and can evaluate whether it succeeded.</p>
+
+<p>As iterations progress, the scope of changes naturally narrows. Early iterations tend to surface large, structural usability problems: confusing navigation hierarchies, unclear labeling, broken mental models. These issues require substantial changes that may affect many parts of the interface simultaneously. Once those foundational problems are resolved, subsequent iterations deal with progressively smaller issues — the wording of a single button label, the timing of a tooltip, the spacing between form fields. This convergence is not a sign that the team is running out of ideas; it is a sign that the design is maturing. When each new round of testing reveals only minor, localized issues, the design has moved from unstable to refined, and the iterations are doing exactly what they should.</p>
+
+<p>Testing after each iteration is non-negotiable. It is the mechanism by which the team learns whether its hypotheses were correct. Without testing, the team is simply redesigning — making changes based on intuition and opinion, with no way to distinguish improvements from regressions. Testing closes the feedback loop. It confirms which changes had the intended effect, identifies whether any changes inadvertently created new problems, and generates the evidence that drives the next round of hypotheses. Testing at the end of each iteration also prevents accumulated debt: catching a problem introduced in iteration three is far cheaper than discovering it in iteration seven, after several subsequent rounds of changes have been built on top of it.</p>
+
+<p>The iterative cycle continues until one of two conditions is met: either the design satisfies the predefined usability success criteria, or the team exhausts the resources — time, budget, personnel — allocated to the redesign effort. The first outcome is the goal; the second is a practical reality that teams must plan for honestly. In either case, the iterative process produces a design that is measurably better than what preceded it, even if it is not yet perfect. A design that has passed through five well-executed iterations is almost always superior to one that was released after a single, unvalidated design phase, regardless of how talented the designers involved were.</p>
+
+<p><strong>Targeted vs. Wholesale Redesign</strong></p>
+
+<p>One of the most consequential decisions in any redesign effort is choosing how much of the design to change at once. The default impulse — particularly when user feedback is harsh or when stakeholders are frustrated — is often to overhaul everything simultaneously. This impulse is understandable but dangerous, and understanding why requires thinking carefully about causality.</p>
+
+<p>When teams make many changes simultaneously, they lose the ability to attribute outcomes to specific decisions. Suppose a team redesigns the navigation, rewrites all microcopy, changes the color scheme, and reorganizes the page layout all in the same iteration, and the subsequent test shows a 15% improvement in task completion rates. What caused the improvement? Was it the navigation restructuring? The clearer labels? The new color hierarchy? The layout change? Without the ability to isolate variables, the team cannot know — which means it cannot learn. It cannot confidently repeat the successful decisions in future work, and it cannot avoid repeating unsuccessful ones that may have been masked by improvements elsewhere. Targeted changes, by contrast, allow the team to build genuine causal knowledge. When a specific, well-defined change produces a specific, measurable improvement, the team has learned something durable about how users interact with this interface.</p>
+
+<p>The principle of targeted redesign also conserves resources. Every change carries risk — not just the risk of not working, but the risk of introducing new problems. A change to one element of an interface can have ripple effects on adjacent elements in ways that are difficult to anticipate. The more elements changed simultaneously, the greater the surface area for unintended consequences. By redesigning only what the evidence demands — changing exactly those elements implicated in documented usability problems, and leaving the rest untouched — teams minimize the probability of creating new issues while addressing old ones.</p>
+
+<p>This does not mean wholesale redesign is never appropriate. There are genuine cases in which targeted fixes are insufficient — when the underlying information architecture is fundamentally flawed, when the interaction paradigm is wrong for the task domain, or when the design system has accumulated so much inconsistency that incremental correction would take longer than starting fresh. In these situations, a more comprehensive redesign may be justified. But this justification should be driven by evidence, not by aesthetic dissatisfaction or stakeholder preference. The evidence threshold for wholesale redesign should be high, precisely because the risks are high.</p>
+
+<p>The practical discipline that enforces targeted redesign is traceability. Every change made in an iteration should be traceable to a specific usability finding documented in the issue log. If a team cannot point to the finding that motivated a change, that is a signal that the change may be driven by opinion rather than evidence — and it should be scrutinized accordingly. A simple traceability matrix can make this relationship explicit:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Change Made</th>
+      <th>Element Affected</th>
+      <th>Source Finding (Issue Log ID)</th>
+      <th>Hypothesis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Increased button contrast ratio to 4.5:1</td>
+      <td>Checkout button</td>
+      <td>Issue #14 — Button overlooked by 7 of 8 participants</td>
+      <td>Higher contrast will reduce abandonment at payment step</td>
+    </tr>
+    <tr>
+      <td>Relabeled "Proceed" to "Review Your Order"</td>
+      <td>Cart confirmation CTA</td>
+      <td>Issue #17 — Users uncertain what "Proceed" meant</td>
+      <td>Descriptive label will reduce hesitation before clicking</td>
+    </tr>
+    <tr>
+      <td>Moved error messages above form fields</td>
+      <td>Address entry form</td>
+      <td>Issue #22 — Users missed inline error messages below fields</td>
+      <td>Repositioning errors will reduce re-submission rate</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This kind of traceability transforms a list of design changes into an evidence-based argument, and it creates the foundation for the design rationale documentation discussed next.</p>
+
+<p><strong>Maintaining Design Rationale</strong></p>
+
+<p>Design decisions have a troubling tendency to be forgotten. A team debates a navigation structure for two days, runs a study that clearly resolves the question, implements the evidence-based solution — and then, six months later, a new stakeholder joins the project and reopens the same debate from scratch. Without documentation, the team must either relitigate a settled question or defer to the loudest voice in the room. Neither outcome is acceptable. Design rationale documentation prevents this by creating a persistent record of what was decided, and — crucially — why it was decided.</p>
+
+<p>Each design change should be documented with the usability evidence that motivated it. This documentation need not be elaborate. At minimum, it should capture: the problem observed in testing, the change made in response, the hypothesis underlying that change, and the outcome observed in subsequent testing. Over time, this creates a living record of the design's evolution — a narrative of learning that shows not just what the current design looks like, but how it came to look that way.</p>
+
+<p>The value of this record extends well beyond preventing repeated debates, though that alone would justify the effort. Design rationale documentation also supports onboarding. When a new designer or developer joins a project, they inherit not just a set of design files but a body of decisions, many of which may seem arbitrary or counterintuitive without context. A decision log explains why the navigation uses a hub-and-spoke structure rather than a tab bar, why the font size on mobile is 18px rather than 16px, why the confirmation dialog uses two steps rather than one. These explanations transform the design from a black box into a transparent system of reasoned choices, and they dramatically reduce the time a new team member needs to become a productive contributor.</p>
+
+<p>Stakeholder communication is another significant beneficiary. When executives or clients ask why a design looks the way it does — or push for changes based on personal preference — a documented rationale gives the design team a principled, evidence-based response. It shifts the conversation from "we think this works" to "we tested this, and here is what we found." That shift is enormously valuable for maintaining the integrity of the design process under organizational pressure.</p>
+
+<p>The most robust implementation of design rationale combines two complementary tools: version-controlled design files and a decision log. Version-controlled design files — managed through tools like Abstract, Figma's version history, or a Git-based workflow — preserve every state of the design over time, making it possible to inspect exactly what the interface looked like after each iteration. The decision log provides the narrative layer: it explains what changed between versions, what evidence motivated the change, and what the change was intended to achieve. Together, they create a complete audit trail. A team can reconstruct not just what decisions were made, but the full chain of reasoning and evidence that produced each one.</p>
+
+<p><strong>Setting Success Criteria for Each Iteration</strong></p>
+
+<p>Perhaps the most overlooked discipline in iterative redesign is the explicit, advance definition of success. It is tempting to begin testing and then evaluate the results when they arrive — to look at the data and decide, in the moment, whether the iteration worked. This approach seems flexible and pragmatic, but it is actually a significant methodological weakness. When success is defined after the fact, it is almost always defined in a way that makes the current results look acceptable. This is not dishonesty; it is a well-documented cognitive bias known as post-hoc rationalization, and it corrupts the iterative process by allowing substandard designs to advance to development before they are ready.</p>
+
+<p>The solution is to define success criteria before testing begins. These criteria should be specific, measurable, and directly tied to the usability issues the iteration was designed to address. Vague criteria — "users should find checkout easier" — cannot be reliably evaluated and cannot prevent rationalization. Specific criteria can. Examples of well-formed success criteria include:</p>
+
+<ul>
+  <li><strong>Task completion rate:</strong> At least 85% of participants complete the checkout process without assistance, up from 62% in the previous iteration.</li>
+  <li><strong>Error rate:</strong> No more than one error per participant on average during address entry, down from 3.2 in the previous iteration.</li>
+  <li><strong>Time on task:</strong> Median time to complete account creation falls below 90 seconds, compared to 147 seconds observed previously.</li>
+  <li><strong>Satisfaction rating:</strong> Post-task satisfaction scores for the search function average 4.0 or higher on a 5-point scale, up from 2.8.</li>
+</ul>
+
+<p>Notice that each criterion specifies a direction of change, a numeric target, and a baseline for comparison. This precision is not bureaucratic pedantry — it is what makes the criteria usable as decision tools. When testing concludes, the team does not need to debate whether the results are good enough; the criteria answer that question objectively.</p>
+
+<p>Pre-defined criteria also protect the team from external pressure. When a stakeholder argues that a design is "good enough" based on subjective impression, the team can point to the criteria and the data together. If the data meets the criteria, the stakeholder's enthusiasm is validated by evidence. If the data does not meet the criteria, the team has a principled basis for continuing to iterate rather than rushing to release an underperforming design.</p>
+
+<p>When success criteria are not met, the appropriate response is clear: further iteration is required. Unmet criteria are not failures in a pejorative sense — they are informative outcomes. They confirm that the hypotheses underlying the current iteration were either wrong or insufficient, and they generate the questions that drive the next round of redesign. A team that consistently defines criteria in advance, tests against them honestly, and iterates until they are met is a team that reliably produces usable, validated designs. The discipline is simple in principle; the challenge is maintaining it under the time and resource pressures that characterize real projects. That challenge is precisely why establishing these practices as non-negotiable norms — not optional enhancements — is so important.</p>
+        <div class="notes"><strong>Notes</strong>Establishes the conceptual foundation for iterative design as a cyclical process of testing, learning, and improving. Distinguishes iterative refinement from wholesale redesign. The traceability matrix table provides a concrete tool teams can adapt directly. Emphasis on pre-defined success criteria addresses a common failure mode in practice.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p5-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Iterative redesign is the engine of user-centered design. Rather than treating a design as something you get right once, iterative practice treats every version as a hypothesis: you build it, put it in front of users, learn where it fails, change it, and test again. Each pass through this cycle should be smaller, more focused, and better informed than the one before it.</p>
+<p>In this module you are working with real testing results, so the key question becomes what to do with them. Some findings call for targeted refinement — a label, a control, a step in a flow — while others reveal that the underlying concept or structure is wrong and a wholesale rethink is cheaper than patching. Deciding which situation you are in, recording why you made the change (your design rationale), and defining in advance what "better" would look like in the next round are the skills this topic develops.</p>
+<p>As you watch, look for three things: how each speaker describes the loop itself (what happens at each stage and what triggers another pass), how they distinguish refining an existing idea from exploring alternative ideas, and how testing is positioned as a source of evidence rather than opinion. Note also how different process models — design thinking, agile — frame iteration, since the vocabulary differs even when the underlying cycle is similar.</p></div></details><details class="slide-card" id="p5-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Quantity Yields Quality in UX: Iterative vs. Parallel vs. Competitive Design</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/QKdcORGxaD8?cc_load_policy=1&amp;rel=0" title="Video: Quantity Yields Quality in UX: Iterative vs. Parallel vs. Competitive Design (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 5:02 · 2,333 views · 3mo ago · captions — <a href="https://www.youtube.com/watch?v=QKdcORGxaD8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short Nielsen Norman Group talk arguing that generating more design options leads to better outcomes, and comparing three strategies for doing so: iterative design (improving one concept across rounds), parallel design (developing several concepts side by side), and competitive testing (learning from existing products). Based on the title and description, it addresses how teams combine these approaches to move quickly rather than treating them as mutually exclusive.</p>
+<h4>Why this video</h4>
+<p>NN/g is a leading authority in usability research, and this video directly frames the choice between refining one design and exploring alternatives — the core of the targeted versus wholesale redesign distinction.</p></div></details><details class="slide-card" id="p5-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Usability Testing in UX Design Thinking Process</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/hHvh_0Nnrx0?cc_load_policy=1&amp;rel=0" title="Video: Usability Testing in UX Design Thinking Process (Kerev Design)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Kerev Design</strong> · 4:04 · 18,832 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=hHvh_0Nnrx0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video places usability testing within the design thinking process, picking up after prototyping to explain how testing validates the assumptions made in earlier stages. It is likely to cover what happens when testing reveals problems and how findings send the team back into earlier phases of the process.</p>
+<h4>Why this video</h4>
+<p>It supplies the cyclical framing the topic depends on: testing is not an endpoint but the step that feeds the next iteration, which is exactly how the design cycle should be understood.</p></div></details><details class="slide-card" id="p5-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Agile in UX Design: Agile vs Waterfall Model</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/xzKCYmD5Z1I?cc_load_policy=1&amp;rel=0" title="Video: Agile in UX Design: Agile vs Waterfall Model (IxDF - Interaction Design Foundation)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>IxDF - Interaction Design Foundation</strong> · 5:50 · 1,199 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=xzKCYmD5Z1I" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An Interaction Design Foundation video featuring Laura Klein that contrasts agile and waterfall approaches to software development and explains what an agile model means for UX work. Expect discussion of why working in short, repeated cycles with feedback differs from planning everything up front in a single linear pass.</p>
+<h4>Why this video</h4>
+<p>It gives the process-level case for iteration over one-shot design and connects incremental cycles to the idea of setting goals for each round of work.</p></div></details><details class="slide-card" id="p5-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos build the conceptual frame students need before acting on their own test data. The design thinking video reinforces that testing findings loop back into design rather than closing it out, supporting the analysis work in MO1. The NN/g video on iterative, parallel, and competitive design gives students a basis for judging whether a finding warrants a focused fix or a fresh alternative, which underpins the prioritization decisions in MO2. The agile versus waterfall discussion models working in short, goal-bounded cycles, reinforcing MO3's expectation that revisions are made deliberately, one iteration at a time, with reasons that can be stated and defended.</p></div></details><details class="slide-card" id="p5-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part6">
+<h2>Implementing Redesign Changes in Prototypes</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Implementing Redesign Changes in Prototypes</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Once usability testing has generated a set of findings, the real design work begins: translating what you learned into concrete, deliberate changes to the prototype. This step sits at the heart of iterative user-centered design. Done well, it produces a revised prototype that is measurably better than the previous version and ready to answer the next round of usability questions. Done poorly, it produces a prototype full of well-intentioned guesses that introduce new problems while fixing old ones. Implementing redesign changes systematically — choosing the right fidelity, grounding each change in evidence, annotating your decisions, managing versions carefully, and validating before retesting — is what separates rigorous UX practice from ad hoc tinkering.</p>
+
+<p>The process begins before a single screen is touched, with a deliberate decision about how detailed the next prototype actually needs to be.</p>
+
+<p><strong>Choosing the Right Prototype Fidelity</strong></p>
+
+<p>Prototype fidelity describes how closely a prototype resembles the finished product in terms of visual detail, interactivity, and content realism. Fidelity exists on a spectrum, and the key professional skill is matching the level of fidelity to the specific questions the next test iteration needs to answer. Investing too much fidelity too early wastes time on details that will change; investing too little means the prototype cannot meaningfully simulate the experience being evaluated.</p>
+
+<p><strong>Low-fidelity prototypes</strong> — wireframes, paper sketches, clickable grayscale mockups — are appropriate when the usability questions center on structure rather than surface. If testing revealed that users cannot find a key feature because the navigation is poorly organized, the solution involves restructuring information architecture and task flows. Those changes can be fully evaluated with a low-fidelity prototype. A wireframe accurately represents whether a relocated menu item is discoverable; it does not need polished typography or brand color to do so. Similarly, if you are testing whether a revised onboarding flow guides new users through setup steps in a logical sequence, a simple clickable wireframe captures the interaction sequence without the overhead of a fully designed screen.</p>
+
+<p><strong>High-fidelity prototypes</strong> — pixel-accurate designs with real content, animations, micro-interactions, and styled components — are necessary when the usability question cannot be answered without that detail. If testing revealed that users misread a visual hierarchy (for example, they treated a secondary call-to-action as the primary one because of insufficient contrast or weight difference), a wireframe cannot reveal whether your fix works. The fix <em>is</em> the visual treatment, so you need a high-fidelity representation to evaluate it. Likewise, if users were confused by a transition animation that felt abrupt or disorienting, testing the revised animation requires implementing it at full fidelity.</p>
+
+<p>A practical heuristic: ask yourself what a participant would need to see or experience in order to reveal whether the problem has been solved. If the answer involves color, typography, motion, or rendered content, high fidelity is warranted. If the answer only requires understanding layout and flow, low fidelity is sufficient.</p>
+
+<p>Matching fidelity to purpose also has a financial and motivational benefit. Teams that build high-fidelity prototypes for every iteration often become emotionally attached to their designs — stakeholders and designers alike begin treating polished mockups as near-finished work, making it psychologically harder to accept feedback and make further changes. Low-fidelity artifacts signal that everything is still negotiable, which keeps the iterative process honest.</p>
+
+<p><strong>Translating Findings into Design Changes</strong></p>
+
+<p>After a usability test, your team possesses an issue log: a structured list of problems observed, severity ratings assigned, frequency counts, and (ideally) notes on the root causes identified during error analysis. Translating those findings into design changes is not simply a matter of fixing what looked broken. It requires a disciplined process of mapping, generating options, addressing root causes, and checking proposed solutions against established design principles.</p>
+
+<p>Every design change should map directly to a specific entry in the usability issue log. This traceability requirement exists for several reasons. It prevents "while we're at it" changes — well-meaning redesigns of things that were not actually identified as problems — which introduce risk without evidence-based justification. It also makes the design rationale auditable: if a stakeholder later asks why a particular element was changed, the answer is a citation to a log entry with observed failure data, not a matter of aesthetic preference.</p>
+
+<p>Before committing to a single solution, generate multiple alternatives. Usability findings rarely point to exactly one correct fix. Suppose the issue log records that six of eight participants failed to locate the "Save Draft" function because they expected it in the top toolbar but it was only accessible via a right-click context menu. Possible solutions include: moving the button to the toolbar, adding a keyboard shortcut with a visible affordance, duplicating the option in both locations, or adding a tooltip that surfaces the right-click option after a delay. Each option has different trade-offs in terms of screen real estate, discoverability, and implementation cost. Generating and briefly comparing these alternatives — even in a quick team discussion or a rough comparison table — leads to more considered decisions than defaulting to the first idea proposed.</p>
+
+<p>Crucially, changes must address root causes, not just visible symptoms. If participants repeatedly clicked the wrong button, the symptom is an incorrect click. The root cause might be that two buttons are visually similar and positioned adjacently, that button labels are ambiguous, or that the user's mental model of the workflow does not match the system's structure. A fix that only addresses the symptom — perhaps making the wrong button slightly smaller — may reduce error rates marginally without solving the underlying mismatch. A fix that addresses the root cause — redesigning labels to reflect user vocabulary, separating the buttons spatially, or restructuring the workflow to match user expectations — produces durable improvement.</p>
+
+<p>Before finalizing any change, review it against established usability heuristics. Nielsen's ten heuristics are the most widely used reference, but any validated set of design principles serves the purpose. Ask: does this change preserve visibility of system status? Does it match real-world conventions? Does it give users control and freedom? This review step acts as a sanity check that catches cases where a proposed fix solves one problem while introducing a heuristic violation — for example, a solution that removes an error-prone option but simultaneously hides functionality that power users depend on.</p>
+
+<p><strong>Annotating Redesigned Prototypes</strong></p>
+
+<p>A prototype without annotations is an artifact without memory. Anyone reviewing the prototype — a developer preparing to implement it, a stakeholder comparing it to the previous version, a new team member joining the project — sees <em>what</em> changed but has no idea <em>why</em>. Annotations are the mechanism that preserves design intent and transforms a prototype from a visual deliverable into a communication document.</p>
+
+<p>Each significant design change should carry an annotation that links it to the usability finding that motivated it. The annotation should be concise — one to two sentences is ideal — and should focus on rationale rather than description. The description of what changed is already visible in the design itself; the annotation explains what you learned from testing that made this change necessary.</p>
+
+<p>Consider a prototype screen where a date-picker component has been redesigned. A poor annotation reads: <em>"Date picker now shows a calendar overlay instead of a text field."</em> That describes the what, which is already obvious. A strong annotation reads: <em>"Four of six participants attempted to type dates into the text field in non-standard formats, causing validation errors; calendar overlay eliminates free-text entry to prevent formatting failures."</em> This tells a developer why the component works the way it does, which matters when they encounter edge cases during implementation. It also tells a stakeholder that this change is grounded in observed behavior, not designer preference.</p>
+
+<p>Annotations serve multiple audiences simultaneously. For developers, they clarify intent and reduce implementation errors — if a developer understands that a particular placement decision exists to improve discoverability for a specific user group, they are less likely to reposition it for technical convenience. For stakeholders, annotated prototypes function as evidence artifacts: they demonstrate that the design process is evidence-based and that changes are justified by data, which builds organizational confidence in the UX team's recommendations. For the design team itself, annotations create institutional memory that remains accessible even after team members change.</p>
+
+<p>In practice, annotations can be implemented in a variety of tools. Design platforms like Figma support comment layers and annotation plugins. Presentation tools like PowerPoint or Keynote can use numbered callouts linked to a legend. Some teams maintain a separate annotation document keyed to numbered markers on the prototype. The format matters less than the discipline of maintaining the annotations consistently across every iteration.</p>
+
+<p><strong>Version Management for Iterative Prototypes</strong></p>
+
+<p>Iterative design generates many versions of the same prototype. Without deliberate version management, prototypes become chaotic: files get overwritten, team members work on conflicting copies, and it becomes impossible to reconstruct which design was tested in which session. Version management is the set of practices that prevent this entropy.</p>
+
+<p>The foundational practice is saving each iteration as a distinct, independently preserved version before any changes are made. This sounds obvious, but teams under deadline pressure frequently modify their only copy of the current prototype in place, destroying the record of the tested design. Whether a team uses a design tool with built-in version history (like Figma's version history feature) or a manual file system, each tested prototype should be locked before the next iteration begins.</p>
+
+<p>Naming conventions should be established at the project outset and applied consistently. A reliable format includes the project name, iteration number, and date. For example: <code>ProjectName_Proto_v3_2024-09-15</code>. Some teams add a brief status tag: <code>ProjectName_Proto_v3_TESTED</code> or <code>ProjectName_Proto_v4_INPROGRESS</code>. Avoid vague names like <code>final</code>, <code>final_v2</code>, or <code>revised_new</code> — these are universally understood to be unreliable and tend to multiply as revisions continue.</p>
+
+<p>Preserving previous versions enables meaningful before-and-after comparison. When evaluating whether a redesign successfully addressed a problem, comparing the v3 and v4 prototypes side-by-side is far more informative than relying on memory. Some teams conduct internal comparison reviews before each new test session precisely to confirm that changes are clearly visible and coherent relative to the prior version.</p>
+
+<p>Alongside version files, a version changelog is an essential companion document. The changelog is a running record summarizing what changed between iterations, why each change was made (ideally with issue log references), and who made the decision. The following table illustrates a simple changelog structure:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Date</th>
+      <th>Changes Made</th>
+      <th>Issue Log Reference</th>
+      <th>Decision Owner</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>v1</td>
+      <td>2024-08-01</td>
+      <td>Initial prototype created based on design brief</td>
+      <td>N/A</td>
+      <td>Design Lead</td>
+    </tr>
+    <tr>
+      <td>v2</td>
+      <td>2024-08-22</td>
+      <td>Navigation restructured; Search moved to persistent top bar</td>
+      <td>Issues #3, #7</td>
+      <td>UX Designer A</td>
+    </tr>
+    <tr>
+      <td>v3</td>
+      <td>2024-09-10</td>
+      <td>Date picker replaced with calendar overlay; error messages redesigned</td>
+      <td>Issues #2, #11</td>
+      <td>UX Designer B</td>
+    </tr>
+    <tr>
+      <td>v4</td>
+      <td>2024-09-28</td>
+      <td>Checkout flow condensed from 5 steps to 3; progress indicator added</td>
+      <td>Issues #5, #8, #14</td>
+      <td>UX Designer A</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A changelog like this serves multiple purposes: it gives new team members a rapid orientation to the project's history, it provides stakeholders with a clear account of how the design evolved and why, and it supports post-project retrospectives where teams evaluate whether their design decisions were effective.</p>
+
+<p><strong>Validating Changes Before the Next Test</strong></p>
+
+<p>Implementing redesign changes introduces risk. Every modification to a prototype — even a carefully reasoned one — can inadvertently create new usability problems, break existing task flows, or produce inconsistencies within the interface. Running a formal usability test session on a prototype that contains obvious introduced errors is a costly mistake: it wastes participant time, burns testing budget, and produces data that conflates old problems with newly introduced ones. Pre-test validation exists to catch introduced errors before participants are involved.</p>
+
+<p><strong>Internal expert reviews</strong> are the fastest form of pre-test validation. Experienced UX practitioners or designers who were not directly involved in implementing the changes review the revised prototype against the known usability heuristics and the specific issues that were being addressed. Because they are not the ones who made the changes, they approach the prototype with fresher eyes and are more likely to notice inconsistencies or violations that the implementing designer's familiarity has made invisible. A structured expert review typically takes one to two hours and can surface a significant number of critical issues before any participant sees the design.</p>
+
+<p><strong>Cognitive walkthroughs</strong> are a complementary technique that simulates user thought processes step by step through a specific task. In a cognitive walkthrough, a reviewer — or a small group of reviewers — takes on the perspective of a first-time user attempting to complete a defined task using the revised prototype. At each step, they ask: Would a user know what to do next? Is the system's response to each action clear? Does feedback reinforce the correct mental model? Cognitive walkthroughs are particularly effective for verifying that revised task flows remain logical and coherent end-to-end, which is important because a change made to one step can disrupt the logic of subsequent steps in ways that are not obvious when looking at a single screen in isolation.</p>
+
+<p>Any issues identified during internal review or cognitive walkthrough should be corrected <em>and logged</em> before the next formal test session begins. The logging step is as important as the correction. If an issue is found during pre-test validation and quietly fixed without documentation, it disappears from the team's awareness and cannot be tracked across iterations. Logging it creates a record of where the design was fragile, which informs future design decisions and helps the team recognize recurring problem patterns.</p>
+
+<p>Pre-test validation is not a replacement for real user testing — it cannot replicate the authentic diversity of user behavior, mental models, and contexts that participants bring. But it serves as a quality gate that ensures the prototype entering the next formal test session is as strong as the team can make it, so that the test session generates signal about real usability questions rather than noise from avoidable implementation errors.</p>
+
+<p>Together, these five practices — calibrating fidelity, grounding changes in evidence, annotating decisions, managing versions, and validating before testing — constitute a disciplined methodology for iterative prototype redesign. Each practice reinforces the others: annotations become more valuable when versions are properly managed; validation is more targeted when annotations clarify design intent; fidelity decisions become clearer when findings are properly mapped to root causes. Applied consistently across testing cycles, this methodology produces prototypes that improve measurably with each iteration and a design process that is transparent, defensible, and genuinely user-centered.</p>
+        <div class="notes"><strong>Notes</strong>Instructor may wish to have students practice the changelog table exercise by reviewing a provided set of usability findings and populating a version log entry with appropriate issue references. The annotation exercise — rewriting a "what" annotation as a "why" annotation — works well as a short in-class or asynchronous activity.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p6-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Once usability testing is finished and the findings are sorted, the real work begins: turning what you learned into a revised prototype that can be tested again. This topic walks through the practical decisions that revision involves — how much fidelity a change actually requires, how to translate an observed problem into a specific interface change, how to annotate what you changed and why, how to keep versions organized so you can compare and roll back, and how to sanity-check changes before putting them in front of users again.</p>
+<p>Fidelity is a judgment call, not a default. A confusing label or a missing confirmation step may only need a sketch or a wireframe edit, while a problem with flow, timing, or feedback usually has to be felt by a user, which means you need a clickable prototype with real transitions and states. The tooling matters here because it determines how cheaply you can make a change, show it to someone, and change it again.</p>
+<p>The videos below focus on the prototyping craft in Figma: building clickable flows, connecting frames with interactions, and using interactive components to handle states such as hover, selected, toggled, or error. While watching, pay less attention to the specific visual styling and more to the mechanics that support iteration — how prototype connections are created and edited, how components let you change one thing and have it propagate everywhere, and where you could attach notes or duplicate a page to preserve an earlier version for comparison.</p></div></details><details class="slide-card" id="p6-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Figma UX tutorial for beginners - Prototype</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/v1UKB-0EUhQ?cc_load_policy=1&amp;rel=0" title="Video: Figma UX tutorial for beginners - Prototype (Aliena Cai)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Aliena Cai</strong> · 11:42 · 464,432 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=v1UKB-0EUhQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A beginner-oriented walkthrough of Figma's prototyping mode, likely covering how to link frames, set interaction triggers and actions, choose animations and transitions, and preview a clickable flow. It is aimed at people building their first working prototype rather than a static mockup.</p>
+<h4>Why this video</h4>
+<p>It gives you the baseline skill set needed to produce a testable, medium-to-high fidelity prototype, which is the foundation for deciding how far to take fidelity when implementing redesign changes.</p></div></details><details class="slide-card" id="p6-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Figma Prototype Tutorial for Beginners</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/1ucLq6JTxac?cc_load_policy=1&amp;rel=0" title="Video: Figma Prototype Tutorial for Beginners (Aliena Cai)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Aliena Cai</strong> · 6:06 · 214,087 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=1ucLq6JTxac" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A shorter, more recent prototyping tutorial from the same creator that condenses the core Figma prototyping workflow into a quick, focused run-through. Expect current menu locations and a streamlined path from frames to a working clickable prototype.</p>
+<h4>Why this video</h4>
+<p>Its brevity and recency make it a good refresher when you need to implement a revision quickly between test rounds, reinforcing that iteration should be cheap and fast.</p></div></details><details class="slide-card" id="p6-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Figma tutorial: Interactive components</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ReNbXhaL3Xk?cc_load_policy=1&amp;rel=0" title="Video: Figma tutorial: Interactive components (Figma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Figma</strong> · 8:45 · 671,061 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=ReNbXhaL3Xk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An official Figma tutorial on interactive components, showing how to define interactions inside a component so that states such as hover, pressed, toggled, or selected behave consistently wherever the component is used. It covers variants and how state changes are wired within the component itself.</p>
+<h4>Why this video</h4>
+<p>Produced by Figma, so the mechanics are authoritative; component-level changes are directly relevant to version management and propagating a single redesign decision across an entire prototype rather than patching screens one by one.</p></div></details><details class="slide-card" id="p6-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos support the module outcomes on the implementation side of iteration. After you analyze test data for recurring patterns (MO1) and prioritize which issues to address by frequency and severity (MO2), you still need a concrete way to express those decisions in a prototype that can be retested — that is what the Figma prototyping and interactive component tutorials provide. They are most directly tied to MO3: the ability to rebuild flows quickly, change component states in one place, and keep separate prototype versions is what makes genuinely iterative revision practical, while the course's annotation and documentation practices supply the rationale record that accompanies each change.</p></div></details><details class="slide-card" id="p6-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part7">
+<h2>Documenting and Communicating Redesign Outcomes</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Documenting and Communicating Redesign Outcomes</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Completing a usability-driven redesign is only half the work. The other half is documenting what happened, what changed, and why — then communicating those findings in ways that motivate action, build organizational memory, and demonstrate the value of a rigorous, evidence-based design process. Without clear documentation and effective communication, even the most carefully conducted usability testing can fail to influence decisions or improve future projects. This section covers the full spectrum of documentation and communication practices that transform raw testing data into professional, persuasive, and lasting artifacts.</p>
+
+<p><strong>Usability Testing Reports</strong></p>
+
+<p>A usability testing report is the primary deliverable that captures what was tested, how it was tested, what users experienced, and what the team recommends as a result. A well-crafted report does not merely summarize observations — it tells a coherent story that connects user behavior to design problems and design problems to actionable solutions. The structure of this story matters enormously, because a disorganized or incomplete report is often ignored, even when the underlying findings are critical.</p>
+
+<p>A professional usability testing report typically contains four major sections, each serving a distinct purpose for different readers:</p>
+
+<ul>
+  <li><strong>Executive Summary:</strong> This is often the only section that senior stakeholders or project sponsors will read in full. It should be a concise, standalone summary — typically one page or less — that answers three questions: What did we test? What were the most significant problems we found? What do we recommend? The executive summary must be written last, after the full findings are understood, but it should appear first in the document. Every sentence should carry weight; background context, methodology details, and nuanced caveats belong in later sections.</li>
+  <li><strong>Methodology:</strong> This section establishes the credibility of the findings by explaining how the study was conducted. It should describe the participant recruitment criteria and how many participants took part, the tasks participants were asked to complete, the testing environment (moderated or unmoderated, remote or in-person), the metrics collected (task completion rate, time-on-task, error rate, satisfaction ratings), and any significant deviations from the original test plan. Transparency here allows readers to judge for themselves how much confidence to place in the findings and gives future teams the information they need to replicate or build upon the study design.</li>
+  <li><strong>Key Findings:</strong> This is the analytical core of the report. Findings should be organized by severity or theme rather than by the order in which they were observed during sessions. For each finding, the report should identify the specific design element or interaction pattern involved, describe the observable user behavior or failure, explain the likely underlying cause, and quantify the frequency or impact where possible. A finding such as "users had trouble with the checkout button" is far less useful than "7 of 8 participants failed to complete the purchase on their first attempt because the primary call-to-action button was visually subordinate to a secondary 'Save for Later' link of identical size and color placed immediately above it."</li>
+  <li><strong>Prioritized Recommendation List:</strong> Findings alone do not drive change — recommendations do. Each recommendation should be directly tied to a finding, specific enough to be actionable, and prioritized by a combination of severity and implementation effort. A simple priority matrix — high severity/low effort items addressed first, low severity/high effort items deferred — helps teams allocate attention and resources effectively. Vague recommendations like "improve navigation" should be replaced with specific direction: "Rename the 'Resources' navigation label to 'Help &amp; Guides' and move it to the top-level navigation bar, as participants consistently overlooked it in the footer."</li>
+</ul>
+
+<p>Visual evidence transforms an abstract report into a concrete, persuasive document. <strong>Annotated screenshots</strong> — images of the interface with callouts identifying the exact UI elements that caused problems — allow readers to see precisely what users encountered without needing to imagine it. Annotations should be concise and direct: "Participants clicked here expecting to proceed, but this button submits the form without validation feedback." <strong>Direct user quotes</strong> serve a complementary purpose by giving findings a human voice. A quote like "I just kept clicking around hoping something would happen — I had no idea if it was working" communicates frustration more viscerally than any statistical summary. Quotes should be selected for clarity and representativeness, not just drama.</p>
+
+<p>Report depth should be calibrated to the intended audience. A detailed technical report written for the UX and engineering team should include granular behavioral observations, raw metric data, session timestamps, and methodology appendices. A summary deck prepared for executive leadership should foreground impact and recommendation, supported by just enough evidence to be credible. Writing one exhaustive report and one condensed summary is a practical approach that serves both audiences without compromising either.</p>
+
+<p>Timing matters as much as content. Distributing the report promptly — ideally within one to three days of completing sessions — ensures that findings are acted upon while the team's memory of sessions is fresh, stakeholder interest is high, and design momentum has not dissipated. A report delivered three weeks after testing is completed competes with new priorities and loses much of its urgency. If a full polished report takes longer to prepare, circulating a brief interim summary of top findings immediately after sessions preserves the window for action.</p>
+
+<p><strong>Before-and-After Comparison Documentation</strong></p>
+
+<p>One of the most powerful artifacts a UX team can produce is a clear, well-documented before-and-after comparison that makes the impact of usability-driven design decisions visible and undeniable. These comparisons serve multiple audiences simultaneously: they help stakeholders understand what changed and why, they give development teams clear reference points, and they create portfolio-ready evidence of iterative, evidence-based practice.</p>
+
+<p>An effective before-and-after comparison is not simply a pair of screenshots placed side by side. The most persuasive comparisons follow a structured format that links the original design problem to the observed user behavior it caused, the specific redesign decision that addressed it, and the measurable improvement in user performance that resulted. Consider the following structure for each comparison entry:</p>
+
+<ul>
+  <li><strong>Original design:</strong> Screenshot or description of the interface element as it existed before the redesign, with annotation identifying the specific problem area.</li>
+  <li><strong>Observed user behavior:</strong> A brief description of how users struggled — drawn directly from testing notes or video — that illustrates why the original design was problematic.</li>
+  <li><strong>Redesign rationale:</strong> An explanation of the design principle or usability heuristic that guided the change. This prevents the redesign from appearing arbitrary and connects it to a body of established knowledge.</li>
+  <li><strong>Revised design:</strong> Screenshot or description of the redesigned element, with annotation highlighting the specific changes made.</li>
+  <li><strong>Measured improvement:</strong> The quantitative change in the relevant metric — for example, task completion rate rising from 62% to 91%, or mean time-on-task decreasing from 4.2 minutes to 1.8 minutes — that provides objective evidence of the redesign's effectiveness.</li>
+</ul>
+
+<p>Pairing visual comparisons with quantitative metric changes is essential to making the case for redesign effectiveness. Visual changes alone may be dismissed as cosmetic or subjective. Metric improvements alone are abstract and can seem disconnected from any particular design decision. Together, they tell a complete and compelling story: this specific change, made for this specific reason, produced this measurable improvement in user performance.</p>
+
+<p>It is equally important that before-and-after comparisons highlight <strong>functional and interaction-level improvements</strong>, not just aesthetic ones. Changing a button color from grey to blue is a visual change; simplifying a five-step checkout into three steps is a functional change. Removing an unnecessary confirmation dialog is an interaction-level change. Documents that focus only on visual redesigns underrepresent the depth of the work and may inadvertently suggest that UX is primarily about aesthetics. Documenting the full range of changes — information architecture restructuring, error prevention mechanisms, feedback and affordance improvements, task flow simplification — presents a more accurate and more impressive picture of what evidence-based design practice actually involves.</p>
+
+<p>For designers building professional portfolios, before-and-after comparison documents are among the most valuable case study materials available. They demonstrate not just design skill but a rigorous, user-centered process — that designs were grounded in observed behavior, informed by evidence, and evaluated against measurable outcomes. This is the difference between a portfolio that shows what a designer made and one that demonstrates how a designer thinks.</p>
+
+<p><strong>Tracking Metrics Across Iterations</strong></p>
+
+<p>A single round of usability testing provides a snapshot. A series of consistently tracked metrics across multiple testing iterations provides something far more valuable: a trajectory. Tracking the same metrics and tasks across redesign cycles allows teams to observe not just whether a design improved between two specific points in time, but how quickly it is improving, which problems have been resolved, which persist, and where the design may be approaching a plateau.</p>
+
+<p>Valid longitudinal comparison depends on methodological consistency. The tasks presented to participants, the metrics collected, the participant profile, and the testing environment must remain substantially consistent from one iteration to the next. If the task wording changes between iterations, or if Iteration 2 participants are more experienced with the product than Iteration 1 participants were, the resulting data cannot be meaningfully compared. This means that the test plan for the first iteration is not merely a document for that session — it is the baseline specification for all future iterations, and changes to it should be made deliberately and noted explicitly in the methodology sections of subsequent reports.</p>
+
+<p>A longitudinal metrics table is an invaluable tool for making design progress visible to the team and to stakeholders. This table tracks the same metrics for the same tasks across every testing iteration, enabling at-a-glance review of trends over time. A well-structured example appears below:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Metric</th>
+      <th>Iteration 1 (Baseline)</th>
+      <th>Iteration 2</th>
+      <th>Iteration 3</th>
+      <th>Change (I1→I3)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Create a new account</td>
+      <td>Task Completion Rate</td>
+      <td>55%</td>
+      <td>78%</td>
+      <td>94%</td>
+      <td>+39 pts</td>
+    </tr>
+    <tr>
+      <td>Create a new account</td>
+      <td>Mean Time-on-Task (min)</td>
+      <td>4.8</td>
+      <td>3.1</td>
+      <td>2.2</td>
+      <td>−2.6 min</td>
+    </tr>
+    <tr>
+      <td>Locate return policy</td>
+      <td>Task Completion Rate</td>
+      <td>38%</td>
+      <td>42%</td>
+      <td>44%</td>
+      <td>+6 pts</td>
+    </tr>
+    <tr>
+      <td>Locate return policy</td>
+      <td>Mean Time-on-Task (min)</td>
+      <td>6.2</td>
+      <td>5.9</td>
+      <td>5.7</td>
+      <td>−0.5 min</td>
+    </tr>
+    <tr>
+      <td>Complete a purchase</td>
+      <td>Task Completion Rate</td>
+      <td>62%</td>
+      <td>85%</td>
+      <td>91%</td>
+      <td>+29 pts</td>
+    </tr>
+    <tr>
+      <td>Complete a purchase</td>
+      <td>Error Rate (errors/session)</td>
+      <td>3.4</td>
+      <td>1.9</td>
+      <td>1.2</td>
+      <td>−2.2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This kind of table makes several things immediately legible. The account creation and purchase flows show strong, consistent improvement across iterations — the targeted fixes are working. But the "Locate return policy" task is <em>plateauing</em>: despite two rounds of iteration, the completion rate has barely moved and time-on-task has improved by less than half a minute. This pattern is a diagnostic signal. It suggests that the surface-level fixes applied in Iterations 1 and 2 — perhaps relabeling a link or repositioning a footer element — have not addressed the root cause of the problem. The plateau indicates that a deeper redesign may be required: perhaps the return policy information needs to be surfaced within the purchase flow itself rather than housed in a separate page, or perhaps the information architecture of the site's help content needs to be restructured from the ground up.</p>
+
+<p>Metric trend review should be built into the planning process for each new iteration. At the close of every testing cycle, the team should review the full longitudinal table, identify which problems have been successfully resolved, flag plateauing metrics for deeper investigation, and use this analysis to set priorities for the next iteration. This review transforms the metrics table from a passive record into an active planning tool.</p>
+
+<p><strong>Presenting Findings to Non-Technical Audiences</strong></p>
+
+<p>UX practitioners frequently need to present findings to audiences — business stakeholders, product managers, marketing leads, or senior executives — who are neither trained in usability methods nor inherently invested in the details of user research. Presenting to these audiences requires a fundamentally different approach than writing a technical report for the design and engineering team. The goal shifts from comprehensive documentation to persuasive communication: convincing decision-makers that the problems are real, that the proposed solutions are sound, and that acting on the findings is worth the investment.</p>
+
+<p>The most effective presentations to non-technical audiences lead with <strong>user impact</strong> — specifically, what users were unable to do — before presenting the data that supports the finding. This ordering matters because it establishes empathy and stakes before introducing evidence. Beginning a presentation with "our task completion rate for the checkout flow was 62%" gives stakeholders a number without a story. Beginning instead with "more than a third of the users we observed were unable to complete a purchase without abandoning the process" — and then revealing the supporting data — is far more likely to produce concern and engagement. The human failure comes first; the measurement confirms its scale.</p>
+
+<p>Plain language is essential. UX practice has developed a rich vocabulary — affordances, cognitive load, heuristic evaluation, information scent, progressive disclosure — that is precise and useful within the discipline but opaque or alienating to outside audiences. When presenting to business or engineering stakeholders, these terms should be replaced with plain-language equivalents or brief explanations. Instead of "the interface lacks sufficient affordance cues," say "the button didn't look clickable, so users didn't try it." Instead of "users experienced high cognitive load at the registration step," say "the registration form asked for too much information at once, and several users gave up before completing it." Clarity and accessibility are more persuasive than technical precision in these contexts.</p>
+
+<p><strong>Video clips of user sessions</strong> are among the most powerful tools available for creating stakeholder empathy. A two-minute video clip showing a real user expressing confusion, making repeated errors, or abandoning a task in frustration communicates in seconds what paragraphs of text cannot convey. Video evidence makes the problems visceral and undeniable in a way that statistics rarely achieve. When stakeholders watch a real person struggle with their product, the abstract becomes concrete and the case for change becomes personal. Clips should be selected for representativeness — showing behaviors observed across multiple participants — and edited to be concise. A collection of three to five 60–90 second clips, each focused on a specific problem, is typically more effective than longer unedited session recordings.</p>
+
+<p>Wherever possible, recommended changes should be framed in terms of their expected impact on <strong>business-relevant outcomes</strong>. Stakeholders who are responsible for revenue, conversion rates, customer retention, or support costs will respond more strongly to recommendations framed in those terms than to recommendations framed in purely experiential terms. "Fixing the checkout flow is likely to increase purchase completion by 20–30%, based on the improvement observed between Iterations 1 and 2" is a more actionable statement for a product owner than "fixing the checkout flow will improve the user experience." Both statements may be true, but only one speaks the language of the audience. Where hard data is not yet available, framing can still be directional: "reducing the error rate on the registration form should decrease the volume of support contacts related to account creation."</p>
+
+<p><strong>Lessons Learned and Process Reflection</strong></p>
+
+<p>At the close of a redesign project — or at significant milestones within a longer project — a structured retrospective reflection on both the design decisions made and the testing process used to evaluate them is one of the most professionally valuable activities a team can undertake. Without deliberate reflection, teams tend to repeat both their successes and their mistakes. With it, they build a cumulative body of knowledge that makes each subsequent project more effective than the last.</p>
+
+<p>Retrospective reflection should address two distinct dimensions: the <strong>quality of the design decisions</strong> and the <strong>effectiveness of the testing process</strong>. These are related but separable questions. A team might have run a methodologically rigorous testing process that revealed important problems, but then made design decisions that failed to adequately address the root causes — resulting in plateauing metrics. Conversely, a team might have made bold and effective design changes, but relied on an unrepresentative participant sample that understated the severity of accessibility problems. Distinguishing between these two types of reflection prevents teams from conflating process quality with outcome quality.</p>
+
+<p>Identifying what worked well is as important as identifying what went wrong. If a particular method for recruiting participants produced an exceptionally well-matched sample, that recruitment strategy should be documented in enough detail to be replicated. If a specific task scenario proved especially effective at surfacing navigation problems, future test designers should know about it. If a particular facilitation technique helped participants think aloud more naturally, it should become part of the team's standard practice. Successes that are not documented are successes that may be accidentally discarded.</p>
+
+<p>Recognizing methodological weaknesses requires a degree of intellectual honesty that can be uncomfortable but is professionally essential. Common weaknesses to examine include:</p>
+
+<ul>
+  <li><strong>Biased task wording:</strong> Tasks that contained leading language — "use the Help section to find the return policy" instead of "find out how to return a product" — may have artificially inflated success rates by directing participants to the correct location rather than testing whether they could find it independently.</li>
+  <li><strong>Unrepresentative participants:</strong> Participants who were recruited primarily for convenience — colleagues, friends, or existing loyal customers — may not reflect the actual diversity of the user population, leading to findings that underrepresent the challenges faced by novice users, older adults, users with accessibility needs, or first-time visitors.</li>
+  <li><strong>Insufficient sample size for observed behaviors:</strong> With very small participant samples, a single unusual session can disproportionately influence findings. Retrospective reflection should assess whether the findings were consistent across participants or driven by one or two outliers.</li>
+  <li><strong>Facilitator influence:</strong> In moderated sessions, facilitators who provided hints, interpreted tasks for participants, or reacted visibly to errors may have affected participant behavior in ways that invalidated some observations.</li>
+  <li><strong>Metric selection gaps:</strong> Reflecting on whether the metrics tracked were sufficient to capture the most important dimensions of usability — for instance, discovering after the fact that error rate data would have been highly informative but was not collected — guides better metric selection in future studies.</li>
+</ul>
+
+<p>Lessons learned documentation creates <strong>institutional knowledge</strong> — a repository of practical wisdom that does not disappear when individual team members move on to other projects or organizations. This documentation should be stored in a shared, accessible location and written in enough detail to be useful to someone who was not present for the project. A lessons learned entry that reads "participant recruitment was difficult" is not actionable. An entry that reads "recruiting participants who matched the target profile of infrequent online shoppers over 55 required posting in community centers and public library newsletters rather than relying on existing customer email lists — budget two additional weeks for this" is the kind of specific, experience-based guidance that genuinely benefits future teams and new team members.</p>
+
+<p>The full documentation cycle — testing reports, before-and-after comparisons, longitudinal metric tables, stakeholder presentations, and lessons learned reflections — constitutes the professional record of a redesign project. Taken together, these artifacts demonstrate that design decisions were grounded in evidence, evaluated rigorously, communicated clearly, and reflected upon honestly. This is the standard of practice that distinguishes mature, professional UX work from intuition-driven design, and it is the foundation on which continuously improving design teams are built.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic clusters in depth: report structure and timing, before-and-after comparison format and purpose, longitudinal metric tracking with a worked HTML table example, non-technical stakeholder presentation strategies, and lessons learned documentation. The longitudinal metrics table is rendered as a proper HTML table with a thead header row as required.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p7-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Usability work does not end when you finish testing or even when you ship a revised interface. The final professional step is documenting what you found, what you changed, and why — in a form that teammates, stakeholders, and future designers can actually use. That means usability testing reports that tie claims to evidence, before-and-after comparisons that make the change visible, and metrics tracked consistently across iterations so improvement (or regression) is measurable rather than anecdotal.</p>
+<p>Communicating those outcomes is its own skill. The people who approve your redesign are often not interface specialists, so findings must be framed in terms they care about: task success, time on task, error rates, user frustration, and business consequences. At the same time, you have an ethical obligation not to overstate what a small study shows. Selective quoting, cherry-picked clips, and percentages drawn from five participants can mislead an audience that has no way to check your work.</p>
+<p>The three short videos below come from Nielsen Norman Group, a long-standing usability research and consulting firm. As you watch, pay attention to three things: how they define usability in measurable components you can report on, how they recommend handling participant quotes so they illustrate rather than distort, and what responsible presentation of study data looks like when the sample is small. Try mapping each recommendation to a section you would write in your own redesign report.</p></div></details><details class="slide-card" id="p7-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: How to Present UX Research Results Responsibly</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/BT-AMKSEzvA?cc_load_policy=1&amp;rel=0" title="Video: How to Present UX Research Results Responsibly (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:16 · 5,789 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=BT-AMKSEzvA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A brief talk on how to share UX research results with stakeholders without misrepresenting what the data actually supports. Based on its title and description, it likely addresses common reporting pitfalls such as overgeneralizing from small samples, presenting percentages that imply more certainty than exists, and framing findings honestly while still being persuasive.</p>
+<h4>Why this video</h4>
+<p>It speaks directly to the "presenting findings to non-technical audiences" and "usability testing reports" subtopics, and it reinforces evidence-based reporting as a professional obligation rather than a formatting exercise.</p></div></details><details class="slide-card" id="p7-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Using Quotes to Share UX Research: 3 Tips</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/nVQKxg2iol0?cc_load_policy=1&amp;rel=0" title="Video: Using Quotes to Share UX Research: 3 Tips (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 5:28 · 4,194 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=nVQKxg2iol0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video focuses on using participant quotes when communicating research insights, offering three practical tips for selecting and preparing them. It suggests that raw quotes usually need editing for clarity and context, and that quotes work best as support for a finding rather than as the finding itself.</p>
+<h4>Why this video</h4>
+<p>Quotes are the most common qualitative evidence in a usability report, and this video gives concrete guidance on using them persuasively without distorting participant meaning — useful for both report writing and stakeholder presentations.</p></div></details><details class="slide-card" id="p7-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Usability 101</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/st9AEPOjGpU?cc_load_policy=1&amp;rel=0" title="Video: Usability 101 (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:46 · 24,243 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=st9AEPOjGpU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A foundational explainer defining usability and its five quality components, including learnability and efficiency. It establishes the vocabulary and measurable dimensions that underlie usability evaluation.</p>
+<h4>Why this video</h4>
+<p>These components give you a consistent framework for tracking metrics across iterations and for structuring before-and-after comparisons, so your documentation reports on the same dimensions each round rather than shifting criteria.</p></div></details><details class="slide-card" id="p7-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos support the module outcomes by supplying both the vocabulary and the communication practices that turn analysis into documentation. The usability components explainer gives you consistent categories for naming recurring patterns and pain points (MO1) and for judging severity and impact when prioritizing fixes (MO2). The quotes and responsible-presentation videos address MO3 directly: iterative redesign is only defensible when each change is accompanied by a documented rationale, with evidence reported accurately and framed so that non-technical stakeholders can follow the reasoning from finding to design decision.</p></div></details><details class="slide-card" id="p7-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

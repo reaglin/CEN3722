@@ -1,0 +1,350 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Development Environment Setup</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 1 - HCI Foundations and Course Project Setup</a></div>
+  <header>
+    <h1>Development Environment Setup</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Development Environment Setup</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Before a single line of project code is written, every member of a team needs a working, verified development environment. An environment is more than "having an editor installed" — it is the combination of a code editor, version control tooling, authentication credentials, a shared folder structure, and a verified communication path to the remote repository on GitHub. When these pieces are configured consistently across a team, collaboration becomes almost invisible: people clone, branch, commit, and push without thinking about it. When they are configured inconsistently, teams lose entire weeks to "it works on my machine," broken file paths, rejected pushes, and commits attributed to the wrong person. This topic walks through each layer of the setup, explains <em>why</em> each configuration choice matters, and ends with a concrete end-to-end verification procedure that every individual must complete independently.</p>
+
+<p><strong>Choosing a Code Editor</strong></p>
+
+<p>A code editor is the primary interface to the project, so the choice has a real effect on productivity and on how easily teammates can help each other. The practical recommendation for most teams — and the default assumption for the rest of this module — is <strong>Visual Studio Code (VS Code)</strong>. It is free, it runs on Windows, macOS, and Linux with a near-identical interface, and it is overwhelmingly common in both industry and education. That ubiquity matters: when a teammate says "open the Command Palette and run <code>Git: Clone</code>," everyone knows exactly what that means, and the same keyboard shortcuts and screenshots work for the whole group.</p>
+
+<p>It is worth distinguishing an editor from a full IDE. A traditional IDE such as IntelliJ IDEA or Visual Studio ships with a compiler toolchain, debugger, profiler, and project model bundled in. VS Code starts as a lightweight editor and becomes an IDE through extensions — you add only the language tooling you actually need. Other reasonable choices exist, and the table below summarizes the trade-offs, but a team should pick <em>one</em> primary editor and document it.</p>
+
+<table>
+  <thead>
+    <tr><th>Editor</th><th>Cost</th><th>Platforms</th><th>Best suited to</th><th>Main trade-off</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>VS Code</td><td>Free, open source core</td><td>Windows, macOS, Linux, browser</td><td>Web, Python, JavaScript, general-purpose, student teams</td><td>Needs extensions for deep language support</td></tr>
+    <tr><td>JetBrains IDEs (IntelliJ, PyCharm, WebStorm)</td><td>Paid (free student licences, free Community editions)</td><td>Windows, macOS, Linux</td><td>Large Java/Kotlin/Python codebases, heavy refactoring</td><td>Heavier, slower startup, licence management</td></tr>
+    <tr><td>Visual Studio</td><td>Free Community edition</td><td>Windows (limited macOS)</td><td>C#/.NET, C++ on Windows</td><td>Platform-limited; large install</td></tr>
+    <tr><td>Neovim / Vim</td><td>Free</td><td>All, including over SSH</td><td>Remote servers, keyboard-driven workflows</td><td>Steep learning curve; hard to standardize across a team</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Extensions.</strong> Extensions are what turn a generic editor into a project-specific workbench. They fall into a handful of recognizable categories:</p>
+
+<ul>
+  <li><strong>Language support</strong> — syntax highlighting, IntelliSense/autocomplete, go-to-definition, and inline type errors. Examples: the official <code>Python</code> extension (which bundles Pylance), <code>ESLint</code> for JavaScript/TypeScript, <code>C/C++</code> from Microsoft, <code>Extension Pack for Java</code>.</li>
+  <li><strong>Linters</strong> — tools that flag suspicious or non-conforming code before it runs: unused variables, undefined names, shadowed parameters. ESLint, Pylint, Ruff, and Flake8 are typical.</li>
+  <li><strong>Formatters</strong> — tools that rewrite code into a canonical style automatically: Prettier for web languages, Black for Python, <code>clang-format</code> for C/C++. Formatters are the single highest-value team extension because they eliminate whitespace-only diffs and style arguments in code review.</li>
+  <li><strong>Version control helpers</strong> — GitLens (blame annotations and history), GitHub Pull Requests and Issues (review PRs without leaving the editor).</li>
+  <li><strong>AI assistance</strong> — GitHub Copilot, Copilot Chat, or similar tools that suggest completions and explain code. These are productivity aids, not authorities: suggestions must still be read, tested, and understood, and many courses or employers have explicit policies about their use.</li>
+  <li><strong>Collaboration and environment</strong> — Live Share for pair programming, Dev Containers and Remote–SSH for working inside containers or on remote machines.</li>
+</ul>
+
+<p><strong>Sharing a recommended extensions list.</strong> Rather than telling teammates in chat which extensions to install, commit the list to the repository. VS Code reads a file at <code>.vscode/extensions.json</code> and, when someone opens the folder, prompts them to install anything missing. This makes the toolchain part of the project itself, versioned alongside the code.</p>
+
+<pre><code>// .vscode/extensions.json
+{
+  "recommendations": [
+    "ms-python.python",
+    "ms-python.vscode-pylance",
+    "charliermarsh.ruff",
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "github.vscode-pull-request-github"
+  ],
+  "unwantedRecommendations": []
+}</code></pre>
+
+<p>Pair it with a committed <code>.vscode/settings.json</code> so that formatting behaviour is identical for everyone — otherwise one person's editor reformats a whole file on save and the pull request becomes unreviewable:</p>
+
+<pre><code>// .vscode/settings.json
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.tabSize": 2,
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "files.trimTrailingWhitespace": true,
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.tabSize": 4
+  }
+}</code></pre>
+
+<p>A complementary <code>.editorconfig</code> file at the repository root does the same job for teammates on other editors, since EditorConfig is supported natively or via plugin almost everywhere.</p>
+
+<p><strong>Installing and Configuring Git Locally</strong></p>
+
+<p>Git is the version control system; GitHub is a hosting service for Git repositories. Installing Git gives you the command-line program <code>git</code>, which is what actually performs clones, commits, merges, and pushes — the editor's buttons are just a friendly front end for those same commands.</p>
+
+<ul>
+  <li><strong>Windows:</strong> install <em>Git for Windows</em> from git-scm.com, which also provides Git Bash (a Unix-like shell) and the Git Credential Manager. Alternatively <code>winget install Git.Git</code>.</li>
+  <li><strong>macOS:</strong> <code>brew install git</code>, or trigger Apple's Command Line Tools with <code>xcode-select --install</code>. The system Git is often an old version; Homebrew's is current.</li>
+  <li><strong>Linux:</strong> <code>sudo apt install git</code> (Debian/Ubuntu) or <code>sudo dnf install git</code> (Fedora).</li>
+</ul>
+
+<p>Confirm the install before going further:</p>
+
+<pre><code>$ git --version
+git version 2.45.1</code></pre>
+
+<p><strong>Identity configuration.</strong> Every Git commit permanently records an author name and email in its metadata. If you skip this step, Git either refuses to commit or guesses from your machine's hostname, producing commits attributed to <code>student@LAPTOP-7F3K2</code>. Those commits will not link to your GitHub profile, will not appear in contribution graphs, and — in a graded group project — may not be credited to you at all. Set the identity once, globally:</p>
+
+<pre><code>$ git config --global user.name "Amara Okafor"
+$ git config --global user.email "amara.okafor@university.edu"
+$ git config --global init.defaultBranch main
+$ git config --global pull.rebase false
+$ git config --global core.autocrlf input    # on macOS/Linux; use 'true' on Windows
+$ git config --list --show-origin            # verify, and see which file each value came from</code></pre>
+
+<p>The email must be one that is registered on your GitHub account (Settings → Emails), otherwise GitHub cannot associate the commit with your profile. If you prefer not to publish a personal address, enable email privacy on GitHub and use the supplied <code>12345678+username@users.noreply.github.com</code> address instead. For a repository that needs a different identity (e.g. a work account), omit <code>--global</code> inside that repository to set a local override.</p>
+
+<p><strong>SSH key authentication.</strong> There are two ways to talk to GitHub: HTTPS, which requires a personal access token typed or cached as a password, and SSH, which uses a public/private key pair. SSH is preferred because the private key never leaves your machine, nothing password-like is transmitted, the key can be protected by a passphrase held in an agent, and you can revoke a single device's key without changing anything else. HTTPS tokens, by contrast, are bearer secrets that can be accidentally pasted into a chat, committed to a file, or captured by a shoulder-surfer; classic GitHub account passwords have not been accepted for Git operations since 2021 at all.</p>
+
+<pre><code>$ ssh-keygen -t ed25519 -C "amara.okafor@university.edu"
+# Press Enter to accept ~/.ssh/id_ed25519, then set a passphrase
+
+$ eval "$(ssh-agent -s)"
+$ ssh-add ~/.ssh/id_ed25519
+
+$ cat ~/.ssh/id_ed25519.pub        # copy this PUBLIC key only
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAI... amara.okafor@university.edu</code></pre>
+
+<p>Paste the <strong>public</strong> key (the <code>.pub</code> file) into GitHub → Settings → SSH and GPG keys → New SSH key. Never share or commit the private key, which has no extension. Then test the connection:</p>
+
+<pre><code>$ ssh -T git@github.com
+Hi amara-okafor! You've successfully authenticated, but GitHub does not provide shell access.</code></pre>
+
+<p>That message is the success case — the "does not provide shell access" part is expected and not an error.</p>
+
+<table>
+  <thead>
+    <tr><th>Aspect</th><th>HTTPS + personal access token</th><th>SSH key pair</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>What is sent</td><td>A reusable secret token</td><td>A cryptographic signature; the key itself never leaves the device</td></tr>
+    <tr><td>Setup effort</td><td>Low — works immediately, token generated on GitHub</td><td>Moderate — generate key, add to agent, upload public half</td></tr>
+    <tr><td>Revocation</td><td>Revoke token (may affect several machines)</td><td>Delete one key; other devices unaffected</td></tr>
+    <tr><td>Firewall friendliness</td><td>Works on port 443 almost everywhere</td><td>Port 22 sometimes blocked; can fall back to <code>ssh.github.com:443</code></td></tr>
+    <tr><td>Expiry</td><td>Tokens typically expire and must be regenerated</td><td>Keys do not expire</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Cloning.</strong> <code>git clone</code> downloads the full repository — every file, branch, and commit in its history — and sets up a remote named <code>origin</code> pointing back at GitHub. This is how each team member gets their own complete working copy:</p>
+
+<pre><code>$ cd ~/projects
+$ git clone git@github.com:team-aurora/inventory-tracker.git
+Cloning into 'inventory-tracker'...
+remote: Enumerating objects: 248, done.
+Receiving objects: 100% (248/248), 1.21 MiB | 4.02 MiB/s, done.
+
+$ cd inventory-tracker
+$ git remote -v
+origin  git@github.com:team-aurora/inventory-tracker.git (fetch)
+origin  git@github.com:team-aurora/inventory-tracker.git (push)
+$ git log --oneline -3</code></pre>
+
+<p>If you already cloned over HTTPS and want to switch, you do not need to re-clone: <code>git remote set-url origin git@github.com:team-aurora/inventory-tracker.git</code>.</p>
+
+<p><strong>Cloud Development with GitHub Codespaces</strong></p>
+
+<p>GitHub Codespaces provides a development environment that runs on a GitHub-hosted virtual machine and is accessed either through the browser or by connecting your desktop VS Code to it. The entire toolchain — compilers, runtimes, package managers, Git itself — lives on that remote machine. This changes several things that routinely derail team setups:</p>
+
+<ul>
+  <li><strong>The local operating system stops mattering.</strong> A teammate on a locked-down school Windows laptop, another on an M-series Mac, and a third on a Chromebook all get the same Linux container. Platform-specific breakages — PowerShell versus Bash commands, missing build tools, <code>CRLF</code> line endings, a Python version that is two releases behind — simply do not arise.</li>
+  <li><strong>No local install burden.</strong> Nothing has to be installed with administrator rights, which is decisive on managed lab or corporate machines.</li>
+  <li><strong>Built-in GitHub integration.</strong> A codespace is created <em>from</em> a repository, so the clone is already done, authentication is already in place via a scoped token, and <code>git push</code> works immediately with no SSH key setup. Forwarded ports let you preview a running web server in the browser, and the port can be shared privately with teammates.</li>
+  <li><strong>Disposability.</strong> If an environment gets into a broken state, delete the codespace and recreate it in a couple of minutes.</li>
+</ul>
+
+<p>The trade-offs are real too: codespaces consume a monthly quota of core-hours and storage (generous on free and education plans, but finite), they require a reliable internet connection, and they stop automatically after a period of inactivity, so uncommitted work should not be left sitting indefinitely.</p>
+
+<p><strong>The devcontainer configuration.</strong> The mechanism that makes a codespace reproducible is a file at <code>.devcontainer/devcontainer.json</code>, committed to the repository. It declares the base image, additional tooling ("features"), VS Code extensions and settings, forwarded ports, and commands to run after creation. Because it is version-controlled, every teammate — and every future contributor — gets a byte-identical environment, and changes to it are reviewed like any other code change. The same file also works locally with the Dev Containers extension plus Docker, so people can run the identical container on their own machine.</p>
+
+<pre><code>// .devcontainer/devcontainer.json
+{
+  "name": "Inventory Tracker",
+  "image": "mcr.microsoft.com/devcontainers/python:3.12",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "20" },
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "esbenp.prettier-vscode",
+        "eamodio.gitlens"
+      ],
+      "settings": {
+        "editor.formatOnSave": true,
+        "python.defaultInterpreterPath": "/usr/local/bin/python"
+      }
+    }
+  },
+  "forwardPorts": [8000],
+  "postCreateCommand": "pip install -r requirements.txt && npm ci",
+  "remoteUser": "vscode"
+}</code></pre>
+
+<p>With this in place, a new team member's onboarding is: open the repository on GitHub → <strong>Code</strong> → <strong>Codespaces</strong> → <strong>Create codespace on main</strong>. Two minutes later they have Python 3.12, Node 20, all dependencies installed, the agreed extensions loaded, and port 8000 forwarded — with no instructions to follow and nothing to get wrong.</p>
+
+<p><strong>Project Folder Structure and Conventions</strong></p>
+
+<p>A repository's layout is a form of documentation. If a newcomer can guess where things live, they can contribute; if files are scattered at the root with names like <code>final_v2_REAL.py</code>, every change becomes archaeology. Agree on a structure in week one, write it into the <code>README.md</code>, and create the directories immediately — even if some are nearly empty — so that the first commits land in the right place.</p>
+
+<pre><code>inventory-tracker/
+├── README.md               # what it is, how to set up, how to run, folder map
+├── LICENSE
+├── .gitignore
+├── .editorconfig
+├── .vscode/
+│   ├── extensions.json
+│   └── settings.json
+├── .devcontainer/
+│   └── devcontainer.json
+├── .github/
+│   └── workflows/ci.yml    # automated tests on every push
+├── src/                    # application source code only
+│   ├── models/
+│   ├── services/
+│   └── main.py
+├── tests/                  # mirrors src/ structure
+│   ├── test_models.py
+│   └── test_services.py
+├── assets/                 # images, fonts, sample data, icons
+├── docs/                   # design notes, meeting minutes, API reference
+└── scripts/                # one-off or utility scripts (seeding, deploys)</code></pre>
+
+<p><strong>Why separate source, assets, docs, and tests?</strong> Each directory has a different audience and lifecycle. Separating them means you can run the whole test suite with one path (<code>pytest tests/</code>), package or deploy only <code>src/</code>, let non-developers edit <code>docs/</code> without touching code, keep large binary assets out of the import path, and configure tooling cleanly — linters scan <code>src/</code> and <code>tests/</code>, the bundler reads <code>assets/</code>. It also makes code review diffs legible: a pull request touching only <code>docs/</code> obviously carries no runtime risk.</p>
+
+<p><strong>Document it in the README from day one.</strong> The README is the first thing anyone reads. It should contain, at minimum: a one-paragraph description of the project, prerequisites, setup commands, how to run the app and the tests, and a short folder map explaining what belongs in each directory. A folder structure that exists only in one person's head is not a convention — it is a bottleneck.</p>
+
+<p><strong>File naming conventions and case sensitivity.</strong> This is the single most common source of baffling cross-platform bugs. Linux file systems are <em>case-sensitive</em>: <code>UserCard.js</code> and <code>usercard.js</code> are two different files. Windows and the default macOS file system are <em>case-insensitive but case-preserving</em>: they treat those names as the same file. So a developer on macOS can write <code>import Card from './components/userCard'</code> while the file is actually named <code>UserCard.js</code>, commit it, and everything works locally — then the Linux CI build or the Codespaces container fails with "module not found." Worse, renaming <code>usercard.js</code> to <code>UserCard.js</code> on a case-insensitive system may not even register as a change in Git unless you use <code>git mv</code> or enable <code>core.ignorecase=false</code>.</p>
+
+<p>Practical rules that avoid the whole class of problem:</p>
+
+<ul>
+  <li>Pick one convention per file type and record it in the README: <code>kebab-case</code> for web assets and URLs (<code>user-card.css</code>), <code>snake_case</code> for Python modules (<code>user_card.py</code>), <code>PascalCase</code> for class/component files where the framework expects it (<code>UserCard.tsx</code>).</li>
+  <li>Never rely on case alone to distinguish two files.</li>
+  <li>Avoid spaces and special characters in filenames — they break shell commands and URLs. Use hyphens or underscores.</li>
+  <li>Keep paths reasonably short; Windows historically limits total path length to 260 characters.</li>
+  <li>Make imports exactly match the on-disk spelling, every time.</li>
+  <li>Use a <code>.gitignore</code> from the start so that <code>node_modules/</code>, <code>__pycache__/</code>, <code>.venv/</code>, <code>.env</code>, <code>dist/</code>, and <code>.DS_Store</code> never enter the history. Committed secrets and build artefacts are painful to remove later.</li>
+</ul>
+
+<p><strong>Verifying the Complete Setup</strong></p>
+
+<p>Installing things is not the same as proving they work together. The purpose of verification is an <strong>end-to-end test</strong>: a tiny change that travels from the editor, through local Git, over the authenticated connection, into the GitHub repository, and back down to a teammate. Only a round trip proves that all four links in the chain — editor, Git, credentials, repository permissions — are sound.</p>
+
+<p>A workable verification script for each person:</p>
+
+<ul>
+  <li>Confirm the tools exist: <code>git --version</code> and, if relevant, <code>python --version</code> / <code>node --version</code>.</li>
+  <li>Confirm identity: <code>git config user.name</code> and <code>git config user.email</code> return your real details.</li>
+  <li>Confirm authentication: <code>ssh -T git@github.com</code> greets you by your GitHub username.</li>
+  <li>Clone the team repository and open it in the editor; accept the recommended extensions prompt.</li>
+  <li>Create a branch, make a trivial but real change, commit, and push.</li>
+  <li>Open a pull request, have a teammate review and merge it, then pull the merged result back down.</li>
+</ul>
+
+<pre><code>$ git switch -c setup/amara-verify
+$ echo "- Amara Okafor — environment verified $(date +%F)" &gt;&gt; docs/team-roster.md
+$ git add docs/team-roster.md
+$ git commit -m "chore: verify local environment for Amara"
+$ git push -u origin setup/amara-verify
+$ gh pr create --fill          # or open the PR in the browser
+
+# after the PR is merged
+$ git switch main
+$ git pull
+$ git log --oneline -1         # your commit should be at the tip</code></pre>
+
+<p>A useful team artefact is a <code>docs/team-roster.md</code> or a checklist issue in which each person appends their own line as part of the exercise. The file itself then becomes the evidence that the verification happened: if a name is missing, that person's setup is unproven.</p>
+
+<p><strong>Catch authentication and permission errors in week one.</strong> Setup failures are cheap to fix on day three and expensive to fix the night before a deadline, because they block the <em>delivery</em> of work that is already finished. The most common failures and their usual causes are predictable enough to triage quickly:</p>
+
+<table>
+  <thead>
+    <tr><th>Symptom</th><th>Likely cause</th><th>Fix</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>Permission denied (publickey)</code></td><td>SSH key not generated, not added to the agent, or public key not uploaded to GitHub</td><td>Re-run <code>ssh-add ~/.ssh/id_ed25519</code>; confirm the key is listed in GitHub settings; test with <code>ssh -T git@github.com</code></td></tr>
+    <tr><td><code>remote: Permission to org/repo.git denied to user</code></td><td>Not a collaborator on the repository, or authenticated as the wrong account</td><td>Repository owner adds the user as a collaborator; check cached credentials in the OS credential manager</td></tr>
+    <tr><td><code>Support for password authentication was removed</code></td><td>Using an account password over HTTPS</td><td>Switch the remote to SSH, or use a personal access token</td></tr>
+    <tr><td>Commits show the wrong author or no avatar</td><td><code>user.email</code> not set, or not registered on the GitHub account</td><td><code>git config --global user.email</code> with a verified or noreply GitHub address</td></tr>
+    <tr><td><code>! [rejected] main -&gt; main (fetch first)</code></td><td>Remote has commits you do not have locally</td><td><code>git pull</code> (resolve any conflict), then push again</td></tr>
+    <tr><td>CI passes locally but fails in the cloud with "module not found"</td><td>Filename case mismatch between the import and the file on disk</td><td><code>git mv</code> the file to the correct casing and fix the import</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Everyone verifies independently.</strong> It is tempting for the most confident member of a team to set things up, push the first commit, and declare the environment "working." That proves exactly one person's configuration. Authentication, identity, permissions, installed runtimes, and operating-system quirks are all per-machine and per-account, so a single successful push says nothing about the other four people. Make individual verification an explicit deliverable: each member pushes their own branch from their own machine under their own GitHub account, and the team confirms that every name appears in the commit history before any feature work begins. The cost is fifteen minutes each; the alternative is discovering in week six that one teammate has been emailing zip files because their push has never once worked.</p>
+        <div class="notes"><strong>Notes</strong>&lt;p&gt;Suggested in-class sequence: (1) install/confirm Git and VS Code, (2) configure identity, (3) generate and upload an SSH key, (4) clone the team repo, (5) each student pushes a one-line addition to &lt;code&gt;docs/team-roster.md&lt;/code&gt; via a pull request. Completion is checked by inspecting the commit history for every student&#39;s verified GitHub identity.&lt;/p&gt;
+&lt;p&gt;Instructor cautions: the &lt;code&gt;core.autocrlf&lt;/code&gt; value differs by platform (&lt;code&gt;true&lt;/code&gt; on Windows, &lt;code&gt;input&lt;/code&gt; elsewhere); committing &lt;code&gt;.vscode/settings.json&lt;/code&gt; is a team decision — some teams commit only &lt;code&gt;extensions.json&lt;/code&gt; and leave personal preferences uncommitted; Codespaces quotas vary by plan, so confirm the course&#39;s allocation before relying on it exclusively.&lt;/p&gt;
+&lt;p&gt;Possible extensions to the material: adding a &lt;code&gt;.gitattributes&lt;/code&gt; file to force line endings, enabling branch protection on &lt;code&gt;main&lt;/code&gt;, and wiring a minimal GitHub Actions workflow so that the week-one verification push also proves CI works.&lt;/p&gt;</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

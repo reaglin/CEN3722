@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Windows Platform: Characteristics and Constraints</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Project Scoping and App Platform Selection</a></div>
+  <header>
+    <h1>Windows Platform: Characteristics and Constraints</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Windows Platform: Characteristics and Constraints</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The Windows desktop remains the single most widely deployed general-purpose computing environment in the world, and for interface designers it represents a distinctive design problem: an enormous, heterogeneous installed base running on hardware that ranges from a £200 netbook with a 1366×768 screen to a multi-monitor workstation driving three 4K displays, operated by users who may be touching the screen, drawing with a pen, or driving the entire interface from the keyboard without ever lifting a hand to the mouse. Unlike mobile platforms, where the vendor controls hardware, screen size, input, and distribution, Windows gives the designer very little that can be safely assumed. Understanding the platform therefore means understanding three interrelated things: what Windows <em>is</em> technologically and demographically, what its users have been conditioned to <em>expect</em> through decades of convention, and what the platform physically and organisationally <em>prevents</em> you from doing.</p>
+
+<p><strong>The installed base and why it matters for design.</strong> Windows accounts for the large majority of desktop and laptop operating system usage worldwide — typically cited in the region of 70% of desktop sessions, with macOS, ChromeOS and desktop Linux dividing the remainder. The raw share figure is less interesting than its composition. That base is not a single population; it is many overlapping populations with very different needs:</p>
+
+<ul>
+  <li><strong>Enterprise and public sector.</strong> Line-of-business applications, finance systems, healthcare records, logistics dashboards, and the vast ecosystem of internal tools built on Microsoft Office, Active Directory, and SharePoint. Hardware is procured in bulk, often conservative, and refreshed on three- to five-year cycles.</li>
+  <li><strong>Education.</strong> Shared lab machines, locked-down student accounts, managed deployments, and a mix of elderly and modern hardware in the same building. Low-cost devices with limited RAM and modest integrated graphics are common.</li>
+  <li><strong>Professional and creative.</strong> CAD, 3D, video editing, audio production, data science, and software development. These users have powerful GPUs, large or multiple monitors, graphics tablets, and an expectation of deep customisation, scripting, and plug-in ecosystems.</li>
+  <li><strong>Consumer and gaming.</strong> Home PCs where Windows dominates gaming through DirectX and Steam, alongside casual browsing and media use.</li>
+</ul>
+
+<p>The practical design consequence is that your <em>target user segment</em> matters more on Windows than the platform label itself. A product aimed at NHS administrative staff on managed Windows 10 desktops and a product aimed at indie game developers on self-built Windows 11 machines are, from an HCI standpoint, almost different platforms sharing a kernel.</p>
+
+<p><strong>Application models: Win32, UWP, and WinUI.</strong> Windows is unusual among modern platforms in supporting multiple generations of application technology simultaneously, and in supporting them more or less indefinitely. Microsoft's long-standing commitment to backward compatibility means that a well-behaved Win32 application compiled in the late 1990s will frequently still run on Windows 11. This is a genuine strength for enterprise customers and a genuine source of inconsistency for designers, because the visual and behavioural conventions of each generation leak into the same desktop.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Model</th>
+      <th>Era and status</th>
+      <th>Typical UI frameworks</th>
+      <th>Design implications</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Win32</strong></td>
+      <td>1993 onwards; still the dominant model for desktop software</td>
+      <td>Raw Win32/GDI, MFC, Windows Forms, WPF, Qt, Electron</td>
+      <td>Full system access, arbitrary window management, unrestricted file system use; but no sandboxing, inconsistent DPI behaviour in older code, and manual effort required to look modern</td>
+    </tr>
+    <tr>
+      <td><strong>UWP</strong></td>
+      <td>Introduced with Windows 10 (2015); now in maintenance, no longer the recommended path</td>
+      <td>XAML + WinRT</td>
+      <td>Sandboxed, Store-distributed, adaptive layout and touch support built in; but restricted APIs frustrated power-user and enterprise scenarios</td>
+    </tr>
+    <tr>
+      <td><strong>WinUI 3 / Windows App SDK</strong></td>
+      <td>Current recommended path for new native Windows apps</td>
+      <td>WinUI 3 XAML, decoupled from the OS release cycle</td>
+      <td>Modern Fluent controls with desktop (Win32) capability; combines UWP's visual language with Win32's reach</td>
+    </tr>
+    <tr>
+      <td><strong>Web-wrapped / cross-platform</strong></td>
+      <td>Widespread in practice (Teams, Slack, VS Code, Discord)</td>
+      <td>Electron, Tauri, .NET MAUI, Flutter, Qt</td>
+      <td>Consistency across OSes at the cost of platform fit: non-native menus, non-native scrollbars, heavier memory use, sometimes poor screen-reader support unless deliberately engineered</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A designer choosing between these is making an HCI decision, not only an engineering one. Picking Electron buys you a single codebase and a familiar web toolchain, but you inherit the obligation to re-implement keyboard navigation, high-contrast themes, and accessibility tree exposure that WinUI would have given you by default. Picking WinUI gives you platform fidelity but ties you to Windows and to a reasonably recent OS version.</p>
+
+<p><strong>Fluent Design System.</strong> Fluent is Microsoft's current design language, introduced in 2017 and substantially revised for Windows 11. It is organised around the idea of adding <em>depth, materiality and motion</em> to an otherwise flat visual language so that users can perceive hierarchy and spatial relationships. Its characteristic elements include:</p>
+
+<ul>
+  <li><strong>Acrylic and Mica materials.</strong> Acrylic is a translucent, blurred material that samples what is behind it, used for transient surfaces such as flyouts, command bars and navigation panes; it signals "this layer floats above the content". Mica is a more opaque, performance-friendly material introduced in Windows 11 that tints an app's base layer with the desktop wallpaper colour, giving each window a subtle sense of place on the desktop without the cost of continuous blur. Mica is deliberately cheaper to render because acrylic's live blur is expensive on battery-powered and integrated-graphics devices.</li>
+  <li><strong>Reveal highlight.</strong> A light effect that follows the pointer and illuminates the borders of nearby interactive elements. Its HCI purpose is affordance disclosure: in a dense command surface where buttons have no visible chrome at rest, reveal tells the user which regions are clickable as the cursor approaches, without permanently cluttering the display with borders.</li>
+  <li><strong>Connected animations and motion.</strong> When an item in a list expands into a detail page, a connected animation carries the thumbnail from its list position to its detail position. This preserves object constancy — the user perceives one object moving rather than one screen being replaced by another — which reduces re-orientation cost. Fluent motion is also directional and short (typically 150–300 ms) so that it informs without delaying.</li>
+  <li><strong>Rounded geometry, layering and elevation.</strong> Windows 11 rounded window corners, controls and flyouts, and introduced a layering model (base layer, content layer, card layer) that uses subtle shadows and surface tints rather than heavy borders to express grouping.</li>
+  <li><strong>Type and iconography.</strong> Segoe UI Variable as the system typeface, with optical sizing so small text remains legible and large text remains well-proportioned; the Segoe Fluent Icons set provides a consistent, weight-matched glyph vocabulary.</li>
+</ul>
+
+<p>Critically, Fluent is not purely decorative. Each effect carries a usability argument, and each has a cost. Acrylic behind text reduces contrast, so Fluent guidance requires acrylic surfaces to use in-built tint and luminosity layers to keep text legible, and the system automatically disables acrylic when the device is in battery-saver mode, when the window is inactive, or when the user has enabled transparency reduction. A designer who assumes the blur will always be there — for example, by relying on it to separate a pane from content — will produce a broken-looking interface for a significant minority of users.</p>
+
+<p><strong>Command and navigation conventions.</strong> Windows users carry a deep, learned model of how desktop software is organised. Violating it is possible but expensive in learnability terms.</p>
+
+<ul>
+  <li><strong>Menu bars.</strong> The classic File / Edit / View / … bar remains the most discoverable way to expose a large, stable command set, because it is exhaustive and hierarchical: every command lives somewhere, and the user can browse. Conventional ordering matters — users expect <em>Save As</em> under File and <em>Preferences/Options</em> under Tools or Edit.</li>
+  <li><strong>Ribbon.</strong> Introduced in Office 2007 to solve the problem of menus and toolbars that had grown to hundreds of commands with low discoverability. The ribbon groups commands into task-oriented tabs, uses variable-size controls to express frequency and importance, shows galleries with live preview, and surfaces contextual tabs only when relevant (for example, a Table Design tab appearing when a table is selected). It trades vertical screen space for discoverability, which is why it offers collapse-to-tabs behaviour on small displays. The ribbon suits document-authoring and other command-rich applications; it is overkill for a tool with twenty commands.</li>
+  <li><strong>Command bars and nav views.</strong> Modern WinUI apps typically use a <code>NavigationView</code> (a left rail or hamburger-expandable pane) for top-level destinations plus a <code>CommandBar</code> for page-level actions, with overflow into a "…" menu as width decreases.</li>
+  <li><strong>Context menus.</strong> Right-click is a first-class interaction on Windows, not a hidden extra. Users expect a context menu on virtually every object, offering the commands relevant to that object plus standard items (Cut/Copy/Paste, Rename, Delete, Properties). Windows 11 pairs an icon row of common verbs with a textual list. Context menus reduce travel distance and keep commands close to the object of interest, following the direct-manipulation principle.</li>
+  <li><strong>Standard dialogs and system integration.</strong> Using the common file dialog, the standard print dialog, the system colour picker, taskbar jump lists, notifications via the Action Center, and drag-and-drop to and from File Explorer all buy you user familiarity for very little cost.</li>
+</ul>
+
+<p><strong>Keyboard interaction as a first-class concern.</strong> This is perhaps the sharpest contrast between Windows and mobile design. On Windows, the keyboard is not an accessibility accommodation bolted on at the end; it is the primary input channel for a large population of expert users, and it is the mechanism through which screen readers, switch devices and voice control drive the interface. Several distinct mechanisms coexist:</p>
+
+<ul>
+  <li><strong>Accelerators (shortcuts).</strong> <code>Ctrl+S</code>, <code>Ctrl+Z</code>, <code>Ctrl+Y</code>, <code>Ctrl+F</code>, <code>F2</code> to rename, <code>F5</code> to refresh, <code>Alt+F4</code> to close. These are muscle memory; reassigning them is a usability defect. Note the platform divergence here — a cross-platform product must map <code>Ctrl</code> on Windows to <code>Cmd</code> on macOS rather than shipping one hard-coded set.</li>
+  <li><strong>Access keys / mnemonics.</strong> The underlined letters revealed by pressing <code>Alt</code>, allowing <code>Alt+F</code>, <code>S</code> to save. In ribbon applications these became <em>KeyTips</em>, with multi-character sequences shown as overlay badges.</li>
+  <li><strong>Focus navigation.</strong> <code>Tab</code> and <code>Shift+Tab</code> move between control groups; arrow keys move within a group (a radio set, a list, a toolbar); <code>Space</code> activates; <code>Enter</code> triggers the default button; <code>Esc</code> cancels. A correct, logical tab order that matches visual reading order is non-negotiable, and a <em>visible</em> focus indicator must be present — Windows 11 draws a high-visibility two-tone focus rectangle precisely so it survives against any background.</li>
+  <li><strong>Command palettes and type-ahead.</strong> Modern power-user applications (Visual Studio Code, Visual Studio, Windows Terminal) supplement menus with a searchable command palette, typically <code>Ctrl+Shift+P</code>. This scales better than menus for very large command sets and supports recall-based expert use while menus support recognition-based novice use.</li>
+</ul>
+
+<p><strong>Windowing, resizing and multi-tasking.</strong> A Windows application does not own the screen. It lives in a resizable, movable window that the user may snap to half or a quarter of the display, maximise across an ultrawide monitor, or shrink to a narrow column. Windows 11's Snap Layouts, invoked by hovering the maximise button or pressing <code>Win+Z</code>, actively encourage users to tile applications, so narrow and unusual aspect ratios are common rather than exceptional. Design implications:</p>
+
+<ul>
+  <li><strong>Define a sensible minimum window size</strong> and ensure the layout remains usable at it — content should reflow, panes should collapse into flyouts, and command bars should overflow rather than clipping.</li>
+  <li><strong>Use adaptive breakpoints.</strong> WinUI guidance suggests reference widths around 640px and 1008px at which a navigation pane moves from overlay, to compact rail, to expanded.</li>
+  <li><strong>Support multiple windows where the task demands it.</strong> Comparing two documents, dragging a tab out into its own window, or opening a second project instance are deeply embedded desktop behaviours. Single-window-only designs imported from mobile thinking frustrate desktop users.</li>
+  <li><strong>Persist window state</strong> — size, position, monitor, and maximised/snapped state — across sessions, and handle the case where the monitor the app was last on no longer exists.</li>
+  <li><strong>Respect the title bar contract.</strong> If you draw a custom title bar (common in modern apps), you must still provide a draggable region, correctly placed and sized caption buttons, right-click system menu behaviour, and the Snap Layouts hover zone over the maximise button.</li>
+</ul>
+
+<p><strong>Hardware variation: resolution, DPI and input.</strong> Windows runs on an effectively unbounded hardware matrix, and the most persistent source of visual defects is DPI scaling. A 13-inch laptop at 3000×2000 may be set to 200% scaling; an external 1080p monitor beside it sits at 100%. Windows expresses this through <em>effective pixels</em>: a control authored at 40 epx renders as 40 physical pixels at 100% and 80 at 200%. Applications must declare their DPI awareness level, and the differences are visible to users:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>DPI awareness mode</th>
+      <th>Behaviour</th>
+      <th>User-visible result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Unaware</td>
+      <td>App renders at 96 DPI; the system bitmap-stretches the result</td>
+      <td>Blurry text and icons on high-DPI displays — the classic "fuzzy legacy app"</td>
+    </tr>
+    <tr>
+      <td>System DPI aware</td>
+      <td>App renders crisply at the primary monitor's scale only</td>
+      <td>Sharp on one monitor, blurry after dragging to a differently scaled monitor</td>
+    </tr>
+    <tr>
+      <td>Per-Monitor v2 aware</td>
+      <td>App is notified of DPI changes and re-lays-out, including non-client areas</td>
+      <td>Crisp on every monitor and after scale changes; the required target for new work</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Related consequences: always ship vector or multi-resolution icon assets rather than single-size bitmaps; never specify layout in raw pixels tied to one assumed density; and test on at least 100%, 150% and 200% with text scaling (Settings → Accessibility → Text size) pushed up to 200%, which scales text independently of layout and will expose any fixed-height container that clips its label.</p>
+
+<p>Input variation is equally wide. The same application may be driven by precision mouse, trackpad with gestures, touchscreen on a 2-in-1, active pen on a Surface, game controller on a handheld PC, or keyboard alone. Microsoft's guidance is to design for the <em>least precise</em> input you expect to support: mouse targets can be small (a 16px close button is acceptable), but touch targets should be around 40×40 epx with adequate spacing, since a fingertip contact patch is roughly 9–10 mm. Hover-dependent designs are a particular trap — reveal highlights, tooltips and hover-only toolbars simply do not exist for touch or keyboard users, so any information conveyed only on hover must have a non-hover equivalent.</p>
+
+<p><strong>Organisational constraints: OS version lock and managed environments.</strong> Enterprise and education deployments are governed by IT policy, not by user preference. A hospital trust may still run Windows 10 on clinical workstations because a critical imaging application is certified only against that version; a school may freeze updates to avoid breaking exam software. This creates concrete design constraints:</p>
+
+<ul>
+  <li><strong>API floor.</strong> If your audience includes Windows 10 users, Windows 11-only visual features (Mica, rounded corners, Snap Layouts hover, the new context menu style) must be treated as <em>progressive enhancement</em> — present when available, gracefully absent otherwise — rather than as load-bearing design elements.</li>
+  <li><strong>Deployment channel.</strong> Managed estates frequently block the Microsoft Store and install software via MSI/MSIX packages pushed through Intune, SCCM or Group Policy. A design that assumes Store-based auto-update, or that nags the user to update, will be wrong for these customers.</li>
+  <li><strong>Permissions and lockdown.</strong> Standard users may not be administrators, may have no write access outside their roaming profile, may be behind a filtering proxy, and may have roaming profiles that need your settings to be portable. Features requiring elevation should be rare, clearly marked with the UAC shield, and never required for core tasks.</li>
+  <li><strong>Hardware floor.</strong> Fleet machines may have integrated graphics and 8GB of RAM shared with a heavyweight security agent. Expensive continuous effects (live acrylic, large blurs, constant animation) must degrade; honour <code>prefers-reduced-motion</code>-equivalent system settings and battery-saver state.</li>
+</ul>
+
+<p><strong>Productivity expectations: density, control and multi-tasking.</strong> Mobile design culture rewards generous whitespace, one primary action per screen, and progressive disclosure. Desktop productivity culture frequently rewards the opposite. A trading desk, an ERP data-entry screen, a DAW mixer, or a log analysis tool must present a great deal of information at once because the user's task is comparison and rapid scanning across many values, and because the cost of navigation between screens — in time and in working-memory load — is higher than the cost of visual density. Concretely, productivity users expect:</p>
+
+<ul>
+  <li>Grids and tables with sortable, resizable, reorderable, freezable columns, multi-select with <code>Shift</code> and <code>Ctrl</code>, and keyboard-driven cell navigation.</li>
+  <li>Compact density modes. WinUI ships <code>Compact</code> resource dictionaries that reduce control heights (for example, list item heights from roughly 40 epx to 32 epx); offering a density toggle respects both the scanning expert and the touch user.</li>
+  <li>Bulk operations, multi-select, repeat-last-action, templates, macros, and scripting or command-line hooks.</li>
+  <li>Robust <strong>undo</strong> — ideally multi-level and across the whole session — because exploratory, high-speed work only feels safe when mistakes are cheap to reverse. This is Nielsen's "user control and freedom" heuristic made concrete.</li>
+  <li>Non-blocking background work. Long operations should run with progress shown in a status bar or task list while the user continues working, rather than behind a modal dialog that freezes the application.</li>
+  <li>Genuine multi-tasking support: copy/paste and drag-and-drop interoperability with Office and Explorer, deep links, multiple document interfaces, and tear-off tabs.</li>
+</ul>
+
+<p>A useful illustration is the contrast between Microsoft Excel and a mobile spreadsheet app. Excel exposes thousands of commands through a ribbon, a formula bar, context menus, a status bar with live aggregates, keyboard shortcuts for almost everything, and a Name Box for navigation — because its users are experts performing long, repetitive, precision tasks. The mobile version hides nearly all of it, because its users are checking a figure on a train. Same brand, same data model, opposite density decisions, both correct for their context.</p>
+
+<p><strong>Accessibility as a design input, not a retrofit.</strong> Windows has one of the richest accessibility stacks of any platform, and legal exposure is real: the EU Accessibility Act, Section 508 in the United States, and the UK Equality Act and public sector accessibility regulations all bite on software procurement. Microsoft publishes accessibility guidance aligned with WCAG 2.1/2.2 at level AA and requires a Voluntary Product Accessibility Template (VPAT/Accessibility Conformance Report) from suppliers. The key platform affordances are:</p>
+
+<ul>
+  <li><strong>UI Automation (UIA).</strong> The accessibility API through which Narrator, NVDA, JAWS, Voice Access and automated test tools read your interface. Every meaningful element must expose a correct control type, name, value and state. A custom-drawn control that is just a painted rectangle is invisible to UIA and therefore invisible to a blind user.</li>
+  <li><strong>Narrator and third-party screen readers.</strong> Test with Narrator (<code>Ctrl+Win+Enter</code>) and ideally NVDA. Check that reading order matches visual order, that landmark regions are exposed, and that dynamic changes raise live-region or property-changed events so that the user is told when a status message appears.</li>
+  <li><strong>High Contrast / Contrast Themes.</strong> Windows ships system contrast themes that override application colours with a restricted system palette. Applications must use system colour resources rather than hard-coded hex values so that they adapt, must not convey meaning by colour alone, and must ensure that images of text and custom-drawn graphics remain legible. A common failure is an icon drawn as a white glyph on a transparent background, which vanishes entirely on a white contrast theme.</li>
+  <li><strong>Text scaling and zoom.</strong> Windows allows text to be scaled to 225% independently of display scaling, and Magnifier allows arbitrary zoom. WCAG 1.4.4 requires content to remain functional at 200%. Layouts must therefore be built from flexible containers that grow with their content rather than fixed-height boxes.</li>
+  <li><strong>Contrast ratios.</strong> WCAG AA requires 4.5:1 for normal text, 3:1 for large text, and 3:1 for the visual boundary of user interface components and meaningful graphics (WCAG 1.4.11). This directly constrains Fluent's translucency: text over acrylic must be checked against the worst-case backdrop, not the designer's chosen wallpaper.</li>
+  <li><strong>Motion, flashing and timing.</strong> Honour the system "Show animations in Windows" setting; avoid content flashing more than three times per second (WCAG 2.3.1); and allow users to extend or disable time limits such as auto-dismissing toasts or session timeouts.</li>
+  <li><strong>Keyboard access and focus.</strong> WCAG 2.1.1 (keyboard), 2.1.2 (no keyboard trap), 2.4.3 (focus order) and 2.4.7 (focus visible) map almost one-to-one onto the Windows keyboard conventions already described, which is why good Windows keyboard design produces most of your accessibility conformance for free.</li>
+  <li><strong>Captions, alternatives and input modality.</strong> Media needs captions and transcripts; images need accessible names; drag-and-drop needs a keyboard or menu-based alternative (WCAG 2.5.7); and gestures should not be the only path to a function.</li>
+</ul>
+
+<p>Practically, this means accessibility criteria belong in the acceptance criteria of each user story: "all commands on this toolbar are reachable by keyboard, announced by Narrator with a meaningful name, and legible in both contrast themes." Retrofitting is far more expensive — a custom canvas-based grid built without UIA in mind may need rearchitecting, whereas choosing the platform's <code>DataGrid</code> at the outset would have supplied the automation peers automatically.</p>
+
+<p><strong>Synthesising the constraints into a design method.</strong> Because Windows offers so few guarantees, a designer should make the assumptions explicit at the start of a project. A simple platform-constraint register is an effective artefact:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Constraint dimension</th>
+      <th>Question to answer early</th>
+      <th>Example decision and its design consequence</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>OS version floor</td>
+      <td>What is the oldest Windows build in the target estate?</td>
+      <td>Windows 10 22H2 → Mica and Snap Layouts hover treated as enhancements; WinUI 3 via Windows App SDK rather than Windows 11-only APIs</td>
+    </tr>
+    <tr>
+      <td>Display matrix</td>
+      <td>Minimum resolution, typical scaling, single or multi-monitor?</td>
+      <td>1366×768 at 100% minimum, 4K at 200% common → per-monitor v2 awareness, vector icons, 1024×640 minimum window, breakpoints at 640/1008 epx</td>
+    </tr>
+    <tr>
+      <td>Input modalities</td>
+      <td>Mouse only, or touch/pen/keyboard-only as well?</td>
+      <td>Surface 2-in-1 field use included → 40 epx touch targets, no hover-only commands, pen-friendly annotation mode</td>
+    </tr>
+    <tr>
+      <td>User expertise and density</td>
+      <td>Occasional users or all-day operators?</td>
+      <td>All-day claims processors → compact density default, full keyboard command coverage, multi-level undo, tear-off windows</td>
+    </tr>
+    <tr>
+      <td>Deployment and permissions</td>
+      <td>Store, MSIX via Intune, or legacy MSI? Admin rights available?</td>
+      <td>Managed MSIX, standard user only → no elevation in core flows, settings stored in roaming profile, no self-updater</td>
+    </tr>
+    <tr>
+      <td>Accessibility target</td>
+      <td>Which standard, and is a conformance report required?</td>
+      <td>WCAG 2.2 AA plus VPAT for public sector tender → contrast-theme support, UIA naming, keyboard acceptance criteria per story</td>
+    </tr>
+    <tr>
+      <td>Performance envelope</td>
+      <td>What is the weakest machine and graphics capability?</td>
+      <td>Integrated GPU, 8GB RAM → Mica over acrylic, virtualised lists, animation disabled under battery saver</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Finally, it is worth naming the trade-offs that have no universally right answer, because articulating them is the core of platform justification. Native WinUI maximises platform fidelity, accessibility, and performance but costs you macOS and Linux reach. Electron or a web-wrapped app maximises consistency and team velocity but imports web idioms into a desktop context and raises the accessibility and memory burden. A ribbon maximises discoverability for command-rich work but consumes vertical space that a video editor cannot spare. High density maximises expert throughput but raises error rates and excludes touch users. Supporting Windows 10 widens the addressable market but caps the visual language. Each of these is a defensible decision only when tied to an explicit statement of who the users are, what hardware they have, what their organisation permits, and what success looks like — which is precisely the brief a scope document should capture.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+<ul>
+  <li><strong>MO1:</strong> The topic supplies the desktop half of the mobile/web/desktop comparison, setting out Windows-specific constraints — DPI scaling and hardware heterogeneity, resizable multi-window usage, keyboard-first interaction, high information density, and OS-version lock in managed estates — against which mobile and web platforms can be contrasted for a given user population.</li>
+  <li><strong>MO2:</strong> The application-model comparison (Win32, UWP, WinUI 3, Electron and other cross-platform stacks), the deployment and permissions discussion, and the platform-constraint register give students concrete criteria and evidence for selecting a platform and framework and defending that choice against stated project requirements.</li>
+  <li><strong>MO3:</strong> The constraint register, OS-version floor, display and input matrices, density expectations and WCAG/VPAT accessibility targets translate directly into the objectives, constraints and measurable success criteria sections of a project scope document.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Market-share figures are approximate and move over time; students should cite a current source (e.g. StatCounter) rather than the indicative ~70% used here. UWP is described as in maintenance and WinUI 3 / Windows App SDK as the current recommended native path, which reflects Microsoft's present guidance — verify against current Microsoft Learn documentation before teaching. Effective-pixel values (40 epx touch targets, 640/1008 epx breakpoints, 32 epx compact list rows) follow WinUI guidance and are indicative rather than absolute. WCAG references are to 2.1/2.2 level AA.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>The Windows desktop remains one of the most widely deployed application platforms in business, education, and engineering settings. Unlike a phone, a Windows machine typically assumes a large screen, a mouse or trackpad, a full keyboard, multiple overlapping windows, and long working sessions. Those assumptions shape everything from how much information you can place on a screen at once, to how you expose commands (menus, ribbons, toolbars, right-click context menus, keyboard shortcuts), to how users expect to move data between applications.</p>
+<p>In this module you are deciding which platform fits your project. Windows is a strong choice when users need dense data views, precise pointer input, file system access, long-form content creation, or integration with an organization's existing productivity and identity systems. It is a weaker choice when your users are mobile, occasional, or touch-first. The constraints matter as much as the capabilities: varying screen sizes and DPI settings, accessibility and keyboard navigation expectations, installation and update paths, and the strong conventions users already carry from Office and other Windows software.</p>
+<p>The videos below approach Windows from three angles: the Microsoft 365 ecosystem that many Windows users live inside, the current developer tooling story on Windows, and a low-code route to building Windows-friendly business apps. While watching, note the interaction patterns you see repeatedly (ribbons, panes, command bars, keyboard shortcuts), and ask yourself what each one assumes about the user's hardware, attention, and environment. Those observations are the raw material for the platform justification and scope document you will write.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: 🤷‍♂️ What is Microsoft 365 - Explained</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/XGD0eGfKwlE?cc_load_policy=1&amp;rel=0" title="Video: 🤷‍♂️ What is Microsoft 365 - Explained (Kevin Stratvert)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Kevin Stratvert</strong> · 14:10 · 1,323,786 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=XGD0eGfKwlE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A beginner-oriented walkthrough of what Microsoft 365 is as a subscription and ecosystem, covering the applications it bundles and how desktop apps relate to their cloud and web counterparts. Expect demonstrations inside familiar Windows productivity applications rather than a formal design lecture.</p>
+<h3>Why this video</h3>
+<p>It gives you a concrete tour of the software environment most Windows users already know, which is where the platform's design conventions - ribbons, panes, consistent command placement - come from; Kevin Stratvert is a former Microsoft product manager and explains the ecosystem clearly for newcomers.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: Developer Experience on Windows: Microsoft Build 2026</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/xVWHZkuhgys?cc_load_policy=1&amp;rel=0" title="Video: Developer Experience on Windows: Microsoft Build 2026 (Microsoft Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Microsoft Developer</strong> · 5:58 · 2,483 views · 4mo ago · captions — <a href="https://www.youtube.com/watch?v=xVWHZkuhgys" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short conference segment from Microsoft Build 2026 in which Kayla Cinnamon demonstrates recent additions aimed at developers working on Windows. It is likely to touch on tooling, terminal and workflow improvements, and how developers set up and work within the Windows environment.</p>
+<h3>Why this video</h3>
+<p>It is a first-party Microsoft source and gives a current snapshot of what building on Windows actually looks like today, which helps you weigh tooling and platform support when justifying a desktop choice.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: How to use Microsoft Power Apps - Beginner Tutorial</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/2RzCbd5XgJg?cc_load_policy=1&amp;rel=0" title="Video: How to use Microsoft Power Apps - Beginner Tutorial (Kevin Stratvert)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Kevin Stratvert</strong> · 17:18 · 1,620,384 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=2RzCbd5XgJg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A step-by-step beginner tutorial on Microsoft Power Apps, showing how to assemble a business application with low-code tools rather than traditional programming. It walks through the app-building interface, data connections, and producing something usable by an organization.</p>
+<h3>Why this video</h3>
+<p>It illustrates a realistic path many Windows-oriented organizations take for internal tools, letting you compare build effort, constraints, and control against writing a full native desktop application when you select a platform for your project.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos let you characterize the Windows side of the mobile/web/desktop comparison called for in MO1: you see the input assumptions, screen density, and interaction conventions of desktop productivity software, plus the cloud and web counterparts that blur the line. The developer experience and Power Apps videos surface practical build-and-deploy considerations - tooling, low-code versus custom development, organizational integration - that you will need to cite when you select and justify a platform under MO2. Finally, the constraints you identify while watching (hardware assumptions, licensing and ecosystem dependencies, development effort) translate directly into the objectives, constraints, and success criteria sections of the scope document required by MO3.</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

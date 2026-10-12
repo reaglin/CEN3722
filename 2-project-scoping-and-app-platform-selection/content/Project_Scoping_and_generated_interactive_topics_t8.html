@@ -1,0 +1,381 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design and Development Tools by Platform</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Project Scoping and App Platform Selection</a></div>
+  <header>
+    <h1>Design and Development Tools by Platform</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Design and Development Tools by Platform</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Choosing a platform for an interface project is only half the decision. The other half is choosing the <strong>toolchain</strong> &mdash; the combination of design, prototyping, coding, debugging, and testing tools that will carry an idea from a sketch on paper to a running application in a user's hands. Toolchains are not neutral. Each one encodes assumptions about how interfaces should be structured, what interaction patterns are "normal", and how much control a developer has over pixels, gestures, and timing. A team that prototypes in Figma using the iOS Human Interface Guidelines UI kit and then builds in SwiftUI will almost automatically produce an interface that feels native to iPhone users. A team that prototypes generic rectangles and builds in Electron will almost automatically produce something that feels like a website in a window. Neither outcome is wrong in every context, but both are consequences of tooling decisions made early, often casually, and expensive to reverse later.</p>
+
+<p>This topic surveys the tools that matter for the four primary platforms considered in this module &mdash; Android, iOS, Windows desktop, and the web &mdash; plus the cross-platform frameworks that attempt to span them. The aim is not to make you an expert in any single tool, but to give you enough informed judgement to assemble a defensible toolchain for a specific project, and to articulate <em>why</em> that toolchain fits the users, constraints, and success criteria you have defined.</p>
+
+<p><strong>Design and prototyping tools</strong> sit at the front of every toolchain, regardless of platform. They are where interaction ideas are made visible and testable before any expensive engineering is committed. The dominant tool in contemporary practice is <strong>Figma</strong>, a browser-based design environment that supports vector design, component systems, interactive prototyping, and developer handoff in a single file. Figma's defining characteristic is that it is <em>collaborative in real time</em>: multiple designers, developers, and stakeholders can open the same file simultaneously, see each other's cursors, leave threaded comments pinned to specific elements, and branch a file to explore an alternative without destroying the original. For a student project this matters because it removes the version-control problem that plagued older desktop design tools &mdash; there is no <code>final_v3_REALLY_final.sketch</code> circulating by email.</p>
+
+<p>Figma is platform-agnostic in the sense that it does not generate code for any particular platform, which is exactly why it works for all four. It produces specifications: measured spacing, colour tokens, type styles, asset exports at multiple densities, and clickable prototypes that demonstrate flow. A developer opening a Figma file in <em>Dev Mode</em> can inspect an element and read off its dimensions in density-independent pixels for Android, points for iOS, or effective pixels for Windows, and can copy generated CSS, Swift, or XML snippets as a starting point. The handoff is never fully automatic &mdash; generated code is a hint, not a deliverable &mdash; but it eliminates a large class of "the button is three pixels off" conversations.</p>
+
+<p>The second reason Figma is central to platform-aware design is the ecosystem of <strong>platform-specific UI kits</strong>. These are published, maintained component libraries that mirror each platform's official design language:</p>
+
+<ul>
+  <li><strong>Material Design (Android)</strong> &mdash; Google publishes an official Material 3 Design Kit containing buttons, navigation bars, FABs, bottom sheets, chips, snackbars, and the full Material type scale and dynamic colour system. Using it means your prototype's touch targets are already 48dp, your bottom navigation already holds three to five destinations, and your elevation shadows already follow the Material surface hierarchy.</li>
+  <li><strong>iOS Human Interface Guidelines</strong> &mdash; Apple publishes an official Apple Design Resources library for Figma covering iOS, iPadOS, macOS, watchOS, and visionOS, including SF Symbols, the San Francisco type family, tab bars, navigation bars with large titles, action sheets, and standard alerts.</li>
+  <li><strong>Fluent Design (Windows)</strong> &mdash; Microsoft publishes Fluent 2 UI kits covering Windows 11 controls, Mica and Acrylic materials, the Segoe UI Variable type ramp, navigation views, command bars, and content dialogs.</li>
+</ul>
+
+<p>The HCI value of these kits is that they make <em>convention compliance the path of least resistance</em>. A designer who drags in an official iOS tab bar does not have to remember that iOS places primary navigation at the bottom with a maximum of five items, or that destructive actions are rendered in red in an action sheet &mdash; the component already embodies that knowledge. Conversely, when a designer deliberately departs from a kit component, that departure becomes visible and discussable rather than accidental. A practical workflow is to begin from the platform kit, document every deviation in a comment, and justify each deviation against a user need.</p>
+
+<p>Before any of this high-fidelity work, however, there is a strong argument for <strong>low-fidelity wireframing</strong>, and tools such as <strong>Balsamiq</strong> exist precisely to enforce it. Balsamiq renders everything in a deliberately sketchy, hand-drawn style with a single ugly typeface and no colour palette worth speaking of. This is a feature, not a limitation. Three well-documented effects follow from low fidelity:</p>
+
+<ul>
+  <li><strong>Feedback shifts from surface to structure.</strong> Stakeholders shown a polished mock-up comment on the shade of blue; stakeholders shown a sketch comment on whether the checkout flow has too many steps. The deliberately unfinished look signals that the design is still open to change.</li>
+  <li><strong>Sunk-cost attachment is reduced.</strong> A wireframe that took eight minutes to produce can be thrown away without regret. A high-fidelity screen that took four hours tends to survive longer than it deserves.</li>
+  <li><strong>Iteration velocity rises.</strong> It is realistic to generate six alternative layouts for a dashboard in an hour and hold a comparison session, which is how genuinely different structural ideas get surfaced.</li>
+</ul>
+
+<p>A sensible sequence for a semester project is therefore: paper or whiteboard sketches &rarr; Balsamiq (or Figma used in a deliberately low-fidelity mode, e.g. greyscale boxes) for structure and flow &rarr; Figma high-fidelity with the relevant platform UI kit &rarr; interactive prototype for usability testing &rarr; handoff to implementation. Skipping the low-fidelity stage is the single most common cause of projects that look good and work badly.</p>
+
+<p>Finally, a prototyping tool is only useful if it <strong>supports the interaction patterns native to the chosen platform</strong>. A clickable prototype that only models tap-to-navigate will validate information architecture but will tell you nothing about whether your gesture vocabulary is learnable. Platform-native interactions worth prototyping explicitly include:</p>
+
+<ul>
+  <li><strong>Android:</strong> the system Back gesture or button, swipe-to-dismiss on notifications and cards, bottom-sheet drag states, pull-to-refresh, and long-press contextual action modes.</li>
+  <li><strong>iOS:</strong> the interactive edge-swipe back gesture, sheet presentations with detents (half-height and full-height stops), swipe actions on list rows, context menus on long press, and the large-title navigation bar that collapses on scroll.</li>
+  <li><strong>Windows desktop:</strong> hover states, right-click context menus, keyboard focus order and tab traversal, resizable and adaptive window layouts, and multi-select with Ctrl and Shift.</li>
+  <li><strong>Web:</strong> hover and focus states, browser back/forward behaviour, URL-addressable states, responsive reflow at breakpoints, and keyboard accessibility.</li>
+</ul>
+
+<p>Figma's "smart animate", component variants, drag interactions, and scroll-overflow settings can approximate most of these. Where a prototyping tool genuinely cannot express a pattern &mdash; true inertial scrolling physics, haptic feedback, voice input &mdash; the honest answer is to build a small code spike on the real platform rather than pretend the prototype has validated it. A worked example: a team designing a photo-triage app prototyped "swipe left to delete, swipe right to keep" in Figma using drag interactions and discovered in testing that participants expected the opposite mapping because of a dating-app convention they had internalised. That finding cost two hours in a prototype; it would have cost two weeks in code.</p>
+
+<p><strong>Android development tools</strong> centre on <strong>Android Studio</strong>, the official IDE built on JetBrains IntelliJ IDEA and distributed free by Google for Windows, macOS, Linux, and ChromeOS. It is a large, opinionated environment that bundles far more than a text editor. Its principal facilities are:</p>
+
+<ul>
+  <li><strong>Layout tools.</strong> For traditional XML-based views, a drag-and-drop Layout Editor with a constraint-based visual canvas, a blueprint mode showing the constraint graph, and live preview across device sizes, locales, themes, and API levels simultaneously.</li>
+  <li><strong>The Gradle build system</strong>, which manages dependencies, build variants (e.g. free vs. paid, staging vs. production), code shrinking with R8, and signing configurations.</li>
+  <li><strong>Debugging and profiling.</strong> Breakpoint debugging, the Logcat log viewer, the Layout Inspector for examining the live view hierarchy on a running device, and profilers for CPU, memory, network, and energy &mdash; the last being directly relevant to mobile HCI, since battery drain is a usability problem.</li>
+  <li><strong>Accessibility and quality checks.</strong> Lint rules that flag missing content descriptions, insufficient colour contrast, and touch targets below the 48dp minimum, plus integration with the Accessibility Scanner.</li>
+</ul>
+
+<p>The language of modern Android development is <strong>Kotlin</strong>. Google declared Kotlin the preferred language for Android in 2019, and new platform APIs, samples, and documentation are Kotlin-first. Kotlin interoperates completely with Java &mdash; a project can contain both, and Kotlin can call Java libraries directly &mdash; but new work should be Kotlin. Its practical advantages over legacy Java for UI work include null safety enforced by the type system (eliminating a large share of the <code>NullPointerException</code> crashes that historically plagued Android), far less boilerplate, extension functions, and <strong>coroutines</strong> for structured concurrency. Coroutines matter for HCI directly: the main thread on Android must stay free to render at 60 or 120 frames per second, and any blocking work on it produces jank or an "Application Not Responding" dialog. Coroutines make it straightforward to move work off the main thread and back again without callback nesting.</p>
+
+<pre><code>// Kotlin coroutine keeping the UI thread responsive
+viewModelScope.launch {
+    _uiState.value = UiState.Loading
+    val result = withContext(Dispatchers.IO) {
+        repository.fetchArticles()   // network / disk work, off the main thread
+    }
+    _uiState.value = UiState.Success(result)   // back on the main thread
+}</code></pre>
+
+<p><strong>Jetpack Compose</strong> is Google's modern declarative UI toolkit and the recommended way to build new Android interfaces. Instead of defining a static XML layout and then imperatively mutating it from code (<code>findViewById(R.id.title).text = "Hello"</code>), you write composable functions that describe what the UI should look like for a given state. When the state changes, Compose recomposes the affected parts of the tree automatically. This removes an entire category of bugs in which the visible interface drifts out of sync with the underlying data.</p>
+
+<pre><code>@Composable
+fun ArticleCard(article: Article, onBookmark: (Article) -&gt; Unit) {
+    Card(modifier = Modifier.fillMaxWidth().padding(16.dp)) {
+        Column(modifier = Modifier.padding(16.dp)) {
+            Text(text = article.title, style = MaterialTheme.typography.titleLarge)
+            Spacer(Modifier.height(8.dp))
+            Text(text = article.summary, style = MaterialTheme.typography.bodyMedium)
+            IconButton(onClick = { onBookmark(article) }) {
+                Icon(
+                    imageVector = Icons.Default.BookmarkBorder,
+                    contentDescription = "Bookmark ${article.title}"
+                )
+            }
+        }
+    }
+}</code></pre>
+
+<p>Note two HCI-relevant details in that snippet. <code>MaterialTheme.typography</code> pulls type styles from the Material 3 theme, so the app inherits the platform type scale and respects the user's system font-size preference. <code>contentDescription</code> supplies the label that TalkBack, Android's screen reader, will announce &mdash; omitting it leaves a blind user with an unlabelled button. Compose also provides <code>@Preview</code> annotations that render composables directly in Android Studio without deploying to a device, which tightens the design iteration loop considerably, and it supports Material 3 dynamic colour, where the app palette is derived from the user's wallpaper.</p>
+
+<p>The <strong>Android Emulator</strong> completes the toolchain. It runs a full virtualised Android system image, hardware-accelerated on modern CPUs, and allows a developer to create virtual devices spanning the fragmentation that defines Android: a small 5-inch phone at 720p, a 6.7-inch flagship at 1440p, a 10-inch tablet, a foldable with a hinge and two postures, Wear OS watches, Android TV, and Android Automotive. Beyond screen size, the emulator can simulate conditions that are tedious to reproduce physically &mdash; GPS coordinates and route playback, incoming calls and SMS interrupting a flow, poor network (2G, high latency, packet loss), battery level and charging state, device rotation, locale and right-to-left layout, dark mode, and large font scaling. Testing a layout at 200% font scale with a long German string in RTL mirroring will surface more real defects in ten minutes than an hour of tapping around in the happy path. The emulator does not replace physical devices entirely &mdash; real touch ergonomics, thermal behaviour, camera quality, haptics, and genuine one-handed reach can only be assessed on hardware &mdash; but it makes broad configuration coverage feasible for a student team with one phone between them.</p>
+
+<p><strong>iOS development tools</strong> are more tightly constrained, and the first constraint is a hard logistical one: <strong>Xcode</strong> is the required IDE for building, signing, and submitting iOS applications, and <strong>Xcode runs only on macOS</strong>. There is no supported Windows or Linux version. This single fact must be surfaced during project planning, because a team without access to a Mac (or a legitimately licensed cloud-Mac service, or a university lab machine) cannot ship a native iOS app at all. It is a classic example of a tooling constraint that should appear explicitly in a project scope document as a risk with a mitigation, not be discovered in week nine.</p>
+
+<p>Xcode itself bundles the compiler toolchain, Interface Builder (for legacy UIKit storyboards and XIBs), SwiftUI live previews, the Simulator, Instruments for performance profiling, an accessibility inspector, test runners for unit and UI tests, and the signing and provisioning machinery needed to install builds on real devices and submit to App Store Connect. Code signing deserves specific mention because it reliably consumes a day of a first-time team's schedule: running on a physical iPhone requires an Apple ID and a provisioning profile, and distributing to external testers requires a paid Apple Developer Program membership and TestFlight.</p>
+
+<p><strong>Swift</strong> is Apple's modern language for all its platforms, introduced in 2014 and now thoroughly dominant over Objective-C for new work. It is statically typed, memory-safe through automatic reference counting, and designed for clarity at the point of use. Relevant features include optionals (making the possible absence of a value explicit in the type system), value-type structs and enums with associated values for precise state modelling, protocol-oriented design, and <code>async</code>/<code>await</code> with actors for safe concurrency &mdash; the same main-thread-responsiveness concern described for Android applies identically here.</p>
+
+<p><strong>SwiftUI</strong> is the declarative UI framework and the recommended starting point for new iOS projects. Conceptually it is very close to Jetpack Compose: UI is a function of state, state changes trigger re-rendering, and layout is expressed by composing small views with modifiers.</p>
+
+<pre><code>struct ArticleCard: View {
+    let article: Article
+    @State private var isBookmarked = false
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(article.title)
+                .font(.headline)
+            Text(article.summary)
+                .font(.body)
+                .foregroundStyle(.secondary)
+            Button {
+                isBookmarked.toggle()
+            } label: {
+                Label("Bookmark", systemImage: isBookmarked ? "bookmark.fill" : "bookmark")
+            }
+            .accessibilityLabel("Bookmark \(article.title)")
+        }
+        .padding()
+    }
+}</code></pre>
+
+<p>SwiftUI's strongest HCI argument is that it inherits platform behaviour by default. Using <code>.font(.headline)</code> rather than a fixed point size means the text automatically honours Dynamic Type, so a user who has enlarged system text for low vision gets a larger headline without any further work. Using <code>Label</code> with an SF Symbol gives an icon that scales with text and matches system weight. Standard controls get VoiceOver support, Dark Mode, high-contrast variants, and right-to-left mirroring essentially for free. Xcode's <strong>live previews</strong> render SwiftUI views beside the code and update as you type, and preview variants let you check a view simultaneously in light and dark mode, at the largest accessibility text size, and in several locales. Many teams still encounter <strong>UIKit</strong>, the older imperative framework, because it remains more mature for certain complex cases (highly customised collection layouts, intricate camera interfaces) and because existing codebases use it; the two interoperate through representable wrappers.</p>
+
+<p>The <strong>iOS Simulator</strong> provides virtual iPhone and iPad models across screen sizes and iOS versions, launching far faster than the Android emulator because it runs the app natively on the Mac rather than emulating ARM hardware. It supports simulated location, rotation, Dynamic Type size changes, colour-blindness filters, Dark Mode toggling, slow-animation mode for inspecting transitions, and recording of video and screenshots for reports. Its limitations are significant and should be stated explicitly in any test plan: the Simulator has no real camera, no genuine Bluetooth or cellular radio, no haptic feedback, no Face ID hardware (only a simulated enrol/match menu), unreliable performance characteristics, and no way to assess thumb reach on a physically large handset. Device testing before release is therefore not optional.</p>
+
+<p><strong>Windows development tools</strong> revolve around <strong>Visual Studio</strong>, Microsoft's full-featured IDE (distinct from the lighter-weight Visual Studio Code). The Community edition is free for students, individuals, and small teams. Visual Studio provides project templates, a XAML designer with live visual tree inspection and hot reload, IntelliSense code completion, an exceptionally capable debugger with edit-and-continue, memory and CPU profilers, test runners, and integrated packaging tooling for MSIX installers and Microsoft Store submission.</p>
+
+<p>The recommended modern native stack is <strong>C# with WinUI 3</strong>. C# is a mature, statically typed, garbage-collected language with first-class <code>async</code>/<code>await</code>, LINQ for data querying, and strong tooling. WinUI 3 is the current native UI framework for Windows, providing the Fluent Design control set that matches Windows 11: NavigationView for the standard left navigation pane with its hamburger collapse behaviour, CommandBar, TeachingTip for contextual onboarding, InfoBar for inline status messages, ContentDialog for modals, and materials such as Mica (a subtle wallpaper-derived window backdrop) and Acrylic (translucent blur for transient surfaces). Using these controls means an application automatically respects the user's light/dark theme, accent colour, animation-reduction setting, and high-contrast themes.</p>
+
+<p>WinUI 3 ships as part of the <strong>Windows App SDK</strong>, which is the decoupling layer that solved a long-standing Windows problem. Historically, a developer could only use UI features present in the version of Windows the user had installed, which meant waiting years for adoption before new controls were usable. The Windows App SDK packages the modern UI stack and a unified set of APIs &mdash; windowing, app lifecycle, notifications, resource management, dynamic dependencies, and DWriteCore text rendering &mdash; with the application itself, so it works consistently across supported Windows 10 and Windows 11 versions and can be updated on the app's schedule rather than the operating system's. It also deliberately does not replace Win32: existing Win32, WPF, and WinForms applications can adopt individual Windows App SDK features incrementally, which matters in enterprise contexts where a twelve-year-old line-of-business application cannot be rewritten.</p>
+
+<p><strong>XAML</strong> (eXtensible Application Markup Language) is the declarative markup used to define WinUI layouts. It separates UI structure from behaviour, and its data-binding system connects UI elements to view-model properties so the interface updates when data changes &mdash; the same state-driven principle as Compose and SwiftUI, expressed in markup rather than code.</p>
+
+<pre><code>&lt;StackPanel Padding="16" Spacing="8"&gt;
+    &lt;TextBlock Text="{x:Bind ViewModel.Title, Mode=OneWay}"
+               Style="{StaticResource TitleTextBlockStyle}" /&gt;
+    &lt;TextBox Header="Project name"
+             PlaceholderText="e.g. Campus Navigator"
+             Text="{x:Bind ViewModel.ProjectName, Mode=TwoWay}" /&gt;
+    &lt;Button Content="Create project"
+            Command="{x:Bind ViewModel.CreateCommand}"
+            Style="{StaticResource AccentButtonStyle}"
+            AutomationProperties.HelpText="Creates a new project with the entered name" /&gt;
+&lt;/StackPanel&gt;</code></pre>
+
+<p>Several desktop-specific HCI concerns are handled through XAML attributes: <code>AutomationProperties</code> feed the UI Automation tree used by the Narrator screen reader; <code>TabIndex</code> and <code>KeyboardAccelerator</code> define keyboard traversal and shortcuts, which desktop users expect far more strongly than mobile users; and <code>AdaptiveTrigger</code> with <code>VisualStateManager</code> lets a single layout reflow as the window is resized from a narrow snapped pane to a full 4K display. It is also worth noting the alternative Windows stacks you will encounter: <strong>WPF</strong> (mature, XAML-based, still widely used in enterprise), <strong>WinForms</strong> (legacy, drag-and-drop, fine for simple internal tools), and <strong>.NET MAUI</strong> (cross-platform, sharing C# and XAML across Windows, macOS, Android, and iOS, and itself built on WinUI 3 on Windows).</p>
+
+<p><strong>Web development tools</strong> have the lowest barrier to entry of any platform, which is a large part of why the web is so often the pragmatic choice for a time-boxed project. The common editor is <strong>Visual Studio Code</strong>: free, open-source, and available on Windows, macOS, and Linux. It is a text editor rather than a full IDE, but its extension marketplace closes most of the gap &mdash; syntax support for essentially every language, Prettier and ESLint for formatting and linting, Live Server for instant reload, Git integration, Docker and remote-container support, debugger integration with Chrome and Node.js, and accessibility linters such as axe or the webhint extension that flag missing alt text and ARIA misuse as you type. Its cross-platform availability also means a mixed team on different operating systems can share an identical configuration through a committed <code>.vscode</code> folder.</p>
+
+<p>Underneath every framework and build tool, the web rests on three foundational technologies, and understanding them is non-negotiable:</p>
+
+<ul>
+  <li><strong>HTML</strong> provides structure and, critically, <em>semantics</em>. Using <code>&lt;button&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;label&gt;</code>, and heading levels correctly gives screen readers a navigable document outline and gives keyboard users working focus and activation behaviour for free. A <code>&lt;div onclick&gt;</code> styled to look like a button has none of that and must have role, tabindex, and key handling added manually &mdash; which is why semantic HTML is an accessibility decision before it is a coding style.</li>
+  <li><strong>CSS</strong> controls presentation and responsive behaviour. Flexbox and Grid handle two-dimensional layout; media queries and container queries adapt to viewport or component size; custom properties implement design tokens shared with Figma; and <code>prefers-color-scheme</code>, <code>prefers-reduced-motion</code>, and <code>prefers-contrast</code> let a site respect user accessibility preferences expressed at the operating-system level.</li>
+  <li><strong>JavaScript</strong> supplies behaviour, asynchronous data fetching, and state management, running in a single-threaded event loop where long synchronous work blocks rendering and input handling &mdash; the web's equivalent of main-thread jank.</li>
+</ul>
+
+<pre><code>&lt;!-- Semantic, accessible by default --&gt;
+&lt;label for="search"&gt;Search articles&lt;/label&gt;
+&lt;input id="search" type="search" name="q" autocomplete="off"&gt;
+&lt;button type="submit"&gt;Search&lt;/button&gt;
+
+&lt;!-- Visually identical, behaviourally broken --&gt;
+&lt;div class="label"&gt;Search articles&lt;/div&gt;
+&lt;div class="input" contenteditable="true"&gt;&lt;/div&gt;
+&lt;div class="button" onclick="search()"&gt;Search&lt;/div&gt;</code></pre>
+
+<p><strong>Frameworks</strong> such as React, Vue, and Angular sit on top of these foundations. They all solve the same core problem &mdash; keeping a complex UI synchronised with changing application state &mdash; using the same declarative, component-based idea seen in Compose, SwiftUI, and XAML binding. They differ in philosophy and weight:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Framework</th>
+      <th>Character</th>
+      <th>Typical strengths</th>
+      <th>Costs to weigh</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>React</strong></td>
+      <td>A library, not a full framework; JSX components plus hooks</td>
+      <td>Largest ecosystem and hiring pool; shares mental model with React Native; meta-frameworks such as Next.js add routing and rendering</td>
+      <td>You assemble routing, state, and data fetching yourself; many competing conventions; easy to misuse hooks</td>
+    </tr>
+    <tr>
+      <td><strong>Vue</strong></td>
+      <td>Progressive framework with single-file components</td>
+      <td>Gentle learning curve; template syntax close to plain HTML; official router and state libraries</td>
+      <td>Smaller job market than React; two API styles (Options and Composition) can confuse beginners</td>
+    </tr>
+    <tr>
+      <td><strong>Angular</strong></td>
+      <td>Opinionated full framework, TypeScript-first</td>
+      <td>Batteries included: routing, forms, HTTP, dependency injection, testing; consistency across large teams</td>
+      <td>Steepest learning curve; most ceremony; heavier for small projects</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The honest trade-off is that frameworks <em>accelerate</em> development only once the learning cost has been paid. For a four-week project in which no team member has used Angular, adopting Angular will almost certainly slow you down; the time goes into dependency injection and build configuration rather than into user research and iteration. For a ten-week project building a dashboard with thirty interactive components and shared state, writing it in hand-rolled DOM manipulation will slow you down instead, because you will reinvent a worse version of what the framework already provides. A defensible rule of thumb: match framework weight to interface complexity and existing team skill, and prefer the simplest option that will not require a rewrite. A largely static informational site may need no framework at all, or only a static-site generator.</p>
+
+<p><strong>Browser developer tools</strong> in Chrome and Firefox are the web's debugging, profiling, and auditing environment, and they are essential rather than optional. The panels that matter most for interface work are:</p>
+
+<ul>
+  <li><strong>Elements/Inspector</strong> &mdash; live inspection and editing of the DOM and CSS, with the box model, computed styles, Flexbox and Grid overlays, and a colour picker that reports WCAG contrast ratios against the background and will suggest a compliant colour.</li>
+  <li><strong>Console</strong> &mdash; logging, error messages, and an interactive JavaScript REPL against the live page.</li>
+  <li><strong>Network</strong> &mdash; request waterfalls, payload sizes, caching behaviour, and throttling presets that simulate slow 3G or offline, which is how you discover that your 2&nbsp;MB hero image makes the page unusable on a bus.</li>
+  <li><strong>Performance</strong> &mdash; frame-by-frame recording of scripting, layout, and paint, exposing long tasks that block input and the layout thrashing that causes jank.</li>
+  <li><strong>Device toolbar / Responsive Design Mode</strong> &mdash; emulated viewports, device pixel ratios, touch input, and orientation for responsive testing.</li>
+  <li><strong>Accessibility panel</strong> &mdash; the accessibility tree, computed roles and names, focus order inspection, and colour-vision deficiency simulation (Chrome also simulates blurred vision).</li>
+  <li><strong>Lighthouse</strong> (Chrome) &mdash; automated audits producing scores for performance, accessibility, best practices, and SEO, including Core Web Vitals such as Largest Contentful Paint, Cumulative Layout Shift, and Interaction to Next Paint. These map directly onto user-perceived responsiveness and visual stability, making them useful, measurable success criteria for a project.</li>
+</ul>
+
+<p>Automated audits catch perhaps a third to a half of real accessibility defects; they will flag a missing <code>alt</code> attribute but not an unhelpful one, and they cannot tell you whether a flow makes sense. They are a floor, not a ceiling, and must be paired with keyboard-only walkthroughs and screen-reader testing.</p>
+
+<p><strong>Cross-platform tools and frameworks</strong> exist to amortise effort across targets. <strong>Flutter</strong>, from Google, builds Android and iOS applications (plus web, Windows, macOS, and Linux) from a single <strong>Dart</strong> codebase. Its distinguishing architectural choice is that it does <em>not</em> use the host platform's native widgets; it ships its own rendering engine (Impeller, formerly Skia) and draws every pixel itself. The consequences are double-edged: you get pixel-identical output everywhere, a very fast hot-reload development loop, and excellent control over custom-branded design; but you also inherit responsibility for platform fidelity, because a Flutter widget only behaves like an iOS control if the framework's Cupertino library happens to replicate the current behaviour accurately. Flutter does provide both Material and Cupertino widget sets to mitigate this.</p>
+
+<pre><code>// Flutter: declarative UI in Dart
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(title: const Text('Articles')),
+    body: ListView.builder(
+      itemCount: articles.length,
+      itemBuilder: (context, i) =&gt; ListTile(
+        title: Text(articles[i].title),
+        subtitle: Text(articles[i].summary),
+        onTap: () =&gt; openArticle(articles[i]),
+      ),
+    ),
+  );
+}</code></pre>
+
+<p><strong>React Native</strong>, from Meta, takes the opposite approach: JavaScript (usually with React and TypeScript) drives <em>actual native platform components</em>, so a <code>&lt;Switch&gt;</code> renders as a real Android Material switch and a real iOS toggle, with each platform's own animation and accessibility behaviour. This buys better native feel and lets web-skilled teams reuse their React knowledge and much of their business logic. The costs are a bridge/interop layer between JavaScript and native code that can become a performance bottleneck for animation-heavy or computation-heavy screens, a dependency on third-party native modules of variable quality, and more complex upgrade paths. Expo, a managed toolchain around React Native, substantially reduces setup friction and is a common choice for student projects &mdash; though note that even with Expo, producing a signed iOS build for the App Store still ultimately requires Apple's tooling and a developer account, via a cloud build service if not a local Mac.</p>
+
+<p><strong>Electron</strong> wraps a web application &mdash; Chromium for rendering plus Node.js for system access &mdash; into a desktop application for Windows, macOS, and Linux. It is the technology behind Visual Studio Code, Slack, Discord, Figma's desktop client, and Obsidian, which demonstrates that excellent products can be built this way. Its advantages are that a web team can ship a desktop app with existing skills, gain file-system, menu-bar, tray, and auto-update capabilities, and maintain one codebase for three desktop operating systems. Its costs are equally well documented: each app bundles an entire browser, so installers run to 80&ndash;150&nbsp;MB and idle memory use is high; startup is slower than native; and the app does not automatically honour platform conventions such as macOS menu-bar placement, Windows accent colours, or native context menus unless the developer implements them deliberately. Tauri is a newer, lighter alternative that uses the operating system's built-in webview and a Rust backend, producing much smaller binaries.</p>
+
+<p>The central HCI trade-off across all of these is that <strong>cross-platform tools may sacrifice platform-specific UI conventions</strong>, and that sacrifice is paid by users, not developers. Users do not experience your codebase; they experience whether the Back gesture works, whether the date picker looks like the one in every other app on their phone, whether Ctrl+W closes the window, whether the screen reader announces controls properly, and whether a new OS feature appears in your app this year or in two years. Jakob's Law &mdash; users spend most of their time on other products and therefore expect yours to work the same way &mdash; is the principle at stake. Concrete symptoms of convention drift include Android-style overflow menus appearing on iOS, missing support for iOS swipe-back, non-native text-selection and context menus, scroll physics and overscroll behaviour that feel subtly wrong, delayed support for new system font sizes or dark-mode variants, and inconsistent haptics.</p>
+
+<p>The following comparison summarises how the options trade off against each other:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Approach</th>
+      <th>Languages / tools</th>
+      <th>Targets</th>
+      <th>Native UI fidelity</th>
+      <th>Best suited to</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Native Android</td>
+      <td>Kotlin, Jetpack Compose, Android Studio</td>
+      <td>Android phones, tablets, foldables, Wear</td>
+      <td>Highest</td>
+      <td>Android-first audiences; deep OS integration; performance-critical or hardware-heavy apps</td>
+    </tr>
+    <tr>
+      <td>Native iOS</td>
+      <td>Swift, SwiftUI/UIKit, Xcode (macOS only)</td>
+      <td>iPhone, iPad</td>
+      <td>Highest</td>
+      <td>Apple-centric audiences; accessibility-critical work; earliest access to new OS features</td>
+    </tr>
+    <tr>
+      <td>Native Windows</td>
+      <td>C#, WinUI 3, XAML, Windows App SDK, Visual Studio</td>
+      <td>Windows 10/11 desktop</td>
+      <td>Highest</td>
+      <td>Enterprise desktop tools; heavy keyboard/multi-window workflows; local file and hardware access</td>
+    </tr>
+    <tr>
+      <td>Web</td>
+      <td>HTML, CSS, JavaScript, optional framework, VS Code</td>
+      <td>Any modern browser</td>
+      <td>N/A &mdash; web conventions apply</td>
+      <td>Broad reach, zero install, instant updates, link-shareable content</td>
+    </tr>
+    <tr>
+      <td>Flutter</td>
+      <td>Dart, Flutter SDK</td>
+      <td>Android, iOS (+ web, desktop)</td>
+      <td>Medium &mdash; self-rendered widgets</td>
+      <td>Strong custom branding across mobile platforms with one team</td>
+    </tr>
+    <tr>
+      <td>React Native</td>
+      <td>JavaScript/TypeScript, React, Expo</td>
+      <td>Android, iOS</td>
+      <td>Medium-high &mdash; real native components</td>
+      <td>Web-skilled teams needing a credible native mobile feel</td>
+    </tr>
+    <tr>
+      <td>Electron</td>
+      <td>HTML, CSS, JavaScript, Node.js</td>
+      <td>Windows, macOS, Linux desktop</td>
+      <td>Low-medium &mdash; web UI in a window</td>
+      <td>Reusing an existing web app as a desktop product</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A practical way to decide is to ask a short series of questions and record the answers as justification. Who are the users and what devices do they actually hold? What is the team's existing skill set, and how much of the timeline can be spent learning? Is a Mac available? How much of the interface is standard platform chrome versus custom-drawn content &mdash; a game or a drawing canvas loses little by going cross-platform, whereas a form-heavy productivity tool loses a great deal? Does the app need capabilities that are awkward outside native code, such as background location, widgets, deep OS integration, or specialised sensors? How critical is accessibility, and can you test it adequately in the chosen stack? What are the distribution constraints and timeline for updates? A team that answers these honestly and writes the answers down has a defensible toolchain decision; a team that picks Flutter because a tutorial was convenient has a guess.</p>
+
+<p>A final, often-overlooked point: the toolchain extends beyond design and coding tools to version control (Git with GitHub or GitLab), issue tracking, continuous integration for automated builds and tests, crash and analytics reporting, and user-testing infrastructure such as screen-recording or remote testing platforms. For a small project these can be lightweight, but choosing them deliberately &mdash; and noting them in the project scope &mdash; prevents the common failure mode in which three weeks of work exists only on one laptop.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+<ul>
+  <li><strong>MO1:</strong> The topic supports this outcome by exposing the concrete design constraints that each platform's tooling embodies &mdash; Material Design and 48dp touch targets on Android, the Human Interface Guidelines and Dynamic Type on iOS, Fluent controls and keyboard traversal on Windows, and semantic HTML with responsive breakpoints on the web &mdash; giving students a tool-level basis for comparing platforms against target user needs.</li>
+  <li><strong>MO2:</strong> The comparison of native, cross-platform, and web stacks, together with the trade-off table and the decision questions on team skill, device access, UI fidelity, and distribution, provides the evidence base students need to select a platform and toolchain and justify that selection against stated project requirements.</li>
+  <li><strong>MO3:</strong> The topic feeds scope definition by identifying tooling constraints and risks that belong in a scope document &mdash; the macOS requirement for Xcode, framework learning curves, emulator versus physical-device testing limits &mdash; and by supplying measurable success criteria such as Lighthouse accessibility and Core Web Vitals scores.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Tool versions and vendor recommendations change frequently (for example Material 3 expressive updates, SwiftUI releases, WinUI/Windows App SDK versioning, and React Native&#39;s New Architecture). Verify current official guidance before delivery. If students lack macOS access, flag cloud-Mac or Expo EAS build options early in project planning. Code snippets are illustrative rather than complete compilable projects.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

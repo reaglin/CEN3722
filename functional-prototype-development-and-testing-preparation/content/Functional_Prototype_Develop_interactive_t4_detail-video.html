@@ -1,0 +1,205 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Designing User Proficiency Surveys</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Functional Prototype Development and Testing Preparation</a></div>
+  <header>
+    <h1>Designing User Proficiency Surveys</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Designing User Proficiency Surveys</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Before a usability session begins, researchers face a fundamental question: <em>who, exactly, is sitting in front of the prototype?</em> A participant's prior experience with technology, their familiarity with a particular domain, and their history with similar products can dramatically shape how they interact with an interface — and therefore how useful their session data will be. Proficiency surveys are the structured instrument researchers use to answer that question systematically. Administered before any tasks begin, these short questionnaires capture the background characteristics of each participant, enabling rigorous, evidence-based interpretation of everything that follows. Without them, a researcher who observes one participant completing a checkout flow in ninety seconds and another taking eight minutes has no principled way to explain the gap. With well-designed proficiency data in hand, that same researcher can determine whether the slower participant is a first-time e-commerce user, an older adult with limited touchscreen experience, or simply someone who falls outside the intended user profile altogether.</p>
+
+<p>Understanding why proficiency surveys matter — and then learning to build them carefully — is one of the highest-leverage skills in the usability practitioner's toolkit. The sections below work through four interconnected areas: the purpose and value these instruments serve, how to identify which proficiency dimensions actually matter for a given study, how to write questions that produce clean and comparable data, and how to structure and deliver the survey so it fits smoothly into the overall research session.</p>
+
+<p><strong>Purpose and Value of Proficiency Surveys</strong></p>
+
+<p>Proficiency surveys do several distinct jobs simultaneously, and appreciating each one explains why this step is worth investing in rather than skipping or improvising.</p>
+
+<p>The first and most immediate function is <strong>recruitment verification</strong>. Any usability study is designed around a target user profile — a description of the people the product is built for. Recruiting processes try to find participants who match that profile, but screening calls are imperfect. A participant may have accurately described themselves as a "regular smartphone user" during recruitment but turn out to use only a handful of apps and never interact with settings menus. A proficiency survey administered at the start of the session provides a second, more granular pass at the same question. If a participant's survey responses reveal a significant mismatch with the target profile, the researcher can make an informed decision about how much weight to give that session's data — or, in extreme cases, whether to pause and address the discrepancy before continuing.</p>
+
+<p>The second function is enabling <strong>stratified analysis</strong>. Usability findings become far more actionable when a team can say not just "users had trouble with the navigation menu" but "users with fewer than two years of experience with cloud-based tools consistently missed the navigation menu, while users with more extensive backgrounds navigated successfully on the first attempt." That level of specificity guides design decisions in a way that pooled, undifferentiated findings cannot. Stratified analysis requires that proficiency data be collected <em>before</em> the session so that groupings are defined independently of performance outcomes.</p>
+
+<p>The third function is <strong>preventing post-hoc rationalization</strong>. Human memory is constructive, not archival. If a researcher waits until after observing a difficult session to ask a participant about their background, the researcher's interpretation of that background — and the participant's own self-report — may be subtly colored by how the session went. Collecting proficiency data first creates a clean baseline that is logically prior to, and therefore uncontaminated by, task performance. This is especially important in studies that will be shared with stakeholders who may be tempted to explain away unflattering results.</p>
+
+<p>Finally, proficiency surveys contribute to <strong>reproducibility and cross-study comparability</strong>. When a research team uses consistent proficiency instruments across studies conducted at different points in time or across different products, they build a richer picture of how user characteristics relate to usability outcomes. Organizations that invest in standardized proficiency items can eventually draw on accumulated data to make predictions — for instance, anticipating which user segments are likely to need additional onboarding support when a redesign is released.</p>
+
+<p><strong>Identifying Relevant Proficiency Dimensions</strong></p>
+
+<p>Not every conceivable aspect of a participant's background is relevant to every study. Including unnecessary questions wastes participant time, increases cognitive burden, and can make the survey feel invasive or unfocused. The starting point for building a proficiency survey is therefore a deliberate, principled exercise in identifying which participant characteristics are <em>theoretically linked</em> to performance on the specific tasks being tested.</p>
+
+<p>A useful organizing framework distinguishes three broad categories of proficiency:</p>
+
+<ul>
+  <li><strong>General digital literacy.</strong> This captures how comfortable and capable a person is with technology broadly — not with any specific product, but with digital environments in general. Relevant items might ask about frequency of smartphone use, comfort with installing and configuring apps, experience with web-based forms and account creation, or self-assessed ability to troubleshoot common device problems. General digital literacy is relevant to almost any study involving software or hardware, because it sets a ceiling on the kinds of interface conventions a participant can be expected to recognize without explanation.</li>
+  <li><strong>Domain expertise.</strong> This dimension captures knowledge of the subject matter that the product addresses, independent of the product itself. A study of a clinical decision-support tool should assess medical training and clinical experience, because a nurse practitioner and a layperson will interpret the same interface labels very differently. A study of a personal finance app should assess familiarity with concepts like compound interest, investment accounts, and budget categories. Domain expertise matters when the product's language, information architecture, or task logic mirrors professional or specialized knowledge that not all users share.</li>
+  <li><strong>Prior product experience.</strong> This dimension covers familiarity with the specific product under test and with competing or functionally similar products. A participant who has used a competitor's project management platform for three years brings mental models that may either transfer productively or create interference when they encounter the new interface. Capturing this history allows the researcher to interpret navigation choices and error patterns in light of what the participant already expects the product to do.</li>
+</ul>
+
+<p>To decide which dimensions belong in a given survey, work backward from the research questions and test tasks. Ask: <em>If two participants performed very differently on this task, what background differences would most plausibly explain the gap?</em> Any characteristic that appears in the answer to that question is a candidate for inclusion. Any characteristic that does not appear is probably not worth asking about.</p>
+
+<p>Demographic items — age, education level, occupation, geographic region — occupy a special category. They should be included only when they are directly relevant to the research questions, not as a default. Age is relevant when the product is designed for or is known to behave differently with specific age groups, or when cognitive or motor considerations tied to age are part of the research focus. Education level is relevant when it serves as a practical proxy for domain knowledge or literacy. Including demographics simply because they are customary, or to satisfy a general curiosity, risks making participants feel profiled and can undermine trust without adding analytical value.</p>
+
+<p>A practical discipline is to list every item being considered and, for each one, write a single sentence explaining exactly how that item's data will be used in the analysis. If a convincing sentence cannot be written, the item should be cut. This exercise keeps surveys lean and respects participant time — the survey should be completable in five to ten minutes, not because that is an arbitrary norm, but because a longer survey fatigues participants before the actual session begins and may bias their behavior in the tasks that follow.</p>
+
+<p><strong>Writing Effective Survey Questions</strong></p>
+
+<p>Even when the right dimensions have been identified, poorly written questions will produce unreliable data. Survey question quality is not a minor stylistic concern; it directly determines whether different participants interpret items in the same way, which is the precondition for comparing their responses meaningfully.</p>
+
+<p>The first principle is <strong>plain, unambiguous language</strong>. Every word in a question should be understandable to someone at the low end of the target user spectrum. Avoid technical jargon unless the term is specifically what is being assessed. Compare these two versions of the same item:</p>
+
+<ul>
+  <li><em>Weak:</em> "How proficient are you with asynchronous collaborative digital productivity ecosystems?"</li>
+  <li><em>Strong:</em> "How often do you use tools like Google Docs, Microsoft 365, or Notion to work on documents with other people?"</li>
+</ul>
+
+<p>The strong version names specific, recognizable examples, uses everyday vocabulary, and anchors the question in a concrete behavior (frequency of use) rather than a self-assessed trait (proficiency), which participants find easier to report accurately.</p>
+
+<p>The second principle is <strong>avoiding double-barreled questions</strong>. A double-barreled question asks about two distinct things within a single item, making it impossible to know which part a participant is responding to. For example: "How comfortable are you with setting up new software applications and troubleshooting errors?" A participant who is confident installing software but anxious about troubleshooting has no correct way to answer this. The solution is to split every compound question into two separate items.</p>
+
+<p>The third principle is <strong>providing mutually exclusive and collectively exhaustive response options</strong>. Response options are <em>mutually exclusive</em> when no participant can reasonably place themselves in two categories at once. They are <em>collectively exhaustive</em> when every participant can place themselves in at least one category. Both properties are essential for clean data.</p>
+
+<p>Consider frequency response options for a question about how often a participant uses a particular type of software:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Problematic Options</th>
+      <th>Why They Fail</th>
+      <th>Improved Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Daily / Weekly / Sometimes / Rarely</td>
+      <td>"Sometimes" and "rarely" overlap; a participant who uses the tool once a month could choose either. "Daily" and "weekly" overlap for someone who uses it five days a week.</td>
+      <td>Every day / A few times a week / A few times a month / Less than once a month / Never</td>
+    </tr>
+    <tr>
+      <td>1–2 years / 3–5 years / 5+ years</td>
+      <td>Someone with exactly 5 years of experience could select either the second or third option. Participants with less than 1 year have no option.</td>
+      <td>Less than 1 year / 1–2 years / 3–4 years / 5 or more years</td>
+    </tr>
+    <tr>
+      <td>Beginner / Intermediate / Expert</td>
+      <td>These labels are interpreted differently by different people; self-assessed "experts" may be the most prone to overestimation.</td>
+      <td>Pair a behavioral anchor with each label, e.g., "Beginner — I can perform basic tasks but often need help" / "Intermediate — I can complete most tasks independently" / "Advanced — I can complete all tasks independently and help others"</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The fourth principle is <strong>pilot testing</strong>. Before deploying the survey with actual participants, circulate a draft to colleagues or friends who represent the range of backgrounds in the target population. Ask them to complete the survey and then talk through their interpretation of each item. This cognitive interviewing process — even done informally — reliably surfaces confusing wording, ambiguous response options, and questions that feel sensitive or off-putting. It is far less costly to revise a question before data collection than to discover after twenty sessions that an item was interpreted in two incompatible ways by different participants.</p>
+
+<p>A few additional question-writing practices are worth noting:</p>
+
+<ul>
+  <li><strong>Use behavioral indicators rather than self-assessments wherever possible.</strong> "How many years have you been using spreadsheet software?" produces more comparable data than "How skilled are you with spreadsheets?" because frequency and duration are more concrete than perceived skill.</li>
+  <li><strong>Avoid leading language.</strong> Phrasing like "As an experienced computer user, how do you…" primes participants to present themselves as more capable than they may be. Questions should be neutrally worded so that all response options feel equally socially acceptable.</li>
+  <li><strong>Consider whether Likert scales or categorical scales are more appropriate for each item.</strong> Likert scales ("Strongly agree" to "Strongly disagree") work well for measuring attitudes and self-perceptions. Categorical or frequency scales work better for measuring behaviors and experiences. Mixing scale types intentionally and deliberately — not arbitrarily — improves data quality.</li>
+</ul>
+
+<p><strong>Structuring and Administering the Survey</strong></p>
+
+<p>A well-written set of questions can still produce a poor survey experience if those questions are arranged poorly or delivered through an ill-suited medium. Structure and administration decisions affect both the participant's experience and the quality of the data collected.</p>
+
+<p>On <strong>question ordering</strong>, the standard best practice is to move from general to specific. Begin with broad items about general technology use, then move to items about relevant domains, then to items about the specific product or product category under test. This progression mirrors natural conversation and helps participants orient themselves before being asked about narrower, potentially unfamiliar topics. Grouping related questions together — all frequency-of-use items in one section, all experience-duration items in another — reduces the cognitive overhead of switching between different types of judgment. Within each group, place easier, more straightforward items first to build momentum and put participants at ease before they reach any items that require more reflection.</p>
+
+<p>On <strong>length</strong>, the practical target of five to ten minutes is not arbitrary. Research on survey fatigue consistently shows that response quality declines as survey length increases, with the steepest drop-off occurring after about ten minutes for populations who did not seek out the survey. Because usability participants are typically arriving to complete tasks, not to answer questionnaires, keeping the proficiency survey brief also respects the implicit contract: their time and attention are being recruited primarily for the usability session, not the background questions. If a draft survey would take longer than ten minutes to complete at a reasonable reading pace, apply the analytical-utility test described earlier and cut any item for which a convincing analytical use case cannot be stated.</p>
+
+<p>On <strong>mode of administration</strong>, researchers have two main options: online delivery before the session or on-site delivery at the start. Each has genuine advantages:</p>
+
+<ul>
+  <li><strong>Online, pre-session delivery</strong> allows participants to complete the survey at their own pace, in a comfortable environment, without the slight social pressure of completing it while a researcher watches. Responses arrive before the session, giving the researcher time to review them and tailor any follow-up probes accordingly. This mode works especially well for remote usability studies and for studies where confirming participant fit in advance is important. The main risks are that participants may not complete the survey before arriving, or may share it with others, though the latter is rarely a practical concern for proficiency surveys.</li>
+  <li><strong>On-site, start-of-session delivery</strong> ensures that every participant completes the survey in a controlled environment and that responses are collected immediately before tasks begin, minimizing any time-lag effects. It also allows the moderator to answer clarifying questions about items in real time. The main risks are that on-site completion consumes session time and that participants may feel mild pressure to complete the survey quickly, reducing thoughtfulness.</li>
+</ul>
+
+<p>In practice, many research teams use a hybrid approach: a brief pre-session survey handles the most essential screening and background items, while a short on-site supplement captures any remaining items that benefit from the moderator's presence.</p>
+
+<p>On <strong>platform and data security</strong>, the survey tool must store responses in a format that is both secure and analytically accessible. Participants should be informed about how their data will be stored, who will have access to it, and how it will be used — both as an ethical obligation and as a practical measure to ensure honest responses. Survey data that will be analyzed quantitatively should be collected in a structured format (e.g., multiple-choice items with defined response values) that can be exported directly to a spreadsheet or statistical package without manual transcription, which introduces error. Free-text fields, while sometimes valuable for capturing nuanced background information, should be used sparingly and only when the research team has a clear plan for how to code and analyze the responses.</p>
+
+<p>Taken together, these four areas — purpose, dimension identification, question writing, and administration — form a coherent design process. A researcher who works through each stage thoughtfully will produce a proficiency survey that is short but analytically powerful, easy for participants to complete, and capable of supporting the nuanced, credible interpretations that distinguish excellent usability research from surface-level observation.</p>
+        <div class="notes"><strong>Notes</strong>Covers all four listed subtopic clusters in depth. Tabular data rendered as a proper HTML table comparing problematic and improved response options. No headings used; structure is carried entirely through strong tags and paragraph flow as specified.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Before a participant ever touches your prototype, you need to know something about them. A user proficiency survey is a short pre-test instrument that captures a participant's background, their familiarity with relevant technology, and their knowledge of the task domain. Without it, usability data is hard to interpret: a confusing task result might reflect a flawed interface, or it might simply reflect a participant who has never used software of that kind before.</p>
+<p>In this topic you will decide which proficiency dimensions actually matter for your project (for example, frequency of use of similar tools, years of domain experience, device preferences, accessibility needs), then write questions that measure those dimensions without leading, biasing, or confusing the respondent. You will also think about structure and administration: question order, response scales, survey length, and when and how the survey is delivered relative to the test session.</p>
+<p>The three videos below come from UX practitioners and focus on the craft of asking questions well. As you watch, pay close attention to the specific wording problems they flag — leading questions, double-barreled questions, vague scales, assumptions baked into the prompt — and keep a running list of fixes you can apply directly to your own pre-test survey draft.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: UX Research: How to Avoid Survey Mistakes</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ockM9XEqHN0?cc_load_policy=1&amp;rel=0" title="Video: UX Research: How to Avoid Survey Mistakes (UX in the Head)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>UX in the Head</strong> · 9:33 · 8,758 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=ockM9XEqHN0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video looks at why surveys are such a popular UX research method and then walks through the common mistakes that produce unreliable data. Based on its description, expect coverage of flawed question wording, poor survey design choices, and the kinds of errors that lead to results you cannot trust. It is framed around diagnosing and avoiding problems rather than simply praising surveys as a method.</p>
+<h3>Why this video</h3>
+<p>It speaks directly to the "writing effective survey questions" and "structuring and administering the survey" subtopics, and the mistake-focused framing gives you a practical checklist to review your own proficiency survey against before you send it to participants.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: 5 Tips for creating effective user research questions (+ free question bank) | Maze</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/5YfKq_qbOks?cc_load_policy=1&amp;rel=0" title="Video: 5 Tips for creating effective user research questions (+ free question bank) | Maze (Maze)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Maze</strong> · 9:26 · 3,993 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=5YfKq_qbOks" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Maze, a research and testing platform company, offers five tips for creating effective user research questions and points to a free question bank you can draw from. The video's premise is that research quality is capped by question quality, so it concentrates on asking the right things in the right way. The accompanying question bank gives you concrete phrasing examples to adapt.</p>
+<h3>Why this video</h3>
+<p>The tip-based format and the downloadable question bank are immediately useful when you are drafting items for proficiency dimensions such as technology familiarity and domain experience, and the producer builds research tooling used in industry.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: UX Research: Asking The Right User Interview Questions</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/H_SjVyKNXHE?cc_load_policy=1&amp;rel=0" title="Video: UX Research: Asking The Right User Interview Questions (UX in the Head)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>UX in the Head</strong> · 10:03 · 13,837 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=H_SjVyKNXHE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video focuses on user interview questions: which ones to ask, which to avoid, and how phrasing shapes the answers you get. Although it is framed around live interviews rather than written surveys, the underlying principles of neutral, non-leading, answerable questions transfer directly. It also helps you see when a question is better asked face-to-face than on a form.</p>
+<h3>Why this video</h3>
+<p>It reinforces question-writing discipline from a second angle and helps you decide how to administer your proficiency screening — as a written pre-test survey, as a brief verbal intake, or as a combination of both.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos support MO2 most directly: a proficiency survey is one of the data collection instruments in your user testing plan, and the responses you gather also inform your participant criteria and screening decisions. Learning to write neutral, precise questions means the background data you collect will actually explain patterns in your test results rather than muddy them. Indirectly, this work also supports MO1 and MO3, since knowing your participants' skill levels clarifies which prototype features must be functional and verifiable before testing begins.</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

@@ -1,0 +1,807 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Cognitive Walkthrough Evaluation Method</title>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Cognitive Walkthrough Evaluation Method</a></div>
+<h1>Cognitive Walkthrough Evaluation Method</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Cognitive_Walkthrough_Evalua</a>
+<a href="#part2">Preparing for a Cognitive Walkthrough</a>
+<a href="#part3">The Step-by-Step Cognitive Walkthrough Procedure</a>
+<a href="#part4">Identifying and Documenting Failure Points</a>
+<a href="#part5">Applying the Method to Peer Prototypes</a>
+<a href="#part6">Interpreting Results and Communicating Findings</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Cognitive_Walkthrough_Evalua</h2>
+<main>
+    <div class="slide-card">
+      <div class="slide-header"><span class="slide-num">1</span><h3>Foundations of the Cognitive Walkthrough Method</h3><span class="chevron">▶</span></div>
+      <div class="slide-body">
+        <p>The <strong>Cognitive Walkthrough</strong> is a structured usability inspection method developed by Polson, Lewis, Rieman, and Wharton in the early 1990s. Unlike user testing, it requires no real end users — instead, evaluators systematically step through an interface to assess how easily a first-time user could learn to accomplish tasks.</p>
+<ul>
+  <li><strong>Inspection without users:</strong> Evaluators simulate the perspective of a novice user, examining each interface action to judge whether the next correct step is apparent and achievable.</li>
+  <li><strong>Learnability as the central focus:</strong> The method specifically targets how quickly and intuitively a first-time or infrequent user can reach a basic level of task performance — recurring, expert users are a lower priority here.</li>
+  <li><strong>Theoretical basis — exploratory learning:</strong> The method is grounded in the idea that users naturally rely on <em>recognition</em> and contextual clues rather than memorized instructions. Good design supports correct guesses; visible affordances and meaningful feedback are therefore essential at every step.</li>
+  <li><strong>Tied to concrete actions:</strong> Unlike broader inspection approaches, findings from a Cognitive Walkthrough are anchored to specific user actions and decision points, making issues easier to locate and address.</li>
+  <li><strong>Complements other methods:</strong> Heuristic Evaluation covers a wider range of issues more quickly, but Cognitive Walkthrough goes deeper on task flows. Both can be applied to prototypes before any live user testing, and using them together increases the breadth and depth of usability problems discovered.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Introduces the theoretical basis and goals of Cognitive Walkthrough as a usability inspection technique focused on learnability and user cognition.</div>
+      </div></div>
+  <section class="video-part" id="p1-video-part1"><h3>Videos on This Topic</h3><p>A cognitive walkthrough is a usability inspection method in which evaluators — not real users — step through a task in an interface and ask a fixed set of questions at every action a first-time user would have to take. Instead of asking "is this interface pretty?" or "is this expert-efficient?", the method asks a narrower question: could someone who has never seen this screen before figure out what to do next, and would they know their attempt worked? That focus makes it a learnability test you can run on a paper sketch, a wireframe, or a half-built prototype.</p>
+<p>The method rests on a theory of exploratory learning: people often skip manuals and tutorials and instead learn a system by looking at the screen, forming a goal, scanning for something that looks like it matches that goal, acting, and then interpreting the feedback. The walkthrough questions mirror that loop. Understanding this theoretical basis matters in this course because it tells you why the questions are worded the way they are, and it keeps you from drifting into generic opinion-giving when you evaluate a classmate's prototype.</p>
+<p>It also helps to see where cognitive walkthrough sits among other inspection methods. Heuristic evaluation, for example, is also expert-driven and cheap, but it sweeps broadly across an interface against a list of principles, while a walkthrough drills narrowly into one task sequence from a novice's point of view. As you watch, note three things: the specific questions asked at each step, the assumption that the user is new to the system, and how the output differs from what a heuristic review produces.</p></section><section class="video-part" id="p1-video-part2"><h3>Video 1: Cognitive Walkthroughs Help Assess Interface Learnability</h3><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/IQ7WNs6STcQ?cc_load_policy=1&amp;rel=0" title="Video: Cognitive Walkthroughs Help Assess Interface Learnability (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 4:45 · 14,522 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=IQ7WNs6STcQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short overview from Nielsen Norman Group defining the cognitive walkthrough as a task-based usability inspection technique aimed at evaluating learnability. Based on its title and description, it should explain what the method is for, how evaluators walk through a task step by step on behalf of a first-time user, and the kinds of questions asked along the way. Expect a compact, example-driven treatment rather than a deep theoretical lecture.</p>
+<h4>Why this video</h4>
+<p>This is the most directly on-topic video for the subtopics "What Is a Cognitive Walkthrough?" and "Learnability as the Primary Focus," and NN/g is a long-standing authority in applied usability practice.</p></section><section class="video-part" id="p1-video-part3"><h3>Video 2: How to Conduct a Heuristic Evaluation</h3><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/sqi0-Lz_ZTY?cc_load_policy=1&amp;rel=0" title="Video: How to Conduct a Heuristic Evaluation (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 4:50 · 45,581 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=sqi0-Lz_ZTY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video walks through how to run a heuristic evaluation: systematically reviewing a product against established usability principles to surface potential usability and experience problems. It covers the practical process an evaluator follows and the kind of issue list the method produces.</p>
+<h4>Why this video</h4>
+<p>It gives you the comparison case for the subtopic "Cognitive Walkthrough vs. Other Inspection Methods" — same family of expert inspection, but broad principle-checking rather than a narrow novice-task simulation.</p></section><section class="video-part" id="p1-video-part4"><h3>Video 3: Chapter 4: Cognitive Aspects</h3><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/fTqBMWJvNGg?cc_load_policy=1&amp;rel=0" title="Video: Chapter 4: Cognitive Aspects (Vasiliki - HCI)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Vasiliki - HCI</strong> · 5:58 · 13,428 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=fTqBMWJvNGg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A chapter-style lecture on cognitive aspects of human-computer interaction, including the distinction between experiential cognition (actions needing little mental effort) and reflective cognition (actions requiring deliberate thought, comparison, and decision-making). It situates attention, perception, and thinking within interface design.</p>
+<h4>Why this video</h4>
+<p>It supplies the underlying cognitive-psychology vocabulary behind the "Core Theoretical Basis: Exploratory Learning" subtopic, helping you reason about what a first-time user is actually doing mentally at each walkthrough step.</p></section><section class="video-part" id="p1-video-part5"><h3>How These Videos Support the Learning Outcomes</h3><p>Together these videos build the conceptual base the module's outcomes depend on. The NN/g walkthrough video introduces the method's purpose and step-by-step questioning structure, supporting MO1 and preparing you to actually run a walkthrough on a prototype for MO2. The cognitive aspects lecture explains the mental processes a novice user goes through, which is what lets you judge whether a step is genuinely hard rather than merely unfamiliar — directly useful when you assess severity and user impact for MO3. The heuristic evaluation video clarifies by contrast what a cognitive walkthrough is and is not, so that the issues you document in MO2 stay task- and learnability-focused instead of becoming a general critique list.</p></section><section class="video-part" id="p1-video-part6"><h3>About These Videos</h3><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></section></main>
+  <script>
+    document.querySelectorAll('.slide-header').forEach(function(h){
+      h.addEventListener('click',function(){
+        var b=this.nextElementSibling,c=this.querySelector('.chevron'),o=b.classList.contains('open');
+        b.classList.toggle('open',!o);c.style.transform=o?'':'rotate(90deg)';
+      });});
+    var f=document.querySelector('.slide-body');
+    if(f){f.classList.add('open');var c=f.previousElementSibling.querySelector('.chevron');if(c)c.style.transform='rotate(90deg)';}
+  </script>
+</section>
+<section class="merged-part" id="part2">
+<h2>Preparing for a Cognitive Walkthrough</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Preparing for a Cognitive Walkthrough</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>A cognitive walkthrough is a structured usability inspection method in which evaluators simulate the step-by-step experience of a user attempting to complete a task through an interface. Unlike heuristic evaluation, which surveys an interface broadly against a checklist of design principles, the cognitive walkthrough focuses tightly on the moment-to-moment cognitive experience: what does the user notice, what do they understand, what action do they choose, and does the interface confirm that their action was correct? Because the entire validity of this method rests on accurately representing a real user's perspective, the preparation phase is not a formality — it is the foundation on which every subsequent judgment is built. Poorly prepared walkthroughs produce findings that reflect the evaluators' own expertise rather than the target users' experience, which can be just as misleading as having no evaluation at all. The preparation phase consists of four interconnected activities: defining the user profile, identifying the task sequences to be evaluated, gathering all required materials, and assembling the evaluation team.</p>
+
+<p>The <strong>user profile</strong> is a precise, written description of the person whose experience the evaluators will simulate during the walkthrough. It is not a vague audience label such as "general users" or "beginners." A useful user profile specifies at least three dimensions of the target user's background:</p>
+
+<ul>
+  <li><strong>Domain knowledge</strong> — What does the user know about the subject matter the interface addresses? A patient using a hospital appointment-booking system may have no clinical vocabulary. A nurse using the same system would have deep domain knowledge but might still be a novice with the specific software. Domain knowledge determines whether labels, terminology, and instructions will be meaningful or opaque to the user.</li>
+  <li><strong>Technical familiarity</strong> — What is the user's experience with technology in general and with this type of interface specifically? A user who has never used a mobile banking app will not automatically know that swiping left reveals hidden actions, even if that pattern is common to experienced smartphone users. Technical familiarity governs which interface conventions can be assumed and which must be made explicit.</li>
+  <li><strong>Motivation and context of use</strong> — Why is the user performing this task, and under what circumstances? A user who is anxious, rushed, or completing a task infrequently will approach the interface differently from a calm, experienced, daily user. Motivation affects risk tolerance, willingness to explore, and response to errors.</li>
+</ul>
+
+<p>The profile should be written down in a single, concrete document before the walkthrough begins. This matters because evaluators are almost always more expert than the users they are simulating. Without a written anchor, there is a well-documented tendency for evaluators to unconsciously drift back toward their own knowledge as they work through steps — a phenomenon sometimes called <em>expert creep</em>. For example, an evaluator who knows that the "hamburger" icon opens a navigation menu may automatically recognize it during the walkthrough without pausing to ask whether the simulated user would know that. A written profile that states "user has limited smartphone experience and has not encountered icon-only navigation menus" provides an explicit prompt to flag that step as a potential failure point.</p>
+
+<p>User profiles do not need to be invented from scratch. They can and should be drawn from existing design artifacts such as <strong>personas</strong> developed earlier in the design process, findings from contextual inquiry or interviews, usage analytics that characterize the primary user segment, or usability test recruitment screeners. When profiles are grounded in real user research, the walkthrough findings have greater ecological validity — they are more likely to predict actual difficulties real users will encounter.</p>
+
+<p>Once the user profile is established, the next preparation task is <strong>identifying the task sequences</strong> to be evaluated. A task sequence is a description of a goal the user wants to accomplish and the series of individual steps the evaluator will walk through to achieve it. Several principles govern the selection and formulation of good task sequences.</p>
+
+<ul>
+  <li><strong>Tasks must be written from the user's perspective, not in terms of interface controls.</strong> A task written as "click the Account Settings button, then select Notifications" is already prescribing the interface path and bypasses the central cognitive walkthrough question: would the user know to do that? The correct formulation is goal-oriented: "Turn off email notifications from the service." This framing forces evaluators to ask at each step whether the user would understand what to do next without being told.</li>
+  <li><strong>Each task must have a clearly defined starting point.</strong> Before the first step can be evaluated, the evaluator must know where the user begins — the home screen, a specific landing page, a point mid-workflow. Ambiguity about the starting point leads to inconsistent evaluations, particularly in team settings where different evaluators may begin from different states of the interface.</li>
+  <li><strong>Tasks should represent high-priority or high-frequency user goals.</strong> Because a cognitive walkthrough is time-intensive when done thoroughly, not every possible task can be evaluated. Priority should go to tasks that most users will attempt most often, tasks that involve the highest stakes if completed incorrectly (such as making a payment or deleting an account), and tasks that are new or redesigned and therefore most likely to contain unanticipated usability problems.</li>
+  <li><strong>Complex tasks must be decomposed into numbered sub-steps.</strong> For example, the goal "submit a support request" might decompose into: (1) locate the Help or Support section, (2) select the appropriate request category, (3) complete the required fields in the form, (4) attach any relevant files, (5) submit the form, (6) verify that a confirmation is received. Each numbered sub-step becomes a discrete unit of evaluation. This granularity is essential because a failure at step 2 may be entirely unrelated to and obscure a separate, independent failure at step 5.</li>
+</ul>
+
+<p><strong>Gathering required materials</strong> is the third preparation activity. It sounds procedural, but inadequate materials preparation is one of the most common reasons walkthroughs are conducted inconsistently or produce unreliable findings. The materials that must be assembled before the walkthrough begins include:</p>
+
+<ul>
+  <li><strong>A documentation template</strong> — This is a structured form or spreadsheet that evaluators complete for each sub-step of each task. At minimum, the template should capture the step being evaluated, the four standard cognitive walkthrough questions (discussed in later modules), the evaluator's judgment of success or failure at each question, and a written note explaining the reasoning. A standardized template ensures that findings from different tasks or different evaluators are recorded in comparable form and can be aggregated meaningfully afterward.</li>
+  <li><strong>All relevant interface screens or prototype states</strong> — The evaluator must be able to see or interact with every screen, modal, page, or state that the user would encounter during each task. If the prototype is incomplete and certain screens are missing, those steps cannot be evaluated. Attempting to evaluate from memory or imagination introduces exactly the kind of expert assumption the method is designed to eliminate.</li>
+  <li><strong>A firm rule against modifying the prototype during the walkthrough</strong> — When evaluators discover a problem during a walkthrough, there is sometimes an impulse to fix it immediately, especially if the design team is present. This must be resisted. Modifying the interface mid-evaluation changes the artifact being evaluated, which invalidates findings from subsequent steps and makes it impossible to reproduce the evaluation. Problems should be recorded and addressed after the walkthrough is complete.</li>
+  <li><strong>The written user profile, physically present</strong> — The user profile must be available as a reference document throughout the session, not merely reviewed once at the start. Evaluators should consult it at each step where there is any ambiguity about what the simulated user would or would not know.</li>
+</ul>
+
+<p>The fourth preparation activity is <strong>assembling the evaluation team</strong>. The cognitive walkthrough can be conducted by a single evaluator or by a team, and each approach has distinct characteristics.</p>
+
+<ul>
+  <li><strong>Solo evaluation</strong> is practical, efficient, and widely used in both academic and professional settings. A single evaluator can complete a walkthrough without the scheduling and coordination overhead of team assembly. Solo walkthroughs are particularly appropriate when time or resources are constrained, when the interface is relatively simple, or when the goal is a rapid preliminary check before more extensive evaluation. The limitation is that one person's interpretation of the user profile and the interface may miss issues that would surface in discussion with others.</li>
+  <li><strong>Team evaluation</strong> introduces deliberation at each step. When two or three evaluators work through a step together, disagreements about whether the simulated user would succeed are themselves informative — they reveal ambiguity in the interface that a single evaluator might resolve confidently (and incorrectly) in either direction. Discussion also tends to surface a wider range of potential user interpretations than any single evaluator would generate alone. The trade-off is time: team walkthroughs take significantly longer per step.</li>
+  <li><strong>Consistency of persona and task definition across evaluators</strong> is non-negotiable in team settings. If one evaluator interprets the user profile as a complete novice and another treats the user as moderately experienced, their findings will not be comparable. Before beginning, all team members should discuss and agree on the user profile's specific implications — for instance, explicitly agreeing on what conventions the simulated user would and would not recognize.</li>
+  <li><strong>Evaluator selection</strong> matters. Evaluators should have sufficient familiarity with usability principles to recognize and articulate failures, but they should not be the designers who built the interface being evaluated. Designers have intimate knowledge of the intended interaction model, which makes it extremely difficult for them to genuinely simulate a naive user's perspective. When a designer conducts a walkthrough of their own design, they tend to interpret ambiguous elements charitably based on their design intent rather than on what the interface actually communicates to an uninformed user.</li>
+</ul>
+
+<p>To make the relationships and decisions in the preparation phase concrete, the following table summarizes the key preparation components, the decisions required within each, and the consequences of inadequate preparation in that area:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Preparation Component</th>
+      <th>Key Decisions Required</th>
+      <th>Consequence of Inadequate Preparation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>User Profile</td>
+      <td>Specify domain knowledge, technical familiarity, motivation; ground in research or personas</td>
+      <td>Evaluators apply expert assumptions; real novice failures are overlooked</td>
+    </tr>
+    <tr>
+      <td>Task Sequences</td>
+      <td>Write goal-oriented tasks; define starting points; prioritize by frequency and stakes; decompose into numbered sub-steps</td>
+      <td>Evaluation path is prescribed rather than discovered; failures at individual steps are conflated</td>
+    </tr>
+    <tr>
+      <td>Required Materials</td>
+      <td>Prepare documentation template; assemble all interface screens; prohibit mid-session edits; keep user profile accessible</td>
+      <td>Findings are inconsistently recorded; evaluators fill gaps with imagination; problems are lost</td>
+    </tr>
+    <tr>
+      <td>Evaluation Team</td>
+      <td>Choose solo or team format; ensure shared user profile interpretation; select evaluators with usability knowledge but not product authorship</td>
+      <td>Inconsistent findings across evaluators; designer bias suppresses valid failure identification</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Taken together, these four preparation activities establish the controlled conditions under which a cognitive walkthrough can produce reliable, actionable findings. Each activity reinforces the others: a precise user profile makes task formulation more grounded, well-decomposed tasks make the documentation template more usable, available materials make consistent evaluation possible, and a properly assembled team ensures the user profile is applied with discipline throughout. Skipping or abbreviating any one of these activities does not merely reduce the quality of the findings in that area — it undermines the validity of the entire walkthrough, because the method's power depends on every evaluator, at every step, genuinely simulating the same, accurately characterized user.</p>
+        <div class="notes"><strong>Notes</strong>Covers the essential preparation steps required before beginning the walkthrough, including defining users, selecting tasks, and gathering materials.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p2-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>A cognitive walkthrough is only as good as the preparation behind it. Before you step through an interface asking the four guiding questions, you need four things in place: a clear picture of who the user is, a concrete set of tasks that user would realistically attempt, the materials that let you simulate each step (prototypes, screens, wireframes, or a working build with a defined action sequence), and a small evaluation team with assigned roles such as facilitator, scribe, and evaluators.</p>
+<p>These preparation steps matter because the walkthrough simulates a specific person's thinking at each action. If the user profile is vague, you cannot judge whether a label would make sense to them or whether they already have the background knowledge the interface assumes. If the task sequence is not written out as a correct series of actions in advance, the evaluation drifts into general opinion rather than a structured, repeatable analysis you can document and defend.</p>
+<p>The videos below come from Nielsen Norman Group, a long-established usability consultancy. None of them is a cognitive walkthrough tutorial, so treat them as supporting background. While watching, map what you see onto the preparation steps: how a persona sharpens your user definition, how an expert inspection method is set up and staffed, and what usability qualities you will ultimately be looking for when you judge whether a step succeeds or fails.</p></div></details><details class="slide-card" id="p2-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Personas 101</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/rv9yfrV-EAs?cc_load_policy=1&amp;rel=0" title="Video: Personas 101 (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:42 · 24,074 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=rv9yfrV-EAs" target="_blank" rel="noopener">Watch on YouTube</a></p></div></details><details class="slide-card" id="p2-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: How to Conduct a Heuristic Evaluation</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/sqi0-Lz_ZTY?cc_load_policy=1&amp;rel=0" title="Video: How to Conduct a Heuristic Evaluation (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 4:50 · 45,581 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=sqi0-Lz_ZTY" target="_blank" rel="noopener">Watch on YouTube</a></p></div></details><details class="slide-card" id="p2-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Usability 101</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/st9AEPOjGpU?cc_load_policy=1&amp;rel=0" title="Video: Usability 101 (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:46 · 24,243 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=st9AEPOjGpU" target="_blank" rel="noopener">Watch on YouTube</a></p></div></details><details class="slide-card" id="p2-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part3">
+<h2>The Step-by-Step Cognitive Walkthrough Procedure</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>The Step-by-Step Cognitive Walkthrough Procedure</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The Cognitive Walkthrough is a structured usability inspection method in which evaluators simulate the experience of a user attempting to complete a task by working through each individual action step and asking a fixed set of diagnostic questions. Unlike heuristic evaluation, which judges an interface against a broad list of design principles, the Cognitive Walkthrough is explicitly anchored in <strong>user cognition</strong> — it forces evaluators to think about what a user would actually perceive, interpret, and decide at every moment of interaction. The method is grounded in the theory of <em>exploratory learning</em>, which recognises that most users do not read manuals but instead attempt to figure out how an interface works by trying things, reading labels, and responding to feedback. The four evaluative questions operationalise this theory into a repeatable inspection procedure.</p>
+
+<p>Before the walkthrough begins, evaluators must define three things with precision: the <strong>user profile</strong> (who the target user is, what they know, and what they do not know), the <strong>specific task</strong> to be evaluated, and the <strong>complete sequence of action steps</strong> required to accomplish that task using the interface as designed. Each step in that sequence — every click, keypress, selection, or form entry — becomes a unit of analysis. The four questions are then applied to each unit in order. This granularity is what makes the method powerful: it does not evaluate the interface as a whole in one sweep but instead exposes precisely where in the flow of a task the design is likely to break down for a real user.</p>
+
+<p>A critical procedural rule is that a failure answer to any one of the four questions flags a potential usability problem at that step, but evaluators must still continue and apply the remaining questions. This discipline is important because different questions reveal different categories of problem. A step might pass the first question but fail the third, meaning the user has the right intention but will misinterpret the control they need to use. Skipping later questions after an early failure would cause those problems to go undetected. Equally, finding that a step fails multiple questions reveals a compounding usability deficit that is more serious than a single-point failure and therefore warrants higher priority in redesign efforts.</p>
+
+<p>A further distinguishing feature of the four questions is the way they collectively <strong>redirect evaluator attention away from aesthetics and toward cognition</strong>. Evaluators who are themselves designers or developers naturally tend to see an interface through the lens of how it was built or how it looks. The questions interrupt this tendency by demanding a different perspective: not "is this button well designed?" but "would a user with this background, in this moment, think to press this button, find it, understand it, and know whether pressing it worked?" Each question targets a distinct layer of the user's mental process, and together they map the full cognitive journey from forming a goal to confirming its completion.</p>
+
+<p>The <strong>first question</strong> asks whether users will try to achieve the right goal at this step. This targets the very beginning of the cognitive cycle — goal formation. When a user decides to do something with a piece of software, they begin with a high-level intention, such as "I want to share this document." To accomplish that intention they must form a series of <em>intermediate sub-goals</em> — for example, "I need to open a sharing panel," then "I need to enter a recipient's email address," then "I need to set the permission level," and so on. The first question asks whether the design of the interface at this particular step will lead the user to form the correct sub-goal for this moment in the sequence.</p>
+
+<p>Failure at this question does not necessarily mean the user has the wrong ultimate goal. It means the design has failed to communicate what the next step is or why it is needed. A common and well-documented source of failure here is a <strong>vocabulary mismatch</strong> between the language the interface uses and the language the user naturally thinks in. Consider a user trying to log out of a web application. If the interface labels this action "End Session," a user unfamiliar with that phrasing may form the sub-goal of finding a "Log Out" or "Sign Out" link and may never recognise "End Session" as relevant to their goal. The mismatch is not about the action being invisible — it is about the framing of the action failing to map onto the user's mental model. When this question fails, the design response is typically to revise labels, section headings, or navigational structure so that the interface's language aligns with the user's vocabulary and expectations.</p>
+
+<p>Another scenario where the first question fails is when the interface presents too many options simultaneously and provides no clear signal about which sub-goal the user should pursue next. A dashboard crowded with equally prominent widgets, links, and calls to action gives users no cognitive scaffolding — every element looks equally like it might be the right next step. The design lacks what might be called <em>task narrative</em>: the sense that the interface is guiding the user through a logical progression. Evaluators who identify this kind of failure at Question 1 are flagging a structural issue with the interface's information architecture, not merely a surface-level labeling problem.</p>
+
+<p>The <strong>second question</strong> asks whether users will notice that the correct action is available. Where the first question deals with goal formation, the second deals with <em>perception</em> — specifically, whether the control, link, button, or input field that the user needs at this step is visually detectable in the interface as presented. This question is rooted in a well-established behavioural fact: users do not read interfaces the way they read books. They <strong>scan</strong>, skipping over large portions of the screen and attending to elements that are salient — those that stand out through size, colour, contrast, position, motion, or familiar form.</p>
+
+<p>An action that exists in the interface but is not noticed by users is, from a practical usability standpoint, equivalent to an action that does not exist at all. This is a stark but accurate formulation. If the "Submit" button in a multi-step form is rendered in a low-contrast grey at the bottom of a long scrollable page, and users consistently scroll back to the top looking for a way to proceed, the button's existence offers them no benefit. The design has failed at the perceptual layer before any question of comprehension arises. Evaluators applying Question 2 must genuinely adopt the perspective of a user who is <em>scanning</em> rather than carefully reading — they must ask not "is this control on the page?" but "would a user scanning this page in the context of this task direct their attention to this control?"</p>
+
+<p>Failure at Question 2 typically points toward solutions involving <strong>visual hierarchy</strong> — the use of size, weight, colour, spacing, and position to signal importance and direct attention. It may also indicate a placement problem: a control that is contextually disconnected from the content it acts upon is harder to associate with the relevant task. For instance, a "Delete" option buried in a dropdown menu accessed via a small icon with no label, located far from the item it deletes, is likely to be missed. The fix is not merely aesthetic; it requires repositioning and foregrounding the control so that it is visually present where and when the user needs it.</p>
+
+<p>The <strong>third question</strong> asks whether users will recognise the action they have noticed as the correct one for their current goal. This is a crucial distinction from the second question. A user can see a button — their eyes can land on it — and still not understand what it does or whether using it will advance their goal. Question 3 targets the layer of <em>interpretation</em>: given that the user has noticed this control, will they correctly understand its function and judge it to be the right thing to do at this point?</p>
+
+<p>Users interpret unfamiliar controls by drawing on two resources: <strong>prior experience</strong> with similar interfaces and <strong>conventions</strong> that have become standardised across the software they use. A floppy disk icon is conventionally understood to mean "save," even by users who have never used a physical floppy disk, because the convention has been perpetuated across decades of software. A magnifying glass icon is understood to mean "search." These conventions allow users to interpret controls correctly even without explicit instruction. The third question therefore also asks whether the interface is honouring those conventions or departing from them in ways that will mislead users.</p>
+
+<p>Failure at Question 3 takes several characteristic forms. An icon that is novel and lacks an accompanying text label will be opaque to users who have no prior reference for it. A button labelled with an internal or technical term — such as "Normalise Record" in a database application used by non-technical staff — may be noticed perfectly well but will not be recognised as the action needed to merge duplicate entries. In both cases, the user sees the control but cannot correctly decode it. The remedies suggested by a Question 3 failure include clearer and more descriptive text labels, the addition of <em>tooltips</em> that explain a control's function on hover, in-context help text adjacent to the control, or a redesign of the control's label to use language that directly names the outcome ("Merge Duplicate Records" instead of "Normalise Record").</p>
+
+<p>It is worth emphasising that Question 3 is asking about the user's <em>prediction</em> of what the action will do, not about what it actually does. A user who believes a button labelled "Process" will immediately delete their data will not click it even if it is in fact a safe and reversible operation. The design must communicate the consequence of an action before the action is taken — this is the essence of what Question 3 is probing. Affordances, labels, and contextual cues must together construct an accurate and reassuring picture of what will happen when the user commits to the action.</p>
+
+<p>The <strong>fourth question</strong> asks whether users will understand the feedback they receive after taking the action. This question closes the cognitive loop. After a user takes an action, the interface must communicate the result: did the action succeed? Did something go wrong? Is a process still running? The fourth question examines whether the feedback the interface provides — or fails to provide — allows the user to correctly evaluate the outcome and decide what to do next.</p>
+
+<p>Feedback functions in several distinct modes. <strong>Success feedback</strong> confirms that the action had the intended effect: a file was saved, a message was sent, a purchase was completed. This kind of feedback is essential for building user confidence in the interface. When it is absent, users are left uncertain — they may click "Submit" a second time because they cannot tell whether the first click registered, resulting in duplicate submissions and confusion. <strong>Progress feedback</strong> signals that an operation is underway and that the user should wait: spinners, progress bars, and status messages all serve this function. Without them, users assume the interface has frozen and often take disruptive actions like force-closing the application. <strong>Error feedback</strong> communicates that something went wrong and should explain both what the problem is and what the user can do to correct it.</p>
+
+<p>The quality of error messages is a particularly rich area revealed by the fourth question. A message that says only "Error 403" tells the user nothing actionable. A message that says "You do not have permission to view this page — contact your administrator to request access" gives the user a clear understanding of what happened and a path forward. Evaluators applying Question 4 must consider not just whether feedback is present but whether it is <em>interpretable</em> by the target user. Feedback expressed in technical or system-level language may be accurate but completely unintelligible to the non-technical user the interface is designed to serve.</p>
+
+<p>Ambiguous feedback is equally problematic. A form that returns to a blank state after submission gives no indication of whether the submission succeeded or whether the data was simply cleared. A confirmation message that says "Your changes have been applied" is helpful; one that says "Operation complete" is vague enough to create doubt. Even positive outcomes need to be communicated with enough specificity that users can confidently move on to their next goal without uncertainty about whether this step was truly finished.</p>
+
+<p>The following table summarises the four questions, the cognitive layer each targets, the characteristic failure mode associated with each, and the typical design response when a failure is identified:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Question</th>
+      <th>Cognitive Layer Targeted</th>
+      <th>Characteristic Failure Mode</th>
+      <th>Typical Design Response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Will users try to achieve the right goal?</td>
+      <td>Goal formation / sub-goal identification</td>
+      <td>Vocabulary mismatch; interface fails to signal the correct next sub-goal</td>
+      <td>Revise labels, headings, and navigational framing to match user language and mental models</td>
+    </tr>
+    <tr>
+      <td>Will users notice the correct action is available?</td>
+      <td>Perception / visual salience</td>
+      <td>Control exists but is not visually detectable during normal scanning behaviour</td>
+      <td>Improve visual hierarchy, contrast, and placement of the control relative to its context</td>
+    </tr>
+    <tr>
+      <td>Will users recognise the action as correct?</td>
+      <td>Interpretation / affordance decoding</td>
+      <td>Control is seen but its function or consequence is unclear or misleading</td>
+      <td>Add descriptive labels, tooltips, or contextual help; align with established conventions</td>
+    </tr>
+    <tr>
+      <td>Will users understand the feedback they receive?</td>
+      <td>Outcome evaluation / system response comprehension</td>
+      <td>Feedback is absent, ambiguous, technical, or fails to suggest corrective action on error</td>
+      <td>Provide clear success, progress, and error messages in plain user language with actionable guidance</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Applied sequentially across every action step in a task, these four questions transform the Cognitive Walkthrough from a general review into a precise diagnostic instrument. Each question builds on the one before it in a logical chain: a user must first form the right goal, then perceive the relevant control, then interpret it correctly, then understand the result of using it. A breakdown at any link in this chain interrupts task completion. By examining every step through all four lenses, evaluators build a detailed map of cognitive friction points in the interface — a map that is directly actionable because each identified failure points toward a specific and well-understood category of design remedy.</p>
+        <div class="notes"><strong>Notes</strong>The four-question framework is the operational core of the Cognitive Walkthrough method. Emphasising the sequential and layered nature of the questions — each targeting a distinct cognitive stage — helps evaluators understand why all four must be applied even when earlier questions reveal failures. The vocabulary mismatch concept under Question 1 and the salience/scanning insight under Question 2 are particularly important for learners to internalise, as these are the most frequently misunderstood aspects of the method in practice.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p3-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>A cognitive walkthrough is a structured usability inspection method in which an evaluator steps through a task the way a first-time user would, one action at a time, and asks a small set of questions at each step. The method focuses on learnability: whether someone who has never used the interface before can figure out what to do next without training or documentation. Because you simulate the user's reasoning rather than recruit participants, a walkthrough can be run early, cheaply, and repeatedly on sketches, wireframes, or working prototypes.</p>
+<p>The operational heart of the method is the four-question framework applied at every action in the task sequence. Question 1 asks whether the user will try to achieve the right goal at this point. Question 2 asks whether the user will notice that the correct action is actually available on screen. Question 3 asks whether the user will recognize that this visible control is the one that advances their goal, which is often a labeling and wording problem. Question 4 asks whether, after acting, the user will understand the feedback well enough to know they made progress. A "no" at any question is a documented usability failure, and the question that failed tells you what kind of fix is needed.</p>
+<p>As you watch the videos below, pay attention to how the evaluator defines the task and the correct action sequence before asking any questions, how a user persona or assumption set shapes the answers, and how failure stories are written down so they can later be rated for severity. Notice also how the same questioning logic shows up outside interface design, which is a good sign that you have understood the underlying idea rather than memorized four sentences.</p></div></details><details class="slide-card" id="p3-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Cognitive Walkthroughs Help Assess Interface Learnability</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/IQ7WNs6STcQ?cc_load_policy=1&amp;rel=0" title="Video: Cognitive Walkthroughs Help Assess Interface Learnability (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 4:45 · 14,522 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=IQ7WNs6STcQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This is the core overview video for the method: a short explanation from Nielsen Norman Group of what a cognitive walkthrough is, that it is a task-based usability inspection technique, and that its specific purpose is evaluating learnability for first-time users. Expect it to cover how you define tasks and the correct action sequence in advance, and how an evaluator walks each step asking the guiding questions about goals, visible actions, recognizing the right control, and interpreting feedback. It should also indicate when in a design process this method is worth using.</p>
+<h4>Why this video</h4>
+<p>It is the most direct match to this topic, coming from the usability consultancy most associated with inspection methods, and it frames all four evaluative questions in the context of a single step-by-step procedure.</p></div></details><details class="slide-card" id="p3-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: 3 Ways to Test Your Survey</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ltobJ-R_vyw?cc_load_policy=1&amp;rel=0" title="Video: 3 Ways to Test Your Survey (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:04 · 3,139 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=ltobJ-R_vyw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video presents three ways to pretest a survey, one of which is a cognitive walkthrough used with target users to check whether questions are understood as intended. It contrasts that with mechanical testing and other checks, showing where each approach catches different kinds of problems. The walkthrough portion illustrates the method applied to wording and comprehension rather than to screens and buttons.</p>
+<h4>Why this video</h4>
+<p>It reinforces Question 3 in particular, since recognizing an action as correct is largely a matter of whether labels and wording match the user's mental vocabulary, and it shows the questioning technique transferring to a different artifact.</p></div></details><details class="slide-card" id="p3-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: What, When, Why: Research Goals, Questions, and Hypotheses</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/O9-az6aakmY?cc_load_policy=1&amp;rel=0" title="Video: What, When, Why: Research Goals, Questions, and Hypotheses (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:28 · 10,497 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=O9-az6aakmY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This short video distinguishes research goals, research questions, and hypotheses and explains how each one focuses a user research study. It covers why a clearly stated goal comes before the questions you ask, and how vague goals lead to unfocused findings. The framing is general to user research rather than specific to inspection methods.</p>
+<h4>Why this video</h4>
+<p>It supports Question 1 by sharpening what a "goal" actually is, which is exactly the distinction you need when deciding whether a simulated user would form the right goal at a given step, and it helps you set up a defensible task scenario before you begin walking through it.</p></div></details><details class="slide-card" id="p3-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos build the recall needed for MO1 by naming the method, its task-based setup, and the guiding questions asked at each action step. The main NNgroup walkthrough video gives you the procedure you will actually execute on a peer or self-developed prototype for MO2, while the research goals video helps you define the task and user assumptions precisely enough that your documented failures are credible. The survey testing video extends the same questioning logic to wording and comprehension, which feeds MO3 by helping you judge whether a given failure is a cosmetic labeling issue or a blocker that prevents task completion, and therefore how to prioritize revisions.</p></div></details><details class="slide-card" id="p3-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part4">
+<h2>Identifying and Documenting Failure Points</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Identifying and Documenting Failure Points</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Cognitive walkthrough evaluation reaches its full value only when the problems it uncovers are captured with enough precision and structure to drive real design change. Identifying failure points is not simply a matter of noting that "something felt wrong" — it requires a disciplined process of recognizing when and why a design stops supporting the user's mental process, classifying those breakdowns by type and severity, and recording them in a form that other team members can act on. This module covers every dimension of that process: what constitutes a failure, how to categorize and rate failures, how to write descriptions that are genuinely useful, how to use documentation templates efficiently, and how to distinguish severity levels in a way that reflects the experience of the target user rather than the evaluator's own expertise.</p>
+
+<p><strong>What Constitutes a Failure Point?</strong></p>
+
+<p>At its core, a cognitive walkthrough tests whether a design adequately supports the user's cognitive process at each step of a task. An evaluator works through each step by asking a structured set of questions — typically probing whether the user would know what to do next, whether they would notice the correct action, whether they would understand the feedback they receive, and so on. A <em>failure point</em> is any step at which the honest answer to one of those questions is "no" or even "probably not." The design has failed to provide what a typical novice user's mind needs at that moment.</p>
+
+<p>This definition is deliberately broad because failures exist on a wide spectrum of severity. At one end, a failure might be a label that is slightly ambiguous — the user pauses, reads it twice, and proceeds correctly. That is still a failure, because the design required extra cognitive work it should not have demanded. At the other end, a failure might be a missing affordance so severe that the user has no reasonable path forward and abandons the task entirely. Both are failures; they simply sit at different points on the severity scale. The evaluator's obligation is to record both.</p>
+
+<p>A subtlety worth internalizing is that a single interface element can simultaneously produce failures against <em>multiple</em> evaluative questions. Consider a button labeled "Process" placed in a toolbar alongside similar-looking controls. It might fail the question "Will the user notice this action is available?" because it is visually indistinct. It might also fail the question "Will the user know this action leads to their goal?" because the label is opaque. And it might fail the question "Will the user correctly interpret the system's response after clicking?" because the feedback is a status bar update far from where their attention is focused. All three failures stem from one element, but they must be recorded separately because they point toward different design remedies.</p>
+
+<p>Evaluators sometimes hesitate to record failures that seem trivial. This is a mistake. Minor failures compound. A user who experiences a small moment of confusion at step 2, a slightly misleading label at step 4, and an ambiguous confirmation dialog at step 6 may abandon the task at step 7 — not because any single failure was catastrophic, but because the accumulated cognitive friction eroded their confidence and patience. Documenting minor failures preserves the ability to see those cumulative patterns during analysis.</p>
+
+<p><strong>Categorizing Failures by Type</strong></p>
+
+<p>Once a failure is identified, the next step is to classify it. The most productive classification scheme ties each failure to the specific evaluative question it violates. The standard cognitive walkthrough questions address roughly four cognitive stages: goal formation (does the user know what they are trying to accomplish?), action selection (does the user know which action to take?), action execution (can the user perform the action?), and feedback interpretation (does the user understand what happened?). Mapping every failure to one of these categories immediately reveals the character of the design's problems.</p>
+
+<p>If a large proportion of failures cluster in the action-selection category, the interface is likely suffering from a structural labeling or information architecture problem — users understand the goal and can physically perform actions, but they cannot tell which action is the right one. If failures cluster in feedback interpretation, the problem is probably in the system's response layer: confirmations, error messages, and status updates are not communicating adequately. These structural patterns would be invisible if failures were simply listed in chronological order without categorization.</p>
+
+<p>Beyond the evaluative-question dimension, failures can also be categorized by severity. A common three-tier scheme uses <em>low</em>, <em>medium</em>, and <em>high</em> ratings. High-severity failures prevent task completion or cause the user to take an action that is harmful or irreversible. Medium-severity failures allow task completion but introduce significant frustration, wasted time, or a meaningful reduction in user confidence. Low-severity failures are noticeable but cause only minor friction that most users will work through without lasting consequence. The table below illustrates how these categories interact with failure types in practice.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Severity Level</th>
+      <th>Effect on Task</th>
+      <th>Effect on User Confidence</th>
+      <th>Typical Priority</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>High (Critical)</td>
+      <td>Prevents completion or causes harmful error</td>
+      <td>Severe — user likely abandons or makes irreversible mistake</td>
+      <td>Must fix before release</td>
+      <td>No visible way to proceed from a required data-entry screen; submit button absent until a non-obvious prerequisite is met</td>
+    </tr>
+    <tr>
+      <td>Medium (Moderate)</td>
+      <td>Task completed after extra effort or recovery</td>
+      <td>Noticeably reduced; user doubts the system or themselves</td>
+      <td>Address in current design cycle</td>
+      <td>Ambiguous error message that forces the user to try multiple corrections before finding the right one</td>
+    </tr>
+    <tr>
+      <td>Low (Minor)</td>
+      <td>Task completed with minimal friction</td>
+      <td>Slight hesitation; user recovers quickly</td>
+      <td>Queue for a later iteration</td>
+      <td>A tooltip that appears half a second too slowly, causing the user to hover longer than necessary</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Categorization makes findings actionable in a second important way: it allows the design team to distinguish between isolated errors and systemic problems. A single medium-severity failure in step 3 of one task may be a localized issue with a specific widget. Five medium-severity failures all classified as "action selection — unclear label" across three different tasks signal a systemic problem with the interface's labeling conventions — a problem that a terminology audit or a consistent labeling pattern could resolve across the entire product at once.</p>
+
+<p><strong>Writing Effective Failure Descriptions</strong></p>
+
+<p>The quality of a failure description determines whether a design team can act on a finding or must go back to the evaluator for clarification. Vague descriptions like "the button is confusing" or "the feedback is inadequate" delay fixes because they leave the designer guessing about exactly what aspect of the element failed and why. Effective descriptions follow a predictable structure that answers four questions immediately: <em>Where did the failure occur? What would the user think or do incorrectly? What evaluative question does this violate? What might fix it?</em></p>
+
+<p>The location reference should be explicit: task number, step number, and the specific interface element. "Task 2, Step 4, the 'Finalize' dropdown menu" gives a designer an exact coordinate in the interface. The behavioral description should be written from the user's perspective, not the interface's — not "the dropdown does not clearly indicate its function" but "the user, seeking to confirm their order, would overlook the 'Finalize' dropdown entirely because its visual weight is identical to the 'Sort by' and 'Filter' dropdowns nearby; they are likely to scroll down looking for a prominent confirmation button instead." This user-perspective framing keeps the evaluation grounded in human cognition rather than drifting into a technical critique of the interface's implementation.</p>
+
+<p>Linking the failure to a specific evaluative question creates traceability — the ability to follow a finding from the raw evaluation record back through the analysis to any design recommendation that emerges from it. This matters when a design team needs to justify a change to stakeholders, or when a later evaluation needs to verify that a previously identified failure has been resolved.</p>
+
+<p>The optional redesign suggestion is worth including whenever one comes naturally to the evaluator, because it shortens the design team's path to a solution. It should be framed as a direction rather than a prescription: "Consider giving the 'Finalize' action a visually distinct treatment — a filled button in a contrasting color, positioned below the item list rather than in the toolbar, to signal that it is a terminal action rather than a sorting control." This frames the suggestion as a hypothesis for the design team to evaluate, not a mandate that bypasses their expertise.</p>
+
+<p>The following example shows the difference between an inadequate and an effective failure description for the same problem.</p>
+
+<pre><code>INADEQUATE:
+Task 2, Step 4 — The confirm button is not obvious enough.
+
+EFFECTIVE:
+Task 2, Step 4 — Interface element: "Finalize" dropdown in the toolbar.
+Evaluative question violated: Q2 — Will the user know that this action leads to their goal?
+Severity: High
+User behavior predicted: The user's goal at this step is to confirm and submit their order.
+They are scanning the screen for a clear confirmation affordance (e.g., a prominent "Confirm"
+or "Submit" button). The "Finalize" label is unfamiliar terminology for this context and the
+dropdown format suggests a configuration control rather than a terminal action. The user is
+likely to scroll past the toolbar entirely, searching below the order summary for a more
+conventional button. They may attempt to use the browser's back navigation in frustration.
+Redesign direction: Replace the dropdown with a clearly labeled primary-action button
+("Submit Order") placed directly below the order summary, using a filled style that
+distinguishes it from secondary controls.</code></pre>
+
+<p><strong>Using a Documentation Template</strong></p>
+
+<p>Cognitive walkthroughs generate a high volume of fine-grained observations in a relatively short time. Without a pre-defined structure to capture those observations, evaluators face a real risk of losing details in the moment — particularly when a single step surfaces multiple simultaneous failure points. A documentation template solves this problem by providing a fixed set of fields that the evaluator fills in rather than constructs from scratch, reducing the cognitive overhead of documentation and allowing full attention to remain on the evaluation itself.</p>
+
+<p>An effective template includes fields for every piece of information that will be needed during analysis and reporting: task identifier, step number, the action being evaluated, the interface element involved, each evaluative question with a pass/fail indicator, the failure description (when applicable), severity rating, and an optional redesign note. Crucially, the template should have a row or entry for every step evaluated — <em>not</em> just steps where failures occur. Recording successful steps is important for several reasons. It confirms that the evaluator examined those steps, provides context for understanding which parts of the flow work well, and prevents the completed evaluation from appearing to document only problems, which can distort stakeholders' perception of the overall design quality.</p>
+
+<p>When multiple evaluators conduct a walkthrough independently — a best practice for increasing the reliability of findings — standardized templates make it straightforward to merge their results. Because every evaluator uses the same fields in the same structure, a lead analyst can systematically compare entries for the same step across evaluators, identify where findings agree (increasing confidence in those failures) and where they diverge (warranting discussion about the discrepancy), and produce a consolidated finding set without having to reconcile incompatible formats.</p>
+
+<p>The completed set of templates is itself a formal deliverable. It serves as an audit trail of the evaluation process — evidence of what was examined, when, and by whom. This matters in professional contexts where design decisions are scrutinized, in regulated industries where usability testing may be part of a compliance record, and in any situation where a future team needs to understand the basis for a design revision. A thorough template record makes the evaluation reproducible and its findings defensible.</p>
+
+<p>A representative template structure for a single step might look like the following.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Content</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Task ID</td>
+      <td>Task 2 — Place an order for a new item</td>
+    </tr>
+    <tr>
+      <td>Step Number</td>
+      <td>Step 4 of 7</td>
+    </tr>
+    <tr>
+      <td>Action Being Evaluated</td>
+      <td>User confirms and submits the order</td>
+    </tr>
+    <tr>
+      <td>Interface Element</td>
+      <td>"Finalize" dropdown in the top toolbar</td>
+    </tr>
+    <tr>
+      <td>Q1: Will user know goal is achievable here?</td>
+      <td>FAIL</td>
+    </tr>
+    <tr>
+      <td>Q2: Will user know this action leads to the goal?</td>
+      <td>FAIL</td>
+    </tr>
+    <tr>
+      <td>Q3: Will user notice the correct action?</td>
+      <td>FAIL</td>
+    </tr>
+    <tr>
+      <td>Q4: Will user correctly interpret feedback?</td>
+      <td>Not reached — prior questions prevent action</td>
+    </tr>
+    <tr>
+      <td>Failure Description</td>
+      <td>See narrative entry above</td>
+    </tr>
+    <tr>
+      <td>Severity</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Redesign Direction</td>
+      <td>Replace dropdown with labeled primary-action button below order summary</td>
+    </tr>
+    <tr>
+      <td>Evaluator</td>
+      <td>J. Reyes — 14 March</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Distinguishing Severity Levels</strong></p>
+
+<p>Severity rating is one of the most consequential judgments an evaluator makes, because it directly determines the priority order in which the design team addresses failures. Rating severity too high across the board produces a finding set in which everything is marked urgent, making it impossible to triage effectively. Rating severity too low causes genuinely critical problems to be treated as polish items and shipped to users without correction. Getting it right requires a principled approach and a specific frame of reference.</p>
+
+<p>The defining characteristic of a <em>critical</em> failure is that it prevents the target user from completing the task, or leads them to take an action that is harmful, irreversible, or deeply counterproductive. Examples include a required field that offers no visible input affordance, a workflow that deadlocks with no escape route, or a confirmation dialog whose language so closely resembles a cancellation confirmation that users routinely trigger the wrong outcome. These failures must be resolved before the interface is released, because shipping them means a definable proportion of users will be unable to accomplish core tasks or will make significant errors.</p>
+
+<p>A <em>moderate</em> failure allows task completion but at a real cost. The user finds a path forward, but they do so after wasted effort, visible frustration, or a period of genuine uncertainty about whether they are on the right path. This erosion of confidence matters because it affects more than the immediate task — users who feel uncertain about an interface become reluctant to attempt more advanced features, more likely to contact support, and more likely to form a negative overall impression of the product. Moderate failures should be addressed in the current design cycle, not deferred.</p>
+
+<p>A <em>minor</em> failure produces a momentary hesitation or a small increase in cognitive load that the user overcomes quickly and without lasting consequence. A slightly ambiguous icon that becomes clear when a tooltip appears, a progress indicator that takes a fraction of a second longer to appear than ideal, a secondary label that could be worded more precisely — these are genuine failures worth recording, but they are candidates for a later iteration rather than an immediate fix, particularly when development resources are constrained.</p>
+
+<p>The most important calibration principle is that severity must be assessed from the perspective of the <em>defined novice user</em>, not the evaluator. Evaluators are, by definition, domain experts compared to the target user population. An evaluator might find a non-obvious feature annoying but manageable — they know enough about similar interfaces to infer what the interface intends. A novice user encountering the same feature may have no such inferential resources and may be completely blocked. Allowing the evaluator's own experience to anchor the severity rating systematically undercounts the severity of problems that affect novice users disproportionately. The corrective is to continually ask: "Given what a first-time user of this type of software knows and does not know, how would this failure affect them?" — and to let that answer, not the evaluator's personal experience, determine the rating.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic clusters for Topic 1: definition and nature of failure points, categorization by type and severity, writing effective descriptions, template use, and severity-level distinctions. Two HTML tables included for tabular data (severity levels; template example). Code block illustrates contrasting failure description quality. Calibration of severity to the novice user perspective is emphasized throughout the severity section.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p4-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>A cognitive walkthrough is only as useful as the record it leaves behind. As you step through each action in a task and ask the guiding questions — will the user know what to do, will they notice the control, will they understand the feedback — the moments where the answer is "no" or "probably not" are your failure points. This topic is about recognizing those moments, naming them precisely, and writing them down in a form that another designer can act on.</p>
+<p>A failure point is more than "this screen is confusing." It is a specific breakdown at a specific step, tied to a cause: the user cannot form the right goal, cannot find the control, cannot connect the control to their intention, or cannot tell from the feedback that they made progress. Categorizing failures by type keeps your findings diagnostic rather than vague, and a consistent documentation template (step number, expected action, what fails, why, evidence, proposed fix) makes your results comparable across evaluators and reusable later in the design cycle.</p>
+<p>The last piece is severity. Not every failure deserves the same attention, and a list of twenty undifferentiated problems gives a development team no guidance. As you watch the videos below, pay attention to the criteria used to rate severity, the language used to describe a problem without blaming the user, and the distinction between findings produced by inspection methods like the walkthrough and findings produced by testing with real users.</p></div></details><details class="slide-card" id="p4-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Prioritize UX Findings by Severity</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iyWWe_tZeEY?cc_load_policy=1&amp;rel=0" title="Video: Prioritize UX Findings by Severity (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:04 · 9,970 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=iyWWe_tZeEY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short Nielsen Norman Group video on assigning severity ratings to design issues found in usability studies or heuristic evaluations. It explains the small set of criteria evaluators typically weigh — such as how many users are affected, how much the issue impedes task completion, and whether it is a one-time or persistent obstacle — and how those criteria combine into a priority ranking. The focus is on reporting findings so that teams know what to fix first.</p>
+<h4>Why this video</h4>
+<p>This is the most direct match for the "Distinguishing Severity Levels" subtopic and for turning a raw list of failure points into a prioritized set of recommendations; NN/g is the standard reference source for usability evaluation practice.</p></div></details><details class="slide-card" id="p4-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Five User Interview Mistakes to Avoid (in 5 Minutes)</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/yBYd5USasXg?cc_load_policy=1&amp;rel=0" title="Video: Five User Interview Mistakes to Avoid (in 5 Minutes) (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 5:54 · 66,865 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=yBYd5USasXg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A five-minute NN/g video covering common mistakes made when talking to users, including leading rather than probing, over-explaining, and filling silence in ways that distort what the participant tells you. It contrasts neutral probing questions with questions that plant an answer. The emphasis is on gathering evidence that reflects the user's actual experience rather than the researcher's assumptions.</p>
+<h4>Why this video</h4>
+<p>The same discipline of neutral, non-leading language applies when you write failure descriptions — describing the observable breakdown instead of asserting your preferred explanation keeps your documentation credible and useful.</p></div></details><details class="slide-card" id="p4-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: User Testing vs Usability Testing</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/r3j_dwMbLo0?cc_load_policy=1&amp;rel=0" title="Video: User Testing vs Usability Testing (Kerev Design)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Kerev Design</strong> · 6:18 · 47,165 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=r3j_dwMbLo0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video distinguishes user testing from usability testing, two terms that are frequently confused, and explains what question each method is designed to answer. It situates both within the broader UX research process and discusses when a team would choose one over the other.</p>
+<h4>Why this video</h4>
+<p>Knowing what usability testing does and does not tell you clarifies the place of an inspection method like the cognitive walkthrough, and helps you label your findings honestly as predicted failure points rather than observed user behavior.</p></div></details><details class="slide-card" id="p4-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos reinforce the documentation and prioritization half of the module. The severity-rating video supports MO3 directly by giving you explicit criteria for ranking findings by user impact, and it supports MO2 by showing what a finished, reportable issue entry should contain. The interviewing video models the precise, non-leading language that makes failure descriptions written during a walkthrough defensible, again serving MO2. The user-testing-versus-usability-testing video frames where inspection methods such as the cognitive walkthrough sit among evaluation approaches, which supports MO1 by helping you recall why the method's guiding questions are structured as predictions about user reasoning rather than observations of users.</p></div></details><details class="slide-card" id="p4-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part5">
+<h2>Applying the Method to Peer Prototypes</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Applying the Method to Peer Prototypes</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The Cognitive Walkthrough is one of the most powerful inspection-based usability evaluation methods available to UX practitioners, and applying it to real peer-created prototypes marks a significant transition from classroom exercise to authentic professional practice. In this context, you are no longer working with hypothetical interfaces or instructor-constructed examples — you are engaging with designs that a fellow student has invested genuine effort, creativity, and problem-solving into. This reality shapes everything about how the method should be approached: with rigor, fairness, and a clear-eyed commitment to the process rather than to personal impression. The module ahead guides you through every phase of that application, from understanding the evaluative context and selecting appropriate tasks, to conducting the walkthrough itself, comparing findings across multiple prototypes, and assembling a professional evaluation report.</p>
+
+<p><strong>Understanding the Peer Prototype Evaluation Context</strong></p>
+
+<p>Before a single step of the walkthrough is conducted, it is essential to understand what kind of activity this is and what it is not. A peer prototype evaluation using the Cognitive Walkthrough is a <em>usability inspection</em>, not a design critique, a grade, or a judgment of the designer's skill or effort. This distinction is not merely semantic — it has direct consequences for how you frame every finding you record.</p>
+
+<p>When evaluators conflate the interface with the person who made it, findings tend to become vague, softened, or distorted. A comment like "the designer didn't think about novice users" attributes intent and competence to a person, which is both unprovable and unhelpful. The same observation reframed as "at step three, a novice user is unlikely to know that clicking the icon triggers a save action because there is no visible label or confirmatory feedback" is grounded in the interface, traceable to a specific step, and genuinely useful for improvement. Every finding you write should pass this test: does it describe something observable in the interface, or does it describe something about the designer?</p>
+
+<p>Objectivity in peer evaluation does not come from trying to be neutral in some vague emotional sense. It comes from procedural discipline — specifically, from consistently applying the defined user profile and the four evaluative questions to every step, without substituting your own knowledge, habits, or preferences for those of the target user. If you are an experienced smartphone user evaluating a prototype built for elderly first-time tablet users, your intuitions about what is "obvious" are precisely the wrong lens to use. The user profile anchors your evaluation to a consistent, externally defined standard, which is what keeps the method objective.</p>
+
+<p>A critical procedural requirement in peer evaluation contexts is that the walkthrough must be completed <em>independently</em> before any discussion with the prototype's creator takes place. When evaluators speak with designers before completing their analysis, several well-documented biases are introduced: evaluators may unconsciously defer to the designer's explanation of intended behavior, they may feel social pressure to soften findings, or they may fill in gaps in the interface with information the designer provided verbally — information that no real user would ever have. Completing the walkthrough first, and documenting findings in writing before any conversation occurs, protects the integrity of the evaluation.</p>
+
+<p>It is also worth appreciating the broader value of this activity. Professional UX roles routinely involve evaluating work produced by colleagues, clients, or external vendors. The ability to deliver rigorous, evidence-based, respectfully framed findings is a core career skill. Peer prototype evaluations give you low-stakes practice in exactly that skill. The "stakes" are low in the sense that no product will ship or fail based on your report, but the practice is high-fidelity because the prototypes are real, the process is real, and the professional norms you are developing are the same ones that govern actual UX practice.</p>
+
+<p><strong>Selecting Tasks for Each Prototype</strong></p>
+
+<p>The Cognitive Walkthrough is a task-driven method. It does not evaluate an interface in the abstract — it traces a specific user attempting to accomplish a specific goal through a specific sequence of actions. This means that task selection is not a minor administrative detail; it is a foundational decision that shapes everything the evaluation can and cannot discover.</p>
+
+<p>A well-chosen task reflects a goal that a real user of that prototype would actually have. To identify such tasks, begin by examining what the prototype is designed to do. If the prototype is a mobile application for tracking medication schedules, a realistic task might be "add a new medication with a twice-daily dosing schedule." That task is realistic because it is something users of such an application genuinely need to accomplish. By contrast, "explore the settings menu" is not a realistic task because it does not correspond to a goal users arrive with — it corresponds to aimless browsing, which is a different and less analytically useful behavior pattern.</p>
+
+<p>Once a task is identified, it must be decomposed into the smallest observable actions before the walkthrough begins. This decomposition is not optional — it is the mechanism through which the method achieves its analytical precision. Consider the medication example. A high-level description like "add a medication" conceals all of the individual micro-decisions a user must make: locating the interface element that initiates the add process, determining how to specify the medication name, navigating to the dosage field, interpreting the available input options, understanding how to set a schedule, and finally completing and confirming the entry. Each of these is a distinct step that deserves its own application of the four evaluative questions. Skipping the decomposition phase means those micro-decisions are never examined, and failures at that granular level — which are often where the most serious usability problems live — go undetected.</p>
+
+<p>When a prototype supports multiple tasks, you must make choices about which to evaluate. Not all tasks are equally important, and evaluation time is finite. Two criteria should guide your prioritization. First, consider <em>frequency</em>: tasks that users will perform repeatedly deserve more evaluative attention than tasks performed rarely, because usability failures in high-frequency tasks compound across every use session. Second, consider <em>consequence of failure</em>: some tasks, if completed incorrectly, have serious downstream effects — submitting incorrect information, losing data, or triggering irreversible actions. These high-consequence tasks should be prioritized even if they occur infrequently, because the cost of a single failure can be substantial.</p>
+
+<p>Your task definition — including the goal statement, the user's starting state, and the full decomposed action sequence — should be documented in writing before the walkthrough begins and included in your submitted evaluation report. This documentation serves two purposes: it makes your evaluation reproducible (another evaluator with the same task definition should be able to trace the same steps), and it provides transparency about the scope of your evaluation so that readers understand what was and was not examined.</p>
+
+<p><strong>Conducting the Walkthrough on Each Prototype</strong></p>
+
+<p>With a defined user profile, a selected task, and a decomposed action sequence in hand, you are ready to conduct the walkthrough. The process is systematic: you move through the action sequence one step at a time, and at each step you apply all four of the standard Cognitive Walkthrough questions. Those questions, applied consistently, are what transform the walkthrough from an informal review into a structured analytical method.</p>
+
+<p>The four questions are:</p>
+<ul>
+  <li><strong>Will the user try to achieve the right effect at this step?</strong> In other words, is the user's goal at this moment aligned with the action the system expects them to take?</li>
+  <li><strong>Will the user notice that the correct action is available?</strong> Is the relevant control, link, button, or input visible and perceivable to the user at this point in the task?</li>
+  <li><strong>Will the user associate the correct action with the effect they are trying to achieve?</strong> Even if the user sees the control, will they understand that using it is the right thing to do at this moment?</li>
+  <li><strong>Will the user know that progress is being made toward their goal?</strong> Does the system provide feedback that the action was received and that the task is advancing as intended?</li>
+</ul>
+
+<p>A critical and frequently overlooked procedural point is the <em>starting state</em>. Each walkthrough should begin from the defined starting state of the task, which is the state the interface is in when a user arrives ready to begin that task. This starting state may or may not be the prototype's home or landing screen. If the task is "edit a previously saved entry," the starting state might be a dashboard showing a list of saved items — the user is already logged in and already has data in the system. Beginning from the home screen would introduce artificial steps that precede the actual task and would distort your evaluation. The starting state should be specified in your task definition documentation.</p>
+
+<p>Apply all four questions to every step, including steps where no failure appears to be present. This completeness requirement may feel inefficient — why document a step that works fine? — but it serves two important functions. First, it ensures that you have genuinely examined every step rather than skimming through sequences that felt intuitive to you. Your intuition may not match the novice user's experience. Second, it produces a complete picture of the interface that includes both its strengths and its weaknesses, which is far more useful than a list of failures in isolation.</p>
+
+<p>As you conduct the walkthrough, you will inevitably make assumptions about what a novice user would think or know at various points. These assumptions should be noted explicitly. For example: "I am assuming that a novice user in this target population would not be familiar with the hamburger menu icon as a navigation trigger." Making these assumptions explicit is not a sign of weakness in your analysis — it is a sign of rigor. It flags the places where your evaluation depends on a judgment call about user knowledge, so that readers can evaluate whether they agree with that judgment. It also makes your evaluation more honest about the boundaries of what you can claim with certainty.</p>
+
+<p>As you move through each step, record your findings in a structured format. A useful format for each step includes: the step number, a description of the expected action, your answer to each of the four questions (with a brief rationale), and a classification of any failure found. Common failure types to recognize include:</p>
+
+<ul>
+  <li><strong>Goal formation failures:</strong> The user does not form the correct subgoal at this step — often because the overall task structure is not communicated clearly by the interface.</li>
+  <li><strong>Visibility failures:</strong> The correct action is available but not perceivable — perhaps because the control is hidden, too small, or outside the expected visual area.</li>
+  <li><strong>Association failures:</strong> The user can see the control but does not connect it to the intended action — often caused by ambiguous labels, unconventional icons, or misleading affordances.</li>
+  <li><strong>Feedback failures:</strong> The action is taken correctly, but the system does not confirm success or indicate progress, leaving the user uncertain whether to proceed or try again.</li>
+</ul>
+
+<p>An illustrative example clarifies how these failure types appear in practice. Suppose you are evaluating a prototype for a library book reservation system, and the task is "reserve a copy of a specific book." At the step where the user is expected to click a button labeled "Hold" to initiate the reservation, your walkthrough might reveal the following:</p>
+
+<ul>
+  <li><em>Will the user try to achieve the right effect?</em> Yes — the user understands they want to reserve the book, which aligns with the concept of placing a hold.</li>
+  <li><em>Will the user notice the correct action is available?</em> Uncertain — the "Hold" button is positioned below a fold line and may not be visible without scrolling on smaller screens. <strong>Potential visibility failure.</strong></li>
+  <li><em>Will the user associate the action with the effect?</em> Partially — users familiar with library terminology will connect "Hold" with reservation, but users without that background may interpret "Hold" ambiguously. <strong>Potential association failure for some user segments.</strong></li>
+  <li><em>Will the user know progress is being made?</em> No — after clicking "Hold," the page does not visibly change, and no confirmation message appears. The user has no way to know whether the reservation was placed. <strong>Clear feedback failure.</strong></li>
+</ul>
+
+<p>This level of granularity is what makes the Cognitive Walkthrough analytically powerful and what distinguishes it from a general impression review.</p>
+
+<p><strong>Comparing Findings Across Three Prototypes</strong></p>
+
+<p>Evaluating three peer prototypes rather than one is not simply three times the work — it is a qualitatively different analytical opportunity. When findings are compared across multiple interfaces that were designed independently by different designers for potentially different purposes, patterns that would be invisible in a single evaluation become apparent.</p>
+
+<p>The most important cross-prototype analytical question is: do any failure categories appear consistently across multiple interfaces? If feedback failures appear in all three prototypes, that is not a coincidence specific to any individual designer's choices — it suggests a systemic gap, possibly in the shared design knowledge of the group, possibly in the conventions of the design tools being used, or possibly in a broader pattern of how novice designers tend to underestimate the importance of system feedback. Identifying this kind of pattern is more valuable than cataloging the same failure type three separate times without recognizing the connection.</p>
+
+<p>Cross-prototype comparison also reveals positive patterns. When you note design decisions that successfully supported user cognition — clear labels, well-placed affordances, informative feedback messages, logical task flows — and those decisions appear across multiple prototypes, they become candidates for generalizable good practice. Including these positive examples in your analysis is not about being polite to designers; it is about building your own inventory of effective design strategies. The goal of UX evaluation is to improve design, and improvement means knowing both what to avoid and what to replicate.</p>
+
+<p>When documenting cross-prototype observations, organize your comparisons around failure categories and success patterns rather than simply listing prototype A, then B, then C. A comparative table can be an effective way to present this information clearly:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Failure Category</th>
+      <th>Prototype A</th>
+      <th>Prototype B</th>
+      <th>Prototype C</th>
+      <th>Pattern Assessment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Feedback Failures</td>
+      <td>3 instances</td>
+      <td>2 instances</td>
+      <td>4 instances</td>
+      <td>Consistent across all three — systemic concern</td>
+    </tr>
+    <tr>
+      <td>Visibility Failures</td>
+      <td>1 instance</td>
+      <td>0 instances</td>
+      <td>2 instances</td>
+      <td>Moderate, not systemic</td>
+    </tr>
+    <tr>
+      <td>Association Failures</td>
+      <td>2 instances</td>
+      <td>4 instances</td>
+      <td>1 instance</td>
+      <td>Variable — may reflect different icon/label conventions used</td>
+    </tr>
+    <tr>
+      <td>Goal Formation Failures</td>
+      <td>0 instances</td>
+      <td>1 instance</td>
+      <td>0 instances</td>
+      <td>Isolated — specific to Prototype B's task structure</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Your cross-prototype reflections should be incorporated into the final evaluation summary section of your report. This section is where you synthesize what you learned across the full evaluation, not just what you found in each individual prototype. It is the section that demonstrates your ability to think analytically across cases — a skill that is directly transferable to professional contexts where evaluators assess multiple design options, iterations, or competitor products.</p>
+
+<p><strong>Preparing and Submitting the Evaluation Report</strong></p>
+
+<p>The written evaluation report is the primary deliverable of this module, and its quality depends not only on the rigor of the walkthrough you conducted but on how clearly and professionally your findings are communicated. A report that contains valuable insights buried in disorganized prose, or that presents conclusions without traceable evidence, will not be useful to designers or to the professional audience that UX reports are always ultimately written for.</p>
+
+<p>The report should be organized so that each prototype has its own clearly labeled section. Within each prototype section, the reader should be able to find: the task definition (including the user profile, goal statement, starting state, and decomposed action sequence), a step-by-step walkthrough log documenting findings at each step, a summary of failures identified with their classifications, and a brief assessment of the interface's usability strengths. Separating prototypes clearly prevents findings from bleeding across sections and ensures that designers receiving feedback on their specific prototype can locate and understand the relevant findings without having to parse a combined document.</p>
+
+<p>Each prototype section should open with an executive summary — a brief paragraph, typically three to five sentences, that identifies the most critical failures discovered and characterizes their potential impact on users. An executive summary is not a recapitulation of everything that follows; it is a prioritized highlight for readers who need to understand the most important findings quickly. In professional contexts, stakeholders often read only the executive summary before deciding whether to read further, so this section carries significant weight. A strong executive summary sounds like this:</p>
+
+<p><em>"The walkthrough of Prototype B identified a persistent feedback failure pattern across four of the seven evaluated steps, meaning that users have no reliable signal that their actions have been received by the system. This pattern is most consequential at the form submission step, where a user who receives no confirmation may resubmit data multiple times, potentially creating duplicate records. A secondary association failure at step three — where the icon for 'save draft' is conventionally associated with file downloads in most operating systems — is likely to cause users to avoid the control entirely, risking data loss."</em></p>
+
+<p>Notice that this executive summary is specific, grounded in the findings, and framed around user impact rather than designer error. Every claim references something observable and actionable.</p>
+
+<p>The evidentiary standard for the full report is that all claims about failures must be traceable to specific steps and specific evaluative questions. A statement like "the interface is confusing" is not an acceptable finding because it cannot be traced to a step or a question. The equivalent acceptable finding is: "At step four, when the user is expected to select a date from the calendar widget, the response to Question 2 (will the user notice the correct action is available?) is negative, because the widget is rendered in a gray color indistinguishable from the disabled state of other controls on the page, making it appear non-interactive." This level of specificity is what allows findings to be acted upon — a designer who receives the second version of that finding knows exactly what to look at and what to consider changing.</p>
+
+<p>Documentation templates completed during the walkthrough process — step-by-step logs, question response records, and task definition sheets — should be submitted as appendices to the report. These appendices serve as the evidentiary foundation for the claims made in the report body. They also demonstrate that the evaluation was conducted systematically, not reconstructed from memory after the fact. Reviewers, instructors, and in professional contexts, clients, may examine appendices to verify that the evaluation process was followed correctly.</p>
+
+<p>A brief note on professional tone throughout the report: findings should be written in language that is precise, neutral, and constructive. Avoid language that characterizes the designer's intentions, abilities, or effort. Avoid vague qualitative assessments like "poor" or "bad" that carry evaluative weight without analytical content. Prefer descriptive, action-oriented language: "the label does not distinguish between saving a draft and publishing," "the confirmation dialog appears only on desktop and is absent in the mobile view," "the progress indicator is not updated until the final step, leaving users without feedback during a multi-step process." This register of language — descriptive, specific, and focused on the interface — is the professional register of UX evaluation, and practicing it throughout your report is itself a meaningful learning outcome of this module.</p>
+        <div class="notes"><strong>Notes</strong>Guides students through the independent application of the Cognitive Walkthrough to three real peer-created prototypes, including practical considerations and ethical conduct.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p5-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>In this topic you move from learning the cognitive walkthrough to actually running one. You will take three prototypes created by your peers, choose representative tasks for each, step through those tasks as an evaluator, and record where a first-time user would likely hesitate, choose the wrong control, or fail to recognize that progress was made. The walkthrough is done from the user's perspective, not the designer's, so a large part of the work is setting aside what you already know about how the interface is "supposed" to work.</p>
+<p>Evaluating peer work also brings practical and ethical considerations. You are commenting on an interface, not on a classmate, so findings should be specific, evidence-based, and tied to the walkthrough's guiding questions rather than to personal taste. Comparing results across three prototypes helps you see patterns: issues that appear everywhere often point to a hard interaction problem, while issues unique to one prototype usually point to a design decision that can be revised.</p>
+<p>The videos below come from Nielsen Norman Group, a long-standing usability research and consulting firm. None of them is specifically about cognitive walkthrough, so treat them as transferable craft: how expert inspection methods are organized and consolidated, how to surface a user's reasoning out loud, and when verbalization methods break down. While watching, look for the parts you can carry directly into your own evaluation — independent evaluation before discussion, merging duplicate findings, phrasing issues clearly, and knowing the limits of each technique.</p></div></details><details class="slide-card" id="p5-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: How to Conduct a Heuristic Evaluation</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/sqi0-Lz_ZTY?cc_load_policy=1&amp;rel=0" title="Video: How to Conduct a Heuristic Evaluation (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 4:50 · 45,581 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=sqi0-Lz_ZTY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This short video walks through the procedure for running a heuristic evaluation, an expert inspection method closely related to the cognitive walkthrough. Based on its chapter markers, it covers evaluating independently, works through an example, and then explains how to consolidate the issues multiple evaluators find into a single list before summarizing the process.</p>
+<h4>Why this video</h4>
+<p>It models the overall workflow of an inspection-based evaluation — inspect, record, consolidate, report — which maps directly onto conducting walkthroughs on three prototypes and then comparing and reporting findings. NN/g is an authoritative source for usability inspection methods, so the guidance is reliable.</p></div></details><details class="slide-card" id="p5-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Help Users Think Aloud</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/tXJqAYDbRzI?cc_load_policy=1&amp;rel=0" title="Video: Help Users Think Aloud (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:42 · 18,210 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=tXJqAYDbRzI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video explains the think-aloud technique: what it is, why asking people to verbalize their thoughts is useful, and how a facilitator explains it, reinforces the behavior, and prompts without leading. It focuses on practical facilitation moves for keeping a participant talking about what they expect and notice.</p>
+<h4>Why this video</h4>
+<p>A cognitive walkthrough asks you to reason aloud about what a user would be thinking at each step, so the prompting and verbalization habits shown here sharpen how you articulate and document per-step reasoning on each peer prototype.</p></div></details><details class="slide-card" id="p5-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: When Thinking Aloud Fails</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/73nlIuBD6to?cc_load_policy=1&amp;rel=0" title="Video: When Thinking Aloud Fails (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:46 · 3,970 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=73nlIuBD6to" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video addresses situations where thinking aloud does not work well, particularly with work-domain experts whose knowledge is automatic and hard to verbalize. It points to alternatives such as retrospective testing, expert walkthroughs, and interviews as ways to recover the reasoning behind user actions.</p>
+<h4>Why this video</h4>
+<p>It names expert walkthroughs as a legitimate alternative method and clarifies when evaluator-driven inspection is appropriate, which helps you justify using a cognitive walkthrough on peer prototypes and understand its boundaries.</p></div></details><details class="slide-card" id="p5-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos reinforce the module outcomes from complementary angles. The heuristic evaluation video supports MO1 and MO2 by showing the disciplined sequence of an inspection method — evaluating independently, documenting issues, then consolidating them — which is the same rhythm you will follow when running walkthroughs on three peer prototypes and writing the report. The think-aloud video strengthens MO2 by improving how you surface and record step-by-step user reasoning rather than vague impressions. The final video supports MO3 by clarifying when verbalization-based data is unreliable and expert inspection is the better choice, helping you weigh the credibility and impact of findings when prioritizing which design revisions matter most.</p></div></details><details class="slide-card" id="p5-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part6">
+<h2>Interpreting Results and Communicating Findings</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Interpreting Results and Communicating Findings</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The cognitive walkthrough process generates a detailed record of step-by-step evaluative judgments, but those raw judgments are only the raw material of a usability evaluation — not the evaluation itself. The real analytical work begins after the walkthrough is complete, when you must transform a collection of individual pass/fail decisions into a coherent, prioritized, and actionable account of how the interface serves — or fails — its intended users. This final stage involves three interconnected activities: synthesizing findings into meaningful patterns, translating those patterns into recommendations that designers can actually use, and presenting everything in a form that earns trust and drives action. Understanding the inherent limitations of the method is also essential, both for honest communication with stakeholders and for deciding when additional research is warranted.</p>
+
+<p><strong>Synthesizing Findings into Patterns</strong></p>
+
+<p>A cognitive walkthrough of even a moderately complex interface can produce dozens of individual failure notes. Handing a designer a raw list of fifty isolated observations — "Step 3, Q2 failed; Step 7, Q1 failed; Step 12, Q2 failed" — is technically complete but practically unhelpful. The designer cannot easily see which problems are symptoms of the same underlying cause, which areas of the interface are most troubled, or where to begin. Synthesis is the process of grouping and interpreting those raw findings so that their collective meaning becomes visible.</p>
+
+<p>The most productive first move is to group failures by the evaluative question they violate. The cognitive walkthrough framework uses a small set of evaluative questions — typically concerning whether users will know what to do, whether they will notice the correct action, whether they will understand the system's response, and so on. When you sort every failure into these buckets, you immediately see whether your interface has a pervasive <em>discoverability</em> problem (most failures on the question about knowing what to do), a <em>feedback</em> problem (most failures on the question about interpreting system responses), or some other dominant weakness. This categorical grouping reveals design weaknesses that are invisible when failures are listed in the order they were encountered.</p>
+
+<p>A second dimension of synthesis is to look for patterns across the steps of a single task. If a user attempting to attach a file to an email fails the evaluative questions at the step where they open the attachment panel, again at the step where they navigate to the file, and again at the step where they confirm the attachment, all three failures share a spatial and functional context — they all occur within the same interface region and workflow segment. This concentration of failures within one task strongly suggests a <em>structural interface problem</em>: the design of that particular feature or screen is fundamentally misaligned with the novice user's mental model. The recommendation that follows will need to address the architecture of that feature, not just polish individual labels or icons.</p>
+
+<p>A third and higher-level pattern emerges when you look across multiple, otherwise unrelated tasks. Suppose users fail Q2 (noticing the correct action) repeatedly in the attachment workflow, the calendar workflow, and the search workflow — three completely different functional areas. This recurrence across tasks is a signal of a <em>design philosophy issue</em>: the product may rely on a visual language or interaction paradigm that systematically hides affordances from novice users. The root cause is not a bad button in one screen; it is a pervasive convention about how the product surfaces its capabilities. This kind of finding is the most valuable output of a thorough synthesis because it reveals leverage points — fix the underlying philosophy and multiple independent problems improve simultaneously.</p>
+
+<p>The practical difference between a synthesized report and a raw list is significant. Consider the following comparison:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Raw finding list</th>
+      <th>Synthesized finding</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Step 3, Q2 fail: user may not notice the "More" overflow menu.</td>
+      <td rowspan="3">Five of seven Q2 failures across tasks 1, 2, and 4 occur at steps where key actions are hidden in overflow menus or secondary panels. Novice users systematically overlook actions that are not persistently visible in the primary interface layer, suggesting an over-reliance on progressive disclosure that exceeds the tolerance of first-time users.</td>
+    </tr>
+    <tr>
+      <td>Step 9, Q2 fail: user may not notice the settings icon is in the top-right corner.</td>
+    </tr>
+    <tr>
+      <td>Step 14, Q2 fail: user may not notice the "Advanced" link below the form.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The synthesized version is not simply more compact — it is more <em>useful</em> because it identifies the class of design decision causing the failures, which points directly toward the class of design change that would fix them. Designers can act on a synthesized finding immediately; they must do additional interpretive work before they can act on an unsynthesized list.</p>
+
+<p><strong>Writing Actionable Recommendations</strong></p>
+
+<p>A finding without a recommendation is a diagnosis without a prescription. Designers need to know not only what is broken but what direction to move in to fix it. Effective recommendations have several distinguishing characteristics.</p>
+
+<p>First, every recommendation must be <em>directly tied to a specific failure type and its identified root cause</em>. Vague recommendations — "improve the navigation" or "make the interface more intuitive" — are nearly useless because they do not tell the designer <em>what specifically</em> to change or <em>why</em> the current state is problematic. A well-formed recommendation names the failure pattern, identifies the root cause, and proposes a concrete direction: "Because novice users failed to discover actions located in overflow menus (Q2 failures across tasks 1, 2, and 4), consider surfacing the three most frequently needed actions as persistent, labeled buttons in the primary toolbar rather than nesting them under a 'More' control."</p>
+
+<p>Second, recommendations should be <em>proportionate to the severity and scope of the failure</em>. A common and costly mistake is recommending a complete redesign when a targeted change would resolve the problem. If failures cluster around a single mislabeled button, the recommendation is to relabel the button — not to redesign the entire settings panel. Recommending sweeping redesigns in response to isolated issues undermines the evaluator's credibility, because it signals either a failure to diagnose the problem correctly or an unwillingness to think carefully about cost-effective solutions. Reserve large-scale recommendations for findings that genuinely warrant them: structural problems and design philosophy issues identified through cross-task pattern analysis.</p>
+
+<p>Third, recommendations should be <em>prioritized by the severity of the failures they address</em>. Severity in a cognitive walkthrough context combines two factors: how likely the failure is to block task completion (a failure at the first step of a task is more severe than a failure at a minor confirmatory step), and how frequently the affected task is performed. A practical severity framework might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Severity level</th>
+      <th>Criteria</th>
+      <th>Recommendation priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Critical</td>
+      <td>Failure blocks task completion; occurs on a frequently performed task; no recoverable path</td>
+      <td>Must address before release</td>
+    </tr>
+    <tr>
+      <td>Serious</td>
+      <td>Failure significantly impedes progress; user may eventually recover but with difficulty or confusion</td>
+      <td>Address in next design iteration</td>
+    </tr>
+    <tr>
+      <td>Moderate</td>
+      <td>Failure causes minor friction or confusion; user recovers quickly; infrequent task</td>
+      <td>Address when resources allow</td>
+    </tr>
+    <tr>
+      <td>Minor</td>
+      <td>Failure represents a small inconsistency or inefficiency with negligible impact on task success</td>
+      <td>Consider in future polish pass</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Fourth, wherever possible, recommendations should <em>reference established design conventions or guidelines</em> that support the proposed direction. Pointing to a relevant heuristic — such as Nielsen's principle of visibility of system status, or Fitts's Law as a basis for recommending larger touch targets — accomplishes two things. It demonstrates that the recommendation is grounded in evidence beyond the evaluator's personal preference, and it gives the designer a framework for understanding <em>why</em> the proposed change is likely to work. Citing a well-known platform guideline (for example, Apple's Human Interface Guidelines or Google's Material Design specification) is especially persuasive in organizational contexts where designers may otherwise treat evaluator feedback as subjective opinion.</p>
+
+<p><strong>Presenting Findings to Designers</strong></p>
+
+<p>Even a rigorous, well-synthesized evaluation can fail to produce change if its findings are communicated poorly. Presentation is not a cosmetic concern — it is a strategic one, because the goal of the entire evaluation is to improve the design, and that improvement only happens if the people with the power to change the design understand, trust, and act on the findings.</p>
+
+<p>The single most important structural decision in a usability report or presentation is to <em>lead with the most critical findings</em>. This is a deliberate inversion of the chronological order in which findings were discovered. In real project contexts, designers and product managers face time pressure; a presentation that buries critical findings on page fourteen will likely result in those findings being missed. Front-loading the most severe, highest-priority issues ensures that even a stakeholder who leaves the meeting early or skims the report receives the information they most need to act on.</p>
+
+<p>The language of the report matters enormously. Findings should be written in <em>user-centered language</em> that keeps the novice user's experience at the center of every statement, rather than foregrounding the evaluator's personal judgment. Compare these two formulations:</p>
+
+<ul>
+  <li><em>Evaluator-centered (less effective):</em> "I found the 'Save' button placement confusing and thought it was poorly designed."</li>
+  <li><em>User-centered (more effective):</em> "A novice user who has just completed the form is unlikely to locate the 'Save' button, which appears below the fold and uses no color differentiation to distinguish it from secondary actions. This creates a high risk that users will close the window believing their work has been saved when it has not."</li>
+</ul>
+
+<p>The user-centered version is more persuasive because it describes a consequence for a real person, grounds the claim in observable interface properties, and implies a direction for correction. It also depersonalizes the critique, making it easier for designers to receive without feeling attacked.</p>
+
+<p>Every finding must be supported by <em>specific evidence</em>: the task name, the step number, and the evaluative question that failed. This specificity serves two purposes. It allows the designer to independently verify the finding by reviewing the relevant part of the interface, and it demonstrates analytical rigor — the finding is not a vague impression but a traceable conclusion derived from a systematic process. A well-evidenced finding might read: "In Task 2 (creating a new contact), Step 4 (saving the contact), the evaluative question 'Will the user know that the correct action has been performed?' received a failure judgment because the interface displays no confirmation message, toast notification, or other system feedback after the save action is triggered."</p>
+
+<p>Finally, effective communication requires <em>acknowledging successful design decisions alongside failures</em>. An evaluation report that contains only problems reads as an attack on the design team's competence and is likely to provoke defensiveness rather than receptive engagement. Identifying and naming what the design does well — "The step-by-step progress indicator in the onboarding flow consistently passed Q3 judgments across all tasks, providing novice users with reliable feedback about where they are in the process" — accomplishes several things: it demonstrates that the evaluator applied the method impartially rather than hunting for failures, it gives the design team positive reinforcement for choices worth preserving in future iterations, and it establishes the evaluator as a credible, balanced analyst whose critical findings can therefore be trusted.</p>
+
+<p><strong>Limitations of the Cognitive Walkthrough Method</strong></p>
+
+<p>No evaluation method is universal or infallible, and honest communication of findings requires acknowledging the cognitive walkthrough's specific constraints. Stakeholders who understand these limitations can make better decisions about how much weight to give the findings and when to invest in complementary research.</p>
+
+<p>The most fundamental limitation is that <em>findings reflect an evaluator's simulation of a novice user's cognition, not the actual behavior of novice users</em>. The walkthrough is an expert analysis, not an empirical observation. The evaluator uses their knowledge of design principles, cognitive psychology, and domain conventions to predict what a first-time user would think and do — but predictions are not measurements. Real novice users bring idiosyncratic backgrounds, expectations, and strategies that no evaluator can fully anticipate. They may fail at steps the evaluator judged as passing, and succeed at steps the evaluator judged as failing, for reasons that only emerge in direct observation.</p>
+
+<p>The method also has a <em>temporal blindspot</em>: it captures the experience of first-time use but does not address how easily users can develop competence over repeated interactions, nor does it evaluate the efficiency ceiling available to experienced users. Questions like "How quickly will users become proficient?" or "Does this design support expert-level shortcuts?" require longitudinal study or task-timing analyses that go beyond what a walkthrough can provide.</p>
+
+<p><em>Evaluator bias</em> is a third and practically significant limitation. The judgments made during a cognitive walkthrough are only as reliable as the evaluator's knowledge, assumptions, and self-awareness. An evaluator with deep expertise in a particular domain may unconsciously apply domain knowledge that a genuine novice would not have, leading them to pass steps that real novices would fail. Conversely, an evaluator unfamiliar with a particular interface paradigm might fail steps that users in the actual target population would find natural. Using multiple evaluators and discussing disagreements openly can reduce but cannot eliminate this source of bias.</p>
+
+<p>For these reasons, <em>cognitive walkthrough findings should ideally be validated through subsequent user testing</em>. The walkthrough is most accurately characterized as a hypothesis-generating method: it produces a structured, theoretically grounded set of predictions about where novice users will struggle. Those predictions are valuable — they direct attention efficiently and often identify real problems at low cost — but they gain their full evidential force only when confirmed by observation of actual users performing actual tasks. A formative usability test with even five to eight participants from the target population can confirm which walkthrough-identified failures materialize in practice, reveal issues the walkthrough missed, and provide the kind of behavioral evidence that is often more persuasive to skeptical stakeholders than expert judgment alone.</p>
+
+<p>Understanding these limitations does not diminish the value of the cognitive walkthrough — it places that value in its proper context. The method is fast, inexpensive, theoretically grounded, and capable of identifying a substantial proportion of critical usability problems before a single user is recruited. Used honestly, with its limitations clearly communicated, it is an indispensable tool in a well-rounded usability evaluation program.</p>
+        <div class="notes"><strong>Notes</strong>Tabular data rendered as HTML tables: failure pattern comparison (raw vs. synthesized) and severity framework. User-centered vs. evaluator-centered language contrast rendered as a list with inline emphasis for clarity. No headings used; topic flow maintained through strong paragraph leads and bold subtopic labels.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p6-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>A cognitive walkthrough produces a pile of raw observations: at step 4 the user would not know the "Submit" control exists, at step 7 the feedback message does not confirm success, and so on. On its own, that list is not very useful to a design team. The real work of this topic is turning those individual breakdowns into something a designer can act on — grouping related failures into patterns, judging which ones matter most, writing recommendations that are specific enough to implement, and presenting them in a way that invites collaboration rather than defensiveness.</p>
+<p>This topic also asks you to be honest about what the method can and cannot tell you. A cognitive walkthrough is an analytic, expert-driven inspection built around a specific task and an assumed user. It does not measure how long real people take, how they feel, or what they do when they wander off the happy path. Knowing those limits keeps your report credible and helps you say clearly which claims are evidence-based predictions and which would need user testing to confirm.</p>
+<p>As you watch the videos below, pay attention to three things: how severity is decided (and on what criteria), how problems can be classified at different levels of scale, and how the social side of delivering findings — framing, context, and the kind of feedback you ask for — changes whether your recommendations actually get used. Note that these videos are drawn from usability testing and heuristic evaluation contexts; the reporting and prioritization practices transfer directly to cognitive walkthrough results.</p></div></details><details class="slide-card" id="p6-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Prioritize UX Findings by Severity</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iyWWe_tZeEY?cc_load_policy=1&amp;rel=0" title="Video: Prioritize UX Findings by Severity (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:04 · 9,970 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=iyWWe_tZeEY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short Nielsen Norman Group explainer on assigning severity ratings to design issues found in usability studies or heuristic evaluations. It walks through the small set of criteria evaluators typically use to rate a problem's seriousness, so that a long list of findings can be ordered by importance rather than by the order they were discovered.</p>
+<h4>Why this video</h4>
+<p>Severity rating is the mechanism that turns a flat list of walkthrough failures into a prioritized set of revisions, and NN/g is the standard professional source for how those ratings are defined and applied.</p></div></details><details class="slide-card" id="p6-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: How to Get Helpful Feedback on UX Work</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/YFCistZV8wY?cc_load_policy=1&amp;rel=0" title="Video: How to Get Helpful Feedback on UX Work (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 4:17 · 8,942 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=YFCistZV8wY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video focuses on the communication side of UX work: how to set the stage with stakeholders before you present, what context to provide, and how to ask for the kind of feedback you actually need. It treats a presentation as a structured conversation rather than a one-way report.</p>
+<h4>Why this video</h4>
+<p>It speaks directly to the "Presenting Findings to Designers" subtopic, giving concrete framing tactics for sharing walkthrough results so that designers engage with the problems instead of defending the design.</p></div></details><details class="slide-card" id="p6-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Types of User Pain Points</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/_A_DLps6zkE?cc_load_policy=1&amp;rel=0" title="Video: Types of User Pain Points (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 4:21 · 28,529 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=_A_DLps6zkE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An overview of user pain points organized into three categories — interaction level, journey level, and relationship or organizational level — with examples of how problems range from small friction to large systemic issues. It gives a vocabulary for describing the scale and scope of a usability problem.</p>
+<h4>Why this video</h4>
+<p>The three-level framing is a practical tool for synthesizing scattered walkthrough findings into patterns and for explaining to stakeholders why some issues are isolated fixes while others point to a deeper design problem.</p></div></details><details class="slide-card" id="p6-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos carry the module from documentation to decision-making. The severity-rating video supports MO3 most directly, giving you explicit criteria for ranking the issues you identified during your walkthrough so revisions can be sequenced by impact rather than convenience. The pain-points video supplies a classification scheme for grouping the issues you documented under MO2 into patterns at the interaction and journey levels, which is the first step toward meaningful prioritization. The feedback video addresses the final link in the chain: once you have recalled the method's guiding questions (MO1) and applied them to a peer or self-developed prototype, your findings only create value if designers and stakeholders can receive them productively.</p></div></details><details class="slide-card" id="p6-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

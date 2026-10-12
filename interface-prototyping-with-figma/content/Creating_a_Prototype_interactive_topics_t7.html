@@ -1,0 +1,509 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building and Submitting the Group Project Prototype</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Interface Prototyping with Figma</a></div>
+  <header>
+    <h1>Building and Submitting the Group Project Prototype</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Building and Submitting the Group Project Prototype</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The final stage of a prototyping module is where every isolated skill — frames, components, auto-layout, styles, and interactive connections — stops being an exercise and becomes a deliverable. Building a group project prototype is as much a <strong>coordination problem</strong> as a design problem. A single designer working alone can tolerate an untidy file because they hold the structure in their head; a team of four cannot. The moment three people are editing the same Figma file, the cost of an undocumented decision, a detached component, or an unassigned screen multiplies. This topic walks through a complete delivery process: defining what must be built, dividing it safely, checking it against an agreed standard, preparing it for outside eyes, running a structured peer evaluation, and closing the loop with documented iteration.</p>
+
+<p>The underlying discipline is simple to state and hard to practise: <em>decide before you build, build to the decision, and verify against the decision.</em> Most group prototypes that fail at submission do not fail because the visual design is poor. They fail because two people built the same screen differently, a flow dead-ends halfway through checkout, or the shared link opens on an arbitrary frame in the middle of the file. Each section below targets one of those failure modes.</p>
+
+<p><strong>Project Scope and Screen Inventory</strong></p>
+
+<p>A screen inventory is a written list of every frame the prototype requires, with each frame tied explicitly to a user task. It is the contract between the team and the brief. Without it, scope expands silently — someone adds a "settings" screen nobody asked for while the core booking flow is still missing two steps.</p>
+
+<p>The inventory should be built from <em>flows</em>, not from a wishlist of pages. Start by writing the user tasks the prototype must demonstrate ("a user signs in and books a class", "a user cancels an existing booking"), then decompose each task into the screens required to complete it. Every frame in the inventory must answer the question: <em>which task does this serve, and what comes before and after it?</em> A frame that cannot answer this is either unnecessary or evidence of a missing flow.</p>
+
+<p>A workable inventory format looks like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Frame name</th>
+      <th>Flow / task</th>
+      <th>Entry point (from)</th>
+      <th>Exit points (to)</th>
+      <th>Priority</th>
+      <th>Owner</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>01-Home</td>
+      <td>Book a class</td>
+      <td>Prototype start</td>
+      <td>02-Class List, 07-Profile</td>
+      <td>P1 — core</td>
+      <td>Amina</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>02-Class List</td>
+      <td>Book a class</td>
+      <td>01-Home</td>
+      <td>03-Class Detail, 01-Home</td>
+      <td>P1 — core</td>
+      <td>Amina</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>03-Class Detail</td>
+      <td>Book a class</td>
+      <td>02-Class List</td>
+      <td>04-Confirm Booking, 02-Class List</td>
+      <td>P1 — core</td>
+      <td>Jonah</td>
+      <td>In progress</td>
+    </tr>
+    <tr>
+      <td>04-Confirm Booking</td>
+      <td>Book a class</td>
+      <td>03-Class Detail</td>
+      <td>05-Booking Success</td>
+      <td>P1 — core</td>
+      <td>Jonah</td>
+      <td>Not started</td>
+    </tr>
+    <tr>
+      <td>05-Booking Success</td>
+      <td>Book a class</td>
+      <td>04-Confirm Booking</td>
+      <td>01-Home, 07-Profile</td>
+      <td>P1 — core</td>
+      <td>Jonah</td>
+      <td>Not started</td>
+    </tr>
+    <tr>
+      <td>06-Class Full (error)</td>
+      <td>Book a class — edge case</td>
+      <td>03-Class Detail</td>
+      <td>02-Class List</td>
+      <td>P3 — edge</td>
+      <td>Unassigned</td>
+      <td>Backlog</td>
+    </tr>
+    <tr>
+      <td>07-Profile</td>
+      <td>Manage account</td>
+      <td>01-Home, 05-Booking Success</td>
+      <td>01-Home</td>
+      <td>P2 — secondary</td>
+      <td>Priya</td>
+      <td>In progress</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Notice that the <strong>exit points</strong> column doubles as a prototyping checklist. If a frame lists two exits, the finished file must contain two working connections from that frame. This single column prevents most dead-end problems before they occur.</p>
+
+<p><em>Prioritisation</em> matters because time runs out. The <strong>critical path</strong> — the shortest sequence of screens that lets an evaluator complete the headline task from start to finish — must be built and connected first. A prototype with five polished core screens and a complete loop is far more persuasive than fifteen half-connected screens including three error states. Label screens P1 (core journey), P2 (secondary flows a user might reasonably take, such as viewing a profile), and P3 (edge cases: empty states, error messages, offline states). Build strictly in that order. If the deadline arrives with P3 untouched, the prototype still demonstrates a complete user journey.</p>
+
+<p>Before anyone opens Figma, the team must agree a <strong>definition of done</strong> for a screen. "Done" is not "it looks finished to me." A usable definition is explicit and checkable:</p>
+
+<ul>
+  <li>Frame is sized to the agreed device preset (e.g. 390 × 844) and named using the agreed convention.</li>
+  <li>All repeating elements (buttons, nav bars, cards, input fields) are <strong>instances</strong> of shared library components — no detached or hand-drawn copies.</li>
+  <li>All colours come from published colour styles; all text uses published text styles. Zero ad-hoc hex values or one-off font sizes.</li>
+  <li>Layout uses auto-layout with the agreed spacing scale (e.g. 4/8/16/24) rather than manually nudged positions.</li>
+  <li>Copy is realistic and representative — no "Lorem ipsum", no "Button", no "Title goes here".</li>
+  <li>Every interactive element listed in the inventory's exit points has a working prototype connection with the agreed transition.</li>
+  <li>A back or cancel route exists wherever the user could reasonably want to retreat.</li>
+</ul>
+
+<p>Write this list into the Figma file itself — a text frame on a "Team" page — so nobody has to go hunting for it. A screen is marked "Done" in the inventory only when its owner has checked it against every line.</p>
+
+<p>Finally, the inventory is a <em>living</em> document. Review it at every team check-in: which screens moved to Done, which are blocked, which have slipped in priority. The purpose of the check-in is to surface blockers early — "I can't build the confirmation screen because we haven't decided what the card component looks like" is a five-minute problem on day two and a crisis on the day before submission.</p>
+
+<p><strong>Dividing Work Across Team Members</strong></p>
+
+<p>Figma's multiplayer editing is genuinely concurrent: two people can work in the same file at the same time and see each other's cursors. What it does <em>not</em> do is merge conflicting intentions. If two people independently restyle the same button, the last edit wins silently and the earlier work is simply gone. Division of labour is therefore about establishing <strong>exclusive ownership zones</strong> so that no two people ever have a legitimate reason to edit the same object.</p>
+
+<p>The most reliable unit of ownership is the <strong>page</strong>, with the <strong>frame</strong> as a secondary unit. A sensible file structure for a four-person team:</p>
+
+<pre><code>📄 00 — Team (brief, screen inventory, definition of done, decisions log)
+📄 01 — Design System (components, colour styles, text styles)  → Owner: Priya
+📄 02 — Flow A: Booking                                          → Owner: Amina
+📄 03 — Flow B: Account &amp; Profile                                → Owner: Jonah
+📄 04 — Flow C: Search &amp; Discovery                               → Owner: Dani
+📄 05 — Archive (superseded explorations, do not link)
+</code></pre>
+
+<p>Note the single owner for the Design System page. This is the most important ownership rule in the whole file. Shared components are, by definition, edited by one person and inherited by everyone; if three people are changing master components simultaneously, the entire file becomes unstable. Treat component changes as <strong>requests</strong>: a team member who needs a new variant posts a Figma comment on the component ("Need a destructive/red variant of Button for the Cancel Booking screen") and the library owner builds it. This takes slightly longer than doing it yourself and saves hours of reconciliation.</p>
+
+<p>The rule that <em>all members use shared library components rather than ad-hoc elements</em> is what makes parallel work converge rather than diverge. Consider the alternative: Amina draws a button as a rectangle with a text layer, 16px radius, #2B5CE6 fill. Jonah draws his own at 12px radius, #2B5DE8. On their own screens each looks fine. Side by side in the final prototype they look like two different products — and fixing it late means hand-editing dozens of elements. With a shared component, Priya changes the master once and every instance across all four pages updates instantly. The same logic applies to styles: a published colour style named <code>Brand/Primary</code> can be re-tuned globally; a pasted hex value cannot.</p>
+
+<p>Practical conventions that prevent conflicts:</p>
+
+<ul>
+  <li><strong>Never edit outside your page</strong> without a comment and an acknowledgement. If you spot a problem on someone else's screen, comment — do not fix.</li>
+  <li><strong>Never detach an instance</strong> to make a local change. If the component does not support what you need, request a variant or a property. Detaching breaks the inheritance chain permanently and is one of the most common QA failures.</li>
+  <li><strong>Name everything as you go.</strong> <code>01-Home</code>, <code>02-Class List</code>, not <code>Frame 427</code>. Prototype connections and the inventory both depend on recognisable names.</li>
+  <li><strong>Use the Archive page</strong> rather than deleting explorations. Deleted work occasionally needs recovering; abandoned frames left floating next to live ones get accidentally linked into the prototype.</li>
+</ul>
+
+<p>Merging is a scheduled activity, not an accident. A short <strong>sync</strong> at the end of each working session — fifteen minutes, everyone in the file together — is enough. The agenda is fixed: walk the critical path in presentation mode, update the inventory statuses, look for visual inconsistencies (mismatched spacing, two shades of grey, inconsistent corner radii), and agree who fixes what. Visual inconsistency is easiest to spot when screens from different owners are placed adjacent on the canvas, so part of the sync is simply dragging frames next to each other and looking.</p>
+
+<p><strong>Figma comments</strong> are the team's asynchronous channel. A comment pinned to a specific element carries context that a chat message cannot: the reader sees exactly what you mean. Use comments for questions ("Should this CTA say 'Book' or 'Reserve'? Brief uses both"), review requests ("@Priya ready for your check"), and flags ("this card is detached — I'll rebuild from the library"). Crucially, comments live in an overlay and do not alter layers, so they add no risk to the file structure — unlike the common anti-pattern of dropping red text notes directly onto the canvas, which then has to be found and deleted before submission. Resolve comments once actioned so the remaining pins represent genuine open work.</p>
+
+<p><strong>Self-Review and Design QA</strong></p>
+
+<p>Design QA is the team's own inspection pass before anyone outside sees the file. It is deliberately separate from designing: you are not asking "is this a good idea?" but "does this meet the standard we agreed?" Run it against a checklist, screen by screen, in a single focused sitting — and have someone QA a screen they did <em>not</em> build, because owners are blind to their own omissions.</p>
+
+<p>The first and highest-value check is <strong>flow completeness</strong>. Open the prototype in presentation mode and attempt every path in the inventory's exit-point column. A frame is a <em>dead end</em> if the user arrives and finds no way forward and no way back. Dead ends are the single most damaging defect in a student prototype because they stop an evaluator mid-task and make the whole thing feel unfinished. Common sources:</p>
+
+<ul>
+  <li>Success and confirmation screens built last, with no onward link to home.</li>
+  <li>Modals and overlays that open but have no close interaction.</li>
+  <li>Back arrows drawn as icons but never connected ("Back" is an element, not a link, until you attach it).</li>
+  <li>Connections pointing at a frame that was later renamed, duplicated, or moved to Archive.</li>
+  <li>Tab bars where only the active tab is connected, so three of five tabs do nothing.</li>
+</ul>
+
+<p>Figma's prototype view shows connection noodles on the canvas; a frame with arrows entering but none leaving is immediately visible as a terminal node. Use that visual scan as a first pass, then confirm by clicking through. A useful habit: run the flow while narrating the user's goal aloud. If you reach a point where you say "and then they... hmm", that is a dead end or an unclear affordance.</p>
+
+<p>The second check is <strong>style consistency</strong>. Every fill, stroke, and text layer should be driven by a published style. In Figma's right-hand panel, a styled property shows the style name; an ad-hoc value shows a raw hex or a loose font setting. Ad-hoc values creep in through copy-paste from older explorations, from images sampled with the eyedropper, and from text pasted with source formatting. Scan for them systematically — selecting all text layers on a frame and checking whether the type panel shows "Mixed" with no style name is a fast tell. The symptom to look for visually is <em>near-duplicates</em>: two greys that differ by a few percent, body text at 15px on one screen and 16px on another, 8px radius here and 10px there. None of these is noticeable alone; together they read as carelessness.</p>
+
+<p>Third, confirm <strong>component integrity</strong>. Every repeated element should be an instance, not a detached copy. In the layers panel, instances carry the diamond icon; a detached copy appears as an ordinary frame or group. Detachment typically happens when someone needed to change something the component did not expose — so a detached instance is also a signal that your component needs an extra property or variant. Rebuild from the library and extend the component rather than leaving the local copy; otherwise a late change to the master silently misses that screen.</p>
+
+<p>Fourth, replace <strong>placeholder content</strong> with realistic, representative copy. "Lorem ipsum dolor sit amet" tells an evaluator nothing and actively hides problems: real content has different lengths, and a card that looks balanced with placeholder text may break with a genuine 48-character class title. Realistic copy means plausible names, prices, dates, times, labels and error messages — "Vinyasa Flow · Tue 18:30 · 4 places left", not "Item name · Subtitle". Deliberately include at least one long value and one short value in any list so the layout is stress-tested. The same applies to images: grey boxes with an X are fine in a wireframe and conspicuous in a submitted high-fidelity prototype.</p>
+
+<p>A compact QA checklist the team can paste into the file:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Check</th>
+      <th>Pass criterion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Flow</td>
+      <td>Every inventory exit point is a working connection</td>
+      <td>No frame without an onward or return path</td>
+    </tr>
+    <tr>
+      <td>Flow</td>
+      <td>Overlays and modals can be dismissed</td>
+      <td>Close/cancel interaction present on each</td>
+    </tr>
+    <tr>
+      <td>Styles</td>
+      <td>Fills and text use published styles</td>
+      <td>No raw hex values or unstyled type</td>
+    </tr>
+    <tr>
+      <td>Components</td>
+      <td>Repeated UI elements are library instances</td>
+      <td>No detached copies in the layers panel</td>
+    </tr>
+    <tr>
+      <td>Layout</td>
+      <td>Spacing follows the agreed scale</td>
+      <td>Auto-layout used; padding values consistent</td>
+    </tr>
+    <tr>
+      <td>Content</td>
+      <td>Copy is realistic and representative</td>
+      <td>No lorem ipsum, no "Button", real data shapes</td>
+    </tr>
+    <tr>
+      <td>Hygiene</td>
+      <td>File is clean for an external viewer</td>
+      <td>Frames named, Archive page excluded from flow</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Setting Up for Peer Evaluation</strong></p>
+
+<p>A prototype that is excellent internally can still fail the handover. Preparation for peer evaluation is about removing every obstacle between the evaluator and the user journey.</p>
+
+<p>Begin with the <strong>start frame</strong>. Figma plays a prototype from the frame flagged with the flow start point; if the team never set one, Figma may begin from whichever frame was most recently selected or the first in the flow list, which can drop an evaluator into the middle of a checkout sequence with no context. Set the start deliberately to the most logical entry point — usually a splash, login, or home screen, matching what a first-time user would actually see. In Figma this is done by selecting the frame and adding a flow starting point in the Prototype panel; name the flow meaningfully ("Flow 1 — Book a class") because that name appears to the viewer. If the project demonstrates more than one task, create one named flow per task so evaluators can jump to each.</p>
+
+<p>Next, set <strong>share permissions</strong>. Evaluators need <em>can comment</em> access, not <em>can view</em> and certainly not <em>can edit</em>. View-only prevents them from recording observations in place; edit access lets an outsider move your layers and invalidate your submission. Share link settings should typically be "Anyone with the link → can comment", unless the module requires restricting to the organisation. Copy the <strong>prototype</strong> link (from presentation view) rather than the file link, so evaluators land in the interactive player rather than the editor canvas — though note that comments can be left in both; pinned prototype comments attach to the frame being viewed, which is exactly what you want.</p>
+
+<p>Supply a short <strong>context note</strong>. An evaluator with no briefing will comment on the wrong things — critiquing a deliberately out-of-scope screen, or missing the fact that only one of three flows is implemented. Four or five sentences is enough, placed in the Figma file description, on the Team page, or in the message accompanying the link:</p>
+
+<pre><code>Project: ClassPass-style class booking app (mobile, 390×844)
+Audience: busy urban professionals booking fitness classes
+Implemented flows: (1) Book a class — complete; (2) Cancel a booking — complete
+Not implemented: payment entry, account creation (out of scope for this iteration)
+Start here: tap "Browse classes" on the Home screen
+We'd especially like feedback on: clarity of the confirmation step and
+whether the bottom navigation labels are understandable.
+</code></pre>
+
+<p>That last line is disproportionately valuable: directed feedback is better feedback.</p>
+
+<p>Finally, <strong>test the link as an outsider</strong>. Open an incognito or private browser window — or a different browser entirely — paste the link, and attempt the whole journey while signed out of your Figma account. This is the only reliable way to verify what an external evaluator will experience. The failures this catches are routine and embarrassing: the link is restricted to team members only; the link points at the file rather than the prototype; the start frame is wrong; a font used in the design is installed locally on your machine but renders as a fallback for everyone else; or the prototype opens at a zoom setting that crops the frame. Fix each, then test again. Make this a step in the definition of done for the submission itself, not an afterthought.</p>
+
+<p><strong>Conducting and Receiving Peer Evaluation</strong></p>
+
+<p>Peer evaluation produces useful results only when it is structured. Unstructured feedback gravitates to colour preferences and personal taste; structured feedback tests whether the prototype does its job.</p>
+
+<p>The mechanism should be <strong>pinned Figma comments</strong>. A comment attached to a specific element on a specific frame is precise and actionable: the recipient sees exactly which button, which label, which spacing is being discussed. Compare two versions of the same observation:</p>
+
+<ul>
+  <li><em>General note:</em> "Navigation was a bit confusing in places." — Unactionable. Which place? Which element? What was expected?</li>
+  <li><em>Pinned comment on 03-Class Detail, on the chevron icon:</em> "I expected this arrow to take me back to the class list, but nothing happened. I then tried the logo at the top, which also did nothing — I had to restart the prototype." — Immediately fixable, and it names the behaviour the user expected.</li>
+</ul>
+
+<p>Good comments describe <strong>observation, expectation, and consequence</strong>: what you did, what you thought would happen, what actually happened. Avoid prescribing a solution as the whole comment ("make this button blue") because it hides the underlying problem; state the problem and then, if you wish, offer the suggestion as a second sentence.</p>
+
+<p>Evaluators should actively hunt for three categories of defect:</p>
+
+<ul>
+  <li><strong>Dead ends</strong> — points where the journey stops. Record the frame name and what you tried.</li>
+  <li><strong>Unclear affordances</strong> — elements that do not communicate whether they are interactive. A card with no visual cue that it is tappable; a label that looks like a button; an icon with no recognised meaning; a disabled-looking control that is actually active. Affordance failures often show up as hesitation: note anywhere you paused and had to guess.</li>
+  <li><strong>Expectation mismatches</strong> — the interaction works but surprises you. A "Save" that navigates away; a modal that appears as a full page; a back gesture that returns to the wrong screen; a success state with no confirmation of what was booked.</li>
+</ul>
+
+<p>Evaluate <strong>flow completeness and visual design quality as separate dimensions</strong>. They are genuinely independent — a beautiful prototype can be unnavigable, and a plain one can be flawlessly connected — and conflating them produces muddled scores and muddled fixes. A simple two-dimension rubric keeps them apart:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>What is being judged</th>
+      <th>Evidence to cite</th>
+      <th>Typical failure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Flow completeness</td>
+      <td>Can the stated task be completed end to end without restarting?</td>
+      <td>Frame names where the journey stalled; number of dead ends found; whether back/cancel routes exist</td>
+      <td>Confirmation screen with no route home; two of five tab bar items inert</td>
+    </tr>
+    <tr>
+      <td>Interaction quality</td>
+      <td>Do transitions, overlays and states behave as a real app would?</td>
+      <td>Transitions that contradict direction of travel; modals that cannot be dismissed; missing hover/pressed states</td>
+      <td>Every link set to "Instant" so the user cannot tell whether anything happened</td>
+    </tr>
+    <tr>
+      <td>Visual hierarchy</td>
+      <td>Is the primary action on each screen obvious within a few seconds?</td>
+      <td>Where your eye landed first; whether the main CTA competes with secondary buttons</td>
+      <td>Three equally weighted buttons; headline and body at near-identical size</td>
+    </tr>
+    <tr>
+      <td>Consistency</td>
+      <td>Do equivalent elements look and behave the same across screens?</td>
+      <td>Screens where spacing, type size, radius or colour drift</td>
+      <td>Nav bar 8px taller on two screens built by a different team member</td>
+    </tr>
+    <tr>
+      <td>Affordance and clarity</td>
+      <td>Is it obvious what is interactive and what each control does?</td>
+      <td>Elements you hesitated over or tapped by mistake</td>
+      <td>Unlabelled icon-only actions; cards with no tap cue</td>
+    </tr>
+    <tr>
+      <td>Content realism</td>
+      <td>Does the copy support plausible evaluation of the design?</td>
+      <td>Placeholder strings; data that would never occur in reality</td>
+      <td>"Lorem ipsum" in a card that must hold a 50-character title</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Scoring each dimension separately (for example 1–5, with a one-line justification) forces evaluators to notice that "I didn't like it" usually resolves into one specific dimension — and it tells the receiving team where to spend their remaining time.</p>
+
+<p>Every evaluation must close with at least <strong>two constructive suggestions</strong> alongside the issues raised. A suggestion is constructive when it is specific, achievable within the remaining time, and tied to an observed problem rather than to taste. Compare:</p>
+
+<ul>
+  <li><em>Not constructive:</em> "The home screen is boring." — Taste, no observation, no action.</li>
+  <li><em>Constructive:</em> "On 01-Home the 'Browse classes' and 'My bookings' buttons have identical weight, and I wasn't sure which was the main action. Consider making 'Browse classes' the filled primary button and 'My bookings' a text or outline button, so the primary task is obvious on arrival."</li>
+  <li><em>Constructive:</em> "The booking confirmation uses an Instant transition, so it felt like nothing happened. A 'Move in' transition from the right, matching the forward direction of the flow, would make the progression readable."</li>
+</ul>
+
+<p>On the <strong>receiving</strong> side, there is a discipline too. Do not defend the design in the comment thread during the evaluation session; the evaluator's confusion is data, and explaining it away destroys the data. Reply only to clarify facts ("that screen is deliberately out of scope — noted in the context note") and otherwise acknowledge and record. Resist the urge to fix things live while evaluation is running, because the evaluator's remaining comments will then refer to a file that has already changed. Collect first, act afterwards.</p>
+
+<p><strong>Iterating Based on Feedback</strong></p>
+
+<p>Feedback is only valuable once it has been <strong>triaged</strong>. A group typically receives twenty to forty comments and has limited time; treating them as an undifferentiated queue means the team spends an hour adjusting a shadow while a broken link remains broken. Sort every comment into severity bands before touching the file:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Band</th>
+      <th>Definition</th>
+      <th>Examples</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Critical — blocking</td>
+      <td>Prevents an evaluator from completing the stated task</td>
+      <td>Dead-end frame; modal with no close; wrong or missing prototype start frame; link permissions wrong</td>
+      <td>Fix immediately, before anything else</td>
+    </tr>
+    <tr>
+      <td>Major — comprehension</td>
+      <td>Task is completable but the user is confused or misled</td>
+      <td>Unclear icon-only action; primary CTA not distinguishable; misleading transition direction; placeholder copy on a core screen</td>
+      <td>Fix after all critical items</td>
+    </tr>
+    <tr>
+      <td>Minor — polish</td>
+      <td>Cosmetic inconsistency that does not impede use</td>
+      <td>4px spacing drift; two near-identical greys; inconsistent corner radius; icon optical alignment</td>
+      <td>Fix if time allows; batch by style or component</td>
+    </tr>
+    <tr>
+      <td>Out of scope / won't fix</td>
+      <td>Valid but outside the brief or this iteration</td>
+      <td>"Add dark mode"; "build the payment flow"; conflicting taste preferences</td>
+      <td>Record with a one-line rationale; do not silently ignore</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The sequencing rule is non-negotiable: <strong>repair broken prototype connections before any visual refinement</strong>. There are two reasons. First, a navigable but plain prototype demonstrates the skill being assessed — simulating realistic user interaction — whereas a beautiful dead end demonstrates nothing. Second, visual refinement can itself break connections: replacing a hand-drawn button with a component instance, or restructuring a frame into auto-layout, detaches or relocates the hotspot the connection was attached to. Fix flow, verify flow, then style, then verify flow again.</p>
+
+<p>Work through the critical band in one pass with a single person driving while the inventory's exit-point column is open beside them, because that column is the definitive list of connections that must exist. Then re-run the full critical path in presentation mode. Only when the path is clean should the team move to major and minor items, assigning them back to the owner of the relevant page so that ownership discipline survives the revision phase. Minor cosmetic issues are usually best fixed at the <em>component or style</em> level rather than screen by screen: if the grey is wrong, correct the published colour style once and every instance follows.</p>
+
+<p>Throughout, <strong>document what changed and why</strong>. A change log serves three purposes: it demonstrates to evaluators that their feedback was taken seriously, it prevents the same issue being raised twice, and it supplies the evidence base for the reflective component that most academic submissions require. Keep it in the Figma file on the Team page, or in the submission document, in a simple tabular form:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Feedback received (source)</th>
+      <th>Severity</th>
+      <th>Decision and change made</th>
+      <th>Owner</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>"Back chevron on 03-Class Detail does nothing" (Group B, pinned comment)</td>
+      <td>Critical</td>
+      <td>Connected chevron to 02-Class List with "Move out" transition; audited all other back icons and connected four more</td>
+      <td>Jonah</td>
+      <td>Done — comment resolved</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>"Couldn't tell which button was the main action on Home" (Group B)</td>
+      <td>Major</td>
+      <td>Applied Button/Primary variant to "Browse classes", Button/Secondary to "My bookings"; updated component variant list</td>
+      <td>Priya</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>"Success screen uses lorem ipsum" (Group B)</td>
+      <td>Major</td>
+      <td>Replaced with real booking summary copy including class name, time and studio address</td>
+      <td>Amina</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>"Card shadows inconsistent between flows" (self-QA)</td>
+      <td>Minor</td>
+      <td>Created shared effect style <code>Elevation/Card</code> and applied to the Card master component</td>
+      <td>Priya</td>
+      <td>Done</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>"Add a dark mode" (Group B)</td>
+      <td>Out of scope</td>
+      <td>Noted as a future iteration; not required by the brief and not achievable in remaining time</td>
+      <td>Team</td>
+      <td>Deferred — rationale recorded</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Deciding <em>not</em> to act is a legitimate outcome, provided the rationale is written down. Evaluators are not always right: a comment may reflect an unfamiliarity with the platform's conventions, or may conflict with another evaluator's comment. Record the conflict and the reasoning ("Group B wanted the filter above the list, Group C below; retained above to match iOS convention and the pattern used on 02"). This is exactly the kind of justified design judgement that assessment rubrics reward.</p>
+
+<p>Close the loop properly. Once revisions are complete, <strong>resolve each addressed comment in Figma</strong> — ideally with a one-line reply saying what was done — then run the incognito link test again, because permissions and start frames can be disturbed by file reorganisation. Finally, <strong>re-share the updated link and notify the evaluators</strong> that a revised version is available, pointing them to the change log and, if useful, to the specific flows you would like them to re-check. Re-notification matters: an evaluator who is never told their comment was actioned has no way to validate the fix, and a second quick pass often catches a change that solved one problem while creating another. For submission, hand in the prototype link with comment access enabled, confirm the named flows and start frame are correct, and attach the screen inventory and change log as evidence of process — the artefacts that show not only what the team built, but how it was built, verified and improved.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+
+<ul>
+  <li><strong>MO1</strong> — This topic is the delivery vehicle for the interactive prototype itself: the screen inventory defines every frame to be constructed, the prioritisation scheme ensures the core journey is built first, and the QA, link-testing and re-sharing steps ensure the finished low-to-high fidelity prototype is complete, navigable and submittable from Figma.</li>
+  <li><strong>MO2</strong> — Design principles are applied and then verified here. The definition of done and the style-consistency checks enforce <em>consistency</em>; the peer evaluation rubric assesses <em>visual hierarchy</em> (is the primary action obvious?) and <em>affordance</em> (is it clear what is interactive?); and the triage and iteration process requires the team to act on and justify those judgements.</li>
+  <li><strong>MO3</strong> — The topic exercises Figma's prototyping features in a realistic team context: shared library <em>components</em> and variants are mandated over ad-hoc elements, <em>auto-layout</em> and a shared spacing scale are part of the definition of done, and <em>interactive flows</em> are planned via the inventory's exit-point column, set up with named flow start points, tested in presentation and incognito, and repaired first during iteration so the prototype simulates realistic user interaction.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Suggested in-class artefacts: a shared screen-inventory template, the definition-of-done text frame, the QA checklist table and the change-log table can all be distributed as a single starter Figma file or document. Figma UI details (flow starting points, share permissions, comment pins, instance/detach indicators) reflect current behaviour and may shift with interface updates — verify menu locations before delivery. The worked example throughout uses a fictional class-booking app; swap in the cohort&#39;s own brief if preferred. The peer-evaluation rubric can be reused as a marking grid for a cross-group critique session.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

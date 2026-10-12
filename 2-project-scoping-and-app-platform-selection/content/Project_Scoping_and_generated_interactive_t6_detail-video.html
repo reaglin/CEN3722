@@ -1,0 +1,544 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Web Platform: Characteristics and Constraints</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Project Scoping and App Platform Selection</a></div>
+  <header>
+    <h1>Web Platform: Characteristics and Constraints</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Web Platform: Characteristics and Constraints</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>The web is the most widely reachable application platform ever built. Unlike a mobile app, which must be packaged, submitted to a store, approved, downloaded and installed, a web application is simply <em>somewhere</em> — identified by a URL and rendered by whatever browser the user already has. This single architectural fact shapes almost everything about web interface design: the audience is enormous and uncontrolled, the runtime environment varies wildly, the first interaction is nearly frictionless, and the designer's control over hardware, performance and persistence is correspondingly weak. Understanding the web platform for HCI purposes means understanding this trade: <strong>maximum reach and minimum friction, purchased with reduced device integration and increased environmental uncertainty</strong>.</p>
+
+<p>From a human–computer interaction standpoint, the browser is not a neutral container. It is itself an interface with its own controls — back and forward buttons, address bar, tabs, bookmarks, zoom, reader mode, find-in-page, print — and users bring deeply ingrained expectations about how those controls behave. A web application that breaks the back button, hijacks scrolling, or disables text selection is not merely annoying; it is violating a mental model the user has built over decades of browsing. Designing for the web therefore means designing <em>inside</em> an existing interface rather than owning the whole screen.</p>
+
+<p><strong>Access model: URLs, browsers and zero installation.</strong> Every meaningful state in a well-built web app should be addressable. A URL is simultaneously an identifier, a navigation mechanism, a sharing primitive and a bookmarking primitive. Consider the difference between telling a colleague "open the app, go to Reports, filter by Q3, then select the Northern region" and simply sending them <code>https://dash.example.com/reports?quarter=Q3&amp;region=north</code>. The second is a direct manipulation of shared state and costs nothing. This is why single-page applications must still invest in routing: if the URL never changes as the user navigates, the application has discarded one of the web's most valuable affordances.</p>
+
+<p>The major rendering engines in practice are Blink (Chrome, Edge, Opera, Brave, Samsung Internet), Gecko (Firefox) and WebKit (Safari, and all browsers on iOS historically). Although standards compliance is far better than in the past, differences remain — in form control styling, date and file pickers, scroll behaviour, font rendering, and the availability of newer APIs. A design that assumes "Chrome on a 1080p desktop monitor" is a design that will be tested by reality.</p>
+
+<p>The absence of installation is the web's strongest adoption lever. A user can go from seeing a link in a message to using the product in under two seconds, with no storage cost, no permission prompts and no account with an app store. For products with shallow or occasional engagement — a council's parking-permit renewal, a conference schedule, a one-off survey, a news site — this is decisive. The corresponding weakness is that the web has <em>no icon on the home screen by default</em> and therefore weak re-engagement: nothing reminds the user you exist. Mobile apps buy retention with installation friction; web apps buy acquisition with disposability.</p>
+
+<p><strong>Responsive design as a baseline requirement.</strong> Because the same URL is opened on a 320&nbsp;px phone, a 768&nbsp;px tablet, a 1440&nbsp;px laptop and a 2560&nbsp;px external monitor, a fixed-width layout is not a design decision — it is a defect. Responsive design combines three techniques: fluid grids (sizing in percentages, <code>fr</code> units, <code>minmax()</code> and viewport units rather than fixed pixels), flexible media (<code>max-width: 100%</code>, <code>srcset</code> for resolution-appropriate images), and media or container queries that change layout at defined thresholds.</p>
+
+<pre><code>/* Mobile-first: the default is the narrow layout */
+.product-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 600px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .product-grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Better still: let the content decide, no breakpoints needed */
+.product-grid--intrinsic {
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}</code></pre>
+
+<p>Note also that responsive design is not only about width. <code>pointer: coarse</code> tells you a finger is the input device, which implies larger hit targets (a minimum of roughly 44&nbsp;×&nbsp;44&nbsp;CSS pixels) and no reliance on hover; <code>prefers-reduced-motion</code> tells you the user is sensitive to animation; <code>prefers-color-scheme</code> tells you whether to serve a dark theme. Responsiveness in the full sense means responding to the user's device, input modality and stated preferences.</p>
+
+<p><strong>Progressive Web Apps.</strong> PWA technology narrows the gap between web and native. A web app that is served over HTTPS, provides a web app manifest and registers a service worker can be installed to the home screen or desktop, launch in a standalone window without browser chrome, display a custom icon and splash screen, cache assets and data for offline use, and (on supporting platforms) receive push notifications and perform background sync.</p>
+
+<pre><code>{
+  "name": "Field Survey Recorder",
+  "short_name": "Survey",
+  "start_url": "/app/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#0b5fff",
+  "icons": [
+    { "src": "/icons/192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}</code></pre>
+
+<p>A service worker sits between the application and the network as a programmable proxy, which is what makes genuine offline operation possible. A field inspection tool, for example, can cache the shell and the day's job list, allow an inspector to record findings in a basement with no signal using IndexedDB, and flush the queue when connectivity returns. The HCI consequence is that offline capability must be <em>visible</em>: users need an unambiguous indicator of connection state, of which records are saved locally versus synced, and of what will happen if they close the tab. Silent offline queues are a trust hazard.</p>
+
+<p>PWA support is uneven. Installability, push notifications and background sync are more complete on Android and desktop than on iOS, where Apple has historically limited or delayed support and where installation is only possible through a non-obvious "Add to Home Screen" step in the Share sheet. Any project that depends on push notifications to iPhone users should scope that assumption carefully rather than treating "PWA" as a single guaranteed feature set.</p>
+
+<p><strong>Navigation conventions.</strong> Web navigation has stabilised into a small set of well-understood patterns, and users read them almost without conscious effort. Choosing among them is a question of information architecture breadth and depth, not taste.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pattern</th>
+      <th>Best suited to</th>
+      <th>Strengths</th>
+      <th>Risks and caveats</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Top horizontal navigation bar</td>
+      <td>Shallow sites with roughly 4–7 top-level sections</td>
+      <td>Always visible, scannable, conveys the whole structure at a glance</td>
+      <td>Breaks down beyond about seven items; competes for vertical space when sticky</td>
+    </tr>
+    <tr>
+      <td>Hamburger / drawer menu</td>
+      <td>Narrow viewports; secondary or account-level links</td>
+      <td>Saves space, universally recognised on mobile</td>
+      <td>Out of sight, out of mind — measurably reduces discovery of hidden items on desktop</td>
+    </tr>
+    <tr>
+      <td>Sidebar / vertical navigation</td>
+      <td>Admin consoles, documentation, dashboards with many sections</td>
+      <td>Scales to long lists, supports nesting and persistent context</td>
+      <td>Consumes horizontal space; must collapse to a drawer on small screens</td>
+    </tr>
+    <tr>
+      <td>Breadcrumb trail</td>
+      <td>Deep hierarchies: catalogues, knowledge bases, file stores</td>
+      <td>Shows location in hierarchy and provides one-click ascent</td>
+      <td>Useless and misleading on flat sites; must reflect hierarchy, not browsing history</td>
+    </tr>
+    <tr>
+      <td>Tabs</td>
+      <td>Switching views of one object (Overview / Activity / Settings)</td>
+      <td>Low cognitive cost, clear current-state indication</td>
+      <td>Should not be used for unrelated destinations or for sequential steps</td>
+    </tr>
+    <tr>
+      <td>Search with filters/facets</td>
+      <td>Large, heterogeneous content sets</td>
+      <td>Fastest route for users with a specific goal</td>
+      <td>Requires real investment in relevance, synonyms and empty-state design</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Most substantial products combine several: a persistent top bar for global sections, a sidebar within a section, breadcrumbs for depth, and prominent search. The guiding principle is Nielsen's "visibility of system status" applied to location — at any moment, the user should be able to answer "where am I, what else is here, and how do I get back?"</p>
+
+<p><strong>Typography, contrast and accessibility.</strong> Accessibility on the web is both an ethical obligation and, in many jurisdictions, a legal one (for example the public-sector accessibility regulations in the UK and EU, and the Americans with Disabilities Act as applied to web services in the US). The Web Content Accessibility Guidelines (WCAG) organise requirements under four principles — <strong>Perceivable, Operable, Understandable, Robust</strong> — at conformance levels A, AA and AAA, with AA being the usual target.</p>
+
+<ul>
+  <li><strong>Contrast.</strong> WCAG 2.1 AA requires a contrast ratio of at least 4.5:1 for normal text and 3:1 for large text (roughly 18.66&nbsp;px bold or 24&nbsp;px regular and above). Non-text elements that convey meaning — input borders, focus rings, icon buttons, chart segments — require 3:1. Light grey placeholder text on white is one of the most common AA failures.</li>
+  <li><strong>Scalable type.</strong> Set font sizes in <code>rem</code> so that a user who has raised their browser's default size actually sees larger text. Content must remain functional at 200% zoom and must reflow without horizontal scrolling at a width equivalent to 320&nbsp;px. Avoid <code>user-scalable=no</code> in the viewport meta tag; it removes pinch-zoom from people who need it.</li>
+  <li><strong>Readability.</strong> Body copy of around 16–18&nbsp;px, line height near 1.5, and measure (line length) of roughly 45–75 characters reduce reading effort. Justified text and very long lines increase the chance of losing one's place, which disproportionately affects dyslexic readers.</li>
+  <li><strong>Not colour alone.</strong> A required field marked only in red, or a chart whose series are distinguished only by hue, fails users with colour vision deficiency (about 8% of men of northern European descent). Pair colour with an icon, a label, a pattern or a text cue.</li>
+  <li><strong>Keyboard and focus.</strong> Every interactive element must be reachable by <kbd>Tab</kbd> in a logical order and must show a visible focus indicator. Custom components built from <code>&lt;div&gt;</code> elements need explicit roles, states and key handling; using a real <code>&lt;button&gt;</code> gets all of this for free.</li>
+  <li><strong>Semantics for assistive technology.</strong> Landmarks (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code>), a single logical heading hierarchy, labelled form controls, meaningful <code>alt</code> text, and <code>aria-live</code> regions for dynamic updates allow screen-reader users to navigate structurally rather than linearly.</li>
+</ul>
+
+<pre><code>&lt;!-- Accessible by construction --&gt;
+&lt;label for="email"&gt;Email address&lt;/label&gt;
+&lt;input id="email" name="email" type="email" autocomplete="email"
+       aria-describedby="email-help" required&gt;
+&lt;p id="email-help"&gt;We will only use this to send your receipt.&lt;/p&gt;
+
+&lt;!-- Status messages announced without stealing focus --&gt;
+&lt;div role="status" aria-live="polite"&gt;3 results found&lt;/div&gt;</code></pre>
+
+<p><strong>Breakpoints and layout adaptation.</strong> Breakpoints should be derived from the content, not from a list of popular device widths, which changes every year. The practical method is to widen the browser until a layout begins to look wrong — a line of text grows too long, a card grid leaves awkward gaps, a table starts to wrap badly — and place a breakpoint there. A common, workable starting set is shown below, but it is a convention rather than a rule.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Range</th>
+      <th>Typical context</th>
+      <th>Layout strategy</th>
+      <th>Interaction notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Up to ~599&nbsp;px</td>
+      <td>Phones, portrait</td>
+      <td>Single column; navigation collapsed to a drawer or bottom bar; tables become stacked cards</td>
+      <td>Touch targets ≥44&nbsp;px; no hover-dependent features; primary action within thumb reach</td>
+    </tr>
+    <tr>
+      <td>~600–899&nbsp;px</td>
+      <td>Large phones landscape, small tablets</td>
+      <td>Two-column grids; forms may pair short fields side by side</td>
+      <td>Still touch-first; split views become viable</td>
+    </tr>
+    <tr>
+      <td>~900–1279&nbsp;px</td>
+      <td>Tablets landscape, small laptops</td>
+      <td>Persistent sidebar appears; master–detail layouts; three-column card grids</td>
+      <td>Mixed touch and pointer — design for both simultaneously</td>
+    </tr>
+    <tr>
+      <td>1280&nbsp;px and above</td>
+      <td>Desktops, external monitors</td>
+      <td>Cap content width (around 70–80ch for prose); use extra space for secondary panels, not longer lines</td>
+      <td>Hover, right-click menus and keyboard shortcuts are reasonable enhancements</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Modern CSS increasingly removes the need for viewport breakpoints altogether. <code>clamp()</code> produces fluid type (<code>font-size: clamp(1rem, 0.9rem + 0.5vw, 1.25rem)</code>), <code>auto-fit</code> grids reflow by themselves, and <em>container queries</em> let a component respond to the width of its own container, so the same card can render compactly in a sidebar and expansively in a main column without the page having to coordinate it.</p>
+
+<p><strong>Respecting established conventions.</strong> Jakob's Law states that users spend most of their time on <em>other</em> sites, so they expect yours to work like those sites do. Deviating from convention imposes a learning cost that must be justified by a real benefit. The conventions that carry the strongest expectations include:</p>
+
+<ul>
+  <li><strong>Links look like links.</strong> Underlined and/or clearly coloured, distinguishable from body text by more than hue alone, with a visited state where it helps orientation. Removing underlines from in-paragraph links is a frequent accessibility and usability regression.</li>
+  <li><strong>The logo in the top-left returns to the home page.</strong> Almost universally expected; costs nothing to honour.</li>
+  <li><strong>The back button works, and the URL reflects the view.</strong> Opening a modal that cannot be dismissed with Back, or a wizard whose Back button exits the whole flow, breaks a core browser contract.</li>
+  <li><strong>Breadcrumbs read left to right from general to specific</strong> (<code>Home &gt; Catalogue &gt; Outdoor &gt; Tents</code>), and reflect hierarchy rather than the path the user happened to take.</li>
+  <li><strong>Forms behave like forms.</strong> Enter submits, labels are clickable, browser autofill works, validation messages appear near the offending field, and errors are shown after the user has had a chance to finish typing rather than on the first keystroke.</li>
+  <li><strong>Icons that mean specific things</strong> — magnifying glass for search, three bars for menu, cog for settings, bin for delete — should not be reassigned to other functions.</li>
+  <li><strong>Scrolling belongs to the user.</strong> Scroll-hijacking, infinite scroll in contexts where people need to reach the footer, and content that shifts under the cursor during load (cumulative layout shift) are classic violations.</li>
+</ul>
+
+<p>Breaking a convention is sometimes correct — Gmail broke the convention of page-by-page email, and map applications legitimately take over scroll and zoom within the map canvas. The test is whether the new model is learnable in seconds and delivers a benefit the old one could not.</p>
+
+<p><strong>Scoping browser support.</strong> "Works in all browsers" is not a requirement; it is a wish. A project should state its support matrix explicitly, derived from analytics of the actual audience where possible, and the matrix should distinguish tiers rather than treating support as binary.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tier</th>
+      <th>Definition</th>
+      <th>Example scope</th>
+      <th>Commitment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fully supported</td>
+      <td>Tested every release; pixel-level fidelity expected</td>
+      <td>Latest two versions of Chrome, Edge, Firefox, Safari (desktop and iOS)</td>
+      <td>All defects fixed; design signed off against these</td>
+    </tr>
+    <tr>
+      <td>Functionally supported</td>
+      <td>All tasks completable; minor visual differences tolerated</td>
+      <td>Samsung Internet, Firefox ESR, Safari one major version back</td>
+      <td>Blocking bugs fixed; cosmetic bugs triaged</td>
+    </tr>
+    <tr>
+      <td>Degraded / unsupported</td>
+      <td>Core content accessible or a clear upgrade message shown</td>
+      <td>Internet Explorer 11, Android WebView on very old OS builds</td>
+      <td>No active testing; no new defect work</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The engineering discipline that makes this manageable is <strong>progressive enhancement</strong>: build a layer of semantic HTML that works everywhere, enhance it with CSS, enhance that with JavaScript, and feature-detect rather than browser-sniff. Feature queries make the intent explicit and keep the fallback honest.</p>
+
+<pre><code>/* Everyone gets a usable stacked layout */
+.layout { display: block; }
+
+/* Browsers with grid support get the richer one */
+@supports (display: grid) {
+  .layout {
+    display: grid;
+    grid-template-columns: 18rem 1fr;
+  }
+}</code></pre>
+
+<pre><code>// Feature detection, not user-agent detection
+if ('share' in navigator) {
+  shareButton.addEventListener('click', () =&gt;
+    navigator.share({ title: document.title, url: location.href })
+  );
+} else {
+  shareButton.hidden = true;   // fall back to a copy-link control
+}</code></pre>
+
+<p>Tooling supports this too: Babel transpiles modern JavaScript syntax, PostCSS and Autoprefixer handle CSS differences, polyfills fill API gaps (at a bandwidth cost), and <code>browserslist</code> configuration ties the build output to the stated matrix so the support decision lives in one place. Note, however, that transpilation handles <em>syntax</em>, not capability: no polyfill will give an old browser a real file-system handle or a Bluetooth radio.</p>
+
+<p><strong>Limited access to device hardware.</strong> The browser deliberately mediates everything between the page and the machine. Many capabilities exist, but they are permission-gated, secure-context-only (HTTPS), often require a user gesture, and are inconsistently implemented — especially on iOS, where WebKit does not ship several of the more powerful APIs on privacy grounds.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Capability</th>
+      <th>Web availability</th>
+      <th>Practical limitation</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Camera and microphone</td>
+      <td><code>getUserMedia</code>, broadly supported</td>
+      <td>Requires HTTPS and explicit permission; no background capture; limited control of advanced camera settings</td>
+    </tr>
+    <tr>
+      <td>Geolocation</td>
+      <td><code>navigator.geolocation</code>, broadly supported</td>
+      <td>Permission-gated; no reliable background or geofenced tracking</td>
+    </tr>
+    <tr>
+      <td>Notifications / push</td>
+      <td>Notifications API + Push API</td>
+      <td>Desktop and Android good; on iOS limited to installed home-screen PWAs on recent versions</td>
+    </tr>
+    <tr>
+      <td>File system</td>
+      <td><code>&lt;input type="file"&gt;</code> everywhere; File System Access API in Chromium only</td>
+      <td>No arbitrary browsing of the disk; "save in place" editing unavailable in Firefox and Safari</td>
+    </tr>
+    <tr>
+      <td>Bluetooth / USB / Serial / NFC</td>
+      <td>Web Bluetooth, WebUSB, Web Serial, Web NFC — Chromium only</td>
+      <td>Not available in Safari or Firefox; unsuitable where cross-browser support is required</td>
+    </tr>
+    <tr>
+      <td>Biometrics</td>
+      <td>WebAuthn / passkeys, now widely supported</td>
+      <td>Authenticates the user but gives no access to raw biometric data; platform-dependent UI</td>
+    </tr>
+    <tr>
+      <td>Background execution</td>
+      <td>Service worker, Background Sync, Periodic Sync (Chromium)</td>
+      <td>Heavily throttled; the browser may terminate workers at will; no long-running background process</td>
+    </tr>
+    <tr>
+      <td>Local storage of data</td>
+      <td>localStorage, IndexedDB, Cache Storage</td>
+      <td>Quota-limited and evictable; Safari may clear storage for sites unused for seven days unless installed</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The design consequence is that any feature depending on a restricted capability must have a declared fallback and must never fail silently. A web-based stocktaking tool cannot assume it can drive a Bluetooth barcode scanner in Safari; it should therefore offer camera-based scanning via <code>getUserMedia</code>, and manual code entry as the final fallback. The interface should present these as equally legitimate routes rather than as error states, because for a substantial proportion of users the fallback <em>is</em> the primary path.</p>
+
+<p>The same reasoning applies to permission prompts, which are an HCI problem in their own right. A prompt fired on page load, before the user understands why it is needed, is routinely denied — and in several browsers a denial is sticky and difficult for a non-technical user to reverse. The correct pattern is the <em>pre-permission</em> or "priming" step: explain in your own UI what the capability will be used for, let the user opt in with an in-page control, and only then trigger the native prompt.</p>
+
+<pre><code>// Bad: prompt on load, no context
+navigator.geolocation.getCurrentPosition(show);
+
+// Better: prompt in response to an intentional action
+useMyLocationBtn.addEventListener('click', () =&gt; {
+  status.textContent = 'Finding your location…';
+  navigator.geolocation.getCurrentPosition(show, () =&gt; {
+    status.textContent = 'Location unavailable — enter a postcode instead.';
+    postcodeField.focus();
+  }, { timeout: 8000 });
+});</code></pre>
+
+<p><strong>Network latency, variability and offline scenarios.</strong> A native app's code is already on the device; a web app must fetch its interface before it can show one. Every interaction that touches the server is therefore exposed to round-trip latency, packet loss, captive portals, metered connections and complete loss of signal. Latency is not merely a performance metric — it changes what interaction patterns are psychologically viable. The classic thresholds from Miller and Card, still used today, are roughly: <strong>0.1&nbsp;s</strong> feels instantaneous and preserves the sense of direct manipulation; <strong>1&nbsp;s</strong> keeps the user's flow of thought unbroken but is noticeable; <strong>10&nbsp;s</strong> is the limit of attention, beyond which people switch tasks and need a progress indicator with an estimate.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Condition</th>
+      <th>Typical round trip</th>
+      <th>Design implication</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fast broadband, nearby server</td>
+      <td>20–60&nbsp;ms</td>
+      <td>Server round trips can feel direct; little special handling needed</td>
+    </tr>
+    <tr>
+      <td>Good 4G</td>
+      <td>50–150&nbsp;ms</td>
+      <td>Batch requests; avoid chatty per-keystroke calls without debouncing</td>
+    </tr>
+    <tr>
+      <td>Congested 3G / rural mobile</td>
+      <td>300–800&nbsp;ms</td>
+      <td>Optimistic UI, skeleton screens and local validation become essential</td>
+    </tr>
+    <tr>
+      <td>Satellite, hotel Wi-Fi, train</td>
+      <td>600&nbsp;ms–2&nbsp;s, lossy</td>
+      <td>Design for retry, idempotency and partial failure; never block the whole page</td>
+    </tr>
+    <tr>
+      <td>No connectivity</td>
+      <td>—</td>
+      <td>Cached shell, local persistence, queued writes, explicit sync state</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Several interface techniques mitigate latency directly. <em>Skeleton screens</em> — grey placeholders shaped like the eventual content — reduce perceived wait better than spinners because they signal structure and progress rather than indefinite blocking. <em>Optimistic updates</em> apply the user's change to the interface immediately and reconcile with the server afterwards, with a clear, non-destructive rollback if the write fails; this is why "like" buttons and checkbox toggles feel instant. <em>Stale-while-revalidate</em> shows cached data at once and quietly refreshes it, with a subtle "updated just now" cue. <em>Debouncing</em> search-as-you-type by 250–300&nbsp;ms avoids firing a request per keystroke. <em>Prefetching</em> the likely next page on link hover or intersection turns a navigation into an apparent instant.</p>
+
+<pre><code>// Network-aware behaviour: don't autoplay heavy media on a metered link
+const c = navigator.connection;
+const frugal = c &amp;&amp; (c.saveData || /2g/.test(c.effectiveType));
+videoPreview.preload = frugal ? 'none' : 'metadata';
+
+// Reflect connection state honestly in the UI
+function setOnline(on) {
+  document.body.dataset.online = on;
+  banner.hidden = on;
+  banner.textContent = 'You are offline. Changes are saved on this device and will sync automatically.';
+}
+window.addEventListener('online',  () =&gt; setOnline(true));
+window.addEventListener('offline', () =&gt; setOnline(false));
+setOnline(navigator.onLine);</code></pre>
+
+<p>Offline design raises questions that are as much about trust as about engineering. Where multiple people can edit the same record, the architecture must decide between last-write-wins, server-authoritative rejection, or a merge strategy such as operational transformation or CRDTs — and the interface must then communicate the outcome in human terms ("Your note was saved, but Priya edited this record while you were offline. Review the differences?"). Equally, queued writes must survive the tab being closed, so they belong in IndexedDB rather than in memory, and the user should be able to <em>see</em> the queue rather than take its existence on faith.</p>
+
+<p><strong>The browser security sandbox.</strong> The browser runs untrusted code from strangers dozens of times a day, so it isolates pages aggressively. This security model is the direct cause of several capability limits that designers must plan around rather than argue with.</p>
+
+<ul>
+  <li><strong>Same-origin policy.</strong> A page may not read data from another origin (scheme + host + port) unless that origin opts in via CORS headers. This is why an in-house dashboard cannot simply call a third-party API from the browser without server cooperation, and why many integrations need a backend proxy.</li>
+  <li><strong>No arbitrary file-system access.</strong> A page cannot enumerate the user's disk, read a file the user did not choose, or write to an arbitrary path. Uploads require a user-initiated <code>&lt;input type="file"&gt;</code> or drag-and-drop; downloads land in the browser's download location. The File System Access API relaxes this with an explicit picker and persisted handles, but only in Chromium-based browsers, and only after a user gesture.</li>
+  <li><strong>No OS integration by default.</strong> Web apps cannot install system-wide hotkeys, place items in the system tray, read the clipboard without permission, launch other applications, or inspect what else is running. Even clipboard <em>writing</em> generally requires a user gesture, and reading requires permission.</li>
+  <li><strong>Secure contexts.</strong> Service workers, geolocation, camera, notifications, WebAuthn and most powerful APIs require HTTPS. A plain-HTTP deployment silently loses half the platform.</li>
+  <li><strong>Storage partitioning and eviction.</strong> Browsers increasingly partition storage by top-level site and evict data under pressure or after periods of disuse, so local caches must be treated as an optimisation, never as the only copy of user data.</li>
+  <li><strong>Autoplay, pop-up and fullscreen gating.</strong> Audio playback, new windows and fullscreen all require a genuine user gesture, which affects how onboarding tours, media players and kiosk-style interfaces can be designed.</li>
+  <li><strong>Content Security Policy, XSS and CSRF.</strong> Because the web executes text as code, injection is the dominant attack class. A strict CSP, output escaping, <code>SameSite</code> cookies and anti-CSRF tokens are baseline requirements, and they occasionally constrain design choices such as inline styles or third-party embeds.</li>
+</ul>
+
+<p>These constraints are also a usability asset, and should be framed as such to stakeholders. Users grant a web page far less trust than an installed binary precisely because they know the browser is holding it at arm's length, which is part of why a link converts so much better than an installer.</p>
+
+<p><strong>Judging suitability: when the web is the right platform.</strong> Platform selection should fall out of requirements, not preference. The web is usually the strongest candidate when reach, link-sharing, frequent updating and low adoption friction dominate; it is usually the weaker candidate when deep hardware integration, guaranteed offline operation, sustained background activity or extreme performance are the defining requirements.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Requirement signal</th>
+      <th>Web platform fit</th>
+      <th>Reasoning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Content must be discoverable by search engines and shareable by link</td>
+      <td>Strong</td>
+      <td>URLs and server-rendered HTML are native to the platform; app content is largely invisible to the open web</td>
+    </tr>
+    <tr>
+      <td>Occasional, one-off or first-time use (booking, renewal, survey)</td>
+      <td>Strong</td>
+      <td>Installation friction would exceed the value of the task</td>
+    </tr>
+    <tr>
+      <td>Rapid iteration; every user must be on the current version</td>
+      <td>Strong</td>
+      <td>Deploy once; no store review, no version fragmentation</td>
+    </tr>
+    <tr>
+      <td>Broad device and OS diversity with a small team</td>
+      <td>Strong</td>
+      <td>One responsive codebase instead of separate iOS, Android and desktop builds</td>
+    </tr>
+    <tr>
+      <td>Intermittent connectivity with local-first editing</td>
+      <td>Moderate</td>
+      <td>Achievable with a service worker and IndexedDB, but storage is evictable and the engineering cost is real</td>
+    </tr>
+    <tr>
+      <td>Daily habitual use needing push re-engagement on iOS</td>
+      <td>Moderate to weak</td>
+      <td>Possible only for installed PWAs on recent iOS versions; installation is non-obvious</td>
+    </tr>
+    <tr>
+      <td>Peripheral control (USB, serial, Bluetooth, NFC) across browsers</td>
+      <td>Weak</td>
+      <td>These APIs are Chromium-only; Safari and Firefox do not implement them</td>
+    </tr>
+    <tr>
+      <td>Heavy local file manipulation, OS shell integration, system-wide shortcuts</td>
+      <td>Weak</td>
+      <td>Blocked by the sandbox; a desktop application is the appropriate choice</td>
+    </tr>
+    <tr>
+      <td>Sustained high-performance 3D, large-dataset computation</td>
+      <td>Moderate</td>
+      <td>WebGL/WebGPU and WebAssembly close much of the gap, but memory limits and thermal behaviour still favour native</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A worked example clarifies the reasoning. Suppose a university wants a module-enrolment tool used by 20,000 students over a two-week window each year, from a mix of personal laptops, library PCs and phones, with a hard accessibility obligation and no budget for app-store maintenance. Usage is intermittent, the audience is device-diverse, link-sharing from email matters, the only hardware requirement is an optional camera for uploading an ID photo, and the data is server-authoritative anyway. The web is unambiguously correct here, and the remaining design work is responsive layout, WCAG 2.1 AA conformance, a declared browser matrix driven by the institution's analytics, graceful behaviour on the campus Wi-Fi's variable latency, and a clear fallback for the photo upload where camera access is denied.</p>
+
+<p>Contrast that with a warehouse picking application used for eight-hour shifts on rugged handhelds with a hardware scanner trigger, in a building with dead zones, where every second per pick is measured. Here the constraints point the other way: the sandbox cannot bind the physical trigger key, cross-browser peripheral access does not exist, and evictable local storage is unacceptable for hours of queued work. A native or hybrid application with a web-based management console is the better split — and articulating that split, with the evidence behind it, is exactly the kind of justified platform decision a project scope document should record.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+<ul>
+  <li><strong>MO1:</strong> This topic supplies the web half of the platform comparison by setting out the web's distinctive HCI constraints — browser-mediated navigation, responsive multi-device layout, WCAG obligations, sandbox limits on hardware and file access, and network dependence — in terms that can be contrasted directly with mobile and desktop characteristics and matched against target user needs.</li>
+  <li><strong>MO2:</strong> The suitability table, browser-support tiering, capability matrix and the two worked scenarios give concrete, evidence-based criteria for choosing the web (or rejecting it) and for justifying that choice against stated requirements such as reach, update cadence, offline behaviour and peripheral access.</li>
+  <li><strong>MO3:</strong> The material feeds scope documentation directly: declared browser support tiers, responsive breakpoints, accessibility conformance level, offline and latency behaviour, and permission fallbacks are all explicit constraints and testable success criteria that can be written into a project scope.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>The body uses only the permitted tag set with one exception to flag: a &lt;kbd&gt; element appears in the accessibility bullet on keyboard focus ("reachable by Tab"); replace it with &lt;code&gt;Tab&lt;/code&gt; or plain text if strict tag conformance is required. Figures cited (WCAG 2.1 AA contrast ratios, 44×44 px touch targets, the 0.1 s / 1 s / 10 s response-time thresholds, Safari's seven-day storage eviction for non-installed sites) are stable, well-documented values, but API support status — particularly iOS PWA push, File System Access, Web Bluetooth/USB/Serial/NFC — changes over time and should be re-checked against caniuse.com or MDN before the material is delivered. The browser-support tier table is deliberately illustrative; students should be encouraged to populate it from their own project's analytics rather than copying the example scope.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>The web is the most broadly reachable application platform available to you. A web app runs inside a browser, which means a single codebase can be opened on a laptop, a tablet, a phone, or a shared kiosk without anyone installing anything. That reach comes with trade-offs: you inherit the browser's capabilities and limits, you depend on a network connection, and you must design for screen sizes and input methods you cannot predict in advance.</p>
+<p>In this module you are deciding which platform fits your project. To make that call for the web, you need a working picture of three things: how web applications are typically structured (a client in the browser talking to a server over HTTP APIs), the design conventions users already expect from web pages, and the constraints that shape what a browser-based interface can realistically do. Those three threads map directly onto the subtopics for this topic.</p>
+<p>The videos below approach the web platform from three angles: the communication layer that connects a web front end to its back end, the difference between responsive and adaptive approaches to varying screens and capabilities, and practical visual conventions for web layout. As you watch, keep asking what each idea implies for your own project proposal: what would it cost you in effort, what would it give your users, and where would the browser get in your way.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: What Is REST API? Examples And How To Use It: Crash Course System Design #3</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/-mN3VyJuCjM?cc_load_policy=1&amp;rel=0" title="Video: What Is REST API? Examples And How To Use It: Crash Course System Design #3 (ByteByteGo)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>ByteByteGo</strong> · 5:21 · 1,461,297 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=-mN3VyJuCjM" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short crash-course explanation of REST APIs: what they are, how clients and servers exchange data over HTTP, and how requests and responses are typically structured, with examples. The video is part of ByteByteGo's system design series, so it frames REST in the context of how real applications are built.</p>
+<h3>Why this video</h3>
+<p>Web applications almost always separate a browser front end from a server back end, and REST is the most common way those two talk; understanding this gives you concrete grounding for the Web Platform Overview subtopic and for the network-dependence constraint of web apps.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: Adaptive vs. Responsive | Decoding Flutter</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/HD5gYnspYzk?cc_load_policy=1&amp;rel=0" title="Video: Adaptive vs. Responsive | Decoding Flutter (Flutter)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Flutter</strong> · 5:09 · 119,135 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=HD5gYnspYzk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>The Flutter team explains the distinction between responsive design (adjusting layout to the amount of available screen space) and adaptive design (adjusting behavior to what the platform itself can do). Expect definitions, the reasoning behind each, and examples of when you would apply one, the other, or both.</p>
+<h3>Why this video</h3>
+<p>Responsive versus adaptive is the central vocabulary for discussing how a single web experience serves many devices, which speaks directly to cross-device reach and to Web Platform Constraints and Considerations; it comes from a platform team that deals with multi-device UI daily.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: Give Me 7 Minutes &amp; Your Web Design Skills Will Take Off</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/1NTKwpAVcHg?cc_load_policy=1&amp;rel=0" title="Video: Give Me 7 Minutes &amp; Your Web Design Skills Will Take Off (Self-Made Web Designer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Self-Made Web Designer</strong> · 7:15 · 468,055 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=1NTKwpAVcHg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A fast, practical walkthrough of web design fundamentals from a working designer, covering common improvements to layout, spacing, typography and visual hierarchy that make pages feel polished. The framing is concrete tips you can apply immediately rather than abstract theory.</p>
+<h3>Why this video</h3>
+<p>It gives you the conventional patterns users already expect from web pages, supporting the Web Design Conventions subtopic with practitioner-level, applicable guidance you can carry into your own prototype.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos build the platform-specific knowledge MO1 requires: the REST video clarifies the client-server, network-dependent nature of web applications; the adaptive-versus-responsive video shows how web interfaces must stretch across screen sizes and device capabilities; and the web design video grounds the conventions users expect in a browser. That understanding of web strengths and limits is what lets you argue in MO2 why the web is or is not the right choice for your project, and it supplies concrete constraints and considerations, such as connectivity, browser capability, and multi-device layout, that you can name explicitly in the scope document required by MO3.</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

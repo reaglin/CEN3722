@@ -1,0 +1,257 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>High-Fidelity Design and Visual Polish</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Interface Prototyping with Figma</a></div>
+  <header>
+    <h1>High-Fidelity Design and Visual Polish</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>High-Fidelity Design and Visual Polish</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>High-fidelity design is the stage at which a structural wireframe — grey boxes, placeholder labels and rough spacing — becomes a convincing representation of a real, shippable product. The underlying layout usually does not change much; what changes is the <em>visual language</em> applied to it: a defined colour palette, a disciplined type scale, real or realistic imagery, consistent iconography, and carefully judged depth effects. The purpose is not decoration for its own sake. A high-fidelity mockup lets stakeholders evaluate brand fit, lets usability testers react to the interface as they would to a real app, and lets developers read exact values (hex codes, font sizes, corner radii, shadow offsets) straight from the file. In Figma, the mechanism that makes this polish sustainable rather than chaotic is the <strong>style</strong>: a named, reusable definition of a colour, a text treatment, an effect, or a grid. Working with styles turns a collection of individually painted rectangles into a coherent, centrally governed design system.</p>
+
+<p>Before touching any visual property, it is worth adopting a working rule: <strong>if a value appears more than once, it should be a style.</strong> A hex code typed manually into twelve buttons is twelve separate maintenance jobs; the same colour stored as <code>Brand/Primary</code> is one. The sections below work through each category of visual property, how Figma implements it, and the conventions that keep a high-fidelity file maintainable as it grows.</p>
+
+<p><strong>Defining and applying colour styles.</strong> A colour style in Figma is a saved paint definition that can be reused on any fill or stroke. To create one, select an element that already has the fill you want, open the Fill section of the right-hand design panel, and click the four-dot <em>style</em> icon that sits to the right of the fill row. Figma offers a dialog where you name the style and optionally add a description — the description field is where you record usage guidance such as “Primary actions only; do not use for body text.” Once saved, the style appears in the document's local styles list and can be applied to any other object by selecting it, clicking the same four-dot icon, and choosing the style from the picker. Styles can also be created from the Local Styles section of the design panel when nothing is selected, which is useful when you are defining a palette up front rather than harvesting it from existing work.</p>
+
+<p>The single most important decision is naming. Figma treats the forward slash as a folder separator, so a name like <code>Brand/Primary</code> creates a group called <em>Brand</em> containing an entry called <em>Primary</em>. This turns a flat alphabetical list of forty swatches into a browsable, self-documenting hierarchy. The convention that scales best is a <strong>token hierarchy</strong>: group by role rather than by appearance. A style called <code>Feedback/Error</code> survives a rebrand because the role (error messaging) does not change even if the value moves from <code>#D32F2F</code> to <code>#B3261E</code>. A style called <code>Red</code> or <code>Red-2</code> becomes a lie the moment the colour changes, and it tells a teammate nothing about when to use it.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Style name</th>
+      <th>Role</th>
+      <th>Typical use</th>
+      <th>Example value</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>Brand/Primary</code></td><td>Core brand colour</td><td>Primary buttons, active tabs, links</td><td>#2F5BEA</td></tr>
+    <tr><td><code>Brand/Primary Hover</code></td><td>Interaction state</td><td>Hover/pressed state of primary actions</td><td>#2447BC</td></tr>
+    <tr><td><code>Brand/Secondary</code></td><td>Supporting brand colour</td><td>Accents, highlights, illustrations</td><td>#12B5A5</td></tr>
+    <tr><td><code>Neutral/900</code></td><td>Darkest neutral</td><td>Headings, high-emphasis text</td><td>#13151A</td></tr>
+    <tr><td><code>Neutral/600</code></td><td>Mid neutral</td><td>Body text, secondary labels</td><td>#5A6072</td></tr>
+    <tr><td><code>Neutral/200</code></td><td>Light neutral</td><td>Dividers, input borders</td><td>#E2E5EB</td></tr>
+    <tr><td><code>Surface/Background</code></td><td>Page canvas</td><td>Screen background</td><td>#F7F8FA</td></tr>
+    <tr><td><code>Surface/Card</code></td><td>Raised surface</td><td>Cards, sheets, modals</td><td>#FFFFFF</td></tr>
+    <tr><td><code>Feedback/Success</code></td><td>Positive status</td><td>Confirmation banners, valid fields</td><td>#1E8E5A</td></tr>
+    <tr><td><code>Feedback/Error</code></td><td>Negative status</td><td>Validation messages, destructive actions</td><td>#D32F2F</td></tr>
+    <tr><td><code>Feedback/Warning</code></td><td>Caution status</td><td>Non-blocking alerts</td><td>#E0A100</td></tr>
+  </tbody>
+</table>
+
+<p>The payoff arrives when something changes. Because every object referencing <code>Brand/Primary</code> holds a <em>link</em> to the style rather than a copy of the value, editing the style updates every instance across every frame and page in the file instantly. Suppose a client reviews the mockup and decides the blue is too cold. You open Local Styles, click the edit icon beside <code>Brand/Primary</code>, drag the colour picker a few degrees warmer, and the forty-one buttons, six active tabs, nine icons and three progress bars that use it all shift together. The alternative — selecting objects one by one, or using Select All With Same Fill and hoping nothing was slightly off by a digit — is the scenario that produces hi-fi files where six nearly identical blues coexist. If an element is intentionally <em>not</em> on-system, that should be a conscious, documented exception.</p>
+
+<p>Colour styles are not limited to flat colour. The paint type dropdown lets a style store a linear, radial, angular or diamond <strong>gradient</strong>, and a gradient saved as a style behaves exactly like a solid one. This matters for high-fidelity work because gradients do a lot of expressive heavy lifting: a <code>Gradient/Hero</code> style for a marketing header, a <code>Gradient/Scrim</code> style running from <code>rgba(0,0,0,0)</code> at the top to <code>rgba(0,0,0,0.7)</code> at the bottom, laid over a photograph so white caption text stays legible regardless of what is in the image. The scrim example also illustrates that a colour style carries its <strong>opacity</strong> as part of the definition, so semi-transparent overlays, disabled-state washes and hover tints are all expressible as reusable tokens rather than one-off alpha values typed into the opacity field.</p>
+
+<p>A practical note on accessibility: define contrast into the palette rather than checking it afterwards. Pair every background style with the text styles that are legal on top of it, and verify ratios against WCAG (4.5:1 for body text, 3:1 for large text and meaningful UI boundaries) using a plugin such as Stark or Contrast. Doing this at the style level means the whole file inherits compliant combinations; doing it per-screen means auditing the same decision fifty times.</p>
+
+<p><strong>Typography styles and text hierarchy.</strong> A text style bundles font family, font weight/style, size, line height, letter spacing, paragraph spacing, text case and text decoration into one named definition. Creating one follows the same mechanic as colour: style a piece of text the way you want it, then click the four-dot icon beside the Text section in the design panel and give it a name. Note that a text style deliberately does <em>not</em> include colour — colour comes from a separate fill style. This separation is a feature, not an oversight: it lets you apply <code>Heading/H2</code> to a heading that is <code>Neutral/900</code> on a light screen and <code>Surface/Card</code> (white) on a dark hero, without needing two heading styles.</p>
+
+<p>Applying a text style decouples the visual appearance of text from its content. The words inside a frame can be rewritten, translated, or replaced with real copy from the client, and the typography does not drift. Equally, the type system can be revised globally: if user testing shows body copy at 14&nbsp;px is straining on mobile, you edit <code>Body/Regular</code> once to 16&nbsp;px with a 24&nbsp;px line height and every paragraph in the file reflows. Without styles, the same change is a multi-hour sweep with a high chance of missing something.</p>
+
+<p>The deeper design purpose of a type system is <strong>hierarchy</strong> — the deliberate ordering of information so a user's eye lands on the right thing first, second and third. Hierarchy is produced by contrast across several dimensions at once: size, weight, colour/value, spacing, and case. A page title at 32&nbsp;px semibold in near-black sits unambiguously above a 16&nbsp;px regular body paragraph in mid-grey, which in turn sits above a 12&nbsp;px uppercase caption in light grey with wide letter spacing. A common beginner failure is to build hierarchy from size alone, producing six levels that are each two pixels apart — the differences are too small to read as distinct ranks, so everything flattens into noise. A useful discipline is to limit yourself to roughly five or six text styles for a product screen and make the steps between them obvious. Modular scales (for example, a 1.25 ratio: 12, 14, 16, 20, 25, 31, 39) give mathematically harmonious steps, but a hand-tuned scale rounded to whole pixels and multiples of four is usually more practical for implementation.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Style name</th>
+      <th>Font / weight</th>
+      <th>Size / line height</th>
+      <th>Letter spacing</th>
+      <th>Intended role</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><code>Display/Hero</code></td><td>Inter Bold</td><td>40 / 48</td><td>-1.5%</td><td>Landing headline, one per screen</td></tr>
+    <tr><td><code>Heading/H1</code></td><td>Inter SemiBold</td><td>28 / 36</td><td>-1%</td><td>Screen title</td></tr>
+    <tr><td><code>Heading/H2</code></td><td>Inter SemiBold</td><td>20 / 28</td><td>-0.5%</td><td>Section and card titles</td></tr>
+    <tr><td><code>Body/Regular</code></td><td>Inter Regular</td><td>16 / 24</td><td>0%</td><td>Default paragraph and list text</td></tr>
+    <tr><td><code>Body/Emphasis</code></td><td>Inter Medium</td><td>16 / 24</td><td>0%</td><td>Inline emphasis, field values</td></tr>
+    <tr><td><code>Label/Button</code></td><td>Inter Medium</td><td>15 / 20</td><td>0.5%</td><td>Button and tab labels</td></tr>
+    <tr><td><code>Caption/Small</code></td><td>Inter Regular</td><td>12 / 16</td><td>1%</td><td>Helper text, timestamps, metadata</td></tr>
+    <tr><td><code>Overline/Caps</code></td><td>Inter SemiBold, uppercase</td><td>11 / 16</td><td>6%</td><td>Section eyebrows, category tags</td></tr>
+  </tbody>
+</table>
+
+<p>Figma supports both <strong>Google Fonts</strong> and <strong>locally installed fonts</strong>. The entire Google Fonts catalogue is available natively in the browser version — type <code>Inter</code>, <code>Roboto</code>, <code>Source Sans 3</code> or <code>Lora</code> into the font field and it resolves with no installation step, which is why Google Fonts are the pragmatic default for student and prototype work: anyone who opens the file sees the same thing. Licensed or system fonts installed on your machine appear too, but only if you are using the desktop app or have the Figma font helper installed on your computer. The important caveat is portability: if you build with a locally installed foundry font and a collaborator does not own it, Figma shows a "missing font" warning and substitutes a fallback, which quietly breaks line lengths and vertical rhythm across the file. For a shared or submitted project, either use a webfont everyone can access or document the font dependency explicitly. Line height is worth a final word: set it as a unit value (for example 24) or a percentage rather than leaving it on Auto, because Auto varies between typefaces and makes vertical spacing unpredictable when you later swap fonts.</p>
+
+<p><strong>Working with images and fills.</strong> In Figma, an image is not a separate object type — it is a <em>fill</em> applied to a shape or frame. To apply one, select the target element, open the Fill section, click the colour swatch to open the paint picker, and change the paint type dropdown from Solid to <strong>Image</strong>; you can then choose a file from disk or drag one straight onto the canvas. Because the image is a fill, it inherits the shape's geometry: drop a photo into a circle and you get a circular avatar; drop it into a frame with a 16&nbsp;px corner radius and you get a rounded card hero with no masking required. You can also stack an image fill under a gradient fill on the same object to build a scrim in one layer rather than two.</p>
+
+<p>How the image behaves inside its container is governed by the <strong>fill mode</strong> dropdown:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Mode</th>
+      <th>Behaviour</th>
+      <th>Best used for</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Fill</strong></td><td>Scales the image to cover the container entirely, preserving aspect ratio and cropping the overflow</td><td>Photographic headers, card thumbnails, avatars — the default for most UI imagery</td></tr>
+    <tr><td><strong>Fit</strong></td><td>Scales the image so the whole of it is visible inside the container, leaving empty space on two sides</td><td>Logos, product cut-outs, diagrams where nothing may be cropped</td></tr>
+    <tr><td><strong>Crop</strong></td><td>Exposes handles so you can manually set the visible region and zoom level of the image</td><td>Precise art direction — keeping a face or product centred in a tight ratio</td></tr>
+    <tr><td><strong>Tile</strong></td><td>Repeats the image across the container at a chosen scale percentage</td><td>Seamless textures, patterned backgrounds, noise overlays</td></tr>
+  </tbody>
+</table>
+
+<p>The same paint popover exposes per-image adjustments — exposure, contrast, saturation, temperature, tint, highlights and shadows — which are useful for making a set of mismatched stock photos read as one coherent library, for example by desaturating everything slightly and pulling the temperature consistently warm. To re-crop or reposition an image after placement, select the element and click the <strong>Edit image</strong> button that appears in the toolbar (or double-click into the fill), which puts you into a mode where you can drag the crop handles and nudge the image within its frame.</p>
+
+<p>For placeholder imagery, sourcing matters both legally and practically. The <strong>Unsplash plugin</strong> runs inside Figma and drops royalty-free photographs directly into the selected shape — select six card thumbnails at once, run the plugin, and it fills each with a different image from a search term such as "architecture" or "food". Comparable plugins include Pexels, Content Reel (which supplies names, avatars and text strings as well as images) and Lorem Ipsum generators for body copy. Using real-looking content rather than grey boxes is genuinely important in hi-fi work: it exposes layout problems that wireframes hide, such as what happens when a product name runs to three lines, when a photo is overwhelmingly dark behind white text, or when a user has no avatar at all. Keep file weight in mind too — a dozen 4000&nbsp;px photographs will make a prototype sluggish, so downscale assets to roughly twice their displayed size before importing.</p>
+
+<p><strong>Icons and vector assets.</strong> Icons carry an outsized share of an interface's clarity and personality, and they must be handled as vectors rather than bitmaps. When an <strong>SVG</strong> is imported into Figma — by dragging the file onto the canvas, or by copying SVG markup and pasting it directly — Figma parses it into editable vector paths inside a frame or group. You can select individual nodes with the pen/vector edit tool, change stroke weights, boolean-combine shapes, and scale the icon from 16&nbsp;px to 160&nbsp;px with no loss of crispness, because the renderer redraws the maths at every size rather than resampling pixels. A PNG icon does none of this and will look soft on high-density displays.</p>
+
+<p>Rather than drawing icons from scratch, most projects draw on a community library. Plugins such as <strong>Material Symbols/Material Icons</strong>, <strong>Feather</strong>, Iconify (which aggregates hundreds of open sets), Phosphor and Font Awesome let you search by keyword and insert an icon onto the canvas in one click. The critical discipline is to pick <em>one</em> family and stay in it: Material icons are filled and geometric with a particular optical weight, Feather icons are 2&nbsp;px-stroke outlines on a 24&nbsp;px grid, and mixing the two produces a subtly incoherent toolbar even if a non-designer cannot say why. Check that your chosen set covers every concept you need before committing, and keep the icon grid consistent — a 24&nbsp;px frame with a 20&nbsp;px live area is a common standard, giving icons uniform optical size regardless of whether they are wide (a horizontal menu) or tall (an exclamation mark).</p>
+
+<p>Alignment is where icons most often go wrong, and <strong>auto layout</strong> is the fix. Placing an icon and a text label inside a horizontal auto-layout frame with a defined gap and vertical alignment set to centre guarantees that the icon stays optically aligned to the text baseline area and that the gap never drifts when the label changes length. A button built this way — auto layout, 12&nbsp;px horizontal padding, 8&nbsp;px gap, icon + <code>Label/Button</code> text — resizes itself correctly for "Save", "Save changes" and "Save and continue to payment" with no manual nudging. The same applies to list rows, nav items, chips and input fields with leading icons. Without auto layout, every icon is a floating object whose position must be checked by eye on every screen.</p>
+
+<p>Finally, icons should be coloured with styles, not hard-coded fills. Flatten or union an icon's paths so it has a single fill where possible, then apply <code>Neutral/600</code> for default states and <code>Brand/Primary</code> for active states. When the brand colour changes, every icon in the file recolours along with the buttons and links, keeping the whole interface in step. Combined with Figma components and variants, this gives you one <code>Icon</code> component whose colour and size are controlled centrally — the foundation of a genuinely maintainable icon system.</p>
+
+<p><strong>Effects: shadows, blurs and overlays.</strong> Effects supply depth, separation and focus. Figma's Effects section offers drop shadow, inner shadow, layer blur and background blur, and multiple effects can be stacked on a single object. A <strong>drop shadow</strong> is defined by five parameters, and understanding each is what separates a believable elevation from a muddy grey smear:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Parameter</th>
+      <th>What it controls</th>
+      <th>Practical guidance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>X offset</strong></td><td>Horizontal displacement of the shadow</td><td>Usually 0 in UI, since the implied light source is directly overhead</td></tr>
+    <tr><td><strong>Y offset</strong></td><td>Vertical displacement</td><td>Increases with elevation: 1–2 for a resting card, 8–16 for a modal</td></tr>
+    <tr><td><strong>Blur</strong></td><td>Softness of the shadow edge</td><td>Roughly 2–3× the Y offset; harder shadows read as closer to the surface</td></tr>
+    <tr><td><strong>Spread</strong></td><td>Expands or contracts the shadow shape before blurring</td><td>Small negative values (e.g. -2) keep large soft shadows from bleeding sideways</td></tr>
+    <tr><td><strong>Colour &amp; opacity</strong></td><td>Hue and strength of the shadow</td><td>Use a dark tint of the brand or background hue at 6–20% alpha, not pure black at 50%</td></tr>
+  </tbody>
+</table>
+
+<p>The single biggest improvement most students can make to shadow quality is to <strong>stack multiple layers</strong>. Real shadows are not one uniform blob: they have a tight, relatively dark contact shadow immediately beneath the object and a broad, very faint ambient shadow spreading further out. Reproducing that with two or three stacked effects produces far more convincing elevation than a single setting. A typical raised card might use:</p>
+
+<pre><code>Shadow 1 (contact):  X 0   Y 1   Blur 2    Spread 0    #101828 @ 6%
+Shadow 2 (ambient):  X 0   Y 8   Blur 24   Spread -4   #101828 @ 10%
+
+Modal / dialog:
+Shadow 1:            X 0   Y 4   Blur 8    Spread -2   #101828 @ 8%
+Shadow 2:            X 0   Y 24  Blur 48   Spread -8   #101828 @ 18%
+
+Glow (focus ring):
+Shadow 1:            X 0   Y 0   Blur 0    Spread 3    #2F5BEA @ 25%</code></pre>
+
+<p>The last example shows a second use of the drop shadow: with zero blur and a positive spread, it becomes a soft outer ring, which is how focus states and selection halos are typically built. Giving the shadow a brand-tinted colour rather than black, and stacking a tight white inner shadow on a dark surface, are further techniques for making elements feel physically present.</p>
+
+<p><strong>Background blur</strong> is a distinct effect that blurs whatever is <em>behind</em> a frame rather than the frame's own contents, producing the frosted-glass look used in iOS navigation bars, macOS sidebars, sticky headers and modal scrims. For it to work, two conditions must hold: the frame carrying the effect must have a fill with less than 100% opacity (a white fill at 60–80% is typical), and there must be content positioned beneath it in the layer order. A header built as a frame with <code>Surface/Card</code> at 70% opacity plus a 20&nbsp;px background blur will blur the photographs and text scrolling under it, keeping the nav labels legible without hiding the content entirely. <strong>Layer blur</strong>, by contrast, blurs the object itself and is used for out-of-focus decorative shapes, soft gradient "blobs" behind hero content, or simulating a defocused background state while a dialog is open. The two are frequently confused; the test is simple — layer blur makes the thing you selected fuzzy, background blur makes everything behind it fuzzy.</p>
+
+<p>Just as with colour and type, effects should be saved as <strong>effect styles</strong> wherever they recur. Select an object with the finished stack of shadows, click the four-dot icon beside the Effects section, and name it by elevation role rather than by its values — <code>Elevation/01 Card</code>, <code>Elevation/02 Dropdown</code>, <code>Elevation/03 Modal</code>, <code>Effect/Focus Ring</code>, <code>Effect/Glass Blur</code>. A role-based elevation ladder of three or four steps is far better than ad-hoc shadows, because it encodes a consistent spatial model: everything at the same conceptual height casts the same shadow, so users learn to read depth as meaning (this card is interactive and sits above the page; this dialog sits above everything and blocks interaction). When a reviewer decides the whole interface feels too heavy, you edit four styles instead of hunting through two hundred objects.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Style type</th>
+      <th>Created from</th>
+      <th>Properties captured</th>
+      <th>Naming example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>Colour style</td><td>Fill or stroke section</td><td>Solid colour, gradient, image paint, opacity</td><td><code>Brand/Primary</code>, <code>Feedback/Error</code></td></tr>
+    <tr><td>Text style</td><td>Text section</td><td>Family, weight, size, line height, letter spacing, case, decoration</td><td><code>Heading/H2</code>, <code>Caption/Small</code></td></tr>
+    <tr><td>Effect style</td><td>Effects section</td><td>One or more shadows/blurs with all parameters</td><td><code>Elevation/02 Dropdown</code></td></tr>
+    <tr><td>Grid style</td><td>Layout grid section</td><td>Columns, rows, gutters, margins, alignment</td><td><code>Grid/Mobile 4col</code></td></tr>
+  </tbody>
+</table>
+
+<p>Bringing the five areas together, a high-fidelity screen should be auditable: click any element and the design panel should show style names rather than raw values. A card is <code>Surface/Card</code> with <code>Elevation/01 Card</code>; its title is <code>Heading/H2</code> in <code>Neutral/900</code>; its body is <code>Body/Regular</code> in <code>Neutral/600</code>; its thumbnail is an image fill set to Fill mode inside a 12&nbsp;px-radius frame; its action is an auto-layout button with a Feather icon tinted <code>Surface/Card</code> on a <code>Brand/Primary</code> background. Nothing in that description is a one-off value, which means the entire screen — and the forty others built from the same tokens — can be restyled, rebranded or handed to a developer without archaeology. That is the real definition of polish: not that the mockup looks attractive in a screenshot, but that its attractiveness is systematic, repeatable and survivable under change.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+<ul>
+<li><strong>MO1:</strong> This topic directly supports the construction of a high-fidelity interactive prototype by covering the visual properties — colour, typography, imagery, iconography and effects — that move a file from low-fidelity wireframe to a realistic, testable interface in Figma.</li>
+<li><strong>MO2:</strong> The topic addresses design principles explicitly: type scales and contrast are treated as the mechanism of <em>visual hierarchy</em>; styles, token naming and elevation ladders enforce <em>consistency</em>; and shadows, focus rings and button treatments communicate <em>affordance</em> by signalling what is raised, interactive and actionable.</li>
+<li><strong>MO3:</strong> The topic supports Figma's prototyping features partially — it shows how auto-layout frames govern icon and label alignment, padding and resizing, and how styles underpin components for global control. It does not cover interactive flows, connections or transitions, which are addressed elsewhere in the module.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Values in the palette, type scale and shadow examples are illustrative and may be substituted with project-specific tokens. Figma UI labels (four-dot style icon, Edit image button, Local Styles panel) reflect current desktop/browser conventions and may shift slightly with interface updates; Variables now offer an additional layer above colour styles for theming, which can be introduced as an extension exercise.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>High-fidelity design is the stage where a grey-box wireframe becomes something that looks and feels like a real product. The structural work is already done — boxes, spacing, and flow — and now you decide what the interface actually looks like: colour palettes, type scales, photography and fills, icons, and subtle effects such as shadows, blurs, and overlays that communicate elevation and focus.</p>
+<p>This matters in CEN3722 because visual properties are not decoration; they carry meaning. Type size and weight tell users what to read first, colour signals state and status, consistent icons make actions recognisable, and a shadow suggests that something is clickable or floating above the page. Figma supports this through styles (and variables) — reusable definitions for colour, text, and effects — so that a change made once propagates everywhere, which is the practical foundation of a design system.</p>
+<p>The three videos below focus on the styles side of high-fidelity work, with the deepest coverage on typography and text hierarchy. While watching, pay attention to how each presenter decides what to turn into a reusable style versus what stays a one-off local setting, how styles are named and organised, and how font size, weight, and spacing are used to build a readable hierarchy. Treat the techniques as transferable: the same create-once-reuse-everywhere logic applies to colour styles, effect styles, and the image fills and icon assets you add to your own project.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: Lesson 5: Styles and variables</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/e7J7Ng2eeoQ?cc_load_policy=1&amp;rel=0" title="Video: Lesson 5: Styles and variables (Figma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Figma</strong> · 12:40 · 24,379 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=e7J7Ng2eeoQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>Part of Figma's official series on using Figma as a product person, this lesson covers styles and variables — the reusable definitions that hold colour, text, and effect values in a file. Expect a walkthrough of creating styles from selected objects, applying them across a lightweight prototype, and an introduction to how variables extend this idea for values that change across contexts such as themes or modes.</p>
+<h3>Why this video</h3>
+<p>It comes straight from Figma, so the terminology and interface match the current tool, and it directly addresses the defining-and-applying-styles foundation that underpins colour, typography, and effects alike.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: Figma Design for K-12: Typography basics</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/QeT7eydBrJ4?cc_load_policy=1&amp;rel=0" title="Video: Figma Design for K-12: Typography basics (Figma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Figma</strong> · 7:13 · 20,684 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=QeT7eydBrJ4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A Figma-produced tutorial on typography fundamentals: adding text, formatting it, and adjusting properties such as font family, size, and weight. The description indicates it works from headline formatting toward building visual hierarchy, so you should see how differences in type settings establish an order of reading on a screen.</p>
+<h3>Why this video</h3>
+<p>It pairs the mechanics of text editing in Figma with the design principle of hierarchy, which is exactly the combination the typography subtopic requires, and it is pitched at an introductory level suitable for students new to the tool.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: Fastest way to create text styles in Figma</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/-7nt67h-Ojc?cc_load_policy=1&amp;rel=0" title="Video: Fastest way to create text styles in Figma (Design with Asif)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Design with Asif</strong> · 3:37 · 155,621 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=-7nt67h-Ojc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, practical demonstration of an efficient workflow for creating text styles in Figma, framed around the needs of a UI/UX designer building a design system. In under four minutes it should show how to turn a set of text layers into named, reusable styles rather than defining each one by hand.</p>
+<h3>Why this video</h3>
+<p>It complements the broader typography video with a speed-focused, system-minded technique, reinforcing the consistency and reusability habits you will need when applying a type scale across many frames in your project.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos move your prototype from structure to finished appearance, supporting MO1 by supplying the visual-polish skills that distinguish a high-fidelity mockup from a wireframe. The typography videos address MO2 directly: establishing hierarchy through type and maintaining consistency through shared, named styles are core applications of the design principles the module asks you to demonstrate. The styles and variables lesson supports MO3 by showing the reusable-asset mindset that also governs components and systematic design work, so that colour, text, and effect decisions stay coherent across every screen of an interactive flow.</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

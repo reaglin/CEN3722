@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Human-Computer Interaction</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 1 - HCI Foundations and Course Project Setup</a></div>
+  <header>
+    <h1>Introduction to Human-Computer Interaction</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Human-Computer Interaction</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Human-Computer Interaction (HCI) is the interdisciplinary field that studies how people interact with computing systems and how those systems can be designed to better serve human needs. It draws on computer science, cognitive psychology, design, sociology, and ergonomics. Where traditional software engineering asks "does the system work correctly?", HCI asks a harder and more consequential question: "does the system work well <em>for the people who must use it</em>?" A program can be algorithmically flawless and still fail completely if users cannot discover its features, misinterpret its feedback, or abandon it out of frustration.</p>
+
+<p>This topic establishes the shared vocabulary and mental models you will use for the rest of the course. Before you open a design tool or write a line of interface code, you need a working theory of what makes an interface good, how to evaluate that claim with evidence rather than opinion, and where human-centered activities fit into the way software actually gets built.</p>
+
+<p><strong>What Is HCI?</strong></p>
+
+<p>At its heart, HCI examines the relationship between three elements that form a continuous loop: the <strong>user</strong>, the <strong>task</strong>, and the <strong>system</strong>. The user has goals and intentions shaped by their knowledge, experience, physical abilities, and context. The task is the concrete work that must be accomplished to reach those goals. The system is the technology that mediates the task. Design quality is not a property of any one element alone — it emerges from the fit among all three. A command-line interface is superb for an experienced system administrator batch-renaming 10,000 files, and catastrophic for a first-time user who wants to crop a photo. Same system, different user and task, radically different outcome.</p>
+
+<p>A useful way to formalize this loop is Donald Norman's <em>Seven Stages of Action</em>, which traces one cycle of interaction:</p>
+
+<table>
+  <thead>
+    <tr><th>Stage</th><th>What the user is doing</th><th>Example: sending an email attachment</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1. Form the goal</td><td>Deciding what outcome is wanted</td><td>"My colleague needs this report."</td></tr>
+    <tr><td>2. Form the intention</td><td>Choosing a general approach</td><td>"I'll email the PDF to her."</td></tr>
+    <tr><td>3. Specify the action</td><td>Planning the concrete steps</td><td>"Click the paperclip, pick the file, click Send."</td></tr>
+    <tr><td>4. Execute the action</td><td>Operating the interface</td><td>Clicking and typing.</td></tr>
+    <tr><td>5. Perceive system state</td><td>Noticing what changed</td><td>A filename chip appears; a progress bar fills.</td></tr>
+    <tr><td>6. Interpret the state</td><td>Making sense of the change</td><td>"The file is attached."</td></tr>
+    <tr><td>7. Evaluate the outcome</td><td>Comparing result to the goal</td><td>"Sent — she'll receive the report."</td></tr>
+  </tbody>
+</table>
+
+<p>Norman describes two places where this loop breaks. The <strong>gulf of execution</strong> is the gap between what a user wants to do and what the interface lets them express — the user cannot figure out <em>how</em> to do the thing. The <strong>gulf of evaluation</strong> is the gap between what the system did and what the user can perceive and understand — the user cannot tell <em>whether</em> it worked. A hidden gesture on a mobile app widens the gulf of execution; a "Save" button that produces no visible confirmation widens the gulf of evaluation. Most usability complaints, when analyzed carefully, reduce to one of these two gulfs.</p>
+
+<p><strong>Reducing cognitive load.</strong> Human working memory is extraordinarily limited — classically estimated at about seven items, and in practice closer to four chunks of novel information held for roughly 15–30 seconds without rehearsal. Every element an interface asks a user to remember, decode, or mentally calculate consumes a share of this scarce resource. Cognitive load theory distinguishes <em>intrinsic</em> load (the inherent difficulty of the task — filing taxes is genuinely complex), <em>extraneous</em> load (effort wasted on poor presentation — hunting for a mislabeled button), and <em>germane</em> load (effort that builds useful understanding). Good HCI attacks extraneous load aggressively.</p>
+
+<ul>
+  <li><strong>Recognition over recall.</strong> A visible menu of options is easier than remembering a command name. This is why a dropdown of saved payment cards beats "type your card number again."</li>
+  <li><strong>Chunking and progressive disclosure.</strong> A 40-field form split into four labeled steps of ten feels dramatically shorter than one wall of inputs, even though the total work is identical.</li>
+  <li><strong>Offloading computation to the machine.</strong> Showing "Total: $47.83 including tax and shipping" is better than making the user add three numbers. Auto-detecting card type from the first digits is better than a card-type dropdown.</li>
+  <li><strong>Sensible defaults.</strong> Pre-selecting the most common option converts a decision into an optional review.</li>
+</ul>
+
+<p>The payoff is measurable: lower error rates, faster task completion, and higher satisfaction. Satisfaction is not a soft extra — it drives retention, word of mouth, willingness to adopt new features, and in enterprise settings, whether staff use the official tool or quietly build a spreadsheet workaround that fragments the organization's data.</p>
+
+<p><strong>HCI applies everywhere software meets people.</strong> The principles are platform-independent, even though their expression changes with context:</p>
+
+<table>
+  <thead>
+    <tr><th>Context</th><th>Dominant constraints</th><th>Typical HCI concerns</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Web applications</td><td>Variable screen sizes, browser capabilities, shared links, back button</td><td>Responsive layout, page load perception, keyboard and screen-reader support, URL as state</td></tr>
+    <tr><td>Mobile apps</td><td>Small screen, touch targets, one-handed use, interruptions, battery and bandwidth</td><td>Thumb-reachable controls, minimum ~44&nbsp;pt touch targets, offline tolerance, permission requests</td></tr>
+    <tr><td>Desktop software</td><td>Long sessions, expert users, multi-window workflows</td><td>Keyboard shortcuts, undo history, customizability, dense information display</td></tr>
+    <tr><td>Embedded and IoT</td><td>Few or no screens, physical controls, safety consequences</td><td>Mapping of control to effect, audible/haptic feedback, failure modes, constrained input</td></tr>
+  </tbody>
+</table>
+
+<p>Consider a car's cruise control stalk, a hospital infusion pump, and a thermostat. None look like "software," yet each is a textbook HCI problem. Infusion pump design is a well-documented case where ambiguous number entry (a missing leading zero, a misplaced decimal) has caused fatal overdoses — proof that interaction design is sometimes a safety-critical discipline, not a cosmetic one.</p>
+
+<p><strong>Core HCI Principles</strong></p>
+
+<p><strong>Usability</strong> is the degree to which a system lets specified users achieve specified goals effectively, efficiently, and satisfactorily in a specified context of use (the ISO 9241-11 definition). Notice how much of that definition is conditional: usability is never absolute, it is always relative to <em>who</em>, <em>what</em>, and <em>where</em>. Jakob Nielsen decomposes usability into five measurable components:</p>
+
+<table>
+  <thead>
+    <tr><th>Component</th><th>Question it answers</th><th>Example metric</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Learnability</td><td>How easy is the first encounter?</td><td>Time for a new user to complete first checkout</td></tr>
+    <tr><td>Efficiency</td><td>How fast are experienced users?</td><td>Average clicks or seconds per repeat order</td></tr>
+    <tr><td>Memorability</td><td>How easily do returning users regain proficiency?</td><td>Task time after a 30-day absence</td></tr>
+    <tr><td>Errors</td><td>How often do users slip, and how bad is it?</td><td>Error rate per task; recovery time</td></tr>
+    <tr><td>Satisfaction</td><td>How pleasant is the experience?</td><td>SUS score, post-task rating</td></tr>
+  </tbody>
+</table>
+
+<p>These components can conflict, which is why design involves trade-offs rather than universal right answers. A wizard that walks users through each step maximizes learnability but destroys efficiency for daily users; the usual resolution is to support both paths — a guided flow plus keyboard shortcuts and bulk actions. The <strong>System Usability Scale (SUS)</strong> is a widely used 10-item questionnaire producing a 0–100 score; roughly 68 is average, and above about 80 is considered good — useful because it lets you compare versions with a number instead of an argument.</p>
+
+<p><strong>Accessibility</strong> ensures systems are usable by people across the full range of human ability — including permanent disabilities (blindness, deafness, motor impairment, dyslexia), temporary conditions (a broken arm, an eye infection), and situational limits (bright sunlight on a screen, holding a baby, a noisy train). Microsoft's <em>persona spectrum</em> makes this vivid: a design that serves a person with one arm also serves a person with a temporary arm injury and a parent carrying a child. Accessibility is therefore not a niche accommodation; it expands the reachable audience for everyone.</p>
+
+<p>The practical framework is the Web Content Accessibility Guidelines (WCAG), organized under the POUR acronym:</p>
+
+<ul>
+  <li><strong>Perceivable</strong> — information must be presentable in ways users can sense. Text alternatives for images, captions for video, and a minimum 4.5:1 contrast ratio for normal-size text at WCAG AA.</li>
+  <li><strong>Operable</strong> — all functionality must be available without requiring a mouse, with enough time to act and no content that triggers seizures. Every interactive control must be reachable and activatable by keyboard, with a visible focus indicator.</li>
+  <li><strong>Understandable</strong> — language should be clear, behavior predictable, and errors explained in plain terms with suggested fixes ("Password must contain at least one number," not "Invalid input").</li>
+  <li><strong>Robust</strong> — content must work reliably with assistive technologies such as screen readers, which depends on using semantic HTML and correct ARIA roles.</li>
+</ul>
+
+<p>A concrete contrast: a form field labeled only by gray placeholder text disappears the moment the user types, fails contrast guidelines, and is often skipped by screen readers. A persistent <code>&lt;label&gt;</code> element correctly associated with its input solves all three problems at once — and incidentally makes the field easier for sighted mouse users too, because clicking the label focuses the input.</p>
+
+<p><strong>Feedback</strong> closes the interaction loop by confirming that an action registered and telling the user what happened. Without it, users repeat actions (double-charging a credit card), assume failure, or abandon the task. Feedback should be matched in weight to the significance of the event and should respect human timing thresholds:</p>
+
+<table>
+  <thead>
+    <tr><th>Response time</th><th>User perception</th><th>Appropriate feedback</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Under 0.1&nbsp;s</td><td>Feels instantaneous; direct manipulation</td><td>Immediate visual state change (button press, hover)</td></tr>
+    <tr><td>About 1&nbsp;s</td><td>Flow of thought preserved, but delay noticed</td><td>No spinner needed; a simple state change suffices</td></tr>
+    <tr><td>Up to 10&nbsp;s</td><td>Attention held with effort</td><td>Spinner or indeterminate indicator, disable resubmission</td></tr>
+    <tr><td>Over 10&nbsp;s</td><td>Attention wanders; user may leave</td><td>Percent-complete progress bar, time estimate, option to cancel or continue elsewhere</td></tr>
+  </tbody>
+</table>
+
+<p>Feedback also includes error messages, which should state what went wrong, why, and how to fix it. Compare:</p>
+
+<pre><code>Poor:  Error 0x80070057. Operation failed.
+
+Better: We couldn't upload "quarterly-report.pdf" because it is 28 MB
+        and the limit is 25 MB. Try compressing the file or sharing
+        a link instead.  [Compress]  [Share a link]  [Cancel]</code></pre>
+
+<p>Related is <strong>visibility of system status</strong> more broadly: a "Saved 2 minutes ago" timestamp, an order-tracking stage indicator, or an unread badge all keep the user oriented without them having to ask.</p>
+
+<p><strong>Consistency</strong> lets users transfer knowledge rather than relearn it. It operates on several levels:</p>
+
+<ul>
+  <li><strong>Internal consistency</strong> — within your product, the same action looks and behaves the same way everywhere. If the primary action button is a filled blue rectangle on the right of a dialog, it should not become a green text link on the left three screens later.</li>
+  <li><strong>External consistency</strong> — conformance to platform and web conventions. A logo in the top-left returns to home; a magnifying glass means search; on iOS, a back swipe from the left edge goes back. Jakob's Law states that users spend most of their time on <em>other</em> sites, so they expect yours to work like those.</li>
+  <li><strong>Conceptual consistency</strong> — the mental model stays coherent. If "archive" means "hide from inbox but keep forever," it must never silently delete anything.</li>
+</ul>
+
+<p>Design systems (Material Design, Apple's Human Interface Guidelines, or a team's own component library in Figma) operationalize consistency by making the consistent choice the easiest choice. The counterweight is Nielsen's companion heuristic: deviate from convention only when the deviation delivers a clear, demonstrable benefit — and then test it.</p>
+
+<p><strong>The User-Centered Design Process</strong></p>
+
+<p>User-Centered Design (UCD), codified in ISO 9241-210, is an iterative cycle with four repeating activities: <em>understand the context of use</em>, <em>specify user requirements</em>, <em>produce design solutions</em>, and <em>evaluate against requirements</em>. You loop until the evaluation shows the requirements are met. The defining commitment is that real users inform the design at every stage, rather than designers substituting their own intuitions.</p>
+
+<p><strong>Step 1 — Understanding users through research.</strong> The research phase answers who the users are, what they are actually trying to accomplish, and under what constraints. Common methods include:</p>
+
+<ul>
+  <li><strong>Semi-structured interviews</strong> — open questions about past behavior ("Walk me through the last time you booked a room") rather than hypotheticals ("Would you use a feature that…"), because people predict their own future behavior poorly.</li>
+  <li><strong>Contextual inquiry / observation</strong> — watching users work in their real environment. This surfaces workarounds people never think to mention: the sticky note of codes on the monitor, the parallel spreadsheet, the habit of printing a screen because the system can't export.</li>
+  <li><strong>Surveys</strong> — for breadth and quantification once you know which questions matter.</li>
+  <li><strong>Analytics and support-ticket review</strong> — evidence of where existing users drop off or ask for help.</li>
+  <li><strong>Competitive and heuristic review</strong> — establishing conventions and baseline expectations.</li>
+</ul>
+
+<p>Research outputs are synthesized into shareable artifacts: <strong>personas</strong> (evidence-based archetypes, e.g. "Marcus, 42, warehouse supervisor, uses a rugged tablet with gloves on in a loud, cold environment; needs large targets and audible confirmation"), <strong>journey maps</strong> charting a user's steps, emotions, and pain points over time, and <strong>jobs-to-be-done</strong> statements framing the underlying goal ("When a shipment arrives short, I want to flag the discrepancy in under a minute so the driver isn't held up").</p>
+
+<p><strong>Step 2 — Prototyping and testing with representative users.</strong> A prototype is a deliberately incomplete artifact built to answer a question cheaply. Fidelity should match the question:</p>
+
+<table>
+  <thead>
+    <tr><th>Fidelity</th><th>Form</th><th>Best for answering</th><th>Typical cost</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Low</td><td>Paper sketches, whiteboard flows</td><td>Is the overall structure and flow right?</td><td>Minutes</td></tr>
+    <tr><td>Medium</td><td>Figma wireframes with clickable hotspots</td><td>Can users find things and complete a task?</td><td>Hours</td></tr>
+    <tr><td>High</td><td>Figma prototype with real styling, or coded front end</td><td>Do visual hierarchy, microcopy, and micro-interactions work?</td><td>Days</td></tr>
+  </tbody>
+</table>
+
+<p>Testing means giving a participant a realistic task and observing silently. Give a scenario, not instructions: say "You need a waterproof jacket under $150 delivered by Friday — find one and buy it," never "Click the Filters button." Ask participants to think aloud. Record where they hesitate, where they look in the wrong place, and what they say they expect to happen. Nielsen's well-known finding is that roughly five participants per round uncover about 85% of the usability problems in a design — which means it is far better to run three small tests across three iterations than one large test at the end.</p>
+
+<p><strong>Step 3 — Iteration is structural, not optional.</strong> This is the point students most often underestimate. A first design is a hypothesis; testing is the experiment; the redesign is the result. Teams that treat testing as a one-time validation checkpoint tend to rationalize the findings away ("that participant was unusual") instead of acting on them. A healthy loop looks like: build a rough prototype in a day, test with five users, fix the top three problems, test again with five different users, and confirm the fixes worked without creating new problems. Each pass should narrow in scope — early rounds change the information architecture, later rounds change label wording and button placement.</p>
+
+<p><strong>Step 4 — Why this saves money.</strong> The cost of fixing a defect rises sharply the later it is discovered, because more downstream work depends on it. Changing a navigation structure on a paper sketch costs an eraser; changing it after launch costs rewritten code, migrated data, updated documentation, retrained support staff, and broken user habits.</p>
+
+<table>
+  <thead>
+    <tr><th>Stage problem is found</th><th>What must change</th><th>Relative cost</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Research / concept</td><td>An assumption in a document</td><td>1×</td></tr>
+    <tr><td>Wireframe / prototype</td><td>A few screens in Figma</td><td>~5×</td></tr>
+    <tr><td>Development</td><td>Components, state logic, tests</td><td>~10–20×</td></tr>
+    <tr><td>After release</td><td>Code, data migration, docs, support, user retraining, reputation</td><td>~100×</td></tr>
+  </tbody>
+</table>
+
+<p>The exact multipliers vary by study and context, but the shape of the curve is uncontested. UCD is best understood as a risk-reduction strategy: it buys cheap information early about expensive decisions.</p>
+
+<p><strong>HCI and the Software Development Lifecycle</strong></p>
+
+<p>HCI is not a separate phase bolted onto the front of a project; it threads through the entire lifecycle, with different methods dominant at different points.</p>
+
+<p><strong>Requirements gathering.</strong> Traditional requirements documents list system functions ("the system shall allow filtering by date"). HCI methods reframe requirements around human goals, which keeps teams from building technically correct features nobody needs. Personas give requirements a face, so debates shift from "I think users want X" to "Would Marcus, in gloves, in a loud warehouse, be able to do X?" <strong>User stories</strong> encode the same idea in a sentence the whole team can read:</p>
+
+<pre><code>As a warehouse supervisor,
+I want to flag a short shipment from the receiving screen,
+so that I can resolve the discrepancy before the driver leaves.
+
+Acceptance criteria:
+- Flagging takes no more than 3 taps from the receiving screen.
+- Works with gloves: all targets at least 48 x 48 dp.
+- A confirmation is both visible and audible.
+- Reachable by keyboard and announced correctly by a screen reader.</code></pre>
+
+<p>Note that acceptance criteria can and should include usability and accessibility thresholds. If "three taps" and "48 dp targets" are not written down, they will be negotiated away under schedule pressure.</p>
+
+<p><strong>Design and development.</strong> During these phases, prototyping and usability testing run in parallel with implementation. On an agile team, a common pattern is <em>dual-track</em> development: a discovery track validates designs one or two sprints ahead, while a delivery track builds the already-validated work. Other HCI activities that fit here include <strong>heuristic evaluation</strong> (two or three evaluators independently inspecting the interface against Nielsen's ten heuristics — a fast, cheap check that complements but does not replace user testing), <strong>cognitive walkthroughs</strong> (stepping through a task asking at each step whether the user would know what to do and whether they'd see progress), and <strong>accessibility audits</strong> combining automated scanners with manual keyboard and screen-reader passes. Automated tools typically catch only about a third of real accessibility issues, so manual testing is essential.</p>
+
+<p><strong>Post-launch.</strong> Release is the start of the richest feedback stream, not the end of design. Sources include:</p>
+
+<ul>
+  <li><strong>Behavioral analytics</strong> — funnel drop-off rates, task success rates, time on task, rage clicks (rapid repeated clicking on an unresponsive element), and dead clicks on non-interactive items.</li>
+  <li><strong>Session replays and heatmaps</strong> — aggregate views of where attention and interaction actually land, which frequently contradict assumptions.</li>
+  <li><strong>Support tickets and app-store reviews</strong> — the most expensiveform of user feedback, because the user has already been frustrated enough to complain; clustering them by theme turns anecdotes into a prioritized backlog.</li>
+  <li><strong>In-product surveys</strong> — short, targeted prompts (a one-question SUS-style rating after a completed task) that connect sentiment to a specific moment.</li>
+  <li><strong>A/B testing</strong> — controlled comparison of two variants on live traffic. Powerful for settling local questions (button wording, form length) but blind to problems with the option you never tested, which is why it supplements rather than replaces qualitative research.</li>
+</ul>
+
+<p>A healthy team closes the loop: analytics reveal <em>what</em> is happening (62% of users abandon the address step), qualitative testing reveals <em>why</em> (the postcode field silently rejects lowercase letters), and the fix is validated by watching the metric move. This is the mechanism by which an interface improves continuously instead of drifting.</p>
+
+<table>
+  <thead>
+    <tr><th>Lifecycle phase</th><th>Primary HCI activities</th><th>Typical artifacts</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Discovery / requirements</td><td>Interviews, contextual inquiry, competitive review</td><td>Personas, journey maps, user stories with acceptance criteria</td></tr>
+    <tr><td>Design</td><td>Sketching, wireframing, interactive prototyping, early usability tests</td><td>Figma flows, component library, test findings report</td></tr>
+    <tr><td>Development</td><td>Design reviews, heuristic evaluation, accessibility audits, QA against criteria</td><td>Annotated specs, issue list, audit report</td></tr>
+    <tr><td>Release and beyond</td><td>Analytics instrumentation, in-product surveys, A/B tests, support triage</td><td>Dashboards, prioritized improvement backlog</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Why HCI Matters for This Course</strong></p>
+
+<p>Everything above is only useful once you have practiced it on something real, which is the purpose of the course project. You will take an interface from research through prototype to a tested, revised design, and you will have to defend your decisions with evidence rather than taste. Expect the project to apply the full cycle in miniature: identify a user group and a genuine task, interview or observe a handful of people, build a low-fidelity prototype, test it with at least five representative participants, document the problems you found, and ship a revised version that demonstrably addresses them. The deliverable that matters most is not the prettiest screen — it is the trail of reasoning connecting a user's observed difficulty to a specific design change.</p>
+
+<p>You will work in the same toolchain professionals use, which is deliberate. <strong>Figma</strong> is the industry standard for interface design because it is browser-based, real-time collaborative, and supports reusable components, shared styles, clickable prototypes, and inline commenting — so a developer, a designer, and a stakeholder can all be in the same file. Learning its component and auto-layout model teaches you consistency in a tangible way: when a button is a component, updating it once updates it everywhere, and inconsistency becomes the harder path. <strong>GitHub</strong> provides version control, branching, pull requests, and issue tracking. Even for design-heavy work, GitHub is where the record of decisions lives — issues capture usability findings, pull requests tie a code change to the problem it solves, and commit history makes your iteration visible. Being fluent in both tools is a baseline expectation in most product teams, and a portfolio repository with a clear README and commit trail is often the first thing an employer looks at.</p>
+
+<p>Finally, the peer collaboration built into the course is not administrative convenience; it mirrors how real cross-functional teams operate. In industry, interfaces are produced by designers, developers, product managers, researchers, content writers, and accessibility specialists who must negotiate competing constraints — a visually elegant layout that is expensive to build, a fast-to-implement pattern that fails a WCAG check, a feature the business wants that research says users do not. Practicing those conversations now builds skills that are as valuable as any technique in this module:</p>
+
+<ul>
+  <li><strong>Giving and receiving critique on the work, not the person</strong> — "a user searching for refunds would scan this column first and miss the link" is actionable; "I don't like the layout" is not.</li>
+  <li><strong>Making decisions traceable</strong> — recording why a design changed so the team does not relitigate it in three weeks.</li>
+  <li><strong>Testing on someone outside your team</strong> — you cannot usability-test your own design, because you already know where everything is; peers provide fresh eyes and you provide the same for them.</li>
+  <li><strong>Negotiating trade-offs explicitly</strong> — naming which usability component (learnability vs. efficiency, for instance) you are optimizing for, and for whom.</li>
+</ul>
+
+<p>Carry three ideas forward into the rest of the course. First, <em>you are not your user</em> — your fluency with the interface you designed is the single biggest source of bias in your judgment. Second, <em>design is a claim that must be tested</em>, and five people watching a prototype will teach you more than five hours of internal debate. Third, <em>accessibility and usability are the same project</em>, not competing ones; designing for the edges of human ability almost always produces a clearer, more robust experience for everyone in the middle.</p>
+        <div class="notes"><strong>Notes</strong>Suggested teaching aids: (1) open with a two-minute &quot;norman door&quot; or confusing-appliance example to ground the gulfs of execution and evaluation before formal definitions; (2) a quick in-class exercise where pairs rewrite a real error message using the state-what/why/how-to-fix pattern; (3) have students run the SUS questionnaire on an app they use daily so the 68-point benchmark becomes concrete. Common misconceptions to pre-empt: that HCI equals visual styling, that accessibility is a late-stage compliance checkbox, and that &quot;I asked my friend and they liked it&quot; constitutes usability testing. Terminology students should be able to define by the end: usability (ISO 9241-11), the five Nielsen usability components, POUR, persona, journey map, prototype fidelity, iteration, heuristic evaluation. Assessment hook: the cost-of-change table pairs naturally with a short written justification of why the project requires testing before implementation.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>iOS Platform: Characteristics and Constraints</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 2 - Project Scoping and App Platform Selection</a></div>
+  <header>
+    <h1>iOS Platform: Characteristics and Constraints</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>iOS Platform: Characteristics and Constraints</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>iOS is Apple's mobile operating system, running on iPhone, iPad (as iPadOS, a close derivative), and — through shared frameworks and design language — influencing watchOS, tvOS, and visionOS. For an interface designer, iOS is best understood not simply as a technical runtime but as a tightly coupled system of hardware, software, design doctrine, distribution rules, and user expectations. Each of those layers imposes characteristics you can exploit and constraints you must design around. A design that ignores the <strong>Human Interface Guidelines (HIG)</strong>, the App Store review process, or the spread of screen geometries will either feel alien to users, fail review, or break on devices you did not anticipate. This topic examines the platform in three movements: who the users are and what the ecosystem looks like, what the design conventions actually prescribe, and where the hard constraints lie.</p>
+
+<p><strong>The platform as an ecosystem.</strong> Unlike Android, where hardware comes from dozens of manufacturers at every price point, iOS runs only on Apple-manufactured hardware. Apple designs the silicon (the A-series and M-series chips), the display, the operating system, the developer frameworks (UIKit and SwiftUI), the IDE (Xcode), and the only sanctioned distribution channel on most of the world's devices (the App Store). This vertical integration is the single fact from which most other iOS characteristics follow.</p>
+
+<p><strong>A premium device segment and an engaged user base.</strong> iPhones sit at the higher end of the smartphone price range, and the demographic consequences are measurable and consistent across markets. iOS users, on average, skew toward higher household income, higher urban concentration, and markets such as the United States, the United Kingdom, Japan, Australia, and Western Europe. The behavioural consequence matters more to designers than the demographic one: iOS users historically spend substantially more per capita on apps and in-app purchases than Android users, despite Android's much larger global install base. For a product team, this shapes monetisation strategy (paid apps and subscription tiers are more viable on iOS), content strategy (users are more tolerant of premium pricing but less tolerant of intrusive advertising), and feature strategy (users update their OS quickly, so new APIs become usable sooner).</p>
+
+<p>Consider a hypothetical fitness-tracking startup with a limited budget that can only build for one platform at launch. If the business model is a £9.99/month subscription aimed at affluent urban professionals in London and New York, iOS-first is the defensible choice: the audience concentration, the payment willingness, and the Apple Watch and HealthKit integrations all align. If instead the product is an ad-supported utility targeting emerging markets in South and Southeast Asia, the same reasoning points firmly to Android. The platform choice is a user-research decision, not a technical preference.</p>
+
+<p><strong>The Human Interface Guidelines as design law.</strong> The HIG is Apple's published specification of how iOS interfaces should look and behave. It is documentation, not a compiler — nothing stops you from building a non-conforming interface — but it functions as a quasi-legal standard for three reasons. First, Apple's own system apps (Mail, Settings, Messages, Photos) implement it, so users have been trained on it continuously for over a decade. Second, the standard UIKit and SwiftUI components implement it by default, so conformance is the path of least engineering resistance. Third, App Store reviewers cite it when rejecting apps whose interfaces are confusing, misleading, or sufficiently unconventional to harm users.</p>
+
+<p>The HIG is organised around a small set of design themes that recur throughout Apple's platforms:</p>
+
+<table>
+  <thead>
+    <tr><th>Principle</th><th>What it prescribes</th><th>Concrete design implication</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Clarity</strong></td><td>Text is legible at every size, icons are precise, ornamentation is subtle, and functional elements are unambiguous.</td><td>Favour a clear label over a clever icon; use negative space and typographic weight rather than borders and boxes to create hierarchy.</td></tr>
+    <tr><td><strong>Deference</strong></td><td>The UI helps users understand and interact with content, but never competes with it.</td><td>Translucent, lightweight chrome; content extends edge-to-edge; avoid heavy skeuomorphic decoration.</td></tr>
+    <tr><td><strong>Depth</strong></td><td>Visual layers and realistic motion convey hierarchy and give users a sense of place.</td><td>Push transitions slide horizontally to signal "deeper"; modal sheets slide up from the bottom to signal "temporary and separate".</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Clarity in practice.</strong> Clarity means a user looking at a control should know, without experimentation, what it does and what will happen if they touch it. Several concrete rules follow. Touch targets should be at least 44×44 points so they can be hit reliably with a thumb. Destructive actions are rendered in red and, where consequences are irreversible, confirmed with an action sheet. Labels use sentence-style or title-style capitalisation consistently. Icons that have accrued conventional meaning — the square-with-upward-arrow Share icon, the trash can, the magnifying glass — should be used for those meanings and nothing else. A frequent clarity failure in novice work is the "mystery meat" toolbar: a row of five custom glyphs with no labels, where the designer understands each one and no user does. The remedy is either a standard SF Symbol with an established meaning, or an icon paired with a short text label.</p>
+
+<p><strong>Tab bars as the primary top-level navigation.</strong> iOS resolves the problem of top-level navigation with the tab bar: a persistent horizontal bar pinned to the bottom of the screen containing three to five items, each with an icon and a short label, where the selected item is tinted with the app's accent colour. The pattern is load-bearing in iOS design because it makes the app's entire top-level structure visible at all times and places it within thumb reach at the bottom of the display. Compare Apple Music (Home, New, Radio, Library, Search), the App Store (Today, Games, Apps, Arcade, Search), or Clock (World Clock, Alarms, Stopwatch, Timers).</p>
+
+<p>The design rules that accompany the pattern are strict. Tabs represent <em>peer</em> sections of equal importance, not steps in a sequence; a tab bar must never be used as a wizard. Each tab maintains its own independent navigation stack, so a user who drills three levels deep into Library, switches to Search, and returns to Library expects to find it exactly as they left it. Tabs should not be used for actions — a "Compose" tab that opens a modal violates the mental model that tabs switch between destinations. Five items is the practical maximum on iPhone; a sixth or beyond collapses into an automatic "More" tab containing a list, which is a usability compromise you should design your way out of rather than accept. If your app genuinely has eight top-level sections, that is usually a signal that your information architecture needs consolidation, not that you need a More tab.</p>
+
+<p>Where a tab bar does not fit, iOS offers alternatives with their own conventions: a hierarchical drill-down using a navigation stack (Settings is the archetype), a sidebar on iPad and in wider layouts, or a page-based flat structure with a page control. Notably, the hamburger/drawer menu that dominates Android's Material Design is not an iOS convention and is widely regarded as a poor fit — it hides structure, is difficult to reach on large devices, and conflicts with the edge-swipe gesture.</p>
+
+<p><strong>Gesture-based navigation.</strong> Gestures are not decorative extras on iOS; several of them are load-bearing navigation mechanisms that users rely on unconsciously. The most important is the <em>interactive pop gesture</em>: swiping right from the left edge of the screen pops the current view off the navigation stack and returns to the previous screen, mirroring the back button in the navigation bar. It is interactive and reversible — the outgoing screen tracks the finger, and releasing it midway cancels the transition. Since the removal of the physical Home button, the system itself also claims gestures: swiping up from the bottom edge goes Home, swiping up and pausing opens the App Switcher, and swiping along the bottom Home indicator switches between recent apps.</p>
+
+<p>The design consequence is that the screen edges are <strong>system territory</strong>, and any custom gesture you place there will fight the operating system and lose. A common failure is placing a horizontally scrolling carousel flush against the left edge: users attempting a back-swipe scroll the carousel instead, or vice versa, and the interaction feels broken. Mitigations include insetting such content from the edge, or deliberately disabling the pop gesture only for screens where it would cause data loss (for example, a multi-step form) — in which case you must provide an equally obvious alternative such as an explicit "Cancel" button. Other conventional gestures that users expect to work include pull-to-refresh on scrollable lists, swipe-left-on-a-row to reveal Delete and other contextual actions, long-press to open a context menu or preview, and pinch-to-zoom on images and maps. Honouring these costs little and failing to honour them makes an app feel subtly foreign.</p>
+
+<p><strong>Typography: San Francisco and Dynamic Type.</strong> The iOS system font is <strong>San Francisco (SF)</strong>, a neutral humanist sans-serif that Apple designed specifically for screen legibility across sizes. SF Pro Text and SF Pro Display are optically distinct cuts — the Text variant has looser spacing and larger apertures for small sizes, the Display variant tighter spacing for headlines — and iOS switches between them automatically. SF also ships with companion families: SF Mono for code, SF Rounded for a softer tone, and <strong>SF Symbols</strong>, a library of several thousand icons that are metrically and visually matched to the font, so a symbol placed inline with text aligns to the same baseline and scales with the same weight.</p>
+
+<p>The more consequential typographic system is <strong>Dynamic Type</strong>. Rather than specifying fixed point sizes, iOS designers specify semantic <em>text styles</em> — Large Title, Title 1/2/3, Headline, Body, Callout, Subhead, Footnote, Caption 1/2 — and the system resolves each to a concrete size based on the user's preferred reading size, which they set in Settings and can push far beyond the default into the Accessibility Larger Text range. A user with low vision may be reading your interface at roughly twice the default body size.</p>
+
+<table>
+  <thead>
+    <tr><th>Text style</th><th>Default size (points)</th><th>Typical use</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Large Title</td><td>34</td><td>Top of a scroll view in a navigation stack</td></tr>
+    <tr><td>Title 1</td><td>28</td><td>Primary screen heading</td></tr>
+    <tr><td>Headline</td><td>17 (semibold)</td><td>Row titles, emphasised labels</td></tr>
+    <tr><td>Body</td><td>17</td><td>Running text, list content</td></tr>
+    <tr><td>Footnote</td><td>13</td><td>Secondary explanatory text</td></tr>
+    <tr><td>Caption 1</td><td>12</td><td>Image captions, metadata</td></tr>
+  </tbody>
+</table>
+
+<p>Designing for Dynamic Type means designing layouts that <em>grow</em>. Fixed-height rows break; labels that are allowed to wrap to multiple lines do not. Horizontal pairings — icon, title, and trailing value on one line — often need to reflow into a vertical stack at accessibility sizes. A practical discipline is to mock up every key screen three times: at the smallest size, at the default, and at the largest accessibility size, on the smallest supported device. In SwiftUI this is close to free, because text styles and stack layouts adapt by default:</p>
+
+<pre><code>Text("Monthly summary")
+    .font(.headline)          // semantic style, not a fixed 17pt
+Text(summaryBody)
+    .font(.body)
+    .fixedSize(horizontal: false, vertical: true)  // allow wrapping, never truncate</code></pre>
+
+<p>Hard-coding <code>.font(.system(size: 17))</code> opts the text out of Dynamic Type entirely and is one of the most common accessibility defects in shipping iOS apps.</p>
+
+<p><strong>The controlled hardware ecosystem and its testing dividend.</strong> Because Apple makes every device, the test matrix for an iOS app is finite and knowable. A team supporting the current and two previous iOS major versions might realistically cover the field with six to ten physical devices plus the Simulator — for example a small iPhone (SE), a standard iPhone, a Pro Max, an iPad, an iPad Pro, and one older device representing the minimum supported hardware. Contrast this with Android, where the same coverage ambition confronts thousands of device models, dozens of manufacturer UI skins, wildly varying GPU and camera capabilities, and aggressive vendor-specific background-process killing. The practical effect is that iOS QA budgets are smaller, device-specific bug classes are rarer, and designers can reason with confidence about colour reproduction (most modern iPhones use OLED with the P3 wide colour gamut), refresh rate (ProMotion up to 120 Hz on Pro models), and haptic capability (the Taptic Engine is present on all current iPhones). You can design a haptic feedback moment into a confirmation interaction and be confident it will actually be felt.</p>
+
+<p>This dividend is real but should not be overstated. The ecosystem is more fragmented than it once was: foldable-free but spanning Dynamic Island and notch cutouts, Face ID and Touch ID, OLED and LCD, ProMotion and 60 Hz, and the growing divergence of iPadOS with Stage Manager, external display support, Apple Pencil, and hardware keyboards.</p>
+
+<p><strong>User expectations of polish and performance.</strong> Apple's brand is built on refinement, and users transfer that expectation to every app on the device. In practice this means the quality bar for an iOS app is set by Apple's own apps and by the best third-party apps in the category, not by what a competitor shipped on another platform. Concretely, users notice and penalise: animation that drops frames or is not interruptible; a launch that shows a spinner instead of a skeleton of the eventual UI; a keyboard that covers the field being typed into; a layout that does not respect the safe area and tucks content under the Dynamic Island or the Home indicator; a Dark Mode that is clearly an afterthought with muddy contrast; and an app that does not restore state after being backgrounded. The reviews on the App Store make this feedback loop visible and commercially consequential. Budgeting time for polish on iOS is not gold-plating, it is table stakes.</p>
+
+<p><strong>Constraint: App Store review.</strong> On iOS, distribution is a gatekept process. Every app and every update is submitted to App Store Connect and reviewed against the <em>App Store Review Guidelines</em>, organised into five sections — Safety, Performance, Business, Design, and Legal. Review is partly automated and partly human, usually takes 24–48 hours, and can reject a build outright. Because approval is not guaranteed, review risk must be assessed at the <em>design</em> stage, not discovered at launch. Commonly encountered rules include:</p>
+
+<ul>
+  <li><strong>Minimum functionality (4.2):</strong> apps that are little more than a repackaged website, a single marketing page, or a thin wrapper around existing content are rejected. This directly constrains "just ship our site in a WebView" strategies.</li>
+  <li><strong>In-app purchase (3.1.1):</strong> digital goods and subscriptions consumed within the app must be sold through Apple's IAP system, subject to commission. Linking users out to an external payment page has historically been restricted, though regulatory action in the EU, the US, and elsewhere has been forcing change. For a product team, this has a direct effect on pricing, margin, and even whether a subscription business is viable.</li>
+  <li><strong>Sign in with Apple (4.8):</strong> if you offer third-party social login, you have generally been required to offer Sign in with Apple as an equivalent option — a concrete, mandatory element on your authentication screen.</li>
+  <li><strong>Account deletion (5.1.1(v)):</strong> if your app lets users create an account, it must let them delete it from within the app. That is a whole flow that must appear in your designs and your scope.</li>
+  <li><strong>Design conformance (4.0):</strong> copying the appearance of Apple's own apps, using system iconography to mean something other than its standard meaning, or using non-standard interfaces that confuse users can all draw rejection.</li>
+  <li><strong>User-generated content (1.2):</strong> apps with UGC must ship with a content filter, a report mechanism, a block mechanism, and a published contact. Again: real screens, real scope.</li>
+</ul>
+
+<p>A worked example: a team designs a language-learning app with a web checkout to avoid Apple's commission, social login via Google only, and a Facebook-style feed with no reporting tools. All three decisions are review failures. Catching them in a design review costs an afternoon; catching them in a rejection two weeks before a marketing launch costs the launch.</p>
+
+<p><strong>Constraint: privacy permissions.</strong> iOS treats sensitive capabilities as permissions the user grants at runtime, not at install time. Location, camera, microphone, photo library, contacts, calendars, health data, Bluetooth, local network, notifications, and cross-app tracking all require explicit consent, and the user can revoke any of them at any time in Settings. Two obligations follow.</p>
+
+<p>First, a <em>purpose string</em> is mandatory. Each permission requires a usage-description key in the app's <code>Info.plist</code>, and the text you write there is shown verbatim in the system alert. A missing purpose string causes the app to crash on request and will fail review; a vague one ("This app needs your location") invites denial. Good purpose strings are specific and user-benefit-framed:</p>
+
+<pre><code>&lt;key&gt;NSLocationWhenInUseUsageDescription&lt;/key&gt;
+&lt;string&gt;We use your location to show cycle routes starting near you.
+Your location is never stored on our servers.&lt;/string&gt;</code></pre>
+
+<p>Second, because the system alert can only be shown <em>once</em> per permission — a denial sends the user to Settings thereafter — the timing of the request is a design decision of real consequence. The established pattern is <em>priming</em>: never request a permission on first launch or on a cold splash screen. Instead, request it in context, immediately after the user has taken an action that makes the need obvious, optionally preceded by a custom pre-permission screen explaining the benefit and offering a "Not now" that does not burn the system prompt. A photo app should ask for camera access when the user taps the shutter, not during onboarding. You must also design the <em>denied</em> state: what does the screen look like for a user who said no? A blank map with no explanation is a failure; a map centred on a default city with a "Enable location for nearby routes" button that deep-links into Settings is not.</p>
+
+<p>Related constraints include <strong>App Tracking Transparency</strong> (tracking across other companies' apps and sites requires the ATT prompt, and opt-in rates are low, which undercuts ad-attribution-dependent business models), the limited photo library picker (users can grant access to selected photos only), and <strong>Privacy Nutrition Labels</strong> plus the privacy manifest, which require you to declare on your App Store page exactly what data you collect and whether it is linked to identity. Those declarations are public, so data-hungry designs carry a reputational cost on the store page itself.</p>
+
+<p><strong>Constraint: multiple device sizes.</strong> Although the hardware set is finite, it spans a wide range. An iOS layout must be built with Auto Layout or SwiftUI's adaptive stacks against <em>size classes</em> (compact and regular, in horizontal and vertical dimensions) rather than hard-coded pixel positions, and it must respect the <strong>safe area</strong> — the inset region that excludes the status bar, the notch or Dynamic Island, and the Home indicator. Representative points in the range:</p>
+
+<table>
+  <thead>
+    <tr><th>Device</th><th>Logical size (points, portrait)</th><th>Design implication</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>iPhone SE (3rd gen)</td><td>375 × 667</td><td>The tightest realistic target; Touch ID, no Dynamic Island, short screen. Long forms and tall cards break here first.</td></tr>
+    <tr><td>iPhone 15 / 16</td><td>393 × 852</td><td>The mainstream case; Dynamic Island cutout at the top, Home indicator at the bottom.</td></tr>
+    <tr><td>iPhone 15 / 16 Pro Max</td><td>430 × 932</td><td>Generous width, but the top of the screen is out of thumb reach — keep primary actions low.</td></tr>
+    <tr><td>iPad mini</td><td>744 × 1133</td><td>Regular width in landscape; a phone layout stretched to this width looks broken.</td></tr>
+    <tr><td>iPad Pro 12.9"</td><td>1024 × 1366</td><td>Sidebar or split-view layouts expected; also Stage Manager, external displays, keyboard and trackpad.</td></tr>
+  </tbody>
+</table>
+
+<p>Beyond raw dimensions, iPad adds multitasking: an app can be resized to Split View or Slide Over at essentially arbitrary widths, so a layout must respond to <em>continuous</em> width change, not just to a handful of device presets. A useful heuristic is that an iPhone layout is generally a single column with a tab bar, while an iPad layout at regular width should use the extra space meaningfully — a sidebar for navigation, a master–detail split, a multi-column grid — rather than stretching line lengths to 1000 points, which destroys readability. Orientation is a further axis: unless you have a strong reason to lock it (a game, a camera viewfinder), supporting both orientations is expected, and the keyboard-visible landscape case on a small phone is a notoriously under-tested layout.</p>
+
+<p><strong>Constraint: supporting older iOS versions.</strong> Apple's adoption curves are enviable — a new major iOS version typically reaches 70–80% of active devices within a year — but "most" is not "all", and the choice of <em>deployment target</em> (the minimum iOS version your app supports) is an explicit scoping decision with design consequences. Supporting one version back is conservative and cheap; supporting three versions back can cost significant engineering effort and foreclose modern APIs.</p>
+
+<p>The trade-off is concrete. Suppose a design calls for a bottom sheet that can be dragged between a half-height and full-height detent. The system <code>UISheetPresentationController</code> provides this natively from iOS 15, and SwiftUI's <code>presentationDetents</code> from iOS 16. If the projectsets a deployment target of iOS 14, neither is available and the team must either build and maintain a custom sheet component — with its own gesture handling, accessibility, and rotation behaviour — or redesign the interaction as a full-screen modal for everyone. Either way, the version decision has just rewritten the design.</p>
+
+<p>Several techniques make the constraint manageable. <em>Graceful degradation</em> uses availability checks so that newer devices get the richer treatment while older ones fall back to something acceptable rather than broken:</p>
+
+<pre><code>if #available(iOS 16.0, *) {
+    sheet.presentationDetents([.medium, .large])   // native drag-to-resize
+} else {
+    presentModalFullScreen()                        // acceptable fallback
+}</code></pre>
+
+<p>Alternatively, a team may choose <em>feature parity at the lowest level</em> — designing only what the oldest supported version can do — which is simpler to test but wastes the platform's newer capabilities. The decision should be driven by data, not instinct: App Store Connect reports the iOS version distribution of your actual installed base, and if 1.5% of your users are on a version that would cost four engineering weeks to support, that is a scope conversation with a defensible answer. Note too that OS version and hardware are coupled on iOS: dropping iOS 15 also drops certain older iPhone and iPad models entirely, which may matter if your audience includes schools, charities, or regions where hand-me-down devices are common. Finally, Apple periodically raises the minimum Xcode and SDK version required for App Store submission, which forces a build-level floor independent of your own deployment target — so "we will support iOS 12 forever" is not a stable position.</p>
+
+<p><strong>Pulling the constraints together.</strong> The recurring theme across all three areas — audience, conventions, constraints — is that on iOS, a great deal of design is <em>decided for you</em>, and the skill lies in recognising which decisions are fixed, which are conventional-but-negotiable, and which are genuinely yours. The safe area, the pop gesture, the review guidelines, and the permission model are fixed: design within them. Tab bars, Dynamic Type styles, SF Symbols, and standard transitions are conventional: deviate only with a clear user-centred justification, because conformance buys you learnability for free. Your information architecture, your content, your tone of voice, your accent colour, and your signature interactions are genuinely yours — and because the platform handles so much of the baseline, that is where your effort should concentrate.</p>
+
+<p><strong>A short worked scenario.</strong> Imagine scoping an iOS app for a university library: search the catalogue, reserve items, view loans, scan a barcode to renew. Platform reasoning produces a concrete specification almost immediately. The audience includes students on hand-me-down iPhone SEs, so the deployment target reaches back two versions and the smallest layout is tested first. The top level has four peer sections — Search, My Loans, Scan, Account — but Scan is an action, not a destination, so it becomes a prominent button on the Search screen rather than a tab, leaving a clean three-tab bar. Camera access is requested at the moment the user taps "Scan", with the purpose string "Used to scan the barcode on a book so you can renew it instantly", and a manual barcode-entry fallback is designed for users who decline. All typography uses semantic styles, and the loans list is mocked at the largest accessibility size, where each row reflows from a horizontal title-plus-due-date into a two-line vertical stack. Account creation implies an in-app account deletion flow, which is added to the backlog before it becomes a rejection. On iPad, the search results and item detail become a split view rather than a stretched single column. None of these are arbitrary choices; each is traceable to a documented platform characteristic or constraint.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+
+<ul>
+  <li><strong>MO1:</strong> This topic supplies the iOS half of a platform comparison by making its HCI design constraints explicit — gesture-reserved screen edges, the safe area and size-class system, Dynamic Type, runtime permissions, and review-imposed design rules — and by characterising the target user base (premium segment, high polish expectations, fast OS adoption, strong paid-app willingness). The repeated contrasts drawn with Android, and with web and desktop conventions such as the hamburger drawer and fixed type sizes, give students concrete axes on which to compare platforms rather than impressions.</li>
+  <li><strong>MO2:</strong> The topic equips students to justify selecting or rejecting iOS against defined requirements. Monetisation model, target market and device affordability, need for hardware integrations, QA budget and device-matrix size, tolerance for gatekept distribution, and dependence on cross-app tracking are each presented as decision criteria with worked reasoning (for example, the subscription fitness app versus the ad-supported emerging-market utility), so a platform choice can be argued from evidence rather than preference.</li>
+  <li><strong>MO3:</strong> Several sections translate directly into scope-document content. Deployment-target selection, the supported device and orientation matrix, mandatory review-driven features such as account deletion, Sign in with Apple, IAP and UGC moderation tooling, permission-denied states, and Dynamic Type testing at accessibility sizes are all shown as items that must be named as objectives, constraints, or acceptance criteria up front. The library-app scenario models how platform analysis converts into an explicit, testable scope.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Figures such as iOS adoption percentages, review turnaround times, and device point dimensions are representative of recent iOS/iPhone generations and should be refreshed against Apple's current documentation (Human Interface Guidelines, App Store Review Guidelines, and the App Store support dashboard) before delivery, as Apple revises these each cycle. The in-app purchase and external-link rules in particular are in active flux because of EU Digital Markets Act and US litigation outcomes; present them as "currently" rather than fixed. Suggested teaching activities: (1) a heuristic audit in which students evaluate a chosen App Store app against the HIG themes of clarity, deference, and depth; (2) a Dynamic Type stress test, mocking one screen at default and at the largest accessibility size on an iPhone SE frame; (3) a review-risk workshop where students read a short product brief and list the App Store Review Guidelines clauses it would likely trip, then revise the brief. Assessment tie-in: the library-app scenario at the end can be reused as a seed for an MO3 scope-document exercise.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Choosing iOS as a target platform means accepting a particular design philosophy along with a particular set of rules. Apple publishes the Human Interface Guidelines (HIG), maintains a consistent system of controls, typography, materials, and navigation patterns, and reviews every app before it reaches the App Store. For an HCI designer, that combination is both a gift and a constraint: much of the interaction vocabulary is already decided for you, users arrive with strong expectations about how things should behave, and deviating from convention tends to cost you more than it gains.</p>
+<p>In this topic we look at three things: what the iOS platform actually is (devices, system design language, and the audience that uses it), the design conventions that make an app feel "native" on iOS, and the constraints that come with Apple's more controlled ecosystem — review policies, hardware and device-size assumptions, accessibility expectations, and limited freedom to invent your own UI patterns. These factors feed directly into whether iOS is the right platform for your team's project.</p>
+<p>The videos below come from Apple Developer's WWDC sessions, which is as close to a primary source as you can get for iOS design. While watching, note the recurring vocabulary — hierarchy, consistency, materials, controls, navigation — and ask yourself two questions: what does this guidance require of a designer, and what would it prevent you from doing? Those answers become constraints you can cite in your scoping document.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: WWDC25: Design foundations from idea to interface | Apple</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/dGcqqA3Sl-o?cc_load_policy=1&amp;rel=0" title="Video: WWDC25: Design foundations from idea to interface | Apple (Apple Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Apple Developer</strong> · 19:06 · 145,171 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=dGcqqA3Sl-o" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An Apple WWDC25 session that walks through how an app idea becomes an actual interface, covering the design foundations Apple expects developers to apply. Based on its description, it focuses on how thoughtful design elevates functionality and makes apps feel clear, intuitive, and effortless. Expect discussion of structuring content, establishing hierarchy, and choosing appropriate system components.</p>
+<h3>Why this video</h3>
+<p>It is an official Apple source and maps directly to the iOS Design Conventions subtopic, showing the reasoning behind the conventions rather than just listing them — useful when you need to justify design decisions.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: WWDC26: Principles of great design | Apple</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Xa9L2yx_QH8?cc_load_policy=1&amp;rel=0" title="Video: WWDC26: Principles of great design | Apple (Apple Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Apple Developer</strong> · 17:17 · 78,033 views · 3mo ago · captions — <a href="https://www.youtube.com/watch?v=Xa9L2yx_QH8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A WWDC26 session on the principles of great design, linked directly to Apple's Human Interface Guidelines design principles documentation. It is likely to present the high-level values Apple wants apps on its platforms to embody, such as clarity, consistency, and deference to content. The session serves as an entry point into the HIG itself.</p>
+<h3>Why this video</h3>
+<p>It gives you the conceptual frame behind the HIG, which is the single most important reference for anyone designing for iOS, and supports both the platform overview and design conventions subtopics.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: WWDC25: Get to know the new design system | Apple</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/DS2ildqCrB0?cc_load_policy=1&amp;rel=0" title="Video: WWDC25: Get to know the new design system | Apple (Apple Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Apple Developer</strong> · 18:15 · 208,234 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=DS2ildqCrB0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A WWDC25 session introducing Apple's updated design system, with references to the Human Interface Guidelines sections on materials and related documentation. It is likely to cover the system's visual language — layers, materials, controls, and how they behave across Apple devices. This is the kind of material that shows how much of your interface iOS already defines for you.</p>
+<h3>Why this video</h3>
+<p>Seeing the breadth of a prescribed system makes the ecosystem's constraints concrete, which is exactly the point of the iOS Constraints and Considerations subtopic; it also comes straight from the platform owner, so the details are accurate and current.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These sessions give you an authoritative picture of what designing for iOS actually demands, which is the raw material for MO1: you cannot meaningfully compare mobile, web, and desktop constraints until you know how tightly a platform like iOS specifies its interaction and visual conventions. The emphasis on system components, materials, and design principles gives you concrete, citable reasons for or against choosing iOS for your project, supporting the platform justification in MO2. Finally, the constraints surfaced here — prescribed patterns, device and ecosystem assumptions, and expectations your users bring with them — translate directly into the constraints and success criteria sections of the project scope document required by MO3.</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

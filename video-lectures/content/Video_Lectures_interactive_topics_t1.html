@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human Cognition and Perception</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Video Lectures</a></div>
+  <header>
+    <h1>Human Cognition and Perception</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Human Cognition and Perception</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every interface is, in effect, a proposal made to a human nervous system. A button, a menu, an error message, or a loading spinner is only "good" to the extent that it fits the way people actually see, attend, remember, and decide. Human-computer interaction therefore rests on a working understanding of cognitive psychology: not as abstract theory, but as a set of design constraints that are as real and as unforgiving as screen resolution or network bandwidth. A system can be functionally flawless and still fail completely because it asks users to hold seven items in mind at once, to notice a change in a region they were never looking at, or to wait without evidence that anything is happening. This topic examines the mental machinery users bring to an interface — cognition, perception, attention, memory, information processing, and the subjective experience of time — and translates each into concrete design implications.</p>
+
+<p><strong>Foundations of Human Cognition</strong></p>
+
+<p>Cognition is the umbrella term for the mental activities by which people acquire, transform, store, and apply information. It includes <em>perceiving</em> (interpreting sensory input), <em>attending</em> (allocating limited processing resources), <em>remembering</em> (encoding and retrieving information), <em>reasoning</em> (drawing inferences), <em>problem-solving</em> (finding a path from a current state to a goal state), <em>decision-making</em> (choosing between alternatives under uncertainty), <em>learning</em> (changing behaviour based on experience), and <em>language processing</em>. In an interactive system, these are not separate episodes; they interleave continuously. A user filling out an online insurance quote is simultaneously reading field labels (perception and language), deciding which coverage band applies (decision-making), recalling the registration number of a car parked outside (long-term memory retrieval), and keeping track of how many steps remain in the form (working memory).</p>
+
+<p>The critical design fact about cognition is that it is <em>bounded</em>. Herbert Simon's notion of "bounded rationality" captures this: people do not optimise, they <em>satisfice</em> — they accept the first option that is good enough, because exhaustive evaluation is too expensive. This is why users famously do not read pages but scan them, and why they will click a plausible-looking link rather than study a navigation taxonomy. Designs that assume careful, complete, rational reading of all available information are designing for a user who does not exist.</p>
+
+<p>Two bounds matter most for interface structure:</p>
+
+<ul>
+  <li><strong>Processing speed.</strong> Mental operations take measurable time. A simple perceptual cycle takes on the order of 100&nbsp;milliseconds; a cognitive comparison or decision step takes roughly 70&nbsp;ms; a motor action takes roughly 70&nbsp;ms. These sound trivially small, but they accumulate. An interface that forces a user to make eleven separate decisions to complete a routine task imposes a measurable and felt burden, even if each decision is easy. Furthermore, decision time grows with the number of alternatives: Hick's Law states that choice reaction time increases approximately logarithmically with the number of equally probable options. A navigation bar with 24 undifferentiated links is slower to use than one with six grouped categories, even though the second structure technically requires two clicks instead of one.</li>
+  <li><strong>Working memory capacity.</strong> The amount of information a person can actively hold and manipulate is extremely small. George Miller's classic estimate was "seven plus or minus two" chunks; later research by Nelson Cowan suggests a more realistic figure of about four chunks for material that cannot be rehearsed. The practical implication is severe: any design that requires the user to carry information across screens — a reference number shown on step 2 and required on step 5, or a measurement unit declared in a header and needed twenty rows later — is gambling against a stingy memory system.</li>
+</ul>
+
+<p>A frequent misreading is that "7 ± 2" dictates menu length. It does not. The limit applies to information that must be <em>held in mind</em>, not to items that remain visible on screen. A visible list of twenty options imposes a search and scanning cost, not a memory cost. A dialog that flashes five values for three seconds and then asks a question about them imposes a memory cost. Distinguishing these two situations is one of the most practically useful skills a designer can develop.</p>
+
+<p>Cognitive activity also differs in <em>mode</em>. Psychologists distinguish <strong>controlled (conscious, deliberate) processing</strong> from <strong>automatic (unconscious, practised) processing</strong> — a distinction popularised as "System 2" and "System 1" thinking by Daniel Kahneman. Controlled processing is slow, serial, effortful, and capacity-limited, but flexible: it is what you use when configuring an unfamiliar VPN client. Automatic processing is fast, parallel, effortless, and hard to suppress, but inflexible: it is what lets a touch-typist produce text without attending to individual keys, or an experienced driver change gear while holding a conversation.</p>
+
+<table>
+  <thead>
+    <tr><th>Property</th><th>Controlled processing</th><th>Automatic processing</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Speed</td><td>Slow</td><td>Fast</td></tr>
+    <tr><td>Effort / attentional demand</td><td>High; occupies working memory</td><td>Low; largely bypasses working memory</td></tr>
+    <tr><td>Parallelism</td><td>Essentially serial — one task at a time</td><td>Can run in parallel with other tasks</td></tr>
+    <tr><td>Flexibility</td><td>Can handle novelty and exceptions</td><td>Rigid; triggered by familiar cues</td></tr>
+    <tr><td>Typical interface situation</td><td>First-time setup, error recovery, unfamiliar terminology</td><td>Expert use of a daily tool, keyboard shortcuts, habitual click paths</td></tr>
+    <tr><td>Characteristic failure</td><td>Overload, abandonment, slips in reasoning</td><td>Capture errors — running a familiar sequence when a different one was intended</td></tr>
+  </tbody>
+</table>
+
+<p>Good design serves both modes. Novices need controlled processing to be cheap: clear labels, visible structure, explicit guidance, forgiving defaults. Experts need automaticity to be supported: stable layouts (so muscle memory remains valid), keyboard accelerators, and consistent placement. The two goals can conflict. A redesign that relocates the "Send" button improves nothing for a novice but destroys thousands of hours of accumulated automatism in daily users — which is precisely why email clients that move core controls generate disproportionate outrage. Automaticity also produces a distinctive error class: <em>capture errors</em>, where a well-learned sequence hijacks an intended variation. A user who intends to "Save As" but types the habitual Ctrl+S is committing a capture error, and the system — not the user — should be designed to tolerate it through undo and non-destructive defaults.</p>
+
+<p><strong>Human Perception</strong></p>
+
+<p>It is tempting to think of perception as a camera: light enters the eye, and an image appears in the mind. This model is wrong in every important respect. Perception is an <em>active, constructive, inferential</em> process. The retina delivers a noisy, low-resolution, upside-down, interrupted stream of data with a literal blind spot in it, and the visual system builds from this a stable, meaningful scene using prior knowledge, expectation, and context. What you "see" is the brain's best hypothesis about what is out there.</p>
+
+<p>Several consequences follow directly for interface design:</p>
+
+<ul>
+  <li><strong>Expectation shapes interpretation.</strong> Users see what they expect to see. A user looking for a "Submit" button may read a button labelled "Send" as "Submit" and later misremember it; a user who expects a dialog's right-hand button to be the confirming action will click it without reading. This is why conventions matter so much: they align the system with the hypothesis the user is already generating.</li>
+  <li><strong>Context changes appearance.</strong> The same grey swatch looks lighter on a dark background and darker on a light one (simultaneous contrast). A 14&nbsp;px label looks cramped beside a 48&nbsp;px heading and comfortable beside 12&nbsp;px body text. There is no such thing as an element's appearance in isolation — only its appearance in a layout.</li>
+  <li><strong>Grouping is automatic.</strong> The Gestalt principles describe how the visual system imposes organisation before conscious thought intervenes. These are not stylistic preferences; they are perceptual facts that your layout will obey whether you intend it or not.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr><th>Gestalt principle</th><th>Perceptual effect</th><th>Interface application</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Proximity</td><td>Items close together are seen as a group</td><td>Place a form label nearer to its own field than to the field above; tighten spacing within a card and loosen it between cards</td></tr>
+    <tr><td>Similarity</td><td>Items sharing colour, shape, or size are seen as related</td><td>Style all primary actions identically so "clickable" is learnable from appearance alone</td></tr>
+    <tr><td>Common region</td><td>Items inside a shared boundary are seen as a unit</td><td>Panels, cards, and bordered fieldsets that bind related settings together</td></tr>
+    <tr><td>Continuity</td><td>The eye follows smooth lines and alignment</td><td>Aligning field edges creates a clean vertical scan path; ragged alignment forces re-fixation</td></tr>
+    <tr><td>Closure</td><td>Incomplete shapes are perceived as whole</td><td>Icons can be minimal; a partially visible row at the fold signals "more content below"</td></tr>
+    <tr><td>Figure–ground</td><td>One region is seen as the object, the rest as background</td><td>Modal dialogs with dimmed overlays pull the dialog forward as figure</td></tr>
+  </tbody>
+</table>
+
+<p>A notorious real-world failure of proximity: a form in which each label sits directly <em>above</em> the preceding field's input box rather than its own. Users dutifully type their surname into the box labelled, to their eyes, "Surname" — which the system reads as "First name." Nothing is wrong with the code; the grouping is wrong, and perception does the rest.</p>
+
+<p><strong>Visual hierarchy</strong> is the deliberate exploitation of these principles to control the order in which elements are noticed. The eye is drawn preferentially to high contrast, large size, strong colour, isolation (whitespace around an element), unusual shape, faces, and motion. By manipulating these variables, a designer can effectively dictate a reading sequence. A well-constructed landing page might establish three tiers: a dominant headline, a visually distinct primary call-to-action, and a quieter body of supporting text and secondary links. The test is simple and worth applying routinely: squint at the screen, or blur it heavily, and note what still stands out. If the most prominent element is a decorative image or a "Cancel" button, the hierarchy is working against the task.</p>
+
+<p>Hierarchy fails in two directions. Too little differentiation produces a flat screen where everything competes and nothing leads — the user must read linearly, which is slow and effortful. Too much emphasis produces the same result by a different route: if six elements all shout, none is prominent. Emphasis is a zero-sum resource. Every element promoted demotes everything else.</p>
+
+<p><strong>Perceptual limitations</strong> impose hard boundaries on what hierarchy can achieve. Key ones include:</p>
+
+<ul>
+  <li><strong>Contrast sensitivity.</strong> Legibility depends on luminance contrast between text and background far more than on colour difference. WCAG specifies a minimum contrast ratio of 4.5:1 for normal text and 3:1 for large text (AA level), rising to 7:1 and 4.5:1 at AAA. Light grey text on a white background — a recurring fashion in minimalist design — may measure 2.5:1 and become genuinely unreadable for older users, whose lens yellowing and reduced pupil size can require several times more light contrast than a twenty-year-old needs.</li>
+  <li><strong>Colour vision deficiency.</strong> Roughly 8% of men and 0.5% of women of northern European descent have some form of colour vision deficiency, most commonly red–green. An interface that signals validity solely through red and green borders conveys nothing to these users. The remedy is <em>redundant coding</em>: pair colour with an icon, a text label, a shape, or a position. A map legend that distinguishes regions only by hue should also distinguish them by pattern or direct labelling.</li>
+  <li><strong>Foveal versus peripheral vision.</strong> Sharp, detailed, colour-rich vision is confined to the fovea — roughly two degrees of visual angle, about the width of a thumbnail at arm's length, or a few characters of text at normal reading distance. Everything else is peripheral: low acuity, poor colour, but highly sensitive to motion and gross luminance change. This explains both why users miss static text placed away from their focus and why an animated banner in the periphery is so distracting that users have learned to suppress it entirely ("banner blindness").</li>
+  <li><strong>Pre-attentive processing.</strong> A small set of visual features — hue, orientation, size, motion, curvature, enclosure — is processed in parallel across the whole visual field in under about 200&nbsp;ms, before focused attention engages. A single red item among grey items "pops out" regardless of how many grey items there are. But this only works for a <em>single</em> distinguishing feature against a uniform background. Conjunctions of features (find the item that is both red and square) require slow serial search. Hence: use one strong, unique visual treatment for the one thing that must be found instantly.</li>
+</ul>
+
+<p>Putting this together, the design rule is that <em>criticality should map onto perceptual salience</em>. If a destructive action, a safety warning, or a state change matters most, it must be the thing that wins the pre-attentive competition — through isolation, contrast, size, and placement in the expected scan path — and it must not be competing with eight animated promotional elements. Conversely, routine or rarely-needed controls should be perceptually quiet. In a radiology viewer, a critical "unverified result" flag should not be rendered in the same soft grey as the file-naming metadata; in a cockpit or process-control display, a master caution indicator earns a unique colour, a unique location, and an auditory channel of its own.</p>
+
+<p><strong>Attention and Its Limits</strong></p>
+
+<p>Attention is the mechanism that allocates limited processing capacity to a subset of available information. It is best thought of not as a spotlight the user chooses to point, but as a contested resource: partly directed by goals (top-down, endogenous control) and partly captured by the environment (bottom-up, exogenous capture by motion, loud contrast, sudden onsets).</p>
+
+<p><strong>Selective attention</strong> means that attending to one thing necessarily means not processing others. The classic demonstration is the "cocktail party effect": in a crowded room you can follow one conversation and remain almost entirely ignorant of the content of adjacent ones — yet your own name spoken nearby will break through. For interfaces, two implications follow. First, anything outside the user's current focus is, for practical purposes, invisible, no matter how legible it is. A help text placed in a right-hand sidebar while the user is typing in a centre-column field may as well not exist. Second, salience is the designer's lever: to be attended, an element must either lie on the user's goal-driven scan path or be strong enough to capture attention bottom-up. Research on web reading shows strong F-shaped and layer-cake scanning patterns on text-dense pages — heavy fixation on the top lines, on the left edge, and on headings — which tells you where goal-driven attention is likely to land by default.</p>
+
+<p><strong>Information overload</strong> occurs when the number of competing elements exceeds the user's capacity to triage them. Symptoms include longer task times, increased error rates, decision avoidance or abandonment, random clicking, and subjective frustration. Overload is not simply a matter of quantity — a dense spreadsheet can be perfectly usable because it is highly structured — but of <em>unstructured</em> quantity, where nothing indicates what to look at first. Remedies are well established:</p>
+
+<ul>
+  <li><strong>Chunking and grouping:</strong> break long forms into labelled sections; group related settings in common regions; format long digit strings (a 16-digit card number as four groups of four) so each group becomes a single chunk.</li>
+  <li><strong>Progressive disclosure:</strong> show the common 80% of controls, and hide advanced options behind "Advanced settings" or an expandable panel. This reduces the visible decision space without removing capability.</li>
+  <li><strong>Defaults:</strong> every sensible default is a decision the user does not have to make. Defaults are the cheapest usability intervention available and among the most powerful.</li>
+  <li><strong>Ruthless prioritisation:</strong> remove or demote content that does not serve the primary task. A dashboard with forty metrics communicates less than one with six well-chosen ones.</li>
+  <li><strong>Deferred and batched notifications:</strong> interruptions consume attention and evict working memory. Batching non-urgent alerts protects the user's current task.</li>
+</ul>
+
+<p><strong>Change blindness</strong> is the failure to notice a substantial change to a visual scene when the change coincides with a disruption — a flicker, a saccade (eye movement), a page transition, a brief occlusion. In laboratory demonstrations, observers routinely fail to notice that a large object has vanished from a photograph across a brief blank frame. In interfaces, change blindness explains why users miss a validation error that appears at the top of a page after a submit, why a quietly updated total in a shopping basket goes unnoticed, and why a status message that replaces another status message in the same slot can seem never to have changed at all. Mitigations include: place feedback near the locus of attention (next to the offending field, not only at the page top); use a brief, purposeful transition or highlight to draw the eye to the changed region; avoid full-page reloads where a targeted update would preserve context; and never rely solely on a silent change of state to communicate something important.</p>
+
+<p><strong>Inattentional blindness</strong> is the related failure to notice a fully visible, often conspicuous object because attention is engaged elsewhere. The canonical demonstration is Simons and Chabris's "invisible gorilla" study: observers counting basketball passes frequently fail to see a person in a gorilla suit walk through the scene. The design lesson is sobering, because it is not solved by making the element bigger or more colourful — the gorilla was neither small nor subtle. When a user is deeply engaged in a goal, elements irrelevant to that goal are filtered out pre-consciously. Users genuinely do not see the cookie banner, the "did you mean?" suggestion, or the upsell panel. If something must be noticed, it generally has to be placed <em>in the path of the task itself</em> — in the flow the user must traverse to proceed — rather than merely displayed somewhere on the same screen. This is why genuinely critical confirmations are modal: they interrupt the task because nothing less reliably penetrates.</p>
+
+<p>Banner blindness is inattentional blindness that has become learned and habitual: users have internalised the visual signature of advertising (rectangular, animated, right-rail or top-of-page, high-saturation) and filter it automatically. The perverse consequence is that legitimate content styled like an ad becomes invisible — an important warning for designers tempted to make an important notice "stand out" by making it look promotional.</p>
+
+<p><strong>Memory: Types and Implications for Design</strong></p>
+
+<p>The standard multi-store account distinguishes three systems, each with radically different capacity and duration characteristics.</p>
+
+<table>
+  <thead>
+    <tr><th>Memory store</th><th>Capacity</th><th>Duration</th><th>Role in interaction</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Sensory memory (iconic/echoic)</td><td>Large but raw and unprocessed</td><td>~200–500&nbsp;ms visual; ~2–4&nbsp;s auditory</td><td>Buffers the display long enough for attention to select from it; underlies the perception of continuity in animation</td></tr>
+    <tr><td>Working (short-term) memory</td><td>~4 chunks (classically 7 ± 2)</td><td>~15–30&nbsp;s without rehearsal</td><td>Holds the current sub-goal, a value being transcribed, the position in a multi-step process</td></tr>
+    <tr><td>Long-term memory</td><td>Effectively unlimited</td><td>Minutes to a lifetime</td><td>Stores conventions, learned procedures, domain knowledge, expectations about how systems behave</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Working memory</strong> is the bottleneck of interaction. Baddeley's influential model subdivides it into a phonological loop (verbal/acoustic material), a visuospatial sketchpad (images and spatial layout), an episodic buffer, and a central executive that coordinates them. Two practical facts emerge. First, the verbal and visual sub-systems are partially independent, so a task that combines a diagram with spoken narration loads memory less than one that combines a diagram with competing on-screen text. Second, working memory decays fast and is catastrophically vulnerable to interruption. A user who memorises a six-digit two-factor code and is interrupted by an incoming call for twelve seconds will frequently have lost it. This is why modern platforms auto-fill SMS codes, why "copy to clipboard" buttons are provided next to reference numbers, and why a well-designed checkout keeps the order summary permanently visible rather than making the user remember the total from the previous page.</p>
+
+<p>Typical interface patterns that overload working memory, with remedies:</p>
+
+<ul>
+  <li><strong>Cross-screen transcription.</strong> Showing a booking reference on one screen and requiring it on another. <em>Remedy:</em> carry it forward automatically, or keep it persistently visible.</li>
+  <li><strong>Modal dialogs that obscure the data they ask about.</strong> "Are you sure you want to delete these items?" with the list hidden behind the dialog. <em>Remedy:</em> restate the specifics inside the dialog — "Delete 14 files from <code>/project/archive</code>?"</li>
+  <li><strong>Instructions that disappear before they are needed.</strong> A tooltip or placeholder that vanishes the moment the user clicks into the field, taking the format requirement with it. <em>Remedy:</em> persistent hint text beneath the field, or inline format masking.</li>
+  <li><strong>Deep, unlabelled wizards.</strong> Multi-step flows that give no indication of where the user is or what remains. <em>Remedy:</em> a step indicator ("Step 3 of 5: Delivery") externalises the position so it need not be held in mind.</li>
+  <li><strong>Mode changes without visible mode indicators.</strong> The user must remember that the tool is currently in "erase" rather than "draw" mode. <em>Remedy:</em> visible, persistent mode feedback — a highlighted toolbar state and a changed cursor.</li>
+</ul>
+
+<p><strong>Long-term memory</strong> is effectively unbounded in capacity but imperfect in retrieval. It is commonly divided into <em>declarative</em> memory — <em>semantic</em> (facts and concepts: "a floppy-disk icon means save") and <em>episodic</em> (personally experienced events: "last week I found the export option under the File menu") — and <em>procedural</em> memory (skills: how to drag, how to pinch-zoom, how to touch-type). Procedural memory is slow to build but extremely durable, which is exactly what underlies expert automaticity.</p>
+
+<p>For design, the significance of long-term memory is that it is where <em>conventions</em> live. A user arriving at a new site already possesses a rich body of learned expectations: a logo in the top-left returns to the home page; an underlined coloured word is a link; a magnifying glass means search; a trash can means delete; a gear means settings; a horizontal three-line icon opens navigation; swiping down at the top of a list refreshes it. Each of these is an item of knowledge already stored at no cost to you. Jakob's Law — "users spend most of their time on other sites, so they prefer your site to work the same way as all the other sites they already know" — is really a statement about reusing long-term memory. Novel interaction metaphors are not inherently wrong, but they impose a learning cost that must be repaid by genuine benefit; most redesigns that discard conventions are spending a resource they did not earn.</p>
+
+<p>Long-term memory also degrades in predictable ways that interfaces must tolerate. Retrieval failure is far more common than genuine loss — people recognise what they cannot recall. Memory is reconstructive, so users confidently misremember details (which menu an item was under, what the password rules were). Interference is severe: a user with forty accounts cannot keep forty passwords distinct, which is precisely why password policies demanding frequent change of complex strings produce written-down passwords and systematic variants (<code>Summer2024!</code> becoming <code>Autumn2024!</code>) rather than security.</p>
+
+<p>These facts converge on one of the most durable heuristics in the field: <strong>favour recognition over recall</strong>. Recall requires generating information from memory with few cues; recognition requires only judging whether presented information is familiar, and is dramatically faster and more reliable. The difference is the difference between an essay question and a multiple-choice question.</p>
+
+<table>
+  <thead>
+    <tr><th>Task</th><th>Recall-based design (harder)</th><th>Recognition-based design (easier)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Issuing a command</td><td>Blank command line requiring exact syntax</td><td>Menus, toolbars, or a command palette with searchable, listed commands</td></tr>
+    <tr><td>Entering a country</td><td>Free-text field expecting the official name</td><td>Type-ahead select list showing matching options</td></tr>
+    <tr><td>Returning to earlier work</td><td>Remembering the file path and typing it</td><td>"Recent files" list with names, thumbnails, and dates</td></tr>
+    <tr><td>Re-entering a delivery address</td><td>Retyping from memory</td><td>Saved addresses presented as selectable cards</td></tr>
+    <tr><td>Knowing where you are</td><td>Remembering the navigation path taken</td><td>Breadcrumb trail and highlighted current section</td></tr>
+    <tr><td>Applying a password rule</td><td>Reading the rules once, then recalling them while typing</td><td>Live checklist that ticks each requirement as it is satisfied</td></tr>
+  </tbody>
+</table>
+
+<p>Recognition is not a universal cure. Experts often prefer recall-based shortcuts because they are faster once learned — a seasoned developer types <code>git rebase -i HEAD~3</code> far more quickly than they could navigate a GUI. The mature answer is to layer both: a discoverable, recognition-friendly path for learning, with recall-based accelerators exposed alongside it. This is exactly what a menu does when it prints "Ctrl+Shift+P" beside the command: it teaches the shortcut through recognition until it migrates into procedural memory.</p>
+
+<p>The broader principle is <strong>knowledge in the world versus knowledge in the head</strong> (Donald Norman). Information placed in the environment — visible, legible, persistent — does not need to be stored by the user at all. Practical applications include: persistent order summaries during checkout; showing the previously entered value next to an edit field; keeping the question visible while the answer is being typed; displaying units, formats, and constraints inline rather than in a one-time instruction; auto-saving drafts so an interruption is not catastrophic; and preserving entered data when a form fails validation rather than clearing it. Each of these converts a memory task into a perception task, and perception is cheap where memory is expensive.</p>
+
+<p><strong>Information Processing Models</strong></p>
+
+<p>The information-processing tradition models the human as a system that takes in input, transforms it, and produces output — deliberately analogous to a computer, and useful precisely because it lets us quantify and predict performance. The classic three-stage formulation is:</p>
+
+<ul>
+  <li><strong>Perception (input):</strong> sensory registration and encoding of the stimulus — the eye lands on the screen, the display is encoded as a recognisable pattern ("that is a red warning triangle").</li>
+  <li><strong>Cognition (central processing):</strong> interpretation, comparison against memory, decision about what to do — "red triangle means the upload failed; I should retry."</li>
+  <li><strong>Response execution (output):</strong> selecting and carrying out a motor action — moving the pointer to "Retry" and clicking it.</li>
+</ul>
+
+<p>Card, Moran and Newell's <em>Model Human Processor</em> formalises this as three interacting processors (perceptual, cognitive, motor) with associated memories and nominal cycle times — roughly 100&nbsp;ms, 70&nbsp;ms and 70&nbsp;ms per cycle respectively, each with a substantial range. Chaining these cycles yields surprisingly accurate predictions. A simple reaction to an expected stimulus takes roughly one perceptual plus one cognitive plus one motor cycle — around 240&nbsp;ms — which matches laboratory simple-reaction data well. More elaborate predictive techniques (GOMS and the Keystroke-Level Model) assign times to elementary operators — a keystroke at roughly 0.2&nbsp;s for a skilled typist, pointing at roughly 1.1&nbsp;s, mental preparation at roughly 1.35&nbsp;s, homing between keyboard and mouse at roughly 0.4&nbsp;s — and sum them to estimate expert task time before a line of code is written. If a redesign removes two mental-preparation operators and one homing operation from a transaction performed four hundred times a day by a call-centre agent, the saving is substantial and calculable.</p>
+
+<p>Each stage introduces its own characteristic delays and failures:</p>
+
+<table>
+  <thead>
+    <tr><th>Stage</th><th>Typical delay source</th><th>Typical error</th><th>Design response</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Perception</td><td>Low contrast, small targets, cluttered display, element outside the scan path</td><td>Misreading a label; failing to detect a state change</td><td>Increase contrast and salience; place critical items in the expected path; reduce clutter</td></tr>
+    <tr><td>Cognition</td><td>Ambiguous terminology, many alternatives (Hick's Law), unfamiliar concepts, required mental arithmetic or unit conversion</td><td>Choosing the wrong option; mode errors; abandoning the task</td><td>Plain language, sensible defaults, grouping, doing the computation for the user</td></tr>
+    <tr><td>Response execution</td><td>Small or distant targets (Fitts's Law), fiddly drag operations, deep menu traversal</td><td>Slips — clicking the adjacent item, mistyping</td><td>Enlarge and position targets well; separate destructive from benign controls; provide undo</td></tr>
+  </tbody>
+</table>
+
+<p>Two quantitative laws are worth stating explicitly because they govern the outer stages. <strong>Fitts's Law</strong> holds that the time to acquire a target is a function of the distance to it and its size: large, near targets are fast; small, far targets are slow. This is why screen edges and corners are valuable real estate (the pointer cannot overshoot them, making them effectively infinite in depth), why mobile touch targets are specified at around 44–48&nbsp;px, and why a "Delete" control placed immediately adjacent to a frequently used "Save" invites slips. <strong>Hick's Law</strong>, as noted, holds that decision time rises logarithmically with the number of options, which argues for structured, hierarchical choice rather than vast flat lists — provided the structure itself is comprehensible, since a badly categorised hierarchy simply moves the cost from decision to search.</p>
+
+<p>Reaction and completion time are not fixed quantities; they vary systematically with:</p>
+
+<ul>
+  <li><strong>Task complexity</strong> — number of alternatives, number of sub-decisions, whether information must be transformed (converting currencies, computing a date difference) rather than merely read.</li>
+  <li><strong>Familiarity and practice</strong> — performance on a repeated task improves following a power law of practice; the same screen that takes a novice ninety seconds may take a daily user eight, which is why usability measures taken on first use do not predict expert throughput and vice versa.</li>
+  <li><strong>Stimulus–response compatibility</strong> — how naturally the control maps to its effect. A volume slider that increases upward is compatible; four stove knobs in a row controlling burners in a square is not, and the resulting mapping errors persist for decades of use.</li>
+  <li><strong>Clarity and timeliness of feedback</strong> — ambiguous or delayed feedback forces the user to re-perceive and re-decide, effectively repeating the whole processing loop.</li>
+  <li><strong>Stress, fatigue, divided attention, and age</strong> — all of which narrow available capacity, which is why systems used in high-pressure or mobile contexts must be designed with far more generous margins than office software.</li>
+</ul>
+
+<p>Thinking in terms of bottlenecks is the practical payoff. Walk through a task and count the operations the interface imposes: how many fixations, how many decisions, how many mode switches, how many keystrokes, how many items held in memory. Then attack whichever stage dominates. If the bottleneck is perceptual, visual design will help and shortening the workflow will not. If the bottleneck is cognitive — the user cannot tell which of two similarly named options applies — then enlarging buttons is wasted effort; clearer labels, examples, or an automated decision are what is needed. A common and high-value move is to shift work from the human to the machine entirely: deriving the card type from the card number instead of asking; detecting the country from the address; pre-filling the date; validating as the user types rather than on submit. Every eliminated decision point removes a full perceive–decide–act cycle along with its error probability.</p>
+
+<p><strong>Perception of Time and Feedback</strong></p>
+
+<p>Responsiveness is a perceptual and cognitive phenomenon, not purely an engineering metric. Users do not experience milliseconds; they experience whether a system feels alive, under their control, and trustworthy. The widely used thresholds, originating with Robert Miller's 1968 work and popularised by Jakob Nielsen, are:</p>
+
+<table>
+  <thead>
+    <tr><th>Duration</th><th>Perceptual experience</th><th>Required feedback</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Under ~100&nbsp;ms</td><td>Feels instantaneous; the result is perceived as caused directly by the action</td><td>None beyond the result itself — the response <em>is</em> the feedback</td></tr>
+    <tr><td>~100&nbsp;ms – 1&nbsp;s</td><td>Noticeable delay, but the flow of thought is preserved; the user still feels in control</td><td>Usually none, though a subtle state change (button pressed state) reassures</td></tr>
+    <tr><td>~1&nbsp;s – 10&nbsp;s</td><td>Attention begins to wander; the user is aware of waiting for the computer</td><td>A determinate indicator: spinner, progress bar, skeleton screen, status text</td></tr>
+    <tr><td>Over ~10&nbsp;s</td><td>The user disengages, switches tasks, or abandons</td><td>Percent-done progress, time estimate, ability to cancel, and notification on completion</td></tr>
+  </tbody>
+</table>
+
+<p>The 100&nbsp;ms threshold matters particularly because it underpins the sense of <em>direct manipulation</em>. When dragging an object, scrolling a list, or resizing a window, the on-screen element must track the input essentially in lock-step; even modest lag breaks the illusion that one is handling an object rather than instructing a machine. The same threshold governs keystroke echo, hover states, and button press feedback. Latency above it does not merely annoy — it changes the phenomenology of the interaction from manipulation to command-and-wait.</p>
+
+<p><strong>Missing feedback produces compounding errors.</strong> If a user clicks "Submit" and nothing visible changes, the only available hypothesis is that the click was not registered — so they click again. On a payment form this can produce duplicate charges; on a record-creation form, duplicate records; on a lift or pedestrian crossing, repeated presses that do nothing. The same logic explains hammering a browser's reload button, double-submitting a comment, or unplugging a device mid-firmware-update because the progress indicator stalled silently. Robust practice is to acknowledge the input immediately and separately from completing the work: disable or change the state of the control on click, show an inline spinner or "Processing…" label, and — because the client cannot guarantee uniqueness — enforce idempotency on the server so that a duplicated request cannot produce a duplicated effect. Feedback must also cover <em>outcomes</em>, not just activity: a silent success is almost as confusing as silent failure, which is why toast confirmations ("Draft saved", "Message sent") exist.</p>
+
+<p><strong>Perceived performance</strong> can diverge substantially from measured performance, and designing for perception is legitimate engineering, not deception — provided it does not misrepresent what is actually happening. Established techniques include:</p>
+
+<ul>
+  <li><strong>Skeleton screens.</strong> Rendering grey placeholder shapes in the layout of the forthcoming content makes a page feel faster than a spinner does, because the user begins parsing the structure immediately and the eventual content appears to "fill in" rather than "arrive."</li>
+  <li><strong>Optimistic UI.</strong> Reflecting the expected result immediately — the "like" turns blue, the message appears in the thread — while the request completes in the background, with graceful reconciliation if it fails. Risky for consequential or irreversible actions; excellent for small, high-frequency, reversible ones.</li>
+  <li><strong>Progress indicators that behave honestly.</strong> Determinate bars for operations of known length; indeterminate indicators only when duration genuinely cannot be estimated. A bar that sticks at 99% erodes trust more than no bar at all. Where several sub-operations occur, naming the current one ("Compressing images… 3 of 12") converts dead waiting time into informative progress.</li>
+  <li><strong>Animation used to mask and explain.</strong> A 200–300&nbsp;ms transition can cover a brief load while preserving spatial continuity, showing the user where the new content came from. Beyond roughly 400&nbsp;ms, animation becomes the delay rather than a cover for it.</li>
+  <li><strong>Active waits and preloading.</strong> Letting users continue to do something useful during a wait — reviewing a summary, entering the next field — shortens perceived duration, because occupied time is consistently judged shorter than unoccupied time. Prefetching likely-next content and lazy-loading below-the-fold material shift the wait out of the user's critical path.</li>
+  <li><strong>Early first paint.</strong> Showing the header, navigation, and above-the-fold text before the rest arrives gives the user something to read; perceived start time matters more than total completion time for satisfaction.</li>
+</ul>
+
+<p>Two further perceptual facts about waiting are worth knowing. First, uncertain waits feel longer than known, finite waits — hence the value of estimates and queue positions ("You are number 4 in the queue"). Second, the end of an experience disproportionately colours the memory of it (the peak–end rule), so a flow that ends with a clear, pleasant confirmation is remembered more favourably than one of equal duration that simply stops. None of this licenses artificially slowing a system or faking progress; dishonest feedback, once detected, costs more trust than the delay it concealed.</p>
+
+<p>Taken as a whole, this body of knowledge converts vague advice about "user-friendliness" into a set of defensible, testable constraints: keep the number of simultaneous decisions small, make the important thing the salient thing, never ask users to hold what you could show them, exploit learned conventions rather than fighting them, remove processing stages rather than merely decorating them, and respond fast enough — or visibly enough — that users always know the system heard them.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+
+<ul>
+  <li><strong>MO1:</strong> Directly supported. The topic distinguishes sensory, working, and long-term memory, states their respective capacities and durations, and derives interface constraints from each — chunking, persistent on-screen information, recognition over recall, and tolerance of interruption.</li>
+  <li><strong>MO2:</strong> Partially supported. The discussion of perception as expectation-driven construction, learned conventions stored in long-term memory, mode errors, and capture errors explains the cognitive basis on which mismatches between user expectations and system behaviour generate systematic, predictable errors, which the module develops further into explicit mental-model analysis.</li>
+  <li><strong>MO3:</strong> Only indirectly supported. This topic does not teach Hierarchical Task Analysis, but it supplies the cognitive rationale for task decomposition — counting perceptual, decision, and motor steps and identifying processing bottlenecks within a task sequence.</li>
+  <li><strong>MO4:</strong> Not directly addressed. Usability evaluation techniques are not covered here; however, the cognitive limits described provide the criteria (error, memory load, attention, response time) against which any evaluation method ultimately judges a design.</li>
+  <li><strong>MO5:</strong> Indirectly supported. The principles of visual hierarchy, grouping, progressive disclosure, salience, feedback timing, and target sizing are the interaction design principles a low-to-mid fidelity prototype must embody, though prototyping technique itself is not taught in this topic.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Quantitative figures used (Model Human Processor cycle times, KLM operator times, Miller/Nielsen response-time thresholds, WCAG contrast ratios, Cowan&#39;s ~4-chunk working memory estimate, colour-vision-deficiency prevalence) are standard published values and are given as approximations suitable for teaching. Useful follow-on readings: Norman, *The Design of Everyday Things*; Johnson, *Designing with the Mind in Mind*; Card, Moran &amp; Newell, *The Psychology of Human-Computer Interaction*; Simons &amp; Chabris (1999) on inattentional blindness. Possible in-class activities: a squint test on three live websites to assess visual hierarchy; a contrast-ratio audit using a checker tool; a KLM estimate comparing two checkout flows; a change-blindness demonstration using before/after screenshots.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

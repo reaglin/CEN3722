@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Design Collaboration with Figma</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 1 - HCI Foundations and Course Project Setup</a></div>
+  <header>
+    <h1>Design Collaboration with Figma</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Design Collaboration with Figma</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Figma is the connective tissue between an idea sketched on a whiteboard and a working interface rendered in a browser. For this course it serves as the single place where your team ideates, designs screens, prototypes interactions, collects feedback, and hands specifications to whoever writes the code — which, on a student project, is usually the same people wearing different hats. Understanding Figma is therefore less about memorising a toolbar and more about learning a collaborative workflow: how a product idea travels from a sticky note to a CSS declaration without being lost in translation.</p>
+
+<p><strong>What Is Figma?</strong> Figma is a browser-based interface design and prototyping tool. Unlike traditional desktop design applications, which install locally and store proprietary binary files on one machine, Figma keeps the document on a server and streams the editing experience to your browser. You open a URL and you are editing. There is a desktop app, but it is essentially the same browser engine in a native wrapper — the file still lives in the cloud, so there is no "which version is the real one" problem.</p>
+
+<ul>
+  <li><strong>No installation, no platform lock-in.</strong> A student on a Chromebook, a teammate on Windows, and a mentor on a Mac all open the identical file with identical rendering. Fonts, plugins, and component libraries resolve from the cloud rather than from each person's hard drive, so the classic "this looks broken on my machine because I don't have that font" failure disappears. Updates ship continuously; nobody is ever on an old version.</li>
+  <li><strong>Real-time multiplayer editing.</strong> Multiple collaborators can be in the same file at the same moment. Each person appears as a coloured, labelled cursor. If one teammate is adjusting a navigation bar while another builds a card component three frames away, both sets of changes merge instantly — there is no checkout, no lock, no merge conflict. You can click a collaborator's avatar in the toolbar to "follow" their viewport and watch the file through their eyes, which is extraordinarily useful during a design review or a remote class demo.</li>
+  <li><strong>A shared tool across roles.</strong> Figma is not used only by designers. Product managers write requirements as comments on the frames they describe. Engineers inspect spacing and copy code values. QA testers click through prototypes to understand intended behaviour. Content writers edit real text in real layouts rather than handing over a document of disconnected strings. Because viewing and commenting require only a link, stakeholders who will never draw a rectangle still participate meaningfully.</li>
+  <li><strong>The Education plan.</strong> Figma offers verified students and educators free access to features that are otherwise paid — the practical effect is that a class team gets the same capabilities a professional studio pays for. This matters for coursework because the free Starter tier caps you at a small number of files and three pages per file, and limits version history to 30 days. On Education you get the professional feature set without those constraints.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr><th>Capability</th><th>Starter (free)</th><th>Education (verified)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Figma design files per team</td><td>Limited (3 files, 3 pages each)</td><td>Unlimited</td></tr>
+    <tr><td>Version history</td><td>30 days</td><td>Unlimited</td></tr>
+    <tr><td>Shared team component libraries</td><td>No</td><td>Yes</td></tr>
+    <tr><td>Advanced prototyping (Smart Animate, overlays, conditions)</td><td>Limited</td><td>Yes</td></tr>
+    <tr><td>Dev Mode</td><td>No / restricted</td><td>Yes</td></tr>
+    <tr><td>Team projects and granular permissions</td><td>No</td><td>Yes</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Setting Up the Education Team Workspace.</strong> Before any design work begins, get the team container right. A <em>team</em> in Figma holds <em>projects</em>, and projects hold <em>files</em>. Setting this up properly at the start prevents the common student disaster where the final deliverable lives in one person's personal drafts and that person goes on holiday the week before submission.</p>
+
+<ul>
+  <li><strong>Verify with a school email address.</strong> Education verification is tied to an academic institution. Sign up or add your <code>.edu</code> (or equivalent institutional) address as a verified email on your Figma account, then complete the education application form, which asks for your institution, your role (student or educator), field of study, and expected graduation date. Some institutions verify automatically by email domain; others require a document such as a student ID, enrolment letter, or transcript. Verification typically completes within a few days, and the plan is renewable annually, so plan a buffer — do not apply the night before your first studio session.</li>
+  <li><strong>What verification unlocks.</strong> Once approved, create a team and apply the education plan to it. The team then gains unlimited files and projects (so each sprint, experiment, or dead-end exploration can live in its own file), unlimited version history (so you can recover the layout you deleted three weeks ago, and so your instructor can see the evolution of your work), shared libraries (publish your button and colour styles once, consume them in every file), and advanced prototyping — overlays for modals, Smart Animate for motion, scroll behaviours, and interactive components.</li>
+  <li><strong>Structure the team workspace.</strong> Invite every teammate to the team itself, not just to individual files; team membership is what guarantees the work survives any one person leaving. A workable structure for a semester project:
+    <pre><code>Team: CS-340 Group 4 — CampusEats
+  Project: 01 Research &amp; Ideation
+      FigJam — Stakeholder interview synthesis
+      FigJam — Feature brainstorm &amp; dot voting
+  Project: 02 Design System
+      Figma — Foundations (color, type, spacing, icons)  [published library]
+  Project: 03 Product Design
+      Figma — Mobile app v1
+      Figma — Responsive web
+  Project: 04 Handoff &amp; Presentation
+      Figma — Dev-ready screens
+      Figma — Final deck</code></pre>
+  </li>
+  <li><strong>Roles and permissions.</strong> Team members can be <em>admins</em>, <em>editors</em>, or <em>viewers</em>. Make at least two people admins for redundancy. Give instructors and external reviewers viewer access with commenting enabled — they can annotate without any risk of nudging a frame 3 pixels left. Use branch or duplicate-file conventions for risky explorations so the main file stays presentable at all times.</li>
+</ul>
+
+<p><strong>FigJam for Ideation and Brainstorming.</strong> FigJam is Figma's online whiteboard: a deliberately loose, low-fidelity canvas designed for thinking rather than pixel-perfect making. The visual language is intentionally informal — marker-style strokes, chunky sticky notes — because polished-looking artefacts discourage people from criticising them. Use FigJam at the divergent stages of the process and Figma at the convergent ones.</p>
+
+<ul>
+  <li><strong>Sticky notes, shapes, and images.</strong> The core loop is: everyone writes one idea per sticky, nobody talks for five minutes, then the team clusters stickies into themes by dragging them together. Shapes with connector lines produce user flows, site maps, and service blueprints; connectors stay attached when you move a shape, so diagrams survive rearrangement. Drop in screenshots of competitor apps, photos of paper sketches, or embedded links to research documents so all raw material sits in one visual space.</li>
+  <li><strong>Cursor chat, stamps, and voting.</strong> Press <code>/</code> and type to broadcast an ephemeral message that floats beside your cursor — perfect for quick reactions during a live session without cluttering the board. Emoji stamps let people react to specific stickies. The built-in voting tool is the workhorse for convergence: the facilitator sets a vote limit (typically three to five dots per person), everyone votes silently and simultaneously, and the results tally per item. Silent simultaneous voting avoids the anchoring problem where the loudest or most senior voice determines the outcome. Timers keep exercises time-boxed; audio chat and music support remote sessions.</li>
+  <li><strong>Templates for structured exercises.</strong> Rather than starting from an empty board, pull a FigJam template for affinity mapping, Crazy 8s sketching, a "How Might We" wall, an empathy map, a retrospective (Start / Stop / Continue), or a user journey map. A journey map template, for instance, gives you rows for stages, actions, thoughts, emotions, and pain points — pain points discovered there become the design problems you solve in Figma.</li>
+  <li><strong>Linking ideation to execution.</strong> FigJam boards and Figma design files live in the same project and share the same link-and-comment infrastructure. Paste a Figma frame link into FigJam and it renders as a live preview thumbnail that updates as the design changes — so a cluster of research stickies can sit directly beside the screen that answers them. You can also copy objects out of FigJam and paste them into Figma, where they convert to editable vector shapes and text. In practice: run a voting session, take the three winning "How Might We" statements, paste them as a text block in the Figma file, and design against them. Reviewers in week ten can then trace any UI decision back to the research sticky that motivated it.</li>
+</ul>
+
+<p><strong>Designing UI with Figma.</strong> Once ideas converge, you move to the design file. Figma's object model maps closely to how interfaces are actually built, which is a large part of why the design-to-code handoff works as well as it does.</p>
+
+<ul>
+  <li><strong>Frames mirror real interface structure.</strong> A <em>frame</em> is a container with its own coordinate space, clipping behaviour, and layout rules — conceptually very close to a <code>&lt;div&gt;</code> or a native view. Frames nest, so a screen frame contains a header frame which contains a logo and a nav frame. Preset device sizes (iPhone 15, Pixel, Desktop 1440) start you at realistic dimensions. <em>Constraints</em> pin children to edges or centre them so layouts respond when the frame resizes, and <em>Auto Layout</em> is effectively Flexbox: you set direction, gap, padding, and alignment, and children reflow automatically. A card built with vertical Auto Layout grows taller when its description text gets longer, exactly as it would in the browser.
+    <pre><code>Frame "Product Card"  →  Auto Layout: vertical, gap 12, padding 16
+  ├─ Image           (fill width, fixed height 180)
+  ├─ Text "Title"    (fill width, hug height)
+  ├─ Text "$24.00"
+  └─ Frame "Actions" →  Auto Layout: horizontal, gap 8
+       ├─ Button "Add to cart"
+       └─ Button "Save"
+
+Rough CSS equivalent:
+.product-card { display:flex; flex-direction:column; gap:12px; padding:16px; }
+.actions      { display:flex; flex-direction:row;  gap:8px; }</code></pre>
+  </li>
+  <li><strong>Components, variants, and styles.</strong> A <em>component</em> is a reusable master; instances inherit from it, so editing the master updates every instance everywhere. <em>Variants</em> group related states of one component — a Button with properties <code>type = primary | secondary | ghost</code>, <code>size = sm | md | lg</code>, and <code>state = default | hover | disabled</code> — which developers recognise immediately as props. Colour, text, and effect <em>styles</em> (and the newer <em>variables</em>) function as design tokens: define <code>color/brand/600</code> once and you can retheme the whole product, or add a dark mode, by swapping values rather than repainting rectangles.</li>
+  <li><strong>Interactive prototypes.</strong> In Prototype mode you drag a connection from a layer to a destination frame and define a trigger (On click, On drag, While hovering, After delay) and an animation (Instant, Dissolve, Smart Animate, Move In). Smart Animate interpolates between matching layer names across frames, producing convincing motion from two static screens. Overlays model modals, toasts, and bottom sheets without duplicating the underlying screen. Interactive components let a toggle flip or a dropdown open inside a single frame. With variables and conditional logic you can even store state — an incrementing cart counter, a login form that branches on whether a field is filled. The result is a clickable artefact you can put in front of a real user for testing long before any code exists, or run full screen in Presentation view for a class demo.</li>
+  <li><strong>Community templates and shared libraries.</strong> The Figma Community hosts thousands of free, duplicable files: design system kits, iOS and Material Design UI kits, icon sets, wireframe kits, device mockups, and plugins such as content generators and accessibility contrast checkers. Duplicating a mature UI kit means you are not redrawing a date picker from scratch at 2 a.m. Internally, publish your own Foundations file as a team library; every other file then subscribes to it, and when you change the brand colour, all subscribing files get an update notification and apply it in one click. Always check licences on community assets and credit sources in your documentation.</li>
+  <li><strong>Feedback on the canvas.</strong> Press <code>C</code> and click anywhere to leave a comment pinned to that exact location — or pin it to a specific layer so it travels with the element when the layout moves. Threads support replies, <code>@mentions</code> that trigger notifications, emoji reactions, image attachments, and a resolve action that archives the thread while keeping it retrievable. Because feedback lives on the artefact rather than in email or chat, there is no ambiguity about which button "the button" refers to. A healthy team ritual: before each critique, reviewers leave comments asynchronously; the session is then spent discussing only the contested ones, and every resolved thread is a traceable decision record.</li>
+</ul>
+
+<p><strong>Dev Mode: Bridging Design and Code.</strong> Historically, handoff meant a designer exporting a folder of PNGs and a redlined PDF that was out of date within a day. Dev Mode replaces that with a live, developer-oriented view of the same file. Switching to Dev Mode changes the entire interface: the canvas becomes read-only for layout, frames marked "Ready for dev" are highlighted, and the right panel turns into an inspection and code panel.</p>
+
+<ul>
+  <li><strong>Exact measurements and values.</strong> Select any element and read its precise width, height, padding, corner radius, border, opacity, and shadow. Hover a sibling element while holding a selection and distance measurements appear between them — no more guessing whether that gap is 14 or 16 pixels. Typography shows family, weight, size, line height, letter spacing, and the name of the applied text style. Colours display as the token name plus HEX, RGB, HSL, or CSS variable form, so a developer implements <code>--color-brand-600</code> rather than hard-coding <code>#2563EB</code> in forty places.
+    <pre><code>Inspect — "Button / primary / md"
+  Layout     Auto layout, horizontal, gap 8
+  Padding    10px 16px
+  Radius     8px
+  Fill       color/brand/600  #2563EB
+  Text       Inter SemiBold 14 / 20, letter-spacing 0
+  Shadow     0 1px 2px rgba(16,24,40,0.05)</code></pre>
+  </li>
+  <li><strong>Auto-generated code snippets.</strong> Dev Mode emits CSS by default and can switch to iOS (Swift/SwiftUI) or Android (Compose/XML); plugins extend this to React, Tailwind, Vue, Flutter, and others. A selected card might produce:
+    <pre><code>.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px;
+  background: #FFFFFF;
+  border: 1px solid #E4E7EC;
+  border-radius: 12px;
+  box-shadow: 0 1px 3px rgba(16, 24, 40, 0.10);
+}</code></pre>
+    Treat this output as a <em>head start, not a deliverable</em>. It describes one element in isolation at one breakpoint; it knows nothing about your grid system, your utility classes, semantic HTML, responsive behaviour, or accessibility. The real value is that it eliminates transcription errors on dozens of numeric values and makes the designer's intent unambiguous. Teams that connect a code component library can go further and have Dev Mode point directly at the actual repository component — so the panel says "use <code>&lt;Button variant="primary" size="md" /&gt;</code>" instead of dumping CSS.</li>
+  <li><strong>Comparing versions to see what changed.</strong> Dev Mode's compare-changes view diffs the current state of a frame against an earlier saved version or against the point at which it was marked ready for dev, highlighting moved, added, removed, and restyled elements. This answers the question developers ask constantly mid-sprint: "the designer touched this screen yesterday — do I need to redo my work?" Instead of re-reading the whole screen, you see that only the empty-state illustration and one label changed. Combined with named version history ("v1.2 — post usability test"), status flags on frames, and the annotation tool (which lets designers pin written specs such as "truncate after two lines" or "this list virtualises above 50 items" directly onto elements), you get a handoff that documents not just appearance but behaviour.</li>
+</ul>
+
+<p>Put together, the workflow for your course project looks like this: verify the Education plan and create a team workspace; run divergent exercises in FigJam with sticky notes, clustering, and dot voting; carry the winning concepts into a Figma file built from frames, Auto Layout, and a published component library; wire the screens into a clickable prototype and test it with real users; gather critique as on-canvas comments; then flip to Dev Mode to extract tokens, measurements, and starter code. Every stage lives in one linked, versioned, permanently shareable place — which is precisely the argument for using Figma rather than a pile of disconnected documents.</p>
+        <div class="notes"><strong>Notes</strong>&lt;p&gt;&lt;strong&gt;Suggested hands-on checkpoints:&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Apply for Education verification in week 1 — approval can take several days and the plan must be renewed annually.&lt;/li&gt;
+  &lt;li&gt;Deliverable 1: a FigJam board containing at least 30 ideation stickies, one clustering pass, and a completed dot-voting round with the top three concepts labelled.&lt;/li&gt;
+  &lt;li&gt;Deliverable 2: a Figma file with a published Foundations library (colour styles, text styles, spacing tokens) and at least one multi-variant component.&lt;/li&gt;
+  &lt;li&gt;Deliverable 3: a prototype of a complete end-to-end user flow (minimum 5 connected frames, including one overlay).&lt;/li&gt;
+  &lt;li&gt;Deliverable 4: three frames marked &quot;Ready for dev&quot; with annotations, inspected in Dev Mode, plus the corresponding hand-written CSS/JSX compared against the auto-generated output.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;Useful shortcuts to teach early:&lt;/strong&gt; &lt;code&gt;F&lt;/code&gt; frame, &lt;code&gt;R&lt;/code&gt; rectangle, &lt;code&gt;T&lt;/code&gt; text, &lt;code&gt;C&lt;/code&gt; comment, &lt;code&gt;Shift+A&lt;/code&gt; add Auto Layout, &lt;code&gt;Ctrl/Cmd+Alt+K&lt;/code&gt; create component, &lt;code&gt;Shift+E&lt;/code&gt; export panel, &lt;code&gt;Shift+D&lt;/code&gt; present prototype, &lt;code&gt;/&lt;/code&gt; cursor chat in FigJam.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Common pitfalls:&lt;/strong&gt; files left in personal Drafts instead of the team; only one admin on the team; detaching component instances instead of adding variants; pasting auto-generated CSS verbatim without accounting for responsiveness or accessibility; unnamed layers (&lt;code&gt;Rectangle 47&lt;/code&gt;) that break Smart Animate and make Dev Mode inspection confusing.&lt;/p&gt;</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

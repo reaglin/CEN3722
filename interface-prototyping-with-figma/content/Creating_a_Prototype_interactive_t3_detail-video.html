@@ -1,0 +1,371 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Building a Component Library</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Interface Prototyping with Figma</a></div>
+  <header>
+    <h1>Building a Component Library</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Building a Component Library</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>A component library is the structural backbone of any serious interface project. Rather than drawing a button thirty-four times across twelve screens and hoping each copy stays visually identical, you build one authoritative version of that button and place controlled copies of it wherever it is needed. When the brand colour changes, when the corner radius is softened, when the label font moves from 14px to 15px, you make that change once and every screen in the file inherits it. In Figma this system is built from <strong>components</strong>, <strong>variants</strong>, <strong>styles</strong>, and ultimately a <strong>published team library</strong>. Learning to build and maintain such a library is the difference between a prototype that looks hand-assembled and one that behaves like a real product. The sections below work from the smallest unit — a single component — up to a shared, versioned library used across multiple files.</p>
+
+<p><strong>What Is a Component?</strong></p>
+
+<p>A component in Figma is a reusable design element whose definition lives in one place and whose appearance is propagated to every copy. The vocabulary matters here because Figma's interface uses it consistently, and so do design teams in handover conversations.</p>
+
+<p>The <strong>main component</strong> (sometimes called the master or source component) is the <em>single source of truth</em>. It is the original object you created and converted; it carries a solid purple four-diamond icon in the layers panel. Everything else derives from it. Best practice is to keep main components out of the working screens where they could be accidentally moved, resized, or deleted. Two common conventions are:</p>
+
+<ul>
+  <li>A dedicated page in the file, often named <code>🧩 Components</code> or <code>Library</code>, where all main components are laid out in a tidy grid with labels.</li>
+  <li>A separate Figma file entirely — a design system file — which is then published as a team library and consumed by product files.</li>
+</ul>
+
+<p>The second approach scales better. If main components sit in the same file as your screens, every designer editing a screen has the power to break the system. Separating them creates a deliberate boundary between "using the system" and "changing the system."</p>
+
+<p>An <strong>instance</strong> is a live copy of a main component placed on the canvas. It carries a hollow (outline) diamond icon. An instance inherits all properties of its main component — geometry, fills, strokes, effects, text content, auto layout settings, nested children — but allows you to apply local <strong>overrides</strong> on top of that inheritance. Overrides are the controlled exceptions to the rule. Typical overrides include:</p>
+
+<ul>
+  <li>Text content: a <code>Button</code> instance that says "Continue" instead of the default "Label".</li>
+  <li>Swapping a nested instance: replacing the default chevron icon with a download icon.</li>
+  <li>Changing a fill, stroke, or effect on a specific layer.</li>
+  <li>Toggling a layer's visibility, if the component exposes that as a boolean property.</li>
+  <li>Resizing the instance, if the component's constraints and auto layout allow it.</li>
+</ul>
+
+<p>What you <em>cannot</em> do on an instance is restructure it: you cannot add new layers, delete existing layers, or reorder children. Figma deliberately prevents this because the structure is what makes the inheritance relationship predictable. If you need structural freedom, you need either a different component or a detached copy.</p>
+
+<p>The crucial behaviour is <strong>propagation</strong>. Editing the main component updates every instance across the file simultaneously, and across every file that consumes the library once the update is published and accepted. Suppose you have a <code>Card</code> component used 60 times. You open the main component, change the shadow from <code>0 1px 2px rgba(0,0,0,0.1)</code> to <code>0 2px 8px rgba(0,0,0,0.08)</code>, and all 60 instances soften immediately. Importantly, propagation respects overrides: if an instance had its own text content, that text survives the update. Figma attempts to reconcile the incoming change with the local override, and the local override generally wins for the specific property it touched.</p>
+
+<p><strong>Detaching</strong> an instance (right-click → Detach Instance, or <code>Ctrl/Cmd + Alt + B</code>) converts it into an ordinary frame or group. The purple diamond disappears, the link to the main component is severed, and future edits to the main component no longer reach it. Detaching is occasionally legitimate — for example, when producing a one-off marketing illustration based on a component — but in product work it is usually a warning sign. A detached card is a card that will silently drift out of sync with the rest of the product. A useful team rule: <em>if you feel the need to detach, the component is probably missing a property you should add instead.</em></p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Object</th>
+      <th>Layers panel icon</th>
+      <th>Can edit structure?</th>
+      <th>Receives updates?</th>
+      <th>Typical location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Main component</td>
+      <td>Solid purple diamond</td>
+      <td>Yes — full editing</td>
+      <td>N/A (it is the source)</td>
+      <td>Components page or library file</td>
+    </tr>
+    <tr>
+      <td>Instance</td>
+      <td>Hollow purple diamond</td>
+      <td>No — overrides only</td>
+      <td>Yes</td>
+      <td>Screens, flows, prototypes</td>
+    </tr>
+    <tr>
+      <td>Detached frame</td>
+      <td>Standard frame icon</td>
+      <td>Yes — full editing</td>
+      <td>No</td>
+      <td>One-off exceptions</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Creating Components from Existing Elements</strong></p>
+
+<p>Most components are not designed in the abstract; they emerge from the work. You draw a button on a sign-up screen, then draw a similar one on a settings screen, and at the third repetition you recognise a pattern worth formalising. The conversion itself is trivial: select the element — ideally an auto layout frame containing a text layer and whatever icons or backgrounds it needs — and press <code>Ctrl/Cmd + Alt + K</code> (or use the "Create component" button in the toolbar, which looks like four diamonds). The selection becomes a main component in place, and any identical copies you make afterwards are instances.</p>
+
+<p>A practical workflow for extracting a component from existing work:</p>
+
+<ul>
+  <li>Choose the best existing copy of the element — the one with correct spacing, colour styles already applied, and sensible layer names.</li>
+  <li>Wrap it in an auto layout frame (<code>Shift + A</code>) so it can grow and shrink with its content.</li>
+  <li>Rename the internal layers meaningfully: <code>Label</code>, <code>Icon Leading</code>, <code>Icon Trailing</code>, <code>Background</code>. These names are what Figma uses to match overrides later, so they are functional, not cosmetic.</li>
+  <li>Press <code>Ctrl/Cmd + Alt + K</code>.</li>
+  <li>Move the main component onto the components page and replace the original on-screen element with an instance.</li>
+</ul>
+
+<p><strong>Naming with slash notation</strong> is how you impose order on a growing library. Figma reads the forward slash as a folder separator in the assets panel. A component named <code>Button/Primary/Large</code> appears nested under <code>Button → Primary → Large</code>. A consistent naming scheme typically runs from general to specific:</p>
+
+<pre><code>Button/Primary
+Button/Secondary
+Button/Ghost
+Input/Text Field
+Input/Dropdown
+Input/Checkbox
+Navigation/Tab Bar
+Navigation/Breadcrumb
+Icon/16/Search
+Icon/16/Settings
+Icon/24/Search</code></pre>
+
+<p>Two cautions. First, slash notation and variant properties interact: once a component is part of a variant set, the portion of the name after the set name is interpreted as property values, so plan your hierarchy before you start combining. Second, naming must be stable. Renaming <code>Button/Primary</code> to <code>Buttons/Primary</code> later will scatter your assets panel and confuse teammates searching for it.</p>
+
+<p>Components should be <strong>self-contained</strong> — they must not depend on the sizing, padding, or position of whatever frame they happen to sit inside. A button whose width is set to "Fill container" is fine, because fill is a relationship the component declares about itself. A button that only looks right because the screen frame happens to be 375px wide is not self-contained; drop it into a 768px tablet layout and it breaks. Practical tests for self-containment:</p>
+
+<ul>
+  <li>Place an instance on a blank canvas area with no parent frame. Does it still render correctly?</li>
+  <li>Change the text label to something twice as long. Does the component grow gracefully (auto layout, hug contents) or does the text overflow the background?</li>
+  <li>Resize the instance to the extremes of its intended range. Do internal paddings hold, or do elements collide?</li>
+</ul>
+
+<p>Finally, every main component has a <strong>description</strong> field and can be given a <strong>thumbnail</strong>. The description appears as a tooltip in the assets panel and in the right-hand panel when an instance is selected, and it is fully searchable. This is where you write usage guidance that stops teammates misusing the component:</p>
+
+<pre><code>Name:        Button/Primary
+Description: Primary call to action. Maximum one per screen.
+             Use Button/Secondary for alternative actions.
+             Label should be 1–3 words, sentence case, verb-led.
+             Min touch target 44×44pt — do not reduce height below 44.
+Link:        https://design.example.com/components/button</code></pre>
+
+<p>For the thumbnail, you can designate a specific instance or frame inside the component set as the representative image, so the assets panel shows the default resting state rather than, say, the disabled variant. In a library of 200 components, these small affordances save real time.</p>
+
+<p><strong>Component Variants</strong></p>
+
+<p>Early Figma libraries suffered from combinatorial explosion: a button with three types, three sizes, and five states required 45 separate components cluttering the assets panel. <strong>Variants</strong> solve this by collapsing related components into a single <em>component set</em> — a dashed purple container — within which each member is distinguished by named <strong>properties</strong>.</p>
+
+<p>To create a set, select two or more related main components and click "Combine as variants" (or press <code>Ctrl/Cmd + Alt + K</code> on a multi-selection in recent versions). Figma infers properties from the existing names if they use slash notation, or creates a generic <code>Property 1</code> that you then rename. Each property holds multiple values, entered in the right panel separated by commas:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Property name</th>
+      <th>Values</th>
+      <th>Control type in instance panel</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Type</td>
+      <td>Primary, Secondary, Ghost, Destructive</td>
+      <td>Dropdown</td>
+    </tr>
+    <tr>
+      <td>Size</td>
+      <td>Small, Medium, Large</td>
+      <td>Dropdown</td>
+    </tr>
+    <tr>
+      <td>State</td>
+      <td>Default, Hover, Pressed, Focused, Disabled</td>
+      <td>Dropdown</td>
+    </tr>
+    <tr>
+      <td>Icon</td>
+      <td>True, False</td>
+      <td>Boolean toggle</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>With those four properties the set contains 4 × 3 × 5 × 2 = 120 permutations, yet the assets panel shows a single entry named <code>Button</code>. A designer drops one instance and configures it through dropdowns in the right panel, which is far faster than hunting through a list of 120 names.</p>
+
+<p>In practice you rarely need every permutation. A healthy approach is to build the realistic combinations and accept that the matrix is sparse — for instance, a <code>Destructive</code> button may only need <code>Default</code>, <code>Hover</code>, and <code>Disabled</code> states. Figma handles missing combinations by falling back to the nearest match, though explicit coverage of the states your prototype actually uses is safer.</p>
+
+<p>A significant convenience is that <strong>switching variants preserves overrides where layer names match</strong>. If an instance of <code>Button</code> has its <code>Label</code> text overridden to "Save changes" and its <code>Icon Leading</code> swapped to a checkmark, changing <code>State</code> from <code>Default</code> to <code>Hover</code> keeps both of those overrides — provided the <code>Hover</code> variant also contains layers named <code>Label</code> and <code>Icon Leading</code> in equivalent structural positions. This is precisely why layer naming is functional rather than decorative. If the hover variant's text layer is called <code>Label copy</code> or <code>Text 12</code>, the override will be dropped and the button will revert to "Label" mid-prototype — a confusing and very common bug.</p>
+
+<p>The same discipline applies to <strong>property and value naming consistency</strong>. Figma matches variants for prototype interactions and for the "Change to" smart animate behaviour by property name and value. Consider a set where one component is named <code>State=Hover</code> and another <code>state=hovered</code>: these are treated as distinct values of distinct properties, and interactive components will not resolve cleanly between them. Establish a convention and hold to it:</p>
+
+<ul>
+  <li>Property names in Title Case and singular: <code>State</code>, <code>Size</code>, <code>Type</code>, not <code>states</code> or <code>sizes</code>.</li>
+  <li>Boolean properties phrased positively: <code>Has Icon</code> with <code>True</code>/<code>False</code>, not <code>No Icon</code>.</li>
+  <li>The same value vocabulary across every component in the library: if buttons use <code>Default, Hover, Pressed, Disabled</code>, then inputs, list rows, and cards should use the same four words rather than <code>Rest, Hovered, Active, Inactive</code>.</li>
+  <li>Order values logically in the property list — <code>Small, Medium, Large</code>, not alphabetically as <code>Large, Medium, Small</code> — because that order is what appears in the dropdown.</li>
+</ul>
+
+<p>Consistent variant naming pays off directly in prototyping. Figma's <strong>interactive components</strong> feature lets you wire "While hovering → Change to → State=Hover" inside the component set itself. Every instance anywhere in the file then responds to hover without any per-screen prototyping work. If the naming is inconsistent, you are forced to rebuild those interactions instance by instance.</p>
+
+<p><strong>Slots, Nesting, and Component Composition</strong></p>
+
+<p>Real interfaces are composed, not monolithic. A <code>Card</code> contains an <code>Avatar</code>, a <code>Badge</code>, a <code>Button</code>, and an <code>Icon</code>. When you place an instance of one component inside the definition of another, you create a <strong>nested component</strong>. The nested object remains a true instance: it keeps its own link to its own main component, it can receive its own overrides, and it updates when its source changes. This is the mechanism that makes a design system compound in value — fix the icon grid once and every icon inside every card, list row, toolbar, and empty state corrects itself.</p>
+
+<p>Figma exposes nesting in two important ways:</p>
+
+<ul>
+  <li><strong>Nested instance overrides bubble up.</strong> Select a <code>Card</code> instance on the canvas and you can drill into its nested <code>Button</code> to change the label or swap its variant, without detaching anything. Deep-select with <code>Ctrl/Cmd + click</code> or expand the layer in the layers panel.</li>
+  <li><strong>Exposed nested properties.</strong> In the component set's properties panel you can mark nested instances as exposed, which lifts their controls into the parent instance's right-hand panel. A designer selecting a <code>Card</code> then sees <code>Button → Type</code> and <code>Button → Label</code> directly, with no drilling required. This is Figma's closest equivalent to a "slot" or "prop pass-through" in code.</li>
+</ul>
+
+<p>The <strong>slot pattern</strong> itself is usually implemented with an <em>instance swap property</em>. You place a small placeholder component (for example <code>Slot/Empty</code>, a transparent 24×24 frame) inside the parent, then define an instance swap property pointing at it. On any instance of the parent, the designer picks what fills the slot from a dropdown of eligible components. A <code>List Row</code> might expose a <code>Trailing Slot</code> that can be filled with a chevron, a toggle, a checkbox, a badge, or nothing — one component covering five real interface patterns.</p>
+
+<p><strong>Composition</strong> is the design-system principle underlying all of this: keep individual components <em>small, focused, and single-purpose</em>, then assemble them. The alternative — a single enormous <code>Product Card</code> component with forty internal layers and nine boolean toggles — is brittle. Small components are easier to reason about, easier to test against edge cases, easier to document, and far easier to change. A good heuristic is that a component should have one clear job you can state in a sentence: "renders a user's picture at one of three sizes with an optional presence dot."</p>
+
+<p>Counterbalancing this is the real cost of <strong>over-nesting</strong>. Each layer of nesting adds depth to the layers panel, increases the number of clicks required to reach an override, and adds computational work when Figma re-renders. A chain like <code>Page → Section → Card → Header → Title Row → Badge Group → Badge → Icon Wrapper → Icon</code> is technically valid and practically miserable. Symptoms of over-nesting include designers detaching instances because they cannot find the thing they need to change, sluggish canvas performance on dense screens, and override panels that scroll for pages. Reasonable guidance:</p>
+
+<ul>
+  <li>Aim for roughly three to four levels of component nesting in most cases; treat five or more as a signal to flatten.</li>
+  <li>Do not create a component for a thing used once — a wrapper frame is sufficient.</li>
+  <li>Avoid wrapper components whose only purpose is to add padding; use auto layout padding on the parent instead.</li>
+  <li>Expose nested properties generously so designers can work from the top level rather than drilling.</li>
+</ul>
+
+<p>Once a set of composed components has stabilised, <strong>publishing a team library</strong> makes them available beyond the file in which they were built. In the Assets panel, clicking the library icon and then "Publish" pushes the file's components, colour styles, text styles, effect styles, and variables to the team. Other files enable the library and the components appear in their own assets panel, ready to drag onto the canvas. The parent-child relationship persists across files: the main component still lives in the library file, and instances scattered across twenty product files all point back to it.</p>
+
+<p><strong>Using the Assets Panel and Team Library</strong></p>
+
+<p>The <strong>assets panel</strong> is the left-hand tab beside Layers and Pages. It lists local components (those whose main components live in the current file) and library components (those coming from enabled team libraries), grouped by the slash-notation folders you established. Two controls make it efficient:</p>
+
+<ul>
+  <li>The <strong>search bar</strong> filters across all enabled libraries by component name and description. Typing <code>chev</code> surfaces every chevron icon; typing <code>destructive</code> surfaces the destructive button if that word appears in its description even when it is not in the name. Searching and dragging is almost always faster than navigating folders, which is another argument for precise, predictable names.</li>
+  <li>The <strong>grid/list toggle</strong> switches between visual thumbnails (better for icons and illustrations) and a compact text list (better for scanning a large set of named components).</li>
+</ul>
+
+<p>Components can also be inserted without the panel at all, via the insert menu or the <code>Shift + I</code> shortcut, which opens a searchable resource picker over the canvas.</p>
+
+<p>Crucially, a library is not only components. <strong>Colour styles, text styles, effect styles, grid styles, and variables publish alongside components</strong>, and this is what turns a component collection into a genuine design system. These shared styles are your <strong>design tokens</strong> — the named, semantic values that your components reference rather than hard-coding:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Token type</th>
+      <th>Example name</th>
+      <th>Example value</th>
+      <th>Used by</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Colour style</td>
+      <td>Surface/Background/Primary</td>
+      <td>#FFFFFF</td>
+      <td>Card, Modal, Sheet backgrounds</td>
+    </tr>
+    <tr>
+      <td>Colour style</td>
+      <td>Action/Primary/Default</td>
+      <td>#1A56DB</td>
+      <td>Button/Primary fill, link text</td>
+    </tr>
+    <tr>
+      <td>Text style</td>
+      <td>Body/Medium/Regular</td>
+      <td>Inter 16/24, 400</td>
+      <td>Paragraphs, list row labels</td>
+    </tr>
+    <tr>
+      <td>Text style</td>
+      <td>Label/Small/Semibold</td>
+      <td>Inter 12/16, 600</td>
+      <td>Badge, caption, form labels</td>
+    </tr>
+    <tr>
+      <td>Effect style</td>
+      <td>Elevation/02</td>
+      <td>0 2px 8px rgba(0,0,0,0.08)</td>
+      <td>Card, Dropdown, Popover</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The enforcement value is real. If <code>Button/Primary</code> uses the style <code>Action/Primary/Default</code> rather than the literal hex <code>#1A56DB</code>, then rebranding means editing one style and watching the entire product shift. Semantic naming (<code>Action/Primary</code>) ages better than literal naming (<code>Blue/600</code>), because the semantic name still makes sense when the brand colour changes from blue to teal.</p>
+
+<p><strong>Enabling a library</strong> in a consuming file is done from the Assets panel's library modal: toggle the library on, and every component and style it contains becomes available in that file's assets panel and style pickers immediately. Designers do not need to copy anything manually; they simply drag instances in. Libraries can be enabled per-file or, for organisation plans, enabled by default across a whole team or organisation.</p>
+
+<p><strong>Updates</strong> are deliberately not automatic. When a library maintainer edits a main component and clicks Publish, they are prompted to write a short changelog note, and they can choose which changed items to include in that publish. Consumers of the library then see a notification badge; opening it shows a list of changed components with before/after previews, and the consumer chooses to accept the update — all of it,or individual items. This handshake exists because an unannounced change to a core component can ripple through dozens of screens in the middle of a stakeholder review. Deferring the update lets a designer finish and present their current work, then sync deliberately.</p>
+
+<p>Several consequences follow from this model that are worth internalising:</p>
+
+<ul>
+  <li><strong>Out-of-date files drift silently.</strong> A file whose owner never accepts updates will slowly diverge from the live system. Teams often set a convention such as reviewing library updates at the start of each sprint.</li>
+  <li><strong>Publish notes are documentation.</strong> "Increased Button/Primary min height to 44 for accessibility" is far more useful six months later than Figma's default blank note.</li>
+  <li><strong>Deleting a main component does not delete its instances.</strong> Existing instances keep rendering, but they become orphaned — they can no longer receive updates and will be flagged as missing. Deprecate rather than delete: rename the component to <code>_Deprecated/Button Old</code>, add a description pointing to the replacement, and remove it only after usage drops to zero.</li>
+  <li><strong>Swapping libraries is possible.</strong> Figma can bulk-swap instances from one library to another by matching component names, which is how teams migrate from a legacy system to a new one — and another reason stable, matching names matter.</li>
+</ul>
+
+<p>Putting the whole chain together with a concrete example: you design a search field on a settings screen. You wrap it in auto layout, name the children <code>Icon Leading</code>, <code>Placeholder</code>, and <code>Icon Trailing</code>, apply the colour style <code>Surface/Field/Default</code> and the text style <code>Body/Medium/Regular</code>, and press <code>Ctrl/Cmd + Alt + K</code>. You duplicate it to create focused, filled, error, and disabled versions, combine them as variants under the property <code>State</code>, add a second property <code>Has Trailing Icon</code> as a boolean, and name the set <code>Input/Search</code>. You write a description explaining that the placeholder must describe the searchable scope. You add interactive component wiring so that clicking the default state changes it to focused. You move the set to the Components page, publish the library with the note "Added Input/Search with 5 states", and your teammate working in the mobile file enables the library, types <code>search</code> into the assets panel, and drags in a field that already behaves correctly in their prototype. That is the whole purpose of a component library expressed in a single workflow: define once, use everywhere, change centrally.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+
+<ul>
+  <li><strong>MO1:</strong> Components, variants, and a published library provide the reusable building blocks from which a low-to-high fidelity interactive prototype is assembled; working from instances rather than one-off drawings lets students raise fidelity progressively across every screen at once.</li>
+  <li><strong>MO2:</strong> Shared colour, text, and effect styles enforce <em>consistency</em> across the interface, while variant states such as Default, Hover, Pressed, and Disabled encode <em>affordance</em> by making interactive elements visibly responsive; semantic style naming and size scales support deliberate <em>visual hierarchy</em>.</li>
+  <li><strong>MO3:</strong> The topic directly develops the use of Figma's components, auto layout (required for self-contained, resizable components), nesting and instance-swap slots, and interactive components wired with "Change to" variant transitions to simulate realistic user interactions.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Shortcut references assume default Figma bindings (Create component: Ctrl/Cmd+Alt+K; Detach instance: Ctrl/Cmd+Alt+B; Auto layout: Shift+A; Insert/resource picker: Shift+I). Figma's UI labels and the exact behaviour of variant combining have shifted slightly between releases, so students should verify shortcuts against the current Help menu. Publishing team libraries requires a paid Professional/Organisation seat; students on the free Starter plan can still build components, variants, and nested composition within a single file, and should be directed to copy-paste between files or use a shared project as a substitute for library publishing in exercises.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>A component library is a collection of reusable interface elements — buttons, input fields, cards, navigation bars, icons — that you define once and then reuse throughout a prototype. In Figma, you create a main component and then place instances of it wherever it is needed; editing the main component updates every instance at once. This is the practical mechanism behind the design principle of consistency: instead of manually keeping twelve buttons looking alike, you maintain one definition and let the tool propagate changes.</p>
+<p>For this course, components matter because your interface project will likely involve many screens that share the same controls. Building a small library early saves time, reduces visual inconsistencies that confuse users, and makes late-stage changes feasible rather than painful. Variants extend this idea by grouping related states of the same element — default, hover, pressed, disabled — under one component, so you can swap states from a tidy set of properties rather than hunting through a sprawling layer list.</p>
+<p>As you watch the three videos below, pay attention to four things: how an existing selection is converted into a main component and what visually distinguishes a main from an instance; how variants are organized and named so the property controls read sensibly; how component properties let you expose text, booleans, and nested instances for swapping; and where components live once created — the Assets panel and, for shared work, a published team library. Try each step in your own file as you watch; components are easier to understand by building than by reading about.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: Creating components</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/9xiRHz72du4?cc_load_policy=1&amp;rel=0" title="Video: Creating components (Figma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Figma</strong> · 5:45 · 136,130 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=9xiRHz72du4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short official tip video that defines what a component is, explains the reasoning for using them, and demonstrates the process of creating them in Figma. It should cover the relationship between a main component and its instances, which is the core concept behind every reusable library. Expect the practical workflow of selecting existing elements on the canvas and turning them into a component.</p>
+<h3>Why this video</h3>
+<p>Produced by Figma itself, so the interface and terminology match the current tool, and it directly addresses the first two subtopics — what a component is and how to create one from existing elements.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: Variants</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/AwnJyGV-3Zs?cc_load_policy=1&amp;rel=0" title="Video: Variants (Figma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Figma</strong> · 10:21 · 127,059 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=AwnJyGV-3Zs" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This tip explains what variants are and how to combine related components into a single variant set, including guidance on naming variants so the resulting properties are readable. At roughly ten minutes it is the longest of the three, allowing time for the naming conventions that trip up most beginners. Expect to see how multiple states of one element are managed under a single component rather than as separate items.</p>
+<h3>Why this video</h3>
+<p>It is the dedicated treatment of the component variants subtopic, from the official Figma channel, and its focus on naming addresses the most common source of messy, unusable variant sets.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: Component properties</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/EA0NbEOrpuo?cc_load_policy=1&amp;rel=0" title="Video: Component properties (Figma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Figma</strong> · 6:29 · 75,919 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=EA0NbEOrpuo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This video introduces component properties and walks through creating them. Properties are the mechanism for exposing configurable parts of a component — such as text content, the visibility of an element, or which nested instance appears in a slot — directly in the right-hand panel. It should clarify how a single flexible component can replace many near-duplicate ones.</p>
+<h3>Why this video</h3>
+<p>It covers the slots, nesting, and composition subtopic, showing how components can be parameterized and combined rather than duplicated, and it comes from the same official source for consistent terminology.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos give you the component workflow needed for the module outcomes. Creating components and instances is a prototyping feature named explicitly in MO3, and reusing them across screens is what makes a multi-screen interactive prototype (MO1) practical to build and revise. Variants and component properties support MO2 by making consistency and clear affordances (distinct default, hover, and disabled states) easy to maintain across your whole file. Supplement the videos by exploring the Assets panel and team library publishing in your own project file, since those are touched on only briefly here.</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

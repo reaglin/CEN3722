@@ -1,0 +1,264 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Knowledge, Mental Models, and Conceptual Frameworks</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Video Lectures</a></div>
+  <header>
+    <h1>Knowledge, Mental Models, and Conceptual Frameworks</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Knowledge, Mental Models, and Conceptual Frameworks</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every time a person sits down in front of an unfamiliar interface, they are not starting from zero. They arrive carrying a dense, partly organised, partly contradictory store of knowledge: facts about how machines usually work, habits of action learned on other devices, expectations about what a word like "Save" or an icon like a trash can should mean, and a general theory about causality in digital systems. Interaction is therefore never a simple matter of a user "reading" an interface. It is a continuous process of <em>interpretation</em>, in which the visible surface of a system is matched against internal representations the user already possesses. When that match is good, the interface feels obvious, even invisible. When it is poor, the user experiences hesitation, false starts, and errors that appear irrational to the designer but are perfectly logical given the user's internal picture of the system. This topic examines the structure of that internal picture — the knowledge types that feed it, the mental models it forms, the conceptual models designers attempt to communicate, the metaphors that bridge the two, and the feedback loops through which models evolve or stagnate.</p>
+
+<p><strong>Types of knowledge users bring to interactions</strong></p>
+
+<p>Cognitive psychology distinguishes between several kinds of knowledge, and the distinction is directly useful in interface design because each type is acquired differently, decays differently, and fails differently.</p>
+
+<p><em>Declarative knowledge</em> is "knowing that" — factual, propositional knowledge that can usually be verbalised. A user's declarative knowledge of an email client might include: "there is a folder called Drafts," "attachments have a size limit," "the paperclip icon attaches a file," "BCC hides recipients from one another." This knowledge is relatively easy to acquire from documentation, labels, tooltips, or a colleague's explanation, and it is also relatively easy to forget. Crucially, declarative knowledge can be <em>recognised</em> rather than recalled: a user who cannot remember that a particular menu contains the export command will nonetheless recognise "Export…" when they see it. This is the cognitive basis for the long-standing design maxim that interfaces should favour recognition over recall — visible menus, labelled icons, and browsable option lists let the interface carry the declarative load instead of the user's memory.</p>
+
+<p><em>Procedural knowledge</em> is "knowing how" — the compiled, often automatic sequences of actions that accomplish a goal. Experienced users of a spreadsheet do not consciously retrieve the fact that Ctrl+C copies; their fingers execute the sequence while attention remains on the data. Procedural knowledge is slow to acquire (it requires repeated practice) but extremely durable, and it is notoriously difficult to articulate. Ask a skilled user to explain exactly how they reorder slides in a presentation tool and they will often have to perform the action to describe it. Two design consequences follow. First, because procedural knowledge is built by repetition, <strong>consistency</strong> is enormously valuable: a shortcut or gesture that means the same thing everywhere becomes an automatic skill, whereas one that changes meaning between screens never compiles into a routine. Second, because procedural knowledge is automatic, it can misfire when the context changes. This produces <em>capture errors</em>, where a well-learned routine hijacks a less-practised intention — the classic case is the user who intends to "Save As…" but whose fingers execute the more frequent plain "Save," or the driver of a hire car who reaches for a windscreen wiper stalk that is actually the indicator.</p>
+
+<p>A third category worth naming is <em>prior domain and system knowledge</em> — knowledge transferred from related systems, from the professional domain, or from the physical world. A radiographer approaching new imaging software already knows what a study, a series, and a window level are; the software does not have to teach those concepts, only its particular expression of them. Equally, a user who has used three photo applications has a generalised schema: there will be an import step, a library view, non-destructive edits, and an export step. Transfer can be <em>positive</em> (the prior schema accelerates learning) or <em>negative</em> (the prior schema produces confident wrong predictions). Negative transfer is a persistent problem when platforms diverge: a long-time Windows user on macOS repeatedly reaches for the wrong modifier key; a user moving from a system where the leftmost button is "OK" to one where it is "Cancel" will confirm destructive actions by reflex. The deep point is that prior knowledge is not optional for the designer to consider — users <em>will</em> apply it whether or not the designer intends them to.</p>
+
+<p>Finally, gaps and misconceptions in user knowledge are a primary source of interaction errors, and the two are not the same. A <em>gap</em> is an absence: the user does not know that a feature exists, so they do the task the long way or abandon it. Gaps typically produce inefficiency and non-discovery rather than catastrophe. A <em>misconception</em> is an incorrect belief held with confidence, and it is far more dangerous because the user acts decisively on it. A frequently observed misconception is that "closing the window exits the application and discards nothing," or that deleting a file from a synced cloud folder on one device only affects that device, or that a private browsing window hides activity from an employer's network. Each of these produces a confident action with an unintended and sometimes irreversible result. The design responses differ accordingly: gaps are addressed with discoverability (visible affordances, progressive disclosure, contextual hints), while misconceptions are addressed with corrective feedback, explicit state display, and reversibility.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Knowledge type</th>
+      <th>Nature</th>
+      <th>How acquired</th>
+      <th>Typical failure mode</th>
+      <th>Design response</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Declarative</td>
+      <td>Facts about entities, labels, limits, locations</td>
+      <td>Reading, instruction, exploration; fast to learn, fast to forget</td>
+      <td>Forgetting a command name or where an option lives</td>
+      <td>Visible labels, menus, search, tooltips — support recognition over recall</td>
+    </tr>
+    <tr>
+      <td>Procedural</td>
+      <td>Automated action sequences and motor routines</td>
+      <td>Repeated practice; slow to learn, highly durable</td>
+      <td>Capture errors; routines misapplied in a changed context</td>
+      <td>Consistency of mappings and shortcuts; confirmation for irreversible steps</td>
+    </tr>
+    <tr>
+      <td>Prior system/domain</td>
+      <td>Schemas transferred from similar tools or the work domain</td>
+      <td>Experience elsewhere; applied automatically</td>
+      <td>Negative transfer — confident but wrong expectations</td>
+      <td>Honour platform and domain conventions; signal deliberate departures</td>
+    </tr>
+    <tr>
+      <td>Gaps</td>
+      <td>Missing knowledge the user is aware or unaware of</td>
+      <td>Never encountered</td>
+      <td>Feature non-discovery, inefficient workarounds</td>
+      <td>Discoverability, onboarding, contextual suggestions</td>
+    </tr>
+    <tr>
+      <td>Misconceptions</td>
+      <td>Confidently held but incorrect beliefs</td>
+      <td>Faulty inference or misleading cues</td>
+      <td>Decisive wrong actions, data loss, security lapses</td>
+      <td>Explicit state visibility, corrective feedback, undo</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Mental models: internal representations of systems</strong></p>
+
+<p>A <em>mental model</em> is the internal, runnable representation a user holds of how a system is structured and how it behaves. The word "runnable" is important: the defining property of a mental model is that the user can simulate it mentally to answer "what will happen if…?" without actually performing the action. A person who understands a thermostat as a switch that turns the heating on until a target temperature is reached will predict that setting it to 30°C does not heat the room faster. A person whose model is a "valve" — more dial equals more heat — will predict the opposite, and will set the dial too high and then be too hot. Both are running a model; only one is accurate. This single example, drawn from classic work on folk theories of heating, shows how a mental model determines action and produces systematic, repeatable error patterns rather than random mistakes.
+
+<p>Mental models carry out several cognitive functions at once. They support <em>prediction</em> ("if I drag this file onto that icon, it will be copied, not moved"), <em>explanation</em> ("the page is blank because my filter is still applied"), <em>planning</em> ("I'll duplicate the layer first so I can revert"), and <em>diagnosis</em> ("nothing is printing — probably the job is queued on the other printer"). Without a model, a user is reduced to trial and error, which is slow, anxiety-inducing, and unsafe in systems where actions have consequences. With a model, large parts of the interaction become inference rather than exploration.</p>
+
+<p>Mental models are built incrementally and opportunistically. A user forms a provisional hypothesis from the first screen they see, acts on it, observes the response, and revises. Over a few minutes of use, a rough topology emerges — "there's a list on the left and a detail pane on the right; selecting in the list changes the right." Over weeks, the model acquires depth: conditional rules, exceptions, knowledge of where the system is slow, superstitions about what causes crashes. Because the model is assembled from observed behaviour rather than from the system's source code or data schema, it reflects what the interface <em>reveals</em>, not what the system actually is.</p>
+
+<p>This leads to the most important property for designers: <strong>mental models are almost never complete or fully accurate</strong>. They are typically parsimonious (containing only as much as the user needs), unstable (changing with recent experience), superstitious (containing causally irrelevant steps that happened to co-occur with success), and full of gap-filling assumptions imported from prior experience. A user who cannot see how cloud synchronisation works may infer an analogy to emailing a file to oneself, concluding that each device keeps its own independent copy — a plausible inference, and one that leads directly to surprise and data loss when a deletion propagates. Users also commonly hold a model that is correct in the common case but wrong at the boundaries: "the undo button undoes the last thing I did" is reliable until the last thing was a server-side action that cannot be undone.</p>
+
+<p>The designer's obligation, then, is not to hope for accurate mental models but to anticipate the <em>likely</em> ones. Before building, it is worth asking: what will users assume this control does? What prior system are they most likely to map this onto? Which plausible-but-wrong model would lead to a harmful action here? Techniques such as asking participants to draw or narrate "what you think happens when you press Send" surface these models directly and cheaply. A famous illustration is the pedestrian crossing button or office thermostat that is not actually connected to anything: users continue to press it repeatedly because their model says "more pressing equals faster response," and the absence of feedback never contradicts them.</p>
+
+<p><strong>Conceptual models provided by designers</strong></p>
+
+<p>If a mental model is what the user builds in their head, a <em>conceptual model</em> is what the designer deliberately constructs and communicates: an explicit, coherent description of the entities the user should believe exist, the relationships among them, and the operations that can be performed on them. It is the designer's chosen story about the system — a simplification that is not necessarily how the implementation works, but is true enough to support correct prediction.</p>
+
+<p>Consider three familiar conceptual models:</p>
+<ul>
+  <li><strong>The file-and-folder model.</strong> Entities: files, folders, drives. Relationships: folders contain files and other folders; a file lives in exactly one place. Operations: create, open, move, copy, rename, delete. None of this corresponds to how a storage device physically works — there are no folders on a disk — but the model is coherent, learnable, and predictive.</li>
+  <li><strong>The photo library model.</strong> Entities: a single library of photos, albums, edits. Relationships: an album <em>references</em> photos rather than containing copies; edits are non-destructive layers over an untouched original. Operations: import, organise, edit, export, delete. The key conceptual commitments here — references not copies, edits not overwrites — are exactly the points where users' prior file-and-folder model will mislead them, which is why these applications invest heavily in explaining "removing from an album does not delete the photo."</li>
+  <li><strong>The version control model.</strong> Entities: working directory, staging area, commits, branches, remotes. This conceptual model is notoriously hard for newcomers precisely because the staging area has no everyday analogue; users arriving with a "save the file" model cannot predict the system's behaviour and resort to memorised command recipes — procedural knowledge without a supporting conceptual model, which collapses the moment something unusual happens.</li>
+</ul>
+
+<p>A conceptual model is never conveyed by a written specification that users read. It is conveyed implicitly and continuously through the interface itself:</p>
+<ul>
+  <li><strong>Visual structure and layout</strong> — what is grouped together implies what belongs together; a persistent sidebar of named collections implies that collections are first-class, enduring entities.</li>
+  <li><strong>Terminology and labelling</strong> — calling something a "workspace" rather than a "project" or a "document" sets different expectations about sharing, persistence, and ownership. Inconsistent naming for one underlying entity (sometimes "board," sometimes "list," sometimes "page") fragments the user's model.</li>
+  <li><strong>System responses and state display</strong> — an animation showing an item flying into a folder teaches containment; a sync status indicator teaches that a local file and a remote file are two aspects of one thing.</li>
+  <li><strong>Onboarding, empty states, and documentation</strong> — an empty state that says "Boards hold your lists. Lists hold your cards." is a direct, cheap transmission of the conceptual model at precisely the moment it is needed.</li>
+  <li><strong>The set of available operations</strong> — if there is no "move" command, only "copy" and "delete," the user infers something about the ontology of the system.</li>
+</ul>
+
+<p>A well-designed conceptual model reduces the learning curve chiefly by mapping onto knowledge structures the user already has. When the mapping is strong, learning is largely a matter of attaching new labels to existing schemas rather than building new ones. This is why spreadsheet software succeeded so quickly with accountants: the conceptual model (a grid of cells containing values or formulas, arranged in rows and columns) mapped almost perfectly onto the paper ledger those users already understood, while adding one new idea — automatic recalculation — that could be learned in isolation. Good conceptual models are also <em>economical</em>: they introduce as few new entities as possible and make those entities behave uniformly. Every additional entity type, and every exception to a rule, costs the user memory and introduces a place where prediction can fail.</p>
+
+<p>The central risk is <em>discrepancy</em>. Usability failures are very often not failures of graphic design or performance but of model mismatch: the user's mental model and the designer's conceptual model disagree, and the interface does not reveal the disagreement until something goes wrong. The structure of such failures is consistent — the user acts rationally and confidently on their model, the system behaves correctly according to its own, and the outcome surprises the user. Examples abound: a user believes "Reply All" includes only the people they can see, not the hidden BCC recipients; a user believes closing a laptop lid ends a video call; a user believes that a document shared "with anyone who has the link" is still effectively private; a user believes an autosaved draft is a separate copy and so edits destroy the original. In each case the remedy is not more training but a redesign that makes the real model visible — showing the recipient list before sending, showing an explicit "call continues in background" state, showing a plain-language description of who can access a document.</p>
+
+<p><strong>Interface metaphors as cognitive bridges</strong></p>
+
+<p>A metaphor is a deliberate device for transmitting a conceptual model quickly by borrowing an existing one. Structurally, it maps a <em>source domain</em> that the user already understands onto an unfamiliar <em>target domain</em>. The desktop metaphor maps the physical office — desk surface, documents, folders, filing, wastebasket — onto the file system and windowing environment. The shopping cart maps the supermarket trolley onto a provisional, editable collection of intended purchases that is not yet a transaction. The "card" metaphor in project management tools maps index cards pinned to a board onto task records that can be moved between stages.</p>
+
+<p>When a metaphor works, it does a great deal of explanatory labour at no cost to the user. It conveys not just what things are called but what they <em>afford</em> and what <em>constrains</em> them. A shopping cart implies: you can add things, you can remove things, you can see the running total, nothing is final until you check out, and leaving the shop with the cart is not how it ends. A user who has never seen a particular e-commerce site can predict all of this instantly. Similarly, the trash can implies that deletion is a two-stage process and that retrieval before emptying is possible — a genuine behaviour of the system that would otherwise need explaining.</p>
+
+<p>Metaphors also fail, and they fail in a characteristic way: the analogy is partial, and users do not know where its boundary lies. Because the mapping is so fluent, users over-extend it and predict behaviours the system does not support. Consider the desktop metaphor: a physical desk lets you place a paper partly under another and slide it out; files can be in two piles at once only by photocopying; nothing on a desk silently changes while you are away. A digital file system violates all three in various ways — aliases and shortcuts let one file appear in many places, synced files change without the user touching them, and windowing systems have z-order rules with no physical equivalent. The "folder" metaphor breaks when tagging is introduced, because a physical document cannot be in two folders simultaneously; users who try to reason about tags using containment logic ask "but where does the file actually live?" — a question the system considers meaningless. Likewise, skeuomorphic page-turning in e-readers implies fixed pagination, so users are confused when changing the font size changes the page numbers. The email "folder" that is really a label, the "desktop" that is really a directory, and the "recycle bin" that does not actually erase data from the disk all illustrate the same tension.</p>
+
+<p>The practical discipline, therefore, is not to choose a metaphor and apply it uncritically but to <em>audit</em> it: to enumerate systematically where the mapping holds, where it is silent, and where it actively contradicts system behaviour. A simple analysis table makes the exercise concrete.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Source-domain property</th>
+      <th>User expectation it creates</th>
+      <th>Does the system honour it?</th>
+      <th>Design implication</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>A trolley holds items provisionally; nothing is bought until the till</td>
+      <td>I can add freely and decide later; adding is reversible and costless</td>
+      <td>Yes</td>
+      <td>Exploit it — make "add to cart" low-commitment and highly visible</td>
+    </tr>
+    <tr>
+      <td>Items in a trolley are physically reserved for me</td>
+      <td>Stock is held; the price will not change</td>
+      <td>No — stock and price can change</td>
+      <td>Breakdown point: show explicit stock/price-change warnings at checkout</td>
+    </tr>
+    <tr>
+      <td>A paper document lives in exactly one folder</td>
+      <td>Moving a file removes it from its old location</td>
+      <td>Yes for move, no for shortcuts/aliases/tags</td>
+      <td>Visually distinguish references from originals; explain tags separately</td>
+    </tr>
+    <tr>
+      <td>Paper in a wastebasket is recoverable until emptied</td>
+      <td>Deleted files can be restored</td>
+      <td>Yes, until the bin is emptied</td>
+      <td>Exploit it; but clarify that emptying is permanent and does not shred data securely</td>
+    </tr>
+    <tr>
+      <td>A desk is private; only I see what is on it</td>
+      <td>My files are visible only to me</td>
+      <td>No in shared/cloud contexts</td>
+      <td>Breakdown point: persistent sharing indicators, explicit audience display</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Where a metaphor breaks down, designers have three options: extend the system to honour the expectation (sometimes the best answer — add stock reservation); visibly signal the departure (a different icon, a distinct colour, a one-time explanatory message); or abandon the metaphor in that region and teach a native concept directly. What is rarely acceptable is to leave the breakdown silent, because a silent breakdown is precisely a misconception held confidently. It is also worth noting that metaphors age: many contemporary users have never used a floppy disk, a physical file folder, or a rotary telephone handset, so these icons now function as learned <em>conventions</em> rather than live metaphors. A convention still works — it is a shared declarative fact — but it no longer generates correct predictions about unfamiliar behaviour, which is the metaphor's real value.</p>
+
+<p><strong>How mental models evolve through interaction</strong></p>
+
+<p>Mental models are not delivered; they are grown through a cycle of expectation, action, observation, and revision. Understanding this cycle tells the designer where to intervene.</p>
+
+<p><em>Exploratory interaction and experimentation</em> are the primary engine of model-building. Users probe: they click an unfamiliar control to see what it does, open a menu simply to read it, type a value to see whether it is accepted. This exploration only happens if the environment feels <strong>safe</strong>. The willingness to experiment is directly proportional to the perceived reversibility of actions. An interface with a reliable, universal undo, clear non-destructive previews, draft or sandbox modes, and prominent "cancel" paths will be explored energetically and therefore learned quickly. An interface where any action might silently commit something irreversible teaches users to freeze: they stick to the one path they know works, never discovering the rest of the system and never correcting their partial model. This is why support for exploration is not a convenience feature but a learning mechanism. Live previews are a particularly efficient form of this: hovering over a font and seeing the text change immediately lets the user run dozens of micro-experiments per minute, each one refining the model at almost no cost.</p>
+
+<p><em>Feedback and error messages act as corrective signals.</em> Every system response is a lesson about the model, intended or not. Immediate feedback (a button depressing, a row highlighting, a progress indicator) teaches the mapping between action and effect; delayed or absent feedback teaches nothing, or worse, teaches a superstition — the user who presses Submit twice because nothing visibly happened learns that "pressing twice works," and will later create duplicate records. Error messages are the highest-value corrective moments in the whole interaction, because the user is actively confused and therefore maximally receptive to information. A message that says <code>Error 0x8007045D</code> teaches nothing; a message that says "This file could not be saved because the drive was disconnected. Your changes are still open in the editor — reconnect the drive or choose Save As to another location" repairs the model (it names the entity involved, explains the causal relation, and states the current system state) and offers a path forward. The best corrective signals share four properties: they identify <em>what</em> the system believes happened, <em>why</em> in terms of the conceptual model, <em>what state things are now in</em>, and <em>what the user can do next</em>.</p>
+
+<p><em>Repeated successful completion stabilises the model</em>, particularly its procedural components. The first time a user exports a report they reason consciously about each step; by the twentieth time the sequence has compiled into a single chunk — "export the report" — executed with little attention. This is valuable: it frees working memory for the actual task rather than the tool. But stabilisation has a cost. A consolidated procedure is resistant to revision, which is why interface redesigns that relocate well-learned controls provoke disproportionate frustration from experienced users: their procedural knowledge, built over years, is invalidated in a day, and they are temporarily demoted to novices in a system they thought they knew. It also means that a user who learned a <em>suboptimal</em> route to a goal (say, copying values between two documents by hand because they never discovered the link feature) will keep using it indefinitely, because it works. Success is a poor teacher of better methods. Designers therefore sometimes surface "there is a faster way" hints at the moment the slow route is used — a deliberate intervention into a model that has stabilised prematurely.</p>
+
+<p><em>Models persist when feedback is insufficient to trigger revision.</em> Revision requires a detectable contradiction between prediction and outcome. If the system hides the consequences of an action, the user's incorrect model is never challenged and can survive for years. Several interface patterns are especially prone to this. Silent failures — a sync that stops working, a backup that has not run since 2019, a form field that drops characters beyond a limit — leave the user believing all is well. Delayed consequences break the link between cause and effect: a privacy setting changed today produces an embarrassing disclosure next month, far too late for the user to connect the two. Hidden state is similarly dangerous: a filter still applied, a keyboard mode still active, a microphone still live. The classic category of <em>mode errors</em> arises exactly here — the user's model says the system is in one mode, the system is in another, and nothing visible disambiguates them, so the same action produces an unexpected result. The design prescription is persistent, unmissable indication of consequential state, and proactive confirmation that background processes are actually working ("Last backed up: 3 minutes ago") rather than silence that is ambiguous between "fine" and "broken."</p>
+
+<p><strong>Implications of mental models for interface design</strong></p>
+
+<p>Everything above converges on a single practical principle: the interface is the only channel through which the designer's conceptual model reaches the user, so that model must be made <em>visible, consistent, guided, and tested</em>.</p>
+
+<p><em>Make the conceptual model visible and inspectable.</em> If the system has entities, show them and name them consistently. If the system has state, display it rather than requiring the user to remember or infer it. Practical expressions of this include: breadcrumb trails that reveal the hierarchy the system believes it is in; sync and save indicators that externalise an invisible process; a visible selection count before a bulk operation; an explicit "who can see this" summary on a shared document; a recipients list rendered before a message is sent. A useful test is to ask whether a user, pausing mid-task, could answer three questions purely from the screen: <em>Where am I? What is the system's current state? What will happen if I do this next thing?</em> If any answer requires memory or guesswork, the conceptual model is under-exposed.</p>
+
+<p><em>Use consistency so that learning generalises.</em> Because mental models are built by inference from examples, every regularity in the interface is a rule the user can extract and apply to features they have not yet used. If destructive actions are always red and always confirmed, the user can safely predict the behaviour of a red button they have never pressed. If the right-hand panel always shows properties of the current selection, the user will look there in a new module without being told. Consistency operates at several levels — internal (within the product), external (with platform conventions such as where the back gesture lives or what the system share sheet looks like), and conceptual (the same underlying idea is always expressed the same way). Internal inconsistency is the most damaging because it actively falsifies the rules a user has correctly induced, which teaches them to stop generalising and start memorising case by case.</p>
+
+<p><em>Design affordances and constraints to steer action.</em> Where the conceptual model implies a correct sequence, the interface should make that sequence the easy one and make the incorrect ones difficult or impossible. Perceived affordances — a control that looks pressable, a handle that looks draggable, a field that looks editable — advertise what is possible. Constraints narrow the space of action: disabling the "Submit" button until required fields are valid, greying out paste when the clipboard holds an incompatible type, restricting a date picker to available dates, forcing a wizard's steps into a dependency order. Mappings should be natural: a control whose spatial arrangement mirrors the thing it controls (burner controls laid out like the burners, volume increasing upwards) lets the user predict correctly without instruction. Where constraint is impossible and the stakes are high, use <em>forcing functions</em> — requiring the user to type the name of the repository they are about to delete, or removing the card before dispensing the cash — so that an automatic procedural routine cannot run to completion unchallenged. And wherever possible, prefer reversibility to confirmation: an undo that genuinely works is both safer and better for learning than a dialogue the user has been trained to dismiss.</p>
+
+<p><em>Test iteratively with real users to find misalignments.</em> Designers cannot introspect their way to users' mental models, because designers suffer from the <em>curse of knowledge</em>: once you know how the system works, you cannot un-know it, and the interface looks self-explanatory. Only observation reveals the mismatch. Low-cost techniques that specifically target mental models include: asking participants to <em>predict</em> what a control will do before clicking it, and noting where prediction and reality diverge; think-aloud protocols, in which the running commentary exposes the user's theory ("I'll put it in this folder, so it should disappear from here…"); asking users to sketch or describe the system's structure after a session; teach-back, where a participant explains the tool to a notional colleague; and cognitive walkthroughs that ask, at each step, whether the user will know what to do and will recognise that their action moved them toward the goal. Each of these should be run while changes are still cheap — on sketches and clickable prototypes rather than on shipped code — and the findings should be interpreted as a diagnosis of the conceptual model, not merely as a list of cosmetic fixes. If three participants in a row believe that removing a photo from an album deletes it, the problem is not the wording of a button; it is that the system's ontology of references versus originals has not been communicated at all.</p>
+
+<p>Taken together, these ideas reframe what an interface is for. It is not merely a control surface for invoking functions; it is a teaching instrument whose continuous job is to install and maintain an accurate-enough model of the system in the user's head. When it does that job well, users predict correctly, act confidently, recover from errors, and generalise to features they have never seen. When it does it badly, no amount of visual polish will prevent the quiet, systematic errors that follow from a user reasoning faithfully about a system that is not the one in front of them.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+<ul>
+  <li><strong>MO1</strong> — Partially supported. The topic's treatment of declarative versus procedural knowledge, recognition over recall, and the limits of what users can hold in mind while acting provides the cognitive background for memory-related interface constraints, but it does not itself enumerate the types of human memory or their capacities.</li>
+  <li><strong>MO2</strong> — Directly supported. The discussion of discrepancies between a user's mental model and the designer's conceptual model, including capture errors, mode errors, negative transfer, metaphor breakdown, and silent-failure cases, is precisely an account of how model mismatch produces systematic rather than random errors.</li>
+  <li><strong>MO3</strong> — Not directly addressed. Hierarchical Task Analysis is not covered here, although the account of procedural knowledge as chunked, hierarchically organised action sequences supplies conceptual grounding for why goals can be decomposed into subtasks.</li>
+  <li><strong>MO4</strong> — Partially supported. The final part introduces evaluation techniques aimed at exposing model mismatches — prediction tasks, think-aloud user testing, teach-back, and expert-driven cognitive walkthroughs — giving a basis for later comparison of expert-driven and user-based methods, but it does not set out selection criteria in detail.</li>
+  <li><strong>MO5</strong> — Partially supported. The emphasis on making the conceptual model visible, maintaining consistency, and designing affordances and constraints supplies interaction design principles a prototype should embody, and the call for iterative testing on sketches and clickable prototypes motivates low-to-mid fidelity work, though prototyping technique itself is not taught here.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Illustrative examples (thermostat valve-versus-switch folk theory, the desktop and shopping-cart metaphors, version control&#39;s staging area, sync and sharing misconceptions) are drawn from well-established HCI and cognitive psychology literature and may be swapped for domain-specific examples relevant to the cohort. The two tables are intended as reusable classroom artefacts: the knowledge-type table supports a diagnostic discussion of error sources, and the metaphor-audit table can be issued as a blank template for students to complete against an interface of their choice.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

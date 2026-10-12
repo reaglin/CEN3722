@@ -1,0 +1,999 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Functional Prototype Development and Testing Preparation</title>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Functional Prototype Development and Testing Preparation</a></div>
+<h1>Functional Prototype Development and Testing Preparation</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">From Mockup to Functional Prototype</a>
+<a href="#part2">Transition Strategies from Design to Code</a>
+<a href="#part3">Development Environment Setup and Use</a>
+<a href="#part4">Designing User Proficiency Surveys</a>
+<a href="#part5">Designing Usability Testing Protocols</a>
+<a href="#part6">Integrating Prototype and Testing Preparation</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>From Mockup to Functional Prototype</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>From Mockup to Functional Prototype</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>At some point in every serious design process, static screens stop being enough. A designer can craft pixel-perfect mockups, annotate every interaction, and walk stakeholders through a click-through prototype — and still face a fundamental gap: none of it behaves. It does not respond to unexpected input, it does not show what happens after a network timeout, and it does not let a test participant think freely and follow their own instincts. The transition from a high-fidelity mockup to a functional prototype is the moment a design stops being a representation of a system and starts becoming one. Understanding when and how to make that transition — and what it truly means for usability testing — is one of the most consequential skills in applied UX work.</p>
+
+<p>A <strong>functional prototype</strong> is a partially or fully working implementation of a product that executes real or simulated application logic rather than simply displaying a sequence of static screens. The distinction sounds technical, but its implications run deep into how users behave during testing, what data you can collect, and what kinds of design problems you can actually discover. When a participant uses a functional prototype, they are not navigating a curated path that a facilitator controls from behind the scenes — they are interacting with a system that responds to their actual input, in real time, according to logic that was deliberately built.</p>
+
+<p>This does not mean a functional prototype must be a finished product. The defining characteristic is that it <em>executes logic</em> — even if much of that logic is simulated, stubbed out, or constrained to a narrow set of flows. A prototype might use hardcoded data instead of a live database. It might have a real authentication form that accepts only a single test credential. It might calculate a total correctly on one specific product combination but redirect gracefully to a placeholder page for everything else. What matters is that the participant's actions drive the system's responses, not a human operator advancing slides.</p>
+
+<p>Functional prototypes can also be <strong>deployed in a controlled environment</strong>, meaning participants can access them on actual devices — a phone, a tablet, a desktop browser — under realistic conditions. This is a significant upgrade from screen-sharing a mockup tool. A participant sitting with their own phone, navigating a web app at their own pace, without a facilitator hovering over a hotspot map, produces qualitatively different behavioral data. You observe hesitation, backtracking, error recovery, and confusion in a way that simply does not surface when someone is essentially being guided through a slideshow.</p>
+
+<p>An important discipline in building functional prototypes is <strong>scoping the level of functionality to the specific usability questions being investigated</strong>. Teams sometimes make the mistake of treating "functional prototype" as synonymous with "early product build" and try to implement everything. This is expensive, slow, and counterproductive. A better approach asks: <em>what design questions are we actually trying to answer in this round of testing?</em> If the question is whether users can complete an onboarding flow without assistance, then the prototype needs a working onboarding flow — and not necessarily anything else. If the question is whether a new checkout process reduces drop-off at the payment step, the prototype needs a realistic payment interaction, but the product catalog behind it can be entirely fake.</p>
+
+<p>One of the most important capabilities that functional prototypes unlock is the exposure of <strong>timing, responsiveness, and error states</strong>. These are categories of user experience that static mockups simply cannot model. Consider loading states: a mockup typically shows either the empty state or the loaded state, but never the transition between them. In a real interface, a spinner that takes 4 seconds to resolve is experienced very differently from one that takes 400 milliseconds — and users make trust and competence judgments about the product based on those differences. A functional prototype with even a simulated delay reveals whether the loading indicator is well-placed, whether users understand what is happening, and whether they abandon the flow out of uncertainty.</p>
+
+<p>Error states are equally critical. When a user types an invalid email address into a registration form in a mockup, nothing happens — or the facilitator awkwardly explains "imagine it shows an error." In a functional prototype, the validation fires, the error message appears exactly where it was designed to appear, and the participant reacts to it honestly. This is where you discover that your error message copy is confusing, that the field highlight color is too subtle to notice, or that users are making a particular type of input mistake you had not anticipated at all.</p>
+
+<p>These insights explain why <strong>high-fidelity mockups have real and important limitations as testing instruments</strong>, despite being an essential part of the design process. The most fundamental limitation is that mockups require a facilitator — or an embedded hotspot logic — to advance screens in response to user actions. When a facilitator is manually controlling what appears next, they inevitably introduce bias. They may advance the screen a half-second too early, before the user has fully processed the current state. They may skip a transition because the participant did not click the exact designated hotspot. They may unconsciously telegraph the "correct" path through microexpressions or the timing of their responses. Even with the most disciplined facilitation, this human-in-the-loop mechanism makes participant behavior less authentic.</p>
+
+<p>Beyond facilitation bias, mockups <strong>cannot surface edge-case behaviors</strong>. What happens when a user types a password that is too short? What does the interface show if they skip a required field and try to proceed? What if they navigate back and forward unexpectedly? These paths are rarely modeled in mockup tools because there are too many combinations to draw, and they are typically not the "happy path" the designer wanted to showcase. But edge cases and error conditions are precisely where usability breaks down for real users in real situations. A functional prototype handles these branches — even if the handling is as simple as a generic error page or a graceful redirect — because the logic responds to what the user actually did.</p>
+
+<p>The data quality problem extends to <strong>timing and cognitive load measurements</strong>. If you want to know how long it takes users to complete a task, a mockup-based session gives you a number that is contaminated by facilitation delays, hotspot hunting, and the participant's awareness that they are navigating a static artifact rather than a live product. Task completion times from mockup sessions are generally unreliable as input to design decisions that depend on understanding real-world performance. A functional prototype, accessed on an actual device, gives you timing data that is far closer to what you would observe in production use.</p>
+
+<p>Given all this, the question becomes: <em>when is the right moment to make the transition?</em> Moving to code too early means building on an unstable design foundation, which creates costly rework. Moving too late means staying in mockup-land past the point where mockups can answer your remaining questions. There are several practical <strong>criteria for transition readiness</strong> that teams can use to make this judgment deliberately rather than arbitrarily.</p>
+
+<p>The most important criterion is that <strong>core navigation flows and primary task paths should be finalized</strong> before development begins. This does not mean every edge case is designed — it means the sequence of screens and interactions for the main things users will do has been agreed upon and is stable. If the team is still debating whether the settings page should be accessible from the header or a sidebar, that decision needs to be made before building either option in code. Structural uncertainty translates directly into development waste.</p>
+
+<p><strong>Visual design components that will be reused across screens</strong> should be identified and documented before the prototype build begins. In practice, this means defining the design system or component library that development will use — buttons, form inputs, cards, modals, navigation patterns, typography scales, and color tokens. When developers know what the repeatable building blocks are, they can build a component once and reuse it, rather than re-implementing the same button style in five slightly different ways across five different screens. This component inventory also makes it easier to maintain visual consistency across a narrow-scope prototype, which in turn makes the prototype feel more realistic to test participants.</p>
+
+<p>Before the prototype build starts, <strong>outstanding design decisions should be logged</strong> — and each one should be either resolved or deliberately deferred. "Deliberately deferred" is an important concept here. Some decisions genuinely cannot be made yet because they depend on user research that the prototype build is intended to generate. It is perfectly legitimate to say "we will decide how the empty state looks after we see whether users ever encounter it during testing." What is not legitimate is leaving a decision ambiguous and hoping it resolves itself during development. The log makes the team's current state of knowledge explicit and prevents debates during the build from consuming time that should be going toward development.</p>
+
+<p>Finally, the <strong>team should agree on a feature scope that is achievable within the available development timeline</strong>. This sounds obvious but is routinely violated. Stakeholders often hear "functional prototype" and assume it means "everything the mockup showed, but working." The design team needs to actively set expectations: this prototype covers these three user flows, uses this hardcoded dataset, and does not include account management, notifications, or anything outside those flows. That scope agreement should be documented and shared with everyone who will be observing or evaluating the test sessions, so that feedback is calibrated correctly.</p>
+
+<p>The practical work of <strong>scoping the prototype for usability testing</strong> begins by mapping the specific tasks participants will be asked to perform during the test. For each task, you trace the screens and interactions required to complete it. The prototype build covers exactly those screens and interactions — and nothing more unless the cost is negligible. Every other part of the product can be represented by <strong>placeholder screens or graceful dead-ends</strong>: a screen that says "this feature is coming soon," a redirect to the home screen, or simply the absence of a navigation option. These stand-ins are not failures; they are intentional boundaries that keep the prototype focused and maintainable.</p>
+
+<p>The value of a <strong>narrowly scoped prototype</strong> compounds across the full testing cycle. It is faster to build, which means it is ready sooner. It has fewer moving parts, which means it is less likely to break during a test session. When a participant discovers a usability problem and you want to tweak the design before the next session, a focused prototype is much easier to update than a sprawling one. And because fewer assumptions have been built into code, there is less psychological attachment to the implementation — the team is less likely to resist changing something just because it took effort to build.</p>
+
+<p>Scope decisions carry one more important obligation: they should be <strong>documented and communicated to stakeholders</strong>. A stakeholder watching a test session who expects to see a working search feature — and instead sees a "this feature is not yet available" placeholder — will form incorrect impressions about both the product and the testing process unless they have been briefed in advance. Documentation of prototype scope sets accurate expectations, prevents stakeholder confusion from being misattributed to design problems, and creates a record that future team members can use to understand what was and was not validated in this testing round.</p>
+
+<p>The transition from mockup to functional prototype is, at its core, a shift in the kind of knowledge you are trying to generate. Mockups are excellent tools for exploring and communicating visual and structural design decisions. Functional prototypes are tools for testing behavioral hypotheses under conditions that approximate real use. Understanding the distinct strengths and limitations of each — and developing clear criteria for when to move from one to the other — is what separates teams that iterate efficiently toward strong designs from teams that either build too much too early or stay too long in the comfort of static screens.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>High-Fidelity Mockup</th>
+      <th>Functional Prototype</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Interaction model</td>
+      <td>Facilitator or hotspot advances screens</td>
+      <td>System responds to actual user input</td>
+    </tr>
+    <tr>
+      <td>Error and edge cases</td>
+      <td>Rarely modeled; facilitator explains</td>
+      <td>Logic fires; participant reacts honestly</td>
+    </tr>
+    <tr>
+      <td>Timing and latency</td>
+      <td>Not present; transitions are instantaneous</td>
+      <td>Realistic or simulated delays are possible</td>
+    </tr>
+    <tr>
+      <td>Deployment</td>
+      <td>Shared as file or link to prototype tool</td>
+      <td>Deployed on a device or server; accessible independently</td>
+    </tr>
+    <tr>
+      <td>Facilitation bias</td>
+      <td>High — human controls screen flow</td>
+      <td>Low — participant drives their own session</td>
+    </tr>
+    <tr>
+      <td>Build cost</td>
+      <td>Low to medium</td>
+      <td>Medium to high, depending on scope</td>
+    </tr>
+    <tr>
+      <td>Maintainability</td>
+      <td>Easy to update individual screens</td>
+      <td>Easier when scope is tightly controlled</td>
+    </tr>
+    <tr>
+      <td>Best suited for</td>
+      <td>Visual and structural design exploration</td>
+      <td>Behavioral and task-flow usability testing</td>
+    </tr>
+  </tbody>
+</table>
+        <div class="notes"><strong>Notes</strong>The table at the end provides a comparative reference that consolidates the conceptual distinctions made throughout the body — useful for quick review and reinforcing the core argument that each artifact type serves different purposes at different stages of the design process.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p1-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>A high-fidelity mockup shows what an interface will look like; a functional prototype shows what it will do. In this topic we examine that shift: what actually makes a prototype "functional," why polished static screens are not enough once real users sit down with your design, and how to decide when your team is ready to move from visual design tools into interactive or coded builds.</p>
+<p>The practical pressure point is usability testing. If a participant taps a region that was never wired up, or needs data that your mockup only fakes with a screenshot, the test stops producing useful findings and starts producing apologies. That is why scoping matters: you do not build everything, you build the paths your test tasks require, at a fidelity that lets participants behave naturally and lets you observe where they struggle.</p>
+<p>As you watch the videos below, keep three questions in mind. First, which parts of a design are being made real versus merely depicted? Second, what kinds of user behavior can each level of fidelity reveal, and what does it hide? Third, how would you trim a full product vision down to a testable slice that still implements the core features from your own project requirements?</p></div></details><details class="slide-card" id="p1-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: How to Create a High-Fidelity Prototypes | Google UX Design Certificate</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/fvo5EClD9bA?cc_load_policy=1&amp;rel=0" title="Video: How to Create a High-Fidelity Prototypes | Google UX Design Certificate (Grow with Google)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Grow with Google</strong> · 12:28 · 13,167 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=fvo5EClD9bA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Part of the Google UX Design Certificate series, this video walks through moving from lower-fidelity work into high-fidelity design, incorporating visual design elements, type, color and layout into new iterations of your screens. It is framed as a step in a larger design process rather than an endpoint, so it shows what a high-fidelity mockup actually delivers and where it sits in the workflow. Expect practical guidance on building polished iterations that are ready to be made interactive.</p>
+<h4>Why this video</h4>
+<p>It gives you a clear, industry-standard picture of what a high-fidelity mockup is and is not, which is the necessary baseline for understanding the limitations discussed in this topic, and it comes from a widely used professional certificate program.</p></div></details><details class="slide-card" id="p1-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Figma UX tutorial for beginners - Prototype</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/v1UKB-0EUhQ?cc_load_policy=1&amp;rel=0" title="Video: Figma UX tutorial for beginners - Prototype (Aliena Cai)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Aliena Cai</strong> · 11:42 · 464,432 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=v1UKB-0EUhQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A beginner-oriented Figma tutorial focused specifically on the prototyping features of the tool: connecting frames, defining interactions and transitions, and turning static artboards into something a person can click through. It demonstrates the hands-on mechanics of adding behavior to screens you have already designed. The tutorial format means you can follow along with your own project files.</p>
+<h4>Why this video</h4>
+<p>This is the most direct demonstration of the mockup-to-interactive transition, showing exactly which behaviors prototyping tools can simulate and, by implication, where you will need coded implementation instead.</p></div></details><details class="slide-card" id="p1-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Usability Testing in UX Design Thinking Process</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/hHvh_0Nnrx0?cc_load_policy=1&amp;rel=0" title="Video: Usability Testing in UX Design Thinking Process (Kerev Design)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Kerev Design</strong> · 4:04 · 18,832 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=hHvh_0Nnrx0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused overview placing usability testing as the validation stage that follows prototyping in the design thinking process. In four minutes it introduces why testing happens after you have something users can interact with and what the step is meant to validate about earlier design decisions. It frames testing as a check on prior assumptions rather than a final rubber stamp.</p>
+<h4>Why this video</h4>
+<p>It connects prototype readiness directly to the purpose of testing, which is the reasoning behind both transition-readiness criteria and prototype scoping, and its brevity makes it a useful conceptual anchor for the rest of the module.</p></div></details><details class="slide-card" id="p1-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos trace the arc of the module. The Google Certificate video establishes what a high-fidelity mockup contributes and where it stops, and the Figma prototyping tutorial supplies concrete technique for making those screens interactive, both supporting MO1 as you build a prototype that implements your project's core features. The usability testing overview supplies the rationale for MO2 by showing what the testing stage is meant to validate, which in turn shapes the task scripts and data you plan to collect. Taken as a set, they also inform MO3: knowing what a functional prototype must support before testing is exactly the standard against which you verify your build against the specified interface requirements.</p></div></details><details class="slide-card" id="p1-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part2">
+<h2>Transition Strategies from Design to Code</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Transition Strategies from Design to Code</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Moving from a polished design mockup to a working coded prototype is one of the most consequential transitions in the product development process. It is the moment when static visual intentions must be translated into dynamic, functional behavior — and without deliberate strategy, that translation can introduce inconsistencies, miscommunication, and rework that cost time and erode the quality of the final product. Transition strategies from design to code are the set of practices, conventions, and workflows that teams use to make this handoff smooth, faithful to the original design intent, and efficient enough to support rapid iteration. These strategies touch every stage of the build process: how assets are prepared before a single line of code is written, how UI components are identified and constructed, how development proceeds incrementally with continuous review, and how teams prevent the slow visual decay known as design drift.</p>
+
+<p><strong>Design Handoff and Asset Preparation</strong></p>
+
+<p>The single most common source of friction between design and development is incomplete or ambiguous handoff materials. When developers must guess at spacing values, track down the right icon file, or infer how a button should behave when hovered, they introduce inconsistencies that accumulate into a prototype that only loosely resembles the intended design. Thorough asset preparation before coding begins eliminates most of these ambiguities at the source.</p>
+
+<p>The first step is exporting all visual assets — icons, illustrations, photographs, and decorative graphics — in the correct formats and at the appropriate resolutions for the target medium. For web and high-resolution screen prototypes, SVG is generally preferred for icons and simple illustrations because it scales without quality loss and has a small file size. Raster images (such as product photos or background textures) should be exported at 1x and 2x resolutions to support standard and high-density displays. Naming conventions matter here: an icon exported as <code>icon-arrow-right.svg</code> is far easier to locate and reference in code than one named <code>Asset 47@2x.png</code>. Many design tools — Figma, Sketch, Adobe XD — allow you to configure export settings per asset and batch-export everything at once, so establishing these settings early saves repetitive effort later.</p>
+
+<p>Beyond image assets, the design system's abstract values must be translated into concrete, reusable definitions that developers can reference without opening the design file. This means documenting <strong>design tokens</strong> — named variables that represent color values, typographic scales, and spacing increments. A well-documented token set might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Token Name</th>
+      <th>Value</th>
+      <th>Usage</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>color-primary-500</code></td>
+      <td><code>#2563EB</code></td>
+      <td>Primary action buttons, links</td>
+    </tr>
+    <tr>
+      <td><code>color-neutral-100</code></td>
+      <td><code>#F3F4F6</code></td>
+      <td>Page backgrounds, card fills</td>
+    </tr>
+    <tr>
+      <td><code>font-size-base</code></td>
+      <td><code>16px</code></td>
+      <td>Body text</td>
+    </tr>
+    <tr>
+      <td><code>font-size-lg</code></td>
+      <td><code>20px</code></td>
+      <td>Section subheadings</td>
+    </tr>
+    <tr>
+      <td><code>spacing-4</code></td>
+      <td><code>16px</code></td>
+      <td>Standard component padding</td>
+    </tr>
+    <tr>
+      <td><code>spacing-8</code></td>
+      <td><code>32px</code></td>
+      <td>Section vertical margins</td>
+    </tr>
+    <tr>
+      <td><code>border-radius-md</code></td>
+      <td><code>6px</code></td>
+      <td>Cards, input fields, modals</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These tokens can be implemented directly as CSS custom properties, Sass variables, or theme objects in a JavaScript framework — meaning the handoff document and the codebase speak the same language from day one. When a designer later revises the primary brand color, changing a single token propagates that update everywhere it is used.</p>
+
+<p>Static mockup screens, no matter how detailed, cannot fully communicate interactive behavior. Hover states, focus rings, transitions, loading animations, and conditional visibility rules live in the gap between a screenshot and a real interface. It is essential to <strong>annotate interaction behaviors</strong> explicitly — either directly in the design file using annotation layers or in a separate specification document. Annotations should describe: what triggers a state change (mouse hover, keyboard focus, a form validation event), what the changed state looks like (color shift, underline, drop shadow), and how long any transition takes and what easing curve it uses. For example: <em>"On hover, the card's box-shadow transitions from none to 0 8px 16px rgba(0,0,0,0.12) over 200ms with ease-out easing."</em> Without this level of specificity, every developer makes a slightly different judgment call, and the prototype feels inconsistent.</p>
+
+<p>Finally, the component library in the design tool should be architected to mirror the component structure that will exist in code. If the design file has a <code>Button / Primary / Large</code> component with variants for default, hover, and disabled states, the codebase should have a corresponding <code>Button</code> component that accepts a <code>variant</code> prop and a <code>size</code> prop. This structural alignment means that when a developer looks at a mockup screen and sees a component, they can immediately identify which code component to use rather than rebuilding it from scratch.</p>
+
+<p><strong>Component-First Development Approach</strong></p>
+
+<p>Modern interfaces are not monolithic pages — they are compositions of discrete, reusable pieces. The component-first development approach formalizes this reality by requiring that developers identify and build the fundamental building blocks of the interface before assembling them into complete pages. This approach dramatically reduces total development effort, improves consistency, and creates a shared vocabulary between design and code.</p>
+
+<p>The starting point is a deliberate audit of the mockup. Before writing any code, the developer (ideally alongside the designer) walks through every screen and identifies recurring patterns: buttons, form inputs, navigation bars, cards, modals, tooltips, data tables, status badges. Each of these is a candidate for a reusable component. Patterns that appear even twice warrant componentization; those that appear across many screens are the highest priority. This audit produces a component inventory — a list of all components to be built, ranked by prevalence and dependency (foundational components like buttons and inputs must be built before composite components like forms that use them).</p>
+
+<p>Each component is then built and tested in isolation before being used in any page layout. Tools like Storybook provide a dedicated environment for this: each component is rendered in its own sandbox where all its variants and states can be verified against the design specification without the noise of surrounding page content. This isolation makes it easy to confirm that a <code>TextInput</code> component correctly renders its default, focused, filled, error, and disabled states before it is embedded in a login form. Catching visual or behavioral discrepancies at the component level is far cheaper than finding them after the component has been used in a dozen different contexts.</p>
+
+<p><strong>Consistent naming between design files and code</strong> is a deceptively powerful practice. When a designer refers to a <code>CardTile</code> and the developer has named the corresponding component <code>ProductCard</code>, every conversation requires a translation step. Over weeks of development, these small translation costs compound into significant confusion, and there is a real risk that the developer builds two slightly different components where one would have served. Agreeing on names before development begins — and documenting that agreement in a shared glossary — keeps everyone oriented to the same map.</p>
+
+<p>The payoff of a well-built component library becomes most visible during usability testing. When test participants reveal that a card layout is confusing, or that a button label is unclear, the design change flows into a single component definition and propagates automatically to every screen where that component appears. Without componentization, the same change requires hunting down every instance manually — a process that is slow, error-prone, and demoralizing.</p>
+
+<p><strong>Iterative Build and Continuous Review</strong></p>
+
+<p>Large software projects that attempt to build everything before reviewing anything tend to accumulate hidden problems until a late integration phase when the cost of fixing them is highest. An iterative build approach applies a simple discipline: complete one meaningful unit of work — typically a full user flow — and subject it to thorough review before moving on to the next unit.</p>
+
+<p>A <strong>user flow</strong> in this context means a coherent sequence of screens through which a user accomplishes a specific goal: creating an account, completing a purchase, configuring a preference. Building flow by flow rather than screen by screen ensures that transitions between screens work correctly, that state is passed properly, and that the end-to-end experience is coherent — not just that individual screens look correct in isolation. After building the account creation flow, for example, the team reviews the entire flow from landing on the registration page to seeing the confirmation screen, testing every edge case (invalid email, mismatched passwords, server error) before moving to the next flow.</p>
+
+<p><strong>Version control</strong> is the technical backbone of iterative development. By committing a clean, working checkpoint after each flow is reviewed and approved, the team creates a reliable rollback point. If development of the next flow introduces a regression — a change that accidentally breaks something that was previously working — the team can identify exactly where the regression was introduced by comparing the current state to the last checkpoint. A meaningful commit message, such as <em>"feat: complete account creation flow — registration, email verification, and confirmation screen"</em>, makes the history legible to the whole team.</p>
+
+<p>Review quality improves substantially when the reviewer was not the builder. A developer who built a flow is naturally blind to its deviations from the mockup — they see what they intended to build, not what is actually on screen. <strong>Fresh-eyes review</strong>, in which a team member who had no involvement in building a given flow compares it directly against the design mockup, catches the discrepancies that the original builder would miss: a slightly wrong font weight, a missing hover animation, a margin that is 8px instead of 12px. Formalizing this as a step in the workflow — not an optional extra — ensures that the prototype remains faithful to the design intent throughout development.</p>
+
+<p><strong>Managing Design Drift During Development</strong></p>
+
+<p>Design drift is the gradual, often unnoticed divergence of the coded prototype from the agreed design. It happens through small, seemingly reasonable decisions: a developer substitutes a slightly different shade of gray because the specified color "looks off" on their monitor; a spacing value is rounded to the nearest even number for convenience; a loading state is skipped because implementing it seems complicated. Individually, each deviation appears minor. Collectively, they transform a carefully considered design into something that nobody explicitly chose.</p>
+
+<p>The primary defense against design drift is a <strong>formal change process</strong>. Any deviation from the mockup — whether it originates from a technical constraint, a discovered usability problem, or a developer's aesthetic preference — must be flagged explicitly rather than silently implemented. The minimum viable version of this process is a shared issue tracker or communication channel where the developer describes the proposed deviation and its reason, and the design lead either approves it, proposes an alternative, or confirms the original specification. This process does not need to be bureaucratic; a quick message in a team chat thread with a clear decision recorded is sufficient. What matters is that no one is making unilateral visual design decisions in code.</p>
+
+<p>All approved deviations should be entered into a <strong>change log</strong> — a simple running document that records what was changed, why, who approved it, and when. This log serves several purposes. It allows the design file to be updated to reflect the final implemented state, preventing the design file from becoming outdated. It provides context for future developers who encounter an implementation that does not match the original mockup and would otherwise spend time investigating whether it is a bug or an intentional decision. And it creates accountability that discourages casual drift — knowing that a deviation will be logged and reviewed encourages developers to raise genuine concerns rather than quietly substituting their own judgment.</p>
+
+<p>One of the most consistent sources of design drift is building and reviewing the prototype exclusively on the developer's own machine at their own screen resolution. A layout that looks perfect on a 27-inch desktop monitor at 100% zoom may collapse, overflow, or lose its intended proportions on the target device — a mobile phone, a tablet, or a specific browser at a constrained window size. <strong>Regular testing on the target device type and screen size</strong>, beginning from the very first component and continuing throughout development, catches these layout issues when they are cheap to fix rather than after they have been baked into dozens of screens. If the prototype is intended for mobile, every review session should include a real device or an accurate device emulator. If it targets a specific viewport width, that width should be the default review context — not a convenient fullscreen desktop window.</p>
+
+<p>Together, these four strategy areas — thorough handoff preparation, component-first construction, iterative review cycles, and disciplined drift management — form a coherent approach to the design-to-code transition that respects the effort invested in the design phase, supports the realities of collaborative development, and produces a prototype that stakeholders and users experience as a genuine, accurate realization of the intended design.</p>
+        <div class="notes"><strong>Notes</strong>Covers all four subtopic areas in depth: asset handoff and design tokens, component-first development, iterative build with version control and fresh-eyes review, and design drift management. Includes a design token reference table rendered as a proper HTML table. Examples are practical and concrete throughout.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p2-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Moving from a polished mockup to working code is one of the most error-prone steps in interface development. Designs that look complete on a canvas often leave gaps: What happens when a field is empty? What exactly is the spacing between list items? Which screen comes next after a failed login? Transition strategies from design to code are the practices that close those gaps before coding begins, and that keep the build honest once it is underway.</p>
+<p>In this module you are building a functional prototype of your own design, so you are both the designer and the developer handing off to yourself — or to a teammate. Four practices matter here: preparing assets and specifications so nothing has to be guessed, building reusable components first rather than screen-by-screen, reviewing the build against the design in short cycles, and catching design drift when implementation choices quietly diverge from the agreed interface.</p>
+<p>The videos below demonstrate these practices in Figma, the tool most commonly used for this workflow. As you watch, pay attention to what information the designer deliberately attaches to a file — annotations, flow diagrams, spacing values, exported assets, naming conventions — and ask whether your own project file carries enough of that information for someone to code from it without asking you questions. Also notice how components and styles in the design map onto reusable units in code; that mapping is the backbone of a component-first build.</p></div></details><details class="slide-card" id="p2-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Design to Development Handoff</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/F3w_GwBwhYE?cc_load_policy=1&amp;rel=0" title="Video: Design to Development Handoff (Jesse Showalter)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Jesse Showalter</strong> · 19:34 · 26,273 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=F3w_GwBwhYE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A long-form walkthrough of developer handoff in Figma, covering how to prepare a design file so that engineers can read specifications, measurements, and assets directly from it. Based on its title and description, it likely addresses file organization, naming, styles and components, and exporting assets for implementation. Expect practical, tool-centered demonstration rather than abstract theory.</p>
+<h4>Why this video</h4>
+<p>Jesse Showalter is a well-known design/front-end educator whose handoff tutorials are widely used, and this video maps directly onto the Design Handoff and Asset Preparation subtopic while touching on component structure.</p></div></details><details class="slide-card" id="p2-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Handing off designs to software engineers (using flows and annotations)</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/m2a0he54XAE?cc_load_policy=1&amp;rel=0" title="Video: Handing off designs to software engineers (using flows and annotations) (chunbuns)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>chunbuns</strong> · 7:36 · 160,071 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=m2a0he54XAE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short, focused look at how one designer preps a finalized file before giving it to engineers, emphasizing user flows and written annotations rather than isolated screens. The description makes the core argument explicit: individual screens do not capture the full user journey, so flows and notes are needed to communicate states, transitions, and edge cases.</p>
+<h4>Why this video</h4>
+<p>It targets exactly the information that usually goes missing in handoff — flow context and annotated behavior — which is the main source of design drift once coding starts, and at under eight minutes it is an efficient companion to the longer tutorials.</p></div></details><details class="slide-card" id="p2-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Figma Dev Mode 🤯</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/a7vr6z0MVYw?cc_load_policy=1&amp;rel=0" title="Video: Figma Dev Mode 🤯 (Jesse Showalter)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Jesse Showalter</strong> · 14:26 · 107,645 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=a7vr6z0MVYw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An overview of Figma's Dev Mode, the feature set built specifically for the design-to-code transition. It likely demonstrates inspecting elements for measurements and generated code snippets, marking sections as ready for development, and tracking changes between design and build.</p>
+<h4>Why this video</h4>
+<p>Dev Mode is the concrete mechanism most teams now use for iterative build and continuous review, so this video shows how component specs and updates flow to developers and how drift between file and code can be detected.</p></div></details><details class="slide-card" id="p2-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos support MO1 by showing how mockups, components, and assets are prepared and inspected so that a functional prototype can be coded from them with fidelity to the original interface design. The emphasis on flows, annotations, and documented states also feeds MO2, since the same flow documentation that guides developers becomes the basis for realistic task scripts in a user testing plan. Finally, the inspection and review practices demonstrated — comparing built screens against annotated specifications and marking work ready for development — give you a concrete method for MO3, verifying that the prototype actually meets the specified interface requirements before participants ever see it.</p></div></details><details class="slide-card" id="p2-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part3">
+<h2>Development Environment Setup and Use</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Development Environment Setup and Use</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Building a usable, testable prototype is not purely a design challenge — it is equally an engineering and operational challenge. Before the first line of prototype code is written, a team must make deliberate decisions about which tools they will use, how they will collaborate on the codebase, how they will work efficiently during the build phase, and how they will get the finished artifact into the hands of real test participants. Each of these concerns is interconnected: a poorly chosen technology stack can make rapid deployment difficult; a missing version-control discipline can cause the team to accidentally overwrite a working prototype hours before a test session; a local development workflow that no one has documented can leave a new team member unable to run the project at all. This topic addresses all four of these concerns as a unified body of professional practice.</p>
+
+<p><strong>Choosing an Appropriate Technology Stack</strong></p>
+
+<p>The most technically sophisticated stack is rarely the most appropriate one for a usability testing prototype. The fundamental goal of a prototype is to present realistic interaction patterns to test participants as quickly and reliably as possible — not to demonstrate engineering ambition. Stack selection should therefore be driven by three practical questions: What do we already know? What will deploy quickly? What do the test tasks actually require?</p>
+
+<p>Choosing technologies the team already knows dramatically reduces the time spent debugging environment issues rather than building the prototype itself. If everyone on the team is comfortable with plain HTML, CSS, and vanilla JavaScript, that combination will almost always outperform a team struggling to configure a framework they learned last week. Frameworks like React, Vue, or Svelte can be excellent choices when the team is already proficient with them, but they introduce build pipelines, module bundlers, and dependency graphs that add friction when time is short.</p>
+
+<p>The second criterion — support for rapid deployment to an accessible URL or device — rules out many architectures that would be entirely appropriate for a production system. A prototype does not need a containerized microservices backend. In the vast majority of usability test scenarios, the "backend" can be simulated with one of the following lightweight approaches:</p>
+
+<ul>
+  <li><strong>Static HTML/CSS/JS sites</strong> — Require no server-side runtime at all. They can be hosted on GitHub Pages, Netlify, Vercel, or Cloudflare Pages in minutes, often with a single command or a push to a repository branch.</li>
+  <li><strong>Mock APIs</strong> — Tools like <em>json-server</em>, <em>MSW (Mock Service Worker)</em>, or hosted services like <em>MockAPI.io</em> let the prototype make realistic HTTP requests that return pre-scripted JSON, simulating real backend behaviour without building any server logic.</li>
+  <li><strong>Local JSON data files</strong> — For prototypes that simply need to render lists, search results, or detail pages, a plain <code>.json</code> file fetched with the Fetch API is often sufficient. There is no database, no authentication layer, and no server to configure.</li>
+</ul>
+
+<p>The third criterion is that the stack must support the specific interaction patterns the test tasks require. If a task asks participants to fill out a multi-step form with inline validation, the team needs to be able to implement client-side form logic. If a task involves filtering a product catalogue, the team needs the ability to manipulate and re-render a list. These requirements should be mapped explicitly to stack capabilities before the decision is made, not discovered mid-build.</p>
+
+<p>A useful way to evaluate candidate stacks before committing is to score them against the criteria that matter most for the project:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stack Option</th>
+      <th>Team Familiarity</th>
+      <th>Deploy Speed</th>
+      <th>Supports Required Interactions</th>
+      <th>Overall Fit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Plain HTML + CSS + Vanilla JS</td>
+      <td>High</td>
+      <td>Very Fast</td>
+      <td>Moderate (sufficient for most tasks)</td>
+      <td>Excellent for simple–moderate prototypes</td>
+    </tr>
+    <tr>
+      <td>React + json-server mock API</td>
+      <td>Medium (if team knows React)</td>
+      <td>Fast (with Vite or CRA)</td>
+      <td>High (component-driven UI, state management)</td>
+      <td>Good when team is React-proficient</td>
+    </tr>
+    <tr>
+      <td>Next.js + Vercel</td>
+      <td>Medium–Low (SSR concepts)</td>
+      <td>Fast (Vercel integration)</td>
+      <td>High</td>
+      <td>Overkill unless SSR behaviour must be tested</td>
+    </tr>
+    <tr>
+      <td>Full custom backend (Node/Express + database)</td>
+      <td>Variable</td>
+      <td>Slow (infrastructure setup)</td>
+      <td>High</td>
+      <td>Almost never justified for a test prototype</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The takeaway from this analysis is almost always that simpler is better. A prototype that works reliably on a static hosting platform is worth far more to the research team than a sophisticated architecture that requires troubleshooting on the morning of a test session.</p>
+
+<p><strong>Setting Up Version Control</strong></p>
+
+<p>Version control is not an optional professional nicety — it is the single most important operational safeguard for a prototype project. Without it, the team has no reliable way to recover from mistakes, coordinate parallel work, or return to a known-good state before a test session. Git is the universal standard and should be initialized at the very beginning of the project, before any other files are created.</p>
+
+<p>The foundational practice is to commit frequently and to write descriptive commit messages. A commit message like <code>fix bug</code> is nearly useless in a project history. A message like <code>fix: validation error clears correctly on form step 2</code> allows any team member — including the original author a week later — to understand what changed and why. A widely used convention is the <em>Conventional Commits</em> format, which prefixes messages with a type such as <code>feat:</code>, <code>fix:</code>, <code>chore:</code>, or <code>refactor:</code>. This is not mandatory, but adopting <em>any</em> consistent convention is far better than having none.</p>
+
+<p>Branching is the mechanism that allows multiple team members to build different features or flows in parallel without interfering with each other's work. A simple but effective branching strategy for a small prototype project looks like this:</p>
+
+<ul>
+  <li><strong>main</strong> — Always contains the most recently verified, stable version of the prototype. Nothing is committed directly to <code>main</code> except through a reviewed merge.</li>
+  <li><strong>Feature branches</strong> — Named after the feature or flow being built (e.g., <code>feature/checkout-flow</code>, <code>feature/search-results-filter</code>). Each developer works in their own branch and merges into <code>main</code> when the feature is complete and tested locally.</li>
+  <li><strong>Fix branches</strong> — Short-lived branches for correcting specific bugs found during review or testing (e.g., <code>fix/mobile-nav-overflow</code>).</li>
+</ul>
+
+<p>One of the most practically valuable version-control habits for prototype work is <strong>tagging release-ready commits</strong>. Before each test session, the team should create a Git tag that marks the exact state of the prototype that will be tested:</p>
+
+<pre><code>git tag -a v1.0-session1 -m "Prototype state for usability test session 1, 2024-11-15"
+git push origin v1.0-session1</code></pre>
+
+<p>If a late-stage change introduced between sessions causes a critical failure, the team can immediately check out the tagged commit and redeploy it, rather than scrambling to diagnose and undo an unknown number of changes. This one practice has saved countless test sessions from preventable disaster.</p>
+
+<p>Teams should also document their conventions in a short file — often called <code>CONTRIBUTING.md</code> — stored in the repository itself. This file should specify the branching model, commit message format, and any other project-specific norms. When a new team member joins, they can read this file and immediately understand how to participate in the workflow without relying on verbal handoffs.</p>
+
+<p><strong>Local Development and Live Preview Workflows</strong></p>
+
+<p>Working efficiently during the build phase requires a local development environment that reduces friction between making a change and seeing its effect. The most impactful capability is <strong>automatic browser refresh on file save</strong>, commonly called "hot reload" or "live reload." Without this, developers must manually switch to the browser and refresh after every change — a small friction that adds up to significant wasted time and broken concentration over a full day of work.</p>
+
+<p>Most modern development toolchains include this capability out of the box. Some common examples:</p>
+
+<ul>
+  <li><strong>Vite</strong> — Starts a local dev server with <code>npm run dev</code> and provides near-instant hot module replacement for React, Vue, Svelte, and plain JavaScript projects.</li>
+  <li><strong>Parcel</strong> — Zero-configuration bundler that automatically serves files and refreshes the browser on save.</li>
+  <li><strong>Live Server</strong> (VS Code extension) — The simplest possible option for plain HTML/CSS/JS projects; right-click an HTML file and select "Open with Live Server."</li>
+  <li><strong>Browsersync</strong> — Particularly useful for testing across multiple devices simultaneously, as it synchronises scroll position and interactions across all connected browsers.</li>
+</ul>
+
+<p>Cross-browser and cross-device testing should happen continuously throughout development, not as a single step at the very end. It is far easier to fix a layout that breaks on Safari or a tap target that is too small on mobile when the issue is discovered immediately after the relevant code is written. Discovering these issues the day before a test session means fixing them under time pressure, which invites new bugs. A practical habit is to open the prototype in at least two browsers (typically Chrome and Safari or Firefox) and at a mobile viewport size after completing each significant feature.</p>
+
+<p>Browser developer tools are an essential part of the local development workflow and deserve deliberate attention. The key capabilities relevant to prototype development include:</p>
+
+<ul>
+  <li><strong>Elements / Inspector panel</strong> — Allows real-time inspection and editing of the DOM and CSS. Invaluable for diagnosing layout issues without touching the source files.</li>
+  <li><strong>Console</strong> — Displays JavaScript errors, warnings, and <code>console.log()</code> output. The first place to look when an interaction is not behaving as expected.</li>
+  <li><strong>Network panel</strong> — Shows all HTTP requests made by the page, including requests to mock APIs or JSON files. Useful for confirming that data is being fetched correctly and for diagnosing failed requests.</li>
+  <li><strong>Device toolbar / Responsive Design Mode</strong> — Simulates different screen sizes and pixel densities. Not a substitute for testing on real devices, but an efficient way to catch obvious layout problems early.</li>
+  <li><strong>Performance and Accessibility panels</strong> — Less critical for prototype work but useful if the test tasks involve performance perception or if accessibility is an explicit research focus.</li>
+</ul>
+
+<p>The local environment configuration must be documented. This means writing a <code>README.md</code> file that any team member can follow to get the project running from scratch on a new machine. At minimum, this documentation should specify: the required runtime versions (e.g., Node.js 20.x), the installation command (e.g., <code>npm install</code>), and the command to start the development server (e.g., <code>npm run dev</code>). If environment variables are needed, the README should list which variables are required and how to obtain values for them — never the actual secret values themselves. A team that can onboard a new contributor in under ten minutes from a documented README has solved a problem that many prototype teams ignore until it becomes urgent.</p>
+
+<p><strong>Deploying the Prototype for Testing</strong></p>
+
+<p>Deployment is the point at which the prototype transitions from a private development artifact to a live testing tool, and it introduces an entirely different class of risks. The most important principle of deployment is timing: the prototype should be deployed to its final testing URL significantly in advance of the first test session — ideally at least 24 to 48 hours ahead. This buffer allows time to discover and resolve environment-specific issues that do not appear during local development, such as broken asset paths, CORS errors when the domain changes, or missing environment variables on the hosting platform.</p>
+
+<p>Before a test session, the deployed prototype must be validated against the same conditions participants will experience. This means:</p>
+
+<ul>
+  <li><strong>Device types</strong> — If participants will use smartphones, the prototype must be tested on actual smartphones, not only in the browser's device simulator. Real devices expose issues with touch handling, font rendering, and viewport behaviour that simulators miss.</li>
+  <li><strong>Network conditions</strong> — If participants will access the prototype over a home broadband connection or cellular data, testing only on a fast office network can produce false confidence. Tools like Chrome's network throttling option in the developer tools can simulate slower connections, and cloud-based testing platforms can test from real network locations.</li>
+  <li><strong>Browsers</strong> — Know which browser participants will use (often specified in the recruitment screener) and validate the prototype in exactly that browser and version.</li>
+</ul>
+
+<p>Any accounts, login credentials, or pre-populated test data required by the test tasks must be configured in the deployed environment before testing begins — not as an afterthought. If a task requires a participant to log in as a specific user and see a personalised dashboard, that user account and its associated data must exist and be in the correct state. If the same test account will be used across multiple sessions, the team must have a documented reset procedure that restores the account to its baseline state between sessions.</p>
+
+<p>Perhaps the most commonly overlooked deployment practice is having a <strong>rollback plan</strong>. A rollback plan answers the question: if the deployed prototype breaks critically five minutes before a test session, what do we do? The answer should be specific and pre-tested, not improvised under pressure. A well-formed rollback plan might look like this:</p>
+
+<ul>
+  <li>The previous stable version is tagged in Git (e.g., <code>v1.0-session2</code>) and can be checked out immediately.</li>
+  <li>The deployment command to push that tagged version to the hosting platform is documented and verified to work.</li>
+  <li>One team member has the credentials and access necessary to trigger the deployment.</li>
+  <li>The team has estimated that the rollback process takes no more than five minutes, giving them a realistic option even close to session start time.</li>
+</ul>
+
+<p>Popular static hosting platforms such as Netlify and Vercel provide built-in deployment history and one-click rollback to any previous deployment, which makes this plan trivial to execute. Teams using these platforms should familiarise themselves with the rollback interface before they need it urgently, not during a crisis.</p>
+
+<p>The discipline of thorough deployment preparation reflects a broader principle: the prototype exists to serve the research, and the research cannot produce valid findings if the prototype fails during the session. Every practice described in this topic — from choosing an appropriate stack to having a documented rollback plan — is ultimately in service of the same goal: ensuring that when a participant sits down to complete a task, the prototype works exactly as intended.</p>
+        <div class="notes"><strong>Notes</strong>Instructors may wish to pair this topic with a hands-on lab in which students initialize a Git repository, configure a live-reload development server, deploy to a static hosting platform (e.g., GitHub Pages or Netlify), and practice tagging a release and executing a rollback. The table comparing stack options can be used as a discussion prompt for stack selection decisions. Emphasize that the concepts here apply regardless of the specific tools chosen — the principles of familiarity, simplicity, continuous cross-device testing, and pre-session deployment validation are tool-agnostic.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p3-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Before you can build a functional prototype, you need a place to build it. A development environment is the combination of tools you install and configure on your own machine — a language runtime, a framework, an editor, a package manager, a version control system, and a way to preview your work as you change it. Setting this up deliberately, rather than improvising, saves hours of confusion later and makes it possible for teammates to run the same project without surprises.</p>
+<p>In this course the environment matters because your prototype has to be reachable by real test participants. That means choosing a technology stack you can actually finish in the time available, tracking your work in version control so changes are recoverable and attributable, running a local server with live reload so you can iterate quickly on interface details, and finally deploying a build somewhere participants can open it on their own devices.</p>
+<p>The videos below approach this from three angles: a hands-on front-end setup walkthrough, a conceptual map of back-end options, and a focused look at isolating project dependencies. As you watch, pay attention to the setup steps themselves — what gets installed, what commands are run, what a project folder ends up looking like — and to the reasoning behind each tool choice. Ask yourself which parts your team's prototype actually needs and which are unnecessary complexity for a prototype that only has to survive a usability session.</p></div></details><details class="slide-card" id="p3-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: React For Beginners #1 - Introduction &amp; Environment Setup</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Ma6DRDIedVE?cc_load_policy=1&amp;rel=0" title="Video: React For Beginners #1 - Introduction &amp; Environment Setup (Tech With Tim)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Tech With Tim</strong> · 11:13 · 113,371 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=Ma6DRDIedVE" target="_blank" rel="noopener">Watch on YouTube</a></p></div></details><details class="slide-card" id="p3-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Backend web development - a complete overview</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/XBu54nfzxAQ?cc_load_policy=1&amp;rel=0" title="Video: Backend web development - a complete overview (SuperSimpleDev)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>SuperSimpleDev</strong> · 12:58 · 2,933,037 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=XBu54nfzxAQ" target="_blank" rel="noopener">Watch on YouTube</a></p></div></details><details class="slide-card" id="p3-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Python Virtual Environments - Full Tutorial for Beginners</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Y21OR1OPC9A?cc_load_policy=1&amp;rel=0" title="Video: Python Virtual Environments - Full Tutorial for Beginners (Tech With Tim)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Tech With Tim</strong> · 9:05 · 392,649 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=Y21OR1OPC9A" target="_blank" rel="noopener">Watch on YouTube</a></p></div></details><details class="slide-card" id="p3-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos give you the practical foundation for MO1: you cannot develop a functional prototype without a working stack, a running local server, and a project structure that your team can share and rebuild. The backend overview helps you scope your technology choices realistically so the core features in your requirements are achievable, while the React setup walkthrough and the virtual environment tutorial establish the reproducible local workflow you will use throughout the build. That same reproducibility underpins MO3 — being able to run, rebuild, and deploy a known version of your prototype is what lets you check it against the interface requirements before participants see it, and a deployed, stable build is the precondition for executing the testing plan you design under MO2.</p></div></details><details class="slide-card" id="p3-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part4">
+<h2>Designing User Proficiency Surveys</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Designing User Proficiency Surveys</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Before a usability session begins, researchers face a fundamental question: <em>who, exactly, is sitting in front of the prototype?</em> A participant's prior experience with technology, their familiarity with a particular domain, and their history with similar products can dramatically shape how they interact with an interface — and therefore how useful their session data will be. Proficiency surveys are the structured instrument researchers use to answer that question systematically. Administered before any tasks begin, these short questionnaires capture the background characteristics of each participant, enabling rigorous, evidence-based interpretation of everything that follows. Without them, a researcher who observes one participant completing a checkout flow in ninety seconds and another taking eight minutes has no principled way to explain the gap. With well-designed proficiency data in hand, that same researcher can determine whether the slower participant is a first-time e-commerce user, an older adult with limited touchscreen experience, or simply someone who falls outside the intended user profile altogether.</p>
+
+<p>Understanding why proficiency surveys matter — and then learning to build them carefully — is one of the highest-leverage skills in the usability practitioner's toolkit. The sections below work through four interconnected areas: the purpose and value these instruments serve, how to identify which proficiency dimensions actually matter for a given study, how to write questions that produce clean and comparable data, and how to structure and deliver the survey so it fits smoothly into the overall research session.</p>
+
+<p><strong>Purpose and Value of Proficiency Surveys</strong></p>
+
+<p>Proficiency surveys do several distinct jobs simultaneously, and appreciating each one explains why this step is worth investing in rather than skipping or improvising.</p>
+
+<p>The first and most immediate function is <strong>recruitment verification</strong>. Any usability study is designed around a target user profile — a description of the people the product is built for. Recruiting processes try to find participants who match that profile, but screening calls are imperfect. A participant may have accurately described themselves as a "regular smartphone user" during recruitment but turn out to use only a handful of apps and never interact with settings menus. A proficiency survey administered at the start of the session provides a second, more granular pass at the same question. If a participant's survey responses reveal a significant mismatch with the target profile, the researcher can make an informed decision about how much weight to give that session's data — or, in extreme cases, whether to pause and address the discrepancy before continuing.</p>
+
+<p>The second function is enabling <strong>stratified analysis</strong>. Usability findings become far more actionable when a team can say not just "users had trouble with the navigation menu" but "users with fewer than two years of experience with cloud-based tools consistently missed the navigation menu, while users with more extensive backgrounds navigated successfully on the first attempt." That level of specificity guides design decisions in a way that pooled, undifferentiated findings cannot. Stratified analysis requires that proficiency data be collected <em>before</em> the session so that groupings are defined independently of performance outcomes.</p>
+
+<p>The third function is <strong>preventing post-hoc rationalization</strong>. Human memory is constructive, not archival. If a researcher waits until after observing a difficult session to ask a participant about their background, the researcher's interpretation of that background — and the participant's own self-report — may be subtly colored by how the session went. Collecting proficiency data first creates a clean baseline that is logically prior to, and therefore uncontaminated by, task performance. This is especially important in studies that will be shared with stakeholders who may be tempted to explain away unflattering results.</p>
+
+<p>Finally, proficiency surveys contribute to <strong>reproducibility and cross-study comparability</strong>. When a research team uses consistent proficiency instruments across studies conducted at different points in time or across different products, they build a richer picture of how user characteristics relate to usability outcomes. Organizations that invest in standardized proficiency items can eventually draw on accumulated data to make predictions — for instance, anticipating which user segments are likely to need additional onboarding support when a redesign is released.</p>
+
+<p><strong>Identifying Relevant Proficiency Dimensions</strong></p>
+
+<p>Not every conceivable aspect of a participant's background is relevant to every study. Including unnecessary questions wastes participant time, increases cognitive burden, and can make the survey feel invasive or unfocused. The starting point for building a proficiency survey is therefore a deliberate, principled exercise in identifying which participant characteristics are <em>theoretically linked</em> to performance on the specific tasks being tested.</p>
+
+<p>A useful organizing framework distinguishes three broad categories of proficiency:</p>
+
+<ul>
+  <li><strong>General digital literacy.</strong> This captures how comfortable and capable a person is with technology broadly — not with any specific product, but with digital environments in general. Relevant items might ask about frequency of smartphone use, comfort with installing and configuring apps, experience with web-based forms and account creation, or self-assessed ability to troubleshoot common device problems. General digital literacy is relevant to almost any study involving software or hardware, because it sets a ceiling on the kinds of interface conventions a participant can be expected to recognize without explanation.</li>
+  <li><strong>Domain expertise.</strong> This dimension captures knowledge of the subject matter that the product addresses, independent of the product itself. A study of a clinical decision-support tool should assess medical training and clinical experience, because a nurse practitioner and a layperson will interpret the same interface labels very differently. A study of a personal finance app should assess familiarity with concepts like compound interest, investment accounts, and budget categories. Domain expertise matters when the product's language, information architecture, or task logic mirrors professional or specialized knowledge that not all users share.</li>
+  <li><strong>Prior product experience.</strong> This dimension covers familiarity with the specific product under test and with competing or functionally similar products. A participant who has used a competitor's project management platform for three years brings mental models that may either transfer productively or create interference when they encounter the new interface. Capturing this history allows the researcher to interpret navigation choices and error patterns in light of what the participant already expects the product to do.</li>
+</ul>
+
+<p>To decide which dimensions belong in a given survey, work backward from the research questions and test tasks. Ask: <em>If two participants performed very differently on this task, what background differences would most plausibly explain the gap?</em> Any characteristic that appears in the answer to that question is a candidate for inclusion. Any characteristic that does not appear is probably not worth asking about.</p>
+
+<p>Demographic items — age, education level, occupation, geographic region — occupy a special category. They should be included only when they are directly relevant to the research questions, not as a default. Age is relevant when the product is designed for or is known to behave differently with specific age groups, or when cognitive or motor considerations tied to age are part of the research focus. Education level is relevant when it serves as a practical proxy for domain knowledge or literacy. Including demographics simply because they are customary, or to satisfy a general curiosity, risks making participants feel profiled and can undermine trust without adding analytical value.</p>
+
+<p>A practical discipline is to list every item being considered and, for each one, write a single sentence explaining exactly how that item's data will be used in the analysis. If a convincing sentence cannot be written, the item should be cut. This exercise keeps surveys lean and respects participant time — the survey should be completable in five to ten minutes, not because that is an arbitrary norm, but because a longer survey fatigues participants before the actual session begins and may bias their behavior in the tasks that follow.</p>
+
+<p><strong>Writing Effective Survey Questions</strong></p>
+
+<p>Even when the right dimensions have been identified, poorly written questions will produce unreliable data. Survey question quality is not a minor stylistic concern; it directly determines whether different participants interpret items in the same way, which is the precondition for comparing their responses meaningfully.</p>
+
+<p>The first principle is <strong>plain, unambiguous language</strong>. Every word in a question should be understandable to someone at the low end of the target user spectrum. Avoid technical jargon unless the term is specifically what is being assessed. Compare these two versions of the same item:</p>
+
+<ul>
+  <li><em>Weak:</em> "How proficient are you with asynchronous collaborative digital productivity ecosystems?"</li>
+  <li><em>Strong:</em> "How often do you use tools like Google Docs, Microsoft 365, or Notion to work on documents with other people?"</li>
+</ul>
+
+<p>The strong version names specific, recognizable examples, uses everyday vocabulary, and anchors the question in a concrete behavior (frequency of use) rather than a self-assessed trait (proficiency), which participants find easier to report accurately.</p>
+
+<p>The second principle is <strong>avoiding double-barreled questions</strong>. A double-barreled question asks about two distinct things within a single item, making it impossible to know which part a participant is responding to. For example: "How comfortable are you with setting up new software applications and troubleshooting errors?" A participant who is confident installing software but anxious about troubleshooting has no correct way to answer this. The solution is to split every compound question into two separate items.</p>
+
+<p>The third principle is <strong>providing mutually exclusive and collectively exhaustive response options</strong>. Response options are <em>mutually exclusive</em> when no participant can reasonably place themselves in two categories at once. They are <em>collectively exhaustive</em> when every participant can place themselves in at least one category. Both properties are essential for clean data.</p>
+
+<p>Consider frequency response options for a question about how often a participant uses a particular type of software:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Problematic Options</th>
+      <th>Why They Fail</th>
+      <th>Improved Options</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Daily / Weekly / Sometimes / Rarely</td>
+      <td>"Sometimes" and "rarely" overlap; a participant who uses the tool once a month could choose either. "Daily" and "weekly" overlap for someone who uses it five days a week.</td>
+      <td>Every day / A few times a week / A few times a month / Less than once a month / Never</td>
+    </tr>
+    <tr>
+      <td>1–2 years / 3–5 years / 5+ years</td>
+      <td>Someone with exactly 5 years of experience could select either the second or third option. Participants with less than 1 year have no option.</td>
+      <td>Less than 1 year / 1–2 years / 3–4 years / 5 or more years</td>
+    </tr>
+    <tr>
+      <td>Beginner / Intermediate / Expert</td>
+      <td>These labels are interpreted differently by different people; self-assessed "experts" may be the most prone to overestimation.</td>
+      <td>Pair a behavioral anchor with each label, e.g., "Beginner — I can perform basic tasks but often need help" / "Intermediate — I can complete most tasks independently" / "Advanced — I can complete all tasks independently and help others"</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The fourth principle is <strong>pilot testing</strong>. Before deploying the survey with actual participants, circulate a draft to colleagues or friends who represent the range of backgrounds in the target population. Ask them to complete the survey and then talk through their interpretation of each item. This cognitive interviewing process — even done informally — reliably surfaces confusing wording, ambiguous response options, and questions that feel sensitive or off-putting. It is far less costly to revise a question before data collection than to discover after twenty sessions that an item was interpreted in two incompatible ways by different participants.</p>
+
+<p>A few additional question-writing practices are worth noting:</p>
+
+<ul>
+  <li><strong>Use behavioral indicators rather than self-assessments wherever possible.</strong> "How many years have you been using spreadsheet software?" produces more comparable data than "How skilled are you with spreadsheets?" because frequency and duration are more concrete than perceived skill.</li>
+  <li><strong>Avoid leading language.</strong> Phrasing like "As an experienced computer user, how do you…" primes participants to present themselves as more capable than they may be. Questions should be neutrally worded so that all response options feel equally socially acceptable.</li>
+  <li><strong>Consider whether Likert scales or categorical scales are more appropriate for each item.</strong> Likert scales ("Strongly agree" to "Strongly disagree") work well for measuring attitudes and self-perceptions. Categorical or frequency scales work better for measuring behaviors and experiences. Mixing scale types intentionally and deliberately — not arbitrarily — improves data quality.</li>
+</ul>
+
+<p><strong>Structuring and Administering the Survey</strong></p>
+
+<p>A well-written set of questions can still produce a poor survey experience if those questions are arranged poorly or delivered through an ill-suited medium. Structure and administration decisions affect both the participant's experience and the quality of the data collected.</p>
+
+<p>On <strong>question ordering</strong>, the standard best practice is to move from general to specific. Begin with broad items about general technology use, then move to items about relevant domains, then to items about the specific product or product category under test. This progression mirrors natural conversation and helps participants orient themselves before being asked about narrower, potentially unfamiliar topics. Grouping related questions together — all frequency-of-use items in one section, all experience-duration items in another — reduces the cognitive overhead of switching between different types of judgment. Within each group, place easier, more straightforward items first to build momentum and put participants at ease before they reach any items that require more reflection.</p>
+
+<p>On <strong>length</strong>, the practical target of five to ten minutes is not arbitrary. Research on survey fatigue consistently shows that response quality declines as survey length increases, with the steepest drop-off occurring after about ten minutes for populations who did not seek out the survey. Because usability participants are typically arriving to complete tasks, not to answer questionnaires, keeping the proficiency survey brief also respects the implicit contract: their time and attention are being recruited primarily for the usability session, not the background questions. If a draft survey would take longer than ten minutes to complete at a reasonable reading pace, apply the analytical-utility test described earlier and cut any item for which a convincing analytical use case cannot be stated.</p>
+
+<p>On <strong>mode of administration</strong>, researchers have two main options: online delivery before the session or on-site delivery at the start. Each has genuine advantages:</p>
+
+<ul>
+  <li><strong>Online, pre-session delivery</strong> allows participants to complete the survey at their own pace, in a comfortable environment, without the slight social pressure of completing it while a researcher watches. Responses arrive before the session, giving the researcher time to review them and tailor any follow-up probes accordingly. This mode works especially well for remote usability studies and for studies where confirming participant fit in advance is important. The main risks are that participants may not complete the survey before arriving, or may share it with others, though the latter is rarely a practical concern for proficiency surveys.</li>
+  <li><strong>On-site, start-of-session delivery</strong> ensures that every participant completes the survey in a controlled environment and that responses are collected immediately before tasks begin, minimizing any time-lag effects. It also allows the moderator to answer clarifying questions about items in real time. The main risks are that on-site completion consumes session time and that participants may feel mild pressure to complete the survey quickly, reducing thoughtfulness.</li>
+</ul>
+
+<p>In practice, many research teams use a hybrid approach: a brief pre-session survey handles the most essential screening and background items, while a short on-site supplement captures any remaining items that benefit from the moderator's presence.</p>
+
+<p>On <strong>platform and data security</strong>, the survey tool must store responses in a format that is both secure and analytically accessible. Participants should be informed about how their data will be stored, who will have access to it, and how it will be used — both as an ethical obligation and as a practical measure to ensure honest responses. Survey data that will be analyzed quantitatively should be collected in a structured format (e.g., multiple-choice items with defined response values) that can be exported directly to a spreadsheet or statistical package without manual transcription, which introduces error. Free-text fields, while sometimes valuable for capturing nuanced background information, should be used sparingly and only when the research team has a clear plan for how to code and analyze the responses.</p>
+
+<p>Taken together, these four areas — purpose, dimension identification, question writing, and administration — form a coherent design process. A researcher who works through each stage thoughtfully will produce a proficiency survey that is short but analytically powerful, easy for participants to complete, and capable of supporting the nuanced, credible interpretations that distinguish excellent usability research from surface-level observation.</p>
+        <div class="notes"><strong>Notes</strong>Covers all four listed subtopic clusters in depth. Tabular data rendered as a proper HTML table comparing problematic and improved response options. No headings used; structure is carried entirely through strong tags and paragraph flow as specified.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p4-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Before a participant ever touches your prototype, you need to know something about them. A user proficiency survey is a short pre-test instrument that captures a participant's background, their familiarity with relevant technology, and their knowledge of the task domain. Without it, usability data is hard to interpret: a confusing task result might reflect a flawed interface, or it might simply reflect a participant who has never used software of that kind before.</p>
+<p>In this topic you will decide which proficiency dimensions actually matter for your project (for example, frequency of use of similar tools, years of domain experience, device preferences, accessibility needs), then write questions that measure those dimensions without leading, biasing, or confusing the respondent. You will also think about structure and administration: question order, response scales, survey length, and when and how the survey is delivered relative to the test session.</p>
+<p>The three videos below come from UX practitioners and focus on the craft of asking questions well. As you watch, pay close attention to the specific wording problems they flag — leading questions, double-barreled questions, vague scales, assumptions baked into the prompt — and keep a running list of fixes you can apply directly to your own pre-test survey draft.</p></div></details><details class="slide-card" id="p4-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: UX Research: How to Avoid Survey Mistakes</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ockM9XEqHN0?cc_load_policy=1&amp;rel=0" title="Video: UX Research: How to Avoid Survey Mistakes (UX in the Head)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>UX in the Head</strong> · 9:33 · 8,758 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=ockM9XEqHN0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video looks at why surveys are such a popular UX research method and then walks through the common mistakes that produce unreliable data. Based on its description, expect coverage of flawed question wording, poor survey design choices, and the kinds of errors that lead to results you cannot trust. It is framed around diagnosing and avoiding problems rather than simply praising surveys as a method.</p>
+<h4>Why this video</h4>
+<p>It speaks directly to the "writing effective survey questions" and "structuring and administering the survey" subtopics, and the mistake-focused framing gives you a practical checklist to review your own proficiency survey against before you send it to participants.</p></div></details><details class="slide-card" id="p4-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: 5 Tips for creating effective user research questions (+ free question bank) | Maze</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/5YfKq_qbOks?cc_load_policy=1&amp;rel=0" title="Video: 5 Tips for creating effective user research questions (+ free question bank) | Maze (Maze)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Maze</strong> · 9:26 · 3,993 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=5YfKq_qbOks" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Maze, a research and testing platform company, offers five tips for creating effective user research questions and points to a free question bank you can draw from. The video's premise is that research quality is capped by question quality, so it concentrates on asking the right things in the right way. The accompanying question bank gives you concrete phrasing examples to adapt.</p>
+<h4>Why this video</h4>
+<p>The tip-based format and the downloadable question bank are immediately useful when you are drafting items for proficiency dimensions such as technology familiarity and domain experience, and the producer builds research tooling used in industry.</p></div></details><details class="slide-card" id="p4-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: UX Research: Asking The Right User Interview Questions</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/H_SjVyKNXHE?cc_load_policy=1&amp;rel=0" title="Video: UX Research: Asking The Right User Interview Questions (UX in the Head)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>UX in the Head</strong> · 10:03 · 13,837 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=H_SjVyKNXHE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This video focuses on user interview questions: which ones to ask, which to avoid, and how phrasing shapes the answers you get. Although it is framed around live interviews rather than written surveys, the underlying principles of neutral, non-leading, answerable questions transfer directly. It also helps you see when a question is better asked face-to-face than on a form.</p>
+<h4>Why this video</h4>
+<p>It reinforces question-writing discipline from a second angle and helps you decide how to administer your proficiency screening — as a written pre-test survey, as a brief verbal intake, or as a combination of both.</p></div></details><details class="slide-card" id="p4-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos support MO2 most directly: a proficiency survey is one of the data collection instruments in your user testing plan, and the responses you gather also inform your participant criteria and screening decisions. Learning to write neutral, precise questions means the background data you collect will actually explain patterns in your test results rather than muddy them. Indirectly, this work also supports MO1 and MO3, since knowing your participants' skill levels clarifies which prototype features must be functional and verifiable before testing begins.</p></div></details><details class="slide-card" id="p4-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part5">
+<h2>Designing Usability Testing Protocols</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Designing Usability Testing Protocols</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>A usability testing protocol is the foundational document that governs every aspect of a user study — from the moment a participant walks through the door (or joins a video call) to the final note taken after they leave. Without a carefully designed protocol, testing sessions can drift in unpredictable directions: facilitators may phrase tasks differently across sessions, note-takers may capture inconsistent data, and the environment may vary enough that results from one session become incomparable to results from another. A well-constructed protocol eliminates this variability by specifying, in advance and in writing, exactly what will happen, when it will happen, and who is responsible for making it happen. The result is a study whose findings genuinely reflect how real people interact with a design — not how a particular facilitator happened to conduct a session on a particular day.</p>
+
+<p>Designing a usability testing protocol is an iterative, collaborative act. It requires thinking simultaneously about research goals, participant experience, team coordination, and data quality. Each section of the protocol feeds the others: the research objectives shape which tasks get written, the tasks shape the facilitator script, the script shapes what data gets collected, and the logistics shape whether any of it can actually be executed reliably. Understanding how these pieces fit together — and why each one matters — is the core skill this topic develops.</p>
+
+<p><strong>Anatomy of a Usability Testing Protocol</strong></p>
+
+<p>A complete usability testing protocol is a single, authoritative document that every team member can reference before, during, and after a session. Treating it as a living specification — rather than a loose collection of notes — is what transforms ad hoc observation into rigorous, repeatable research. At minimum, a protocol covers five core areas: study objectives, participant criteria, task scenarios, a facilitator script, and data collection procedures.</p>
+
+<p><strong>Study objectives</strong> articulate the specific questions the study is designed to answer. They should be precise enough that a team member who did not attend the planning meetings could read them and understand exactly what the study is trying to learn. A vague objective like "see how people use the checkout flow" is far less useful than "determine whether first-time users can locate and apply a discount code without assistance during the checkout process." Specific objectives keep tasks focused and prevent scope creep during analysis.</p>
+
+<p><strong>Participant criteria</strong> define who qualifies to take part in the study. These criteria flow directly from the target user population identified during earlier research phases and typically include demographics, domain knowledge, experience with related products, and any exclusion criteria. For example, a study of a healthcare appointment-booking tool might require participants who have booked a medical appointment at least once in the past year, own a smartphone, and are not employed in healthcare IT — because healthcare IT professionals may have atypical mental models of booking interfaces.</p>
+
+<p><strong>Task scenarios</strong> describe what participants will be asked to do. They are distinct from a simple list of features to test; instead, they are realistic, goal-oriented situations written from the participant's perspective. Task design is covered in depth below.</p>
+
+<p><strong>A facilitator script</strong> provides verbatim language for every point in the session where the facilitator speaks — the welcome, the think-aloud instructions, the prompts, the task introductions, and the closing debrief. Writing the script verbatim is critical because it ensures every participant receives the same information and cues, regardless of which team member is facilitating. Verbal variation between sessions is one of the most common — and most overlooked — sources of noise in usability data.</p>
+
+<p><strong>Data collection procedures</strong> specify what data will be gathered, in what format, by whom, and using which tools. These procedures are inseparable from the rest of the protocol: if the tasks do not define completion criteria, data collectors cannot reliably score task success; if roles are not assigned, two note-takers may capture redundant information while critical behavioral observations go unrecorded.</p>
+
+<p>Standardizing procedures across sessions is not merely a methodological nicety — it is what makes the data interpretable. If one participant is given a task in a quiet room with the facilitator seated across a table, while another completes the same task in a noisy open-plan office with the facilitator hovering behind them, any performance difference between the two could reflect the environment rather than the design. The protocol eliminates this ambiguity by specifying the environment setup required for each session: the physical arrangement of the room, the configuration of the device or prototype, the presence or absence of observers, and — for remote studies — the screen-sharing software, camera placement, and internet connection requirements.</p>
+
+<p>Finally, all team members — UX researchers, designers, product managers, and any stakeholders who will observe sessions — should review the protocol and formally sign off before testing begins. This review process serves multiple purposes. It surfaces ambiguities in task wording that only a designer who built the interface might notice. It ensures that observers understand their role and will not intervene during sessions. It creates shared ownership of the methodology, which in turn makes it easier to achieve consensus during analysis. A simple sign-off log at the front of the protocol document — listing each reviewer, their role, and the date they approved — is sufficient for most teams.</p>
+
+<p><strong>Writing Task Scenarios</strong></p>
+
+<p>Task scenarios are arguably the most consequential part of a usability testing protocol. They are the instrument through which research objectives are translated into observable participant behavior. Poorly written tasks can invalidate an entire study: if tasks are too directive, they tell participants what to do rather than revealing how they naturally approach a problem; if tasks are too vague, participants spend time trying to understand the task rather than interacting with the design.</p>
+
+<p>The foundational principle of task scenario writing is <em>realistic framing</em>. Tasks should present participants with a goal or situation — the kind of thing a real user might be trying to accomplish — rather than a procedural instruction. Compare these two formulations:</p>
+
+<ul>
+  <li><strong>Instruction-style (avoid):</strong> "Click on the 'My Account' tab, then select 'Order History,' and find your most recent order."</li>
+  <li><strong>Scenario-style (preferred):</strong> "You placed an order last week and want to check whether it has shipped yet. Please go ahead and do that."</li>
+</ul>
+
+<p>The instruction-style task tells the participant exactly which interface elements to interact with, effectively guiding them through the design and masking any navigational confusion they might otherwise experience. The scenario-style task gives them a realistic goal and lets the interface succeed or fail on its own merits.</p>
+
+<p>A closely related principle is the prohibition on including interface labels or navigation cues within the task wording. If the navigation bar has an item labeled "Order History," a task that says "find your order history" primes participants to scan for that exact label. The task has now become a visual search exercise rather than a test of information architecture. Instead, frame tasks in the language of the user's goal: "check whether your package has shipped," "find out when your item will arrive," "see what you ordered last week." These phrasings all test the same flow without contaminating the data with interface terminology.</p>
+
+<p>Each task should map explicitly to one or more research questions or usability hypotheses documented in the study objectives. This mapping should be recorded in the protocol itself, because it makes analysis more efficient and ensures that no objective goes untested. A simple mapping table works well:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>Research Question / Hypothesis</th>
+      <th>Completion Criterion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Check whether your order has shipped</td>
+      <td>Can users locate order status without using search?</td>
+      <td>Participant reaches the order detail page showing tracking status</td>
+    </tr>
+    <tr>
+      <td>Apply a discount code at checkout</td>
+      <td>Is the discount code field discoverable during checkout?</td>
+      <td>Participant successfully applies a code and sees the reduced price</td>
+    </tr>
+    <tr>
+      <td>Update your delivery address</td>
+      <td>Can users edit account information without calling support?</td>
+      <td>Participant saves a new address and sees the confirmation message</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A well-designed task set includes both <strong>primary tasks</strong> and <strong>secondary tasks</strong>. Primary tasks test the core functionality that the product must support for users to accomplish their main goals — in an e-commerce context, this might be finding a product, adding it to a cart, and completing a purchase. Secondary tasks test peripheral or supporting functionality: saving a product for later, comparing two items, or accessing help documentation. Including secondary tasks matters because usability problems in peripheral features can erode trust and engagement even when core functionality works well.</p>
+
+<p>Completion criteria deserve particular attention. Without an explicit definition of what counts as task completion, two facilitators observing the same session may score it differently, making cross-session comparison unreliable. Completion criteria should describe a specific, observable state: a confirmation page appearing, a success message displaying, the participant navigating to a particular screen, or the participant explicitly stating they believe they have finished. Criteria should also address edge cases — for example, "if the participant reaches the confirmation page but the discount was not applied, the task is scored as a partial success and the facilitator records the specific failure point."</p>
+
+<p>The sequence of tasks within a session also requires deliberate design. Tasks should generally progress from simpler and less anxiety-inducing to more complex, allowing participants to acclimate to the think-aloud protocol before facing cognitively demanding scenarios. If task order is likely to introduce learning effects — where completing one task makes a related task easier — counterbalancing or randomizing task order across participants is advisable, with the randomization scheme documented in the protocol.</p>
+
+<p><strong>Developing Facilitator Scripts</strong></p>
+
+<p>The facilitator script is the protocol's most human-facing component. It governs every word the facilitator speaks during a session and is the primary mechanism for ensuring that every participant experiences the study in the same way. A common mistake is to write the script as a set of bullet-point reminders rather than verbatim text, leaving facilitators to improvise the actual words. This introduces the very variability the protocol is designed to eliminate. Every section of the script should be written in full sentences, ready to be read aloud.</p>
+
+<p>The script opens with an <strong>introduction</strong> that covers several essential points: the purpose of the study (explained in participant-friendly terms, without revealing specific hypotheses), the voluntary nature of participation and the right to withdraw at any time, the consent and recording process, and the think-aloud instructions. The think-aloud explanation deserves special care because most people find it unnatural to narrate their own behavior. An effective introduction uses an analogy and a brief practice exercise:</p>
+
+<pre><code>"Before we begin, I want to explain what we mean by 'thinking aloud.' 
+As you work through each task, I'd like you to say out loud whatever 
+is going through your mind — what you're looking at, what you're 
+expecting to happen, what's confusing or surprising. It's a bit like 
+narrating your own actions for someone who can't see the screen. 
+
+Let me give you a quick example. If I were searching for a restaurant 
+online, I might say: 'Okay, I'm typing the neighborhood into the search 
+bar... I see a list of results... I'm going to sort by rating because 
+I want a highly-rated place... this one looks good, I'll click on it.' 
+Any questions about that? 
+
+Let's do a quick practice. Can you tell me — thinking aloud — how you 
+would make a cup of tea?"</code></pre>
+
+<p>This approach accomplishes several things: it normalizes the behavior, provides a concrete model, and gives the facilitator an opportunity to coach the participant before the tasks begin, without any risk to the study data.</p>
+
+<p>The script must also provide <strong>scripted neutral responses</strong> to the predictable requests participants make during sessions. When a participant asks "Am I doing this right?" or "Should I click here?" the facilitator must neither confirm nor correct — doing so would introduce facilitator bias and potentially change the participant's behavior for the rest of the session. Standard neutral responses include:</p>
+
+<ul>
+  <li>"There are no right or wrong answers — we're testing the design, not you."</li>
+  <li>"What would you do if I weren't here?"</li>
+  <li>"Whatever feels natural to you."</li>
+  <li>"I can't answer that during the task, but please keep going and tell me what you're thinking."</li>
+</ul>
+
+<p>Having these responses written in the script prevents facilitators from inadvertently giving helpful hints under the social pressure of a participant who appears frustrated or confused. That frustration and confusion is precisely the data the study is trying to capture.</p>
+
+<p>When participants fall silent — absorbed in reading, scanning the interface, or simply thinking — the script should include <strong>think-aloud prompts</strong> to re-engage verbalization without steering the participant toward any particular action. Effective prompts are open and non-directional:</p>
+
+<ul>
+  <li>"What are you thinking right now?"</li>
+  <li>"Can you tell me what you're looking at?"</li>
+  <li>"What are you expecting to happen?"</li>
+  <li>"Talk me through what you're doing."</li>
+</ul>
+
+<p>The script should specify a timing threshold — for example, "if the participant has been silent for more than 15 seconds, use one of the following prompts" — so that facilitators apply prompts consistently rather than based on personal comfort with silence.</p>
+
+<p>The <strong>closing debrief</strong> section of the script is as important as the introduction. It is the facilitator's opportunity to collect reflective data that participants cannot provide in the moment — their overall impressions, the moments that surprised or frustrated them, and their comparison to other products they use. Debrief questions should be scripted to ensure consistent post-task data collection. Typical closing questions include:</p>
+
+<ul>
+  <li>"Overall, how would you describe your experience today?"</li>
+  <li>"Was there anything that confused or frustrated you? Can you describe it?"</li>
+  <li>"Was there anything that worked particularly well or felt satisfying to use?"</li>
+  <li>"If you could change one thing about what you experienced today, what would it be?"</li>
+  <li>"Is there anything you were expecting to find that you didn't?"</li>
+</ul>
+
+<p>Some protocols also administer a standardized post-session questionnaire — such as the System Usability Scale (SUS) or the Single Ease Question (SEQ) after each task — immediately before the debrief conversation. If so, the script should specify exactly when these instruments are administered and include verbatim instructions for completing them.</p>
+
+<p><strong>Planning Data Collection Methods</strong></p>
+
+<p>A usability study produces two distinct categories of data: quantitative metrics that can be measured and compared numerically, and qualitative data that captures the texture of participant experience in words, behaviors, and observations. A robust protocol plans for both, specifying in advance what will be collected, how, and by whom.</p>
+
+<p>The standard <strong>quantitative metrics</strong> for usability testing are well established and should be defined task by task in the protocol:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>Definition</th>
+      <th>How It Is Recorded</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Task completion rate</td>
+      <td>The proportion of participants who successfully complete a task according to the defined completion criterion</td>
+      <td>Binary success/failure scored by the facilitator or note-taker at task end</td>
+    </tr>
+    <tr>
+      <td>Time on task</td>
+      <td>Elapsed time from when the facilitator finishes reading the task prompt to when the participant reaches the completion criterion or abandons the task</td>
+      <td>Stopwatch or timestamp from session recording</td>
+    </tr>
+    <tr>
+      <td>Error rate</td>
+      <td>The number of incorrect actions, wrong paths taken, or failed attempts before task completion or abandonment</td>
+      <td>Counted by note-taker from observation or session recording</td>
+    </tr>
+    <tr>
+      <td>Post-task satisfaction rating</td>
+      <td>Participant's self-reported ease or satisfaction, typically using the Single Ease Question (1–7 scale) or a similar instrument</td>
+      <td>Participant completes questionnaire immediately after each task</td>
+    </tr>
+    <tr>
+      <td>Overall usability score</td>
+      <td>Standardized post-session measure such as the SUS (0–100 scale derived from 10 Likert items)</td>
+      <td>Participant completes questionnaire at session end</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The protocol should specify exactly who records each metric and at what point in the session. Ambiguity about responsibility — "someone should time the tasks" — reliably leads to missed data.</p>
+
+<p><strong>Qualitative data sources</strong> require equally explicit planning. Think-aloud transcripts, either produced in real time by a note-taker or generated post-session from recordings, are the richest qualitative data source in usability testing — they reveal not just what participants do but why, in their own words. Observer notes capture behavioral data that audio and video recordings may miss: hesitation, physical leaning toward the screen, expressions of confusion or delight, and navigation detours that are difficult to describe verbally. Post-task and post-session questionnaires with open-ended items collect reflective commentary that participants are often better able to articulate after the fact than during the task.</p>
+
+<p>Assigning explicit roles and defining what each role records is one of the most practically important decisions in protocol design. A typical three-person usability study team includes:</p>
+
+<ul>
+  <li><strong>Facilitator:</strong> Reads the script, manages the session flow, administers tasks, uses neutral prompts, and conducts the debrief. The facilitator does <em>not</em> take notes during the session — doing so would split their attention and affect their ability to maintain a neutral, attentive presence.</li>
+  <li><strong>Note-taker:</strong> Records participant behavior, verbatim quotes, errors, and observations in real time, using a structured observation sheet that aligns with the task list. The note-taker should be in the room (or on the call) but not visible to the participant if possible, to minimize the feeling of being watched.</li>
+  <li><strong>Observer(s):</strong> Stakeholders, designers, or additional researchers who watch the session without interacting. Observers typically record their own impressions and questions, which are collected and discussed in a team debrief immediately after each session. The protocol should specify that observers do not speak during sessions and communicate with the facilitator only through a pre-agreed back-channel (e.g., a chat window) if absolutely necessary.</li>
+</ul>
+
+<p>Recording — screen capture, audio, video, or eye-tracking — must be addressed in the protocol before the first session, not as an afterthought. The protocol should specify which recording systems will be used, who is responsible for starting and stopping recordings, where recordings will be stored and for how long, and how participant consent to being recorded will be obtained and documented. In many jurisdictions, recording participants without explicit consent is legally prohibited; even where it is not, it is ethically required. The consent form and recording consent should be separate, clearly worded documents reviewed during the session introduction.</p>
+
+<p><strong>Session Logistics and Environment Planning</strong></p>
+
+<p>Even a methodologically perfect protocol can fail if the logistics are chaotic. Session logistics planning addresses the practical realities of running multiple back-to-back research sessions: time management, environment setup, equipment reliability, and team coordination.</p>
+
+<p><strong>Buffer time between sessions</strong> is consistently underestimated in early protocol designs. A session scheduled to run 60 minutes needs at least 15–20 minutes of buffer afterward for three distinct activities: resetting the prototype or environment to its starting state, conducting a brief team debrief while observations are fresh, and preparing for the next participant. Resetting the environment is particularly important for prototype-based studies — any state changes introduced by the previous participant (saved addresses, items in a cart, partially completed forms) must be cleared before the next participant begins. A written reset checklist, included as an appendix to the protocol, makes this process faster and more reliable.</p>
+
+<p>The <strong>physical or virtual environment setup</strong> should be documented in enough detail that a team member who did not attend the setup could configure the environment correctly from the protocol alone. For in-person studies, this includes: the room layout (where the participant sits, where the facilitator sits, where observers are positioned or separated by a one-way mirror), device placement and orientation, the starting state of the prototype (which screen, which browser, which account is logged in), and any ambient conditions that should be controlled (noise level, lighting, temperature). For remote studies, the setup documentation should cover: which video conferencing platform and version will be used, how screen sharing will be initiated, how the participant's screen and audio will be recorded, what the facilitator should do if the participant's technology fails, and which prototype URL or application build will be shared with participants.</p>
+
+<p>A <strong>pre-session checklist</strong> is one of the most effective tools for preventing last-minute logistics failures. It should be completed by a designated team member before each session — not just before the first session. Checklists tend to be most useful when they are organized by category and include explicit confirmation steps rather than vague reminders. A sample checklist structure might include:</p>
+
+<ul>
+  <li><strong>Equipment:</strong> Recording software is open and tested. Screen capture resolution and audio levels are confirmed. Backup recording device is ready. Note-taking sheets are printed or digital template is open.</li>
+  <li><strong>Prototype / product access:</strong> Prototype is reset to starting state. Test account credentials are confirmed. All task flows have been checked end-to-end in the current build.</li>
+  <li><strong>Consent and documentation:</strong> Consent forms are printed (or digital consent link is ready). Participant incentive is prepared. Participant's arrival time and contact details are confirmed.</li>
+  <li><strong>Team:</strong> All team members have reviewed today's task list. Observer roles have been briefed. Back-channel communication method is confirmed.</li>
+</ul>
+
+<p>Working through this checklist before every session, not just the first, prevents the kind of compounding errors — a prototype that is still mid-task from the previous participant, a recording that was never started — that are easy to overlook in the rush between sessions.</p>
+
+<p><strong>Pilot Testing the Protocol</strong></p>
+
+<p>No protocol, however carefully designed, survives first contact with a real participant without some revision. Pilot testing is the structured process of running one or more complete mock sessions before the first real participant session, with the explicit goal of finding and fixing problems in the protocol itself.</p>
+
+<p>A pilot session should be conducted with a colleague, friend, or recruited individual who is not a study participant and whose data will not be included in the analysis. The pilot participant should be someone whose background is roughly similar to the target participant profile — a subject matter expert playing the role of a first-time user introduces different problems than a genuine novice would. The pilot should be run exactly as a real session would be run: the full facilitator script is used, all recording systems are active, note-takers observe and record, and the full debrief is conducted at the end.</p>
+
+<p>The pilot serves as a validation test for every element of the protocol simultaneously. Task wording that seemed clear during protocol writing may prove confusing in practice — participants may interpret a scenario differently than intended, or may find a task so easy or so difficult that it provides no useful data. Time estimates for tasks are almost always wrong until calibrated against a real attempt; the pilot allows the team to confirm whether the session can be completed within the scheduled time or whether tasks need to be cut, simplified, or reordered.</p>
+
+<p>After the pilot, the team should debrief systematically, reviewing each element of the protocol against what actually happened:</p>
+
+<ul>
+  <li>Were any task wordings misinterpreted? How should they be revised?</li>
+  <li>Were any tasks too easy or too trivial to generate useful behavioral data?</li>
+  <li>Were any tasks so difficult that the pilot participant could not make any progress? Does this reflect a real usability problem in the design, or does it reflect a task design problem?</li>
+  <li>Did the facilitator script feel natural and appropriately neutral, or did any language feel stilted, leading, or confusing?</li>
+  <li>Did all recording systems function correctly? Were there any audio, video, or screen capture issues?</li>
+  <li>Was the session timing accurate? Does the overall session length fit within the scheduled slot?</li>
+  <li>Were the note-taking sheets or templates adequate to capture the observations that emerged?</li>
+</ul>
+
+<p>All changes made after the pilot — including revised task wording, deleted or added tasks, updated timing estimates, and corrected logistics — should be documented in a change log appended to the protocol. This log creates a clear record of the final, approved protocol version and ensures that no team member accidentally uses a pre-pilot draft during the real study sessions. Version-controlling the protocol document (using a shared document platform with version history, or a simple naming convention like "Protocol_v1_post-pilot") is a straightforward way to maintain this record.</p>
+
+<p>If the pilot reveals significant problems — multiple misunderstood tasks, a session that runs far over time, or a fundamental mismatch between the tasks and the prototype's current state — a second pilot may be warranted before the study begins. The cost of an additional pilot session is trivial compared to the cost of discovering mid-study that the protocol is generating unusable data.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full protocol design lifecycle from structure through pilot testing. The facilitator script examples and table-formatted quantitative metrics are particularly useful for students building their first protocol. Consider pairing this content with a downloadable protocol template and a sample observation sheet for note-takers.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p5-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>A usability testing protocol is the written plan that makes a user study repeatable. It spells out who you will recruit, what tasks participants will attempt, what the facilitator will say at each stage, what data you will capture (time on task, errors, completion, think-aloud comments, satisfaction ratings), and the practical details of where and how sessions will run. Without this document, two facilitators running the "same" study will produce results you cannot compare.</p>
+<p>In this course, the protocol is the bridge between the prototype you are building and the evidence you will collect about it. Your task scenarios must be realistic and goal-oriented rather than instructions that give away the interface; your script must keep you neutral so you do not accidentally coach participants toward success; and your logistics plan must account for consent, recording, timing, and backup options if the prototype breaks. Pilot testing the whole package with one or two people almost always exposes confusing wording and tasks that take far longer than you estimated.</p>
+<p>As you watch, pay attention to the exact phrasing facilitators use when introducing a session, the order of steps a moderator follows, and the distinction between testing a product's usability and testing whether users want the product at all. Try to map what you see back to specific sections of the protocol document you will write for your own project.</p></div></details><details class="slide-card" id="p5-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Introducing a Participant to a Usability Test: A Demonstration</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/bcfqmx2hnUQ?cc_load_policy=1&amp;rel=0" title="Video: Introducing a Participant to a Usability Test: A Demonstration (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:35 · 64,558 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=bcfqmx2hnUQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short demonstration from Nielsen Norman Group showing how a facilitator greets and orients a participant at the start of a usability test session. The description indicates it draws on a facilitator's script to cover the points that should be stated up front, such as explaining the purpose of the session and setting expectations before tasks begin.</p>
+<h4>Why this video</h4>
+<p>It models the opening portion of a facilitator script, which is exactly the subtopic on developing facilitator scripts, and it comes from NN/g, a long-established usability research organization.</p></div></details><details class="slide-card" id="p5-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Checklist for Moderating a User Test</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/5NPJpQd14bY?cc_load_policy=1&amp;rel=0" title="Video: Checklist for Moderating a User Test (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 4:29 · 7,896 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=5NPJpQd14bY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A checklist-style video presenting ten things a moderator should do when running a usability study. It walks through the sequence of steps a facilitator follows during a session and connects following that sequence to getting usable research findings.</p>
+<h4>Why this video</h4>
+<p>A moderator checklist is essentially the procedural backbone of a testing protocol, so it supports both the anatomy-of-a-protocol and session-logistics subtopics in a compact, memorable format.</p></div></details><details class="slide-card" id="p5-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: User Testing vs Usability Testing</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/r3j_dwMbLo0?cc_load_policy=1&amp;rel=0" title="Video: User Testing vs Usability Testing (Kerev Design)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Kerev Design</strong> · 6:18 · 47,165 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=r3j_dwMbLo0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Kerev Design compares user testing and usability testing as two distinct activities within UX research, explaining what each one asks and when each is appropriate. The video situates both within the broader research process introduced in the channel's earlier UX research material.</p>
+<h4>Why this video</h4>
+<p>Knowing which question you are actually answering determines how you write task scenarios and what data you plan to collect, so this conceptual distinction helps students scope their protocol correctly before drafting it.</p></div></details><details class="slide-card" id="p5-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos target MO2 most directly: the NN/g demonstration and moderator checklist give concrete models for the facilitator script, session sequence, and logistics sections of a testing plan, while the comparison video helps students frame the right research question so their task scripts and data collection instruments measure the right thing. Because the protocol defines what participants will be asked to do, writing it also forces students to confirm that the prototype actually supports those tasks, which feeds back into the prototype development and verification work in MO1 and MO3.</p></div></details><details class="slide-card" id="p5-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part6">
+<h2>Integrating Prototype and Testing Preparation</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Integrating Prototype and Testing Preparation</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>When a team has invested significant effort in building a prototype and designing a usability test protocol, it is easy to assume that the two simply slot together naturally at the moment testing begins. In practice, however, prototype development and test protocol design are parallel workstreams that can easily drift apart. A prototype might be built to showcase features rather than to support specific user tasks. A test protocol might specify task scenarios that depend on flows the prototype never fully implemented. The result is a testing session that breaks down mid-task, confuses participants, and produces data of questionable validity. Integrating prototype development with testing preparation means actively coordinating these two workstreams so that, when the first participant sits down, the prototype is precisely ready to support every task the protocol demands — nothing more, nothing less.</p>
+
+<p>This integration requires deliberate planning across three interconnected concerns: ensuring the prototype scope matches the test tasks, preparing the prototype's data and state so each session starts consistently, and assigning team roles so that development expertise and facilitation expertise serve each other rather than operating in silos.</p>
+
+<p><strong>Aligning Prototype Scope with Test Tasks</strong></p>
+
+<p>The most fundamental integration step is verifying that every task scenario in the test protocol has a corresponding, functional flow in the prototype. A task scenario describes what a participant will be asked to do — for example, "You have just received a new invoice from a vendor. Please find and pay that invoice using this application." That scenario implicitly requires a working notification or inbox flow, a functional invoice detail view, a payment confirmation step, and some form of success or error feedback. If any of those flows is missing or broken, the task cannot be completed, and the usability data collected will reflect prototype failure rather than genuine user behavior.</p>
+
+<p>The practical method for ensuring alignment is to create an explicit mapping between each task scenario and the prototype flows it requires. This mapping should be built collaboratively between the person who wrote the protocol and the person who built the prototype, and it should exist as a living document — not an assumption held informally in someone's head. A simple mapping table serves this purpose well:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task Scenario</th>
+      <th>Required Prototype Flows</th>
+      <th>Status</th>
+      <th>Action if Incomplete</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Find and pay a vendor invoice</td>
+      <td>Inbox notification → Invoice detail view → Payment form → Confirmation screen</td>
+      <td>Payment form incomplete</td>
+      <td>Complete payment form before pilot, or remove task from protocol</td>
+    </tr>
+    <tr>
+      <td>Update account email address</td>
+      <td>Settings → Profile → Edit email → Save confirmation</td>
+      <td>Complete</td>
+      <td>None</td>
+    </tr>
+    <tr>
+      <td>Generate a monthly expense report</td>
+      <td>Reports section → Date range filter → Report type selector → Export</td>
+      <td>Export function missing</td>
+      <td>Remove task from protocol or replace with "preview" task that does not require export</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>This kind of mapping makes the decision explicit: either the team completes the missing flow before testing begins, or the corresponding task is removed from the protocol. There is no middle ground. Leaving a broken flow in the prototype while keeping the task in the protocol is a false economy — it wastes participant time, generates misleading data, and erodes trust in the research process.</p>
+
+<p>Once the mapping is complete and any gaps are resolved, the team should conduct an internal walkthrough of every task in the prototype before scheduling participant sessions. This means someone other than the prototype builder attempts each task from start to finish, following only the information a real participant would have. This walkthrough reveals issues that the builder, who is too familiar with the prototype, would never notice: ambiguous labels, missing back navigation, clicks that lead to dead ends, or screens that only appear to work because the builder knows which hotspot to click. A walkthrough by a colleague — or ideally someone from outside the team — functions as a low-fidelity pilot and surfaces problems while there is still time to fix them.</p>
+
+<p>As part of the walkthrough, the team should document the <em>expected completion path</em> for each task. This is the sequence of screens and interactions a participant should follow to complete the task successfully. Documenting the expected path serves two purposes. First, it gives facilitators a reference during sessions — when a participant navigates somewhere unexpected, the facilitator can judge whether this represents genuine confusion or a creative but valid alternative path. Second, it provides a baseline against which to measure completion during analysis. Without a documented expected path, different observers may disagree about whether a task was completed correctly, making post-session analysis inconsistent.</p>
+
+<p><strong>Preparing Test Data and Prototype State</strong></p>
+
+<p>Even a fully functional prototype can undermine a testing session if it is not in the right state at the start. Consider a scenario where a participant is asked to find an overdue invoice. If no overdue invoice exists in the prototype's pre-loaded data, the participant will search endlessly and fail — not because the interface is confusing, but because the task is impossible given the current state. Preparing test data and prototype state is therefore as important as building the prototype flows themselves.</p>
+
+<p>The first step is to define precisely what the prototype's initial state should be at the beginning of every session. This means specifying not just what data exists in the system, but its exact character: names, amounts, dates, statuses, and relationships between data objects. If the prototype includes a pre-loaded account, the team should decide whether that account belongs to a persona ("Sarah Chen, freelance consultant, three pending invoices totaling $4,200") or is kept neutral. Using a realistic persona's data makes tasks feel more natural and concrete. Participants engage more authentically when the content they are working with is specific and plausible rather than obviously placeholder.</p>
+
+<p>Consider the difference between these two versions of pre-loaded invoice data:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Invoice Data</th>
+      <th>Effect on Participant</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Placeholder data</td>
+      <td>Invoice #001, Amount: $0.00, Vendor: Test Vendor, Date: 01/01/2000</td>
+      <td>Participant immediately recognizes artificial context; may disengage or treat the task as hypothetical</td>
+    </tr>
+    <tr>
+      <td>Realistic data</td>
+      <td>Invoice #INV-2024-0047, Amount: $1,350.00, Vendor: Meridian Office Supplies, Due: 14 days ago</td>
+      <td>Participant engages with the task as though it were real work; behavior is more representative</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Realistic data does not need to be real data — fabricated but plausible content achieves the same effect without privacy or legal risk. The guiding principle is that participants should never be pulled out of the task by data that is obviously artificial.</p>
+
+<p>Equally important is the <em>reset procedure</em>: the process by which the prototype is returned to its defined initial state between participant sessions. This matters because participants interact with the prototype in ways that change its state. A participant who completes the invoice payment task will leave the prototype with that invoice marked as paid. The next participant must start with an unpaid invoice. Without a reliable reset, the second participant's experience will differ from the first's — and any comparison of their behavior becomes meaningless.</p>
+
+<p>The reset checklist should be written out in full, step by step, and should include every action required to restore the prototype: clearing form entries, resetting navigation state, restoring any data that participants may have modified, and confirming that all flows start from their correct entry points. For high-fidelity prototypes built in tools like Figma, resetting may simply mean closing and reopening the prototype file. For code-based prototypes or those using a backend database, the reset process may involve running a database restore script or deploying a fresh instance. In either case, the procedure must be tested before the pilot session to confirm that it can be completed within the inter-session buffer time — the gap scheduled between one participant leaving and the next arriving. If the reset takes longer than that buffer allows, the team must either extend the buffer, simplify the reset process, or redesign the prototype so that its state is less susceptible to participant modification.</p>
+
+<p>The pilot session itself serves as the definitive test of both the prototype and the reset procedure under realistic conditions. During the pilot, a team member or trusted colleague acts as a stand-in participant, moving through all tasks at a realistic pace. The team times the reset procedure immediately after the pilot concludes. Any issues — a step that was forgotten, a script that errored, a screen that did not restore correctly — can be corrected before real participants arrive.</p>
+
+<p><strong>Coordinating Team Roles Across Development and Testing</strong></p>
+
+<p>Usability testing is a team activity, and the quality of a session depends heavily on having the right people in the right roles, each with a clear understanding of their responsibilities. Three roles are essential: the <em>facilitator</em>, who guides the participant through the session and administers tasks; the <em>note-taker</em>, who captures observations in real time so the facilitator can remain fully present; and the <em>technical support person</em>, who monitors the prototype and intervenes if it fails.</p>
+
+<p>These roles should be assigned before the first session — not improvised on the day of testing. Improvised role assignment leads to confusion about who should speak when a participant asks a question, who should intervene when the prototype crashes, and whose job it is to reset the prototype between sessions. The result is sessions that feel disorganized to participants and produce fragmented observations for the team.</p>
+
+<p>The technical support role deserves particular attention because prototype failures during sessions are more common than teams anticipate. A click triggers an unexpected flow. The browser crashes. A linked prototype loses its connection to an external data source. The technical support person must know, in advance, exactly what to do in each of these scenarios — whether that means quickly resetting the prototype to an earlier state, reopening a specific file, running a restore command, or switching to a backup prototype build. If that knowledge lives only in the prototype builder's head, and the prototype builder is also serving as facilitator, the team will face an impossible choice when something goes wrong: interrupt the session to fix the prototype, or continue with a broken tool. Neither option is good. Separating technical support from facilitation preserves the session's integrity.</p>
+
+<p>The separation of roles also addresses a subtler but important issue: the influence of prototype builders on facilitation. Researchers and designers who have built a prototype are deeply invested in it. When a participant struggles with something the builder is proud of, there is a natural — and usually unconscious — impulse to help, explain, or defend. This impulse directly contaminates usability data, because any assistance given to a participant masks genuine usability problems. A facilitator who did not build the prototype has no personal stake in any particular flow and is better positioned to observe struggle neutrally without intervening. Making this separation an explicit policy — not merely a suggestion — removes the temptation and the ambiguity.</p>
+
+<p>Finally, the team should build in a structured debrief after each session. This need not be lengthy; a 10-to-15-minute conversation in which the facilitator, note-taker, and technical support person share their most significant observations is sufficient. The debrief serves two functions. It captures fresh impressions before they fade and before observations from different sessions blur together in memory. It also provides a decision point: if a consistent problem is emerging — a task that no participant can complete, a prototype flow that repeatedly fails — the team can decide whether to adjust the protocol, repair the prototype, or both before the next session. This iterative correction is only possible if the team debriefs regularly rather than waiting until all sessions are complete. By the time a team reviews notes from eight sessions at once, early patterns are difficult to isolate and any opportunity for mid-study adjustment has passed.</p>
+
+<p>The overall logic of this integration work is simple even if the execution requires care: a usability study is only as good as the alignment between what the protocol asks participants to do and what the prototype is actually capable of supporting. Achieving that alignment is not automatic. It requires explicit mapping, realistic data, reliable reset procedures, practiced role assignments, and structured communication across the team. When these elements are in place before testing begins, the sessions themselves can focus entirely on what matters most — observing how real people interact with the design.</p>
+        <div class="notes"><strong>Notes</strong>Emphasizes the practical coordination layer between prototype development and test facilitation — not just theory but actionable checklists and decision logic. Tables used to illustrate task-to-flow mapping and data realism comparison.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p6-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Up to this point in the module you have been building a functional prototype and drafting a user testing plan as if they were two separate deliverables. In practice they are one system: every task you ask a participant to perform must be supported by something that actually works in the prototype, with realistic data already loaded and the interface in a known starting state. Integrating prototype and testing preparation means walking through your protocol task by task and confirming that the build can carry it, trimming scope where it cannot, and deciding in advance what the prototype should look like the moment a participant sits down.</p>
+<p>This topic covers three practical concerns. Aligning prototype scope with test tasks is about mapping each task script step to a screen, control, or flow that exists; anything unsupported either gets built, faked deliberately, or cut from the protocol. Preparing test data and prototype state covers seeding accounts, sample content, and default settings so sessions are comparable, plus the reset procedure between participants. Coordinating team roles across development and testing means naming who finishes the build, who facilitates, who takes notes, and who owns the pilot run that catches problems before real participants arrive.</p>
+<p>The three videos below approach preparation from complementary angles: a research-practice checklist of pre-session work, a designer's end-to-end walkthrough of one usability study, and a set of best practices for running sessions well. While watching, keep your own project in mind and note anything that implies a prototype requirement — a piece of test data, a reset step, a role to assign, or a task you may need to narrow.</p></div></details><details class="slide-card" id="p6-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Checklist for Planning a User Test</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/jEDGHcb1HF0?cc_load_policy=1&amp;rel=0" title="Video: Checklist for Planning a User Test (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 5:06 · 10,944 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=jEDGHcb1HF0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short checklist-style video from Nielsen Norman Group covering ten things to do before you actually run a usability study. Based on its title and description, it should walk through planning steps such as clarifying research goals, writing and reviewing tasks, recruiting the right participants, and preparing materials and logistics in advance. It is presented as the first of a two-part set, with this half focused entirely on preparation rather than execution.</p>
+<h4>Why this video</h4>
+<p>NNgroup is a long-established usability research organization, and a checklist framing maps directly onto the preparation work this topic requires. It is the most direct fit for aligning prototype scope with test tasks, since the checklist items tell you what must exist and be verified before testing day.</p></div></details><details class="slide-card" id="p6-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: UX Research Tutorial for UX Designers</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/Bsjxq2NXqu4?cc_load_policy=1&amp;rel=0" title="Video: UX Research Tutorial for UX Designers (Aliena Cai)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Aliena Cai</strong> · 7:24 · 14,408 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=Bsjxq2NXqu4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A practitioner walkthrough in which the creator explains her own process for planning, conducting, and synthesizing a usability testing session. Expect to see how a study is set up end to end, likely including preparing the test material and tasks, running the session, and turning observations into findings. Because it follows one project, you can see how the planning decisions connect to what actually happens in the session.</p>
+<h4>Why this video</h4>
+<p>Seeing a complete start-to-finish example helps you understand why preparation choices matter downstream, which reinforces the idea that the prototype and protocol are built together. It is a useful model as you assemble your own task script and data collection instruments.</p></div></details><details class="slide-card" id="p6-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: 5 Usability testing best practices you need to know | Maze</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/zFaWmyNxWxg?cc_load_policy=1&amp;rel=0" title="Video: 5 Usability testing best practices you need to know | Maze (Maze)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Maze</strong> · 7:49 · 6,545 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=zFaWmyNxWxg" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Maze presents five best practices intended to help teams gather accurate, ethical, and actionable usability insights. The description suggests coverage of things like framing tasks and questions neutrally, treating participants ethically, and avoiding common mistakes that distort results. Practices of this kind usually depend on groundwork done before the session begins.</p>
+<h4>Why this video</h4>
+<p>Best-practice guidance highlights the conditions a session needs in order to produce trustworthy data, which in turn drives how you seed test data and set the prototype's starting state. It also helps clarify facilitation expectations, useful when dividing roles across your team.</p></div></details><details class="slide-card" id="p6-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos bridge MO1, MO2, and MO3. The NNgroup checklist and the Maze best practices give you concrete criteria for a defensible testing plan with task scripts, participant criteria, and data collection instruments (MO2), while also surfacing the pre-session verification work that confirms your prototype can support every planned task (MO3). The practitioner walkthrough shows the whole cycle in context, helping you judge which core features your build must genuinely implement versus simulate (MO1), and reinforcing that prototype readiness, test data, prototype state, and team role assignments should all be settled before the first participant arrives.</p></div></details><details class="slide-card" id="p6-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

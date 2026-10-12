@@ -1,0 +1,209 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Introduction to Figma and the Prototyping Workflow</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Interface Prototyping with Figma</a></div>
+  <header>
+    <h1>Introduction to Figma and the Prototyping Workflow</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Introduction to Figma and the Prototyping Workflow</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Figma is a browser-based interface design and prototyping tool that has become a default environment for digital product teams. Unlike traditional desktop design applications, Figma stores the design file in the cloud, which means that the file you open is the same file your collaborators open at the same moment. This single architectural decision shapes almost everything about how the tool behaves: there is no "save" button in the conventional sense, version history is automatic, sharing is a matter of permissions rather than file transfer, and several people can edit the same screen simultaneously. Before you can design efficiently, you need a confident mental model of where things live in the interface, how a file is organised, how collaboration works, and how a static mockup becomes a clickable prototype. This topic builds that mental model and sets out the four-stage workflow that the rest of the module follows.</p>
+
+<p>It is worth separating two ideas that beginners often conflate. <strong>Design mode</strong> is where you draw, arrange, and style objects. <strong>Prototype mode</strong> is where you wire those objects together into flows that simulate how the product behaves. Both modes act on the same file and the same layers — you switch between them using tabs at the top of the right-hand panel. A prototype in Figma is therefore not a separate export or a different document; it is a layer of behaviour described on top of the design you have already made. Understanding this saves a great deal of confusion later, particularly when a prototype link appears "broken" simply because a frame was renamed or deleted in design mode.</p>
+
+<p><strong>The Figma interface at a glance.</strong> The working environment is divided into four persistent regions: the left panel, the canvas, the right properties panel, and the toolbar across the top. Each has a distinct job, and learning to read them together is the first practical skill to acquire.</p>
+
+<p>The <strong>left panel</strong> is your inventory of everything in the file. It has three tabs. The <em>Layers</em> tab shows the hierarchical tree of every frame, group, component instance, shape, and text object on the current page, with the topmost item in the list rendering in front of the items below it on the canvas. Nested items are indented, so a button containing a rectangle and a text label appears as a parent with two children, and you can expand or collapse branches to keep the list readable. The <em>Pages</em> section sits above the layer tree and lists the pages in the file. The <em>Assets</em> tab lists the components available to you — both the local components published in this file and any components from team libraries you have enabled. Dragging a component from the Assets tab onto the canvas creates an instance of it, which is the foundation of consistent interface work.</p>
+
+<p>The <strong>canvas</strong> is the infinite workspace. There are no page boundaries or print margins; you can zoom out and place an entire mobile app's worth of screens side by side, or zoom in to nudge a single pixel. Objects placed directly on the canvas rather than inside a frame still exist, but they are not part of any screen and cannot be prototyped from in the usual way, so most serious work happens inside frames. A <strong>frame</strong> is the fundamental container in Figma: it defines a screen, a card, a section, or any bounded region, and it can clip its contents, carry a layout grid, hold auto-layout settings, and act as a destination in a prototype. Each page has its own infinite canvas, so moving between pages is like moving between separate workspaces that happen to share the same file, libraries, and styles.</p>
+
+<p>The <strong>right properties panel</strong> is contextual: its contents change entirely depending on what you have selected. With nothing selected, it shows page-level properties such as background colour, and the local styles and variables defined in the file. Select a rectangle and you see alignment controls, X/Y position, width and height, constraints, corner radius, fill, stroke, effects, and export settings. Select a text layer and a typography section appears with font family, weight, size, line height, letter spacing, and alignment. Select a frame and you gain layout grid and clipping options. Select an instance of a component and you see the instance swap control plus any component properties the author exposed, such as boolean toggles for an icon or text properties for a label. Selecting two or more objects adds distribute and tidy-up controls and lets you apply the same property to all of them at once. Learning to expect this contextual change prevents the common beginner frustration of "the option I need has disappeared" — usually it simply means the wrong object, or the wrong level of the hierarchy, is selected.</p>
+
+<p>The <strong>toolbar</strong> at the top provides the creation tools and the global controls. From left to right it typically offers the move and scale tools, the frame tool (keyboard <code>F</code>), the shape tools (rectangle <code>R</code>, ellipse <code>O</code>, line, arrow, polygon, star), the pen and pencil for vector drawing (<code>P</code>), the text tool (<code>T</code>), the comment tool (<code>C</code>), and the hand tool for panning. Alongside these sit the component actions — create component, detach instance — and on the right of the toolbar you find the share button, the present (play) button that launches the prototype, and the zoom controls. A short list of the shortcuts worth committing to memory early:</p>
+
+<table>
+  <thead>
+    <tr><th>Action</th><th>Shortcut (Mac)</th><th>Shortcut (Windows)</th><th>Why it matters</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Frame tool</td><td><code>F</code></td><td><code>F</code></td><td>Creates screens and containers, the backbone of any file</td></tr>
+    <tr><td>Rectangle / Text</td><td><code>R</code> / <code>T</code></td><td><code>R</code> / <code>T</code></td><td>Fastest route to blocking out a layout</td></tr>
+    <tr><td>Create component</td><td><code>⌥⌘K</code></td><td><code>Ctrl+Alt+K</code></td><td>Turns a selection into a reusable master</td></tr>
+    <tr><td>Toggle layout grid</td><td><code>⌃G</code></td><td><code>Ctrl+Shift+4</code></td><td>Shows or hides grids while checking alignment</td></tr>
+    <tr><td>Add auto-layout</td><td><code>⇧A</code></td><td><code>Shift+A</code></td><td>Converts a static group into a responsive stack</td></tr>
+    <tr><td>Present prototype</td><td><code>⌥⌘⏎</code></td><td><code>Ctrl+Alt+Enter</code></td><td>Tests interactions without leaving the file</td></tr>
+    <tr><td>Select child / parent</td><td><code>⏎</code> / <code>⇧⏎</code></td><td><code>Enter</code> / <code>Shift+Enter</code></td><td>Navigates nested layers precisely</td></tr>
+    <tr><td>Duplicate in place</td><td><code>⌘D</code></td><td><code>Ctrl+D</code></td><td>Repeats an offset for rapid list building</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Pages and file organisation.</strong> A Figma file is not a single document surface but a collection of pages, each with its own infinite canvas. Pages behave like tabs: switching pages changes what the layer panel and the canvas show, while styles, components, and the file's version history remain shared across the whole file. This makes pages the natural unit for separating stages of work or sections of a product. A typical student project file might be organised like this:</p>
+
+<ul>
+  <li><strong>📕 Cover</strong> — a single frame named with the project title, used as the file thumbnail so the file is recognisable in the project dashboard.</li>
+  <li><strong>🔍 Research &amp; references</strong> — competitor screenshots, mood boards, personas, and user journey notes that inform the design but are not part of it.</li>
+  <li><strong>✏️ Wireframes</strong> — low-fidelity, greyscale layout explorations.</li>
+  <li><strong>🧩 Components</strong> — the master components and styles: buttons, inputs, cards, navigation bars, icons.</li>
+  <li><strong>🎨 UI — High fidelity</strong> — the finished screens built from those components.</li>
+  <li><strong>▶️ Prototype</strong> — either the flow-ready copies of screens or, more commonly, the same high-fidelity page with prototype connections applied.</li>
+  <li><strong>🗑 Archive</strong> — superseded explorations kept for reference rather than deleted, so that decisions can be justified later.</li>
+</ul>
+
+<p>Numbering or prefixing page names with emoji is a widespread convention because it imposes a visual order and makes the page list scannable at a glance. Whatever convention you choose, apply it consistently; a reviewer who opens your file should be able to find the current work in under ten seconds.</p>
+
+<p><strong>Frame naming</strong> deserves more attention than it usually gets. Figma names new frames <code>Frame 1</code>, <code>Frame 2</code>, and so on, and leaving those defaults in place causes real problems. In prototype mode, every connection's destination is identified in the interface by the frame's name, so a flow built from <code>Frame 17 → Frame 23 → Frame 8</code> is almost impossible to audit or repair. The presentation view and any shared prototype link also display frame names, and developers inspecting the file use them to map screens to routes in code. A readable scheme uses a numeric prefix for flow order plus a descriptive name, for example:</p>
+
+<pre><code>01 Splash
+02 Onboarding - Step 1
+03 Onboarding - Step 2
+04 Sign in
+05 Home - Default
+05a Home - Empty state
+05b Home - Loading
+06 Search - Results
+07 Product detail
+08 Cart - Items added
+09 Checkout - Payment</code></pre>
+
+<p>Notice two things about that scheme. First, numbering reflects the user's path rather than the order in which you happened to draw the screens, so a collaborator can read the file like a storyboard. Second, state variants of the same screen share a number with a letter suffix, which keeps <code>Home - Empty state</code> adjacent to <code>Home - Default</code> in the layer list instead of stranded at the bottom. Keep names short enough to read in the narrow left panel, and avoid spaces-only differences such as <code>Home</code> and <code>Home </code>, which look identical but are distinct strings.</p>
+
+<p><strong>Grouping and sections.</strong> Once a page holds twenty or thirty frames, spatial organisation matters as much as naming. Figma's <em>section</em> tool (keyboard <code>⇧S</code>) creates a labelled, coloured region on the canvas that you can drag frames into; the section's name floats above it at any zoom level, so when you zoom out to see the whole page you read <em>Onboarding</em>, <em>Core shopping flow</em>, and <em>Account settings</em> rather than a wall of unlabelled rectangles. Sections can be collapsed to hide their contents, and can be marked as "ready for development", which signals status to the rest of the team. Where sections are not available or not wanted, a simpler alternative is a large text label placed above each cluster of frames, or an oversized background frame acting as a container. The goal in every case is the same: a person who has never seen the file should be able to understand its structure from a zoomed-out view, without clicking anything. Arranging flows left-to-right in the order the user experiences them, with alternative branches stacked vertically beneath the main path, reinforces that readability.</p>
+
+<p><strong>Collaboration and sharing basics.</strong> Because the file lives in the cloud, sharing is handled through permissions on a link rather than by sending a copy. The share dialog lets you set access at two levels — who can open the file at all, and what they can do once inside. The three practical access levels are:</p>
+
+<table>
+  <thead>
+    <tr><th>Permission</th><th>What the recipient can do</th><th>Typical use</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><strong>Can view</strong></td><td>Open the file, inspect layers and properties, run the prototype, copy values; cannot change anything</td><td>Stakeholders, developers handing off, tutors marking work</td></tr>
+    <tr><td><strong>Can comment</strong></td><td>Everything a viewer can do, plus pin comments to the canvas or to prototype screens</td><td>Review rounds, user testing feedback, peer critique</td></tr>
+    <tr><td><strong>Can edit</strong></td><td>Full access to create, modify, delete, and publish components</td><td>Co-designers and teammates actively building the file</td></tr>
+  </tbody>
+</table>
+
+<p>Two further choices in the share dialog matter. You can restrict access to <em>only people invited to this file</em> or open it to <em>anyone with the link</em>; the latter is convenient for coursework submission but means the link is effectively public, so it should never carry confidential client material. You can also share a <em>prototype link</em> rather than a file link, which opens the recipient straight into presentation mode at a chosen starting frame — much better for user testing, because the participant sees only the product, not the scaffolding around it.</p>
+
+<p><strong>Multiplayer editing</strong> is the most visible consequence of the cloud model. When collaborators are in the file, their cursors appear on the canvas in colour, each labelled with a name, and you can see their selections highlight in real time. Clicking a collaborator's avatar in the toolbar activates <em>observation mode</em>, which follows their viewport as they move, pan, and zoom — invaluable for a walkthrough or a remote critique, since one person can drive while everyone else watches the same screen. Simultaneous editing is genuinely concurrent: two people can style different components on the same page without conflict. Conflicts that do arise are mechanical rather than technical — two designers restyling the same button will simply overwrite each other — so a short verbal agreement about who owns which area of the canvas is still good practice. Figma also supports a <em>branching</em> workflow on paid plans, where a copy of the file is edited independently and later merged back, which is the equivalent of a feature branch in software version control.</p>
+
+<p><strong>Comments</strong> are created with the comment tool (<code>C</code>) and can be pinned to a specific point on the canvas, attached to a particular object so the pin follows the object if it moves, or placed on a screen inside the prototype viewer. Each comment supports threaded replies, @-mentions that send a notification to a named collaborator, emoji reactions, and a resolve action that hides the thread once addressed. The discipline worth adopting is to make feedback <em>specific and actionable</em>: "the tap target on this icon is 24px, below the 44px minimum for touch" is useful; "this looks off" is not. Pinned, contextual feedback is also far more traceable than feedback in a separate chat thread or email, because the comment sits permanently next to the thing it describes.</p>
+
+<p><strong>Version history</strong> runs automatically. Figma continuously checkpoints the file, and the history panel lists each checkpoint with a timestamp and the collaborators who contributed to it. You can open any past state to inspect it, restore it to become the current state, or duplicate it into a new file to explore an old direction without disturbing the live work. Crucially, you can also <em>name</em> a version manually — for example "v1.0 submitted for formative feedback" or "post-usability-test revisions" — which creates a meaningful milestone in a long list of automatic saves. Naming versions at the end of each significant work session turns an opaque timeline into a documented design history, which is exactly what you need when a tutor or client asks why a decision changed. Note that on free plans the browsable history window is limited in duration, so naming versions and duplicating key milestones into separate files is a sensible precaution.</p>
+
+<p><strong>From mockup to prototype: the module workflow.</strong> The remainder of the module follows a deliberate four-stage sequence. The order is not arbitrary: each stage removes work from the stage that follows it. Designers who skip ahead — building fifteen detailed screens before defining a single component — typically spend longer fixing inconsistencies than they saved by starting quickly.</p>
+
+<table>
+  <thead>
+    <tr><th>Stage</th><th>Focus</th><th>Key Figma features</th><th>Output</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Frame setup and screen layout</td><td>Frame presets, layout grids, constraints</td><td>Correctly sized, gridded screen frames</td></tr>
+    <tr><td>2</td><td>Reusable components</td><td>Components, variants, styles and variables</td><td>A small, named component library</td></tr>
+    <tr><td>3</td><td>Responsive behaviour</td><td>Auto-layout, padding, spacing, resizing rules</td><td>Layouts that adapt to content changes</td></tr>
+    <tr><td>4</td><td>Interaction and flow</td><td>Prototype connections, triggers, actions, animations</td><td>A testable, shareable clickable prototype</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Stage one — frame setup and layout grids.</strong> You begin by choosing a target device and creating frames at the correct dimensions. Figma's frame presets include common sizes such as 390 × 844 for a modern iPhone, 360 × 800 for a typical Android handset, 1440 × 1024 for a desktop breakpoint, and 1024 × 768 for a tablet. Designing at the real pixel dimensions matters because touch target sizes, type legibility, and the amount of content visible "above the fold" are all meaningless in the abstract. Onto each frame you add a <em>layout grid</em>. For mobile, a common configuration is a 4-column grid with a 16px margin and a 16px gutter; for desktop, 12 columns with 24px gutters and a maximum content width. A second, separate grid set to a uniform 8px row-and-column pattern enforces the <em>8-point spacing system</em> that keeps vertical rhythm consistent — every margin, padding value, and gap becomes a multiple of 8 (with 4 permitted for fine adjustments). Grids are visual guides only: they do not constrain objects, but they make misalignment immediately obvious, and they give you a principled answer to "how much space should go here?"</p>
+
+<p><strong>Stage two — components before detail.</strong> Before styling individual screens, you identify the elements that will recur and build them once as components. A component is a master object; every copy you place is an <em>instance</em> that inherits from the master, so editing the master updates every instance in the file. The typical first set includes a button, a text input, a navigation bar, a list item or card, an avatar, and an icon set. <em>Variants</em> group related states of the same component into a single switchable set — a button with variants for primary/secondary style, default/hover/pressed/disabled state, and small/medium/large size. Building these early produces two benefits. First, consistency becomes the default rather than something you have to police: all your buttons share corner radius, padding, and type because they are literally the same object. Second, late changes become cheap — if the client changes the brand colour the week before submission, you edit one component and one colour style rather than hunting through forty screens. Paired with <em>styles</em> (named, reusable definitions of colour, type, effects, and grids) and <em>variables</em> (named tokens for values such as spacing or colour that can be switched wholesale for a dark theme), components turn an ad-hoc file into a small design system.</p>
+
+<p><strong>Stage three — auto-layout for responsiveness.</strong> Auto-layout converts a frame into a flexible container whose children are arranged along a horizontal or vertical axis with defined spacing and padding, conceptually similar to CSS Flexbox. Applying it (<code>⇧A</code>) lets you specify direction, the gap between items, padding on each side, alignment of the children within the container, and whether the frame hugs its contents, fills the available space, or stays at a fixed size. The practical consequence is that content changes no longer break layouts: lengthen a button's label and the button grows around the text while its padding stays constant; delete a row from a list and the rows below move up and the container shrinks to fit; add a third item to a navigation bar and the items redistribute automatically. Auto-layout frames nest, so a card might be a vertical auto-layout frame containing an image, a vertical text stack, and a horizontal row of two buttons — each level responding independently. This is also the stage at which the design starts to behave like real software, which makes handover to developers much more faithful.</p>
+
+<p><strong>Stage four — connecting screens into a prototype.</strong> With the screens built, you switch to the <em>Prototype</em> tab and drag connection nodes from an object on one frame to the frame it should lead to. Each connection is defined by a <strong>trigger</strong> (what the user does: on click/tap, on drag, while hovering, while pressing, after delay, on key press, mouse enter/leave), an <strong>action</strong> (navigate to, open overlay, swap overlay, close overlay, back, scroll to, change to a variant, open link), and an <strong>animation</strong> (instant, dissolve, move in/out, push, slide in/out, or smart animate, each with a direction, easing curve, and duration). <em>Smart animate</em> deserves special mention: it compares layers with matching names across the two frames and tweens their differences in position, size, opacity, and rotation, which is how designers produce convincing transitions such as a card expanding into a detail view — and it is also the clearest payoff for having named layers consistently in stages one and two. You also set a <em>starting frame</em> for each flow, so a single file can present several named flows (onboarding, purchase, account settings) from one prototype link. Pressing present runs the prototype in the browser, where it can be tested on a real device via the Figma mobile app or sent to participants as a link that records nothing but allows them to click through as if the product existed.</p>
+
+<p>A worked illustration of how the stages compound: imagine a simple recipe app. In stage one you create nine frames at 390 × 844, named <code>01 Splash</code> through <code>09 Saved recipes</code>, each with a 4-column grid and 16px margins. In stage two you build a <code>Recipe card</code> component — image, title, cooking time, save icon — plus a <code>Button</code> with four variants and a <code>Tab bar</code> with an active-state variant for each tab. In stage three you make the recipe card an auto-layout frame so that a long recipe title wraps and pushes the metadata down rather than overflowing, and you make the home screen's list an auto-layout stack with a 12px gap so cards can be added or removed freely. In stage four you connect the card to <code>07 Recipe detail</code> with an on-tap navigate and a smart animate transition that expands the card image into the detail header, wire the tab bar to switch between top-level screens, and add an overlay for the "saved to collection" confirmation toast that closes after 1,500ms. Each stage took the previous stage's output as raw material; none of the work had to be redone.</p>
+
+<p>Two habits will serve you throughout. First, <strong>name as you go</strong>: layers, frames, components, styles, and saved versions. Almost every advanced Figma feature — smart animate, component swapping, developer handoff, prototype auditing — depends on names being meaningful. Second, <strong>test early and often</strong>: press present after wiring even two screens together, because a prototype that is only ever viewed in design mode tends to accumulate broken links, missing states, and dead ends that are tedious to unpick the night before a deadline.</p>
+
+<p><strong>Alignment with Learning Outcomes.</strong> This topic supports <strong>MO1</strong> by establishing the end-to-end route from a blank file to a shareable interactive prototype: the interface tour, file and page organisation, frame naming, and the four-stage workflow give students the structural grounding they need before constructing a low-to-high fidelity prototype in Figma.</p>
+
+<p>It supports <strong>MO2</strong> indirectly but concretely: layout grids, the 8-point spacing system, consistent frame and layer naming, and the early creation of shared components and styles are the mechanisms through which visual hierarchy and consistency are later applied, while the discussion of real device dimensions and touch-target feedback introduces the vocabulary of affordance.</p>
+
+<p>It supports <strong>MO3</strong> by introducing, in overview, the specific Figma features the module will develop in depth — components and variants, auto-layout and resizing behaviour, and prototype connections with their triggers, actions, and animations such as smart animate — and by explaining why the order of those features matters when simulating realistic user interactions.</p>
+        <div class="notes"><strong>Notes</strong>Suggested in-class activities: (1) a timed "interface scavenger hunt" in which students locate the Assets tab, a layout grid control, the prototype tab, and the version history panel; (2) duplicate a deliberately badly organised starter file and have students rename frames, add sections, and name a version; (3) pair students to practise observation mode and pinned comment critique. Shortcut values in the table reflect current Figma defaults and should be verified against the installed version, as Figma occasionally revises bindings (notably the layout-grid toggle on Windows). Free-plan version history is limited to 30 days, which is worth flagging before any assessed submission.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Figma is a browser-based interface design tool that lets you move from a blank canvas to a clickable, shareable prototype without leaving one file. In this topic you will get oriented to the workspace itself: the toolbar, the layers and assets panel on the left, the design and prototype panels on the right, and the canvas where frames live. Knowing where things are is the prerequisite for everything else in this module, because later work on components, auto-layout, and interactions all happens through those same panels.</p>
+<p>Beyond the interface, this topic establishes how you will organise and share your work. Figma files contain multiple pages, which is how most teams separate exploration, wireframes, final mockups, and flow diagrams; consistent naming of pages, frames, and layers makes a file readable to teammates and graders alike. Sharing is link-based, with view, comment, and edit permissions, plus a presentation mode for running a prototype — this is how you will submit and demo your project work.</p>
+<p>The through-line is the module workflow: wireframe or mockup first, then connect frames with prototype links and transitions, then test and share. As you watch, pay attention to when each presenter switches from the Design tab to the Prototype tab, how they select a hotspot and drag the connector to a destination frame, and which interaction and animation settings they adjust. Try to replicate each step in your own file rather than watching passively — the tool is learned through repetition.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: Figma UX tutorial for beginners - Prototype</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/v1UKB-0EUhQ?cc_load_policy=1&amp;rel=0" title="Video: Figma UX tutorial for beginners - Prototype (Aliena Cai)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Aliena Cai</strong> · 11:42 · 464,431 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=v1UKB-0EUhQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A longer beginner tutorial on Figma prototyping from the same channel, with more room to explain each step. Expect fuller treatment of connecting screens, configuring interactions and transitions or smart animate, and previewing and sharing the finished prototype. The extra length allows more context on how a design file is structured and navigated while prototyping.</p>
+<h3>Why this video</h3>
+<p>It reinforces and extends the shorter tutorial with a slower, more detailed pass, which helps when you are following along in your own file and need to see the panel settings in full.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: Figma Prototype Tutorial for Beginners</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/1ucLq6JTxac?cc_load_policy=1&amp;rel=0" title="Video: Figma Prototype Tutorial for Beginners (Aliena Cai)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Aliena Cai</strong> · 6:06 · 214,087 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=1ucLq6JTxac" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short, focused introduction to prototyping in Figma aimed at complete beginners. It is likely to show switching to the Prototype tab, drawing connections between frames, choosing trigger types such as on-click, and running the result in presentation mode. At roughly six minutes it works well as a first pass over the mockup-to-prototype step of the workflow.</p>
+<h3>Why this video</h3>
+<p>Its brevity and recency make it an efficient orientation to the end-to-end workflow, covering exactly the transition from static frames to a shareable, clickable prototype that this topic is about.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: Figma Wireframe Tutorial for Beginners</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iyrEStiTZh0?cc_load_policy=1&amp;rel=0" title="Video: Figma Wireframe Tutorial for Beginners (Aliena Cai)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Aliena Cai</strong> · 5:45 · 357,038 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=iyrEStiTZh0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A beginner-oriented walkthrough of building a wireframe in Figma, which is the natural starting point of the module workflow. Based on its title and framing, it should cover creating frames, placing basic shapes and text, and blocking out layout structure at low fidelity before any visual styling is applied. Expect exposure to the core toolbar, the layers panel, and the right-hand design properties as the wireframe takes shape.</p>
+<h3>Why this video</h3>
+<p>It introduces the Figma interface in the context of a real first task, so panels and tools are learned by use rather than in isolation, and it sets up the low-fidelity starting point that the prototyping videos build on.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos take you through the sequence the module itself follows: wireframe a screen, refine it into a mockup, then wire frames together into an interactive prototype and share it. That directly supports MO1 by modelling the construction of a low-to-high fidelity interactive prototype, and MO3 by demonstrating Figma's prototyping features such as hotspots, triggers, transitions, and presentation mode. The wireframing video also lays groundwork for MO2, since decisions about layout, grouping, and consistent frame structure are where visual hierarchy and consistency begin; you will build on these foundations with components and auto-layout later in the module.</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

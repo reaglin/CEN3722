@@ -1,0 +1,1362 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>App Publication Strategies and Store Requirements</title>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+<style>section.merged-part{border-top:2px solid rgba(128,128,128,.3);margin-top:2rem;padding-top:.5rem}nav.toc{background:rgba(128,128,128,.08);border:1px solid rgba(128,128,128,.25);border-radius:8px;padding:.6rem 1rem;margin:1.2rem 0}nav.toc a{display:block;text-decoration:none;padding:.12rem 0}</style>
+</head>
+<body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ App Publication Strategies and Store Requirements</a></div>
+<h1>App Publication Strategies and Store Requirements</h1>
+<nav class="toc"><strong>Contents</strong>
+<a href="#part1">Google Play Store Submission Process</a>
+<a href="#part2">Apple App Store Submission Process</a>
+<a href="#part3">Microsoft Store Submission Process</a>
+<a href="#part4">Web Deployment Strategies</a>
+<a href="#part5">Asset Requirements and Store Listing Optimization</a>
+<a href="#part6">Build Finalization and Submission Readiness</a>
+</nav>
+<section class="merged-part" id="part1">
+<h2>Google Play Store Submission Process</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Google Play Store Submission Process</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Publishing an Android application to the Google Play Store is a multi-stage process that spans account registration, build preparation, metadata creation, staged testing, and ongoing policy compliance. Each stage has specific technical and administrative requirements that must be met before an app becomes visible to users worldwide. Understanding the end-to-end workflow not only prevents costly delays caused by policy violations or build errors, but also positions an app for maximum discoverability and a smooth user experience from day one.</p>
+
+<p>The Google Play Store is the primary distribution channel for Android applications, serving billions of active devices globally. Unlike some ecosystems, Google Play enforces a structured submission pipeline with multiple review checkpoints, automated scanning, and formal release tracks. Developers who take the time to understand each phase are far better equipped to iterate quickly, respond to feedback, and maintain a healthy standing with the platform.</p>
+
+<p><strong>Google Play Developer Account Setup</strong></p>
+
+<p>Before a single line of app code can be submitted, a developer must create and configure a Google Play Developer account. This begins with an ordinary Google account — the same kind used for Gmail or Google Workspace — which serves as the authentication identity for everything that follows. If you already have a Google account, you can register directly at the Google Play Console without creating a new one, although many teams prefer a dedicated account for business separation.</p>
+
+<p>Registration requires a <strong>one-time payment of $25 USD</strong>. This fee is non-refundable and applies per developer account, not per application. Its primary purpose is to deter low-effort spam submissions. Once paid, the account grants unlimited app publishing rights for its lifetime, meaning there is no per-app charge for listing on the store itself (revenue sharing applies only to paid apps or in-app purchases).</p>
+
+<p>Before the account becomes active, the developer must read and accept the <strong>Developer Distribution Agreement (DDA)</strong>. The DDA is a legally binding contract that outlines content standards, intellectual property rights, revenue sharing terms, and the conditions under which Google may remove apps or terminate accounts. Accepting the DDA without reading it is a common mistake — several grounds for account termination are spelled out in the agreement and are non-negotiable.</p>
+
+<p>Account details entered during registration, particularly the <strong>developer name</strong>, are displayed publicly on every store listing associated with that account. For individual developers this is often a personal name or a studio name; for companies it is typically the legal entity name. Choosing a professional, consistent developer name matters because users see it directly on the Play Store page and associate it with app quality and trustworthiness. The developer name can be updated later, but frequent changes may raise trust concerns with users who have previously installed your apps.</p>
+
+<p>Additional account setup steps worth completing before submitting any app include verifying a phone number, setting up a payments profile if you intend to offer paid content, and configuring account users and permissions if you are working in a team. The Google Play Console supports multiple user roles — such as Release Manager, Financial Reports, and Administrator — so that responsibilities can be distributed without sharing account credentials.</p>
+
+<p><strong>Android Build Preparation and Signing</strong></p>
+
+<p>Once the developer account is active, the next concern is producing a properly signed release build of the application. Android's security model requires that every APK or bundle installed on a device carry a cryptographic signature produced by the developer's private key. This signature proves the app's origin and ensures that future updates come from the same developer — Android will refuse to install an update if the signing key changes.</p>
+
+<p>Historically, developers could submit either a <strong>signed APK (Android Package)</strong> or an <strong>Android App Bundle (AAB)</strong>. As of August 2021, Google mandated that all new apps submitted to the Play Store use the AAB format. Existing apps may continue to publish APKs, but all new app listings must use AAB. The AAB format defers APK generation to Google's servers via a process called <em>Dynamic Delivery</em>. Instead of one large APK served to every device, Google assembles a device-specific APK that includes only the resources and native code relevant to that particular device's screen density, CPU architecture, and language settings. The result is a significantly smaller download size for end users — often 15–20% smaller than a universal APK — and reduced storage usage on the device.</p>
+
+<p>To generate a release AAB in Android Studio, navigate to <strong>Build → Generate Signed Bundle / APK</strong>, select <em>Android App Bundle</em>, and follow the wizard to select or create a keystore. From the command line using Gradle, a release AAB can be built with:</p>
+
+<pre><code>./gradlew bundleRelease</code></pre>
+
+<p>The resulting file appears in <code>app/build/outputs/bundle/release/app-release.aab</code>. Before uploading, it must be signed. Signing can be configured directly in the module-level <code>build.gradle</code> file:</p>
+
+<pre><code>android {
+    signingConfigs {
+        release {
+            storeFile file("my-release-key.jks")
+            storePassword System.getenv("KEYSTORE_PASSWORD")
+            keyAlias "my-key-alias"
+            keyPassword System.getenv("KEY_PASSWORD")
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}</code></pre>
+
+<p>Notice that passwords are read from environment variables rather than hard-coded. <strong>Never commit keystore credentials to version control.</strong> The keystore file itself (typically a <code>.jks</code> or <code>.keystore</code> file) must be kept secure and backed up in a location separate from the source repository. If the keystore is lost and you are not enrolled in Play App Signing, you permanently lose the ability to push updates to your app — users would be forced to uninstall and reinstall a new listing, and all reviews and install history would be lost.</p>
+
+<p><strong>Play App Signing</strong> is Google's solution to this risk. When enrolled, the developer uploads the app bundle signed with an <em>upload key</em> (a key the developer controls). Google then re-signs the bundle with a separate <em>app signing key</em> that Google stores and manages in its secure infrastructure. Even if the developer's upload key is compromised, Google can issue a new upload key while preserving the app signing key. Enrollment in Play App Signing is now mandatory for all new apps and is strongly recommended for existing apps. The enrollment is found under <strong>Setup → App Signing</strong> in the Play Console.</p>
+
+<p><strong>Store Listing Assets and Metadata</strong></p>
+
+<p>A well-constructed store listing is as important as a well-built app. It is the primary interface through which users discover, evaluate, and decide to install an application. Google has specific technical requirements for each asset, and missing or low-quality assets can delay publishing or reduce conversion rates dramatically.</p>
+
+<p>The <strong>app icon</strong> must be a high-resolution PNG or JPEG image of at least <strong>512×512 pixels</strong>. This icon is used across the Play Store, not necessarily on the device home screen (which uses the icon defined in the app's resources). The store icon should be designed to communicate the app's purpose at a glance, use a transparent or appropriate background, and avoid text that becomes illegible at small sizes. Google's adaptive icon guidelines also apply to device home screen icons but are distinct from the store listing icon.</p>
+
+<p><strong>Screenshots</strong> are required — at minimum two per supported device type (phone, tablet, Chromebook, Android TV, Wear OS). Screenshots may be actual device captures or designed composites with device frames, but they must accurately represent the app's actual functionality. Misleading screenshots that depict features the app does not have are a policy violation. High-quality screenshots with concise captions explaining key features significantly improve conversion from store page view to install.</p>
+
+<p>The store listing requires two text fields. The <strong>short description</strong>, capped at <strong>80 characters</strong>, appears in search results and at the top of the listing before a user expands it — treat it like a headline. The <strong>full description</strong>, up to <strong>4,000 characters</strong>, allows a complete explanation of features, target audience, permissions, and any subscription terms. Both fields are indexed by the Play Store's search algorithm, so incorporating relevant keywords naturally improves discoverability without resorting to keyword stuffing, which is a policy violation.</p>
+
+<p>A <strong>feature graphic</strong> measuring exactly <strong>1024×500 pixels</strong> is required if you want your app to be eligible for promotional placement on the Play Store — featured sections, editorial spots, and certain search result layouts all use this asset. While technically the listing can be created without a feature graphic, omitting it makes the app ineligible for any promotional opportunity Google might offer. The feature graphic should convey the app's value proposition visually, without relying on text (since it may be displayed at various sizes).</p>
+
+<p>All apps must complete a <strong>content rating questionnaire</strong> through the Play Console. The questionnaire asks about the presence of violence, sexual content, profanity, gambling, user-generated content, and other sensitive categories. Based on the answers, the International Age Rating Coalition (IARC) system generates ratings applicable in multiple regions (e.g., ESRB for the US, PEGI for Europe, USK for Germany). These ratings are displayed on the store listing and affect who can see and install the app. Providing inaccurate answers to inflate a rating (making a mature app appear family-friendly) is a serious policy violation that can result in removal and account suspension.</p>
+
+<p><strong>App Review and Release Tracks</strong></p>
+
+<p>Google Play provides a tiered release system that allows developers to validate app quality with progressively larger audiences before exposing the app to the full production user base. Understanding these tracks and using them strategically reduces the risk of releasing a critically broken app to millions of users at once.</p>
+
+<p>The <strong>internal testing track</strong> is the fastest route to getting a build running on real devices. It supports up to 100 testers who must be added by their Google account email or invited via a link. Crucially, internal testing builds typically become available within <strong>minutes</strong> of upload — there is no meaningful review delay. This makes it ideal for rapid iteration during active development and for validating that a release build behaves correctly before moving to wider testing.</p>
+
+<p>The <strong>closed testing track</strong> (historically called "alpha") allows invitations to a specific, named group of testers. The pool can be larger than the internal track and the build goes through a more thorough automated review before becoming available. A single app can have multiple closed testing tracks, which is useful for testing different feature branches or regions simultaneously. The <strong>open testing track</strong> (historically called "beta") allows any user to opt in to testing via a public opt-in link. Open testing builds undergo a full policy review similar to production, making the promotion to production straightforward once the open beta is approved.</p>
+
+<p>When promoting an app to <strong>production</strong>, developers can choose a <strong>staged rollout</strong>, releasing to a chosen percentage of eligible users rather than all at once. For example, setting the rollout to 10% means only 10% of users who visit the store page or have automatic updates enabled will receive the new version immediately. This allows the development team to monitor crash rates, user reviews, and backend load before committing the release to 100% of users. If a critical issue is detected, the rollout can be halted, buying time for a fix without exposing the problem to the entire user base.</p>
+
+<p>Google performs both <strong>automated and manual policy reviews</strong> on production submissions. Automated systems scan for known malware, policy violations in metadata, and code patterns associated with harmful behavior. Manual review involves Google staff examining the app against the Developer Program Policies. Review times for new apps have historically been around three to seven business days, though Google states reviews can sometimes take longer. Updates to existing apps that have been reviewed before often proceed more quickly. Apps that fail review receive a notification in the Play Console with a reason code, and the developer can fix the issue and resubmit.</p>
+
+<p>The following table summarizes the key differences between the release tracks:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Track</th>
+      <th>Max Testers</th>
+      <th>Access Control</th>
+      <th>Review Speed</th>
+      <th>Typical Use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Internal Testing</td>
+      <td>100</td>
+      <td>Invite by email or link</td>
+      <td>Minutes</td>
+      <td>Developer team validation</td>
+    </tr>
+    <tr>
+      <td>Closed Testing (Alpha)</td>
+      <td>Unlimited (named group)</td>
+      <td>Invite by email / group</td>
+      <td>Hours to days</td>
+      <td>Controlled beta with select users</td>
+    </tr>
+    <tr>
+      <td>Open Testing (Beta)</td>
+      <td>Unlimited (public opt-in)</td>
+      <td>Public opt-in link</td>
+      <td>Hours to days</td>
+      <td>Broad pre-release feedback</td>
+    </tr>
+    <tr>
+      <td>Production</td>
+      <td>All eligible users</td>
+      <td>None (or staged %)</td>
+      <td>Days (full review)</td>
+      <td>General availability</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Google Play Policies and Compliance</strong></p>
+
+<p>The Google Play Developer Program Policies represent a comprehensive and actively maintained rulebook governing everything from app content to business practices. Compliance is not optional — violations at any stage can result in an app being removed from the store or, in serious cases, the entire developer account being terminated, which would remove all of that account's apps and prevent the developer from creating a new one.</p>
+
+<p>Any app that <strong>collects, stores, or shares user data</strong> — including analytics, crash reports, advertising identifiers, or account information — must include a <strong>publicly accessible privacy policy</strong>. The URL to this policy must be entered in the Play Console and is displayed on the store listing. The privacy policy must accurately disclose what data is collected, how it is used, who it is shared with, and how users can request deletion. A generic or boilerplate policy that does not accurately reflect the app's actual data practices still constitutes a violation. Since the introduction of the <strong>Data Safety section</strong> in the Play Console, developers must also complete a detailed declaration of data types collected and shared, which is displayed directly on the store listing to users — separate from, but consistent with, the privacy policy.</p>
+
+<p>Google's <strong>restricted content policies</strong> cover a wide range of sensitive categories. Violence that is gratuitous or realistic depictions of graphic harm to humans or animals, sexually explicit content, hate speech targeting individuals or groups based on protected characteristics, and content that facilitates illegal activities are all prohibited or heavily restricted. Apps may contain content in these categories if they are appropriately rated and if the content meets the platform's guidelines for the relevant category (for example, an app with simulated casino gambling must be geo-restricted to regions where real-money gambling apps are permitted). Content that appears benign in metadata but violates these policies when the app is actually used is still a violation — Google's review process includes running and interacting with the app, not just reading the description.</p>
+
+<p>Apps that target <strong>children under the age of 13</strong> are subject to the most stringent requirements on the platform. Google's <strong>Families Policy</strong> requires that such apps contain only age-appropriate content, not collect personal information beyond what is necessary for the app's functioning, not include interest-based advertising, and comply with applicable children's privacy laws including the U.S. <strong>Children's Online Privacy Protection Act (COPPA)</strong>, the EU's GDPR-K provisions, and equivalent legislation in other jurisdictions. Developers must designate their target audience in the Play Console; selecting "children" or "mixed audiences (children and adults)" triggers additional review requirements and places the app in the <em>Designed for Families</em> program. Third-party SDKs — including analytics and advertising SDKs — must themselves be certified as compliant with Families policies before they can be included in such apps.</p>
+
+<p>Violations can be discovered at submission time, during periodic re-reviews of live apps, or through user reports. When a violation is found, Google typically sends an email notification and shows an alert in the Play Console. Developers generally have the opportunity to fix the issue and resubmit, but repeat violations, deceptive practices, or severe violations such as distributing malware lead directly to account termination with no opportunity to appeal. Maintaining compliance is therefore an ongoing responsibility, not a one-time checklist — policy updates are issued regularly, and apps that were compliant at the time of submission may need updates when policies change.</p>
+
+<p>The complete submission process, from account setup through live production release, can be summarized as a sequential pipeline where each stage gatekeeps the next. A developer who approaches each stage carefully — securing their signing key, crafting honest and compelling metadata, testing across multiple tracks, and continuously monitoring compliance — is in the best position to build a sustainable, long-term presence on the Google Play Store.</p>
+        <div class="notes"><strong>Notes</strong>Covers the complete end-to-end Google Play Store submission process including account registration, build signing with AAB format requirements, all store listing asset specifications, the four release tracks with their distinctions, and the major policy compliance areas including privacy policy requirements, restricted content, and the Families Policy for children's apps.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p1-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Publishing an Android app is not simply a matter of uploading a file. Google Play requires a registered developer account, a properly built and signed release artifact (typically an Android App Bundle), a complete store listing with text and graphic assets, declarations about what your app does with user data, and a release strategy that moves the app through internal, closed, open, and finally production tracks. Each of these steps has rules attached, and failing any one of them can delay or block a release.</p>
+<p>In this course, the submission process matters because it is where interface design decisions meet real-world distribution constraints. Screenshots, feature graphics, short and full descriptions, and permission disclosures are all user-facing interface elements — they are the first interaction a user has with your product, and they are judged by reviewers against published policy. Understanding the pipeline also helps you plan your project: signing keys, package names, and privacy declarations are easier to get right at the start than to retrofit.</p>
+<p>As you watch these videos, pay attention to three things: the sequence of steps in the Play Console and what information is required at each one; the difference between build-time concerns (signing, bundles, versioning) and listing-time concerns (metadata, assets, content rating); and how policy requirements — especially around permissions and user disclosure — shape what you can legitimately ask of users. Note that Play Console interfaces and policies change over time, so treat the walkthroughs as a map of the process and confirm current details against Google's official documentation.</p></div></details><details class="slide-card" id="p1-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: How To Publish An App To The Google Play Console | Step By Step | 2023 Updated</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/295bzuj02BI?cc_load_policy=1&amp;rel=0" title="Video: How To Publish An App To The Google Play Console | Step By Step | 2023 Updated (Tricky4you)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Tricky4you</strong> · 9:22 · 88,945 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=295bzuj02BI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A step-by-step screen walkthrough of publishing an app through the Google Play Console, covering account and app creation, filling in the required listing information, uploading the build, and submitting for review. Based on its title and description, it follows the console from start to finish in a single pass rather than focusing on any one stage. Expect it to touch on store listing fields, content declarations, and the release submission step.</p>
+<h4>Why this video</h4>
+<p>It gives you the end-to-end mental model of the submission pipeline in under ten minutes, which directly supports the account setup, store listing, and release track subtopics; because console UI changes, use it for sequence and vocabulary and verify specifics against current Google documentation.</p></div></details><details class="slide-card" id="p1-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: App Bundles: Everything to know about Play App Signing - MAD Skills</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/odv_1fxt9BI?cc_load_policy=1&amp;rel=0" title="Video: App Bundles: Everything to know about Play App Signing - MAD Skills (Android Developers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Android Developers</strong> · 9:29 · 147,871 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=odv_1fxt9BI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An official Android Developers session, part of the MAD Skills series, in which a Developer Advocate explains Android App Bundles and Play App Signing. It covers what opting into Play App Signing means, the key choices you have when enrolling, and how upload keys relate to the app signing key Google manages. This is the build-preparation side of publication rather than the listing side.</p>
+<h4>Why this video</h4>
+<p>Signing is the step students most often misunderstand, and this comes straight from the Android team, making it a reliable reference for the Android Build Preparation and Signing subtopic.</p></div></details><details class="slide-card" id="p1-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Google Play Policy - Declared permissions and in-app disclosures</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/b0I1Xq_iSK4?cc_load_policy=1&amp;rel=0" title="Video: Google Play Policy - Declared permissions and in-app disclosures (Android Developers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Android Developers</strong> · 3:20 · 189,933 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=b0I1Xq_iSK4" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A short official policy explainer on declared permissions and in-app disclosures. It addresses the rule that apps may only request permissions necessary for current features, and what is expected when an app accesses personal or sensitive user data — including when a prominent in-app disclosure is required. The focus is on compliance expectations rather than code.</p>
+<h4>Why this video</h4>
+<p>It is a concise, authoritative statement of a policy area that frequently causes rejections, and it connects directly to the Google Play Policies and Compliance subtopic as well as to interface-level disclosure design.</p></div></details><details class="slide-card" id="p1-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together the three videos cover the Play side of MO1: the console walkthrough lays out the submission sequence and release flow, while the signing and policy videos fill in the technical and regulatory requirements that surround it. The permissions and disclosure video gives you a concrete standard against which to assess your own interface project for publication readiness (MO2), since permission requests and their explanatory screens are design decisions as much as policy ones. The console walkthrough also surfaces the specific metadata and graphic assets Google requires, which you can use as a checklist when preparing your own listing text, screenshots, and descriptive content (MO3).</p></div></details><details class="slide-card" id="p1-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part2">
+<h2>Apple App Store Submission Process</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Apple App Store Submission Process</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Publishing an application to the Apple App Store is one of the most structured and rigorous release processes in consumer software distribution. Unlike many other platforms, Apple enforces a multi-layered submission workflow that spans account enrollment, cryptographic code signing, metadata configuration, visual asset preparation, and a human-assisted automated review. Understanding each stage in depth — and understanding <em>why</em> each requirement exists — is essential for any developer or team planning to distribute iOS, iPadOS, macOS, tvOS, or watchOS applications through Apple's marketplace. A single misconfigured provisioning profile, a missing privacy policy URL, or a screenshot taken from the wrong device simulator can halt a release entirely. What follows is a thorough walkthrough of every major phase of the submission process.</p>
+
+<p><strong>Apple Developer Program Enrollment</strong></p>
+
+<p>Before a single line of code can reach a user through the App Store, the developer or organization responsible for the app must be a paid member of the Apple Developer Program. Enrollment is completed at <em>developer.apple.com</em> and carries an annual fee of <strong>$99 USD</strong> (prices may vary by currency and region, but the USD figure is the standard reference). This fee is not a one-time cost — it recurs annually, and if membership lapses, any apps already on the App Store remain available to existing users but cannot receive updates until membership is renewed.</p>
+
+<p>Enrollment requires verifiable legal identity information. Individual developers must provide their legal name and agree to Apple's developer agreements; the identity is validated against government-recognized identity documents and, in some regions, through Apple's integration with Dun &amp; Bradstreet or similar identity-verification services. Organizations enrolling as a company or corporation must additionally provide a <strong>D-U-N-S number</strong>, which is a unique nine-digit identifier issued by Dun &amp; Bradstreet. Apple uses this to confirm the legal existence of the organization. The enrollment process for organizations can take several days to several weeks if the D-U-N-S number needs to be created or updated.</p>
+
+<p>It is important to understand who "owns" the Developer Program account. The person who completes enrollment becomes the <strong>Account Holder</strong> (also called the Team Agent). This role has the highest level of authority within the team: only the Account Holder can accept new legal agreements from Apple (which are required after major WWDC announcements), manage certificates, and initiate certain financial operations. Additional team members can be added in App Store Connect under roles such as Admin, Developer, Marketing, or Sales, each with progressively restricted permissions.</p>
+
+<p>A separate tier exists called the <strong>Apple Developer Enterprise Program</strong>, which also carries an annual fee (currently $299 USD). This program is intended <em>exclusively</em> for organizations that need to distribute proprietary, internal-use applications directly to their own employees without going through the public App Store. Apps signed with an Enterprise distribution certificate cannot legally be distributed to anyone outside the organization. Apple has enforced this boundary aggressively — in 2019, it temporarily revoked enterprise certificates from companies that had distributed apps to the general public through enterprise signing, effectively disabling those apps for all users. The Enterprise Program is not a route to bypass App Store review for public distribution.</p>
+
+<p>Membership in the standard Apple Developer Program provides access to several critical resources beyond App Store distribution: access to beta versions of iOS, macOS, and other operating systems before public release; access to <strong>App Store Connect</strong>, the web-based portal for managing app listings and sales; access to <strong>Xcode</strong>'s full suite of distribution and profiling tools; and the ability to generate the distribution certificates and provisioning profiles covered in the next section.</p>
+
+<p><strong>Provisioning Profiles and Code Signing</strong></p>
+
+<p>Code signing is the cryptographic mechanism Apple uses to guarantee two things: first, that an application was built and authorized by a known, verified developer; and second, that the application has not been tampered with between the time it was built and the time it runs on a device. Understanding the components involved requires understanding how public-key cryptography is applied here.</p>
+
+<p>A <strong>distribution certificate</strong> is an X.509 digital certificate that binds a developer's identity (as validated by Apple) to a public/private key pair. The private key lives on the developer's Mac — specifically in the macOS Keychain — and must be kept secure. If the private key is lost, the certificate cannot be used for signing on another machine without exporting it. If it is compromised, a bad actor could potentially sign malicious software as if it came from your organization. The certificate is created through the Apple Developer portal under <em>Certificates, Identifiers &amp; Profiles</em>. During creation, Xcode or Keychain Access generates a Certificate Signing Request (CSR), which is a file containing your public key and identity information. Apple signs this CSR with its own certificate authority, producing the distribution certificate that is trusted by iOS and macOS devices.</p>
+
+<p>There are two primary types of distribution certificates relevant to App Store submission:</p>
+
+<ul>
+  <li><strong>Apple Distribution certificate</strong> — the modern, unified certificate used for submitting to the App Store across all Apple platforms. This replaced the older "iOS Distribution" and "Mac App Distribution" certificate types for most workflows.</li>
+  <li><strong>Mac Installer Distribution certificate</strong> — used specifically for signing the installer package (.pkg) for macOS apps submitted through the Mac App Store, in addition to the app bundle itself.</li>
+</ul>
+
+<p>A <strong>provisioning profile</strong> is a file that acts as a trust bridge between a specific app, a specific certificate, and Apple's authorization to run or distribute that app. It contains: the App ID (bundle identifier), the distribution certificate(s) authorized to sign the app, the entitlements the app is permitted to use (such as Push Notifications, iCloud, or HealthKit), and, for development profiles, a list of device UDIDs that may run the app. For App Store distribution profiles, the device list is replaced by Apple's own authorization for store distribution — meaning the profile does not need to enumerate specific devices because the App Store itself handles delivery.</p>
+
+<p>It is a critical distinction that apps submitted to the App Store must be signed with a <strong>distribution provisioning profile</strong>, not a development one. A development profile allows running apps on a small list of registered test devices via Xcode; a distribution profile authorizes delivery to any device through the App Store. Submitting an archive signed with the wrong profile type will result in a validation error before the build even reaches Apple's review queue.</p>
+
+<p>In modern Xcode (version 8 and later), <strong>Automatic Signing</strong> can manage certificates and profiles on behalf of the developer, creating and refreshing them as needed. While this is convenient for development, many teams prefer <strong>Manual Signing</strong> for production builds to ensure precise control over which certificate and profile are used — particularly important in CI/CD pipelines where multiple engineers or build servers share an account. Tools like <em>Fastlane Match</em> have emerged specifically to synchronize certificates and profiles across development teams by storing them in an encrypted Git repository.</p>
+
+<p>When Xcode builds and archives an application for distribution, it embeds the provisioning profile inside the <code>.ipa</code> bundle (the iOS App Archive) and cryptographically signs the binary and all embedded frameworks with the private key. When a device installs the app, iOS verifies the signature against Apple's certificate authority chain, checks that the provisioning profile is valid and unexpired, and confirms that the entitlements in the binary match those granted by the profile. Any mismatch causes installation to fail.</p>
+
+<p><strong>App Store Connect Configuration</strong></p>
+
+<p>App Store Connect (<em>appstoreconnect.apple.com</em>) is the web portal where developers manage every aspect of their App Store presence: creating app records, uploading builds, configuring metadata, setting pricing, managing testers via TestFlight, and viewing sales and analytics data. Before a build can be uploaded, the app record must be properly initialized.</p>
+
+<p>Every app requires a globally unique <strong>bundle identifier</strong> (bundle ID), registered in the Apple Developer portal under <em>Identifiers</em>. The bundle ID follows reverse-DNS notation — for example, <code>com.yourcompany.yourapp</code>. Once registered and associated with an App Store Connect record, the bundle ID cannot be changed for that app. It also cannot be reused by another app, even if the original app is removed from the store. Choosing a bundle ID is therefore a permanent decision, and teams should follow a consistent naming convention that reflects their organization's domain.</p>
+
+<p>The App Store Connect record for a new app requires the following to be set before submission:</p>
+
+<ul>
+  <li><strong>App Name</strong> — the name displayed on the App Store listing, up to 30 characters. This is distinct from the app's display name on the device home screen, though they are typically kept consistent. Name uniqueness is enforced — Apple will reject a name that is identical or confusingly similar to an existing app.</li>
+  <li><strong>Subtitle</strong> — an optional secondary label up to 30 characters, displayed beneath the app name in search results. Effective subtitles convey the app's core value proposition concisely.</li>
+  <li><strong>Description</strong> — up to 4,000 characters explaining what the app does. Only the first few lines are visible without tapping "more," so the opening sentences are especially important for conversion. Unlike the name and subtitle, the description can be updated at any time without submitting a new app version.</li>
+  <li><strong>Keywords</strong> — up to 100 characters total, comma-separated, used by Apple's search algorithm. Keywords are not publicly visible but significantly affect discoverability. They are shared across all localizations and cannot exceed the character limit across the entire field.</li>
+  <li><strong>Support URL and Marketing URL</strong> — web addresses that appear on the product page. The support URL is required; the marketing URL is optional.</li>
+  <li><strong>Privacy Policy URL</strong> — an absolute URL to the app's privacy policy, required for all apps. Discussed further in the review guidelines section.</li>
+</ul>
+
+<p><strong>Pricing and availability</strong> are configured separately within App Store Connect. Developers can choose a price tier (from Free to various paid tiers, with Apple taking a 30% commission on paid apps and in-app purchases for most developers, or 15% for those qualifying under the Small Business Program), set introductory pricing for subscriptions, and restrict or enable distribution to specific countries and regions. Apple manages currency conversion automatically based on the selected tier, though developers can also set custom prices per storefront in newer versions of App Store Connect.</p>
+
+<p>Once the app record is configured and a build has been prepared, the build is uploaded to App Store Connect. There are two primary methods:</p>
+
+<ul>
+  <li><strong>Xcode's Archive and Distribute workflow</strong> — in Xcode, select <em>Product → Archive</em>, which compiles the app in release configuration and creates an <code>.xcarchive</code> bundle. From the Organizer window, the developer selects <em>Distribute App → App Store Connect → Upload</em>, and Xcode handles validation and upload automatically. This is the most common method for individual developers and small teams.</li>
+  <li><strong>Transporter</strong> — a standalone macOS application (available free on the Mac App Store) that accepts a pre-exported <code>.ipa</code> file and uploads it to App Store Connect. This is commonly used in CI/CD pipelines (e.g., with Jenkins, GitHub Actions, or Fastlane) where the build and export steps are automated and the Xcode GUI is not interactive.</li>
+</ul>
+
+<p>After upload, the build undergoes Apple's automated processing pipeline, which performs static analysis, symbol processing, and BitCode compilation (for older platforms). Processing typically takes 5–30 minutes, after which the build becomes available to attach to an App Store version or distribute via TestFlight for beta testing.</p>
+
+<p><strong>App Store Asset Requirements</strong></p>
+
+<p>Visual assets are a significant part of the App Store submission and directly affect both review approval and user conversion rates. Apple has precise technical requirements for each asset type, and submitting incorrectly sized or formatted assets will block submission.</p>
+
+<p>The <strong>app icon</strong> for the App Store listing must be provided at exactly <strong>1024×1024 pixels</strong>, in PNG format, with no transparency (the alpha channel must be absent or fully opaque). This single image is used by Apple to generate all display sizes programmatically. The icon must not contain rounded corners — Apple applies the rounded rectangle mask itself on the device and in the App Store. Icons that include a pre-rendered rounded corner treatment will appear to have double-rounded or misaligned corners. As of Xcode 14 and later, developers can use a single 1024×1024 source in an <code>AppIcon</code> asset catalog and let Xcode generate all required sizes, which greatly simplifies the process.</p>
+
+<p><strong>Screenshots</strong> are among the most conversion-critical assets on an App Store listing. Apple requires screenshots for specific device size classes, and the minimum required sizes as of the current guidelines are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Device Category</th>
+      <th>Display Size</th>
+      <th>Required Resolution (Portrait)</th>
+      <th>Required</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>iPhone (Super Retina XDR Max)</td>
+      <td>6.5-inch</td>
+      <td>1284 × 2778 px</td>
+      <td>Yes (required for iPhone apps)</td>
+    </tr>
+    <tr>
+      <td>iPhone (Retina HD 5.5-inch)</td>
+      <td>5.5-inch</td>
+      <td>1242 × 2208 px</td>
+      <td>Yes (required for iPhone apps)</td>
+    </tr>
+    <tr>
+      <td>iPad Pro (6th gen, 12.9-inch)</td>
+      <td>12.9-inch</td>
+      <td>2048 × 2732 px</td>
+      <td>Yes (required for iPad apps)</td>
+    </tr>
+    <tr>
+      <td>iPhone (6.7-inch, iPhone 14 Plus / 15 Plus)</td>
+      <td>6.7-inch</td>
+      <td>1290 × 2796 px</td>
+      <td>Optional (replaces 6.5-inch if provided)</td>
+    </tr>
+    <tr>
+      <td>Apple Watch</td>
+      <td>Various</td>
+      <td>Varies by Series</td>
+      <td>Required for watchOS-only apps</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Up to ten screenshots can be provided per device size. Screenshots can be in portrait or landscape orientation, and for apps that support both, it is advisable to provide both orientations to demonstrate the full UI. Critically, Apple's guidelines require that all screenshots and previews <strong>accurately reflect the current version of the app's actual UI</strong>. Using mockup frames (device bezels placed around screenshots) is permitted but the content shown must be the real app interface, not a design prototype or placeholder. Submitting screenshots that misrepresent the app's functionality is grounds for rejection and, if done deliberately, can result in removal from the App Store.</p>
+
+<p><strong>App previews</strong> are short autoplay videos (up to three per device size) that appear at the beginning of the screenshot gallery. They must be between <strong>15 and 30 seconds</strong> in duration, recorded directly from the device or a simulator running the actual app. Screen recordings captured with Xcode's SimulatorRecorder or a physical device connected to QuickTime are both acceptable sources. Apple prohibits app previews that contain content not present in the app, use actors or voiceovers to demo features, or show the app performing actions that are not available to the user. Video files must be in the H.264 or HEVC codec, in an MP4 or MOV container, with no audio exceeding the volume normalization limit Apple specifies in the asset upload tool.</p>
+
+<p>Localized screenshots and previews can be provided per language/region storefront, allowing developers to show region-appropriate content (translated UI, locally relevant imagery) on each country's App Store. If localized assets are not provided for a particular language, Apple falls back to the default language assets.</p>
+
+<p><strong>App Review Guidelines and Common Rejections</strong></p>
+
+<p>Apple's App Review Guidelines (<em>developer.apple.com/app-store/review/guidelines</em>) are a publicly available document covering Safety, Performance, Business, Design, and Legal requirements. Every app submitted to the App Store is evaluated against these guidelines by a combination of automated tooling and human reviewers. Review typically takes 24–48 hours for initial submissions, though expedited reviews can be requested for critical bug fixes (such as crashes affecting a large user base or time-sensitive content like live event apps) through a formal request process in App Store Connect.</p>
+
+<p>The most fundamental performance requirement is that the app must be <strong>free of crashes and significant bugs</strong> at the time of submission. Apple reviewers test the app on actual devices running the current publicly available operating system. If the app crashes on launch, hangs during basic navigation, or exhibits broken functionality in the primary use case, it will be rejected with a reference to Guideline 2.1 (App Completeness). This seems obvious, but it is a surprisingly common rejection vector for teams that test primarily on simulators or on specific device configurations that do not match the reviewer's test environment. Testing on a range of physical devices before submission — including older hardware with less RAM — is essential.</p>
+
+<p>A <strong>privacy policy</strong> is mandatory for all apps submitted to the App Store, regardless of whether the app collects any personal data. The privacy policy must be accessible from within the app (typically via a link in a Settings or About screen) and the URL must be entered in App Store Connect. The policy itself must accurately describe what data is collected, how it is used, whether it is shared with third parties, and how users can request deletion of their data (particularly relevant for apps distributed in the EU under GDPR or in California under CCPA). Apple's own <em>Privacy Nutrition Labels</em> — the data collection disclosures on every App Store product page — must also be completed in App Store Connect and must match what is described in the privacy policy and what the app actually does.</p>
+
+<p>The prohibition on <strong>private APIs and undocumented system features</strong> (Guideline 2.5.1) is enforced through both automated static analysis and manual review. Private APIs are Objective-C or Swift symbols that are present in Apple's frameworks but not documented in the public SDK. Apple's automated review pipeline scans all submitted binaries for known private API selectors. Even if the private API is called indirectly through a third-party SDK, Apple holds the developer responsible. The practical implication is that all third-party libraries and SDKs must be vetted before inclusion in a release build — an analytics or advertising SDK silently calling a private API can cause a rejection that appears to come out of nowhere. Apple's policy exists because private APIs are subject to change or removal in any OS update, which can cause apps to break silently in production.</p>
+
+<p><strong>Guideline 4.0 (Design)</strong> is broader and more subjective than the technical guidelines. It requires that apps meet minimum standards of quality and provide meaningful functionality beyond a simple web view or static content display. A "shell app" that wraps a website without adding native functionality or value will be rejected under 4.0. Apps that are incomplete, that closely copy other apps without adding original value, or that have a user interface that is confusing, broken, or significantly below platform norms are also subject to rejection under the Design guidelines. Apple's Human Interface Guidelines (HIG) serve as the design reference — while developers are not required to follow every HIG recommendation, egregious deviations (such as navigation patterns that conflict with expected iOS behavior) can trigger a 4.0 rejection.</p>
+
+<p>Other frequently encountered rejection reasons include:</p>
+
+<ul>
+  <li><strong>Missing or incomplete demo account credentials</strong> — if the app requires login to access functionality, a fully functional demo account with credentials must be provided to the reviewer in the App Review Information field of App Store Connect. Apps where the reviewer cannot access core functionality due to missing credentials are rejected.</li>
+  <li><strong>Guideline 3.1.1 (In-App Purchase)</strong> — any digital goods or services consumed within the app must be sold through Apple's In-App Purchase system, which routes payment through Apple and provides Apple its commission. Offering digital purchases through a third-party payment processor (or directing users to a website to complete a purchase) within the app is prohibited. Physical goods and services rendered outside the app (e.g., a ride-sharing payment, a restaurant delivery) are exempt.</li>
+  <li><strong>Guideline 5.1.1 (Data Collection and Storage)</strong> — apps must not collect more data than necessary for the app's stated functionality, and must obtain appropriate user consent (using Apple's App Tracking Transparency framework for cross-app tracking) before doing so.</li>
+  <li><strong>Incomplete or inaccurate metadata</strong> — the app's description, screenshots, or categories that misrepresent the app's actual functionality can trigger a 4.3 (Spam) or 2.3 (Accurate Metadata) rejection.</li>
+</ul>
+
+<p>When an app is rejected, Apple sends a message through the <strong>Resolution Center</strong>, a messaging interface within App Store Connect. The message identifies the relevant guideline(s) and describes the specific behavior that triggered the rejection. Developers can respond in two ways: they can reply with a message explaining why they believe the app is compliant (an appeal), or they can acknowledge the feedback, fix the issue in the app or metadata, and resubmit. Resubmission restarts the review queue. For persistent disagreements, developers may submit a formal appeal to the App Review Board, a separate team at Apple that reviews contested decisions — though this process is slower and the outcome is not guaranteed. Throughout this process, clear and professional communication with the reviewer (possible through the Resolution Center) often resolves misunderstandings faster than resubmitting immediately.</p>
+        <div class="notes"><strong>Notes</strong>Covers the full Apple App Store submission lifecycle: Developer Program enrollment (individual vs. enterprise, $99/year, D-U-N-S for orgs), distribution certificates and provisioning profiles (code signing mechanics, development vs. distribution profiles, Automatic vs. Manual signing), App Store Connect configuration (bundle IDs, metadata fields, pricing, upload via Xcode Organizer or Transporter), visual asset requirements (1024×1024 icon, 6.5-inch and 5.5-inch screenshots, 15–30s previews), and App Review Guidelines including crashes, privacy policy requirement, private API prohibition, Guideline 4.0 Design, IAP rules, and the Resolution Center appeals process.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p2-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Publishing an app to the Apple App Store is less a single button press than a sequence of administrative, technical, and design steps. Before any code ships, a developer (or organization) must enroll in the Apple Developer Program, generate certificates and provisioning profiles so that builds are cryptographically signed, create an app record in App Store Connect, upload a build through Xcode, and supply metadata and marketing assets that meet Apple's specifications. Only then does the app enter App Review, where human reviewers check it against the App Store Review Guidelines.</p>
+<p>This matters in a human-computer interfaces course because Apple's requirements are, in large part, interface requirements. Screenshot dimensions, app icons, privacy disclosures, age ratings, and accessibility information are all part of how users encounter and judge your product before they ever launch it. Many common rejections — broken links, placeholder content, misleading screenshots, missing privacy details, poor usability on certain devices — are failures of interface preparation rather than failures of engineering.</p>
+<p>As you watch the videos below, pay attention to the order of operations: what has to exist in App Store Connect before a build can be uploaded, what Xcode handles automatically versus what you must configure, and where beta testing (TestFlight) fits relative to final review submission. Note also every place a video mentions an asset, a description field, or a compliance question, and start a checklist you can later apply to your own interface project.</p></div></details><details class="slide-card" id="p2-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Release an iOS app with Flutter in 7 steps</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/iE2bpP56QKc?cc_load_policy=1&amp;rel=0" title="Video: Release an iOS app with Flutter in 7 steps (Flutter)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Flutter</strong> · 9:52 · 243,941 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=iE2bpP56QKc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A step-by-step walkthrough from the official Flutter channel covering what it takes to move a finished app to the iOS App Store. Based on its title and description, it breaks the process into roughly seven stages, which typically include registering a bundle identifier, setting up signing in Xcode, creating the app listing in App Store Connect, building a release archive, uploading it, and submitting for review. The Flutter framing is incidental — the App Store side of the workflow is the same regardless of how the app was built.</p>
+<h4>Why this video</h4>
+<p>It gives students a compact, end-to-end mental model of the submission pipeline from a reputable first-party channel, touching enrollment, code signing, App Store Connect setup, and review submission in a single short video.</p></div></details><details class="slide-card" id="p2-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: TestFlight &amp; Xcode: Upload, Distribute, and Beta Test Your iOS App In Under 10 Minutes! (2025)</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/x0d8Jx3HvdI?cc_load_policy=1&amp;rel=0" title="Video: TestFlight &amp; Xcode: Upload, Distribute, and Beta Test Your iOS App In Under 10 Minutes! (2025) (Noah Does Coding)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Noah Does Coding</strong> · 7:57 · 60,638 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=x0d8Jx3HvdI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A recent, fast-paced tutorial on distributing an iOS build through TestFlight using Xcode and App Store Connect. It is likely to demonstrate archiving a build, uploading it, handling export compliance and build processing, and then inviting internal and external testers to install the beta. This is the stage most teams use to validate an interface with real users before committing to public release.</p>
+<h4>Why this video</h4>
+<p>TestFlight is the practical bridge between a finished prototype and a store submission, and this 2025 walkthrough shows the exact App Store Connect screens students will encounter, reinforcing the upload and configuration subtopics.</p></div></details><details class="slide-card" id="p2-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: WWDC23: What’s new in App Store Connect | Apple</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/UgZIFzmtENY?cc_load_policy=1&amp;rel=0" title="Video: WWDC23: What’s new in App Store Connect | Apple (Apple Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Apple Developer</strong> · 13:02 · 3,030 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=UgZIFzmtENY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An official Apple Developer session from WWDC23 surveying updates to App Store Connect, the web and mobile toolset used to manage app records, builds, metadata, pricing, testers, and submissions. Expect coverage of how apps and their store listings are configured and submitted, along with newer capabilities in the submission and management workflow.</p>
+<h4>Why this video</h4>
+<p>It comes directly from Apple, so the terminology and policies are authoritative, and it gives students a tour of the App Store Connect configuration environment that the other two videos use more briefly.</p></div></details><details class="slide-card" id="p2-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos trace the full Apple submission pathway that MO1 asks you to summarize: developer account and signing setup, App Store Connect configuration, build upload, beta distribution, and final review. The Flutter release walkthrough and the Apple Developer session surface the specific listing fields, compliance questions, and guideline checkpoints you will use in MO2 to judge whether your own interface project is publication-ready. The App Store Connect material in particular highlights the metadata, screenshots, and descriptive information required at submission, giving you a concrete model for assembling the publication assets called for in MO3 — though you should still consult Apple's current Review Guidelines and asset specifications directly, since exact requirements change between releases.</p></div></details><details class="slide-card" id="p2-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part3">
+<h2>Microsoft Store Submission Process</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Microsoft Store Submission Process</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Publishing a Windows application to the Microsoft Store is a structured process that requires developers to work through several interconnected stages: creating and verifying a Publisher account in Partner Center, packaging the application using the MSIX format, assembling the required store listing assets and metadata, and finally passing Microsoft's certification review. Each stage has specific requirements that must be satisfied before an app can appear publicly in the Store. Understanding the full pipeline in detail — from first account registration through to a live listing — helps developers avoid common pitfalls, reduces certification failures, and leads to a polished, discoverable store presence.</p>
+
+<p><strong>Microsoft Partner Center Account Setup</strong></p>
+
+<p>The Microsoft Partner Center (<em>partner.microsoft.com</em>) is the unified portal through which developers register as publishers, submit app packages, monitor sales and install analytics, and configure payout information. Before any application can be submitted to the Microsoft Store, a Publisher account must be created and approved in Partner Center. There are two account types available, and the choice between them affects both cost and the verification steps required.</p>
+
+<p>An <strong>Individual developer account</strong> is intended for solo developers or hobbyists who are not representing a legal business entity. Registration requires a one-time fee of <strong>$19 USD</strong>. After payment, Microsoft verifies the identity of the individual through the payment method and associated Microsoft account, and the account is typically activated quickly. Individual accounts display the developer's chosen display name on Store listings rather than a company brand.</p>
+
+<p>A <strong>Company account</strong> carries a one-time fee of <strong>$99 USD</strong> and is designed for organisations, studios, and businesses that want to publish apps under a company identity. Because the account will represent a legal entity, Microsoft requires <strong>business identity verification</strong>. This verification is performed by a third-party verification provider (historically Dun &amp; Bradstreet) and involves confirming that the company name, address, and contact details match official business records. The process can take several business days, and Microsoft may request supporting documentation. Once approved, the company's legal or trading name appears as the publisher identity on all Store listings.</p>
+
+<p>A <strong>Microsoft account</strong> (an @outlook.com, @hotmail.com, or any email linked to the Microsoft identity system) is mandatory to begin registration. This account becomes the primary owner of the Partner Center publisher profile. Additional users — such as teammates or finance staff — can later be invited to the account with role-based permissions ranging from full manager access to read-only analytics or payout-only roles.</p>
+
+<p>Once the account is active, the <strong>Partner Center dashboard</strong> becomes the central hub for all publishing operations. From the dashboard a developer can:</p>
+<ul>
+  <li>Create new app submissions and reserve an app name in the Store (name reservation is free and holds the name even before a package is ready).</li>
+  <li>Upload MSIX packages and manage release branches or flight rings for phased rollouts.</li>
+  <li>Author or update store listings in multiple languages.</li>
+  <li>View acquisition, usage, and health analytics broken down by region, OS version, and device type.</li>
+  <li>Configure pricing, markets, and availability schedules.</li>
+  <li>Set up bank accounts and tax profiles to receive revenue from paid apps or in-app purchases.</li>
+</ul>
+
+<p>It is good practice to reserve an app name in Partner Center as early as possible during development. The reserved name must match the <em>Name</em> declared in the MSIX package manifest, so reserving it early lets you embed the correct identity in the package without changes later.</p>
+
+<p><strong>Windows App Packaging with MSIX</strong></p>
+
+<p>MSIX is the modern Windows application packaging format and is the <strong>required format</strong> for all submissions to the Microsoft Store. It supersedes older formats such as AppX (which it extends), MSI, and ClickOnce for Store distribution. MSIX packages are digitally signed container files (with the <em>.msix</em> or <em>.msixbundle</em> extension) that encapsulate an application's binaries, assets, and a declarative XML manifest. Because MSIX uses containerised installation, applications are installed cleanly without registry sprawl, uninstall completely without leaving residue, and support features such as automatic updates and differential package downloads.</p>
+
+<p><strong>Building MSIX packages in Visual Studio</strong> is the most common path for developers writing new applications targeting Windows. Visual Studio 2019 and later include a dedicated <em>Windows Application Packaging Project</em> template. Adding this project type to a solution and setting it as the startup project causes Visual Studio to produce a signed MSIX package when building in Release configuration. The packaging project references the main application project, and its <em>Package.appxmanifest</em> file is edited through a visual designer inside the IDE. When submitting to the Store, developers typically select <em>Create App Packages</em> from the project context menu, which invokes a wizard that guides through architecture selection (x86, x64, arm64), version numbering, and whether to produce a bundle. A bundle (<em>.msixbundle</em>) contains packages for multiple architectures in a single file, and the Store delivers only the architecture-appropriate slice to each user's device.</p>
+
+<p>For software that already exists as a traditional <strong>Win32 installer</strong> (MSI, EXE setup, etc.), Microsoft provides the <strong>MSIX Packaging Tool</strong>, available free from the Microsoft Store itself. The tool works by monitoring an installation on a clean reference machine — either a physical machine or a Hyper-V virtual machine — and captures all file system and registry changes made by the installer. It then packages those artefacts into an MSIX structure. This conversion pathway lets legacy applications gain the benefits of MSIX deployment (clean uninstall, Store distribution, automatic updates) without requiring a rewrite. After conversion, developers typically review and trim the captured content to remove unnecessary registry keys or files before submission.</p>
+
+<p>At the heart of every MSIX package is the <strong>manifest file</strong>, <em>AppxManifest.xml</em>. This XML document is the authoritative declaration of the application's identity and behaviour on the Windows platform. Key sections include:</p>
+<ul>
+  <li><strong>Identity element:</strong> Specifies the <em>Name</em> (which must match the name reserved in Partner Center), <em>Publisher</em> (the publisher distinguished name from your Store certificate), <em>Version</em> (a four-part version number such as <em>1.0.0.0</em>), and <em>ProcessorArchitecture</em>.</li>
+  <li><strong>Properties:</strong> Contains the human-readable <em>DisplayName</em>, <em>PublisherDisplayName</em>, and the path to the app's logo image used on the Start menu tile.</li>
+  <li><strong>Capabilities:</strong> Declares the system resources and sensitive APIs the application needs access to, such as <em>internetClient</em>, <em>microphone</em>, <em>webcam</em>, or <em>location</em>. Windows enforces these declarations — an app that attempts to use a capability not listed in the manifest will be denied access at runtime. Reviewers during certification also verify that declared capabilities match the app's actual behaviour.</li>
+  <li><strong>Applications element:</strong> Defines the entry points of the package — the executable(s) that appear on the Start menu, their display names, descriptions, and visual assets. A single MSIX package can contain multiple application entry points.</li>
+  <li><strong>Extensions:</strong> Optional declarations for OS integration features such as file type associations, URI scheme handlers, background tasks, share targets, and toast notification activation.</li>
+</ul>
+
+<p>A minimal manifest snippet for a WinUI 3 application looks like the following:</p>
+<pre><code>&lt;Package
+  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"&gt;
+  &lt;Identity
+    Name="ContosoWeather"
+    Publisher="CN=Contoso, O=Contoso Ltd, C=US"
+    Version="2.1.0.0"
+    ProcessorArchitecture="x64" /&gt;
+  &lt;Properties&gt;
+    &lt;DisplayName&gt;Contoso Weather&lt;/DisplayName&gt;
+    &lt;PublisherDisplayName&gt;Contoso Ltd&lt;/PublisherDisplayName&gt;
+    &lt;Logo&gt;Assets\StoreLogo.png&lt;/Logo&gt;
+  &lt;/Properties&gt;
+  &lt;Capabilities&gt;
+    &lt;Capability Name="internetClient" /&gt;
+    &lt;uap:Capability Name="location" /&gt;
+  &lt;/Capabilities&gt;
+  &lt;Applications&gt;
+    &lt;Application Id="App" Executable="ContosoWeather.exe"
+                 EntryPoint="Windows.FullTrustApplication"&gt;
+      &lt;uap:VisualElements DisplayName="Contoso Weather"
+        Description="Live weather forecasts."
+        Square150x150Logo="Assets\Square150x150Logo.png"
+        Square44x44Logo="Assets\Square44x44Logo.png"
+        BackgroundColor="transparent" /&gt;
+    &lt;/Application&gt;
+  &lt;/Applications&gt;
+&lt;/Package&gt;</code></pre>
+
+<p>Before uploading to Partner Center, the package must be <strong>digitally signed</strong>. During development and sideload testing, developers sign with a self-signed certificate. For Store submissions, however, the package is typically uploaded <em>unsigned</em> — or signed with a developer certificate — because Microsoft re-signs the package with their own certificate infrastructure during the ingestion process, which is what users ultimately receive. Partner Center validates that the package identity metadata matches the reserved app name and publisher identity associated with the account.</p>
+
+<p><strong>Store Listing and Asset Requirements for Microsoft Store</strong></p>
+
+<p>A store listing is everything a potential user sees on the app's Store page: visuals, descriptions, ratings, and metadata. Crafting a complete and accurate listing is not only a certification requirement but also a significant factor in discoverability and conversion — how many people who view the page actually click Install. Partner Center allows listings to be localised into dozens of languages, each with its own set of assets and copy.</p>
+
+<p>The visual asset requirements for a desktop app listing are precise. The <strong>store logo</strong> must be provided at a minimum size of <strong>300×300 pixels</strong>. This image appears in search results, the app's Store page header, and various editorial placements across the Store. It should be a clean, high-contrast image that is legible at small sizes. PNG format with a transparent background is recommended so the Store can render it correctly on both light and dark UI themes.</p>
+
+<p><strong>Screenshots</strong> must be at least <strong>1366×768 pixels</strong> for desktop app listings. Screenshots are among the highest-impact elements of a store listing; users scan them to quickly judge what the app looks like and does. Best practice is to provide at least three to four screenshots showing the app's primary features. Partner Center accepts up to ten screenshots per listing language. Captions can be added beneath each screenshot to call out specific functionality. While the minimum dimension is 1366×768, providing screenshots at higher resolutions (such as 1920×1080 or even 2560×1440) produces crisper visuals on high-DPI displays.</p>
+
+<p>Every listing requires two written descriptions:</p>
+<ul>
+  <li>A <strong>short description</strong> (up to 270 characters) that appears in search result cards and in some Store surface areas where space is limited. It should summarise the app's core value proposition succinctly.</li>
+  <li>A <strong>full description</strong> (up to 10,000 characters) that appears on the app's dedicated Store page. This is the place to explain features in depth, list supported hardware or OS requirements, describe subscription tiers, and include keywords that improve organic search ranking within the Store. Plain text with line breaks is supported; basic formatting conventions like capitalisation and short bullet-style paragraphs improve readability.</li>
+</ul>
+
+<p>Additional optional but recommended listing fields include a <em>What's new in this version</em> section (up to 1,500 characters), which is shown to existing users considering an update; search terms (up to seven terms, each up to 30 characters) that supplement the organic indexing of the description; and a support URL and privacy policy URL.</p>
+
+<p><strong>Age ratings</strong> are not assigned manually by the developer. Instead, Partner Center presents a <strong>questionnaire</strong> covering the nature of content in the app — including questions about violence, sexual content, drug references, user-generated content, social interaction features, and gambling mechanics. Based on the answers, Partner Center calculates ratings from recognised classification bodies such as ESRB, PEGI, USK, and others simultaneously. The developer is responsible for answering accurately; misrepresenting content in the questionnaire is a policy violation. Apps whose content changes significantly in an update (for example, adding in-app chat) must re-evaluate their rating questionnaire responses.</p>
+
+<p>The table below summarises the key asset and metadata requirements for a typical desktop app listing:</p>
+<table>
+  <thead>
+    <tr>
+      <th>Asset / Field</th>
+      <th>Requirement</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Store Logo</td>
+      <td>300×300 px minimum</td>
+      <td>PNG with transparency preferred; used in search results and Store page header</td>
+    </tr>
+    <tr>
+      <td>Screenshots</td>
+      <td>1366×768 px minimum (desktop)</td>
+      <td>Up to 10 per language; higher resolution recommended for clarity</td>
+    </tr>
+    <tr>
+      <td>Short Description</td>
+      <td>Up to 270 characters</td>
+      <td>Appears in Store search cards and limited-space surfaces</td>
+    </tr>
+    <tr>
+      <td>Full Description</td>
+      <td>Up to 10,000 characters</td>
+      <td>Main Store page body; include keywords naturally for discoverability</td>
+    </tr>
+    <tr>
+      <td>Age Rating Questionnaire</td>
+      <td>Must be completed</td>
+      <td>Generates ESRB, PEGI, and other regional ratings automatically</td>
+    </tr>
+    <tr>
+      <td>Privacy Policy URL</td>
+      <td>Required if personal data is collected</td>
+      <td>Must be a live, accessible URL at time of submission</td>
+    </tr>
+    <tr>
+      <td>Search Terms</td>
+      <td>Up to 7 terms, 30 characters each</td>
+      <td>Optional but strongly recommended for discoverability</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Microsoft Store Certification and Policies</strong></p>
+
+<p>Before a submitted app becomes publicly visible in the Store, it must pass Microsoft's certification process. Certification enforces the <strong>Microsoft Store Policies</strong> — a publicly available document (part of the App Developer Agreement) that defines what apps are permitted to do, how they must behave, and what content they may contain. The policies span several major areas including content standards (no illegal content, no content that exploits minors, restricted adult content only in appropriate age-gated markets), privacy and data handling requirements, security requirements (no malware or deceptive behaviour), functionality standards (the app must work as described), and monetisation rules (in-app purchases of digital goods must use the Store's commerce system or a permitted alternative).</p>
+
+<p>The certification pipeline has two complementary components that run in parallel or in sequence:</p>
+<ul>
+  <li><strong>Automated testing:</strong> The Windows App Certification Kit (WACK) and additional automated tools analyse the package for common technical violations — things like missing manifest declarations, use of deprecated APIs, packages that crash on launch, incorrect file structures, or binaries that contain known malware signatures. Automated tests are fast and catch a large proportion of technical issues before any human reviewer is involved. Developers can and should run WACK locally against their MSIX package before submission to catch these problems early.</li>
+  <li><strong>Manual review by Microsoft staff:</strong> Human reviewers install and interact with the application to verify that it behaves as the store listing describes, that it does not engage in deceptive or harmful behaviour, that declared capabilities match actual usage, and that the content complies with policies. Certain categories of apps — particularly those involving financial services, health data, apps for children, or user-generated content — receive more rigorous manual scrutiny.</li>
+</ul>
+
+<p>One of the most consistently enforced requirements relates to <strong>privacy</strong>. If an application collects, stores, or transmits any personally identifiable information — including but not limited to names, email addresses, location data, usage telemetry, or device identifiers — it <strong>must</strong> provide a <strong>privacy policy URL</strong> as part of the store listing. The URL must point to a live, human-readable document (not a placeholder or coming-soon page) that accurately describes what data is collected, why it is collected, how it is stored and protected, and how users can request deletion or access to their data. Failure to provide a valid privacy policy URL when one is required is one of the most common reasons for certification failure.</p>
+
+<p>When a submission <strong>fails certification</strong>, Microsoft does not simply reject it silently. Developers receive a <strong>detailed certification failure report</strong> through Partner Center and by email. The report identifies each specific policy violation or technical failure, cites the relevant policy section number, describes the steps the reviewer took to reproduce the issue, and in most cases provides guidance on how to resolve it. This structured feedback allows developers to address all identified issues and resubmit efficiently. It is important to read the full report carefully — sometimes a single user-facing issue (such as a crash on a specific screen) is listed alongside a policy citation that explains the standard it violated, and both pieces of information are needed to understand and fix the root cause.</p>
+
+<p>Typical causes of certification failure, and the strategies for avoiding them, include:</p>
+<ul>
+  <li><strong>App crashes or fails to launch:</strong> Run the app on a clean machine against the minimum supported OS version declared in the manifest before submission. Ensure all runtime dependencies (such as the Visual C++ Redistributable or .NET Desktop Runtime) are either bundled in the MSIX or declared as framework package dependencies.</li>
+  <li><strong>Functionality not matching the description:</strong> Every feature described in the store listing must be present and working. Listing features that are "coming soon" or that require external account credentials not explained in the listing will cause a review failure.</li>
+  <li><strong>Missing or inaccurate privacy policy:</strong> Audit the application's network activity and data storage carefully. If any personal or device data leaves the user's machine — including through third-party analytics SDKs embedded in the app — a privacy policy is required.</li>
+  <li><strong>Undeclared capabilities:</strong> If the app accesses location, the microphone, the camera, or contacts without declaring the corresponding capability in the manifest, Windows will block the access and the reviewer will observe broken functionality.</li>
+  <li><strong>Misleading metadata:</strong> Using competitor brand names as search terms, or including unrelated keywords in the description to game search ranking, violates Store policies on metadata honesty.</li>
+</ul>
+
+<p>Once all issues are resolved and a resubmission passes certification, the app transitions to the <em>In the Store</em> status and becomes available to users in the markets and on the release schedule the developer configured. Microsoft typically targets a certification turnaround of one to three business days for standard submissions, though complex manual reviews or policy edge cases can extend this timeline. Developers can monitor the real-time status of every submission — from <em>Package acceptance</em> through <em>Pre-processing</em>, <em>Certification</em>, and finally <em>Publishing</em> — directly within the Partner Center dashboard.</p>
+        <div class="notes"><strong>Notes</strong>Covers all four subtopic clusters in depth: Partner Center account setup (individual vs. company fees, verification, dashboard capabilities), MSIX packaging (Visual Studio tooling, MSIX Packaging Tool for legacy apps, manifest structure with code example), store listing assets and metadata (logo/screenshot pixel requirements, description fields, age rating questionnaire, summarised in a table), and certification pipeline (policies, automated + manual review, privacy policy requirement, failure report guidance, and common failure causes with mitigation advice).</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p3-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Publishing a Windows application to the Microsoft Store is a structured process with four main stages: registering a developer account in Microsoft Partner Center, packaging your app (most commonly as an MSIX package), building a store listing with the required metadata and visual assets, and passing certification against Microsoft Store policies. Each stage has concrete requirements — an identity-verified account, a signed and correctly manifested package, screenshots and descriptions at specified sizes and lengths, and content that complies with the Store Policies and Developer Agreement.</p>
+<p>This matters in an HCI course because the store listing is often the first interface a user encounters. Your icons, screenshots, short description, and accessibility information shape whether someone installs your app at all, and store requirements effectively impose a baseline of usability, accessibility, and transparency on the product itself. Learning the Microsoft process also gives you a point of comparison with the Apple App Store and Google Play, which solve the same problems with different rules.</p>
+<p>As you watch the videos below, note that they come from Microsoft's own developer conference sessions, so they present the publishing pipeline from the platform owner's perspective. Look for the sequence of steps from code to published app, the specific listing elements that influence discoverability and conversion, and the policy and business-model changes that define the current Store. Keep in mind that these sessions are a few years old: always confirm exact size limits, fees, and policy clauses against current Microsoft Partner Center documentation before you submit.</p></div></details><details class="slide-card" id="p3-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Best practices for app publishing | ODBRK31</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/H3CVxvNzJsY?cc_load_policy=1&amp;rel=0" title="Video: Best practices for app publishing | ODBRK31 (Microsoft Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Microsoft Developer</strong> · 10:14 · 115 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=H3CVxvNzJsY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A Microsoft Developer session that walks through the end-to-end app publishing process, from finished code to an app available to customers. Based on its framing, expect coverage of packaging and submission steps, the Partner Center workflow, and practices that help a submission move quickly through review rather than getting stuck.</p>
+<h4>Why this video</h4>
+<p>It is the most direct match for the overall submission workflow — account, package, submit, certify — and comes from Microsoft itself, so the described process reflects the platform owner's intended path.</p></div></details><details class="slide-card" id="p3-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Finding your success in the Microsoft Store | ODBRK32</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/3_V5qrfcK68?cc_load_policy=1&amp;rel=0" title="Video: Finding your success in the Microsoft Store | ODBRK32 (Microsoft Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Microsoft Developer</strong> · 14:21 · 366 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=3_V5qrfcK68" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This session focuses on optimizing your Store listing so that customers respond to it, framed around "love at first sight" and increasing downloads. It is likely to address listing elements such as the app title, description, icon, screenshots, and other assets, and how they affect discoverability and install decisions.</p>
+<h4>Why this video</h4>
+<p>It targets the Store Listing and Asset Requirements subtopic specifically, and connects asset quality to user perception — exactly the HCI angle on publication materials.</p></div></details><details class="slide-card" id="p3-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: The new Microsoft Store built for your success | BRK31</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/3V73mhzcSkE?cc_load_policy=1&amp;rel=0" title="Video: The new Microsoft Store built for your success | BRK31 (Microsoft Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Microsoft Developer</strong> · 19:25 · 498 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=3V73mhzcSkE" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A keynote-style breakout on the rebuilt Microsoft Store and its "open Store" premise, explaining what changed for developers and why. Expect discussion of relaxed packaging and commerce requirements, what kinds of apps are now accepted, and the policy and ecosystem thinking behind those decisions.</p>
+<h4>Why this video</h4>
+<p>It provides the policy and platform context behind certification rules and packaging options, helping you understand why Microsoft's requirements differ from Apple's and Google's.</p></div></details><details class="slide-card" id="p3-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos cover the Microsoft side of MO1 by laying out the submission pipeline and review expectations that you can then compare with Apple App Store and Google Play requirements. The session on the new Store surfaces the policy and acceptance rules you need in order to assess your own interface project for publication readiness (MO2), while the listing-optimization session models the metadata, screenshots, and descriptive assets you will be asked to prepare to store standards (MO3). Use the publishing best-practices session as the procedural backbone, and verify any specific numbers or policy details against current Partner Center documentation before applying them to your project.</p></div></details><details class="slide-card" id="p3-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part4">
+<h2>Web Deployment Strategies</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Web Deployment Strategies</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Deploying a web application to a production environment is far more than simply copying files to a server. It is a disciplined engineering process that encompasses choosing the right hosting infrastructure, automating build and release workflows, securing traffic with certificates, delivering Progressive Web App capabilities, and optimising the experience so that both users and search engines are satisfied. Each of these dimensions interacts with the others: a poorly chosen hosting platform can undermine an otherwise excellent build pipeline; an expired SSL certificate can instantly disable PWA features; and an unoptimised bundle can erase the ranking benefits of perfect metadata. The sections that follow unpack each dimension in depth, providing the conceptual foundation and practical detail needed to make sound deployment decisions.</p>
+
+<p><strong>Web Hosting Options and Platforms</strong></p>
+
+<p>The first architectural decision a team must make is where the application will live. The answer depends heavily on whether the application is <em>static</em> or <em>dynamic</em>, and on non-technical factors such as budget, expected traffic volume, and the geographic spread of the user base.</p>
+
+<p>A <strong>static web application</strong> is one whose files — HTML, CSS, JavaScript, images, and other assets — are fully pre-built and do not change in response to server-side logic at request time. Because every visitor receives the same files, a static site can be served entirely from a Content Delivery Network (CDN) edge node rather than from a central origin server, which dramatically reduces latency. Platforms designed specifically for this pattern include:</p>
+
+<ul>
+  <li><strong>GitHub Pages</strong> — directly serves a repository branch or a <code>/docs</code> folder, making it ideal for documentation sites, portfolios, and open-source project pages. It is free for public repositories and requires zero server configuration.</li>
+  <li><strong>Netlify</strong> — adds a layer of build automation on top of CDN delivery. A developer pushes code; Netlify pulls it, runs the configured build command (e.g., <code>npm run build</code>), and deploys the output to its global edge network. It also provides instant rollbacks, deploy previews for pull requests, serverless functions, and form handling.</li>
+  <li><strong>Vercel</strong> — created by the team behind Next.js and optimised for JavaScript frameworks, Vercel offers similar CDN-backed static hosting alongside Edge Functions and Incremental Static Regeneration (ISR), a hybrid model that pre-renders pages at build time but can revalidate them in the background without a full rebuild.</li>
+</ul>
+
+<p>A <strong>dynamic web application</strong> generates responses on the fly — querying databases, enforcing authentication, running business logic, or personalising content per user. These applications require persistent server processes or equivalent compute resources. The dominant providers in this space are the hyperscale cloud platforms:</p>
+
+<ul>
+  <li><strong>Amazon Web Services (AWS)</strong> — offers Elastic Compute Cloud (EC2) for full virtual machine control, Elastic Beanstalk for managed application hosting, Elastic Container Service (ECS) and Elastic Kubernetes Service (EKS) for container orchestration, and a vast array of managed services (RDS for databases, ElastiCache for caching, S3 for object storage, CloudFront for CDN).</li>
+  <li><strong>Microsoft Azure</strong> — provides App Service for PaaS web hosting, Azure Kubernetes Service (AKS), Azure Functions for serverless compute, and deep integration with the Microsoft ecosystem including Active Directory for identity.</li>
+  <li><strong>Google Cloud Platform (GCP)</strong> — offers Cloud Run for containerised workloads that scale to zero, Google Kubernetes Engine (GKE), App Engine, and Firebase Hosting with Cloud Functions, which is particularly popular for mobile-adjacent web projects.</li>
+</ul>
+
+<p><strong>Serverless functions</strong> represent a middle ground that deserves special attention. Rather than managing an always-on server, the developer deploys individual functions that the cloud provider executes in ephemeral containers on demand. AWS Lambda, Azure Functions, Google Cloud Functions, Netlify Functions, and Vercel Edge Functions all follow this model. The key advantages are that the provider handles scaling automatically — from zero requests to millions — and billing is based on actual invocations and execution time rather than reserved capacity. The trade-off is that functions have execution time limits, can experience "cold start" latency when a container must be provisioned from scratch after a period of inactivity, and are less suited to workloads requiring persistent in-memory state.</p>
+
+<p>When selecting a hosting platform, four criteria should drive the evaluation:</p>
+
+<ul>
+  <li><strong>Scalability</strong> — can the platform handle sudden traffic spikes (e.g., a viral marketing campaign) without manual intervention? CDN-based static hosts and serverless platforms scale inherently; traditional single-server deployments require deliberate autoscaling configuration.</li>
+  <li><strong>Cost</strong> — static and serverless platforms often have generous free tiers and pay-per-use pricing, making them economical at low traffic. Long-running containers or VMs may become cheaper at high, consistent traffic because reserved pricing is available.</li>
+  <li><strong>Geographic distribution</strong> — a CDN with edge nodes in many regions reduces round-trip latency for global users. A single-region server will always be slower for users on the opposite side of the planet.</li>
+  <li><strong>Ease of deployment</strong> — managed platforms abstract infrastructure concerns, reducing operational burden on small teams. Bare-metal or IaaS deployments offer maximum control but require dedicated DevOps expertise.</li>
+</ul>
+
+<p><strong>Build Pipelines and Continuous Deployment</strong></p>
+
+<p>Modern web development relies on toolchains — bundlers, transpilers, linters, test runners — that must be executed in a precise sequence before code is ready to serve to users. A <strong>build pipeline</strong> is the automated system that orchestrates these steps consistently and repeatably, eliminating the "works on my machine" problem and reducing the risk of human error in the release process.</p>
+
+<p>A typical build pipeline for a JavaScript web application proceeds through several stages:</p>
+
+<ul>
+  <li><strong>Install dependencies</strong> — <code>npm ci</code> (or the equivalent for Yarn or pnpm) installs exactly the versions recorded in the lockfile, ensuring reproducibility.</li>
+  <li><strong>Lint and static analysis</strong> — tools such as ESLint and TypeScript's compiler catch code quality and type errors before any tests run, providing fast feedback.</li>
+  <li><strong>Run automated tests</strong> — unit tests (Jest, Vitest), integration tests, and end-to-end tests (Playwright, Cypress) verify that the application behaves correctly. A failing test aborts the pipeline, preventing broken code from reaching production.</li>
+  <li><strong>Build</strong> — the bundler (Vite, webpack, Parcel) compiles, tree-shakes, minifies, and outputs deployment artifacts: typically a <code>dist/</code> or <code>build/</code> directory containing optimised static files.</li>
+  <li><strong>Publish artifacts</strong> — the built output is uploaded to the hosting platform, a container registry, or an artifact store.</li>
+</ul>
+
+<p><strong>Continuous Deployment (CD)</strong> extends this pipeline so that every commit to a designated branch (commonly <code>main</code> or <code>production</code>) that passes all pipeline stages is automatically released to the target environment with no human approval step required. This is distinct from <em>Continuous Delivery</em>, where the pipeline produces a release-ready artifact that a human then chooses to deploy. CD is powerful because it forces teams to keep the codebase in a constantly deployable state, encourages small and frequent commits, and compresses the time between writing a feature and users benefiting from it.</p>
+
+<p>Popular CI/CD platforms include GitHub Actions, GitLab CI/CD, CircleCI, Jenkins, and Bitbucket Pipelines. A minimal GitHub Actions workflow for a static site might look like:</p>
+
+<pre><code>name: Deploy to Netlify
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Netlify
+        uses: nwtgck/actions-netlify@v3
+        with:
+          publish-dir: './dist'
+          production-branch: main
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+</code></pre>
+
+<p><strong>Version control integration</strong> is central to trustworthy CD. Every deployment is tied to a specific Git commit SHA. This traceability means the team can always answer "exactly what code is running in production right now?" — a question that becomes critical during incident response. Many platforms display the commit hash and message alongside each deployment in their dashboards.</p>
+
+<p>Despite the best automated safeguards, a broken deployment will occasionally reach production. A robust <strong>rollback strategy</strong> minimises the blast radius. Options include:</p>
+
+<ul>
+  <li><strong>Instant rollback via the platform</strong> — Netlify and Vercel retain every prior deployment indefinitely and allow a one-click revert to any previous build. The DNS or edge routing simply points back to the previous artifact.</li>
+  <li><strong>Git revert</strong> — a new commit that undoes the offending change is pushed to the main branch, triggering the CD pipeline to build and deploy a corrected version. This preserves a clean linear history of what happened.</li>
+  <li><strong>Blue-green deployments</strong> — two identical production environments ("blue" and "green") exist simultaneously. Traffic is routed to one while the other receives the new deployment. If the new version is healthy, traffic switches; if not, the router stays pointed at the stable environment with no downtime.</li>
+  <li><strong>Canary releases</strong> — the new version receives a small percentage of traffic (e.g., 5 %) while the rest continues to hit the old version. Monitoring determines whether the canary is healthy before a full rollout proceeds.</li>
+</ul>
+
+<p><strong>Domain Configuration and SSL Certificates</strong></p>
+
+<p>A professional web application is accessed at a meaningful domain name rather than a raw IP address or platform-generated URL. The process of connecting a custom domain to a hosting provider involves two systems working together: the <strong>domain registrar</strong> and the <strong>Domain Name System (DNS)</strong>.</p>
+
+<p>A domain is registered through a registrar (Namecheap, Google Domains, GoDaddy, Cloudflare Registrar, etc.) for an annual fee. Once registered, the owner controls the domain's DNS records, which are typically managed either in the registrar's own interface or delegated to a third-party nameserver such as Cloudflare's. To point a domain at a hosting provider, the operator creates DNS records of the appropriate types:</p>
+
+<ul>
+  <li><strong>A record</strong> — maps the domain to an IPv4 address. Used when the hosting provider exposes a static IP.</li>
+  <li><strong>AAAA record</strong> — the IPv6 equivalent of an A record.</li>
+  <li><strong>CNAME record</strong> — maps the domain (or a subdomain) to another domain name rather than a direct IP. Netlify and Vercel both instruct users to create a CNAME pointing to their own platform hostname (e.g., <code>exciting-project-abc123.netlify.app</code>), allowing the platform to handle routing and certificate management transparently.</li>
+  <li><strong>ALIAS / ANAME record</strong> — some DNS providers offer this as a CNAME-like record that can also be applied to the root domain (the "apex"), working around a DNS specification limitation that prohibits a true CNAME on an apex domain.</li>
+</ul>
+
+<p>Once the domain resolves to the correct server, all traffic must be secured with <strong>SSL/TLS certificates</strong>. SSL (Secure Sockets Layer) has technically been superseded by TLS (Transport Layer Security), but the term "SSL certificate" remains common in practice. The certificate enables HTTPS by providing two guarantees: it proves the server's identity (the browser can verify the certificate was issued by a trusted Certificate Authority for this specific domain) and it establishes an encrypted channel so that data transmitted between the user's browser and the server cannot be read or tampered with by anyone on the network path.</p>
+
+<p>Obtaining a certificate was historically a manual, paid process. <strong>Let's Encrypt</strong>, a free, automated, and open Certificate Authority launched in 2016, transformed the landscape. Using the ACME protocol, a server can prove domain control to Let's Encrypt and receive a 90-day certificate entirely automatically. Most modern hosting platforms — Netlify, Vercel, GitHub Pages with custom domains, AWS Certificate Manager for CloudFront, Cloudflare — provision Let's Encrypt certificates automatically when a custom domain is added, with no manual steps required from the developer.</p>
+
+<p><strong>HTTPS is not optional</strong> for contemporary web applications. The browser enforces increasingly strict security policies that are gated on a secure context (a page served over HTTPS or from localhost):</p>
+
+<ul>
+  <li>Service Workers — the foundation of Progressive Web Apps — will not register on HTTP pages.</li>
+  <li>The Geolocation API, the Camera/Microphone APIs, the Web Bluetooth API, and the Web Authentication API all require a secure context.</li>
+  <li>PWA installation prompts are suppressed on non-HTTPS origins.</li>
+  <li>Google's search ranking algorithms use HTTPS as a positive ranking signal.</li>
+  <li>Modern browsers display a "Not Secure" warning in the address bar for HTTP pages, eroding user trust.</li>
+</ul>
+
+<p><strong>Automatic certificate renewal</strong> is therefore a critical operational concern. Let's Encrypt certificates expire after 90 days by design (shorter lifetimes reduce the window of exposure if a private key is compromised). Automated renewal, triggered several weeks before expiry, must be configured and monitored. A renewal failure that goes unnoticed will result in browsers displaying certificate error pages to all users — effectively taking the site offline. Managed hosting platforms handle renewal automatically; self-managed servers using Certbot or similar ACME clients should have renewal configured as a cron job or systemd timer, with alerting on failure.</p>
+
+<p><strong>Progressive Web App Deployment</strong></p>
+
+<p>A Progressive Web App (PWA) is a web application that uses modern browser APIs to deliver an experience comparable to a native application: it can be installed on the user's device, work offline, receive push notifications, and appear in the system app launcher and task switcher. Deploying a PWA correctly requires several specific files and configurations beyond a standard web application.</p>
+
+<p>The <strong>web app manifest</strong> is a JSON file — conventionally named <code>manifest.json</code> or <code>site.webmanifest</code> — linked from the HTML <code>&lt;head&gt;</code> that describes the application's identity and appearance when installed. A representative manifest:</p>
+
+<pre><code>{
+  "name": "My Awesome App",
+  "short_name": "AwesomeApp",
+  "description": "An example Progressive Web Application",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a73e8",
+  "icons": [
+    {
+      "src": "/icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512-maskable.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
+</code></pre>
+
+<p>Key fields explained:</p>
+
+<ul>
+  <li><strong>name / short_name</strong> — <code>name</code> is used in splash screens and install prompts; <code>short_name</code> is used under the home screen icon where space is limited.</li>
+  <li><strong>display</strong> — <code>standalone</code> hides the browser UI (address bar, navigation buttons), making the app feel native. Other values are <code>fullscreen</code>, <code>minimal-ui</code>, and <code>browser</code>.</li>
+  <li><strong>theme_color</strong> — colours the browser's toolbar on Android and the title bar area on desktop when the app is installed.</li>
+  <li><strong>icons</strong> — must include at least 192×192 and 512×512 pixel variants. A <code>maskable</code> icon has safe-zone padding so it renders correctly inside shaped icon containers on Android.</li>
+  <li><strong>start_url</strong> — the URL loaded when the user launches the installed app. Including a query parameter like <code>?source=pwa</code> allows analytics to distinguish PWA launches from browser visits.</li>
+</ul>
+
+<p>The <strong>service worker</strong> is a JavaScript file served from the application's origin that the browser installs and runs in a background thread separate from the main page. It acts as a programmable network proxy: the service worker intercepts every network request made by the page and can decide to serve a response from its cache, forward the request to the network, or apply a combination strategy. This is what enables offline functionality. A minimal service worker using the Cache-First strategy for static assets:</p>
+
+<pre><code>const CACHE_NAME = 'my-app-v1';
+const STATIC_ASSETS = [
+  '/',
+  '/index.html',
+  '/styles.css',
+  '/app.js',
+  '/icons/icon-192.png'
+];
+
+// Installation: cache static assets
+self.addEventListener('install', (event) =&gt; {
+  event.waitUntil(
+    caches.open(CACHE_NAME).then((cache) =&gt; cache.addAll(STATIC_ASSETS))
+  );
+  self.skipWaiting();
+});
+
+// Activation: remove outdated caches
+self.addEventListener('activate', (event) =&gt; {
+  event.waitUntil(
+    caches.keys().then((keys) =&gt;
+      Promise.all(keys.filter((k) =&gt; k !== CACHE_NAME).map((k) =&gt; caches.delete(k)))
+    )
+  );
+  self.clients.claim();
+});
+
+// Fetch: serve from cache, fall back to network
+self.addEventListener('fetch', (event) =&gt; {
+  event.respondWith(
+    caches.match(event.request).then((cached) =&gt; cached || fetch(event.request))
+  );
+});
+</code></pre>
+
+<p>For production applications, libraries such as <strong>Workbox</strong> (from Google) generate service workers with well-tested caching strategies, cache expiry, background sync, and push notification support, reducing the risk of subtle caching bugs.</p>
+
+<p>The requirement that <strong>PWAs must be served over HTTPS</strong> exists because a service worker can intercept and modify any network request made by the page — a capability that would be catastrophically dangerous if exploited by a network attacker. The browser refuses to register a service worker on an insecure origin, ensuring this power is available only to the legitimate server. Localhost is the only exception, to facilitate local development.</p>
+
+<p>PWAs have historically been limited to the mobile web browser and desktop browser contexts. Increasingly, however, they can be distributed through <strong>native app stores</strong>. The key mechanisms are:</p>
+
+<ul>
+  <li><strong>Trusted Web Activities (TWA)</strong> — an Android feature that allows a PWA to be wrapped in a thin native Android shell and submitted to the Google Play Store. The TWA uses Chrome's rendering engine to display the web app, and Digital Asset Links (a JSON file at <code>/.well-known/assetlinks.json</code>) prove that the website and the Android app are owned by the same entity, which removes the browser UI from the PWA when launched from the Play Store listing. Tools like <strong>Bubblewrap</strong> (a CLI) and <strong>PWABuilder</strong> automate TWA generation.</li>
+  <li><strong>Microsoft Store</strong> — Microsoft accepts PWA submissions directly through PWABuilder, and Windows 11 renders installed PWAs as first-class applications indistinguishable from native Win32 or UWP apps.</li>
+  <li><strong>Apple App Store</strong> — Apple's support for PWAs on iOS has historically lagged behind Android. As of iOS 16.4, installed PWAs on the home screen support push notifications, and capabilities continue to expand. Full App Store distribution of PWAs requires a WKWebView wrapper and is subject to App Store review policies.</li>
+</ul>
+
+<p><strong>Web App Performance and SEO Considerations</strong></p>
+
+<p>A deployed application that is slow or invisible to search engines fails its users and its business objectives regardless of how elegant the code is. Performance and discoverability must be treated as first-class deployment concerns rather than afterthoughts.</p>
+
+<p>Google's <strong>Core Web Vitals</strong> are a set of user-centric performance metrics that measure real-world experience and directly influence search rankings. The three primary metrics are:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Metric</th>
+      <th>What It Measures</th>
+      <th>Good Threshold</th>
+      <th>Poor Threshold</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Largest Contentful Paint (LCP)</strong></td>
+      <td>Time from page navigation start until the largest visible content element (image, video poster, or text block) is rendered</td>
+      <td>≤ 2.5 s</td>
+      <td>&gt; 4.0 s</td>
+    </tr>
+    <tr>
+      <td><strong>Interaction to Next Paint (INP)</strong></td>
+      <td>Latency of the slowest interaction (click, tap, key press) during the page's lifetime — replaced First Input Delay in 2024</td>
+      <td>≤ 200 ms</td>
+      <td>&gt; 500 ms</td>
+    </tr>
+    <tr>
+      <td><strong>Cumulative Layout Shift (CLS)</strong></td>
+      <td>Sum of unexpected layout shift scores; measures visual stability — elements moving around as the page loads</td>
+      <td>≤ 0.1</td>
+      <td>&gt; 0.25</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Improving Core Web Vitals requires targeted optimisation at multiple layers:</p>
+
+<ul>
+  <li><strong>Images</strong> — use modern formats (WebP, AVIF) which are 25–50 % smaller than JPEG/PNG at equivalent quality. Implement responsive images with <code>srcset</code> and <code>sizes</code> so browsers download only the resolution they need. Add explicit <code>width</code> and <code>height</code> attributes (or CSS aspect-ratio) to prevent layout shifts as images load. Lazy-load below-the-fold images with <code>loading="lazy"</code>.</li>
+  <li><strong>JavaScript</strong> — code-split large bundles so only the code needed for the current route is downloaded. Tree-shake to eliminate dead code. Defer or async-load non-critical scripts. Minification (via Terser, esbuild, or the bundler's built-in minimiser) removes whitespace, shortens variable names, and can reduce bundle size by 30–60 %.</li>
+  <li><strong>CSS</strong> — minify stylesheets. Consider critical CSS inlining (embedding the styles needed for above-the-fold content directly in the HTML <code>&lt;head&gt;</code> so the first render requires no additional round trip) and loading the full stylesheet asynchronously.</li>
+  <li><strong>Fonts</strong> — subset web fonts to include only the characters actually used. Use <code>font-display: swap</code> to show fallback text immediately while the custom font loads, avoiding invisible text (FOIT — Flash of Invisible Text).</li>
+  <li><strong>Caching and CDN</strong> — set aggressive <code>Cache-Control</code> headers (e.g., <code>max-age=31536000, immutable</code>) on versioned assets (files whose filenames include a content hash), so returning visitors load nothing from the network. Serve all assets from a CDN edge node close to the user.</li>
+</ul>
+
+<p><strong>Meta tags</strong> are HTML elements in the <code>&lt;head&gt;</code> that communicate page identity and context to search engines and social platforms without being visible to the user:</p>
+
+<pre><code>&lt;!-- Core SEO meta tags --&gt;
+&lt;title&gt;Best Running Shoes 2024 | ShoeStore&lt;/title&gt;
+&lt;meta name="description"
+      content="Discover the top-rated running shoes of 2024 reviewed by experts.
+               Free shipping on orders over $50."&gt;
+
+&lt;!-- Open Graph tags (Facebook, LinkedIn, WhatsApp previews) --&gt;
+&lt;meta property="og:title" content="Best Running Shoes 2024"&gt;
+&lt;meta property="og:description"
+      content="Expert reviews and rankings of 2024's top running shoes."&gt;
+&lt;meta property="og:image" content="https://example.com/og-running-shoes.jpg"&gt;
+&lt;meta property="og:url" content="https://example.com/running-shoes-2024"&gt;
+&lt;meta property="og:type" content="article"&gt;
+
+&lt;!-- Twitter Card tags --&gt;
+&lt;meta name="twitter:card" content="summary_large_image"&gt;
+&lt;meta name="twitter:title" content="Best Running Shoes 2024"&gt;
+&lt;meta name="twitter:description"
+      content="Expert reviews and rankings of 2024's top running shoes."&gt;
+&lt;meta name="twitter:image" content="https://example.com/og-running-shoes.jpg"&gt;
+</code></pre>
+
+<p>The <code>&lt;title&gt;</code> tag is the primary signal search engines use to understand and display a page in results. The <code>description</code> meta tag does not directly affect ranking but strongly influences click-through rate by appearing as the snippet below the page title in search results. Open Graph tags control the rich preview cards generated when a URL is shared on social media — without them, platforms fall back to unpredictable heuristics.</p>
+
+<p>Two files serve as a map and a rulebook for search engine crawlers:</p>
+
+<ul>
+  <li><strong>sitemap.xml</strong> — an XML document listing every URL that should be indexed, optionally with the last-modified date and update frequency. This is especially valuable for large sites where some pages might not be discovered through normal link-following, and for new sites where crawlers have not yet built up a picture of the site's structure. The sitemap's location is declared in <code>robots.txt</code> or submitted directly through Google Search Console.</li>
+  <li><strong>robots.txt</strong> — a plain-text file at the site root that instructs crawlers which paths they are and are not permitted to access. For example, <code>Disallow: /admin/</code> prevents crawlers from indexing internal admin pages. It is important to note that <code>robots.txt</code> is advisory — well-behaved crawlers respect it, but malicious bots do not; it is not a security mechanism.</li>
+</ul>
+
+<p>A well-formed <code>robots.txt</code> with a sitemap reference:</p>
+
+<pre><code>User-agent: *
+Disallow: /admin/
+Disallow: /api/
+Allow: /
+
+Sitemap: https://example.com/sitemap.xml
+</code></pre>
+
+<p>For Single Page Applications (SPAs) built with React, Vue, or Angular, SEO deserves special attention. An SPA that renders content entirely in the browser via JavaScript will present an empty HTML shell to crawlers that do not execute JavaScript — causing the page to appear blank in search results. The solutions are:</p>
+
+<ul>
+  <li><strong>Server-Side Rendering (SSR)</strong> — the server executes the JavaScript framework and sends fully rendered HTML to the client. Next.js (React), Nuxt (Vue), and SvelteKit provide SSR out of the box.</li>
+  <li><strong>Static Site Generation (SSG)</strong> — all pages are pre-rendered to static HTML at build time. Ideal for content that does not change per-user.</li>
+  <li><strong>Prerendering services</strong> — a middleware layer detects crawler user agents and serves pre-rendered HTML snapshots while serving the normal SPA to regular browsers.</li>
+</ul>
+
+<p>Performance measurement should be continuous rather than a one-time pre-launch activity. Tools such as <strong>Google Lighthouse</strong> (built into Chrome DevTools and available as a CI integration), <strong>PageSpeed Insights</strong> (which combines lab data from Lighthouse with real-user field data from the Chrome User Experience Report), and <strong>WebPageTest</strong> provide detailed audits and recommendations. Integrating Lighthouse into the CD pipeline — failing the build if scores drop below defined thresholds — prevents performance regressions from silently accumulating over time.</p>
+        <div class="notes"><strong>Notes</strong>Covers all five subtopic clusters: hosting options and platforms (static, dynamic, serverless), build pipelines and CD (pipeline stages, CD definition, version control traceability, rollback strategies), domain configuration and SSL (DNS record types, TLS purpose, HTTPS requirements, automatic renewal), PWA deployment (manifest fields, service worker lifecycle, HTTPS requirement, app store distribution via TWA and PWABuilder), and performance/SEO (Core Web Vitals table, asset optimisation techniques, meta tags with code example, sitemap.xml and robots.txt, SPA SEO considerations).</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p4-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Not every interface you build will be distributed through an app store. For web applications, "publication" means deploying your code to a server that the public can reach, attaching a domain name to it, securing it with HTTPS, and keeping it updated as you continue to make changes. This topic walks through the practical choices involved: where to host (managed platforms, static site hosts, or your own virtual private server), how to automate builds and deployments, how domains and SSL certificates are configured, what it takes to ship a Progressive Web App, and how performance and SEO affect whether people actually find and stay on your site.</p>
+<p>These concerns matter in this course because the usability work you do is only visible to users once the project is live, fast, and trustworthy. A slow first load, a browser warning about an insecure connection, or a broken deploy undoes a lot of careful interface design. Deployment also changes how you work: once a build pipeline is in place, pushing a change to a repository can automatically test and publish it, which shortens the loop between user feedback and the fix.</p>
+<p>The three videos below demonstrate three different points on the hosting spectrum, from fully managed to fully self-administered. While watching, pay attention to what each platform does for you automatically versus what you must configure yourself — especially the steps around connecting a Git repository, setting a build command, pointing a custom domain, and provisioning a certificate. Also notice how each workflow would handle a second, third, and fiftieth deployment, since that repeatability is the real point of continuous deployment.</p></div></details><details class="slide-card" id="p4-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Getting started with Firebase Hosting (and GitHub Actions!)</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/P0x0LmiknJc?cc_load_policy=1&amp;rel=0" title="Video: Getting started with Firebase Hosting (and GitHub Actions!) (Firebase)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Firebase</strong> · 12:54 · 157,044 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=P0x0LmiknJc" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>An episode of Firebase Fundamentals in which David East walks through setting up Firebase Hosting for a web project and then wiring it to GitHub Actions so that deployments happen automatically. Expect coverage of the Firebase CLI, initializing hosting in a project directory, and the generated workflow that builds and publishes on a push or pull request. It illustrates the managed-platform end of the hosting spectrum, where HTTPS and a CDN are handled for you.</p>
+<h4>Why this video</h4>
+<p>It comes directly from the Firebase team, so the tooling and commands shown are authoritative, and it connects two subtopics at once — hosting platforms and continuous deployment through a build pipeline.</p></div></details><details class="slide-card" id="p4-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: Deploy your website for free with Cloudflare Pages and GitHub!</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/MTc2CTYoszY?cc_load_policy=1&amp;rel=0" title="Video: Deploy your website for free with Cloudflare Pages and GitHub! (Coder Coder)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Coder Coder</strong> · 13:47 · 233,531 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=MTc2CTYoszY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Coder Coder demonstrates deploying a site built with HTML, CSS, and JavaScript to Cloudflare Pages using a GitHub repository as the source. The walkthrough covers linking the repo, configuring the build, and getting a live URL at no cost, with Cloudflare's network handling delivery and TLS. It is a good model of the static-hosting approach suited to front-end projects and class prototypes.</p>
+<h4>Why this video</h4>
+<p>The channel is known for clear, beginner-friendly front-end instruction, and the free tier makes it realistic for student projects while still demonstrating Git-triggered deployment and platform-managed SSL.</p></div></details><details class="slide-card" id="p4-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: VPS Tutorial for Beginners: Website Setup on DigitalOcean</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/b3ZuGNDWLlo?cc_load_policy=1&amp;rel=0" title="Video: VPS Tutorial for Beginners: Website Setup on DigitalOcean (Tony Teaches Tech)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Tony Teaches Tech</strong> · 7:52 · 46,808 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=b3ZuGNDWLlo" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>Tony Teaches Tech shows how to launch a website on a DigitalOcean virtual private server using Nginx, starting from an empty machine. The tutorial is aimed at people who have never administered a server, so it covers creating the instance, serving files through a web server, and the manual steps that managed platforms abstract away.</p>
+<h4>Why this video</h4>
+<p>It supplies the contrast the other two videos need: seeing the server-level work required makes the trade-offs between control, cost, and convenience in hosting and domain/SSL configuration concrete.</p></div></details><details class="slide-card" id="p4-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos extend the module's publication theme beyond the Apple App Store and Google Play Store by showing what release looks like on the open web, which helps you compare submission-and-review distribution against self-publishing (MO1). Evaluating your own interface project for readiness means more than meeting store guidelines — it also means confirming it builds cleanly, deploys reliably, and loads over HTTPS, and the Firebase and Cloudflare walkthroughs give you a repeatable pipeline to test that against (MO2). Finally, the deployment URLs, custom domains, and live demos produced by these workflows become part of the asset package you present alongside metadata and screenshots when you submit or showcase the project (MO3).</p></div></details><details class="slide-card" id="p4-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part5">
+<h2>Asset Requirements and Store Listing Optimization</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Asset Requirements and Store Listing Optimization</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Publishing an app successfully across major platforms like Google Play, the Apple App Store, and the Microsoft Store is far more than a technical exercise in uploading a binary. The store listing itself is a product — one that must be carefully engineered with the right graphical assets, compelling descriptive copy, strategically chosen keywords, and legally compliant privacy documentation. Each element of the listing influences whether a user discovers your app in the first place, decides to tap the install button, and whether the store review team approves the submission without rejection. This topic covers in depth the four pillars of a high-quality store listing: icon and branding standards, screenshots and preview videos, App Store Optimization (ASO), and privacy policy requirements.</p>
+
+<p><strong>App Icons and Branding Standards</strong></p>
+
+<p>The app icon is the single most visible element of your brand on any app store or device home screen. It must simultaneously communicate the app's purpose at a glance, remain legible when scaled down to small sizes, and stand out visually in a crowded grid of competing apps. Each major platform imposes specific technical requirements that must be met precisely or the submission will be rejected outright.</p>
+
+<p><strong>Google Play</strong> requires a high-resolution icon delivered as a PNG file at exactly <strong>512×512 pixels</strong>. This "hi-res icon" is what appears in the Play Store listing itself, in search results, and in promotional placements. Google Play applies its own adaptive icon masking on devices running Android 8.0 (Oreo) and later, so your icon artwork must be designed so that the focal point of the design sits within a "safe zone" of roughly the inner 66% of the canvas — elements near the edges may be cropped by the circular, squircle, or rounded-square masks applied by different device manufacturers. Separately, app developers must also supply adaptive icon layers (foreground and background) within the APK or AAB itself for device display, but the store listing requires that 512×512 PNG as a standalone marketing asset.</p>
+
+<p><strong>Apple App Store</strong> requires a single icon at <strong>1024×1024 pixels</strong> in PNG format with no transparency and no pre-applied rounded corners. This is a critical point: iOS applies the rounded corner mask automatically and uniformly across all icons on the home screen and within the store. If you supply an icon with rounded corners already baked in, the system's mask will create an awkward double-rounding effect at the corners. The icon must also have no alpha channel — a flat, fully opaque background is required. Xcode compiles the icon into the app binary from an asset catalog containing multiple sizes (e.g., 60×60 @2x for iPhone, 76×76 @2x for iPad), but the App Store Connect submission requires the 1024×1024 marketing icon. It should be noted that Apple's guidelines prohibit icons that closely resemble Apple's own system app icons or that use screenshots of real device hardware.</p>
+
+<p><strong>Microsoft Store</strong> operates across a wider variety of display contexts — desktop applications, Xbox, HoloLens, and more — so it requires logos at multiple sizes. The two most commonly referenced sizes for standard UWP and desktop app submissions are <strong>300×300 pixels</strong> (used in the store listing page and large tile contexts) and <strong>50×50 pixels</strong> (used in search results and list views). Additional sizes such as 150×150 and 71×71 may be required depending on the app type. All assets should be provided as PNG files, and Microsoft's guidance recommends designing on a transparent background so that the store can apply its own theming appropriately in light and dark UI modes.</p>
+
+<p>Beyond raw technical specs, effective icon design follows several well-established principles:</p>
+
+<ul>
+  <li><strong>Use a single, recognizable symbol or letterform.</strong> Complexity does not scale down. An icon that looks detailed at 512×512 pixels often becomes an illegible blur at 29×29 pixels. Test your design at the smallest size it will appear on device, not just the largest.</li>
+  <li><strong>Avoid placing text in icons.</strong> At small sizes, any text becomes unreadable. If a letter or monogram is the primary design element, that is fine — but full words are strongly discouraged by Apple's Human Interface Guidelines and Google's Material Design guidelines alike.</li>
+  <li><strong>Use color intentionally.</strong> High contrast between the foreground element and the background color improves legibility. A distinctive color palette also helps users re-locate your icon on a crowded home screen.</li>
+  <li><strong>Maintain brand consistency.</strong> The icon should share visual language — color, shape vocabulary, typography style — with the in-app experience and any marketing materials. Inconsistency between the icon and the app interior erodes user trust.</li>
+</ul>
+
+<p>The table below summarizes the primary icon specifications for each major platform:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Platform</th>
+      <th>Required Size (px)</th>
+      <th>Format</th>
+      <th>Notes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Google Play</td>
+      <td>512 × 512</td>
+      <td>PNG</td>
+      <td>Store listing asset; adaptive icon layers supplied separately in APK/AAB</td>
+    </tr>
+    <tr>
+      <td>Apple App Store</td>
+      <td>1024 × 1024</td>
+      <td>PNG (no alpha)</td>
+      <td>No pre-applied rounded corners; iOS masks automatically</td>
+    </tr>
+    <tr>
+      <td>Microsoft Store</td>
+      <td>300 × 300, 50 × 50</td>
+      <td>PNG</td>
+      <td>Multiple sizes required; transparent background recommended</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Screenshots and App Previews</strong></p>
+
+<p>After the icon draws a user to your listing, screenshots and preview videos are the primary visual content that converts a curious browser into an installer. They are among the most impactful elements of the store listing and are frequently underinvested in by developers who focus almost entirely on the app itself.</p>
+
+<p><strong>Device size requirements</strong> vary by platform and change periodically as new hardware is released. For Apple, screenshots must be provided for specific device "families" — for example, the App Store currently requires screenshots for at least one iPhone size (commonly the 6.9-inch display class used by the iPhone 16 Pro Max series) and optionally for iPad if the app supports iPadOS. Google Play allows a more flexible approach: you upload screenshots and select which device types they apply to, though providing phone, 7-inch tablet, and 10-inch tablet screenshots is recommended for broad coverage. Microsoft Store similarly requires screenshots that reflect the Windows desktop experience, with additional sets for Xbox if applicable. It is important to check the current specifications in each platform's developer documentation before a release cycle, as required dimensions change when new flagship device screen sizes are introduced.</p>
+
+<p>Screenshots should be designed, not merely captured. The most effective listings treat each screenshot as a mini-advertisement:</p>
+
+<ul>
+  <li><strong>Lead with the value proposition.</strong> The first one or two screenshots are the most important because they are visible without scrolling or swiping. They should answer the question "What does this app do for me?" immediately. Use brief, benefit-driven captions overlaid on the screenshot rather than relying on the user to infer meaning from a raw UI capture.</li>
+  <li><strong>Show real, populated UI.</strong> A screenshot of a to-do app showing an empty list communicates nothing. Show the app in a realistic, data-rich state that demonstrates the experience at its most compelling.</li>
+  <li><strong>Use a consistent visual style across all screenshots.</strong> A coherent color palette, consistent device frame treatment, and uniform caption typography across all screenshots creates a polished, professional impression.</li>
+  <li><strong>Highlight key features sequentially.</strong> Use the screenshot sequence to tell a story — onboarding, core functionality, secondary features, and any unique differentiators.</li>
+</ul>
+
+<p><strong>App preview videos</strong> (called "Preview" on the App Store and "Feature Graphic" animations or preview videos on Google Play) are short — typically 15 to 30 seconds on Apple and up to 30 seconds on Google Play. Key principles for effective previews include:</p>
+
+<ul>
+  <li><strong>Show the app in action, not a brand film.</strong> Store policies on both Apple and Google explicitly require that preview videos demonstrate actual in-app functionality. Conceptual lifestyle footage or animated advertising that does not reflect the real app interface can result in rejection.</li>
+  <li><strong>Assume the sound is off.</strong> A large percentage of users view app preview videos without audio, especially when browsing in public or at work. Visual storytelling and on-screen text captions should convey the message entirely without relying on a voiceover.</li>
+  <li><strong>Front-load the compelling content.</strong> Many users will not watch to the end. The most exciting, differentiating feature should appear in the first five seconds.</li>
+</ul>
+
+<p>Critically, all screenshots and videos must <strong>accurately represent the current version of the app</strong>. Both Apple and Google prohibit misleading store assets — showing features that do not exist, UI that has been redesigned and removed, or performance that the app cannot actually deliver. Beyond the policy risk, misleading screenshots damage user trust: a user who installs based on expectations set by inaccurate screenshots will leave a negative review when the experience does not match.</p>
+
+<p><strong>App Store Optimization (ASO) Fundamentals</strong></p>
+
+<p>App Store Optimization is the discipline of improving an app's visibility in store search results and its conversion rate (the percentage of listing visitors who install). It is the mobile equivalent of Search Engine Optimization (SEO) for websites and deserves the same level of ongoing research and iteration.</p>
+
+<p><strong>Title and subtitle are the highest-weighted textual fields.</strong> Both Apple's App Store and Google Play's search algorithms assign significantly more ranking weight to the app title than to any other metadata field. On Apple, the title can be up to 30 characters and the subtitle (displayed below the title in search results) is also up to 30 characters. On Google Play, the title is up to 30 characters and a "short description" of up to 80 characters appears in some listing views. Including a primary target keyword naturally in the app title has a direct and measurable impact on ranking for that term. For example, an app named simply <em>"Mira"</em> will rank poorly for the term "expense tracker" compared to one named <em>"Mira – Expense Tracker"</em>, all else being equal. However, keyword stuffing — filling the title with comma-separated terms that read unnaturally — violates both Apple's and Google's metadata guidelines and can result in rejection or suppression.</p>
+
+<p><strong>Keyword research</strong> is the foundation of effective ASO. The goal is to identify terms that have a high enough search volume to be worth targeting but low enough competition that a new or mid-tier app can realistically rank on the first page of results. Tools such as AppFollow, Sensor Tower, AppTweak, and MobileAction provide search volume estimates and competitive difficulty scores for keywords on both major platforms. A practical research process looks like this:</p>
+
+<ul>
+  <li>Begin with a broad brainstorm of terms your target users would type to find your app.</li>
+  <li>Expand that list using competitor analysis — examine the titles, subtitles, and visible descriptions of the top-ranking apps in your category.</li>
+  <li>Score each term for volume and difficulty using an ASO tool.</li>
+  <li>Prioritize terms with the best volume-to-difficulty ratio that are also highly relevant to your app.</li>
+  <li>Place the highest-priority terms in the title and subtitle; use remaining slots in Apple's hidden keyword field (100 characters, not visible to users) for secondary terms.</li>
+  <li>Avoid repeating terms across fields — Apple's algorithm does not reward repetition and the space is wasted.</li>
+</ul>
+
+<p><strong>Localized listings</strong> represent one of the highest-ROI levers available to app publishers. Both App Store Connect and Google Play Console allow you to submit entirely different metadata — title, subtitle/short description, full description, keywords, screenshots, and preview videos — for each locale you support. An app optimized only in English will have no presence in search results conducted in French, Japanese, Portuguese, or German, regardless of whether the app itself has been translated. Localization is not merely translation; effective localized ASO also adapts the keyword strategy to reflect how users in that country search, which may differ substantially from a direct translation of English terms.</p>
+
+<p><strong>User ratings and review volume</strong> function as strong quality signals in both platforms' ranking algorithms. An app with thousands of four- and five-star ratings will outrank a competing app with similar keyword optimization but few or poor reviews. This means that encouraging satisfied users to leave ratings — through in-app rating prompts at contextually appropriate moments (e.g., after a user completes a successful action, not at first launch) — is a legitimate and important part of an ASO strategy. Apple provides the <code>SKStoreReviewRequestAPI</code> for requesting ratings in-app without sending users out of the app experience. Google Play similarly provides an in-app review API. Both platforms limit how frequently the prompt may appear to avoid harassing users.</p>
+
+<p>The table below summarizes the key metadata fields and their character limits across the two dominant mobile platforms:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Field</th>
+      <th>Apple App Store Limit</th>
+      <th>Google Play Limit</th>
+      <th>Ranking Weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>App Title</td>
+      <td>30 characters</td>
+      <td>30 characters</td>
+      <td>Very High</td>
+    </tr>
+    <tr>
+      <td>Subtitle / Short Description</td>
+      <td>30 characters</td>
+      <td>80 characters</td>
+      <td>High</td>
+    </tr>
+    <tr>
+      <td>Keywords Field (Apple only)</td>
+      <td>100 characters</td>
+      <td>N/A</td>
+      <td>Medium</td>
+    </tr>
+    <tr>
+      <td>Full Description</td>
+      <td>4,000 characters (not indexed by Apple)</td>
+      <td>4,000 characters (indexed by Google)</td>
+      <td>Low (Google) / None (Apple)</td>
+    </tr>
+    <tr>
+      <td>Developer Name</td>
+      <td>Indexed</td>
+      <td>Indexed</td>
+      <td>Low–Medium</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note the important asymmetry: Apple does <em>not</em> index the long description for keyword ranking, while Google Play <em>does</em>. This means that on Google Play, incorporating relevant keywords naturally and repeatedly throughout the long description provides measurable ranking benefit, whereas on the App Store, the long description serves purely as a user-facing conversion tool.</p>
+
+<p><strong>Privacy Policies and Legal Requirements</strong></p>
+
+<p>A privacy policy is not optional for any app submitted to a major store. Both Apple and Google have made a valid, accessible, and comprehensive privacy policy a hard requirement for all app submissions, regardless of whether the app collects any user data at all. Microsoft Store similarly requires one for apps that collect personal information. The consequences of non-compliance range from submission rejection to removal of a previously published app from the store.</p>
+
+<p><strong>What a privacy policy must cover</strong> is defined both by platform policy and by applicable law. At minimum, a compliant privacy policy must clearly describe:</p>
+
+<ul>
+  <li><strong>What data is collected:</strong> This includes all categories of personally identifiable information (PII) such as name, email address, and phone number, as well as non-PII data categories that are still subject to regulation, such as device identifiers, IP addresses, location data, usage analytics, and any data collected from third-party SDKs integrated into the app (advertising networks, analytics services, crash reporters, etc.).</li>
+  <li><strong>How data is used:</strong> Each category of collected data should be mapped to a stated purpose — for example, email addresses collected to send transactional notifications, analytics data used to improve app performance, advertising identifiers used for targeted advertising.</li>
+  <li><strong>With whom data is shared:</strong> Any third parties who receive user data — payment processors, analytics providers, advertising networks, cloud infrastructure providers — must be identified and the basis for the data sharing explained.</li>
+  <li><strong>How long data is retained</strong> and how users can request deletion.</li>
+  <li><strong>Contact information</strong> for the data controller or privacy team so users can submit inquiries.</li>
+</ul>
+
+<p><strong>Accessibility of the privacy policy</strong> is itself a requirement. The URL of the privacy policy must be entered in the app store listing (in App Store Connect under "App Information" and in the Google Play Console under "Store Listing"). Beyond the store, the privacy policy must also be accessible from within the app itself — typically linked from the settings or account screens. A privacy policy hosted on a page that requires a login to access does not satisfy this requirement; it must be publicly accessible without authentication.</p>
+
+<p><strong>GDPR compliance</strong> applies to any app that is made available to users in the European Economic Area, regardless of where the developer or company is based. The General Data Protection Regulation imposes obligations that go substantially beyond a published privacy policy:</p>
+
+<ul>
+  <li><strong>Lawful basis for processing:</strong> Each data processing activity must have a documented legal basis — most commonly informed consent, contractual necessity, legitimate interests, or legal obligation. For most consumer apps, consent is the primary basis, which means users must actively opt in to data collection, not merely be informed of it after the fact.</li>
+  <li><strong>Granular consent mechanisms:</strong> A single "I agree to the Privacy Policy" checkbox is generally insufficient under GDPR when multiple distinct processing purposes are involved. Users should be able to consent to analytics separately from advertising, for example.</li>
+  <li><strong>Data subject rights:</strong> The app must provide mechanisms — accessible to the user without undue burden — to exercise rights including the right to access (receiving a copy of their data), the right to rectification (correcting inaccurate data), the right to erasure ("right to be forgotten"), and the right to data portability. In practice, this means providing an in-app request form or a clearly explained email process for handling these requests within the mandated 30-day response window.</li>
+  <li><strong>Data Protection Officer (DPO):</strong> Certain categories of organizations processing data at scale are required to appoint a DPO and provide their contact details in the privacy policy.</li>
+</ul>
+
+<p>Similar obligations exist under the California Consumer Privacy Act (CCPA) for apps with users in California, Brazil's Lei Geral de Proteção de Dados (LGPD), and a growing number of other national and regional frameworks. A privacy policy drafted with GDPR compliance in mind will often satisfy the core requirements of these other regimes, though local legal review is always advisable before launch in new markets.</p>
+
+<p><strong>Privacy policy rejections</strong> are among the most frequent causes of initial App Store submission rejection. Common failure modes include: providing no privacy policy URL at all; linking to a URL that returns a 404 error or a placeholder page; providing a generic, unmodified template that does not reflect the app's actual data practices; and failing to mention third-party SDKs that collect data (such as Firebase, Facebook SDK, or AdMob) even when the developer did not write that data collection code themselves. Each SDK integrated into the app that collects or transmits user data must be disclosed in the privacy policy as if the developer themselves were performing that collection — because legally, they are responsible for it.</p>
+
+<p>A practical approach for developers is to audit every SDK and third-party service integrated into the app before drafting the privacy policy, cataloguing exactly what data each one collects and to where it is transmitted. Apple's App Store Connect now requires a "Privacy Nutrition Label" — a structured declaration of data types collected, their purposes, and whether they are linked to the user's identity — which must be consistent with the written privacy policy. Any discrepancy between the nutrition label declarations and the actual privacy policy text can trigger a review team inquiry.</p>
+        <div class="notes"><strong>Notes</strong>Consider recommending that learners review the official Apple App Store Review Guidelines (Section 5.1 on Privacy), Google Play's User Data policy, and GDPR Article 13 alongside this material for current authoritative specifications, as icon dimensions and metadata character limits are subject to change with platform updates.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p5-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Building a working app is only half the job of shipping it. Before anything reaches a user, both the Apple App Store and Google Play require a package of graphical and textual assets: an icon in specific sizes, screenshots sized for multiple devices, an optional preview video, a title and subtitle, a short and long description, keyword or category metadata, a content rating, and a link to a privacy policy. These assets are not decoration — they are the interface between your product and a person deciding, in a few seconds, whether to install it.</p>
+<p>This topic treats the store listing as a designed interface in its own right. The same HCI principles you have applied to screens apply here: visual consistency and branding in the icon, legibility and information hierarchy in screenshot captions, honest and accessible descriptions, and clear disclosure of what data you collect. App Store Optimization (ASO) is the practice of tuning the searchable and persuasive parts of that listing so the right users find your app and choose to install it.</p>
+<p>The three videos below approach ASO from different angles: a conceptual introduction, a strategy overview from a major mobile marketing company, and a hands-on walkthrough using an ASO tool. As you watch, note the recurring vocabulary — keywords, conversion rate, impressions, installs — and pay attention to the distinction between the metadata fields that are indexed for search and the visual assets that drive conversion. Also notice where platform differences between Apple and Google are mentioned, since those differences will shape how you prepare your own submission assets.</p></div></details><details class="slide-card" id="p5-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: App Store Optimization in 2021 - What is ASO? (Part 1/6)</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/2uBIf4MWtHQ?cc_load_policy=1&amp;rel=0" title="Video: App Store Optimization in 2021 - What is ASO? (Part 1/6) (App Masters)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>App Masters</strong> · 5:59 · 12,049 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=2uBIf4MWtHQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This is the first part of a six-part series that defines App Store Optimization from the ground up, explaining what ASO means and why it exists as a discipline. Expect an overview of the basic components of a store listing that can be optimized — such as the title, keywords, description, and visual assets — and how they relate to being discovered in store search and browse. It is pitched at someone encountering the term for the first time.</p>
+<h4>Why this video</h4>
+<p>It is the right starting point because it establishes the vocabulary and mental model of ASO before you dive into tactics, which directly supports the ASO Fundamentals subtopic. App Masters is a long-running channel focused specifically on app marketing, and the short runtime keeps the introduction focused.</p></div></details><details class="slide-card" id="p5-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: 5 Essential ASO Strategies to Boost Your App Store Ranking in 2024</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/bqM9x-oRZOA?cc_load_policy=1&amp;rel=0" title="Video: 5 Essential ASO Strategies to Boost Your App Store Ranking in 2024 (AppsFlyer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>AppsFlyer</strong> · 7:23 · 42,456 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=bqM9x-oRZOA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>AppsFlyer presents five concrete strategies for improving an app's ranking and install rate, framed as a free alternative to paid user acquisition. Based on its framing, the video should cover practices such as keyword research and placement in metadata, optimizing the icon and screenshots for conversion, using ratings and reviews, and localizing the listing. The content is positioned as current to 2024, so store-specific details should be reasonably up to date.</p>
+<h4>Why this video</h4>
+<p>AppsFlyer is an established mobile measurement and marketing analytics company, so the strategies come from a producer that works with store data at scale. It connects the icon and screenshot subtopics to measurable outcomes like impressions and conversion, rather than treating them as purely aesthetic choices.</p></div></details><details class="slide-card" id="p5-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: ASO Tutorial for Beginners: Step-by-Step Guide in 5 Minutes | ASOMobile</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/E4Q8V8-BoRQ?cc_load_policy=1&amp;rel=0" title="Video: ASO Tutorial for Beginners: Step-by-Step Guide in 5 Minutes | ASOMobile (ASO PRO by ASOMobile)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>ASO PRO by ASOMobile</strong> · 13:24 · 1,198 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=E4Q8V8-BoRQ" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>A step-by-step beginner tutorial that walks through optimizing an app listing in practice, using the ASOMobile toolset. Expect demonstrations of keyword selection and tracking, how metadata fields are filled in, and how optimization results are monitored over time. Because it is produced by a tool vendor, some segments will showcase that specific product.</p>
+<h4>Why this video</h4>
+<p>This video turns the concepts from the other two into an actual workflow, which is the closest match to the task of preparing your own listing. Watch it for the process — research, draft metadata, publish, measure — and treat the specific tool as one option among many.</p></div></details><details class="slide-card" id="p5-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos build toward the module outcomes by focusing on the listing side of publication. The introductory ASO video and the strategies video give you the terminology and criteria needed to evaluate your own project's icon, screenshots, title, and description against what stores reward and require, supporting MO2's readiness assessment. The tutorial walkthrough models the practical steps of producing and refining metadata and visual assets, which maps directly to MO3's requirement that you prepare submission-ready assets. All three reinforce MO1 by repeatedly referencing the metadata fields, asset specifications, and platform differences that define the Apple and Google submission processes; you should supplement them with the official Apple and Google guidelines for exact size specifications, content rating questionnaires, and privacy policy and data-disclosure requirements, which these videos touch on only in passing.</p></div></details><details class="slide-card" id="p5-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+<section class="merged-part" id="part6">
+<h2>Build Finalization and Submission Readiness</h2>
+<main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h3>Build Finalization and Submission Readiness</h3><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Submitting an app to a public store — whether the Apple App Store, Google Play, or another distribution platform — is the culmination of every design decision, line of code, and testing cycle that came before it. Yet the submission process itself is not a formality; it is a disciplined engineering and product management phase in its own right. A poorly prepared submission can be rejected outright, trigger a lengthy review delay, or worse, reach end users in a broken state. This topic walks through every critical dimension of build finalization and submission readiness: configuring a proper release build, executing a structured pre-submission test plan, managing version numbers and release notes, and assembling the complete set of deliverables that stores expect to receive.</p>
+
+<p><strong>Release Build Configuration</strong></p>
+
+<p>A release build is fundamentally different from the debug or development build you use during daily development. During development, many tools and settings exist purely to make your life easier — they expose internal state, bypass security checks, stream verbose logs, and connect to sandboxed test servers. Every single one of those accommodations must be resolved before a build leaves your hands and enters a store's review pipeline.</p>
+
+<p><strong>Disabling debug logging, breakpoints, and developer tools</strong> is the first and most critical configuration step. Debug log statements left active in a production build are not merely wasteful — they are a security liability. Log output can expose API keys, user data, internal server addresses, or authentication tokens to anyone with access to a device and a log viewer. On Android, tools like Logcat make it trivial to read application logs from any connected device. On iOS, the unified logging system is similarly accessible. The correct approach is to gate all logging behind a compile-time or runtime flag so that verbose output is completely suppressed in release mode. Many teams use a logging abstraction layer for exactly this reason:</p>
+
+<pre><code>// Example: Conditional logging wrapper (Swift)
+func appLog(_ message: String) {
+    #if DEBUG
+    print("[DEBUG] \(message)")
+    #endif
+}
+</code></pre>
+
+<p>Similarly, any in-app developer menus, diagnostic overlays, shake-to-debug panels, or network inspection proxies (such as Charles Proxy configurations or Flipper plugins) must be completely removed or disabled in the release variant. Leaving a hidden developer menu accessible in a production app is a common cause of store rejection and a potential security vulnerability.</p>
+
+<p><strong>Incrementing the app version number and build number</strong> before each submission is a hard requirement enforced by every major app store. Both the Apple App Store and Google Play will reject a submission whose version or build identifier matches a previously uploaded build. Beyond avoiding rejection, proper version increments are the foundation of release traceability — they let you correlate crash reports, user complaints, and analytics events to a specific code snapshot. This is covered in greater depth in the version numbering section below.</p>
+
+<p><strong>Configuring production API endpoints, keys, and credentials</strong> is one of the most consequential and most frequently overlooked steps. During development, it is standard practice to point the app at a staging or development server, use test API keys, and connect to sandboxed payment or authentication environments. A release build must be wired to production infrastructure. This includes:</p>
+
+<ul>
+  <li>Base URLs for all REST or GraphQL APIs switched from staging to production hostnames</li>
+  <li>API keys and client credentials rotated to production-tier keys with appropriate rate limits and permissions</li>
+  <li>Payment processor keys switched from test/sandbox mode to live mode</li>
+  <li>Analytics and crash reporting SDKs pointed at production projects so data flows to the correct dashboards</li>
+  <li>Push notification certificates or tokens registered against the production APNs or FCM environment</li>
+</ul>
+
+<p>A robust way to manage this is through build-variant–specific configuration files. In Android, <code>build.gradle</code> supports <code>buildTypes</code> with separate <code>buildConfigField</code> values. In iOS, separate <code>.xcconfig</code> files or environment-specific plist entries serve the same purpose. The goal is that the correct configuration is selected automatically by the build system without any manual find-and-replace editing, which is error-prone.</p>
+
+<pre><code>// Android build.gradle example
+buildTypes {
+    release {
+        buildConfigField "String", "API_BASE_URL", '"https://api.production.example.com"'
+        buildConfigField "String", "API_KEY", '"prod_key_xyz"'
+        minifyEnabled true
+        proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+    }
+    debug {
+        buildConfigField "String", "API_BASE_URL", '"https://api.staging.example.com"'
+        buildConfigField "String", "API_KEY", '"dev_key_abc"'
+    }
+}
+</code></pre>
+
+<p><strong>Testing release builds on physical devices or production-equivalent environments</strong> closes the gap between what works in the simulator or emulator and what users will actually experience. Hardware-specific issues — GPU rendering differences, camera permissions, NFC, biometric authentication, cellular network behavior — only surface on real devices. Ideally, the exact signed release artifact (the <code>.ipa</code> or <code>.aab</code>/<code>.apk</code>) that will be submitted to the store should be installed on physical test devices via TestFlight, Firebase App Distribution, or direct sideloading. This ensures that code signing, entitlements, and ProGuard/R8 obfuscation have not inadvertently broken any functionality.</p>
+
+<p><strong>Pre-Submission Testing Checklist</strong></p>
+
+<p>Testing a release candidate is not the same as running your regular regression suite. Pre-submission testing is a deliberate, end-to-end verification pass conducted against the actual release build, with the explicit goal of catching anything that would cause a bad user experience or a store rejection. A structured checklist approach ensures nothing is skipped under deadline pressure.</p>
+
+<p><strong>Testing all core user flows end-to-end on both minimum and current supported OS versions</strong> is the cornerstone of pre-submission testing. Most apps declare a minimum OS version in their manifest or project settings. Users running that minimum version represent a real segment of your audience and typically cannot upgrade their OS due to hardware limitations. Bugs that appear only on older OS versions are common because API behavior changes, deprecated methods get removed, and UI rendering differs across system versions. Your checklist should enumerate every critical user journey — onboarding, login, core feature usage, settings, logout, error states — and verify each one on both the oldest supported OS and the latest release.</p>
+
+<p><strong>Verifying that all external links, URLs, and API integrations are functional in the release build</strong> catches a category of bugs that is invisible during unit testing: broken connections to the outside world. Common failures include:</p>
+
+<ul>
+  <li>Help center or support links that were changed on the website but not updated in the app</li>
+  <li>Social login flows (Sign in with Apple, Google OAuth) that fail because the OAuth redirect URI is registered only for the debug bundle identifier</li>
+  <li>Deep links or universal links that are broken because the associated domain configuration was not updated</li>
+  <li>Production API endpoints that return errors because CORS policies, SSL certificates, or firewall rules differ from the staging environment</li>
+</ul>
+
+<p>Each of these should be exercised manually or through automated integration tests that run against the production environment using a dedicated QA account.</p>
+
+<p><strong>Testing the app on a range of physical device sizes and screen resolutions</strong> is especially important for platforms with highly fragmented hardware ecosystems. On Android, the variety of screen densities, aspect ratios, and display cutout shapes is enormous. On iOS, the range spans from the compact iPhone SE form factor to the largest iPad Pro. UI elements that look perfect on the device you used during development may be clipped, overlapping, or incorrectly sized on edge-case screen configurations. Pay particular attention to:</p>
+
+<ul>
+  <li>Text truncation on narrow screens</li>
+  <li>Keyboard overlap on forms in devices with smaller displays</li>
+  <li>Notch, Dynamic Island, and camera cutout safe area handling</li>
+  <li>Landscape orientation if supported</li>
+  <li>Large text / accessibility font size settings</li>
+</ul>
+
+<p><strong>Reviewing the app against each target platform's review guidelines</strong> before submission is the most efficient form of rejection prevention. Both Apple's App Store Review Guidelines and Google Play's Developer Policy Center are detailed, publicly available documents. Common reasons for rejection include: insufficient app functionality, misleading metadata, incomplete privacy nutrition labels, use of private APIs, broken demo account credentials, and missing required permissions justifications. Treating these guidelines as a checklist — not merely as documents to acknowledge during account setup — dramatically reduces the probability of rejection on first submission.</p>
+
+<p><strong>Confirming that in-app purchases, subscriptions, or monetization features function correctly</strong> in the production environment is a critical and frequently underestimated testing area. Test environments for in-app purchases (Apple's Sandbox environment, Google Play's test purchase accounts) behave differently from production in several ways: pricing tiers, subscription renewal intervals, receipt validation behavior, and promotional offer eligibility can all differ. Before submission, verify that:</p>
+
+<ul>
+  <li>All purchasable products are correctly configured and approved in the respective store console</li>
+  <li>Purchase flows complete successfully and unlock the correct content or features</li>
+  <li>Restore purchases functionality works for users who have previously purchased</li>
+  <li>Subscription management links (Apple's subscription management page, Google Play's subscription center) are correctly surfaced in the app</li>
+  <li>Server-side receipt validation, if implemented, functions against production receipts</li>
+</ul>
+
+<p><strong>Version Numbering and Release Notes</strong></p>
+
+<p>Version numbering is both a technical requirement and a communication tool. Done well, it creates a shared language between developers, QA engineers, support teams, and users. Done poorly, it causes confusion, complicates debugging, and can block store submissions.</p>
+
+<p><strong>Version numbers must be incremented with each new submission.</strong> Stores enforce this mechanically — attempting to upload a build with a version or build number that matches a previously uploaded build will result in an immediate, automated rejection. The standard convention for user-facing version numbers is Semantic Versioning (<em>SemVer</em>), structured as <code>MAJOR.MINOR.PATCH</code>:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Segment</th>
+      <th>When to Increment</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>MAJOR</td>
+      <td>Breaking changes, complete redesigns, or significant feature overhauls</td>
+      <td>1.0.0 → 2.0.0</td>
+    </tr>
+    <tr>
+      <td>MINOR</td>
+      <td>New features added in a backward-compatible manner</td>
+      <td>2.3.0 → 2.4.0</td>
+    </tr>
+    <tr>
+      <td>PATCH</td>
+      <td>Bug fixes, performance improvements, minor corrections</td>
+      <td>2.4.1 → 2.4.2</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Each platform has a separate internal build number or version code that must also be incremented.</strong> The user-facing version string (<code>CFBundleShortVersionString</code> on iOS, <code>versionName</code> on Android) is what users see. But each platform also uses a separate numeric identifier for internal tracking: <code>CFBundleVersion</code> on iOS and <code>versionCode</code> on Android. This internal identifier must be a strictly increasing integer with every upload, even if the user-facing version string does not change (for example, when re-uploading after a rejected build). Many teams automate this using CI/CD pipelines with tools like Fastlane, which can auto-increment build numbers from a remote source of truth such as a Git tag or build server counter.</p>
+
+<p><strong>Release notes should clearly describe new features, bug fixes, and any significant changes.</strong> Release notes appear on the store listing and are often the first thing a user reads before deciding whether to update. They serve a dual purpose: informing users about improvements and signaling to reviewers what has changed since the last approved version. Effective release notes are:</p>
+
+<ul>
+  <li><strong>Specific</strong> — "Fixed a crash that occurred when users uploaded photos larger than 10 MB" is more useful than "Bug fixes and performance improvements"</li>
+  <li><strong>User-focused</strong> — Frame changes in terms of user benefit, not internal implementation detail</li>
+  <li><strong>Concise</strong> — Bullet points work well; lengthy paragraphs are rarely read in full</li>
+  <li><strong>Honest</strong> — If a significant behavior has changed, say so; users who are surprised by changes leave negative reviews</li>
+</ul>
+
+<p><strong>Consistent version numbering practices facilitate tracking and rollback.</strong> When a critical bug is discovered post-release, the ability to identify exactly which code was shipped to users — and to quickly produce a hotfix build — depends entirely on disciplined version management. Tagging your Git repository with the version number at the time of each release build, storing build artifacts by version in a build server, and maintaining a changelog file in version control are all practices that pay dividends when something goes wrong in production.</p>
+
+<p><strong>Submission Packages and Deliverables</strong></p>
+
+<p>A store submission is not just a binary file upload. It is a structured package of technical artifacts, legal declarations, marketing assets, and operational information. Each element serves a purpose, and missing or incomplete elements are a common source of rejection.</p>
+
+<p><strong>The submission package should include the signed build file, all store listing assets, and completed metadata fields.</strong> The signed build is the compiled, code-signed application binary — an <code>.ipa</code> for iOS or an <code>.aab</code> (Android App Bundle) for Google Play. Code signing is not optional; stores reject unsigned or improperly signed binaries immediately. Store listing assets include:</p>
+
+<ul>
+  <li>App icon at the required resolution and without transparency (Apple requires a 1024×1024 PNG; Google Play requires a 512×512 PNG)</li>
+  <li>Screenshots for each supported device class (phone, tablet, iPad) at the correct pixel dimensions</li>
+  <li>An optional but highly recommended feature graphic (Google Play) or preview video</li>
+  <li>App name, subtitle, and keyword fields (Apple) or short and full description (Google Play)</li>
+  <li>Category selection and content rating questionnaire</li>
+</ul>
+
+<p><strong>A link to a publicly accessible privacy policy must be included in every store submission.</strong> This is a non-negotiable requirement on both the App Store and Google Play, and has been for several years. The privacy policy must be hosted at a stable, publicly accessible URL (not behind a login wall), must accurately describe the data the app collects and how it is used, and must be written in plain language. Apple additionally requires a Privacy Nutrition Label — a structured declaration completed in App Store Connect that categorizes data collection by type and purpose. Mismatches between the declared nutrition label and the app's actual behavior are a cause for rejection.</p>
+
+<p><strong>Any required third-party licenses, SDK disclosures, or export compliance declarations must be prepared.</strong> Most apps incorporate third-party libraries and SDKs, and many of these carry license obligations (MIT, Apache 2.0, GPL, etc.) that require attribution either within the app (typically in a "Acknowledgements" or "Open Source Licenses" screen) or in accompanying documentation. Export compliance is particularly important: Apple asks explicitly whether the app uses encryption, and if so, requires either an Encryption Registration (ERN) or an annual self-classification report filed with the US Bureau of Industry and Security. Answering this question incorrectly can expose the developer to legal liability.</p>
+
+<p><strong>Demo account credentials should be provided to reviewers if the app requires login to access functionality.</strong> App reviewers are not going to create a real account, provide payment information, or complete a multi-step verification process in order to evaluate your app. If any core functionality is gated behind authentication, you must provide a working username and password for a demo account that has the app in a reviewable state. This account should:</p>
+
+<ul>
+  <li>Be pre-populated with enough data to demonstrate the app's features meaningfully</li>
+  <li>Have any required subscription or premium access already activated</li>
+  <li>Remain active and functional for the duration of the review period</li>
+  <li>Not require SMS verification, email confirmation, or other second-factor steps that the reviewer cannot complete</li>
+</ul>
+
+<p>Failure to provide working credentials when an app requires login is one of the most common and most avoidable causes of rejection.</p>
+
+<p><strong>A notes-to-reviewer section should explain any non-obvious app functionality or special testing requirements.</strong> Both App Store Connect and the Google Play Console provide a free-text field for notes to the reviewer. This field is valuable and underused. Use it to explain:</p>
+
+<ul>
+  <li>How to navigate to features that are not immediately obvious from the main screen</li>
+  <li>Why certain permissions are requested and how they are used (especially for sensitive permissions like location, contacts, or camera)</li>
+  <li>Any hardware requirements — for example, if the app requires an NFC-capable device or a specific sensor</li>
+  <li>Context for features that might appear to violate guidelines at first glance but comply upon closer inspection (for example, an app that shows adult content only after age verification)</li>
+  <li>Known limitations in the review environment that reviewers should be aware of</li>
+</ul>
+
+<p>Think of the reviewer notes as a user guide written specifically for the person whose approval you need. A clear, honest, and thorough set of notes reduces back-and-forth with the review team and increases the likelihood of a smooth first-pass approval.</p>
+
+<p>Taken together, these four areas — release build configuration, pre-submission testing, version management, and submission package assembly — constitute a repeatable, professional release process. Teams that formalize these steps into a written release checklist and practice them consistently across every release cycle find that their rejection rates drop, their time-to-approval shortens, and their post-release incident rates decrease. The discipline applied in the final hours before a submission directly determines the quality of the experience delivered to every user who installs the app.</p>
+        <div class="notes"><strong>Notes</strong>Guides students through the final steps of preparing a production-ready application build, conducting pre-submission testing, and assembling all required deliverables for store submission.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="p6-video-part1"><summary class="slide-header"><span class="slide-num">2</span><h3>Videos on This Topic</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Getting an app from "it works on my machine" to "it is live in a store" involves a set of concrete, checkable steps. A release build is not simply a debug build with a different name: it typically uses different signing credentials, different configuration values, optimization and shrinking settings, and often a different distribution format (for example an Android App Bundle rather than a plain APK). Before that build goes anywhere, it needs to be exercised against a pre-submission checklist — does it install cleanly on a fresh device, do permissions and accounts behave, do crash reports and analytics point at production endpoints, and does the interface still meet the usability and accessibility standards you have been applying all term?</p>
+<p>Alongside the binary itself, stores expect a package of deliverables: a correctly incremented version number and build number, release notes that describe what changed, store listing metadata, screenshots, and any declarations the platform requires. Sloppy version numbering is one of the most common reasons an upload is rejected outright, and vague release notes slow down human review. Treating these artifacts as part of the deliverable — not as paperwork added at the last minute — is what separates a submission that moves through review from one that bounces back.</p>
+<p>The three videos below approach this from different angles: build configuration on native Android, build configuration in a cross-platform workflow, and the tooling a store itself offers for testing and submission. While watching, pay attention to the distinction between debug and release configuration, to where version and build identifiers are declared, and to what each platform asks you to supply before it will accept an upload. Note also how much of this work can be automated once, then repeated for every release.</p></div></details><details class="slide-card" id="p6-video-part2"><summary class="slide-header"><span class="slide-num">3</span><h3>Video 1: Gradle and AGP Build APIs: Configure your build - MAD Skills</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/GjPS4xDMmQY?cc_load_policy=1&amp;rel=0" title="Video: Gradle and AGP Build APIs: Configure your build - MAD Skills (Android Developers)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Android Developers</strong> · 7:12 · 17,478 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=GjPS4xDMmQY" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This is the first episode of Google's Modern Android Development (MAD) Skills series on Gradle and the Android Gradle Plugin, and it introduces how an Android project's build is configured. Based on its title and description, it covers the Build APIs used to declare and customize build settings, which is where build types, variants, and related release configuration live in an Android project. Expect a developer-oriented walkthrough rather than a conceptual overview.</p>
+<h4>Why this video</h4>
+<p>It comes directly from the Android Developers channel, so the configuration practices shown reflect the platform's own guidance, and it maps straight onto the Release Build Configuration subtopic for anyone targeting Google Play.</p></div></details><details class="slide-card" id="p6-video-part3"><summary class="slide-header"><span class="slide-num">4</span><h3>Video 2: How to configure a development build | EAS Tutorial</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/uQCE9zl3dXU?cc_load_policy=1&amp;rel=0" title="Video: How to configure a development build | EAS Tutorial (Expo)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Expo</strong> · 7:19 · 107,776 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=uQCE9zl3dXU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This Expo tutorial shows how to configure and produce a build using EAS (Expo Application Services), the hosted build service for Expo and React Native projects. It walks through the configuration steps needed to get a build generated by the service rather than on your own machine, which is the same pipeline teams typically use to produce store-ready binaries. The focus is on the configuration file and the practical setup sequence.</p>
+<h4>Why this video</h4>
+<p>It covers build configuration from a cross-platform perspective, which is useful if your interface project is not a native Android app, and it illustrates how a managed build service handles the credentials and settings that submission depends on.</p></div></details><details class="slide-card" id="p6-video-part4"><summary class="slide-header"><span class="slide-num">5</span><h3>Video 3: Developer experience updates for Amazon Appstore | devDay 2023</h3><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/0LRFwH_rTY0?cc_load_policy=1&amp;rel=0" title="Video: Developer experience updates for Amazon Appstore | devDay 2023 (Amazon Developer)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Amazon Developer</strong> · 13:13 · 230,983 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=0LRFwH_rTY0" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h4>About this video</h4>
+<p>This devDay 2023 session from Amazon walks through developer-facing tools for the Amazon Appstore, with an emphasis on testing applications, submitting them, and the surrounding developer workflow. It is a vendor session, so expect a tour of console features, submission flows, and recently added capabilities rather than a tutorial you code along with. It gives a view of what a store expects to receive from a developer at submission time.</p>
+<h4>Why this video</h4>
+<p>It is a store operator describing its own testing and submission process, which makes it a useful point of comparison for the Pre-Submission Testing Checklist and Submission Packages subtopics and shows that the pattern of deliverables repeats across platforms.</p></div></details><details class="slide-card" id="p6-video-part5"><summary class="slide-header"><span class="slide-num">6</span><h3>How These Videos Support the Learning Outcomes</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos move students from configuring a production build to handing it over to a store. The Android and Expo videos support MO2 by showing where release settings, credentials, and version identifiers are declared, so students can inspect their own projects and judge whether a build is genuinely release-ready rather than a renamed debug build. The Amazon Appstore session supports MO1 and MO3 by demonstrating, from the store's side, what testing and submission involve and what a developer is expected to upload — a concrete model students can carry over when assembling metadata, screenshots, release notes, and accessibility descriptions for the Apple App Store or Google Play.</p></div></details><details class="slide-card" id="p6-video-part6"><summary class="slide-header"><span class="slide-num">7</span><h3>About These Videos</h3><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+</section>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body>
+</html>

@@ -1,0 +1,606 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Team Collaboration and Project Kickoff</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ 1 - HCI Foundations and Course Project Setup</a></div>
+  <header>
+    <h1>Team Collaboration and Project Kickoff</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Team Collaboration and Project Kickoff</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every successful software project begins long before the first line of production code is written. It begins with people agreeing on how they will work together, what they are building, and who is accountable for what. This module establishes the social and operational infrastructure of your team: the roles you will play, the norms you will hold each other to, the problem you intend to solve, and the tooling that lets you collaborate without stepping on each other's work. The artifacts you produce here — a team charter, a role matrix, a scope statement, and a configured shared repository — are not busywork. They are living documents that you will consult, amend, and be evaluated against for the remainder of the course.</p>
+
+<p>Teams that skip this stage rarely fail immediately. They fail three weeks later, when two people have independently built conflicting versions of the same feature, when a deadline passes because everyone assumed someone else was handling it, or when a quiet team member's excellent idea never surfaced because there was no channel for it. The investment you make now is insurance against those predictable failures.</p>
+
+<p><strong>Forming Effective Project Teams</strong></p>
+
+<p>A <em>cross-functional team</em> is one whose members collectively possess all the skills needed to deliver the product end to end — design, implementation, testing, documentation, and stakeholder communication — rather than a team of specialists who must hand work off across organizational boundaries. Research on team performance consistently shows that diverse teams outperform homogeneous ones on complex, non-routine problems, precisely because the work benefits from being examined through multiple lenses. A developer looks at a login screen and thinks about token storage and error states; a designer looks at the same screen and thinks about affordances, contrast ratios, and what happens on a 375-pixel-wide phone. Neither perspective alone produces a good login screen.</p>
+
+<p>Diversity here means more than academic background. It includes prior industry experience, cultural context, accessibility needs, and simply how people prefer to think — some teammates reason best out loud in a whiteboard session, others need to read a written spec and sit with it overnight. The cost of diversity is that communication takes more effort; the benefit is that blind spots get caught. Your job as a team is to capture the benefit while deliberately managing the cost.</p>
+
+<p>Begin with a structured <em>skills inventory</em>. Rather than asking "what are you good at?" — a question that invites both bragging and false modesty — ask each member to rate themselves on concrete capabilities and, crucially, to state what they <em>want</em> to learn. A simple shared spreadsheet or Markdown table works well:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Member</th>
+      <th>Design / UI</th>
+      <th>Frontend Code</th>
+      <th>Backend / Data</th>
+      <th>Writing &amp; Comms</th>
+      <th>User Research</th>
+      <th>Wants to Grow In</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Amara</td>
+      <td>Strong (Figma, design systems)</td>
+      <td>Moderate (React basics)</td>
+      <td>Low</td>
+      <td>Strong</td>
+      <td>Moderate</td>
+      <td>API integration</td>
+    </tr>
+    <tr>
+      <td>Devin</td>
+      <td>Low</td>
+      <td>Strong (React, CSS)</td>
+      <td>Strong (Node, SQL)</td>
+      <td>Low</td>
+      <td>Low</td>
+      <td>Presenting to stakeholders</td>
+    </tr>
+    <tr>
+      <td>Priya</td>
+      <td>Moderate</td>
+      <td>Moderate</td>
+      <td>Low</td>
+      <td>Strong</td>
+      <td>Strong (interviews, surveys)</td>
+      <td>Component architecture</td>
+    </tr>
+    <tr>
+      <td>Luis</td>
+      <td>Low</td>
+      <td>Moderate</td>
+      <td>Moderate (Git, CI/CD)</td>
+      <td>Moderate</td>
+      <td>Low</td>
+      <td>Visual design fundamentals</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Two things immediately become visible in a table like this. First, the team has a <em>coverage gap</em>: nobody rates themselves strong in backend except Devin, which is a single point of failure. Second, there are <em>growth pairings</em> available — Amara wants API integration experience and Devin wants presentation practice, so pairing them on a feature demo serves both goals. A skills inventory is therefore not just a staffing document; it is the raw material for a deliberate learning plan.</p>
+
+<p>The final piece of team formation is establishing shared expectations before work begins. Psychologists describe this as reducing <em>ambiguity</em>, and it is the single cheapest intervention available to a new team. Hold an explicit conversation covering questions such as:</p>
+
+<ul>
+  <li><strong>Availability:</strong> What hours does each person realistically work? Who has a job, a commute, caregiving duties, or a time zone offset?</li>
+  <li><strong>Response time:</strong> If I message the team channel at 9 p.m., should I expect an answer tonight or tomorrow morning? (Agree on a number — "within 24 hours on weekdays" is a real commitment; "pretty fast" is not.)</li>
+  <li><strong>Quality bar:</strong> Are we aiming for a polished portfolio piece or the minimum that satisfies the rubric? Both are legitimate; a mismatch between members is corrosive.</li>
+  <li><strong>Working style:</strong> Does the team prefer long synchronous sessions or short check-ins plus independent work?</li>
+  <li><strong>Conflict:</strong> How will we raise it when someone is unhappy — directly, through a designated facilitator, or in a scheduled retrospective?</li>
+</ul>
+
+<p>It helps to expect the classic stages of group development: <em>forming</em> (polite, tentative), <em>storming</em> (friction as real preferences surface), <em>norming</em> (agreements settle), and <em>performing</em> (fluid, productive work). Knowing that storming is normal — not evidence that your team is broken — makes it far easier to move through it quickly.</p>
+
+<p><strong>Defining Team Roles and Responsibilities</strong></p>
+
+<p>A role is a named bundle of responsibilities with a single accountable owner. The value of naming roles is not bureaucracy; it is the elimination of the <em>diffusion of responsibility</em> effect, in which a task everyone could do ends up done by no one. When the build breaks at 11 p.m. before a demo, "the Build/Release Lead decides whether we roll back or hotfix" is an answer. "Someone should probably look at that" is not.</p>
+
+<p>For a typical four-to-six person course project, the following roles cover the necessary ground:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Role</th>
+      <th>Core Responsibilities</th>
+      <th>Typical Deliverables</th>
+      <th>Decides (Final Say)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Project Manager / Scrum Lead</td>
+      <td>Maintains the backlog and schedule, runs standups and retrospectives, tracks blockers, liaises with the instructor</td>
+      <td>Sprint board, meeting notes, status reports</td>
+      <td>Sprint scope and meeting cadence</td>
+    </tr>
+    <tr>
+      <td>Design Lead</td>
+      <td>Owns the Figma file, wireframes, component library, accessibility and visual consistency</td>
+      <td>Wireframes, high-fidelity mockups, style guide</td>
+      <td>Visual and interaction design conflicts</td>
+    </tr>
+    <tr>
+      <td>Tech Lead / Architect</td>
+      <td>Chooses stack and project structure, reviews architectural decisions, sets coding standards</td>
+      <td>Architecture diagram, coding conventions doc, ADRs</td>
+      <td>Technical approach and dependency choices</td>
+    </tr>
+    <tr>
+      <td>Build / Release &amp; Repo Lead</td>
+      <td>Owns branch strategy, CI configuration, merge hygiene, environment setup docs</td>
+      <td><code>README</code>, <code>CONTRIBUTING.md</code>, CI pipeline</td>
+      <td>Merge policy and release timing</td>
+    </tr>
+    <tr>
+      <td>QA / Test Lead</td>
+      <td>Writes test plans, defines acceptance criteria, triages bugs, verifies fixes</td>
+      <td>Test plan, bug tracker, definition of done</td>
+      <td>Whether a story meets acceptance criteria</td>
+    </tr>
+    <tr>
+      <td>Research / Documentation Lead</td>
+      <td>Runs user interviews and usability tests, maintains project documentation and the final report</td>
+      <td>Research findings, personas, final write-up</td>
+      <td>Interpretation of user evidence</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Note that holding a role does <em>not</em> mean doing all the work in that area. The Design Lead does not draw every screen; they ensure every screen gets drawn to a consistent standard. This distinction is often clarified with a RACI matrix, which separates who is <strong>R</strong>esponsible (does the work), <strong>A</strong>ccountable (owns the outcome — exactly one person), <strong>C</strong>onsulted (gives input before the decision), and <strong>I</strong>nformed (told after):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Activity</th>
+      <th>Amara (Design)</th>
+      <th>Devin (Tech)</th>
+      <th>Priya (Research/Docs)</th>
+      <th>Luis (Build/QA)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>High-fidelity mockups</td>
+      <td>A / R</td>
+      <td>C</td>
+      <td>C</td>
+      <td>I</td>
+    </tr>
+    <tr>
+      <td>Database schema</td>
+      <td>I</td>
+      <td>A / R</td>
+      <td>I</td>
+      <td>C</td>
+    </tr>
+    <tr>
+      <td>Usability test sessions</td>
+      <td>C</td>
+      <td>I</td>
+      <td>A / R</td>
+      <td>R</td>
+    </tr>
+    <tr>
+      <td>Merge to <code>main</code></td>
+      <td>I</td>
+      <td>C</td>
+      <td>I</td>
+      <td>A / R</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>These assignments must be <em>documented in the repository</em>, not merely agreed verbally. Create a file such as <code>docs/TEAM.md</code> so that any member, and the instructor, can resolve an ownership question in ten seconds without asking anyone:</p>
+
+<pre><code># Team Roles — Project Lumen (Section 04)
+
+| Member | Primary Role        | Secondary Role       | GitHub       | Preferred Contact |
+|--------|---------------------|----------------------|--------------|-------------------|
+| Amara  | Design Lead         | Documentation        | @amara-k     | Slack #lumen      |
+| Devin  | Tech Lead           | Backend dev          | @dnwankwo    | Slack DM          |
+| Priya  | Research Lead       | Project Manager      | @priya-s     | Slack #lumen      |
+| Luis   | Build/Release + QA  | Frontend dev         | @luisr-dev   | Slack #lumen      |
+
+## Rotation Schedule
+- Project Manager role rotates each sprint (2 weeks):
+  Sprint 1 Priya -&gt; Sprint 2 Luis -&gt; Sprint 3 Devin -&gt; Sprint 4 Amara
+- Every member must author at least one ADR and review at least six pull requests.
+
+## Escalation Path
+1. Raise in #lumen channel.
+2. If unresolved in 24h, the role owner decides (see RACI in docs/RACI.md).
+3. If the team is split on a scope question, escalate to the instructor at
+   the weekly check-in.
+
+Last updated: 2024-09-18 (PR #12)
+</code></pre>
+
+<p>Storing roles in the repository rather than a chat message means the document is version-controlled: you can see when roles changed and why, and updates go through the same pull request review as code. It also prevents the common failure in which the role assignment lives in a Google Doc that only two people can find.</p>
+
+<p>Finally, consider which responsibilities should be <em>shared or rotated</em>. In a course setting, the learning objective competes with efficiency: the fastest path is to let the strongest coder write all the code, but that leaves three students without coding experience and one student exhausted. Effective compromises include rotating the Project Manager role each sprint (as above), requiring that every member authors at least one component and reviews a quota of pull requests, and using <em>pair rotation</em> so that the Design Lead pairs with a developer on implementation while a developer pairs with the Design Lead on a Figma component. Make the rotation explicit and calendared, or it will quietly not happen.</p>
+
+<p><strong>Creating the Team Charter</strong></p>
+
+<p>A team charter is a short written agreement — typically one to three pages — that records how the team will operate. Its real function is <em>assumption surfacing</em>. Every member arrives with an internal model of what "we'll meet regularly" or "we'll get it done on time" means, and those models differ far more than people expect. One student's "done" is a merged pull request with tests; another's is code that runs on their laptop. Writing the charter forces these private definitions into the open at a moment when disagreement is cheap, rather than at 2 a.m. before a deadline when it is expensive.</p>
+
+<p>A workable charter covers at minimum:</p>
+
+<ul>
+  <li><strong>Purpose and success criteria:</strong> what the team is building and what "a good outcome" means for this group (a strong grade, a portfolio piece, a specific skill gained).</li>
+  <li><strong>Communication channels:</strong> which tool is used for what, and what the expected response time is for each.</li>
+  <li><strong>Meeting cadence:</strong> when the team meets synchronously, who runs the meeting, and what happens if someone cannot attend.</li>
+  <li><strong>Decision-making rules:</strong> consensus by default, with a named tie-breaker or a majority vote after a fixed time box.</li>
+  <li><strong>Definition of done and deadline norms:</strong> internal deadlines that sit before external ones, and what counts as complete work.</li>
+  <li><strong>Accountability and escalation:</strong> the agreed sequence of steps when a commitment is missed.</li>
+  <li><strong>Inclusion norms:</strong> explicit practices that ensure quieter members are heard.</li>
+</ul>
+
+<p>Documenting communication channels deserves particular attention, because the most common way a team member gets excluded from a decision is not malice but channel fragmentation. Two teammates make a design decision over lunch, a third sees it in a pull request, and a fourth never hears about it at all. Prevent this by assigning a purpose to each channel and declaring one of them authoritative:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Channel</th>
+      <th>Used For</th>
+      <th>Expected Response</th>
+      <th>Authoritative?</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Slack <code>#lumen-general</code></td>
+      <td>Day-to-day questions, quick coordination</td>
+      <td>Within 12h on weekdays</td>
+      <td>No</td>
+    </tr>
+    <tr>
+      <td>GitHub Issues &amp; PR comments</td>
+      <td>Task tracking, code review, technical decisions</td>
+      <td>Review within 24h of request</td>
+      <td><strong>Yes</strong> — decisions recorded here</td>
+    </tr>
+    <tr>
+      <td>Figma comments</td>
+      <td>Design feedback on specific frames</td>
+      <td>Within 24h</td>
+      <td>Yes, for design details</td>
+    </tr>
+    <tr>
+      <td>Weekly video call (Tue 7 p.m.)</td>
+      <td>Planning, demos, retrospective</td>
+      <td>Attendance expected; notes posted same night</td>
+      <td>Yes — notes in <code>docs/meetings/</code></td>
+    </tr>
+    <tr>
+      <td>Direct messages</td>
+      <td>Personal/sensitive matters only</td>
+      <td>Best effort</td>
+      <td>No — decisions must be reposted publicly</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The last row encodes a rule worth stating outright: <em>a decision made in a DM is not a decision until it is written in a public channel.</em> This single norm eliminates most "I never heard about that" conflicts.</p>
+
+<p>Norms around deadlines and accountability work best when they are specific and pre-agreed, because they then feel like applying a shared rule rather than a personal attack. A charter excerpt might read:</p>
+
+<pre><code># Team Charter — Project Lumen
+
+## 3. Deadlines
+- Every task has an owner and a due date in the GitHub Project board.
+- Internal deadlines are set 48 hours before any instructor deadline.
+- "Done" means: merged to `main`, reviewed by one other member, passing CI,
+  and the acceptance criteria in the issue are checked off.
+
+## 4. Accountability Ladder
+1. If you will miss a deadline, post in #lumen-general BEFORE the deadline
+   with a new committed date. No penalty for an early heads-up.
+2. Missed with no notice: the PM checks in privately within 24 hours.
+3. Second missed deadline: raised at the retrospective; team reallocates work.
+4. Third: the team notifies the instructor together, with a written record
+   of steps 1-3.
+
+## 5. Decision Making
+- Default: consensus after everyone has spoken.
+- Time box: 20 minutes of discussion. If unresolved, the role owner
+  (see docs/TEAM.md) decides and records an ADR explaining the trade-off.
+- Any member may request a re-vote once if new evidence appears.
+
+## 6. Inclusion Norms
+- Round-robin check-in at the start of each meeting; everyone speaks first
+  before open discussion begins.
+- Asynchronous written feedback window of 24 hours after every major decision,
+  so members who think best in writing are not disadvantaged.
+- No design or architecture decision is final until it appears in writing.
+
+Signed: Amara, Devin, Priya, Luis — 2024-09-18
+</code></pre>
+
+<p>Two details make a charter effective in practice. First, <strong>everyone signs it</strong> — literally adding their name in the commit — which converts a document into a commitment. Second, <strong>it is revisited</strong>. Add "Does the charter still match how we actually work?" as a standing retrospective question; a charter that no longer describes reality is worse than none, because it teaches the team that written agreements are decorative.</p>
+
+<p><strong>Scoping the Course Project</strong></p>
+
+<p>Scope is the boundary around what you will and will not build. Student teams fail far more often from over-scoping than under-scoping: an ambitious idea consumes the entire term in design and arrives at the demo as a half-working prototype. Disciplined scoping is therefore a survival skill, and it starts with a problem statement.</p>
+
+<p>A good <em>problem statement</em> describes a situation in the world that is unsatisfactory, for identifiable people, with evidence — and conspicuously avoids naming a solution. It anchors everything downstream: when someone proposes a feature, you test it by asking whether it moves the needle on the stated problem. A useful template is: <em>[User group] needs a way to [accomplish goal] because [constraint or pain point], but currently [what goes wrong]. We know this matters because [evidence].</em></p>
+
+<ul>
+  <li><strong>Weak:</strong> "We're building a mobile app with a calendar and push notifications for students." (This is a solution and a feature list; it names no problem and no evidence.)</li>
+  <li><strong>Strong:</strong> "Commuter students at our university need a way to find unreserved quiet study space between classes, because they cannot return home during gaps and the library's open seating is fully occupied from 11 a.m. to 3 p.m. Today they wander between buildings, losing an average of 18 minutes per gap. In a survey of 42 commuters, 31 reported this happening at least three times a week."</li>
+</ul>
+
+<p>The strong version is testable, bounded, and immediately suggests how you would measure success (reduce the time spent searching). It also leaves the solution space open — the answer might be an app, a sensor-driven occupancy map, a scheduling policy, or a simple shared spreadsheet.</p>
+
+<p>Next, articulate <em>user goals</em>, which describe what a person is trying to achieve in their own life — not what your software does. This distinction is the difference between designing for outcomes and designing for features. A user goal is stated from the user's perspective, in the user's vocabulary, and would still be true if your product did not exist.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>User Goal (correct)</th>
+      <th>System Behavior (not a user goal)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>"I want to find a quiet place to work within a five-minute walk, right now."</td>
+      <td>"The system queries the room occupancy API and renders results on a map."</td>
+    </tr>
+    <tr>
+      <td>"I want to be confident the space will still be free when I get there."</td>
+      <td>"The app displays a timestamp and confidence score."</td>
+    </tr>
+    <tr>
+      <td>"I want to avoid embarrassment from walking into an occupied room."</td>
+      <td>"Users can filter by room status."</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Expressing goals this way keeps multiple solutions on the table and gives you acceptance criteria that are meaningful to real people. The user-story format <code>As a &lt;role&gt;, I want &lt;capability&gt;, so that &lt;benefit&gt;</code> is a convenient scaffolding — but only if the "so that" clause names a genuine human benefit rather than restating the capability.</p>
+
+<p>With a problem and goals in hand, bound the scope explicitly. The most effective technique is a two-column <em>in scope / out of scope</em> list plus a MoSCoW prioritization (Must, Should, Could, Won't). The "Won't have — this term" column is the most valuable one in the entire document, because it is what you point to when a teammate or stakeholder proposes an exciting new feature in week nine.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Priority</th>
+      <th>Item</th>
+      <th>Rationale</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Must have</td>
+      <td>Map of buildings with per-room availability; manual "I'm here / I left" check-in; mobile-responsive web UI</td>
+      <td>Without these the core problem is untouched</td>
+    </tr>
+    <tr>
+      <td>Should have</td>
+      <td>Filter by noise level and outlet availability; "last verified" timestamp</td>
+      <td>Directly supports the confidence goal but the product works without it</td>
+    </tr>
+    <tr>
+      <td>Could have</td>
+      <td>Saved favorite rooms; dark mode</td>
+      <td>Nice polish if the schedule allows after the Must items ship</td>
+    </tr>
+    <tr>
+      <td>Won't have (this term)</td>
+      <td>Native iOS/Android apps; integration with the campus card-swipe system; room reservations; user accounts with social features</td>
+      <td>Requires institutional approval, app-store review, or backend scale beyond the course timeline</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Scope should also be expressed in terms of <em>constraints and assumptions</em>, because these are the hidden drivers of feasibility: the number of weeks available, the total person-hours per week the team can realistically commit (be honest — four students at eight hours each is thirty-two hours, not a full-time engineering team), the technologies the course requires, the data you can legally obtain, and the accessibility standard you intend to meet. Writing "we assume the facilities office will share the room list as a CSV" exposes a risk you can validate in week two rather than discover in week eight.</p>
+
+<p>Finally, <strong>review the scope with your instructor before investing in design</strong>. This is not a formality. The instructor sees every team's plan and knows from experience which ideas collapse under their own weight, which require data that will never be approved, and which fail to exercise the skills the course is assessing. A twenty-minute conversation at this stage can save two weeks of wasted wireframing. Come to that review with a one-page scope statement containing the problem statement, three to five user goals, the MoSCoW table, constraints and assumptions, and a list of open questions. Leave with written notes recorded in the repository — for example as <code>docs/SCOPE.md</code> with a changelog entry — so that any later scope change is visible as a diff rather than a vague memory of what was approved.</p>
+
+<pre><code># Project Scope Statement — Project Lumen
+
+## Problem
+Commuter students need a way to find unreserved quiet study space between
+classes, because they cannot return home during gaps and open seating is
+full 11:00-15:00. Survey of 42 commuters: 31 report this 3+ times/week.
+
+## Primary Users
+Commuter undergraduates with 60-180 minute gaps between classes.
+
+## User Goals
+1. Find a quiet, free space within a 5-minute walk, right now.
+2. Trust that the space will still be free on arrival.
+3. Avoid walking into an occupied room.
+
+## Success Measures
+- Median search time drops from 18 min to under 5 min in usability testing.
+- 8 of 10 test participants locate a usable room on the first attempt.
+
+## Constraints
+- 10 weeks; ~32 team-hours/week; React + Node required by course.
+- No access to card-swipe data (privacy review not feasible this term).
+- Must meet WCAG 2.1 AA.
+
+## Assumptions (to validate by Week 2)
+- Facilities will provide a room list as CSV.  [Owner: Priya]
+- Crowd-sourced check-ins will reach useful density with ~30 pilot users.
+
+## Open Questions for Instructor
+- Is a seeded/simulated dataset acceptable if facilities data is delayed?
+
+Reviewed with instructor: 2024-09-20. Approved with note: seeded data OK
+for Sprint 1; must document the simulation clearly in the final report.
+</code></pre>
+
+<p><strong>End-of-Module Readiness Checklist</strong></p>
+
+<p>The module concludes with a verification pass. The point of a readiness checklist is that each item is <em>demonstrably</em> true for <em>every</em> member — not "probably fine." The most common way a team loses a week is discovering in sprint one that one teammate's environment never worked, or that the Figma file is owned by a personal account nobody else can edit. Verify by producing an artifact, not by asking "everyone good?"</p>
+
+<p><em>GitHub accounts and repository access.</em> Each member needs an account added as a collaborator (or added to the organization team) with at least write permission, and each must prove access by pushing something. A reliable smoke test: every member creates a branch, adds their name and role to <code>docs/TEAM.md</code>, opens a pull request, and has it reviewed and merged by a teammate. That single exercise verifies account access, write permission, branch creation, the pull request workflow, review permissions, and merge rights all at once. Members should also confirm their authentication method works for the long term — an SSH key or a personal access token rather than a password — and that their commit email matches their GitHub account so contributions are attributed correctly.</p>
+
+<pre><code># Verify identity and remote access
+git config user.name            # should match your display name
+git config user.email           # must match a verified GitHub email
+ssh -T git@github.com           # "Hi username! You've successfully authenticated..."
+
+# Smoke-test the collaboration workflow
+git checkout -b chore/add-me-to-team-doc
+# ...edit docs/TEAM.md...
+git add docs/TEAM.md
+git commit -m "docs: add Luis to team roles table"
+git push -u origin chore/add-me-to-team-doc
+# then open a PR on GitHub and request a review
+</code></pre>
+
+<p>While you are there, have the Build/Release Lead configure the repository itself: a branch protection rule on <code>main</code> requiring one approving review, a <code>.gitignore</code> appropriate to the stack, a <code>README.md</code> with setup instructions, a <code>CONTRIBUTING.md</code> describing branch naming and commit conventions, and issue/PR templates. A <code>docs/</code> folder should hold <code>TEAM.md</code>, <code>CHARTER.md</code>, <code>SCOPE.md</code>, and a <code>meetings/</code> directory.</p>
+
+<p><em>Figma Education workspace.</em> Each student should apply for the free Figma Education plan using their institutional email; approval can take time, so start early. The Design Lead creates a <strong>team</strong> (not a personal draft) named for the project, creates project files inside it, and invites every member by email with at least "can edit" rights. Verification is behavioral: every member opens the file, creates a frame or leaves a comment, and confirms it appears for the others. The critical failure to avoid is designing in a personal "Drafts" space — files there are not shared with the team, cannot be recovered by teammates if the owner's access lapses, and will not appear in the team's version history. Agree now on a file structure (for example, separate pages for Research, Wireframes, Components, and High-Fidelity screens) and link the Figma URL from the repository <code>README</code> so there is one discoverable source of truth.</p>
+
+<p><em>Local development environments.</em> "It works on my machine" is a project-management failure, not a joke. Every member must install the required runtime and tooling at the pinned versions, clone the repository, install dependencies, run the application, and run the test suite successfully. Pin versions explicitly — an <code>.nvmrc</code> file, an <code>engines</code> field in <code>package.json</code>, or a containerized dev environment removes an entire class of mysterious bugs. The smoke test is that each member pastes their version output into the team channel or a checklist issue:</p>
+
+<pre><code>git clone git@github.com:lumen-team/lumen.git
+cd lumen
+nvm use                 # reads .nvmrc -&gt; v20.11.0
+npm ci                  # install exact locked dependency versions
+npm run dev             # app serves at http://localhost:5173
+npm test                # all tests pass
+
+# Paste this output into issue #3 "Environment smoke test"
+node -v &amp;&amp; npm -v &amp;&amp; git --version
+</code></pre>
+
+<p>Record any platform-specific gotchas (Windows line endings, missing build tools, Apple Silicon differences) in the <code>README</code> as you hit them — the next person to set up, including a future teammate or the instructor, will need them.</p>
+
+<p><em>Charter and scope documented in the repository.</em> Both documents must be committed to the repo, merged into <code>main</code> via pull request, linked from the <code>README</code>, and signed or acknowledged by all members. Storing them alongside the code means they are version-controlled, diffable, reviewable, and impossible to lose in a chat history.</p>
+
+<p>A compact team-level checklist makes the state of readiness visible at a glance:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Readiness Item</th>
+      <th>Verification Method</th>
+      <th>Owner</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>All members have repo write access</td>
+      <td>Each merged a PR editing <code>docs/TEAM.md</code></td>
+      <td>Build/Release Lead</td>
+      <td>4 / 4 complete</td>
+    </tr>
+    <tr>
+      <td><code>main</code> branch protection configured</td>
+      <td>Screenshot of settings in issue #2</td>
+      <td>Build/Release Lead</td>
+      <td>Complete</td>
+    </tr>
+    <tr>
+      <td>Figma Education team created, all invited</td>
+      <td>Each member left a comment on the cover frame</td>
+      <td>Design Lead</td>
+      <td>4 / 4 complete</td>
+    </tr>
+    <tr>
+      <td>Local environment runs app + tests</td>
+      <td>Version output posted in issue #3</td>
+      <td>Tech Lead</td>
+      <td>3 / 4 — Devin blocked on build tools</td>
+    </tr>
+    <tr>
+      <td><code>CHARTER.md</code> merged and signed</td>
+      <td>PR #8 approved by all members</td>
+      <td>Project Manager</td>
+      <td>Complete</td>
+    </tr>
+    <tr>
+      <td><code>SCOPE.md</code> merged and instructor-reviewed</td>
+      <td>PR #9 + instructor notes appended</td>
+      <td>Research Lead</td>
+      <td>Complete</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>When every row reads complete, the team has more than paperwork: it has a shared vision of the problem, named owners for every decision, agreed rules for how disagreements get resolved, and infrastructure that lets four people change the same codebase and the same design file without destroying each other's work. That is the real deliverable of this module — and every subsequent module assumes it is in place.</p>
+        <div class="notes"><strong>Notes</strong>Suggested in-class activities: (1) 20-minute skills-inventory workshop producing the capability table; (2) charter-drafting sprint with a required signature commit; (3) instructor scope review slots booked before any high-fidelity design begins. Common pitfalls to call out: designing in a personal Figma Drafts space, roles agreed verbally but never documented, over-scoped problem statements that name a solution, and unverified environment setups discovered in sprint one. Assessment tip: grade the artifacts (TEAM.md, CHARTER.md, SCOPE.md, RACI) on specificity — vague norms like "communicate well" earn no credit, measurable ones like "review PRs within 24h" do.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Almost everything you produce in this course will be produced with other people. This topic is about setting up that collaboration deliberately rather than letting it happen by accident: forming a team, agreeing on who does what, writing it down in a team charter, and bounding the course project so the scope is something your team can actually finish in a semester.</p>
+<p>The practices here come straight from project management. A team charter, a roles-and-responsibilities list, a communication plan, and a scope statement are all standard project documents, and the vocabulary around them (stakeholder, deliverable, milestone, scope creep) is vocabulary you will see again in industry. Learning it now makes your design work later in the course easier to coordinate and easier to explain to a client or instructor.</p>
+<p>The three videos below come from a project management practitioner channel and cover the documents, the communication planning, and the terminology side of kickoff. As you watch, map what you hear onto your own team: which documents does our project actually need, how will we decide when and how we talk to each other, and where exactly does our project stop? Take notes you can paste directly into your charter and project plan drafts.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: 5 Essential Project Documents [YOU NEED THESE]</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/XTTN-rT_aAA?cc_load_policy=1&amp;rel=0" title="Video: 5 Essential Project Documents [YOU NEED THESE] (Adriana Girdler)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Adriana Girdler</strong> · 6:36 · 49,842 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=XTTN-rT_aAA" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short walkthrough of five project documents the presenter considers essential during planning, with an explanation of what each one is for and when it gets created. Expect coverage of foundational artifacts such as a charter or scope-defining document and the supporting plans that follow from it. The format is practical and aimed at people who are about to start a project rather than at theory.</p>
+<h3>Why this video</h3>
+<p>It maps directly onto the "Creating the Team Charter" and "Scoping the Course Project" subtopics by showing which written artifacts a kickoff should produce and why each one exists.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: Project Communication Plan [STEP-BY-STEP INSTRUCTIONS]</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/XCX9hsdt-v8?cc_load_policy=1&amp;rel=0" title="Video: Project Communication Plan [STEP-BY-STEP INSTRUCTIONS] (Adriana Girdler)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Adriana Girdler</strong> · 12:36 · 92,598 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=XCX9hsdt-v8" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A step-by-step guide to building a project communication plan: who needs information, what information they need, how often, and through which channel. The video is longer and more procedural, walking through the structure of the plan rather than just describing it. It also touches on stakeholders and why communication breakdowns derail projects.</p>
+<h3>Why this video</h3>
+<p>Communication norms are the operational half of a team charter, and this video gives you a concrete template-style process for deciding meeting cadence, channels, and reporting responsibilities for your team.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: 10 Project Management Terms You Need to Know</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/aTEK0BmsH-g?cc_load_policy=1&amp;rel=0" title="Video: 10 Project Management Terms You Need to Know (Adriana Girdler)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Adriana Girdler</strong> · 13:57 · 453,683 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=aTEK0BmsH-g" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An explanation of ten commonly used project management terms, with plain-language definitions and examples. Based on the title and description, expect terms around scope, deliverables, stakeholders, milestones, and similar planning vocabulary. It is the most-viewed of the three and is pitched at people new to the field.</p>
+<h3>Why this video</h3>
+<p>Shared vocabulary is what lets a new team talk about scope and roles without talking past each other, so this is useful groundwork before you draft the charter and project plan.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos chiefly support MO3: building an initial project plan that defines scope, platform, and team roles. The documents video shows what artifacts a kickoff should produce, the communication plan video shows how to specify who is responsible for what and how the team will coordinate, and the terminology video gives you the shared language for scope, deliverables, and stakeholders that the plan is written in. They do not address MO1 or MO2 directly; the HCI history and the usability, user experience, and accessibility distinctions come from the other readings and videos in this module, and you should bring those concepts with you when you decide what your team's project is actually about.</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

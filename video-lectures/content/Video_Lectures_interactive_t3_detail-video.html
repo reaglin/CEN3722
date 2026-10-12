@@ -1,0 +1,352 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human Error and Learning</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Video Lectures</a></div>
+  <header>
+    <h1>Human Error and Learning</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Human Error and Learning</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every interactive system is used by people who are, inevitably, fallible. Human error is not an occasional defect in otherwise reliable operators; it is a normal, statistically predictable by-product of the way human cognition works. People automate frequently repeated actions, they economise on attention, they reason from incomplete models of the world, and they forget. Because these tendencies are stable properties of the human cognitive architecture, they can be anticipated and designed for. The central insight of modern human–computer interaction is therefore a shift in blame: when a user deletes the wrong file, enters a date in the wrong format, or sends a message to the wrong recipient, the most productive question is not "why was the user careless?" but "what in the design made that error easy to commit and hard to detect or reverse?" This topic examines how errors are classified, what conditions provoke them, how interfaces can prevent errors or soften their consequences, and how the principles of human learning shape designs that make users progressively more competent over time.</p>
+
+<p><strong>A vocabulary for error</strong></p>
+
+<p>The most widely used classification in HCI derives from James Reason's work on human error and Donald Norman's application of it to everyday things. The key distinction rests on where in the chain from intention to action the failure occurs. A user forms a goal, develops a plan to achieve it, executes the plan, and then evaluates the outcome. If the <em>plan is sound but the execution goes astray</em>, the error is a slip or a lapse. If the <em>plan itself is wrong</em>, the error is a mistake. This is not academic hair-splitting: slips and mistakes have different causes and require entirely different design remedies. Slips are best addressed by constraints, distinctiveness, and feedback; mistakes are best addressed by better conceptual models, clearer information, and better training or onboarding.</p>
+
+<p><strong>Slips: right intention, wrong action</strong></p>
+
+<p>A slip occurs when the user knows exactly what they want to do, has chosen a correct course of action, and then performs something other than what they intended. Slips are overwhelmingly associated with skilled, routine, automatic behaviour — paradoxically, they are errors of expertise. A novice who must consciously think through every step rarely slips; an expert whose actions have become automated can be hijacked by habit or momentary inattention.</p>
+
+<ul>
+<li><strong>Capture slips</strong> occur when a familiar, frequently performed action sequence "captures" control from a similar but less frequent one. A user who intends to use <code>Save As…</code> but has pressed <code>Ctrl+S</code> thousands of times may find themselves saving over the original file. The everyday analogue is driving toward a weekend destination and finding yourself on the route to work.</li>
+<li><strong>Description-similarity slips</strong> occur when the internal description of the target object is too vague to distinguish it from a neighbour. Two icons that look alike, two adjacent list items, two contacts named "Chris" — the user acts on the right <em>kind</em> of object but the wrong <em>instance</em>. Sending a confidential message to the wrong "Chris" in a chat client is a canonical case.</li>
+<li><strong>Mode errors</strong> occur when the same action produces different results depending on an invisible or poorly signalled system state. A text editor in command mode versus insert mode, a camera in video mode versus photo mode, a phone keyboard with Caps Lock engaged, or a flight-management system in vertical-speed mode rather than flight-path-angle mode (implicated in the 1992 Mont Sainte-Odile crash) all share the same structure: the user's action is correct <em>for the mode they believe they are in</em>.</li>
+<li><strong>Activation and action slips</strong> include premature termination (walking away from a photocopier with the original still on the glass once the copies — the real goal — are in hand) and loss of activation (opening a menu and forgetting which command you came for).</li>
+</ul>
+
+<p><strong>Lapses: failures of memory</strong></p>
+
+<p>A lapse is a failure of the memory system rather than of attention during action. The plan was correct, but a step was omitted, a sub-goal was forgotten, or the user lost track of where they were in a sequence. Post-completion errors are a classic and well-documented lapse: once the main goal has been achieved, the memory trace that sustained any remaining clean-up step decays rapidly. Leaving a bank card in an ATM after collecting the cash was so reliable a lapse that banks redesigned machines to return the card <em>before</em> dispensing the money — a design fix for a memory problem. Other examples include forgetting to attach the file one has just written an email about, forgetting to re-engage a safety setting after a temporary override, and losing one's place in a multi-step form after an interruption. Lapses are design-addressable through checklists, persistent progress indicators, system-maintained state, and reminders triggered by context (for instance, an email client that detects the word "attached" and warns before sending).</p>
+
+<p><strong>Mistakes: the plan itself is faulty</strong></p>
+
+<p>A mistake occurs when the user's intention is inappropriate for the situation — the action is executed faithfully, but it should never have been chosen. Mistakes arise from inadequate knowledge, misdiagnosis of the situation, or an inaccurate mental model of how the system works. A user who believes that dragging a file to another drive <em>moves</em> it (when in fact it copies it) and then deletes the original has made a mistake, not a slip: they executed their plan perfectly. Mistakes are typically slower to commit, are accompanied by conscious reasoning, and are harder for the user to detect, because the user's flawed model also generates the expectations against which the outcome is evaluated — they may interpret contradictory feedback as confirming their belief.</p>
+
+<p>Rasmussen's skill–rule–knowledge framework gives mistakes a useful internal structure:</p>
+
+<ul>
+<li><strong>Rule-based mistakes</strong> occur when a user applies a stored if-then rule that is either a <em>good rule applied in the wrong situation</em> or a <em>bad rule</em> learned from earlier experience. A user who learned that "the X in the corner closes the window and discards nothing important" will apply that rule to a dialog where X silently cancels an hour's work. Strong but inappropriate rules dominate: the more often a rule has worked in the past, the more readily it is triggered, even when situational cues contradict it.</li>
+<li><strong>Knowledge-based mistakes</strong> occur in genuinely novel situations where no rule exists and the user must reason from first principles using their mental model. This is effortful, slow, and biased: people fall prey to confirmation bias, to availability (favouring explanations that come to mind easily), and to the "cognitive tunnel vision" of fixating on an initial hypothesis. A system administrator diagnosing an unfamiliar outage, or a user trying to recover a corrupted document for the first time, is operating at the knowledge-based level, and error rates there are far higher than at the skill or rule levels.</li>
+</ul>
+
+<p>The practical design consequence is that different error types demand different countermeasures, as summarised below.</p>
+
+<table>
+<thead>
+<tr><th>Error type</th><th>What failed</th><th>Typical trigger</th><th>Illustrative example</th><th>Primary design remedy</th></tr>
+</thead>
+<tbody>
+<tr><td>Slip</td><td>Execution of a correct plan</td><td>Automaticity, inattention, similarity, hidden modes</td><td>Pressing "Reply All" instead of "Reply"</td><td>Visual/spatial distinctiveness, constraints, mode visibility, confirmation for high-cost actions</td></tr>
+<tr><td>Lapse</td><td>Memory for plan steps or place in sequence</td><td>Interruption, post-completion state, long sequences</td><td>Sending an email without the promised attachment</td><td>System-held state, progress indicators, checklists, contextual reminders</td></tr>
+<tr><td>Rule-based mistake</td><td>Selection of an inappropriate rule</td><td>Strong habitual rule, misleading surface cues</td><td>Treating a destructive "X" as a harmless cancel</td><td>Consistency across contexts, distinctive labelling of exceptional cases, clear state information</td></tr>
+<tr><td>Knowledge-based mistake</td><td>Reasoning in a novel situation</td><td>Incomplete or wrong mental model, ambiguous data</td><td>Misdiagnosing a sync conflict and deleting the newer copy</td><td>Transparent system model, diagnostic feedback, explanations, safe exploration and undo</td></tr>
+</tbody>
+</table>
+
+<p><strong>Violations and the limits of the taxonomy</strong></p>
+
+<p>One further category deserves mention because designers meet it constantly: the <em>violation</em>, a deliberate departure from a prescribed procedure. Users click through security warnings, reuse passwords, or circumvent a mandated workflow — not out of malice, but because the official path is slower or more burdensome than the goal justifies. Violations are a design signal rather than a moral failing: when a safeguard is routinely bypassed, the safeguard is mismatched to the work. Repeated violations also erode genuine protection, as with "warning fatigue," where users who dismiss dozens of inconsequential confirmations each day will dismiss the one consequential one just as fast.</p>
+
+<p><strong>Cognitive overload and working memory</strong></p>
+
+<p>Human working memory is small and volatile. The classic estimate of roughly seven plus or minus two items has been revised downward in contemporary research to about three to five meaningful chunks, held for a matter of seconds without rehearsal. Interfaces that require users to hold information "in their head" are therefore operating on the most fragile resource available. When the demands of the task, the interface, and the environment together exceed that capacity, performance degrades in characteristic ways: users shed sub-goals (lapses), fall back on automatic routines (slips), and narrow their attention so that peripheral cues go unnoticed.</p>
+
+<ul>
+<li>A multi-page checkout that shows the order total only on page one, but asks for a discount decision on page four, forces the user to carry a number across screens.</li>
+<li>A command-line tool whose flags must be recalled from memory imposes higher load than a menu, where recognition replaces recall — a direct application of the principle that recognition is far cheaper than recall.</li>
+<li>A dense dashboard with forty simultaneously competing indicators produces load through visual search rather than memory, with the same net effect on error rates.</li>
+</ul>
+
+<p>The design corollary is to put knowledge in the world rather than in the head: display the running total, keep entered values visible, carry context forward between steps, and never require the user to transcribe information from one part of the system to another.</p>
+
+<p><strong>Poor feedback and the gulf of evaluation</strong></p>
+
+<p>Users cannot act correctly on a system whose state they cannot perceive. Norman's "gulf of evaluation" describes the distance between what the system actually did and what the user can tell it did. Where feedback is absent, delayed, or ambiguous, users form their own inferences — and those inferences become the faulty mental models that produce later mistakes. A button that produces no visible response within a few hundred milliseconds invites the user to press it again, generating duplicate orders or duplicate transactions. A save operation with no confirmation leaves the user unsure whether to repeat it. A file transfer with a progress bar that sits at 99% for three minutes teaches users that progress bars lie, which in turn makes them abandon operations prematurely. Good feedback is timely, proportionate to the significance of the action (subtle for routine actions, prominent for consequential ones), and expressed in terms of the user's goal rather than the system's internals.</p>
+
+<p><strong>Similarity, capture, and modes</strong></p>
+
+<p>Similarity is a double-edged property. Consistency — a form of deliberate similarity — reduces learning cost, but similarity between items that must be distinguished increases error. The design question is always: similar <em>in what respect</em>, and distinct <em>where it matters</em>? Two adjacent toolbar icons that differ only in hue will be confused under time pressure. Commands such as <code>rm -r</code> and <code>rm -rf</code>, or <code>Archive</code> and <code>Delete</code> placed side by side with similar iconography, invite description-similarity slips. Separation strategies include spatial distance (putting destructive actions away from frequently used ones), differing shape and colour, differing interaction requirements (a destructive action that requires a deliberate hold or a typed confirmation), and differing labels that avoid shared prefixes.</p>
+
+<p>Modes deserve particular attention because they multiply the meaning of every user action. The safest approach is to eliminate modes where possible; where they are necessary, they should be made highly visible (a persistent banner, a changed cursor, a coloured border), ideally <em>spring-loaded</em> so that the mode persists only while a key or control is actively held. Holding the Shift key is a spring-loaded mode that essentially never produces errors; Caps Lock is a locked mode that produces them constantly — the difference lies entirely in whether maintaining the mode requires continuous conscious effort.</p>
+
+<p><strong>Environmental and physiological factors</strong></p>
+
+<p>Error-prone design does not operate in a vacuum. Stress narrows attention and biases users toward strong habitual responses — precisely the conditions that produce capture slips and rule-based mistakes. Fatigue degrades vigilance and working memory. Interruptions are especially corrosive: research on task resumption shows that recovering from an interruption takes measurable time and that the risk of omitting a step is highest immediately after resumption. A nurse configuring an infusion pump while being spoken to, a developer deploying a release at 2 a.m., or a commuter completing a banking transaction on a jolting train are all operating with reduced cognitive resources. Designs intended for such contexts should minimise the amount of state the user must carry, make it trivially easy to see where one left off, preserve partially completed work automatically, and avoid timeouts that punish interruption. It is a defining characteristic of good safety-critical design that it assumes degraded operators rather than ideal ones.</p>
+
+<p><strong>Preventing errors: constraints</strong></p>
+
+<p>The cheapest error to recover from is the one that cannot be made. Constraints limit the action space so that invalid operations are impossible or at least difficult. Norman distinguishes physical constraints (a USB-C connector that fits either way, a three-pin plug that fits only one way), logical constraints (a jigsaw piece whose shape tells you where it belongs), semantic constraints (knowledge of the situation's meaning), and cultural constraints (red means stop). In software, constraints appear as:</p>
+
+<ul>
+<li><strong>Disabled or hidden controls</strong> — greying out "Submit" until all required fields are valid, so the invalid submission never occurs. (This must be paired with an explanation of <em>why</em> the control is unavailable, or it creates a different problem: a user who cannot proceed and cannot diagnose why.)</li>
+<li><strong>Input masks and structured pickers</strong> — a date picker eliminates ambiguity between <code>03/04/2024</code> as 3 April and 4 March; a numeric stepper with a bounded range makes out-of-range entry impossible.</li>
+<li><strong>Type and format enforcement</strong> — a field that accepts only digits for a card number, with real-time validation and inline correction rather than rejection after submission.</li>
+<li><strong>Sensible defaults</strong> — pre-selecting the safe or most common option so that inattentive users land in a good state. A print dialog defaulting to one copy, or a sharing dialog defaulting to "private," embodies a constraint by making the safe path the path of least effort.</li>
+</ul>
+
+<p><strong>Preventing errors: confirmations, undo, and forcing functions</strong></p>
+
+<p>Confirmation dialogs are the most over-used and least effective safeguard in interface design. They work only when they are rare, when they are specific, and when the information they display is genuinely needed for the decision. A dialog that says "Are you sure?" with a generic OK/Cancel adds a click to the user's motor routine, which is quickly absorbed into automatic behaviour; after a week the user is pressing OK before reading. A better pattern is to state <em>exactly</em> what will happen and to what — "Delete 847 messages in 'Clients' permanently? This cannot be undone" — and better still to replace confirmation with reversibility. Gmail's "Undo Send," which delays delivery by a few seconds and offers a single reversal control, prevents far more real-world harm than a confirmation prompt would, because it demands nothing of the user in the common case and everything the user needs in the rare one.</p>
+
+<p>For truly irreversible, high-consequence operations, deliberate friction is appropriate: requiring the user to type the name of the resource being destroyed (as GitHub does for repository deletion) converts an automatic motor action into a conscious, knowledge-based one, which is precisely the cognitive mode that will catch a slip.</p>
+
+<p>Forcing functions are constraints that interrupt the flow of action to ensure a necessary step is completed. Three classic forms are:</p>
+
+<ul>
+<li><strong>Interlocks</strong> — forcing a sequence. A microwave that will not run with the door open; a car that will not shift out of Park unless the brake is depressed.</li>
+<li><strong>Lock-ins</strong> — keeping an operation active to prevent premature exit. "You have unsaved changes — save, discard, or cancel?" keeps the user inside the editing context rather than silently discarding work.</li>
+<li><strong>Lockouts</strong> — preventing entry into a dangerous state. A staircase barrier at ground-floor level that stops people fleeing a fire from continuing into the basement; in software, requiring re-authentication before access to a destructive administrative panel.</li>
+</ul>
+
+<p>Forcing functions are powerful but intrusive, and they are exactly the mechanism users learn to defeat if they obstruct legitimate work. They should be reserved for consequences that genuinely warrant the interruption.</p>
+
+<p><strong>Preventing errors: affordances and signifiers</strong></p>
+
+<p>An affordance is a relationship between an object's properties and an agent's capabilities — what actions are possible. A <em>signifier</em> is the perceptible cue that tells the user which affordance exists and where. Most interface "affordance problems" are in fact signifier problems: the action is possible but not discoverable, or something that looks actionable is not. Flat visual design that strips shadows, borders, and colour contrast from buttons produces exactly this failure, where users cannot tell what is clickable and resort to trial-and-error clicking. Consistent, honest signifiers reduce error by making the mapping from appearance to behaviour unambiguous: underlined coloured text is a link, a raised rectangle with a verb label is a button, a drag handle shows where dragging begins, and a cursor change confirms it before the user commits.</p>
+
+<p>Equally important is <strong>mapping</strong> — the correspondence between controls and their effects. A stove with four burners in a square and four controls in a straight line produces a lifetime of low-grade errors because the mapping is arbitrary; placing the controls in a matching square makes the mapping natural and error rates collapse. The software equivalent is placing a control adjacent to and visually grouped with the thing it affects, and ordering options spatially to match the thing being manipulated.</p>
+
+<p><strong>Forgiving interfaces: undo and redo</strong></p>
+
+<p>No prevention strategy is complete, so recovery must be first-class. Undo is the most important forgiving mechanism in interactive computing because it changes the user's relationship to the system: it converts the question "what will this do?" from a risk to be reasoned about into an experiment to be run. A well-designed undo facility is multi-level rather than single-step, has a granularity that matches the user's conception of an action (undoing a typed word or a contiguous typing burst, not a single character), is paired with redo so that the user can oscillate while comparing alternatives, and is honest about its boundaries — the user must be able to tell which operations are reversible and which are not. Where true undo is impossible, near-equivalents are often available: soft deletion with a trash folder and a retention period, version history with restore points, draft autosave, and a "revert to last saved version" command. Where none of these is possible (a payment has been made, a message has reached another person), the system should say so explicitly at the point of action rather than after it.</p>
+
+<p><strong>Forgiving interfaces: informative error messages</strong></p>
+
+<p>An error message is a teaching moment, and most are wasted. A message such as <code>Error 0x80070057: the parameter is incorrect</code> communicates failure without communicating anything actionable, and additionally implies blame. A well-constructed message does four things: it states in plain language what happened, explains why in terms the user can relate to their own action, proposes a concrete next step, and — where possible — offers a control that performs that step. It should also be located where the problem is, which usually means inline next to the offending field rather than in a modal dialog that disappears, taking the diagnosis with it.</p>
+
+<pre><code>Poor:   Invalid input.
+
+Better: Card number must be 16 digits. You entered 15.
+
+Best:   Card number must be 16 digits — you entered 15.
+        [ Check the number on the front of your card ]
+        (the field is highlighted, the cursor is placed at the end,
+         and the already-entered digits are preserved)</code></pre>
+
+<p>Note the last point: preserving the user's work. Forms that clear all fields on a validation failure convert a small slip into a large punishment and are a reliable source of abandonment. Tone matters as well — messages should be neutral and blame-free, avoiding words like "illegal," "invalid user," or "fatal," which invite defensiveness rather than correction.</p>
+
+<p><strong>Forgiving interfaces: graceful degradation</strong></p>
+
+<p>Graceful degradation means the system continues to deliver as much value as it can when something goes wrong, rather than failing wholesale. A mapping application that loses its network connection should continue to display cached tiles and the last known route rather than showing a blank screen. A document editor that cannot reach the sync server should keep accepting edits locally, mark them as pending, and reconcile later. A form that cannot validate a postcode against a remote service should accept the entry with a soft warning rather than block submission. In accessibility and web engineering, the same principle appears as progressive enhancement: the core function works with basic capabilities, and richer capabilities layer on top. Applied to human error specifically, degradation means that a user's mistake should narrow the system's usefulness proportionately, not catastrophically — a malformed search query should return approximate matches and a suggestion, not an empty page.</p>
+
+<p><strong>Forgiveness and exploratory learning</strong></p>
+
+<p>There is a direct link between forgiving design and learning. People learn interfaces primarily by doing, not by reading, and the willingness to try an unfamiliar command is governed by the perceived cost of being wrong. When users believe that an action may be irreversible, they do not explore; they stay within the narrow subset of functionsthey already know, and the long tail of the product goes unused. Conversely, a system that makes every action reversible invites experimentation, and experimentation is the fastest route to proficiency. This is why "safe exploration" appears in nearly every usability heuristic set, and why professional creative tools (image editors, CAD packages, code editors with version control) invest so heavily in history, branching, and non-destructive editing. The designer's aim is to ensure that the worst realistic consequence of curiosity is a few seconds lost, so that the user's internal cost–benefit calculation always favours trying.</p>
+
+<p>A useful way to express this to stakeholders is in terms of cost asymmetry: the cost of building an undo stack is paid once by the development team, whereas the cost of unrecoverable errors is paid repeatedly by every user, and includes not just the lost work but the permanent reduction in exploratory behaviour that follows a single bad experience.</p>
+
+<p><strong>Learning principles: consistency</strong></p>
+
+<p>Consistency is the mechanism by which prior knowledge is transferred to a new situation, and it is the single most economical way to reduce both learning time and error. It operates at several levels:</p>
+
+<ul>
+<li><strong>Internal consistency</strong> — the same concept is expressed the same way throughout one product. If "Remove" means detach-but-keep in one screen and destroy-permanently in another, every encounter with the word becomes a knowledge-based decision rather than a rule-based one.</li>
+<li><strong>External consistency</strong> — conformance with the conventions of the platform and of the wider software ecosystem. <code>Ctrl/Cmd+Z</code> for undo, a magnifying glass for search, a shopping basket at the top right, a back gesture from the left edge. Jakob's Law captures the practical point: users spend most of their time on other products, so their expectations are formed elsewhere.</li>
+<li><strong>Conceptual consistency</strong> — a stable underlying model, so that once a user understands how one object behaves, they can predict how analogous objects behave. A file system in which every item can be renamed, moved, tagged, and shared by the same gestures is learnable in a fraction of the time taken by one with special-case rules.</li>
+</ul>
+
+<p>The caveat is that consistency must not be applied where it would make genuinely different things look the same. If a destructive action looks and behaves exactly like a benign one, consistency has created a description-similarity slip. The guiding rule is: be consistent about things that behave the same, and conspicuously inconsistent about things that behave differently.</p>
+
+<p><strong>Learning principles: progressive disclosure</strong></p>
+
+<p>Progressive disclosure separates information and controls into layers, showing only what is needed for the common case and deferring the rest behind an explicit, clearly signposted step. It manages cognitive load directly — fewer visible options means a smaller visual search space and a smaller decision space — while keeping advanced capability available rather than absent. Familiar instances include an "Advanced settings" section collapsed by default, a print dialog whose first page covers printer, copies, and range while duplex and colour management sit behind "More options," and a search interface that offers a single box with filters revealed after the first query.</p>
+
+<p>Done well, progressive disclosure matches the user's trajectory: novices encounter a small, comprehensible surface, and as their goals become more specific they go looking for the next layer and find it where they expect. Done badly, it hides essential functionality so thoroughly that users conclude it does not exist — the "mystery meat" problem. Two safeguards help: the entry point to the hidden layer must itself be visible and honestly labelled (<code>Advanced</code>, <code>Show 14 more filters</code>) rather than implied, and the default layer must contain everything needed to complete the primary task end to end.</p>
+
+<p><strong>Learning principles: scaffolding</strong></p>
+
+<p>Scaffolding, a concept borrowed from educational psychology and Vygotsky's zone of proximal development, refers to temporary support that enables a learner to accomplish something they could not yet do alone, and which is withdrawn as competence grows. Interface scaffolding includes wizards that break a complex configuration into a guided sequence, tooltips and inline hints, placeholder text showing the expected format, sample data or templates that demonstrate a well-formed result, coach marks on first use, and contextual help that appears at the moment of difficulty rather than in a manual.</p>
+
+<p>The defining property of scaffolding is that it is <em>temporary</em>. Support that cannot be dismissed becomes an obstacle: a wizard that is the only route to a task will frustrate the expert who wants to change one field, and a tutorial overlay that replays on every launch is noise. Good scaffolding therefore has an exit — a "skip," a "don't show again," a direct path that bypasses the guided flow — and ideally it fades on evidence of competence, as when a keyboard-shortcut hint appears beside a menu item the user has clicked many times, deliberately teaching the faster method and then becoming unnecessary.</p>
+
+<p><strong>Learning principles: feedback and reinforcement</strong></p>
+
+<p>Learning requires a closed loop: the user acts, observes a consequence, and updates their model. The tighter and clearer that loop, the faster the model converges on the truth. Feedback supports learning when it is immediate (delays of more than about a second break the perceived causal link between action and result), specific (showing <em>what</em> changed, not merely that something did), and interpretable in the user's own terms. Direct manipulation interfaces are powerful learning environments precisely because the feedback loop is continuous: dragging an object shows its new position frame by frame, so the model is confirmed or corrected before the action is even completed.</p>
+
+<ul>
+<li><strong>Confirmatory feedback</strong> tells the user that an action succeeded — a toast saying "3 files moved to Archive," with an inline Undo.</li>
+<li><strong>Corrective feedback</strong> tells the user that something is wrong while there is still time to fix it cheaply — a password strength meter updating as it is typed, or a form field validating on blur rather than on submit.</li>
+<li><strong>Predictive feedback</strong> shows the consequence before commitment — a live preview of a filter, a highlighted drop target, a ghost outline showing where a dragged block will land. This is arguably the most valuable kind for learning, because it allows model-building with zero risk.</li>
+<li><strong>Reinforcing feedback</strong> marks progress and builds confidence — completed steps ticked off, a progress bar that advances, a summary of what was accomplished. Used honestly it sustains motivation through long tasks; used manipulatively (streaks, artificial scarcity) it becomes a dark pattern rather than a learning aid.</li>
+</ul>
+
+<p><strong>Novices, experts, and the shape of the learning curve</strong></p>
+
+<p>A "user" is not a fixed category but a position on a trajectory. The same person is a novice on Monday and an intermediate by Friday, and the overwhelming majority of a mature product's users are perpetual intermediates: they know the twenty per cent of functionality they need, they have forgotten what they were told during onboarding, and they will not read documentation. Designing only for first use produces a product that is charming for an hour and tedious for a year; designing only for experts produces a product nobody survives long enough to master.</p>
+
+<table>
+<thead>
+<tr><th>Dimension</th><th>Novice needs</th><th>Expert needs</th></tr>
+</thead>
+<tbody>
+<tr><td>Knowledge retrieval</td><td>Recognition — visible menus, labelled icons, descriptive text</td><td>Recall — memorised shortcuts, command palettes, typed syntax</td></tr>
+<tr><td>Option set</td><td>Reduced and curated; safe defaults chosen for them</td><td>Complete and configurable; defaults they can override globally</td></tr>
+<tr><td>Pacing</td><td>Step-by-step, one decision at a time, explicit confirmation of progress</td><td>Compressed; batch operations, multi-select, macros, scripting</td></tr>
+<tr><td>Feedback</td><td>Explicit and verbose; explanations of what happened and why</td><td>Minimal and peripheral; status in a corner, silence on success</td></tr>
+<tr><td>Error handling</td><td>Prevention and heavy guard-rails</td><td>Fast recovery; powerful undo and history rather than confirmations</td></tr>
+<tr><td>Typical failure mode</td><td>Mistakes — wrong plan from an immature mental model</td><td>Slips and mode errors — correct plan, automated execution gone astray</td></tr>
+</tbody>
+</table>
+
+<p>The last row is worth emphasising, because it shows that error-reduction strategy must change as users mature. Novices need the system to help them choose correctly; experts need it to help them execute safely and reverse cheaply. A product that only ever adds confirmation dialogs is optimising for a population it will soon no longer have.</p>
+
+<p><strong>Layered and adaptive interfaces</strong></p>
+
+<p>The reconciliation of these two populations is the layered interface: a single coherent system presented at multiple levels of complexity. Strategies include training wheels designs that disable advanced features until a core competence is demonstrated, explicit "basic / advanced" modes, accelerators that sit alongside rather than replace the visible route (a shortcut shown next to every menu item, so the slow path teaches the fast one), and command palettes that let an expert type a command name while the novice continues to browse menus. Customisation — rearrangeable toolbars, user-defined shortcuts, saved views — lets experts build a personal, high-efficiency surface without imposing it on anyone else.</p>
+
+<p>Adaptive systems take this further by changing automatically in response to observed behaviour. These must be used with care: a menu that reorders itself according to frequency of use (as in some historical office suites) destroys the spatial memory on which expert performance depends, and so makes experts slower while confusing novices. The safer pattern is <em>adaptable</em> rather than <em>adaptive</em> — the user chooses the change, the system does not impose it — or adaptation that adds without rearranging, such as surfacing a suggestion alongside a stable menu that never moves.</p>
+
+<p><strong>Learnability as a usability dimension</strong></p>
+
+<p>Learnability is usually defined as the ease with which a first-time user can accomplish basic tasks, and more broadly as the rate at which performance improves with practice. It is measured empirically rather than asserted: time on task, error rate, completion rate, and the number of help requests, each plotted across repeated trials with the same participants. A learnability curve typically shows a steep initial improvement followed by a plateau; the interesting questions are how steep the initial segment is (how quickly users become productive), where the plateau sits (how good asymptotic performance is), and how much the curve decays after a period of non-use, which is <em>memorability</em> — a distinct and often-neglected property. A tax-filing application used once a year must be designed almost entirely for memorability, because every user is effectively a novice at every encounter.</p>
+
+<p>There is a genuine trade-off between learnability and ultimate efficiency. A menu-driven interface is highly learnable and permanently moderate in speed; a modal, keystroke-driven editor is brutal to learn and extremely fast once mastered. Neither is universally correct; the choice depends on usage frequency, session length, the cost of training, and how long users remain with the product. The error connection is direct: errors are highest early in the curve, where mistakes dominate because models are immature, and then fall sharply — but they never reach zero, and the residual errors shift in character toward slips and mode errors as behaviour becomes automatic.</p>
+
+<p><strong>Mental models</strong></p>
+
+<p>A mental model is the user's internal, working theory of how a system is put together and how it will respond — what entities exist, how they relate, what causes what. Mental models are constructed opportunistically from whatever evidence is available: prior experience with similar systems, the vocabulary and imagery of the interface, observed behaviour, advice from colleagues, and metaphor. They are characteristically incomplete, unstable, unscientific, and "superstitious" — containing rituals that the user believes are necessary but are not — yet they are the sole basis on which every plan is formed. This is why mental models are the deep source of mistakes: a plan can be no better than the model that generated it.</p>
+
+<p>Norman's framework distinguishes three things that are often conflated. The <strong>design model</strong> is the conceptual model held by the designer. The <strong>system image</strong> is everything the system exposes to the user — its interface, its wording, its behaviour, its documentation, its error messages. The <strong>user's model</strong> is what the user infers. Crucially, the designer never communicates with the user directly; the entire burden falls on the system image. If the system image is thin, inconsistent, or misleading, the user's model will diverge from the design model, and that divergence will express itself as predictable, systematic errors.</p>
+
+<p><strong>How model mismatches produce error</strong></p>
+
+<p>Consider some everyday mismatches and the errors they generate:</p>
+
+<ul>
+<li><strong>Thermostats.</strong> Many people hold a "valve" model, believing that setting a thermostat to 30°C heats the room faster. The real model is a simple on/off threshold. The resulting error — overshooting the target and wasting energy — is entirely a product of the model, and no amount of care in turning the dial would prevent it.</li>
+<li><strong>Cloud storage.</strong> A user whose model is "my files are in a folder on this computer" does not distinguish local from synced state, and so deletes a file to "free up space on the laptop," removing it from every device. The system image — an ordinary-looking folder icon — actively encourages the wrong model.</li>
+<li><strong>Autosave versus explicit save.</strong> A user trained on explicit save opens a document, experiments destructively to see what a feature does, and closes without saving, expecting the original to survive. In an autosaving application, the experiment is now permanent. The action was executed perfectly; the model was wrong.</li>
+<li><strong>Privacy and audience.</strong> Users consistently misjudge who can see a post because the system image (a composition box resembling a private message) does not convey the actual distribution model. The errors here are serious and systematic across millions of people, which is diagnostic of a design failure rather than individual carelessness.</li>
+<li><strong>Browser back button in a single-page application.</strong> The user's model says "back returns me to the previous screen"; the application's model may discard state or re-submit. The mismatch produces data loss that the user cannot anticipate.</li>
+</ul>
+
+<p>A useful diagnostic habit is to treat any error made by many different users in the same way as evidence of a model mismatch, and to look for the element of the system image that is teaching the wrong lesson.</p>
+
+<p><strong>Designing for accurate models: transparency and consistency</strong></p>
+
+<p>Several design strategies help the user's model converge on the truth:</p>
+
+<ul>
+<li><strong>Make state visible.</strong> If a file can be local, syncing, synced, or conflicted, show which — a badge on the icon converts an invisible distinction into a perceptible one and teaches the underlying model simply by being present.</li>
+<li><strong>Make causality visible.</strong> Animate transitions so the user can see where a closed window went, or where a deleted item travelled. The animation is not decoration; it is an argument about the system's structure.</li>
+<li><strong>Keep behaviour predictable.</strong> The same command should have the same effect everywhere. Special cases are precisely what the user's model will fail to encode.</li>
+<li><strong>Expose the conceptual vocabulary consistently.</strong> If the system has the concepts "project," "board," and "card," use exactly those words in the UI, the documentation, the API, and the support articles. Synonyms fragment the model.</li>
+<li><strong>Explain, don't just report.</strong> An error message or status display that reveals <em>why</em> ("this file can't sync because another device changed it at 14:02") teaches the model; one that says "sync failed" leaves the user to invent one.</li>
+<li><strong>Support model repair.</strong> Provide affordances for inspection — a history panel, an activity log, a "what changed" view — so a user who has formed a wrong belief has the means to discover it.</li>
+</ul>
+
+<p><strong>Onboarding and metaphor</strong></p>
+
+<p>Because the earliest minutes of use set the model that governs months of subsequent behaviour, onboarding is a high-leverage intervention. Effective onboarding is less about touring the interface than about installing the right conceptual skeleton: what the system is <em>for</em>, what the main objects are, and how they relate. A project tool that opens with a pre-populated sample project — a board with three lists and a few cards — communicates its model in seconds, far more effectively than a sequence of tooltips pointing at buttons on an empty screen. Other effective techniques include guided completion of one real task (so the model is built through action rather than reading), progressive onboarding that introduces a concept at the moment it first becomes relevant rather than all at once, and empty states that describe the missing object and offer the action to create it.</p>
+
+<p>Metaphor is the oldest tool for model transfer: the desktop, folders, the trash can, the shopping basket, the clipboard, the feed, the inbox. A good metaphor imports a large body of correct expectations at no cost. Its danger is that it also imports incorrect ones, and the boundary is rarely signposted. Physical folders cannot contain the same document twice, do not sync, and have no version history; a physical trash can does not quietly empty itself after thirty days. When the metaphor breaks, users make rule-based mistakes by applying the physical-world rule to a situation it does not cover. The practical guidance is to choose metaphors that match the structure of the underlying system rather than just its surface, to be willing to abandon a metaphor once the interface's own conventions are established (modern file managers rely far less on skeuomorphic imagery than early ones did), and to signal explicitly at the points where the analogy stops holding.</p>
+
+<p><strong>Bringing it together</strong></p>
+
+<p>Error and learning are two views of the same process. Errors are most frequent where models are immature and where the interface fails to signal state, consequence, or availability; learning is the process by which models mature, driven by feedback, consistency, and safe opportunities to experiment. A design that prevents what it can, makes consequences visible, allows almost everything to be undone, explains failures in human terms, and reveals complexity at the pace the user can absorb will simultaneously reduce error rates and accelerate the growth of expertise — and it will do so for the same underlying reason, namely that it keeps the user's model and the system's behaviour in alignment.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+
+<ul>
+<li><strong>MO1</strong> — Supported indirectly but substantially: the discussion of lapses, cognitive overload, and the limited capacity of working memory (roughly three to five chunks, seconds of duration without rehearsal) connects memory types and capacities to concrete interface constraints such as recognition over recall and keeping state in the world rather than in the head.</li>
+<li><strong>MO2</strong> — Directly supported: the sections on mistakes, rule- and knowledge-based error, Norman's design model / system image / user model distinction, and the worked examples of thermostats, cloud storage, autosave, and privacy settings explain precisely how mental-model mismatches generate systematic, predictable errors.</li>
+<li><strong>MO3</strong> — Not directly addressed. Hierarchical Task Analysis is not covered here; however, the material on multi-step sequences, post-completion lapses, and progressive disclosure provides the error-related rationale that task decomposition is later used to analyse.</li>
+<li><strong>MO4</strong> — Partially supported: the topic supplies the error taxonomy, learnability measures (time on task, error rate, memorability curves) and heuristic principles that expert-driven evaluation methods inspect for, and that user testing is used to observe, but it does not itself compare evaluation techniques.</li>
+<li><strong>MO5</strong> — Supported as design input: constraints, forcing functions, affordances and signifiers, undo, informative error messages, progressive disclosure, scaffolding, and novice/expert layering are all interaction design principles that a low-to-mid fidelity prototype can be built to embody and justify.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Key source frameworks referenced: Reason's slips/lapses/mistakes/violations taxonomy; Rasmussen's skill–rule–knowledge framework; Norman's gulf of execution/evaluation, design model vs. system image vs. user model, constraints and forcing functions (interlocks, lock-ins, lockouts); Nielsen's usability dimensions (learnability, efficiency, memorability, errors, satisfaction) and heuristics on error prevention, recovery and user control; Vygotsky's zone of proximal development as the basis for scaffolding; Jakob's Law for external consistency. Possible activities: have students classify a set of real error anecdotes as slip/lapse/rule-based mistake/knowledge-based mistake and propose a matched remedy for each; audit a familiar application's confirmation dialogs and propose undo-based replacements; redraft three real error messages using the state-what/explain-why/offer-next-step pattern.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>People make mistakes, and interactive systems are where many of those mistakes become visible. This topic looks at human error systematically: the difference between slips (doing the wrong thing while intending the right thing) and mistakes (intending the wrong thing in the first place), the conditions that make errors more likely, and the design choices that either invite or prevent them. A recurring theme is that error is rarely just "user fault" — poorly labelled controls, ambiguous feedback, and interfaces that conflict with a user's mental model all produce predictable, systematic failures.</p>
+<p>The second half of the topic turns to learning and recovery. Good interfaces are forgiving: they constrain dangerous actions, make the current state visible, offer undo, and explain problems in language the user can act on. They also support a learning curve, letting novices succeed through guidance and discoverability while giving experts faster paths. These goals sometimes pull against each other, which is why designers need principles rather than one-size-fits-all rules.</p>
+<p>As you watch the three videos below, keep a running list of two things: (1) the specific error type or cause each example illustrates, and (2) the concrete design move used to prevent, contain, or recover from it. Pay attention to how error handling differs between a form on a large screen and an alert on a small mobile screen — the same principle often requires a different implementation.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: What Is Error and Types of Errors in Human-Computer Interaction (HCI)</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/NXih69VPVnI?cc_load_policy=1&amp;rel=0" title="Video: What Is Error and Types of Errors in Human-Computer Interaction (HCI) (IxDF - Interaction Design Foundation)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>IxDF - Interaction Design Foundation</strong> · 8:33 · 4,589 views · 2y ago · captions — <a href="https://www.youtube.com/watch?v=NXih69VPVnI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An overview of what counts as "error" in human-computer interaction and how errors are classified, likely covering distinctions such as slips versus mistakes and the conditions under which each tends to occur. Expect definitions, examples from interactive systems, and discussion of why error classification matters for designers rather than being just academic labelling.</p>
+<h3>Why this video</h3>
+<p>It directly addresses the foundational subtopics — types of human error and their causes — from the Interaction Design Foundation, a well-established HCI education producer, giving you shared vocabulary for the rest of the topic.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: UX Design Best Practices for Forms: How to Prevent Error Messages</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/KgXSeWM50vU?cc_load_policy=1&amp;rel=0" title="Video: UX Design Best Practices for Forms: How to Prevent Error Messages (IxDF - Interaction Design Foundation)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>IxDF - Interaction Design Foundation</strong> · 5:56 · 1,990 views · 1y ago · captions — <a href="https://www.youtube.com/watch?v=KgXSeWM50vU" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A practice-oriented talk on form design that focuses on preventing error messages before they happen, rather than writing better error text after the fact. It is likely to cover input formatting, labelling, validation timing, and other choices that reduce the chance a user enters something the system rejects.</p>
+<h3>Why this video</h3>
+<p>Forms are the classic site of user error, so this video grounds the abstract idea of error prevention in concrete, reusable interface decisions you can apply in your own prototypes.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: Error Handling on Mobile Devices: Showing Alerts</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/2CLpZ4DrZjw?cc_load_policy=1&amp;rel=0" title="Video: Error Handling on Mobile Devices: Showing Alerts (NNgroup)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>NNgroup</strong> · 3:03 · 9,068 views · 5y ago · captions — <a href="https://www.youtube.com/watch?v=2CLpZ4DrZjw" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short Nielsen Norman Group piece on how error alerts behave on mobile devices, arguing that modal dialogs for error messages often create usability problems on small screens. It discusses how error handling should respect the device context and the user's current task rather than interrupting it.</p>
+<h3>Why this video</h3>
+<p>NNgroup is a leading usability research organisation, and this clip extends the topic into forgiving interfaces and error recovery while highlighting how platform context changes the right answer.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos support the module outcomes by making the link between user cognition and interface failure explicit. The first video supplies the error taxonomy needed to explain how a mismatch between a user's mental model and actual system behaviour produces systematic, repeatable errors rather than random ones (MO2), and connects to memory and attention limits that constrain what an interface can reasonably ask of users (MO1). The form-design and mobile-alert videos then translate that understanding into design practice — prevention, clear feedback, and recovery — giving you evaluable criteria to apply when critiquing a design (MO4) and concrete patterns to incorporate when you build your own low- to mid-fidelity prototype for a desktop or mobile context (MO5).</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

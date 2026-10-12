@@ -1,0 +1,476 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Understanding Users and Task Analysis</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Video Lectures</a></div>
+  <header>
+    <h1>Understanding Users and Task Analysis</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Understanding Users and Task Analysis</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>Every interactive system is built on a set of assumptions about the people who will use it. When those assumptions are explicit, tested, and documented, they become a design asset; when they remain implicit, they become the single largest source of design failure. Designers are, almost by definition, atypical users: they know the system's internal structure, they have unlimited exposure to it, and they are unusually tolerant of complexity. The discipline of <strong>understanding users</strong> exists to counteract this bias, and <strong>task analysis</strong> exists to convert that understanding into a structured, inspectable description of work that can drive concrete interface decisions. This topic moves from <em>who</em> the users are, through <em>how</em> we learn about them, to <em>how</em> their goals and knowledge are represented, and finally to the formal decomposition techniques — Hierarchical Task Analysis and Cognitive Task Analysis — that turn observation into design specification.</p>
+
+<p><strong>Who Are the Users?</strong></p>
+
+<p>The phrase "the user" is dangerously singular. Real systems serve populations that vary along many dimensions simultaneously, and each dimension carries design consequences. Three of the most consequential are age, experience, and domain knowledge.</p>
+
+<ul>
+  <li><strong>Age</strong> affects perception, motor control, and expectation. Visual acuity and contrast sensitivity decline with age, which argues for larger default type sizes, higher contrast ratios, and avoidance of low-contrast grey-on-grey styling. Fine motor precision also declines, so touch targets that are comfortable for a twenty-year-old (perhaps 7&nbsp;mm) may be frustrating for a seventy-five-year-old (who may need 10–12&nbsp;mm with generous spacing). Age also correlates with different interaction conventions: a user who learned computing in the desktop era may look for a visible "Save" command, while a user raised on mobile apps may assume autosave and be disoriented by its absence.</li>
+  <li><strong>Experience</strong> operates on at least two axes: experience with computing in general, and experience with <em>this particular system</em>. A novice needs visible affordances, informative labels, and forgiving error recovery. An expert needs speed: keyboard shortcuts, batch operations, command palettes, and the ability to bypass confirmation dialogs. Good design does not choose between them; it layers accelerators on top of a discoverable base, so that the same interface supports a learning path from novice to expert. A classic example is a spreadsheet: a beginner uses the ribbon and the function wizard, while an expert types <code>=XLOOKUP(</code> directly and navigates with <code>Ctrl+Arrow</code>.</li>
+  <li><strong>Domain knowledge</strong> is distinct from computing experience and is frequently confused with it. A consultant radiologist may be a hesitant computer user but possesses deep, highly structured knowledge of anatomy and diagnostic workflow. For such users, the interface should speak the domain's language (correct terminology, conventional abbreviations, familiar units and orderings) and should <em>not</em> patronise them with explanations of domain concepts. Conversely, a member of the public using a health-portal booking system has no domain vocabulary at all and needs plain-language translation of clinical terms.</li>
+</ul>
+
+<p>Beyond these, designers routinely profile users by cultural and linguistic background (reading direction, date and number formats, name structures), accessibility needs (screen-reader use, colour vision deficiency, motor impairment, cognitive load sensitivity), frequency of use (daily versus once a year — an annual tax filing system cannot rely on remembered procedure), and the physical and social context of use (a warehouse scanner used with gloves in cold storage; a point-of-sale terminal used under time pressure with a queue watching).</p>
+
+<p>Because populations are heterogeneous, it is useful to classify users by their <em>relationship</em> to the system rather than only by their attributes. The conventional classification is primary, secondary, and tertiary.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Category</th>
+      <th>Definition</th>
+      <th>Hospital e-prescribing example</th>
+      <th>Typical design implication</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Primary</strong></td>
+      <td>People who operate the system directly and frequently to perform their core work</td>
+      <td>Doctors and prescribing nurses entering medication orders</td>
+      <td>Optimise for speed, efficiency, and error prevention on high-frequency tasks; provide expert accelerators</td>
+    </tr>
+    <tr>
+      <td><strong>Secondary</strong></td>
+      <td>People who use the system occasionally, indirectly, or through an intermediary</td>
+      <td>Pharmacists verifying orders; ward clerks printing summaries; a consultant who reviews but rarely enters data</td>
+      <td>Optimise for clarity and learnability rather than raw speed; avoid relying on memorised procedure</td>
+    </tr>
+    <tr>
+      <td><strong>Tertiary</strong></td>
+      <td>People affected by the system, or who decide about it, without operating it</td>
+      <td>Patients receiving the medication; hospital finance and procurement; clinical governance auditors; regulators</td>
+      <td>Outputs must be intelligible, auditable, and defensible; the system's consequences, not just its screens, are part of the design</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The categorisation is not a ranking of importance — it is a reminder of coverage. A design optimised exclusively for primary users can impose severe costs elsewhere: an e-prescribing screen that lets a doctor enter an order in four keystrokes but produces an ambiguous printed label creates risk for the patient (tertiary) and rework for the pharmacist (secondary).</p>
+
+<p><strong>Stakeholder analysis</strong> extends this further by systematically enumerating everyone with an interest in the system, including those who never touch it, and recording what they want, what they fear, and what power they hold. A simple stakeholder map lists each party against their interest and influence. The technique is valuable precisely because it surfaces <em>hidden users</em>. Consider a self-service supermarket checkout: the obvious user is the shopper, but the store's loss-prevention staff interact with the exception-handling screens dozens of times an hour, the store manager needs throughput reporting, and the cleaning staff need the hardware to be wipeable. None of these appear in a naive "the user is the shopper" framing, yet the loss-prevention workflow determines whether the whole installation is tolerable to operate. Similarly, in a school attendance system, the hidden stakeholders include parents who receive automated absence texts and safeguarding officers who must be able to reconstruct a record months later. Hidden users are often discovered by asking three questions of any proposed feature: <em>Who else sees the output? Who has to clean up when this goes wrong? Who is accountable if it is misused?</em></p>
+
+<p><strong>Methods for Researching User Needs</strong></p>
+
+<p>No single research method gives a complete picture, because methods differ along two important dimensions: whether they capture <em>what people say</em> or <em>what people do</em>, and whether they capture <em>a moment</em> or <em>a period</em>. Triangulating across these dimensions is standard practice.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Data type</th>
+      <th>Main strength</th>
+      <th>Main weakness</th>
+      <th>Best used when</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Semi-structured interview</td>
+      <td>Qualitative, self-reported, attitudinal</td>
+      <td>Depth; reveals reasoning, history, and emotion; can follow unexpected leads</td>
+      <td>Recall bias, rationalisation, social desirability; small samples</td>
+      <td>Early exploration, understanding motivations and pain points</td>
+    </tr>
+    <tr>
+      <td>Survey / questionnaire</td>
+      <td>Mostly quantitative, self-reported</td>
+      <td>Scale; can estimate prevalence across a population</td>
+      <td>Only answers the questions you thought to ask; sampling and response bias</td>
+      <td>Validating or sizing issues already identified qualitatively</td>
+    </tr>
+    <tr>
+      <td>Contextual inquiry / field observation</td>
+      <td>Qualitative, behavioural, situated</td>
+      <td>Captures real work, workarounds, artefacts, interruptions, environment</td>
+      <td>Time-consuming; observer effect; access and confidentiality constraints</td>
+      <td>Understanding complex or unfamiliar work domains</td>
+    </tr>
+    <tr>
+      <td>Diary study</td>
+      <td>Qualitative + light quantitative, longitudinal, self-reported in situ</td>
+      <td>Reveals change, rhythm, and infrequent events over weeks</td>
+      <td>Participant fatigue; incomplete entries; still self-report</td>
+      <td>Behaviour spread over time or across contexts the researcher cannot attend</td>
+    </tr>
+    <tr>
+      <td>Usage / analytics logs</td>
+      <td>Quantitative, behavioural, longitudinal</td>
+      <td>Objective, large-scale, unobtrusive, continuous</td>
+      <td>Tells you what happened but never why; privacy and ethical constraints</td>
+      <td>Detecting drop-off points, feature uptake, error frequency at scale</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Interviews and surveys</strong> are the workhorses of self-report. A well-run interview avoids leading questions ("Don't you find the current system slow?") in favour of concrete, episodic prompts ("Walk me through the last time you had to cancel an order — what happened?"). Episodic questions anchor the participant in a real event and dramatically reduce the tendency to produce idealised accounts. Interviews should probe frustrations and workarounds especially hard, because workarounds are fossil evidence of unmet needs: a sticky note of shortcut codes on a monitor bezel, a parallel spreadsheet maintained "because the system can't do it", or a shared login used to bypass a permissions model. Surveys complement interviews by establishing how widespread a theme is; the typical sequence is interview first to generate the right response options, then survey to measure them. Standardised instruments such as the System Usability Scale (ten Likert items yielding a 0–100 score) are useful for benchmarking, but they diagnose nothing on their own.</p>
+
+<p>The fundamental limitation of all self-report is that people are unreliable narrators of their own behaviour. They forget routine steps precisely because those steps are automatic, they compress a messy twenty-minute process into a tidy four-step story, and they describe the policy rather than the practice.</p>
+
+<p><strong>Contextual inquiry</strong> addresses this by moving the research into the user's own environment and adopting a master–apprentice stance: the user works as usual while the researcher watches, asks small clarifying questions in the moment, and periodically reflects an interpretation back for correction. Four principles are usually cited — <em>context</em> (go where the work is), <em>partnership</em> (co-investigate rather than interrogate), <em>interpretation</em> (check your meaning-making with the user), and <em>focus</em> (steer towards relevant work without constraining it). Contextual inquiry reliably reveals things interviews cannot: that the dispatcher keeps three windows tiled and transcribes between them by hand; that the radio interrupts the task on average every ninety seconds; that the "required" field is universally filled with a dot because the real information is unavailable at that point in the process; that a laminated crib sheet encodes the organisation's actual procedure. Physical artefacts collected during a visit — forms, labels, printouts, annotated screenshots — are among the richest design inputs available.</p>
+
+<p><strong>Diary studies and usage logs</strong> extend observation across time. In a diary study, participants record entries themselves, triggered either by time (end of each shift) or by event (every time you need to look something up). Modern diary studies often use a phone app with photo and voice capture, lowering the burden of entry. The method is the only practical way to observe phenomena that are rare, private, or distributed — for example, how a family coordinates a care schedule over a month, or how a field engineer's connectivity varies between sites. Usage logs and analytics supply the objective counterpart: funnel analysis showing that 38% of users abandon at the address-verification step, event timing showing that the "advanced search" panel is opened by 2% of sessions, or error telemetry showing that a particular validation message fires 400 times a day. Logs excel at identifying <em>where</em> and <em>how often</em> something goes wrong but are mute about <em>why</em>; the productive pattern is to let analytics localise a problem and then use interviews or observation to explain it. All longitudinal collection raises ethical obligations: informed consent, clear statements of what is captured, data minimisation, anonymisation or pseudonymisation, and the right to withdraw.</p>
+
+<p><strong>User Goals and Mental Models</strong></p>
+
+<p>Research produces raw material; goals and mental models are the structures we use to make sense of it. A widely used framing (from goal-directed design) separates three levels of goal.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Goal type</th>
+      <th>Question it answers</th>
+      <th>Example (photo-sharing app)</th>
+      <th>Design levers</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Experiential</strong></td>
+      <td>How does the user want to <em>feel</em> while using it?</td>
+      <td>"I want this to feel effortless and private, not like filing paperwork."</td>
+      <td>Visual tone, microcopy, responsiveness, animation, perceived control, absence of nagging</td>
+    </tr>
+    <tr>
+      <td><strong>End</strong></td>
+      <td>What concrete outcome must be produced?</td>
+      <td>"Get these 40 holiday photos shared with my family tonight."</td>
+      <td>Features, task flows, defaults, information architecture, performance</td>
+    </tr>
+    <tr>
+      <td><strong>Life</strong></td>
+      <td>Why does this matter in the user's wider life?</td>
+      <td>"I want to stay close to relatives I rarely see."</td>
+      <td>Product strategy and positioning; which end goals are worth supporting at all</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The distinction matters because the three levels fail in different ways. A system can satisfy an end goal while violating an experiential goal — the task completes, but the user feels harassed by interruptions, modal dialogs, and upsells — and such systems are abandoned as soon as an alternative exists. Conversely, a delightful interface that does not advance a real end goal is a novelty. Life goals are rarely addressed by individual screens but should discipline the roadmap: a budgeting app whose users' life goal is "stop feeling anxious about money" should think hard before adding a feature that sends daily spending alerts.</p>
+
+<p>A <strong>mental model</strong> is the user's internal, working theory of how the system behaves — what its parts are, how they relate, what will happen if they do X. Mental models are typically incomplete, partly wrong, and heavily analogised from previous experience, yet they are what people reason with. The <em>conceptual model</em> is the designer's intended story of the system, communicated through the interface; the <em>system image</em> is everything the user can actually perceive (screens, labels, documentation, feedback). Breakdowns occur when the system image fails to convey the conceptual model, or when the conceptual model itself conflicts with the user's prior model.</p>
+
+<p>Two techniques are especially useful for eliciting mental models:</p>
+
+<ul>
+  <li><strong>Card sorting</strong> probes how people categorise and relate concepts. Participants are given labelled cards (content items, features, document types) and asked to group them. In an <em>open</em> sort they create and name their own groups, revealing their native categories and vocabulary; in a <em>closed</em> sort they place cards into predefined categories, testing whether a proposed structure is guessable. Results are aggregated across participants — commonly as a similarity matrix or dendrogram showing which items were repeatedly grouped together. A university website open sort might reveal that students think in terms of "things I have to do this week" (fees, timetable, assignment submission) while staff think departmentally; this directly suggests task-based rather than org-chart-based navigation. The complementary technique, <em>tree testing</em>, takes a proposed hierarchy and asks users to locate items in it, measuring success and directness.</li>
+  <li><strong>Think-aloud protocol</strong> asks a user to verbalise thoughts continuously while performing a task. Because the verbalisations expose expectations and predictions ("I'll click Settings — that's probably where my saved cards are… no, it isn't, maybe Account…"), the transcript is effectively a trace of the mental model being applied and repaired. Concurrent think-aloud gives in-the-moment data but can slightly distort performance timings; retrospective think-aloud (replaying a screen recording and narrating afterwards) preserves natural performance at the cost of some recall accuracy. Prompts should be neutral — "What are you thinking?" — never "Why didn't you see the button?"</li>
+</ul>
+
+<p>Other elicitation devices include asking users to draw the system ("sketch where your files live"), probing predictions before action ("what do you expect will happen when you press this?"), and analysing spontaneous metaphors in interview transcripts ("my inbox is a to-do list", "the cloud is like a big hard drive somewhere").</p>
+
+<p>Design then has three ways to <strong>bridge the gap</strong> between the user's model and the system's structure. First and best, <em>change the system</em> so its structure matches the user's: if users think of email as conversations, build conversation threading rather than teaching them about message IDs. Second, <em>change the system image</em> so that the real structure is visible and comprehensible — clear labels in the users' own words, visible state, immediate feedback, constraints that make invalid actions impossible, and metaphors that carry the right implications. Third and last, <em>change the user's model</em> through onboarding, in-context help, and training — which is slow, expensive, and leaks as staff turn over, and should therefore be used only where the underlying complexity is irreducible. Mismatches that are never bridged produce predictable, repeatable errors: thermostats set to 30°C in the mistaken belief that a higher setting heats faster (a valve-versus-thermostat model confusion), files "lost" because a user's model of cloud sync does not include a local/remote distinction, or repeated double-submission of a payment because the system shows no evidence that the first press registered.</p>
+
+<p><strong>Introduction to Task Analysis</strong></p>
+
+<p>Task analysis is the systematic study of what people do to achieve a goal: the sequence of actions, the decisions taken, the information required at each point, the artefacts and tools used, and the conditions under which the work varies. Where user research tells you who people are and what they want, task analysis tells you in detail how the work actually proceeds — and it does so in a representation that can be reviewed, argued about, and handed to a design team.</p>
+
+<p>A thorough task analysis typically captures, for each step: the trigger that initiates it; the actor responsible; the information needed and its source; the action performed; the output or state change produced; the decision rules applied; the typical duration and frequency; and the known failure modes. Consider a seemingly trivial task — a warehouse operative picking an item for an order. A surface description is "scan the item and put it in the tote". A task analysis reveals that the operative must first locate the bin from a code, verify that the bin label matches the pick list, check the item's expiry date against a policy threshold, count a multi-pack quantity, decide what to do if the bin is short (substitute, partial-pick, or raise an exception), and record the result — all while holding a scanner and pushing a cart. Each of those hidden decisions is a design requirement.</p>
+
+<p>Task analysis is also a diagnostic instrument. Laying out the current ("as-is") process almost always exposes <em>inefficiencies and gaps</em>:</p>
+
+<ul>
+  <li><strong>Redundant data entry</strong> — the same reference number typed into three systems, which indicates an integration opportunity and a likely source of transcription errors.</li>
+  <li><strong>Context switching</strong> — steps that require leaving the application to consult a spreadsheet, a laminated chart, or a colleague, each of which is a candidate for bringing information into the interface.</li>
+  <li><strong>Memory bridges</strong> — information carried in the head from one screen to the next (an account number, a quoted price) which should instead be carried by the system and displayed where it is needed.</li>
+  <li><strong>Waiting and blocking</strong> — steps that stall pending another person's action, suggesting notification, queueing, or parallelisation.</li>
+  <li><strong>Unsupported exceptions</strong> — the "what if" branches that users handle by phone, email, or informal workaround because the system has no path for them. These are frequently 20–30% of real volume while being 0% of the original specification.</li>
+</ul>
+
+<p>The outputs feed directly into three design artefacts. <em>Information architecture</em> follows from what information is needed when and how users group it (reinforced by card-sorting data). <em>Navigation design</em> follows from the sequences and branches: steps performed in strict order suit a wizard; steps performed in varying order by experienced users suit a dashboard with independently addressable sections; frequently alternated pairs of steps should not be separated by deep navigation. <em>Feature prioritisation</em> follows from frequency and criticality: a step performed two hundred times a shift deserves a dedicated single-keystroke affordance, while a step performed twice a year can live three clicks deep in a menu with explanatory text.</p>
+
+<p><strong>Hierarchical Task Analysis (HTA)</strong></p>
+
+<p>HTA is the most widely used task-analysis notation. It represents work as a hierarchy: a single top-level <em>goal</em> is decomposed into sub-goals, which are decomposed further until the analyst reaches <em>operations</em> — units of behaviour concrete enough to be designed for and observed. Crucially, each level of the hierarchy also carries a <em>plan</em>: a statement of the conditions under which its subtasks are performed and in what order. Without plans an HTA is merely a list; with them it is an executable description of work.</p>
+
+<p>Decomposition is conventionally numbered so that any node can be referenced unambiguously. A worked example for withdrawing cash at an ATM:</p>
+
+<pre><code>0. Withdraw cash from ATM
+   Plan 0: do 1 - 2 - 3 - 4 - 5 - 6 in order.
+           If card is retained at any point, go to 7 and exit.
+
+   1. Initiate session
+      Plan 1: do 1.1; then 1.2.
+      1.1 Insert card
+      1.2 Enter PIN
+          Plan 1.2: do 1.2.1 then 1.2.2.
+                    If "incorrect PIN", repeat up to 3 times;
+                    on 3rd failure, exit (card retained).
+          1.2.1 Read keypad / shield keypad
+          1.2.2 Key digits and confirm
+
+   2. Select "Withdraw cash"
+
+   3. Specify amount
+      Plan 3: if required amount appears on the quick-select
+              list, do 3.1; otherwise do 3.2 then 3.3.
+      3.1 Press quick-select amount
+      3.2 Select "Other amount"
+      3.3 Key amount and confirm
+
+   4. Choose receipt option
+
+   5. Retrieve card
+
+   6. Retrieve cash
+
+   7. Record retained card / contact bank
+</code></pre>
+
+<p>Several things are worth noticing in this small example. The hierarchy separates <em>what</em> is achieved (sub-goal 3, "specify amount") from <em>how</em> it may be achieved (3.1 versus 3.2–3.3), so the analysis remains valid even if the interface changes. Plans capture three distinct kinds of logic: <em>sequence</em> (plan 0), <em>selection</em> under a condition (plan 3), and <em>iteration</em> with a bound (plan 1.2). Finally, the ordering of 5 and 6 is itself a design decision with safety consequences — ATMs were redesigned to dispense the card before the cash precisely because task analysis and field data showed a <em>post-completion error</em>: once the user's main goal (cash) was satisfied, the subsidiary step of retrieving the card was systematically forgotten.</p>
+
+<p>Practical guidance for building an HTA:</p>
+
+<ul>
+  <li><strong>Start from a goal, not a screen.</strong> "Book a repeat prescription" is a goal; "use the prescriptions page" is not. Goal-framing keeps the analysis independent of any particular implementation, which is what allows it to inform redesign.</li>
+  <li><strong>Use a consistent stopping rule.</strong> A common one is the <em>P × C</em> rule: stop decomposing when the probability of failure multiplied by the cost of failure is acceptably low. A step like "key amount and confirm" need not be broken into individual keystrokes unless mis-keying is both likely and costly — in an infusion-pump dose entry, it certainly is, and decomposition continues to the level of individual digit entry and decimal-point placement.</li>
+  <li><strong>Keep levels balanced and verb-phrased.</strong> Each node should be a verb phrase ("verify patient identity"), and sibling nodes should sit at roughly the same granularity; a level that mixes "authenticate user" with "press Enter" is a sign of uneven analysis.</li>
+  <li><strong>Validate with real practitioners.</strong> An HTA built only from documentation describes the official procedure, which is reliably different from the work as actually done. Walking the diagram through with experienced users surfaces the missing branches.</li>
+</ul>
+
+<p>HTA earns its keep in three ways. It identifies <strong>training requirements</strong>, because any node whose performance depends on knowledge not available in the interface is, by definition, something a person must be taught or given a job aid for. It identifies <strong>error-prone steps</strong>, especially when each leaf is examined against a taxonomy of error types — omission, commission, wrong order, wrong object, timing, substitution. Steps that are subsidiary to the main goal (removing the original from a photocopier, retrieving a card), steps that require carrying information in memory, and steps that look similar but have different consequences (two adjacent buttons labelled "Submit" and "Submit and close") are predictably hazardous. And it identifies <strong>automation opportunities</strong>: nodes that are purely mechanical, deterministic, and information-complete — recalculating a total, looking up a postcode, copying a reference number between fields — are candidates for the system to perform, while nodes requiring judgement under uncertainty generally are not. A disciplined question at each leaf is: <em>must a human do this, should a human do this, or is the human here only because the software is not?</em></p>
+
+<p><strong>Cognitive Task Analysis</strong></p>
+
+<p>HTA describes observable behaviour very well and the thinking behind it only weakly. In knowledge-intensive domains — air traffic control, emergency medicine, fraud investigation, network operations, military command — the hard part of the task is not the sequence of button presses but the perception, judgement, and anticipation that determine which action is taken at all. <strong>Cognitive Task Analysis (CTA)</strong> is a family of methods for making that invisible work explicit: the goals that are actually being pursued, the cues that experts attend to, the mental models and strategies they bring, and the trade-offs they make under time pressure, ambiguity, and risk.</p>
+
+<p>The central difficulty is that expertise is largely <em>tacit</em>. Skilled performers have automated much of their behaviour and genuinely cannot report it; asked how they knew a patient was deteriorating, an experienced nurse may say "she just looked wrong". CTA methods are designed to work around this:</p>
+
+<ul>
+  <li><strong>Critical Decision Method (CDM).</strong> A structured retrospective interview organised around a single memorable, non-routine incident. The interviewer sweeps the story several times: first to establish the timeline, then to identify the decision points, then to probe each decision with specific question types — <em>What cues did you notice? What did you expect to happen next? What alternatives did you consider and reject, and why? What would a less experienced colleague have done here? What information would have made this easier? What if the patient had also been hypotensive?</em> The counterfactual probes are especially productive because they force comparison and thereby expose the decision rule.</li>
+  <li><strong>Knowledge audit.</strong> A targeted interview sweeping known dimensions of expertise: noticing subtle cues, spotting anomalies, improvising, recognising the "big picture", anticipating consequences, and knowing when the standard procedure does not apply. Each probe asks for a concrete example plus the cues and strategies involved.</li>
+  <li><strong>Concurrent think-aloud on representative problems</strong>, often supported by eye tracking to show what was actually looked at and in what order.</li>
+  <li><strong>Simulation and scenario walkthroughs</strong>, in which a realistic case is presented and paused at decision points so the expert can articulate assessments and predictions.</li>
+  <li><strong>Comparative expert–novice analysis</strong>, which isolates what expertise actually consists of by contrasting how the two groups structure the same problem.</li>
+</ul>
+
+<p>The distinction between HTA and CTA is one of focus rather than rivalry; in practice CTA is often used to "deepen" particular nodes of an HTA that are known to be judgement-heavy.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Dimension</th>
+      <th>Hierarchical Task Analysis</th>
+      <th>Cognitive Task Analysis</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Primary question</td>
+      <td>What does the user do, in what order?</td>
+      <td>What does the user know, notice, and decide — and why?</td>
+    </tr>
+    <tr>
+      <td>Unit of analysis</td>
+      <td>Goals, sub-goals, operations, plans</td>
+      <td>Decision points, cues, strategies, mental models, trade-offs</td>
+    </tr>
+    <tr>
+      <td>Typical methods</td>
+      <td>Observation, documentation review, walkthrough with users</td>
+      <td>Critical Decision Method, knowledge audit, simulation, think-aloud</td>
+    </tr>
+    <tr>
+      <td>Best suited to</td>
+      <td>Procedural, repeatable, observable work</td>
+      <td>Judgement under uncertainty, time pressure, high consequence</td>
+    </tr>
+    <tr>
+      <td>Typical output</td>
+      <td>Task hierarchy with plans; error and automation candidates</td>
+      <td>Decision requirements table; cue inventory; expertise differences</td>
+    </tr>
+    <tr>
+      <td>Design implication</td>
+      <td>Structure of flows, sequencing, shortcuts, confirmations</td>
+      <td>What information to display, when, and in what representation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>The characteristic deliverable of CTA is a <em>decision requirements table</em>, which converts tacit expertise into explicit display requirements. For an intensive-care deterioration-monitoring display, one row might look like this:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Decision</th>
+      <th>Why it is difficult</th>
+      <th>Cues and factors used by experts</th>
+      <th>Common novice error</th>
+      <th>Interface implication</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Should this patient be escalated now or reassessed in 30 minutes?</td>
+      <td>Individual vital signs may each be within range while the overall trajectory is adverse; escalation has social and resource costs</td>
+      <td>Rate and direction of change over the last few hours; combination of rising respiratory rate with falling urine output; divergence from the patient's own baseline; nursing "gut feel" about appearance and responsiveness</td>
+      <td>Reads only the latest values against fixed thresholds and concludes "all normal"</td>
+      <td>Display trends, not just current values; show deltas against the patient's own baseline; surface the composite early-warning score with its contributing components; make the free-text concern field prominent and visible to the responding clinician</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>That final column is the point of CTA for designers. Expert knowledge that has been made explicit can be <em>surfaced in the interface</em> so that less experienced users are supported: trend sparklines instead of bare numbers, anomaly highlighting that draws attention to the cue an expert would have noticed, contextual decision aids that show the alternatives an expert would have considered, comparative baselines, and worked rationale ("flagged because respiratory rate has risen 6/min in 2 hours"). The ethical and practical caveat is that such aids should support judgement rather than replace it: over-automated alerts breed alarm fatigue, and displays that hide their reasoning erode the user's ability to detect when the system is wrong.</p>
+
+<p><strong>Applying Task Analysis to User-Centered Design</strong></p>
+
+<p>Task analysis only matters if it changes the artefact. The translation happens through three linked practices: deriving design blueprints, prioritising effort, and validating designs back against the analysis.</p>
+
+<p>First, <strong>task flows and use cases</strong> turn the hierarchy into an interaction specification. A <em>task flow</em> is a linear or branching diagram of the steps a user takes through a proposed system, including decision diamonds and error paths; a <em>use case</em> is a textual description with actors, preconditions, a main success scenario, and extensions. An HTA plan maps onto these almost mechanically: a strict sequence plan suggests a stepped wizard with a visible progress indicator; a selection plan becomes a branch that the interface should make explicit and reversible; an iteration plan becomes a repeatable block with an obvious "add another" affordance and a clear termination condition. A worked fragment for an insurance claim:</p>
+
+<pre><code>Use case: Submit a motor claim (main success scenario)
+  Actor: Policyholder (primary)   Secondary: Claims handler
+  Precondition: Policy is active; incident occurred within 30 days
+
+  1. User identifies the policy                [from HTA 1.1-1.2]
+  2. System confirms cover and shows excess    [info need: excess amount]
+  3. User describes incident (date, location, parties)
+  4. User uploads photographs                  [iteration: 1..n images]
+  5. System validates required evidence
+  6. User reviews summary and submits
+  7. System issues claim reference and expected contact time
+
+  Extension 4a: No photographs available
+     4a1. User selects "add later"; system issues reference
+          and sends a secure upload link valid for 7 days.
+  Extension 2a: Cover excludes incident type
+     2a1. System explains exclusion in plain language and
+          offers to connect to an adviser.
+</code></pre>
+
+<p>Notice that the extensions come straight from the "unsupported exceptions" found in the as-is analysis — the branches that users previously resolved by telephone. Designing them in is usually where the largest usability gains are found.</p>
+
+<p>Second, <strong>prioritisation</strong>. Not all tasks deserve equal design investment, and task analysis supplies the three variables needed to allocate it rationally: frequency (how often the task occurs), criticality (the cost of failure), and error-proneness (how likely failure is). Combining them gives a defensible ranking and, importantly, different <em>kinds</em> of treatment rather than simply "more effort".</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task profile</th>
+      <th>Example</th>
+      <th>Appropriate design treatment</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Frequent, low criticality</td>
+      <td>Logging a pick in a warehouse app; archiving an email</td>
+      <td>Ruthless efficiency: minimum keystrokes, no confirmation dialogs, undo instead of prevention, persistent defaults</td>
+    </tr>
+    <tr>
+      <td>Infrequent, high criticality</td>
+      <td>Transferring a large payment; decommissioning a production server</td>
+      <td>Deliberate friction: explicit review step, re-statement of consequences, typed confirmation, clear reversal path, step-by-step guidance that assumes no memory of last time</td>
+    </tr>
+    <tr>
+      <td>Frequent, high criticality</td>
+      <td>Entering a medication dose; air traffic handoff</td>
+      <td>Both: fast for experts but heavily constrained — input masks, range checks, forcing functions, distinctive formatting, double-check by a second person where justified</td>
+    </tr>
+    <tr>
+      <td>Error-prone regardless of frequency</td>
+      <td>Post-completion steps; near-identical adjacent options; unit or format ambiguity</td>
+      <td>Redesign the sequence to eliminate the error class (reorder steps, remove the mode, make the unit explicit and non-defaultable), not merely warn about it</td>
+    </tr>
+    <tr>
+      <td>Rare, low criticality</td>
+      <td>Changing a display preference</td>
+      <td>Accept depth in the navigation; invest in findability and explanatory text rather than speed</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Third, <strong>validation</strong>. Because the task analysis is written independently of any particular design, it becomes a test oracle for prototypes. Three complementary checks are standard:</p>
+
+<ul>
+  <li><strong>Coverage check.</strong> Walk every leaf of the HTA against the prototype and ask where each one is performed. Any leaf with no home in the interface is a gap; any screen element that corresponds to no leaf is either an unexamined assumption or scope creep.</li>
+  <li><strong>Step-count and effort comparison.</strong> Compare the as-is and to-be flows for the highest-frequency tasks. If the new design adds steps to a task performed three hundred times a day in order to save steps on a task performed weekly, the trade is almost certainly wrong — and task analysis makes that visible before code is written. This is the standard defence against a redesign that is prettier but slower.</li>
+  <li><strong>Scenario-based testing.</strong> Build usability test tasks and cognitive walkthrough scenarios directly from the analysis, including the exception branches and the decision points identified by CTA. Testing should include realistic conditions revealed by contextual inquiry — interruptions, incomplete data, time pressure — because a design that works only on clean data in a quiet room has not been validated against the real task.</li>
+</ul>
+
+<p>Two cautions complete the picture. Task analysis describes work as it is currently done, so uncritical fidelity to the as-is process can cement obsolete constraints — the analyst must distinguish steps that exist because the <em>domain</em> demands them from steps that exist because the <em>old system</em> demanded them. And work evolves: an analysis is a living document that should be revisited as the system changes the very behaviour it described. Used with that awareness, task analysis is what keeps user-centred design honest — it ensures the system supports the way people actually work rather than quietly imposing new burdens on them in the name of improvement.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+
+<ul>
+  <li><strong>MO1</strong> — Partially supported. The topic does not enumerate the types of human memory or their capacities, but it touches the same constraint from the task side: "memory bridges" (information users must carry in their heads between steps), post-completion errors, and infrequent tasks that cannot rely on remembered procedure all illustrate why memory limits must shape interface design.</li>
+  <li><strong>MO2</strong> — Directly supported. The treatment of mental models, conceptual models and the system image, the elicitation techniques (card sorting, think-aloud), and the worked examples of mismatch-driven errors (thermostat settings, cloud sync, double payment submission) explain how a gap between the user's model and system behaviour produces systematic, predictable error.</li>
+  <li><strong>MO3</strong> — Directly supported. The HTA section provides the goal–sub-goal–operation decomposition, numbered notation, plans expressing sequence, selection and iteration, stopping rules such as P × C, and a worked ATM example, then shows how the resulting hierarchy drives navigation structure, shortcuts, confirmations and automation decisions.</li>
+  <li><strong>MO4</strong> — Partially supported. The topic does not compare usability inspection methods with user testing as such, but it supplies the research-method comparison (interviews, surveys, contextual inquiry, diary studies, logs) and shows how task analysis generates the scenarios and coverage checks used in both cognitive walkthrough and scenario-based user testing, which is the input that later evaluation choices depend on.</li>
+  <li><strong>MO5</strong> — Partially supported. Prototyping itself is not taught here, but the topic supplies what a prototype must embody and be tested against: task flows and use cases as interface blueprints, frequency/criticality-based prioritisation of what the prototype should foreground, and validation of prototypes against task-analysis findings.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Suggested in-class activities: (1) run a 20-card open card sort on the module&#39;s own VLE content and compare student groupings with the existing menu; (2) build an HTA for &quot;submit an assignment&quot; including plans, then identify one error-prone leaf and one automation candidate; (3) conduct a 15-minute Critical Decision Method interview in pairs about a recent non-routine task and produce a one-row decision requirements table. Examples used (ATM card-before-cash redesign, e-prescribing stakeholder map, ICU deterioration display) are well-established illustrative cases and can be swapped for domain-relevant equivalents. Terminology follows Beyer &amp; Holtzblatt for contextual inquiry, Cooper&#39;s goal-directed design for the experiential/end/life goal triad, Annett and Shepherd for HTA, and Klein&#39;s Critical Decision Method for CTA.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

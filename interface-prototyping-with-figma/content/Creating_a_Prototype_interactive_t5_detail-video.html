@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interactive Prototyping and Connections</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Interface Prototyping with Figma</a></div>
+  <header>
+    <h1>Interactive Prototyping and Connections</h1>
+  </header><main>
+    <details class="slide-card" open="">
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Interactive Prototyping and Connections</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p>A static set of screens, no matter how carefully composed, can only ever answer questions about appearance. The moment you want to know whether a user understands where to tap, whether a transition feels abrupt, or whether a modal interrupts the task at the wrong moment, you need motion and consequence. Figma's prototyping layer supplies exactly that: a system for wiring frames together with <strong>triggers</strong>, <strong>actions</strong>, <strong>destinations</strong>, and <strong>animations</strong>, so that a collection of artboards behaves like a working interface. Crucially, prototyping in Figma is non-destructive and lives alongside your design work — the connections you draw are stored as properties of layers, not as separate files, so a change to a button's visual design automatically carries through to every interaction attached to it. This topic walks through the prototype panel itself, the vocabulary of triggers and actions, the transition and easing models, scroll and fixed-position behaviour, overlay patterns, and finally how to preview, present and share the result for evaluation.</p>
+
+<p><strong>The Prototype Panel Overview.</strong> Figma's right-hand sidebar operates in two modes, selected by the tabs at the top: <em>Design</em> and <em>Prototype</em>. Clicking the <strong>Prototype</strong> tab does not change your canvas — the same layers, frames and components remain visible — but it swaps the sidebar's contents from visual properties (fill, stroke, effects, constraints) to interaction properties, and it reveals the connection arrows drawn between frames. This mode switch is the single most important orientation point for beginners: if you cannot find the "Interactions" list or the "Flow starting point" button, you are almost certainly still in Design mode.</p>
+<p>Once in Prototype mode, selecting any frame, group, component instance or even a single shape causes a small circular <strong>interaction handle</strong> to appear on the right edge of the selection's bounding box. Hovering over the selection makes this handle a saturated blue node; clicking and dragging from it pulls out a connection line, sometimes called a "noodle". Dropping that line onto another frame creates an interaction and opens a floating details popup where you set the trigger, the action and the animation. Dropping it onto empty canvas offers to create a new destination frame. You can also create an interaction entirely from the sidebar by clicking the <code>+</code> next to "Interactions", which is useful for actions that have no visual destination, such as <em>Back</em>, <em>Close overlay</em>, or <em>Open link</em>.</p>
+<p>The panel itself is organised top to bottom in a predictable way. When a <strong>top-level frame</strong> is selected you see: the <em>Flow starting point</em> control (with a flow name and optional description), the list of <em>Interactions</em> attached to that frame, <em>Scroll behaviour</em> (overflow direction and position fixing), and <em>Prototype settings</em> — which in turn contain the device, model, orientation, and background colour used when the prototype is played. When a <strong>child layer</strong> is selected (a button, a card, an icon) the panel narrows to that layer's interactions plus its scroll/fix options. Interactions are listed as human-readable summaries such as <code>On click → Navigate to Checkout</code>, and clicking one reopens the details popup for editing. Hovering an interaction row exposes a minus icon for deletion, and selecting a connection line on the canvas and pressing <code>Delete</code> achieves the same thing.</p>
+<p>Device and background settings deserve more attention than they usually get. The <strong>Device</strong> dropdown (Phone, Tablet, Desktop, Watch, Presentation, or None) and the <strong>Model</strong> dropdown (e.g. iPhone 14 Pro, Pixel 7, Surface Pro) draw a realistic chrome around the prototype in Presentation view. Choosing a device whose pixel dimensions match your frame size is important: if your frames are 390 × 844 but you select a 360 × 800 model, Figma will scale the prototype to fit and your type will no longer be rendered at true size, which undermines any judgement about legibility. The <strong>Background</strong> colour fills the area around the device frame; a neutral mid-grey is a sensible default for usability sessions because it avoids both the glare of pure white and the dramatic contrast of black, neither of which represent how the product will actually be seen.</p>
+
+<table>
+  <thead>
+    <tr><th>Panel control</th><th>Appears when</th><th>What it does</th><th>Typical use</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Flow starting point</td><td>A top-level frame is selected</td><td>Marks the frame as the entry screen of a named flow</td><td>"Onboarding", "Checkout", "Error recovery"</td></tr>
+    <tr><td>Interactions (+)</td><td>Any layer or frame is selected</td><td>Adds a trigger/action pair to the selection</td><td>Wiring a button to a destination</td></tr>
+    <tr><td>Overflow / Scrolling</td><td>A frame with clipped content</td><td>Sets vertical, horizontal or both-direction scroll</td><td>Long feeds, carousels</td></tr>
+    <tr><td>Fix position when scrolling</td><td>A child of a scrolling frame</td><td>Pins the layer to the viewport</td><td>Headers, tab bars, floating action buttons</td></tr>
+    <tr><td>Prototype settings</td><td>Nothing selected, or a frame selected</td><td>Device, model, orientation, background</td><td>Realistic presentation for testing</td></tr>
+  </tbody>
+</table>
+
+<p><strong>Triggers and Actions.</strong> Every Figma interaction is a sentence with two mandatory parts and several optional ones: <em>when this happens</em> (the trigger), <em>do this</em> (the action), <em>to this target</em> (the destination), <em>using this animation</em> (the transition), and sometimes <em>with these extra settings</em> (delay, easing, overlay position). Separating trigger from action is the conceptual key — the same action can be fired by different triggers, and the same trigger can fire different actions on different elements.</p>
+<ul>
+  <li><strong>On click / On tap</strong> — the workhorse. Figma shows "On click" when the prototype device is set to Desktop and "On tap" when it is a phone or tablet, but internally it is the same trigger; a mouse click and a finger tap both satisfy it. Use it for buttons, list rows, nav items and anything the user deliberately activates.</li>
+  <li><strong>On hover</strong> — fires while the pointer rests over the element and automatically reverses when the pointer leaves. It is only meaningful for pointer-driven products; on touch devices there is no hover state, so a hover-only affordance is an accessibility failure. Typical use: desktop menu reveals, tooltip previews, card lift effects.</li>
+  <li><strong>While pressing</strong> — holds the destination state only while the mouse button or finger is down, reverting on release. Good for simulating pressed button states, press-and-hold previews, or "peek" interactions.</li>
+  <li><strong>On drag</strong> — fires when the user drags anywhere on the element in any direction. Combined with Smart Animate it produces convincing bottom-sheet pulls, swipe-to-delete rows, and carousel swipes. Figma also exposes directional drag variants (drag left, right, up, down) through the trigger dropdown in newer versions.</li>
+  <li><strong>After delay</strong> — only available on frames, not on child layers. The interaction fires automatically a set number of milliseconds after the frame appears. It is the standard way to simulate loading spinners, splash screens, auto-advancing carousels and toast messages that dismiss themselves. A delay of 0 ms creates an immediate redirect, which is handy for building a "router" frame.</li>
+  <li><strong>Key/gamepad</strong> — binds a keyboard key or controller button to an action, useful for desktop app prototypes, kiosk software and accessibility demonstrations (for example, pressing <code>Esc</code> to close a modal).</li>
+  <li><strong>Mouse enter / Mouse leave / Mouse down / Mouse up</strong> — the "advanced" set. Unlike On hover and While pressing, these do <em>not</em> automatically reverse, so you must wire the return interaction yourself. This gives precise control, for example making a dropdown open on <em>Mouse enter</em> and close only on a click elsewhere.</li>
+</ul>
+<p>The actions available to those triggers are a short, learnable list:</p>
+<table>
+  <thead>
+    <tr><th>Action</th><th>Effect</th><th>Stack behaviour</th><th>Good for</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Navigate to</td><td>Replaces the current frame with the destination frame</td><td>Pushes onto the navigation history</td><td>Page-to-page movement, tab switching</td></tr>
+    <tr><td>Open overlay</td><td>Draws the target frame on top of the current one</td><td>Current frame stays mounted underneath</td><td>Modals, dropdowns, tooltips, sheets</td></tr>
+    <tr><td>Swap overlay</td><td>Replaces an open overlay with another, keeping the base screen</td><td>Overlay layer only</td><td>Multi-step dialogs, wizards</td></tr>
+    <tr><td>Close overlay</td><td>Dismisses the topmost overlay</td><td>Pops the overlay</td><td>Cancel / X buttons</td></tr>
+    <tr><td>Back</td><td>Returns to the previously visited frame</td><td>Pops the history stack</td><td>Back arrows, breadcrumb returns</td></tr>
+    <tr><td>Scroll to</td><td>Moves the viewport to a chosen layer within the current scrolling frame</td><td>No frame change</td><td>Anchor links, "back to top", in-page nav</td></tr>
+    <tr><td>Change to</td><td>Switches a component instance to another variant</td><td>No frame change</td><td>Toggles, checkboxes, hover states</td></tr>
+    <tr><td>Open link</td><td>Opens an external URL in a new tab</td><td>Leaves the prototype</td><td>Terms pages, external docs, demo videos</td></tr>
+  </tbody>
+</table>
+<p><em>Navigate to</em> is the one students reach for first, and it is correct for genuine page changes: tapping a product card to reach a product detail screen, submitting a form to reach a confirmation screen. Because it pushes onto history, a later <em>Back</em> action will unwind it correctly, which is what makes browser-like and app-like navigation feel natural. A common beginner error is to wire a "back" arrow with <em>Navigate to</em> pointing at the home screen; this works visually but corrupts the history stack, so a subsequent <em>Back</em> behaves unexpectedly. Use the dedicated <em>Back</em> action instead.</p>
+<p><em>Open overlay</em> is the correct choice whenever the underlying context must remain visible and in place. The essential difference is state preservation: if a user has scrolled a long list halfway down and then opens a filter panel as an overlay, closing the filter returns them to exactly the same scroll position, because the base frame was never unmounted. Had you used <em>Navigate to</em> on a full-screen copy of the list with the filter drawn on top, you would need a duplicated frame and the scroll position would reset. Overlays therefore reduce frame count and increase realism simultaneously.</p>
+<p><em>Scroll to</em> operates inside a single frame rather than between frames. You select a target layer within the same scrolling frame — a section heading, an anchor marker, a form field — and Figma scrolls the viewport so that layer comes into view. You can choose whether the movement is animated and add an offset so the target does not sit flush against a fixed header. Classic applications include a long landing page with a sticky navigation bar whose links jump to "Features", "Pricing" and "FAQ", or a "Back to top" button at the foot of an article. A practical tip: give your anchor targets clear names such as <code>anchor/pricing</code> so they are easy to find in the destination dropdown.</p>
+
+<p><strong>Transitions and Animation.</strong> Once trigger, action and destination are set, the <em>Animation</em> section of the interaction popup determines how the change is rendered. The choice is not cosmetic — transition style communicates spatial relationships and causality, and the wrong one makes an interface feel either sluggish or disorientating.</p>
+<ul>
+  <li><strong>Instant</strong> — the destination replaces the origin with no animation at all. This is the honest default for early, low-fidelity click-through prototypes where you are testing information architecture and task flow rather than polish. It is also the fastest to review, because no time is spent waiting for motion, and it avoids the risk of testers commenting on animation when you wanted feedback on structure.</li>
+  <li><strong>Dissolve</strong> — a cross-fade between the two frames over a set duration. Because a fade implies no spatial direction, it suits changes that are not "somewhere else": opening a modal, switching between unrelated tabs, revealing a full-page takeover, or showing a loading state becoming content. Durations of roughly 150–300 ms feel responsive; beyond about 400 ms a dissolve starts to feel like lag.</li>
+  <li><strong>Move in / Move out / Push / Slide in / Slide out</strong> — directional transitions that convey hierarchy. <em>Push</em> moves the outgoing screen off as the incoming screen arrives, mimicking native stack navigation (push right-to-left to go deeper, left-to-right to come back). <em>Move in</em> slides the new screen over a stationary base, which suits side drawers and bottom sheets.</li>
+  <li><strong>Smart Animate</strong> — the most powerful option. Figma compares the layers in the origin frame and the destination frame and, wherever it finds layers with <em>identical names at the same position in the layer hierarchy</em>, it interpolates their properties: position, size, rotation, opacity, fill colour, corner radius, stroke weight and more. Layers present in one frame but not the other are faded in or out. The result is that two still frames become a continuous micro-interaction without any timeline editing.</li>
+</ul>
+<p>Smart Animate rewards disciplined naming. Suppose you build a card that expands into a detail view. In Frame A the card contains layers named <code>cover</code>, <code>title</code> and <code>meta</code>; in Frame B you duplicate that card, enlarge <code>cover</code> to full width, move <code>title</code> up and add a new <code>body</code> paragraph. Because <code>cover</code>, <code>title</code> and <code>meta</code> keep their names, Smart Animate will grow, move and recolour them smoothly, while <code>body</code> simply fades in. If you had instead deleted and redrawn the cover image, it would be named <code>Rectangle 47</code> in one frame and <code>Image 3</code> in the other, and Smart Animate would cross-fade them rather than morph them — the classic symptom of "my Smart Animate isn't working". The workflow rule is therefore: <em>duplicate the frame, then modify; never rebuild</em>.</p>
+<pre><code>Frame "Card — collapsed"        Frame "Card — expanded"
+  Card (frame)                    Card (frame)
+    cover        160 x 100   --&gt;    cover        390 x 240
+    title        y: 112      --&gt;    title        y: 256
+    meta         opacity 1   --&gt;    meta         opacity 1
+                                    body         (new -&gt; fades in)
+
+Interaction: On tap -&gt; Navigate to "Card — expanded"
+Animation:   Smart Animate, Ease Out, 300ms</code></pre>
+<p>Two further Smart Animate options are worth knowing. <strong>Smart Animate matching layers</strong> is the standard mode described above. <strong>Animate matching layers</strong> can also be combined with Move/Push/Slide transitions, so the screens slide while shared elements morph — ideal for a hero image that travels from a list into a detail page while the rest of the content pushes in from the right. And because Smart Animate interpolates component variants too, a <em>Change to</em> action between variants of the same component produces smooth toggles, loading bars and animated icons with no frame duplication at all.</p>
+<p><strong>Easing</strong> governs the velocity profile of the animation and is where a prototype gains or loses credibility. Linear motion moves at a constant speed and reads as mechanical, because nothing in the physical world starts and stops instantaneously. The standard set is:</p>
+<table>
+  <thead>
+    <tr><th>Curve</th><th>Velocity profile</th><th>Perceived character</th><th>Best used for</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Linear</td><td>Constant throughout</td><td>Mechanical, robotic</td><td>Progress bars, spinners, continuous loops</td></tr>
+    <tr><td>Ease In</td><td>Starts slow, accelerates away</td><td>Departing, leaving the screen</td><td>Elements exiting, dismissals</td></tr>
+    <tr><td>Ease Out</td><td>Starts fast, decelerates into place</td><td>Arriving, settling, responsive</td><td>Most UI entrances — the safest default</td></tr>
+    <tr><td>Ease In and Out</td><td>Slow at both ends, fast in the middle</td><td>Smooth, graceful, slightly formal</td><td>Longer moves, full-screen transitions</td></tr>
+    <tr><td>Ease In Back / Out Back</td><td>Overshoots slightly before settling</td><td>Playful, emphatic</td><td>Attention-grabbing badges, success states</td></tr>
+    <tr><td>Spring (Gentle / Quick / Bouncy / Slow)</td><td>Physics-based: mass, stiffness, damping</td><td>Natural, tactile, "alive"</td><td>Drag-driven sheets, toggles, iOS-style motion</td></tr>
+    <tr><td>Custom bezier</td><td>User-defined control points</td><td>Whatever you design it to be</td><td>Matching an existing brand motion spec</td></tr>
+  </tbody>
+</table>
+<p>Spring curves differ from bezier curves in an important way: they are defined by physical parameters rather than by a fixed duration, so the animation ends when the simulated motion settles. This makes them especially suitable for gesture-driven interactions, where the user's drag velocity should carry into the release. A practical heuristic for duration: 100–150 ms for small state changes such as a button press, 200–300 ms for most screen transitions, and 300–500 ms for large, full-screen or hierarchy-changing moves. Anything longer than about 500 ms will be perceived as waiting, not as feedback.</p>
+
+<p><strong>Scrollable Frames and Fixed Elements.</strong> Real screens are taller than the device viewport, and simulating that difference is one of the quickest ways to make a prototype feel authentic. In Figma the mechanism is deliberately simple: the <em>frame</em> defines the viewport, and anything extending past the frame's edges becomes scrollable content, provided two conditions are met. First, the frame must have <strong>Clip content</strong> enabled in the Design panel, so overflowing content is hidden rather than spilling onto the canvas. Second, the frame's <strong>Overflow behaviour</strong> in the Prototype panel must be set to <em>Vertical</em>, <em>Horizontal</em>, or <em>Both directions</em> rather than <em>No scrolling</em>.</p>
+<p>Concretely: if you create a frame sized 390 × 844 to represent a phone screen and then place a content column 390 × 2400 inside it, the visible 844 pixels are the viewport and the remaining 1556 pixels become scroll range. Figma computes the scrollable extent automatically from the bounding box of the frame's children — you never set a scroll height manually. A frequent source of confusion is an invisible stray layer (an old guide rectangle, a hidden note) sitting far below the content; because it contributes to the bounding box, the prototype scrolls into a large empty void. Checking the layer list for strays is the standard fix.</p>
+<p><strong>Fixed elements</strong> are the counterpart to scrolling. Selecting a child layer of a scrolling frame and enabling <strong>Fix position when scrolling</strong> in the Design panel (position section) pins it to the viewport, so it remains in place while everything else moves. Figma automatically moves fixed layers to the top of the layer order within the frame so they render above the scrolling content. The canonical uses are a sticky app bar at the top, a tab bar or navigation bar at the bottom, a floating action button in the lower-right corner, and a persistent "Add to basket" price bar on an e-commerce product page. Combining fixed elements with constraints matters too: a bottom tab bar should be fixed <em>and</em> constrained to the bottom edge so that it behaves correctly if the frame is resized for a different device.</p>
+<p>A more advanced pattern is nested scrolling. Place a horizontally scrolling frame inside a vertically scrolling frame and you reproduce the familiar streaming-service layout: the page scrolls up and down through categories, while each category row scrolls sideways through titles. For this to work, the inner frame must itself clip content and have horizontal overflow enabled, and its content row must be wider than the inner frame. Horizontal scrolling is the right tool for <em>carousels</em> (promotional banners, onboarding slides), <em>gallery rows</em> (film posters, product thumbnails), <em>chip and filter strips</em>, and <em>scrollable tab bars</em> where there are more tabs than fit the width. In every case, leave a partially visible item at the right edge — a "peek" of 16–24 px — because that visual cut-off is the affordance that tells users more content exists.</p>
+<pre><code>Frame: "Home" 390 x 844   [Clip content ✔, Overflow: Vertical]
+  ├── Status bar                [Fix position ✔]
+  ├── App bar "Discover"        [Fix position ✔]
+  ├── Content column 390 x 2400
+  │     ├── Frame "Row — New releases" 390 x 220
+  │     │     [Clip content ✔, Overflow: Horizontal]
+  │     │     └── Poster strip 1480 x 220   (peeks past right edge)
+  │     └── Frame "Row — Trending" ... (same pattern)
+  └── Tab bar                   [Fix position ✔, constrained Bottom]</code></pre>
+<p>Finally, note the interaction between scrolling and navigation. By default, Figma preserves scroll position when navigating between frames if the destination has a matching scroll container and the "Preserve scroll position" option is checked in the interaction popup. This is how you simulate a tab bar: tapping between "Home", "Search" and "Profile" keeps each tab's scroll position intact, exactly as a native app would.</p>
+
+<p><strong>Overlays and Modal Patterns.</strong> An overlay is any frame drawn on top of the current screen rather than replacing it. You create oneby selecting a trigger element, dragging its connection handle to the target frame, and then changing the action from <em>Navigate to</em> to <strong>Open overlay</strong>. As soon as you do, the interaction popup expands to reveal overlay-specific settings: position, background dimming, close-on-click-outside, and whether the overlay should animate in.</p>
+<p>The target frame should be sized to the overlay itself, not to the whole screen. A confirmation dialog might be a 320 × 180 frame; a bottom sheet might be 390 × 420; a dropdown menu might be 200 × 240. Building the overlay at its true size is what allows Figma to position it correctly and to dim everything around it. A common mistake is to draw the dialog inside a full-screen frame with a transparent background — this works, but it disables Figma's own dimming and positioning controls and makes the overlay harder to reuse.</p>
+<p><strong>Position presets</strong> control where the overlay lands relative to the viewport:</p>
+<table>
+  <thead>
+    <tr><th>Position</th><th>Behaviour</th><th>Typical pattern</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Centered</td><td>Horizontally and vertically centred in the viewport</td><td>Alerts, confirmation dialogs, lightboxes</td></tr>
+    <tr><td>Top centre</td><td>Pinned to the top edge</td><td>Toasts, banners, notification drops</td></tr>
+    <tr><td>Bottom centre</td><td>Pinned to the bottom edge</td><td>Action sheets, bottom sheets, cookie bars</td></tr>
+    <tr><td>Left / Right</td><td>Pinned to a side edge, full height</td><td>Navigation drawers, filter panels, side carts</td></tr>
+    <tr><td>Manual</td><td>Placed at a custom x/y offset you drag on canvas</td><td>Dropdowns and tooltips anchored to a trigger</td></tr>
+  </tbody>
+</table>
+<p>Manual positioning is the option students under-use. When you choose <em>Manual</em>, Figma shows a ghost of the overlay on the current frame so you can drag it until it sits directly beneath the menu button or beside the help icon that opens it. Because the offset is stored per interaction, the same overlay frame can be reused by several triggers at different positions — one dropdown component serving the "sort", "filter" and "view" buttons on a toolbar, for instance.</p>
+<p><strong>Background dimming</strong> (the "Add background behind overlay" checkbox, with an adjustable colour and opacity) places a semi-transparent scrim between the base screen and the overlay. Its purpose is both aesthetic and functional: it reduces the visual competition of the content behind, signals that the underlying screen is temporarily non-interactive, and reinforces the sense of a layer stacked in front. A black scrim at 20–50% opacity is the conventional range; lighter values suit light-mode dropdowns, heavier values suit full-attention dialogs. Alongside the scrim sits the <strong>Close when clicking outside</strong> option, which lets the user dismiss the overlay by tapping the dimmed area. Enable it for dismissible, low-stakes overlays such as menus, sheets and image viewers; disable it for destructive confirmations ("Delete account?") where an accidental tap outside should not count as a decision.</p>
+<p>Overlays can animate just like frame navigations. A bottom sheet is most convincing with <em>Move in → from bottom</em> and an Ease Out or Gentle Spring curve; a centred dialog usually reads best with <em>Dissolve</em> at around 200 ms, sometimes combined with a slight scale-up built using Smart Animate between two variants. Remember to wire the matching exit: a <em>Close overlay</em> action with <em>Move out → to bottom</em> so the sheet leaves the way it arrived. Mismatched entry and exit animations are one of the most noticeable signs of an unpolished prototype.</p>
+<p>Because overlays are themselves frames, they can contain their own interactive content — buttons, inputs, scrollable lists, even nested overlays. This enables genuine <strong>multi-step modal flows</strong>. Consider a "Book an appointment" dialog with three stages: choose a service, choose a time, confirm. Rather than navigating away from the page behind, you build three overlay frames and wire the "Next" buttons with <strong>Swap overlay</strong>, which replaces the current overlay with the next one while leaving the base screen and its scroll position untouched. Adding Smart Animate to the swap makes the dialog appear to resize and its content to slide, exactly like a real wizard. A "Cancel" button on any step uses <em>Close overlay</em> to return the user to the page beneath.</p>
+<pre><code>Base screen: "Service page"  (stays mounted, scroll preserved)
+
+  [Book now]  --On tap--&gt; Open overlay "Modal/Step 1 — Service"
+                          Centered, background #000 @ 40%,
+                          close on click outside OFF,
+                          Dissolve 200ms
+
+  Step 1 [Next]    --On tap--&gt; Swap overlay "Modal/Step 2 — Time"
+                                Smart Animate, Ease Out, 250ms
+  Step 2 [Back]    --On tap--&gt; Swap overlay "Modal/Step 1 — Service"
+  Step 2 [Next]    --On tap--&gt; Swap overlay "Modal/Step 3 — Confirm"
+  Step 3 [Confirm] --On tap--&gt; Close overlay
+                               (then After delay 0ms on base -&gt; toast overlay)
+  Any [X]          --On tap--&gt; Close overlay</code></pre>
+<p>Two practical cautions. First, overlays stack: opening an overlay from within an overlay leaves both mounted, and <em>Close overlay</em> dismisses only the topmost one, so a three-deep stack needs three closes (or a <em>Close all overlays</em> where available). Keep stacks shallow. Second, a scrollable overlay needs its own clip and overflow settings; a long terms-and-conditions sheet must be a clipped frame with vertical overflow, otherwise the content simply extends beyond the viewport and cannot be reached.</p>
+
+<p><strong>Previewing and Sharing the Prototype.</strong> Building interactions is only half the work; the point of a prototype is that other people run it. The <strong>Play</strong> button (the triangle icon in the top-right of the toolbar) launches <em>Presentation view</em> in a new browser tab, rendering the prototype inside whatever device and background you configured in Prototype settings. The keyboard shortcut is <code>Ctrl/Cmd + Alt + Enter</code>, and <code>Shift</code> added to the play action restarts from the first frame of the current flow. Presentation view hides the canvas, layer list, sidebars and rulers entirely, showing only the artefact — which matters in testing, because a participant who can see your layer names and messy canvas will comment on the construction rather than the experience.</p>
+<p>Inside Presentation view a small toolbar offers controls worth demonstrating to testers and stakeholders:</p>
+<ul>
+  <li><strong>Options / Fit</strong> — choose <em>Fit width</em>, <em>Fit height</em>, <em>Actual size</em> or <em>Fill</em>. "Actual size" is the honest setting for evaluating tap target sizes and type legibility.</li>
+  <li><strong>Show hotspot hints</strong> — pressing the keyboard shortcut <code>Ctrl/Cmd + /</code> or clicking anywhere on a non-interactive area flashes blue highlights over every clickable region. Useful for debugging, but switch it off during usability testing: revealing the hotspots destroys the very discoverability question you are trying to answer.</li>
+  <li><strong>Restart</strong> — returns to the flow starting point and clears history, which is how you reset between participants.</li>
+  <li><strong>Comments</strong> — reviewers can pin feedback directly onto a screen in the prototype; those comments appear back in the editor file anchored to the same place.</li>
+  <li><strong>Flows list</strong> — if the file contains several named flows, viewers can jump between them from a sidebar without needing separate links.</li>
+</ul>
+<p>The <strong>flow starting point</strong> determines where the preview begins. Select a top-level frame in Prototype mode and click the <em>+</em> beside "Flow starting point"; a labelled flag appears above the frame on the canvas and the frame is registered as an entry screen. Flows should be named meaningfully — "01 Onboarding", "02 Search and filter", "03 Checkout" — and may carry a description that is displayed to viewers in Presentation view, which is an excellent place to write the task instruction for a test ("You want to find a vegetarian recipe under 30 minutes and save it"). A file may contain many flows; multiple flows let you test discrete tasks without forcing participants through unrelated screens first. If no starting point is set, Figma simply begins at the top-left-most frame on the page, which is rarely what you intend.</p>
+<p><strong>Sharing</strong> is handled through the blue <em>Share</em> button. The dialog distinguishes between inviting named collaborators by email and generating a general access link. Setting the link to <strong>Anyone with the link → can view</strong> produces a URL that requires no Figma account, which is essential for remote testing with external participants. Copying the link from inside Presentation view (or using <em>Copy link</em> in the share dialog while a prototype is open) yields a <code>/proto/</code> URL that opens directly in prototype mode at the chosen flow, rather than a <code>/file/</code> URL that drops people into the editor. The difference matters: the editor link exposes your working canvas and will confuse non-designers.</p>
+<table>
+  <thead>
+    <tr><th>Share setting</th><th>Who can open it</th><th>What they see</th><th>When to use</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Anyone with the link — can view</td><td>No account needed</td><td>Prototype and file in read-only mode</td><td>Remote usability tests, client review, assignment submission</td></tr>
+    <tr><td>Anyone with the link — can edit</td><td>No account needed</td><td>Full editing rights</td><td>Rarely; risky for assessed work</td></tr>
+    <tr><td>Only people invited</td><td>Named accounts only</td><td>Prototype after sign-in</td><td>Confidential or NDA-bound projects</td></tr>
+    <tr><td>Prototype link with "Show prototype only"</td><td>Depends on access level</td><td>Presentation view, no file access</td><td>Stakeholder demos where the canvas should stay private</td></tr>
+  </tbody>
+</table>
+<p>Two further delivery options complete the picture. The <strong>Figma Mirror</strong> app streams the prototype from your desktop file to a physical phone or tablet over the same account, so you can judge real tap target sizes, thumb reach and perceived animation speed on actual hardware — a 44 × 44 pt button that looks generous on a 27-inch monitor can feel cramped in the hand. And <strong>embedding</strong> the prototype with an <code>&lt;iframe&gt;</code> snippet from the share dialog lets you place a live, interactive version inside a case study, portfolio page or documentation site.</p>
+<p>Before any evaluation session, run a short pre-flight check: play the prototype from the intended flow start, walk the happy path end to end, deliberately tap items you have <em>not</em> wired to see whether dead ends trap the user, confirm that every modal can be closed, verify that back navigation behaves, test the share link in a private browser window to confirm anonymous access, and switch hotspot hints off. Ten minutes of this discipline prevents the most common failure of prototype-based testing, which is a participant stalling on a broken link and the session degenerating into a debugging exercise.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+<ul>
+  <li><strong>MO1:</strong> The topic supplies the core mechanics of turning static frames into an interactive artefact — drawing connections, setting flow starting points, previewing and sharing — which is precisely the process of constructing a prototype that can range from a simple instant click-through at low fidelity to a device-framed, animated, shareable build at high fidelity.</li>
+  <li><strong>MO2:</strong> Interaction decisions are treated as design decisions throughout: directional transitions and overlay dimming reinforce visual hierarchy, consistent trigger/animation pairings and matching entry/exit motion support consistency, and hover states, scroll "peek" cues and fixed navigation bars are discussed explicitly as affordances that tell users what is possible.</li>
+  <li><strong>MO3:</strong> The topic directly addresses Figma's prototyping feature set — triggers, actions, Smart Animate, easing, scroll and fix-position behaviour, overlays and swap-overlay wizards, and component-variant switching via <em>Change to</em> — so that multi-screen interactive flows simulate realistic user interactions. Auto-layout is referenced only indirectly (as the structural basis for resizing content in Smart Animate and scrolling containers) and is developed more fully elsewhere in the module.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Suggested in-class demonstration order: (1) wire two frames with Instant, (2) upgrade to Dissolve and discuss duration, (3) duplicate-and-modify a frame to demonstrate Smart Animate and layer naming, (4) build a scrolling home screen with a fixed tab bar and a nested horizontal row, (5) convert a full-screen "modal" into a proper overlay with dimming, (6) set a flow start point and share an anonymous view link. Common troubleshooting points to flag: Smart Animate failing due to renamed/rebuilt layers; scroll range inflated by stray hidden layers; "Back" implemented incorrectly as Navigate to; overlays built at full-screen size defeating position and dimming controls; students sharing a /file/ link instead of a /proto/ link.</div>
+      </div>
+    </details>
+  <details class="slide-card" id="video-part1"><summary class="slide-header"><span class="slide-num">2</span><h2>Videos on This Topic</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>A static set of screens can show what an interface looks like, but it cannot show how it behaves. Figma's Prototype tab is where you turn frames and components into something a person can actually click through: you select a layer, drag a connection to a destination, and then specify the trigger (what the user does), the action (what the prototype does in response), and the animation that carries the change on screen. Once those connections exist, you can run the file in Presentation mode and share a link so reviewers and usability-test participants can explore the flow on their own.</p>
+<p>In this course, prototyping is how your design becomes testable. Evaluation methods you study later — heuristic walkthroughs, think-aloud sessions, task-based testing — all depend on a prototype that responds realistically enough that users forget they are looking at a mockup. Details matter here: a modal that appears over its parent screen, a list that scrolls while the navigation bar stays fixed, a button that visibly changes on hover. These are the affordances and feedback cues users rely on, and in Figma you have to wire them deliberately.</p>
+<p>The three videos below come from Figma's own channel and move from building reusable interactive components, to timing-based transitions that run without user input, to overlay behavior for things like modals and expanding thumbnails. As you watch, pay attention to which trigger each presenter chooses and why, how the animation type (instant, dissolve, smart animate, move in) changes the perceived meaning of a transition, and how a small amount of setup in a component can remove dozens of repetitive connections from your file. Try to rebuild at least one example yourself rather than only watching.</p></div></details><details class="slide-card" id="video-part2"><summary class="slide-header"><span class="slide-num">3</span><h2>Video 1: Figma tutorial: Interactive components</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/ReNbXhaL3Xk?cc_load_policy=1&amp;rel=0" title="Video: Figma tutorial: Interactive components (Figma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Figma</strong> · 8:45 · 671,061 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=ReNbXhaL3Xk" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>An official Figma tutorial on interactive components, the feature that lets you define interactions between variants of a single component — for example, a default and hover state of a button, or a checked and unchecked toggle. Based on the title and description, it walks through setting up variants and wiring triggers such as hover, click, or while-pressed so the behavior travels with every instance you place. The result is that micro-interactions are defined once rather than reconnected on every screen.</p>
+<h3>Why this video</h3>
+<p>It is produced by Figma itself, so the workflow shown matches the actual Prototype panel, and it directly supports the Triggers and Actions subtopic while showing the component-level approach that keeps a large prototype maintainable.</p></div></details><details class="slide-card" id="video-part3"><summary class="slide-header"><span class="slide-num">4</span><h2>Video 2: Figma Tip: Prototyping with "after delay" and "trigger after delay" interactions</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/0047qy7XHzI?cc_load_policy=1&amp;rel=0" title="Video: Figma Tip: Prototyping with &quot;after delay&quot; and &quot;trigger after delay&quot; interactions (Figma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Figma</strong> · 5:57 · 88,769 views · 4y ago · captions — <a href="https://www.youtube.com/watch?v=0047qy7XHzI" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>A short Figma tip focused on the "after delay" and "trigger after delay" interactions, which fire automatically once a frame has been visible for a set amount of time instead of waiting for user input. It demonstrates how to use these timed interactions to build automatic transitions — the kind of thing you need for splash screens, loading states, toast notifications, or looping demos.</p>
+<h3>Why this video</h3>
+<p>It fills a gap that click-based tutorials usually skip, giving you a concrete tool for simulating system-initiated feedback, and its brevity makes it easy to apply immediately to the Transitions and Animation subtopic.</p></div></details><details class="slide-card" id="video-part4"><summary class="slide-header"><span class="slide-num">5</span><h2>Video 3: Prototyping overlay transitions in Figma</h2><span class="chevron">▶</span></summary><div class="slide-body"><div class="video-embed" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:8px;margin:.6rem 0;background:#000"><iframe src="https://www.youtube-nocookie.com/embed/GV8fH4ozl_o?cc_load_policy=1&amp;rel=0" title="Video: Prototyping overlay transitions in Figma (Figma)" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" loading="lazy" allowfullscreen=""></iframe></div>
+<p class="video-meta"><strong>Figma</strong> · 7:38 · 59,786 views · 3y ago · captions — <a href="https://www.youtube.com/watch?v=GV8fH4ozl_o" target="_blank" rel="noopener">Watch on YouTube</a></p>
+<h3>About this video</h3>
+<p>This intermediate-level Figma tip covers prototyping overlay transitions, using expanding thumbnails as the worked example and combining overlays with interactive components. Expect coverage of how an overlay is positioned relative to its trigger, how it animates in and out, and how to close it — the same mechanics behind modals, dialogs, dropdowns, and lightboxes.</p>
+<h3>Why this video</h3>
+<p>It maps closely onto the Overlays and Modal Patterns subtopic and shows overlays as a layered behavior rather than a separate screen, which is the distinction students most often get wrong in their own files.</p></div></details><details class="slide-card" id="video-part5"><summary class="slide-header"><span class="slide-num">6</span><h2>How These Videos Support the Learning Outcomes</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>Together these videos take you from wiring individual connections to designing reusable interactive behavior, which is what MO3 asks for: demonstrated use of components and interactive flows to simulate realistic interaction. The interactive components tutorial and the overlay transitions tip give you the mechanics needed to build a clickable, navigable prototype of your own interface project (MO1), at whatever fidelity your current screens support. The timing and animation choices discussed across all three — how feedback appears, how consistently states respond, how an overlay signals that it sits above the page — are practical applications of visual hierarchy, consistency, and affordance in a working prototype (MO2). Watch them in order, then rebuild the patterns in your project file before sharing a preview link for feedback.</p></div></details><details class="slide-card" id="video-part6"><summary class="slide-header"><span class="slide-num">7</span><h2>About These Videos</h2><span class="chevron">▶</span></summary><div class="slide-body"><p>These videos were chosen from YouTube on October 3, 2026. Each has captions; the player turns them on. Videos on YouTube can be changed or removed — if one no longer plays, tell your instructor. If a player does not appear, use its Watch on YouTube link.</p></div></details></main>
+
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>

@@ -1,0 +1,488 @@
+﻿<!DOCTYPE html><html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Human Factors, Ergonomics, and Automation</title>
+  <style>
+:root {
+    --bg:         #ffffff;
+    --surface:    #f8f9fa;
+    --border:     #dee2e6;
+    --accent:     #2563eb;
+    --accent-bg:  #eff6ff;
+    --text:       #1e293b;
+    --muted:      #64748b;
+    --bullet-bg:  #f1f5f9;
+    --notes-bg:   #fefce8;
+    --notes-border:#fbbf24;
+    --code-bg:    #f8fafc;
+    --code-border:#e2e8f0;
+    --radius:     8px;
+    --shadow:     0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+}
+body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 16px; line-height: 1.7; margin: 0; padding: 0; }
+header { background: var(--accent); color: #fff; padding: 2.5rem 2rem 2rem; }
+header h1 { margin: 0 0 .4rem; font-size: 2rem; font-weight: 700; }
+header p  { margin: 0; opacity: .85; font-size: .95rem; }
+main { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
+.slide-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 1.25rem; box-shadow: var(--shadow); overflow: hidden; }
+.slide-header { display: flex; align-items: center; gap: 1rem; padding: .9rem 1.25rem; cursor: pointer; user-select: none; background: var(--accent-bg); border-bottom: 1px solid var(--border); }
+.slide-header:hover { background: #dbeafe; }
+.slide-num { background: var(--accent); color: #fff; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: .8rem; font-weight: 700; flex-shrink: 0; }
+.slide-header h2 { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); flex: 1; }
+.chevron { transition: transform .25s; font-size: .8rem; color: var(--muted); }
+.slide-body { padding: 1.25rem; display: none; }
+.slide-body.open { display: block; }
+.bullets { list-style: none; margin: 0 0 1rem; padding: 0; }
+.bullets li { background: var(--bullet-bg); border-radius: 6px; padding: .55rem .9rem; margin-bottom: .4rem; display: flex; gap: .6rem; align-items: flex-start; }
+.bullets li::before { content: "•"; color: var(--accent); font-weight: 700; flex-shrink: 0; margin-top: .05rem; }
+.notes { background: var(--notes-bg); border-left: 3px solid var(--notes-border); border-radius: 0 6px 6px 0; padding: .75rem 1rem; font-size: .9rem; color: var(--muted); margin-top: .5rem; }
+.notes strong { display: block; margin-bottom: .25rem; color: #92400e; font-size: .8rem; text-transform: uppercase; letter-spacing: .05em; }
+/* Document layout */
+.doc-section { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border); }
+.doc-section:last-child { border-bottom: none; }
+.doc-section h2 { color: var(--accent); font-size: 1.4rem; margin: 0 0 1rem; display: flex; gap: .75rem; align-items: center; }
+pre, code { font-family: 'Cascadia Code', 'Consolas', monospace; }
+pre { background: var(--code-bg); border: 1px solid var(--code-border); border-radius: 6px; padding: 1rem; overflow-x: auto; white-space: pre; line-height: 1.5; font-size: .9rem; }
+  </style>
+  <style>
+    body { padding-left: 1.1rem; padding-right: 1.1rem; }
+    table { border-collapse: collapse; width: 100%; margin: 1em 0; }
+    th, td { border: 1px solid rgba(128,128,128,.45); padding: .45em .7em; text-align: left; vertical-align: top; }
+    thead th { background: rgba(128,128,128,.18); font-weight: 600; }
+    tbody tr:nth-child(even) { background: rgba(128,128,128,.08); }
+    a.topic-detail-link { text-decoration: underline; }
+  </style>
+  <style>
+    summary.slide-header { list-style: none; }
+    summary.slide-header::-webkit-details-marker { display: none; }
+    details.slide-card[open] > .slide-body { display: block; }
+    details.slide-card[open] .chevron { transform: rotate(90deg); }
+    @media print { details.slide-card > .slide-body { display: block !important; } .chevron { display: none; } }
+  </style>
+</head><body>
+<div class="pm-backlink" style="font-family:'Segoe UI',Arial,sans-serif;padding:8px 16px;background:#f5f8fc;border-bottom:1px solid #dce3ec"><a href="../index.html" style="color:#1a3c6e;font-weight:600;text-decoration:none">↑ Video Lectures</a></div>
+  <header>
+    <h1>Human Factors, Ergonomics, and Automation</h1>
+  </header><main>
+    <details class="slide-card" open>
+      <summary class="slide-header"><span class="slide-num">1</span><h2>Human Factors, Ergonomics, and Automation</h2><span class="chevron">▶</span></summary>
+      <div class="slide-body">
+        <p><strong>Introduction to Human Factors</strong></p>
+
+<p>Human factors — known in much of Europe as <em>ergonomics</em> and in North America often as <em>human factors engineering</em> — is the scientific discipline concerned with understanding the interactions between people and the other elements of a system, and the profession that applies theory, data, and methods to design systems that optimise both human well-being and overall system performance. Its central premise is deceptively simple: human beings have measurable, fairly stable capabilities and limitations, and systems have demands. Where those two things are mismatched, performance suffers, errors accumulate, and people are harmed. Human factors is the systematic identification and correction of those mismatches.</p>
+
+<p>Crucially, the discipline rejects the idea that the correct response to a mismatch is to "train the human harder" or to "tell people to be more careful." If a drug infusion pump requires a nurse to key in a decimal point correctly at 3 a.m. after a twelve-hour shift, and a misplaced decimal delivers a tenfold overdose, the problem is not nurse carelessness — it is a system that places an unreasonable demand on a known human vulnerability. The human factors response is to change the demand: constrain the input field, require confirmation for out-of-range doses, display the computed dose in words as well as numerals, or remove the free-text entry altogether in favour of a drug library.</p>
+
+<p>The discipline is deliberately broad in application. The same body of knowledge — about reaction times, visual acuity, working memory limits, attention, reach envelopes, and decision-making under uncertainty — is applied across domains that look superficially unrelated:</p>
+
+<ul>
+  <li><strong>Aviation:</strong> cockpit layout, checklist design, crew resource management, air traffic control displays, and the investigation of accidents in which flight-deck automation behaved in ways the crew did not expect.</li>
+  <li><strong>Healthcare:</strong> medication labelling and packaging, operating theatre layout, electronic health record interfaces, patient monitor alarms, and handover protocols between shifts.</li>
+  <li><strong>Manufacturing and process industries:</strong> assembly line workstation heights, manual handling limits, control room design for refineries and nuclear plants, and lockout/tagout procedures.</li>
+  <li><strong>Computing and consumer products:</strong> keyboard and input device design, screen layout, mobile interaction, accessibility, and the design of software that must be learnable by people who have never been trained on it.</li>
+  <li><strong>Transport and road design:</strong> sign legibility distances, dashboard and infotainment design, and the handover problem in partially automated vehicles.</li>
+</ul>
+
+<p>Three goals recur across all of these domains. The first is <strong>efficiency and performance</strong>: reducing the time, effort, and resources needed to accomplish work. The second is <strong>error reduction and safety</strong>: minimising both the frequency of errors and, just as importantly, their consequences when they do occur. The third is <strong>human well-being</strong>: comfort, satisfaction, job quality, reduced stress, and the avoidance of injury. These goals usually reinforce one another — a workstation that causes less fatigue also produces fewer defects — but they can conflict, and part of the human factors practitioner's job is to make those trade-offs explicit. A warehouse picking system that maximises items-per-hour by pacing workers to the limit of their physical capacity is efficient in the short term and corrosive in the long term.</p>
+
+<p>Human factors findings feed into two distinct channels. The first is <strong>product and system design</strong>: the physical and digital artefacts people use. The second, often underappreciated, is <strong>organisational policy</strong>: shift scheduling and fatigue management, staffing levels, training regimes, procedure design, incident reporting culture, and regulatory standards. An airline can buy the best-designed cockpit in the world, but if its rostering policy produces chronically sleep-deprived crews, the human factors problem has merely moved upstream. Similarly, a "blame-free" incident reporting system is a human factors intervention: it changes the information available to designers by making near-misses visible rather than hidden.</p>
+
+<p><strong>Ergonomics: Physical and Cognitive Dimensions</strong></p>
+
+<p>It is conventional to divide ergonomics into three domains: physical, cognitive, and organisational (sometimes called macroergonomics). The first two are the focus here.</p>
+
+<p><strong>Physical ergonomics</strong> deals with the body: anatomy, anthropometry, biomechanics, and physiology as they relate to physical activity. Its core concerns include posture, repetitive motion, force exertion, vibration exposure, reach and clearance, and the design of workspaces and tools. The dominant health outcome it seeks to prevent is the <em>work-related musculoskeletal disorder</em> (WMSD) — a family of conditions including carpal tunnel syndrome, tendinitis, rotator cuff injuries, epicondylitis, and chronic low back pain. These rarely arise from a single traumatic event; they accumulate from sustained exposure to risk factors.</p>
+
+<p>The principal physical risk factors are well established and worth knowing by name:</p>
+
+<ul>
+  <li><strong>Awkward posture</strong> — joints held away from their neutral mid-range, such as a wrist extended 30° to type on a raised keyboard, or a neck flexed forward to read a laptop screen on a desk.</li>
+  <li><strong>Static loading</strong> — holding any posture without movement, which restricts blood flow to muscles and causes fatigue far faster than dynamic work. Standing still is more fatiguing than walking.</li>
+  <li><strong>High force</strong> — gripping, pushing, pulling, or lifting near the limits of capacity, especially with a pinch grip rather than a power grip.</li>
+  <li><strong>Repetition</strong> — high-frequency cycles that do not allow tissue recovery.</li>
+  <li><strong>Contact stress</strong> — hard edges pressing into soft tissue, such as a desk edge against the forearm.</li>
+  <li><strong>Vibration</strong> — hand–arm vibration from power tools, whole-body vibration from vehicles.</li>
+</ul>
+
+<p>Physical ergonomics is quantitative. <em>Anthropometry</em> — the measurement of body dimensions across populations — supplies percentile data that drives design decisions. A general heuristic set is: design <em>clearances</em> (doorway heights, legroom under a desk, aisle widths) for the large user, typically the 95th percentile male; design <em>reaches</em> (control placement, shelf height, emergency stop button) for the small user, typically the 5th percentile female; and design <em>adjustable</em> ranges to accommodate from the 5th to the 95th percentile where adjustment is feasible, as with office chairs and monitor arms. Designing everything for the "average" person is the classic error: almost nobody is average on more than two or three dimensions simultaneously, a lesson the US Air Force learned expensively in the 1950s when it discovered that out of 4,063 pilots, not one fell within the average range on all ten critical cockpit dimensions.</p>
+
+<p>A worked example: a software developer's workstation. Neutral posture requires the top of the monitor roughly at or just below eye height so the head is not tilted; the monitor about an arm's length away to reduce accommodative strain; elbows at roughly 90–100° with forearms approximately parallel to the floor; wrists straight rather than extended, which usually means a <em>negative</em> keyboard tilt rather than the positive tilt that the little flip-out feet on most keyboards create; feet flat on the floor or a footrest; and lumbar support maintaining the natural inward curve of the lower back. Note that even a perfect static posture is insufficient — the strongest single recommendation in modern office ergonomics is postural variation and regular movement, because the "best" posture is always the next one.</p>
+
+<p><strong>Cognitive ergonomics</strong> addresses mental processes — perception, attention, memory, reasoning, motor response, and decision making — as they affect interaction with systems. Where physical ergonomics asks "can the body do this without harm?", cognitive ergonomics asks "can the mind do this reliably, and at what cost?" Its subject matter includes mental workload, decision making, skilled performance, human–computer interaction, training, stress, and human reliability.</p>
+
+<p>A few human cognitive constraints recur constantly in design work. Working memory is sharply limited — Miller's classic "seven plus or minus two" is now generally regarded as optimistic, with four chunks a more realistic figure for unrehearsed material — and its contents decay within seconds if attention is diverted. This is why asking a user to read a confirmation code from one screen, navigate away, and retype it elsewhere is poor design, and why wizard-style flows that carry forward previously entered values outperform those that do not. Attention is a limited and largely serial resource for controlled processing: genuine multitasking on two attention-demanding tasks is essentially task-switching with a cost at each switch. Long-term memory is vast but retrieval is unreliable and cue-dependent, which argues for <em>recognition over recall</em> — showing users the available options rather than requiring them to remember command names.</p>
+
+<p>The consequences of poor design on either dimension are cumulative and interact. Physical discomfort consumes attentional resources; cognitive fatigue degrades postural discipline and motor precision. A control room operator sitting in a badly adjusted chair under glare-producing lighting will tire faster, scan displays less thoroughly, and miss more signals. Documented consequences of poor ergonomic design include acute and chronic fatigue, musculoskeletal injury and associated absenteeism, eye strain and headaches, elevated error and defect rates, slowed task completion, reduced job satisfaction, and staff turnover.</p>
+
+<p>An <strong>ergonomic assessment</strong> is the structured comparison of task demands against human capacities. The general method is to characterise the task (observation, video analysis, interviews, task analysis), quantify the demands (postures held and for how long, forces exerted, repetition rate, information processing requirements, time pressure), compare those demands against published capacity data or exposure limits, and then redesign to close the gap. Standard instruments make this tractable:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Instrument</th>
+      <th>Dimension</th>
+      <th>What it measures</th>
+      <th>Typical use</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>RULA / REBA</td>
+      <td>Physical</td>
+      <td>Posture scores for upper limb (RULA) or whole body (REBA), plus force and repetition modifiers</td>
+      <td>Rapid screening of a workstation or manual task for injury risk</td>
+    </tr>
+    <tr>
+      <td>NIOSH Lifting Equation</td>
+      <td>Physical</td>
+      <td>Recommended weight limit for a two-handed lift, adjusted for distance, twist, frequency, and grip</td>
+      <td>Evaluating manual handling in warehousing and logistics</td>
+    </tr>
+    <tr>
+      <td>Strain Index</td>
+      <td>Physical</td>
+      <td>Composite risk score for distal upper extremity from intensity, duration, and posture of exertion</td>
+      <td>Repetitive assembly or packing tasks</td>
+    </tr>
+    <tr>
+      <td>NASA-TLX</td>
+      <td>Cognitive</td>
+      <td>Subjective workload across mental, physical, temporal demand, performance, effort, frustration</td>
+      <td>Comparing workload between two interface designs or automation levels</td>
+    </tr>
+    <tr>
+      <td>SWAT / Modified Cooper-Harper</td>
+      <td>Cognitive</td>
+      <td>Subjective workload ratings, the latter via a decision-tree of handling-quality questions</td>
+      <td>Aviation and vehicle control evaluations</td>
+    </tr>
+    <tr>
+      <td>Secondary-task / dual-task methods</td>
+      <td>Cognitive</td>
+      <td>Spare mental capacity, inferred from performance on a concurrent low-priority task</td>
+      <td>Objective workload measurement in simulation</td>
+    </tr>
+    <tr>
+      <td>Eye tracking / pupillometry</td>
+      <td>Cognitive</td>
+      <td>Fixation patterns, dwell time, scan path, pupil dilation as an effort index</td>
+      <td>Display layout evaluation, attention allocation studies</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Display Design Principles</strong></p>
+
+<p>A display is any means by which a system presents information to a human — a screen, a dial, a warning lamp, a printed label, an audible tone, a haptic buzz. Display design is where cognitive ergonomics becomes most concretely actionable, because the designer controls exactly what information reaches the operator, in what form, and when.</p>
+
+<p>The first principle concerns <strong>level of detail and timing</strong>. Information should be presented at the granularity the task actually requires, at the moment it becomes relevant, and no earlier. Presenting everything all the time appears neutral but is not: it imposes a search cost on every single act of reading, and it buries the critical item among the trivial. Two complementary techniques address this. <em>Progressive disclosure</em> hides detail behind an explicit request — a summary row that expands, a "advanced settings" panel, a drill-down from a plant overview to a specific unit. <em>Context-sensitive display</em> changes what is shown according to the current phase of the task: an aircraft primary flight display emphasises different parameters during approach than during cruise; a surgical system shows different information pre-incision than during closing. The counter-consideration is that hiding information can destroy the operator's overall picture, so the rule is to keep <em>status-at-a-glance</em> information permanently visible and hide only detail that is needed episodically.</p>
+
+<p>The second principle concerns <strong>visual hierarchy, contrast, and layout</strong>. The eye does not read a screen uniformly; it is drawn by salience. The designer's job is to arrange salience so that it matches importance. The available tools are size, weight, colour, contrast, position, whitespace, and motion — and they are a budget, not a free resource: if everything is bold, nothing is. Useful structuring rules include:</p>
+
+<ul>
+  <li><strong>Frequency of use, importance, and sequence of use</strong> as layout drivers: the most frequently consulted and most critical items occupy the prime visual real estate (centre and upper-left in left-to-right reading cultures), and items used in sequence are placed in that sequence.</li>
+  <li><strong>Functional grouping</strong>: items that belong to the same subsystem or decision are placed together and bounded by whitespace or a subtle border, exploiting the Gestalt principles of proximity, similarity, and common region.</li>
+  <li><strong>Consistency of location</strong>: the same parameter appears in the same place on every screen, so the operator builds a motor and spatial habit rather than searching each time.</li>
+  <li><strong>Redundancy coding</strong>: critical states signalled by at least two channels — colour <em>and</em> shape, or colour <em>and</em> text — so the display survives colour vision deficiency (affecting roughly 8% of men), poor lighting, and monochrome printing.</li>
+  <li><strong>Adequate luminance contrast</strong>: WCAG's 4.5:1 ratio for normal text and 3:1 for large text is the common benchmark in digital interfaces; control room standards typically demand more because of ambient light variation.</li>
+</ul>
+
+<p>The third principle is <strong>compatibility with the user's mental model</strong>, sometimes called the principle of the moving part or, more broadly, stimulus–response and display–control compatibility. Users build an internal representation of how the system works and how its representation maps to reality; a display that violates that representation forces an effortful mental translation at every reading, and under stress the translation fails. Classic forms of compatibility include:</p>
+
+<ul>
+  <li><strong>Spatial compatibility:</strong> the display element representing a physical object is positioned analogously to that object. The four burner knobs on a hob should be arranged in the same square pattern as the burners, not in a straight line — a design error that has caused untold numbers of scorched pans.</li>
+  <li><strong>Movement compatibility:</strong> an increasing quantity should move the indicator up or clockwise; a control turned clockwise should increase the value. The aviation "moving part" debate — should the aircraft symbol move against a fixed horizon, or the horizon move against a fixed aircraft? — is a compatibility question, and the resolution (inside-out, horizon moves) matches the pilot's out-the-window view.</li>
+  <li><strong>Conceptual/semantic compatibility:</strong> red means danger or stop in most Western populations, green means safe or go; a rising tone means increasing. Note these are culturally learned, not universal — red signifies prosperity in parts of East Asia, and in some process industries red historically indicated an <em>energised</em> valve rather than a dangerous one, a legacy mapping that has caused confusion.</li>
+  <li><strong>Proximity compatibility principle:</strong> information that must be mentally integrated to make a judgement should be displayed close together or in an integrated form (e.g., a single polygon whose shape deforms when parameters go out of tolerance), while information that must be read independently should be kept separate.</li>
+</ul>
+
+<p>The fourth principle concerns <strong>alarms and alerts</strong>, which is where display design most often fails catastrophically. An alarm system faces an unavoidable signal-detection trade-off. Setting thresholds sensitively catches more genuine events but produces more false alarms; setting them conservatively reduces false alarms but risks misses. The pathological outcome of over-sensitivity is <strong>alert fatigue</strong>: operators who are flooded with alarms learn, entirely rationally, that most alarms are irrelevant, and begin to ignore, silence, or disable them. In hospital settings, studies have repeatedly found that 80–99% of physiological monitor alarms are clinically insignificant, and patient deaths have been directly attributed to alarms that were muted or unheard against the background noise. The 1979 Three Mile Island accident presented operators with over a hundred near-simultaneous alarms with no prioritisation, and the 2005 Texas City refinery explosion involved, among many factors, a level alarm that did not function and displays that did not reveal the true state of the splitter tower.</p>
+
+<p>Sound alarm design therefore includes: prioritising alarms into a small number of urgency tiers with distinguishable auditory and visual signatures; suppressing consequential alarms that merely follow from a parent alarm (alarm flood reduction); setting thresholds from operational data rather than vendor defaults; ensuring every alarm is actionable, with a defined operator response — if there is nothing to do about it, it is not an alarm but a log entry; providing clear indication of the alarm's source and the required action rather than a bare code; and monitoring alarm rates as a managed performance metric. The EEMUA 191 guideline, widely used in process industries, suggests a steady-state target of around one alarm per operator per ten minutes, with anything above about ten per ten minutes considered unmanageable.</p>
+
+<p><strong>Automation in Work Systems</strong></p>
+
+<p>Automation is the execution by machine of a function previously carried out by a human. It is not binary; it is better understood as a continuum, and it can be applied selectively to different <em>stages</em> of information processing. Parasuraman, Sheridan, and Wickens proposed an influential framework distinguishing four stages that can each be automated to a different degree: information acquisition (sensing and filtering), information analysis (integration and prediction), decision selection (choosing an action), and action implementation (carrying it out). A medical decision support tool might automate acquisition and analysis heavily while leaving decision and action entirely to the clinician; an anti-lock braking system automates implementation only.</p>
+
+<p>Sheridan and Verplank's ten levels of automation remain a useful reference for thinking about how much authority to transfer:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Description</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>1</td><td>Human does everything; computer offers no assistance</td><td>Manual flight with raw instruments</td></tr>
+    <tr><td>2</td><td>Computer offers a complete set of alternatives</td><td>Route planner listing all possible paths</td></tr>
+    <tr><td>3</td><td>Computer narrows the selection to a few</td><td>Diagnostic tool shortlisting likely conditions</td></tr>
+    <tr><td>4</td><td>Computer suggests one alternative</td><td>Satnav recommending a single route</td></tr>
+    <tr><td>5</td><td>Computer executes the suggestion if the human approves</td><td>Autopilot engaging a programmed descent on crew confirmation</td></tr>
+    <tr><td>6</td><td>Computer allows the human a restricted veto time before execution</td><td>Automatic email send with a 10-second undo window</td></tr>
+    <tr><td>7</td><td>Computer executes automatically, then informs the human</td><td>Automatic failover to a backup server with notification</td></tr>
+    <tr><td>8</td><td>Computer informs the human only if asked</td><td>Background garbage collection, visible only in logs</td></tr>
+    <tr><td>9</td><td>Computer informs the human only if it decides to</td><td>Adaptive fraud-detection system escalating selected cases</td></tr>
+    <tr><td>10</td><td>Computer acts entirely autonomously, ignoring the human</td><td>Airbag deployment; reactor SCRAM on hard trip conditions</td></tr>
+  </tbody>
+</table>
+
+<p>The benefits of automation are real: consistency (a machine performs the thousandth repetition exactly as it performed the first), throughput and speed, precision, tolerance of conditions hostile or tedious to humans, and the relief of workload during routine phases. But automation does not simply remove human work — it <em>transforms</em> it. Lisanne Bainbridge's 1983 paper "Ironies of Automation" set out the central paradox: the designer who automates because humans are unreliable leaves to the human exactly those tasks that could not be automated, which are typically the hardest ones, and then expects the human to monitor the automation and take over when it fails — precisely the situations in which the automation has already proved inadequate.</p>
+
+<p>Specific consequences follow from the shift to a supervisory role:</p>
+
+<ul>
+  <li><strong>Vigilance decrement.</strong> Humans are poor at sustained monitoring for rare events. Classic vigilance research (originating in WWII radar watch studies) shows detection performance falling measurably within 20–35 minutes of a monitoring watch, and the effect is worse when the event rate is low and the signal is weak — exactly the conditions created by reliable automation.</li>
+  <li><strong>Complacency and automation bias.</strong> When automation is highly but not perfectly reliable, operators calibrate their trust to its usual behaviour and stop cross-checking. <em>Automation bias</em> has two faces: <em>errors of omission</em>, where the operator fails to notice a problem because the automation did not flag it, and <em>errors of commission</em>, where the operator actively follows an incorrect automated recommendation against contrary evidence. Studies of clinical decision support have shown practitioners reversing correct diagnoses after seeing an erroneous automated suggestion.</li>
+  <li><strong>Skill degradation.</strong> Manual and cognitive skills decay without practice. Airlines have documented erosion of hand-flying and raw-data instrument skills in crews who fly highly automated aircraft, prompting regulators to mandate periodic manual flying. The same effect appears in radiologists who rely on computer-aided detection and in developers who lose fluency in a language their IDE autocompletes for them.</li>
+  <li><strong>Clumsy automation.</strong> Automation often reduces workload during already-low-workload phases (cruise) and increases it during already-high-workload phases (a late runway change requiring reprogramming of the flight management system under time pressure). The workload profile becomes more peaked, not flatter.</li>
+  <li><strong>Loss of situational awareness.</strong> An operator who is out of the control loop is not building the continuous picture that active control generates; when the automation hands back control, the operator must reconstruct that picture from scratch, often in a degraded situation.</li>
+</ul>
+
+<p>The function allocation question — what to automate and what to leave to humans — was once answered with Fitts's 1951 "MABA-MABA" list (Men Are Better At / Machines Are Better At): humans excel at pattern recognition in noise, improvisation, inductive reasoning, and judgement under novelty; machines excel at speed, force, precision, repetitive execution, simultaneous multi-channel monitoring, and computation. The list remains a useful first-order heuristic, but modern practice treats it as insufficient, because it assumes tasks can be cleanly divided and ignores the coordination costs of the resulting human–machine team. Contemporary guidance frames the goal as designing for <em>human–automation teamwork</em>: the automation should be observable (its state and reasoning inspectable), directable (the human can adjust its behaviour without switching it off entirely), and predictable. Related approaches include <em>adaptive automation</em>, in which the level of automation changes dynamically in response to measured operator workload or task phase, and <em>adaptable automation</em>, in which the operator chooses the level — the latter generally preserving a better sense of control and awareness.</p>
+
+<p>A concrete contrast: consider two approaches to automating a radiology workflow. In the first, the algorithm scans images and silently removes those it classifies as normal from the reporting queue. Throughput rises, but a false negative is now invisible, the radiologist's exposure to borderline cases falls, and skill at detecting subtle findings atrophies. In the second, the algorithm annotates regions of interest, states a confidence level, and presents all images in an order prioritised by suspicion, with the radiologist reading every case. Throughput rises less, but the human remains in the loop, the automation's reasoning is visible, and disagreements become a learning signal for both parties. The second design is slower and better.</p>
+
+<p><strong>Human Error and Automation Interaction</strong></p>
+
+<p>Automation does not eliminate human error; it relocates it. Errors of execution on the shop floor are traded for errors of configuration, monitoring, and understanding at the supervisory level. Two error types are so characteristic of automated systems that they have their own names.</p>
+
+<p>A <strong>mode error</strong> occurs when an operator performs an action that would be correct in one system mode while the system is actually in a different mode. Mode errors require two conditions: the system must have multiple modes in which the same input produces different effects, and the current mode must be insufficiently salient. Everyday examples abound — typing a long password while Caps Lock is on; pressing a key in a text editor's "normal" mode expecting insertion; a camera set to manual exposure when the photographer believes it is on aperture priority. In safety-critical settings the consequences escalate. The most-cited case is the 1992 Air Inter Flight 148 crash near Strasbourg, where the crew appear to have intended a 3.3° descent angle but the flight control unit was in vertical speed mode, interpreting the entered "33" as 3,300 feet per minute. The display differed by only a small visual detail between the two modes. The aircraft descended roughly five times faster than intended into terrain. The design lesson is not "crews should check the mode" — they are always told that — but that two radically different interpretations of the same numeric entry should never be distinguished by a nearly identical display.</p>
+
+<p>Mitigations for mode error are well understood: minimise the number of modes; make the active mode highly salient and encoded redundantly (position, colour, shape, text, and where appropriate a distinct sound or haptic signature); make modes <em>spring-loaded</em> where possible, so the system reverts to a default when the user stops acting (holding a key rather than toggling it); give different modes genuinely different input semantics or different controls rather than overloading one control; and provide immediate, interpretable feedback of what the entered value will actually do ("descend at 3,300 ft/min — arriving at 2,000 ft in 1 min 40 s").
+
+</p>
+
+<p>An <strong>automation surprise</strong> occurs when the system does something the operator did not expect, did not command, and cannot immediately explain. The canonical operator questions — identified by Wiener as the "clumsy automation" trio — are "What is it doing?", "Why is it doing that?", and "What will it do next?" Automation surprises typically arise from <em>indirect mode transitions</em>: the automation changes its own mode in response to an envelope limit, a sensor value, or the expiry of a condition, without a direct operator command and often without conspicuous annunciation. Examples include an autopilot reverting from an altitude capture mode to a basic pitch mode when a constraint is removed; a cruise control that silently disengages on a tight bend; a smart thermostat that enters an "away" schedule because its occupancy sensor saw no movement; and a continuous deployment pipeline that auto-rolls-back a release while an engineer is mid-investigation. The surprise is damaging not merely because of the action itself but because it shatters the operator's model of the system, and rebuilding that model consumes exactly the time and attention that the unfolding situation demands.</p>
+
+<p>Effective automation therefore has an obligation of <strong>communication</strong>. Good practice includes annunciating every mode transition, especially uncommanded ones, with a signal proportionate to its significance; displaying not only the current state but the automation's <em>intent</em> — the next waypoint, the target value, the time until the next transition, the condition it is waiting on; exposing the inputs on which the automation is acting, so the operator can detect a bad sensor or a stale value; and indicating confidence or data quality rather than presenting all outputs with equal apparent authority. A well-designed flight management display, for example, shows the commanded path, the predicted trajectory, and the point at which the next mode change will occur, so the crew can anticipate rather than react.</p>
+
+<p><strong>Error-tolerant design</strong> accepts that errors will occur and works to make them detectable, reversible, and survivable. Its repertoire includes:</p>
+
+<ul>
+  <li><strong>Constraints and forcing functions</strong> that make the error physically or logically impossible — an interlock preventing a microwave running with the door open, a gas connector that only fits the correct cylinder, a form that will not accept a date in the past.</li>
+  <li><strong>Confirmation proportionate to consequence</strong>, reserved for genuinely irreversible and high-impact actions. Over-used confirmations are themselves a hazard: users click through them automatically, so the dialogue provides the illusion of a safeguard while adding keystrokes. Requiring the user to type a resource name before deleting it works because it cannot be dismissed reflexively.</li>
+  <li><strong>Undo, reversibility, and generous recovery windows</strong> — far preferable to confirmation, because they place the cost on the rare error rather than on every correct action.</li>
+  <li><strong>Graceful degradation and defined fallback modes</strong>, so that when automation fails it hands back control in an orderly and announced way, with adequate lead time, rather than dropping out abruptly.</li>
+  <li><strong>Monitoring and envelope protection</strong> that constrain the consequences of an incorrect input without silently overriding the operator's intent unannounced.</li>
+  <li><strong>Error messages that diagnose and offer a route forward</strong>, naming what was wrong, where, and what to do — not merely that something failed.</li>
+</ul>
+
+<p>Underlying all of this is a model of error that distinguishes <em>slips and lapses</em> (the intention was correct, the execution or memory failed — typing the wrong digit, forgetting a step) from <em>mistakes</em> (the execution was faithful but the intention was wrong, because the situation was misdiagnosed or the rule applied was inappropriate). Mode errors sit awkwardly across this boundary and are often better described as a third category, <em>knowledge-based failures induced by the interface itself</em>. Design responses differ: slips are addressed by constraints, feedback, and reducing memory load; mistakes are addressed by better displays, training, and decision support that surfaces disconfirming evidence.</p>
+
+<p><strong>Situational Awareness and Mental Workload</strong></p>
+
+<p><strong>Situational awareness</strong> (SA) is, in Mica Endsley's widely used definition, "the perception of the elements in the environment within a volume of time and space, the comprehension of their meaning, and the projection of their status in the near future." The definition decomposes into three hierarchical levels, and the distinction matters because failures at each level have different causes and different remedies.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Level</th>
+      <th>Name</th>
+      <th>Question answered</th>
+      <th>Typical failure</th>
+      <th>Design remedy</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Perception</td>
+      <td>What is happening? What are the raw values and events?</td>
+      <td>Data not displayed, not salient, obscured by clutter, or missed due to attentional narrowing</td>
+      <td>Salience matched to importance, decluttering, redundant coding, effective alerting</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Comprehension</td>
+      <td>What does it mean for my goals right now?</td>
+      <td>Elements perceived individually but not integrated; operator cannot assemble the picture under time pressure</td>
+      <td>Integrated and configural displays, computed summary indices, trend and deviation-from-target presentation</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Projection</td>
+      <td>What will happen next, and how much time do I have?</td>
+      <td>No ability to anticipate; operator is permanently reacting rather than planning</td>
+      <td>Predictor symbols, time-to-limit countdowns, trajectory previews, "what-if" simulation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>A concrete illustration from process control: Level 1 is reading that tank level is 78% and rising. Level 2 is understanding that 78% with the outlet valve closed and the feed pump running means the tank is filling toward an overflow condition rather than simply holding a healthy inventory. Level 3 is knowing that at the current fill rate the high-high trip will be reached in four minutes, which is enough time to open the outlet but not enough to call for instructions. A display that shows only the number supports Level 1; a display that shows the number, a rate-of-change arrow, the valve states, and a predicted time-to-limit supports all three. Endsley's own data from aviation suggest the large majority of SA errors occur at Level 1 — the information was available but not perceived — which is a sobering comment on display design.</p>
+
+<p><strong>Mental workload</strong> is the relationship between the cognitive resources a task demands and the resources the operator has available. It is best thought of as a supply-and-demand ratio rather than an absolute quantity, which is why the same task is low-workload for an expert and overwhelming for a novice. The relationship between workload and performance is an inverted U: performance is poor at very low workload (underload produces boredom, mind-wandering, and the vigilance decrement) and poor at very high workload (overload produces shed tasks, attentional tunnelling, and truncated decision making), with a broad plateau of acceptable performance in between. The practical design target is therefore not "minimise workload" but "keep workload within a moderate band and avoid sharp peaks."</p>
+
+<p>Overload degrades SA through several well-documented mechanisms. <em>Attentional narrowing</em> (or tunnelling) causes the operator to fixate on one channel and stop scanning others — the Eastern Air Lines 401 crash in 1972, in which an entire crew became absorbed in a burnt-out landing gear indicator bulb while the autopilot quietly let the aircraft descend into the Everglades, is the archetype. <em>Task shedding</em> drops lower-priority activities, which frequently include the cross-checks and communications that would have caught the problem. <em>Working memory overflow</em> causes steps to be forgotten, especially after interruption — a major source of error in nursing and in software operations. And stress hormones narrow the range of options considered, promoting the first plausible answer over the best one.</p>
+
+<p>Automation's effect on workload is genuinely bidirectional and depends on design quality. It <em>reduces</em> workload when it removes routine, well-bounded, high-repetition tasks whose outputs are easy to verify — an autopilot holding altitude during cruise, a build system running regression tests. It <em>increases</em> workload when it adds a new system that must itself be monitored, configured, and understood; when its interface demands long data-entry sequences at busy moments; when its failure modes are obscure; or when the operator must continually decide whether to trust it. The net effect is also qualitative: automation typically exchanges physical and perceptual-motor workload for cognitive workload of monitoring and interpretation, which is less visible to managers and less amenable to simple measurement.</p>
+
+<p>Interface design practices that support SA follow directly from the three-level model. Present information in the form in which the operator's goals require it rather than in the form the sensors produce it — if the decision depends on the margin to a limit, display the margin, not the raw value and the limit separately. Integrate related parameters into configural displays whose overall shape conveys normality at a glance. Provide trends and history, since a value's direction is often more informative than its magnitude. Expose projections and time-to-event where the decision is time-critical. Make system mode and automation intent explicit, as discussed above. Support goal-directed task switching by preserving and restoring context when the operator returns from an interruption. And design shared displays so that team members hold compatible pictures, since in multi-operator settings SA is a distributed property, not an individual one — this is the rationale for the shared "big board" in control rooms and for callouts and read-backs in crew procedures.</p>
+
+<p><strong>Applying Human Factors in Interface and System Design</strong></p>
+
+<p>Human factors delivers value only if it is embedded in the development process rather than consulted as a late review. The organising framework is <strong>user-centred design</strong> (UCD), formalised in ISO 9241-210, which rests on four commitments: design is based on an explicit understanding of users, tasks, and environments; users are involved throughout design and development; design is driven and refined by user-centred evaluation; and the process is iterative, with the design team addressing the whole user experience and spanning multiple disciplines. The ISO process describes a cycle — understand and specify the context of use, specify user requirements, produce design solutions, evaluate against requirements — repeated until the requirements are met.</p>
+
+<p>The economic argument for early involvement is strong. Human factors defects discovered after deployment are expensive to fix because they are entangled with architecture, training material, procedures, and regulatory approvals; the same defect found in a paper sketch costs minutes. Retrofitting ergonomics onto a finished control room means moving walls. In regulated domains the argument is stronger still: medical device regulators now require a documented usability engineering process (IEC 62366-1) with use-related hazard analysis and validation testing, and failure to produce it can block market approval regardless of how well the device performs technically.</p>
+
+<p><strong>Task analysis</strong> is the backbone activity that converts an understanding of users into design-relevant structure. Its aim is to describe what people actually do — goals, subtasks, sequences, decision points, information needed, tools used, and the physical and cognitive demands at each step. Several complementary forms exist:</p>
+
+<ul>
+  <li><strong>Hierarchical Task Analysis (HTA)</strong> decomposes a top-level goal into subgoals and operations, and specifies <em>plans</em> stating the conditions under which subtasks are executed and in what order. It produces a structure that maps readily onto screens, menus, and workflow steps, and it exposes where a user must hold information in memory across steps.</li>
+  <li><strong>Cognitive Task Analysis (CTA)</strong>, including techniques such as the Critical Decision Method, targets the knowledge, cues, and judgements of experts — the things that are invisible in a behavioural description. It is the method of choice when the interesting part of the work is diagnosis rather than execution.</li>
+  <li><strong>GOMS and keystroke-level modelling</strong> provide quantitative predictions of expert task time from goals, operators, methods, and selection rules — useful for comparing two interaction designs for a high-frequency task before building either.</li>
+  <li><strong>Link analysis and operational sequence diagrams</strong> map movement, gaze, and communication between elements of a workspace, informing physical layout so that frequently linked items are placed close together.</li>
+  <li><strong>Human Reliability Analysis</strong> methods (e.g., HEART, SPAR-H) and <strong>Hierarchical Task Analysis-based error prediction</strong> (e.g., SHERPA) systematically enumerate credible errors at each task step and their consequences, feeding safety cases and mitigation design.</li>
+</ul>
+
+<p>A short worked fragment shows the flavour of an HTA for an infusion setup:</p>
+
+<pre><code>0. Administer prescribed IV infusion
+   Plan 0: do 1 - 2 - 3 - 4 in order; if alarm occurs at any point, do 5 then resume.
+   1. Verify prescription and patient identity
+      1.1 Read prescription
+      1.2 Check patient wristband against prescription
+      1.3 Confirm drug, dose, route, time, and allergy status
+   2. Prepare pump and line
+      2.1 Select drug from pump drug library
+      2.2 Load giving set
+      2.3 Prime line
+   3. Program infusion
+      3.1 Enter dose
+      3.2 Enter rate or duration
+      3.3 Review computed values on confirmation screen
+   4. Start infusion and verify flow
+   5. Diagnose and respond to alarm</code></pre>
+
+<p>Reading this structure as a designer immediately raises questions: step 3.1 and 3.2 are where decimal-point and unit errors occur, so the interface should constrain entry to a library-defined range and show the computed delivery in a second form; step 3.3 is a verification step that will be skipped under time pressure unless it is made cheap and informative; step 5 interrupts the sequence, so the interface must preserve and restore the state of the interrupted step rather than returning the nurse to a start screen.</p>
+
+<p><strong>Evaluation</strong> closes the loop. A layered strategy is normal practice, moving from cheap and early to expensive and realistic:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>When used</th>
+      <th>What it reveals</th>
+      <th>Limitations</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Heuristic evaluation / expert review</td>
+      <td>Early and continuously; works on sketches</td>
+      <td>Violations of established principles, consistency problems, missing feedback</td>
+      <td>Finds issues real users may never hit; depends on evaluator expertise; misses domain-specific errors</td>
+    </tr>
+    <tr>
+      <td>Cognitive walkthrough</td>
+      <td>Early, for learnability of a defined task</td>
+      <td>Points where a first-time user cannot work out what to do next</td>
+      <td>Narrow focus on learnability; slow for large interfaces</td>
+    </tr>
+    <tr>
+      <td>Usability testing with representative users</td>
+      <td>Mid to late, on prototypes or builds</td>
+      <td>Actual errors, misunderstandings, workarounds, task times, satisfaction</td>
+      <td>Laboratory conditions; participant recruitment cost; may not surface rare events</td>
+    </tr>
+    <tr>
+      <td>Simulation and scenario exercises</td>
+      <td>Late, for safety-critical systems</td>
+      <td>Performance under realistic workload, degraded modes, team coordination, automation handover</td>
+      <td>Expensive; requires fidelity in both the simulator and the scenario</td>
+    </tr>
+    <tr>
+      <td>Field study / in-situ observation</td>
+      <td>Before design and after deployment</td>
+      <td>Real context, interruptions, environmental constraints, informal workarounds</td>
+      <td>Hard to control; Hawthorne effects; time-consuming</td>
+    </tr>
+    <tr>
+      <td>Physical ergonomic assessment (RULA/REBA, anthropometric fit)</td>
+      <td>Whenever a physical workstation exists</td>
+      <td>Posture and loading risks, reach and clearance failures</td>
+      <td>Does not address cognitive demands</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Simulation deserves particular emphasis in automated systems, because the failures that matter most — mode confusion, automation surprise, degraded handover — only appear when the automation is pushed into unusual states. A full-mission flight simulator session in which the autothrottle fails silently, or a hospital simulation suite in which a monitor alarms during a difficult intubation, surfaces issues that no amount of screen-by-screen review would find. These sessions also validate procedures and training, which are part of the system design whether or not anyone designed them deliberately.</p>
+
+<p>Finally, <strong>standards</strong> provide codified benchmarks that shortcut argument and establish defensible baselines. They encode decades of accumulated data about what human beings can tolerate and perceive, and they are frequently contractual or regulatory requirements rather than advice. A selection of the most relevant:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Standard</th>
+      <th>Scope</th>
+      <th>Representative content</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ISO 9241 series</td>
+      <td>Ergonomics of human–system interaction</td>
+      <td>Part 11 defines usability as effectiveness, efficiency and satisfaction in a specified context of use; Part 110 gives dialogue principles (suitability for the task, self-descriptiveness, conformity with user expectations, error tolerance, controllability, suitability for learning and individualisation); Part 210 defines the human-centred design process; Part 5 covers workstation layout and postural requirements; Part 303 and related parts cover electronic visual display requirements such as luminance, contrast and character size.</td>
+    </tr>
+    <tr>
+      <td>ISO 11228 series and ISO/TR 12295</td>
+      <td>Manual handling</td>
+      <td>Limits and assessment procedures for lifting and carrying, pushing and pulling, and handling of low loads at high frequency.</td>
+    </tr>
+    <tr>
+      <td>ISO 11064</td>
+      <td>Ergonomic design of control centres</td>
+      <td>Control room layout, workstation dimensions, display and control arrangement, lighting, acoustics, and environmental conditions.</td>
+    </tr>
+    <tr>
+      <td>ISO 10075 series</td>
+      <td>Mental workload</td>
+      <td>Terminology, design principles for avoiding overload and underload, and guidance on workload measurement methods.</td>
+    </tr>
+    <tr>
+      <td>IEC 62366-1</td>
+      <td>Usability engineering for medical devices</td>
+      <td>Mandatory use-specification, identification of hazard-related use scenarios, formative and summative validation testing with representative users.</td>
+    </tr>
+    <tr>
+      <td>EEMUA 191 / IEC 62682</td>
+      <td>Alarm systems in process industries</td>
+      <td>Alarm philosophy documents, prioritisation, rationalisation, performance metrics and target alarm rates, flood management.</td>
+    </tr>
+    <tr>
+      <td>WCAG 2.x</td>
+      <td>Digital accessibility</td>
+      <td>Perceivable, operable, understandable and robust content; contrast ratios, keyboard operability, timing adjustability, error identification and suggestion.</td>
+    </tr>
+    <tr>
+      <td>MIL-STD-1472 / NASA-STD-3001</td>
+      <td>Defence and aerospace human engineering</td>
+      <td>Detailed anthropometric, control, display, labelling, and maintainability requirements for equipment design.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Standards should be read as a floor rather than a ceiling. Conformance to ISO 9241 luminance contrast figures does not guarantee that a particular display is readable by a particular operator in a particular lighting environment; it guarantees only that one known class of failure has been avoided. The practitioner's job is to combine the codified baseline with context-specific analysis and empirical evaluation. A useful mental model for the whole discipline is therefore a loop: understand the people and the context, analyse the tasks and their physical and cognitive demands, design against principle and standard, evaluate with real users in realistic conditions, and feed the findings back — into the product, and also into the procedures, training, staffing, and policies that surround it. Human factors fails when any link in that loop is treated as optional.</p>
+
+<p><strong>Alignment with Learning Outcomes</strong></p>
+
+<ul>
+  <li><strong>MO1:</strong> The cognitive ergonomics discussion identifies working memory (approximately four unrehearsed chunks, decaying within seconds), attention as a limited largely serial resource, and long-term memory as large but cue-dependent, and draws the interface implications of each — recognition over recall, carrying values forward in multi-step flows, and preserving state across interruptions. The treatment of working memory overflow under high workload reinforces the same capacity constraints.</li>
+  <li><strong>MO2:</strong> The topic addresses this directly and at length. Display–mental model compatibility, mode errors such as the Strasbourg vertical speed/flight path angle confusion, and automation surprises are all presented as systematic failures arising when the operator's model of the system diverges from its actual state, together with the design remedies that narrow that gap.</li>
+  <li><strong>MO3:</strong> Hierarchical Task Analysis is introduced as the backbone task-analysis method, with its goal–subgoal–operation decomposition and plans explained and a worked infusion-administration example showing how each level of the hierarchy is read back as a specific interface design decision.</li>
+  <li><strong>MO4:</strong> The evaluation section compares expert-driven methods (heuristic evaluation, cognitive walkthrough, RULA/REBA assessment) with user-involving methods (usability testing, simulation exercises, field observation) in terms of when each is used, what it reveals, and its limitations, providing the basis for selecting a technique appropriate to a given design context.</li>
+  <li><strong>MO5:</strong> This topic does not address prototype construction directly; it contributes only indirectly, by supplying the interaction design principles — visual hierarchy, compatibility, error tolerance, feedback of system state — that a prototype would need to embody, and by noting that early low-fidelity artefacts such as paper sketches are the cheapest place to find human factors defects.</li>
+</ul>
+        <div class="notes"><strong>Notes</strong>Historical and empirical claims used as illustrations (the 1950s USAF cockpit-dimension study, Air Inter 148, Eastern 401, Three Mile Island alarm flood, Texas City, hospital alarm false-positive rates, EEMUA 191 alarm-rate targets, vigilance decrement onset times) are well-documented in the human factors literature but are deliberately described at a level of generality appropriate to teaching; instructors wishing to assess on them should direct students to primary sources (Bainbridge 1983; Endsley 1995; Parasuraman, Sheridan &amp; Wickens 2000; Sheridan &amp; Verplank 1978; Fitts 1951; Reason 1990; Wickens &amp; Carswell&#39;s proximity compatibility principle).
+
+Memory capacity figures are given as a range (Miller&#39;s 7&#177;2 versus Cowan&#39;s ~4) rather than a single number, since MO1 may be assessed against either convention — check which figure the module&#39;s core text uses before setting questions.
+
+Standard numbers and scopes are current as of writing but ISO/IEC parts are periodically revised and renumbered; verify part numbers against the latest catalogue before issuing to students.</div>
+      </div>
+    </details>
+  </main>
+
+<footer class="presemaker-credit" data-credit="2" style="margin-top:2rem;padding:14px 8px;border-top:1px solid #ddd;background:#fff;text-align:center;font:13px/1.5 -apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#595959;"><svg width="20" height="20" viewBox="0 0 2048 2048" aria-hidden="true" focusable="false" style="vertical-align:-5px;margin-right:7px"><rect width="2048" height="2048" rx="384" fill="#0F6E6E"/><path fill="#0A5050" d="M1024 1000 344 832v816l680 168zm0 0 680-168v816l-680 168z"/><path fill="#fff" d="M1024 944 384 784v808l640 160zm0 0 640-160v808l-640 160z"/><rect x="1002" y="944" width="44" height="808" fill="#0F6E6E"/><rect x="936" y="246" width="176" height="448" rx="44" fill="#fff"/><rect x="800" y="382" width="448" height="176" rx="44" fill="#fff"/></svg>Created with <a href="https://softwareplus.ai/coursebuilder/" target="_blank" rel="noopener" style="color:#2f5d8f;font-weight:600;text-decoration:none;">CourseBuilder+</a><span aria-hidden="true"> · </span><a href="https://softwareplus.ai/" target="_blank" rel="noopener" style="color:#2f5d8f;text-decoration:none;">SoftwarePlus.ai</a></footer>
+</body></html>
